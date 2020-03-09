@@ -35,7 +35,7 @@ class AddClass extends Component {
     const { name, type, value } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
-      [name]: value,
+      [name]: val,
     });
   };
 
