@@ -9,7 +9,11 @@ import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import { ALL_CLASSES_QUERY } from '../../Class/All/index';
 import { REVIEW_CLASS_QUERY } from '../../Class/Review/index';
 
-import { StyledInterestItem, StyledOtherInterestItem } from './styles';
+import {
+  StyledInterestItem,
+  StyledOtherInterestItem,
+  StyledOnboardingLoginForm,
+} from './styles';
 
 const INVITE_SIGNUP_MUTATION = gql`
   mutation INVITE_SIGNUP_MUTATION(
@@ -133,9 +137,11 @@ class OnboardingSignupWithClassInvite extends Component {
                       <Error error={error} />
 
                       <div>
-                        Let’s start with the most important part: your username
-                        and profile picture! This information will be visible to
-                        other people who visit the platform.
+                        <strong>
+                          Let’s start with the most important part: your
+                          username and profile picture! This information will be
+                          visible to other people who visit the platform.
+                        </strong>
                       </div>
 
                       <div>
@@ -144,63 +150,70 @@ class OnboardingSignupWithClassInvite extends Component {
                         discuss with your peers in the next 5 minutes or so!
                       </div>
 
-                      <label htmlFor="invitedIn">
-                        Class
-                        <select
-                          type="text"
-                          name="invitedIn"
-                          placeholder="invitedIn"
-                          value={this.state.invitedIn}
-                          onChange={this.handleChange}
-                          required
-                        >
-                          <option value=""> --- Choose your class --- </option>
-                          {classes.map(schoolclass => (
-                            <option value={schoolclass.id} key={schoolclass.id}>
-                              {schoolclass.title}
+                      <StyledOnboardingLoginForm>
+                        <label htmlFor="invitedIn">
+                          Class
+                          <select
+                            type="text"
+                            name="invitedIn"
+                            placeholder="invitedIn"
+                            value={this.state.invitedIn}
+                            onChange={this.handleChange}
+                            required
+                          >
+                            <option value="">
+                              {' '}
+                              --- Choose your class ---{' '}
                             </option>
-                          ))}
-                        </select>
-                      </label>
+                            {classes.map(schoolclass => (
+                              <option
+                                value={schoolclass.id}
+                                key={schoolclass.id}
+                              >
+                                {schoolclass.title}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
 
-                      <label htmlFor="username">
-                        Username (not your real name)
-                        <input
-                          type="text"
-                          name="username"
-                          value={this.state.username}
-                          onChange={this.handleChange}
-                          required
-                        />
-                      </label>
-                      <label htmlFor="image">
-                        Profile picture (not of your face)
-                        <input
-                          type="file"
-                          id="image"
-                          name="image"
-                          placeholder="Upload an image"
-                          onChange={this.uploadImage}
-                        />
-                        {this.state.image && (
-                          <img
-                            src={this.state.image}
-                            width="200"
-                            alt="Upload avatar"
+                        <label htmlFor="username">
+                          Username (not your real name)
+                          <input
+                            type="text"
+                            name="username"
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                            required
                           />
+                        </label>
+                        <label htmlFor="image">
+                          Profile picture (not of your face)
+                          <input
+                            type="file"
+                            id="image"
+                            name="image"
+                            placeholder="Upload an image"
+                            onChange={this.uploadImage}
+                          />
+                          {this.state.image && (
+                            <img
+                              src={this.state.image}
+                              width="200"
+                              alt="Upload avatar"
+                            />
+                          )}
+                        </label>
+
+                        <div>
+                          <strong>
+                            Write down your username so you can remember it!
+                          </strong>
+                        </div>
+
+                        {this.state.uploadingImage && (
+                          <div>Uploading image ...</div>
                         )}
-                      </label>
-
-                      <div>
-                        <strong>
-                          Write down your username so you can remember it!
-                        </strong>
-                      </div>
-
-                      {this.state.uploadingImage && (
-                        <div>Uploading image ...</div>
-                      )}
-
+                      </StyledOnboardingLoginForm>
                       <button
                         type="submit"
                         disabled={this.state.uploadingImage}

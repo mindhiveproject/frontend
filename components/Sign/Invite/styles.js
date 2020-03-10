@@ -10,3 +10,8 @@ export const StyledOtherInterestItem = styled.div`
   grid-template-columns: auto 50px 200px;
   justify-content: left;
 `;
+
+export const StyledOnboardingLoginForm = styled.div`
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
