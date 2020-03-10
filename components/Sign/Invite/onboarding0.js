@@ -38,7 +38,13 @@ class OnboardingSignupWithClassInvite extends Component {
     username: '',
     image: '',
     largeImage: '',
-    uploadingImage: false,
+    info: {
+      interests: [],
+      other1: '',
+      other2: '',
+      other3: '',
+      other4: '',
+    },
   };
 
   handleInfoChange = e => {
@@ -72,10 +78,7 @@ class OnboardingSignupWithClassInvite extends Component {
 
   // method for uploading images
   uploadImage = async e => {
-    // console.log('uploading image');
-    this.setState({
-      uploadingImage: true,
-    });
+    console.log('uploading image');
     const { files } = e.target;
     const data = new FormData();
     data.append('file', files[0]);
@@ -92,7 +95,6 @@ class OnboardingSignupWithClassInvite extends Component {
     this.setState({
       image: file.secure_url,
       largeImage: file.eager[0].secure_url,
-      uploadingImage: false,
     });
   };
 
@@ -125,7 +127,7 @@ class OnboardingSignupWithClassInvite extends Component {
                       console.log('res', res);
                       this.setState({ username: '' });
                       Router.push({
-                        pathname: '/onboarding',
+                        pathname: '/lessons',
                       });
                     }}
                   >
@@ -133,15 +135,13 @@ class OnboardingSignupWithClassInvite extends Component {
                       <Error error={error} />
 
                       <div>
-                        Let’s start with the most important part: your username
-                        and profile picture! This information will be visible to
-                        other people who visit the platform.
-                      </div>
-
-                      <div>
-                        For example, if your science hero is Marie Curie, you
-                        can pick her name and a picture of her. Feel free to
-                        discuss with your peers in the next 5 minutes or so!
+                        Let’s start with the most important part: pick a
+                        username and profile picture! This information will be
+                        visible to other people who visit the platform. For
+                        privacy reasons, don’t use your own name or a picture of
+                        your face. Instead, use an alias and pick an avatar. You
+                        can pick your (science) hero or come up with your own
+                        name. Feel free to discuss with your peers! [5 mins]
                       </div>
 
                       <label htmlFor="invitedIn">
@@ -164,7 +164,7 @@ class OnboardingSignupWithClassInvite extends Component {
                       </label>
 
                       <label htmlFor="username">
-                        Username (not your real name)
+                        Alias
                         <input
                           type="text"
                           name="username"
@@ -174,7 +174,7 @@ class OnboardingSignupWithClassInvite extends Component {
                         />
                       </label>
                       <label htmlFor="image">
-                        Profile picture (not of your face)
+                        Avatar
                         <input
                           type="file"
                           id="image"
@@ -191,14 +191,68 @@ class OnboardingSignupWithClassInvite extends Component {
                         )}
                       </label>
 
-                      {this.state.uploadingImage && <>Uploading image ...</>}
+                      <div>
+                        <strong>
+                          We’d also like to know a bit more about your
+                          interests.
+                        </strong>
+                        “Brain and behavior” is a very large research field and
+                        there are a lot of subfields. What are you curious
+                        about? Check all that apply and add any topics that are
+                        not listed here.
+                      </div>
 
-                      <button
-                        type="submit"
-                        disabled={this.state.uploadingImage}
-                      >
-                        Enter
-                      </button>
+                      <label htmlFor="interests">
+                        {[
+                          'Emotion',
+                          'Learning',
+                          'Memory',
+                          'Language',
+                          'Social groups',
+                          'Music',
+                          'Intelligence',
+                          'Ageing',
+                          'Sleep',
+                          'Food',
+                          'Exercise',
+                          'Consciousness',
+                          'Brain disorders/disability',
+                        ].map(item => (
+                          <StyledInterestItem key={item}>
+                            <input
+                              type="checkbox"
+                              name="interests"
+                              id={item}
+                              onChange={this.handleInfoChange}
+                              value={this.state.info.interests.includes(item)}
+                            />
+                            <label htmlFor={item}>{item}</label>
+                          </StyledInterestItem>
+                        ))}
+                      </label>
+
+                      <label htmlFor="otherInterests">
+                        {['other1', 'other2', 'other3', 'other4'].map(item => (
+                          <StyledOtherInterestItem key={item}>
+                            <input
+                              type="checkbox"
+                              name="interests"
+                              id={item}
+                              onChange={this.handleInfoChange}
+                              value={this.state.info.interests.includes(item)}
+                            />
+                            <label htmlFor={item}>Other</label>
+                            <input
+                              type="text"
+                              name={item}
+                              value={this.state.info[item]}
+                              onChange={this.handleInfoChange}
+                            />
+                          </StyledOtherInterestItem>
+                        ))}
+                      </label>
+
+                      <button type="submit">Enter</button>
                     </fieldset>
                   </SimpleForm>
                 )}

@@ -10,8 +10,8 @@ const Nav = () => (
   <User>
     {({ data: { me } }) => (
       <NavStyles>
-        <Link href="/lessons">
-          <a>Lessons</a>
+        <Link href="/onboarding">
+          <a>Onboarding</a>
         </Link>
 
         {false && (

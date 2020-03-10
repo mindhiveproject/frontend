@@ -70,8 +70,6 @@ class Dashboard extends Component {
                         </div>
                       ))}
                     </ul>
-
-                    <h3>Your interests</h3>
                     <ul>
                       {me.info &&
                         me.info.interests
