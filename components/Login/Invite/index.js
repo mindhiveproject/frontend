@@ -53,7 +53,7 @@ class InviteLogin extends Component {
                       console.log('res', res);
                       this.setState({ token: '' });
                       Router.push({
-                        pathname: '/lessons',
+                        pathname: '/onboarding',
                       });
                     }}
                   >
