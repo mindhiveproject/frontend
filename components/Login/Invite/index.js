@@ -82,7 +82,7 @@ class InviteLogin extends Component {
                         </select>
                       </label>
                       <label htmlFor="username">
-                        Alias
+                        Username
                         <input
                           type="text"
                           name="username"
