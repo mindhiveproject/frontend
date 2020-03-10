@@ -191,7 +191,15 @@ class OnboardingSignupWithClassInvite extends Component {
                         )}
                       </label>
 
-                      {this.state.uploadingImage && <>Uploading image ...</>}
+                      <div>
+                        <strong>
+                          Write down your username so you can remember it!
+                        </strong>
+                      </div>
+
+                      {this.state.uploadingImage && (
+                        <div>Uploading image ...</div>
+                      )}
 
                       <button
                         type="submit"

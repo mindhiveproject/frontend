@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const LessonTable = styled.div`
+  margin-top: 10px;
   padding: 20px;
   display: grid;
   grid-template-columns: 1fr auto;

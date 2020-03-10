@@ -60,7 +60,7 @@ class InviteLogin extends Component {
                     <fieldset disabled={loading} aria-busy={loading}>
                       <h3>
                         Have you already done onboarding? Then just log in with
-                        your alias.
+                        your username.
                       </h3>
                       <Error error={error} />
                       <label htmlFor="invitedIn">
