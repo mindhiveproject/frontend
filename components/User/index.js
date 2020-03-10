@@ -22,6 +22,8 @@ const CURRENT_USER_RESULTS_QUERY = gql`
         id
         title
       }
+      image
+      info
     }
   }
 `;

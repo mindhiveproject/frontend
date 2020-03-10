@@ -31,7 +31,7 @@ class Me extends Component {
                   <ResultPane key={result.id} result={result} />
                 ))}
               </ul>
-              Your classes
+              <h1>Your classes</h1>
               <ul>
                 {me.studentIn.map(schoolclass => (
                   <div key={schoolclass.id}>
@@ -47,7 +47,7 @@ class Me extends Component {
                 ))}
               </ul>
               <footer>
-                <p>This is footer</p>
+                <h2>What you can do</h2>
                 <Link
                   href={{
                     pathname: '/res/my',

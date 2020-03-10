@@ -35,7 +35,6 @@ const INVITE_SIGNUP_MUTATION = gql`
 class OnboardingSignupWithClassInvite extends Component {
   state = {
     username: '',
-    invitedIn: '',
     image: '',
     largeImage: '',
     info: {
@@ -121,12 +120,23 @@ class OnboardingSignupWithClassInvite extends Component {
                       console.log('res', res);
                       this.setState({ username: '' });
                       Router.push({
-                        pathname: '/me',
+                        pathname: '/lessons',
                       });
                     }}
                   >
                     <fieldset disabled={loading} aria-busy={loading}>
                       <Error error={error} />
+
+                      <div>
+                        Let’s start with the most important part: pick a
+                        username and profile picture! This information will be
+                        visible to other people who visit the platform. For
+                        privacy reasons, don’t use your own name or a picture of
+                        your face. Instead, use an alias and pick an avatar. You
+                        can pick your (science) hero or come up with your own
+                        name. Feel free to discuss with your peers! [5 mins]
+                      </div>
+
                       <label htmlFor="invitedIn">
                         Class
                         <select
@@ -135,11 +145,9 @@ class OnboardingSignupWithClassInvite extends Component {
                           placeholder="invitedIn"
                           value={this.state.invitedIn}
                           onChange={this.handleChange}
+                          required
                         >
-                          <option value="no">
-                            {' '}
-                            --- Choose your class ---{' '}
-                          </option>
+                          <option value=""> --- Choose your class --- </option>
                           {classes.map(schoolclass => (
                             <option value={schoolclass.id} key={schoolclass.id}>
                               {schoolclass.title}
@@ -147,14 +155,15 @@ class OnboardingSignupWithClassInvite extends Component {
                           ))}
                         </select>
                       </label>
+
                       <label htmlFor="username">
-                        Username
+                        Alias
                         <input
                           type="text"
                           name="username"
-                          placeholder="username"
                           value={this.state.username}
                           onChange={this.handleChange}
+                          required
                         />
                       </label>
                       <label htmlFor="image">

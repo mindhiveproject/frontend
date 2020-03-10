@@ -19,12 +19,13 @@ class Post extends Component {
       html,
       attributes: { thumbnail, title },
     } = this.props.blogpost.default;
+    console.log('html', this.props.blogpost.default);
 
     return (
       <>
         <article>
           <h1>{title}</h1>
-          <img src={thumbnail} />
+          <img src={thumbnail} height="100px" />
           <div dangerouslySetInnerHTML={{ __html: html }} />
         </article>
         <style jsx>{`

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Mutation } from 'react-apollo';
 import NavStyles from './styles';
 import User from '../User/index';
-import Signout from '../Signout/index';
+// import Signout from '../Signout/index';
 
 import { TOGGLE_DASHBOARD_MUTATION } from '../Dashboard/index';
 
@@ -10,22 +10,18 @@ const Nav = () => (
   <User>
     {({ data: { me } }) => (
       <NavStyles>
-        <Link href="/classes">
-          <a>Classes</a>
+        <Link href="/lessons">
+          <a>Lessons</a>
         </Link>
 
-        <Link href="/bank">
-          <a>Experiments</a>
-        </Link>
+        {false && (
+          <Link href="/bank">
+            <a>Experiments</a>
+          </Link>
+        )}
 
         {me && (
           <>
-            <Link href="/me">
-              <a>Me</a>
-            </Link>
-
-            <Signout />
-
             <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
               {toggleDashboard => (
                 <button onClick={toggleDashboard}>Dashboard</button>
@@ -34,12 +30,20 @@ const Nav = () => (
           </>
         )}
 
-        {!me && (
+        {!me && false && (
           <>
             <Link href="/signup">
               <a>Signup</a>
             </Link>
 
+            <Link href="/login">
+              <a>Login</a>
+            </Link>
+          </>
+        )}
+
+        {!me && (
+          <>
             <Link href="/login">
               <a>Login</a>
             </Link>
@@ -51,3 +55,8 @@ const Nav = () => (
 );
 
 export default Nav;
+
+// <Link href="/me">
+//   <a>Me</a>
+// </Link>
+// <Signout />

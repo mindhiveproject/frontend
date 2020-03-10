@@ -2,6 +2,8 @@ import Head from 'next/head';
 import { Component } from 'react';
 import { attributes, react as HomeContent } from '../../content/home.md';
 import OnboardingSignupWithClassInvite from '../Sign/Invite/onboarding';
+import { ContainerOnlyForNoProfile } from '../Permissions/NoProfile/index';
+import { ContainerOnlyForStudents } from '../Permissions/Student/index';
 
 class Onboarding extends Component {
   render() {
@@ -14,7 +16,13 @@ class Onboarding extends Component {
         <article>
           <h1>{title}</h1>
           <HomeContent />
-          <OnboardingSignupWithClassInvite />
+          <ContainerOnlyForNoProfile>
+            <OnboardingSignupWithClassInvite />
+          </ContainerOnlyForNoProfile>
+          <ContainerOnlyForStudents>
+            It looks like you already have done onboarding. Please proceed to
+            the lessons for further instructions.
+          </ContainerOnlyForStudents>
         </article>
       </>
     );

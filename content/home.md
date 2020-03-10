@@ -21,5 +21,3 @@ Did we say “thank you” yet for being our pilot class?
 **Thank you** for being our pilot class!
 
 Now let’s get to work.
-
-Let’s start with the most important part: pick a username and profile picture! This information will be visible to other people who visit the platform. For privacy reasons, don’t use your own name or a picture of your face. Instead, use an alias and pick an avatar. You can pick your (science) hero or come up with your own name. Feel free to discuss with your peers! [5 mins]

@@ -27,9 +27,11 @@ const Header = () => (
       </Logo>
       <Nav />
     </div>
-    <div className="sub-bar">
-      <Search />
-    </div>
+    {false && (
+      <div className="sub-bar">
+        <Search />
+      </div>
+    )}
     <Dashboard />
   </StyledHeader>
 );

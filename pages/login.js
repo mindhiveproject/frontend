@@ -4,9 +4,10 @@ import Page from '../components/Page/index';
 
 const LoginPage = props => (
   <Page>
-    <EmailLogin />
     <InviteLogin />
   </Page>
 );
 
 export default LoginPage;
+
+// <EmailLogin />

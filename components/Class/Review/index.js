@@ -39,9 +39,16 @@ class ReviewClass extends Component {
                 <title>mindHIVE | {schoolclass.title}</title>
               </Head>
               <h2>{schoolclass.title}</h2>
+              {false && (
+                <>
+                  <p>
+                    This class is created by {schoolclass.creator.username}.
+                  </p>
+                  <p>Created {schoolclass.createdAt}.</p>
+                </>
+              )}
               <p>{schoolclass.description}</p>
-              <p>This class is created by {schoolclass.creator.username}.</p>
-              <p>Created {schoolclass.createdAt}.</p>
+
               <h3>Students of this class</h3>
               <ul>
                 {schoolclass.students.map(student => (

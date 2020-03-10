@@ -24,12 +24,12 @@ export const CartStyles = styled.div`
     padding-bottom: 2rem;
   }
   footer {
-    border-top: 10px double ${props => props.theme.black};
+    /* border-top: 10px double ${props => props.theme.black}; */
     margin-top: 2rem;
     padding-top: 2rem;
     display: grid;
-    grid-template-columns: auto auto;
-    align-items: center;
+    grid-template-columns: auto;
+    align-items: end;
     font-size: 3rem;
     font-weight: 900;
     p {
@@ -40,7 +40,22 @@ export const CartStyles = styled.div`
     margin: 0;
     padding: 0;
     list-style: none;
-    overflow: scroll;
+    /* overflow: scroll; */
+  }
+  button {
+    font-weight: 500;
+    border: 1px solid grey;
+    border-radius: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 2rem;
+    padding: 0.8rem 1.5rem;
+    transform: skew(-2deg);
+    display: inline-block;
+    transition: all 0.5s;
+    &[disabled] {
+      opacity: 0.5;
+    }
   }
 `;
 
@@ -64,7 +79,7 @@ export const CloseButton = styled.button`
   right: 0;
 `;
 
-export const SickButton = styled.button`
+export const DashboardButton = styled.button`
   background: red;
   color: white;
   font-weight: 500;
@@ -79,4 +94,10 @@ export const SickButton = styled.button`
   &[disabled] {
     opacity: 0.5;
   }
+`;
+
+export const DashboardTable = styled.div`
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
 `;
