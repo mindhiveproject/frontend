@@ -20,8 +20,8 @@ const INVITE_LOGIN_MUTATION = gql`
 
 class InviteLogin extends Component {
   state = {
-    username: 'new test student',
-    invitedIn: 'ck7amwshxs4wt0986t2v0jht9',
+    username: '',
+    invitedIn: '',
   };
 
   saveToState = e => {
@@ -86,7 +86,6 @@ class InviteLogin extends Component {
                         <input
                           type="text"
                           name="username"
-                          placeholder="username"
                           value={this.state.username}
                           onChange={this.saveToState}
                         />
