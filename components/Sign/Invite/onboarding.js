@@ -7,6 +7,7 @@ import { SimpleForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import { ALL_CLASSES_QUERY } from '../../Class/All/index';
+import { REVIEW_CLASS_QUERY } from '../../Class/Review/index';
 
 import { StyledInterestItem, StyledOtherInterestItem } from './styles';
 
@@ -109,7 +110,13 @@ class OnboardingSignupWithClassInvite extends Component {
               <Mutation
                 mutation={INVITE_SIGNUP_MUTATION}
                 variables={this.state}
-                refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+                refetchQueries={[
+                  { query: CURRENT_USER_RESULTS_QUERY },
+                  {
+                    query: REVIEW_CLASS_QUERY,
+                    variables: { id: this.state.invitedIn },
+                  },
+                ]}
               >
                 {(inviteSignUp, { error, loading }) => (
                   <SimpleForm

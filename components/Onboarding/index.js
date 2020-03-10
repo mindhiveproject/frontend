@@ -20,7 +20,7 @@ class Onboarding extends Component {
             <OnboardingSignupWithClassInvite />
           </ContainerOnlyForNoProfile>
           <ContainerOnlyForStudents>
-            It looks like you already have done onboarding. Please proceed to
+            It looks like you have already done onboarding. Please proceed to
             the lessons for further instructions.
           </ContainerOnlyForStudents>
         </article>

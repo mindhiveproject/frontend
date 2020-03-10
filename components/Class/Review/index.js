@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
 import Error from '../../ErrorMessage/index';
+import { ClassTable } from './styles';
 
 const REVIEW_CLASS_QUERY = gql`
   query REVIEW_CLASS_QUERY($id: ID!) {
@@ -18,6 +19,7 @@ const REVIEW_CLASS_QUERY = gql`
       students {
         id
         username
+        image
       }
     }
   }
@@ -28,7 +30,7 @@ class ReviewClass extends Component {
     return (
       <Query query={REVIEW_CLASS_QUERY} variables={{ id: this.props.id }}>
         {({ error, loading, data }) => {
-          console.log('data', data);
+          // console.log('data', data);
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
           if (!data.class) return <p>No class found for {this.props.id}</p>;
@@ -52,7 +54,10 @@ class ReviewClass extends Component {
               <h3>Students of this class</h3>
               <ul>
                 {schoolclass.students.map(student => (
-                  <div key={student.id}>{student.username}</div>
+                  <ClassTable key={student.id}>
+                    <h3>{student.username}</h3>
+                    <img src={student.image} height="100px" />
+                  </ClassTable>
                 ))}
               </ul>
             </div>
@@ -64,3 +69,4 @@ class ReviewClass extends Component {
 }
 
 export default ReviewClass;
+export { REVIEW_CLASS_QUERY };

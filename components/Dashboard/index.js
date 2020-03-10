@@ -43,7 +43,7 @@ class Dashboard extends Component {
         {({ user, toggleDashboard, localState }) => {
           if (!user.data) return null;
           const { me } = user.data;
-          console.log('me', me);
+          // console.log('me', me);
           if (!me) return null;
           return (
             <CartStyles open={localState.data.dashboardOpen}>
