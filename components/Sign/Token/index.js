@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
-import { SignForm } from '../../Styles/Forms';
+import uniqid from 'uniqid';
+import generate from 'project-name-generator';
+import { TokenForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_QUERY } from '../../User/index';
 
@@ -18,8 +20,8 @@ const SIGNUP_MUTATION = gql`
 
 class TokenSignup extends Component {
   state = {
-    username: 'dag',
-    token: 'gagafgfd',
+    username: generate().dashed,
+    token: uniqid(),
   };
 
   saveToState = e => {
@@ -36,7 +38,7 @@ class TokenSignup extends Component {
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {(tokenSignUp, { error, loading }) => (
-          <SignForm
+          <TokenForm
             method="post"
             onSubmit={async e => {
               e.preventDefault();
@@ -56,7 +58,7 @@ class TokenSignup extends Component {
             }}
           >
             <fieldset disabled={loading} aria-busy={loading}>
-              <h3>Sign up with token</h3>
+              <h3>Sign in with random token</h3>
               <Error error={error} />
               <label htmlFor="token">
                 Token
@@ -78,9 +80,9 @@ class TokenSignup extends Component {
                   onChange={this.saveToState}
                 />
               </label>
-              <button type="submit">Sign up with token</button>
+              <button type="submit">Start</button>
             </fieldset>
-          </SignForm>
+          </TokenForm>
         )}
       </Mutation>
     );
