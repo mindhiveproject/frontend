@@ -33,7 +33,7 @@ class DeleteResult extends Component {
               }
             }}
           >
-            {this.props.children}
+            <h2>{this.props.children}</h2>
           </button>
         )}
       </Mutation>

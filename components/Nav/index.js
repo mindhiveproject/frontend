@@ -14,7 +14,7 @@ const Nav = () => (
           <a>Onboarding</a>
         </Link>
 
-        {false && (
+        {true && (
           <Link href="/bank">
             <a>Experiments</a>
           </Link>

@@ -1,9 +1,9 @@
 import ReviewClass from '../../components/Class/Review/index';
 import Page from '../../components/Page/index';
 
-const ReviewClassPage = props => (
+const ReviewClassPage = ({ query }) => (
   <Page>
-    <ReviewClass id={props.query.id} />
+    <ReviewClass id={query.id} />
   </Page>
 );
 

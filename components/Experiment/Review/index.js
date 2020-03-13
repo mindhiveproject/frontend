@@ -43,3 +43,4 @@ class ReviewExperiment extends Component {
 }
 
 export default ReviewExperiment;
+export { REVIEW_EXPERIMENT_QUERY };

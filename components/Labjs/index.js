@@ -16,12 +16,14 @@ class ExperimentWindow extends Component {
 
   componentDidMount() {
     const { props } = this;
+    console.log('props.settings.script', props.settings.script);
     switch (props.settings.script) {
-      case 'Risk':
+      case 'Risk taking task':
+      default:
         risk.parameters = props.settings.params;
         this.study = lab.util.fromObject(clonedeep(risk), lab);
         break;
-      case 'Rating Task':
+      case 'Rating task':
         rating.parameters = props.settings.params;
         this.study = lab.util.fromObject(clonedeep(rating), lab);
         break;
@@ -34,7 +36,6 @@ class ExperimentWindow extends Component {
         this.study = lab.util.fromObject(clonedeep(visualsearch), lab);
         break;
       case 'Stroop Task':
-      default:
         stroop.parameters = props.settings.params;
         this.study = lab.util.fromObject(clonedeep(stroop), lab);
         break;

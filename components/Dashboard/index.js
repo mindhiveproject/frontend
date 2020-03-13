@@ -85,6 +85,16 @@ class Dashboard extends Component {
                   <img src={me.image} height="200px" alt="" />
                 </DashboardTable>
 
+                <Link
+                  href={{
+                    pathname: '/res/my',
+                  }}
+                >
+                  <a>
+                    <DashboardButton>See my results</DashboardButton>
+                  </a>
+                </Link>
+
                 {false && (
                   <>
                     <p>You are {me.permissions}</p>

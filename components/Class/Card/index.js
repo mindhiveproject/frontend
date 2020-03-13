@@ -41,7 +41,6 @@ class ClassCard extends Component {
           <a>
             <h2>{schoolclass.title}</h2>
             <p>{schoolclass.description}</p>
-            <p>Teacher {schoolclass.creator.username}</p>
           </a>
         </Link>
 
