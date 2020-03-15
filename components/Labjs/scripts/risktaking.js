@@ -1,3 +1,14 @@
+import * as path from 'path';
+
+const rootFolder = __dirname;
+const assetsDirectory = path.join(
+  rootFolder,
+  'content',
+  'experiments',
+  'Risk',
+  'images'
+);
+
 // Define study
 const studyObject = {
   title: 'root',
@@ -24,8 +35,12 @@ const studyObject = {
   content: [
     {
       type: 'lab.flow.Sequence',
-      files: {},
-      parameters: {},
+      files: {
+        'tree.png': `${assetsDirectory}/b36630dfdebf930a8f17abfca8696e32bc041df43bf0f901e11a1a6e87c199b4.png`,
+      },
+      parameters: {
+        incrementImageFeedbackStep: '50',
+      },
       responses: {},
       messageHandlers: {},
       title: 'Risk-taking task',
@@ -33,7 +48,7 @@ const studyObject = {
         {
           type: 'lab.html.Form',
           content:
-            '\u003Cheader\u003E\n  \u003Ch1\u003EAm I a risk taker?\u003C\u002Fh1\u003E\n\u003C\u002Fheader\u003E\n\n\u003Cmain\u003E\n\n  \u003Cp\u003EWe all view rewards differently and some people are more willing to take risks.\u003C\u002Fp\u003E\n\n  \u003Cp\u003ESee how good you are at making decisions by winning as many points as you can. At the same time, help scientists study happiness by reporting how you feel during the game.\u003C\u002Fp\u003E\n\n  \u003Cform\u003E\n    \u003Cbutton type="submit"\u003EPlay\u003C\u002Fbutton\u003E\n  \u003C\u002Fform\u003E\n\n\u003C\u002Fmain\u003E\n\n\u003Cfooter\u003E\n\n\u003C\u002Ffooter\u003E\n\n',
+            '\u003Cheader\u003E\n  \u003Ch1\u003EAm I a risk taker?\u003C\u002Fh1\u003E\n\u003C\u002Fheader\u003E\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain class="content-horizontal-center\n               content-vertical-center"\n               style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cp\u003EWe all view rewards differently and some people are more willing to take risks.\u003C\u002Fp\u003E\n\n      \u003Cp\u003ESee how good you are at making decisions by winning as many points as you can. At the same time, help scientists study happiness by reporting how you feel during the game.\u003C\u002Fp\u003E\n\n      \u003Cform\u003E\n        \u003Cbutton type="submit"\u003EPlay\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n',
           files: {},
           parameters: {},
           responses: {},
@@ -43,7 +58,7 @@ const studyObject = {
         {
           type: 'lab.html.Form',
           content:
-            '\u003Cheader\u003E\n  \u003Ch1\u003EHow to play\u003C\u002Fh1\u003E\n\u003C\u002Fheader\u003E\n\n\u003Cmain\u003E\n\n  \u003Cp\u003EYou start with 500 points. Win as many points as you can. Click (or tap) on the certain option or spin the spinner to try to get more points. Choose wisely!\u003C\u002Fp\u003E\n\n  \u003Cp\u003EHelp us study happiness. When asked how you feel, move the slider to the right when you feel happy and to the left when you feel unhappy. Mark exactly how you feel at that moment.\u003C\u002Fp\u003E\n\n  \u003Cp\u003E\u003Ci\u003EHere is the image with the game dashboard\u003C\u002Fi\u003E\u003C\u002Fp\u003E\n  \n  \u003Cform\u003E\n    \u003Cbutton type="submit"\u003EStart Game\u003C\u002Fbutton\u003E\n  \u003C\u002Fform\u003E\n\n\u003C\u002Fmain\u003E\n\n\u003Cfooter\u003E\n\n\u003C\u002Ffooter\u003E\n\n',
+            '\u003Cheader\u003E\n  \u003Ch1\u003EHow to play\u003C\u002Fh1\u003E\n\u003C\u002Fheader\u003E\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain class="content-horizontal-center\n               content-vertical-center"\n               style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cp\u003EYou start with 500 points. Win as many points as you can. Click (or tap) on the certain option or spin the spinner to try to get more points. Choose wisely!\u003C\u002Fp\u003E\n\n      \u003Cp\u003EHelp us study happiness. When asked how you feel, move the slider to the right when you feel happy and to the left when you feel unhappy. Mark exactly how you feel at that moment.\u003C\u002Fp\u003E\n\n      \u003Cp\u003E\u003Ci\u003EHere is the image with the game dashboard\u003C\u002Fi\u003E\u003C\u002Fp\u003E\n  \n      \u003Cform\u003E\n        \u003Cbutton type="submit"\u003EStart Game\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n\n',
           files: {},
           parameters: {},
           responses: {},
@@ -177,23 +192,26 @@ const studyObject = {
                 {
                   type: 'lab.html.Form',
                   content:
-                    '\u003Cstyle\u003E\n  \n  .slidecontainer {\n      width: 50%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: #d3d3d3; \u002F* Grey background *\u002F\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 50px; \u002F* Set a specific slider handle width *\u002F\n      height: 50px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: #4CAF50; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-moz-range-thumb {\n      width: 50px; \u002F* Set a specific slider handle width *\u002F\n      height: 50px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: #4CAF50; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n\u003C\u002Fstyle\u003E\n\n\u003Cmain\u003E\n\n\u003Cform\u003E\n  \n  \u003Ch3\u003EHow happy are you right now?\u003C\u002Fh3\u003E\n\n  \u003Cdiv class="slidecontainer"\u003E\n   \u003Cinput type="range" name="rating_pre" min="1" max="10" class="slider" id="rating"\u003E\n    \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n      \u003Cdiv style="display:grid; justify-content: start;"\u003EVery unhappy\u003C\u002Fdiv\u003E\n      \u003Cdiv style="display:grid; justify-content: end;"\u003EVery happy\u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E \n  \u003C\u002Fdiv\u003E\n\n  \u003Cbutton type="submit" id="continueBtn" style="visibility:hidden"\u003EContinue\u003C\u002Fbutton\u003E\n\n\u003C\u002Fform\u003E\n\n\n\n\u003C\u002Fmain\u003E',
+                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n\u003C\u002Fstyle\u003E\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Ch1\u003EHow happy are you right now?\u003C\u002Fh1\u003E\n\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cinput type="range" name="rating_pre" min="1" max="10" class="slider" id="rating"\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n             \u003Ch2\u003E\n               Very unhappy\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                Very happy\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n\n        \u003Cbutton type="submit" id="continueBtn" style="visibility:hidden"\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E',
                   files: {},
                   parameters: {},
                   responses: {},
                   messageHandlers: {
                     run: function anonymous() {
-                      document.getElementById('rating').onclick = function() {
+                      document.getElementById('rating').onclick = function(e) {
+                        e.target.classList.add('visible');
                         document.getElementById(
                           'continueBtn'
                         ).style.visibility = 'visible';
                       };
-                      document.getElementById('rating').ontouch = function() {
+                      document.getElementById('rating').ontouch = function(e) {
+                        e.target.classList.add('visible');
                         document.getElementById(
                           'continueBtn'
                         ).style.visibility = 'visible';
                       };
-                      document.getElementById('rating').oninput = function() {
+                      document.getElementById('rating').oninput = function(e) {
+                        e.target.classList.add('visible');
                         document.getElementById(
                           'continueBtn'
                         ).style.visibility = 'visible';
@@ -201,6 +219,7 @@ const studyObject = {
                     },
                   },
                   title: 'Happiness rating',
+                  skip: true,
                 },
                 {
                   type: 'lab.html.Screen',
@@ -211,12 +230,16 @@ const studyObject = {
                     'before:prepare': function anonymous() {
                       const preScore = this.state.score || 500;
                       let waitingForChoice = true;
+                      const step = this.parameters.incrementImageFeedbackStep;
 
                       this.options.events.click = e => {
                         const { id } = e.target;
                         console.log('Clicking', id, e);
                         // if choice is the safe option
                         if (id === 'fixed' && waitingForChoice) {
+                          document.querySelector(
+                            '#instruction'
+                          ).style.visibility = 'hidden';
                           waitingForChoice = false;
                           // 1. highlight the chosen option
                           // 2. update the score
@@ -246,6 +269,9 @@ const studyObject = {
                           const riskyRightDiv = document.querySelector(
                             '#gamble_lose'
                           );
+                          document.querySelector(
+                            '#instruction'
+                          ).style.visibility = 'hidden';
 
                           // 1. highlight the chosen option
                           // 2. play the lottery and update the score
@@ -297,22 +323,83 @@ const studyObject = {
                         if (start === end) return;
                         const range = end - start;
                         let current = start;
-                        const increment = end > start ? 1 : -1;
+                        let increment;
+
+                        // change images
+                        const imageBoard = document.querySelector(
+                          '#imageBoard'
+                        );
+                        let changingStart = start;
+                        if (end > start) {
+                          increment = 1;
+                        } else {
+                          increment = -1;
+                        }
                         const stepTime = Math.abs(Math.floor(duration / range));
                         const obj = document.getElementById(id);
+
                         var timer = setInterval(function() {
                           current += increment;
                           obj.innerHTML = current;
+                          if (
+                            Math.floor(current / step) >
+                            Math.floor(changingStart / step)
+                          ) {
+                            imageBoard.appendChild(addOneImage());
+                            changingStart = current;
+                          }
+                          if (
+                            Math.floor(current / step) <
+                            Math.floor(changingStart / step)
+                          ) {
+                            removeOneImage();
+                            changingStart = current;
+                          }
                           if (current == end) {
                             clearInterval(timer);
                           }
                         }, stepTime);
                       }
+
+                      const addOneImage = () => {
+                        const img = new Image();
+                        img.src = this.files['tree.png'];
+                        return img;
+                      };
+
+                      const removeOneImage = () => {
+                        const imageBoard = document.querySelector(
+                          '#imageBoard'
+                        );
+                        const lastElement = imageBoard.lastElementChild;
+                        if (lastElement) imageBoard.removeChild(lastElement);
+                      };
+                    },
+                    run: function anonymous() {
+                      const step = this.parameters.incrementImageFeedbackStep;
+                      const imageBoard = document.querySelector('#imageBoard');
+
+                      const addOneImage = () => {
+                        const img = new Image();
+                        img.src = this.files['tree.png'];
+                        return img;
+                      };
+
+                      const preScore = this.state.score || 500;
+                      const numberImages = Math.floor(preScore / step);
+                      console.log(
+                        'numberImages at the beginning',
+                        numberImages
+                      );
+
+                      for (let i = 1; i <= numberImages; i++) {
+                        imageBoard.appendChild(addOneImage());
+                      }
                     },
                   },
                   title: 'Awaiting decision',
                   content:
-                    '\u003Cstyle\u003E\n  .info {\n    font-size: 1.5em;\n  }\n  .option {\n    border: 1px solid cornflowerblue;\n    border-radius: 10px;\n    height: 100%;\n    display: grid;\n    align-items: baseline;\n    padding: 10px;\n  }\n  .option:hover {\n    background-color: cornflowerblue;\n    cursor: pointer;\n  }\n\n.spinner {\n  margin: 100px auto;\n  font-size: 25px;\n  width: 1em;\n  height: 1em;\n  border-radius: 50%;\n  position: relative;\n  text-indent: -9999em;\n  -webkit-transform: translateZ(0);\n  -ms-transform: translateZ(0);\n  transform: translateZ(0);\n\n  animation-name: load5;\n  animation-duration: 0s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 0;\n  animation-direction: normal;\n  animation-fill-mode: forwards;\n}\n\n  @-webkit-keyframes load5 {\n    0%,\n    100% {\n      box-shadow: 0em -2.6em 0em 0em #2b2b2b, 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.5), -1.8em -1.8em 0 0em rgba(43,43,43, 0.7);\n    }\n    12.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.7), 1.8em -1.8em 0 0em #2b2b2b, 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.5);\n    }\n    25% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.5), 1.8em -1.8em 0 0em rgba(43,43,43, 0.7), 2.5em 0em 0 0em #2b2b2b, 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    37.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.5), 2.5em 0em 0 0em rgba(43,43,43, 0.7), 1.75em 1.75em 0 0em #2b2b2b, 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    50% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.5), 1.75em 1.75em 0 0em rgba(43,43,43, 0.7), 0em 2.5em 0 0em #2b2b2b, -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    62.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.5), 0em 2.5em 0 0em rgba(43,43,43, 0.7), -1.8em 1.8em 0 0em #2b2b2b, -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    75% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.5), -1.8em 1.8em 0 0em rgba(43,43,43, 0.7), -2.6em 0em 0 0em #2b2b2b, -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    87.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.5), -2.6em 0em 0 0em rgba(43,43,43, 0.7), -1.8em -1.8em 0 0em #2b2b2b;\n    }\n  }\n  @keyframes load5 {\n    0%,\n    100% {\n      box-shadow: 0em -2.6em 0em 0em #2b2b2b, 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.5), -1.8em -1.8em 0 0em rgba(43,43,43, 0.7);\n    }\n    12.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.7), 1.8em -1.8em 0 0em #2b2b2b, 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.5);\n    }\n    25% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.5), 1.8em -1.8em 0 0em rgba(43,43,43, 0.7), 2.5em 0em 0 0em #2b2b2b, 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    37.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.5), 2.5em 0em 0 0em rgba(43,43,43, 0.7), 1.75em 1.75em 0 0em #2b2b2b, 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    50% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.5), 1.75em 1.75em 0 0em rgba(43,43,43, 0.7), 0em 2.5em 0 0em #2b2b2b, -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    62.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.5), 0em 2.5em 0 0em rgba(43,43,43, 0.7), -1.8em 1.8em 0 0em #2b2b2b, -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    75% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.5), -1.8em 1.8em 0 0em rgba(43,43,43, 0.7), -2.6em 0em 0 0em #2b2b2b, -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    87.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.5), -2.6em 0em 0 0em rgba(43,43,43, 0.7), -1.8em -1.8em 0 0em #2b2b2b;\n    }\n}\n  \n\u003C\u002Fstyle\u003E\n\n\u003Cheader\u003E\n  Spin the spinner or play it safe!\n\u003C\u002Fheader\u003E\n\n\u003Cmain\u003E\n\n  \u003Cdiv style="display: grid; grid-template-columns: 1fr 1fr; width: 50%; margin: 0 auto; grid-column-gap: 50px; min-height: 300px; align-items: center; padding: 10px;" class="info"\u003E\n\n    \u003Cdiv class="option" id="gamble" style="grid-template-columns: 1fr 1fr;"\u003E\n      \u003Cdiv id="gamble_win" style="height: 100%; display: grid; align-items: baseline; border-radius: 10px;"\u003E\n       Gain ${parameters.win}\n      \u003C\u002Fdiv\u003E\n      \u003Cdiv id="gamble_lose" style="height: 100%; display: grid; align-items: baseline; border-radius: 10px;"\u003E\n        Lose ${parameters.lose}\n      \u003C\u002Fdiv\u003E      \n      \u003Cdiv id="gamble_spinner" class="spinner" style="display:none; grid-column-start: 1; grid-column-end: 3;"\u003ELoading...\u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n\n    \u003Cdiv class="option" id="fixed"\u003E\n     Gain ${parameters.fixed}\n    \u003C\u002Fdiv\u003E\n\n  \u003C\u002Fdiv\u003E\n\n  \n\n  \u003Ch3\u003E Score \u003C\u002Fh3\u003E\n  \u003Cp id="score" class="info"\u003E ${state.score || 500} \u003C\u002Fp\u003E\n\n\u003C\u002Fmain\u003E',
+                    '\u003Cstyle\u003E\n  .info {\n    font-size: 1.5em;\n  }\n\n  .scoreBoard{\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    margin: 0 auto;\n    width: fit-content;\n    grid-column-gap: 10px;\n    align-items: center;\n  }\n\n  #imageBoard {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));\n    padding: inherit;\n    margin-left: 50px;\n    margin-right: 50px;\n    border: 5px solid lavender;\n    border-radius: 10px;\n  }\n  \n  #gamble_spinner{\n    position: relative;\n    width: 100%;\n    height: 100%;\n  }\n\n  #gamble_info {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: 0;\n  }\n  \n  .option {\n    border: 1px solid cornflowerblue;\n    border-radius: 10px;\n    height: 100%;\n    display: grid;\n    align-items: center;\n    padding: 10px;\n  }\n  .option:hover {\n    background-color: cornflowerblue;\n    cursor: pointer;\n  }\n\n.spinner {\n  z-index: 10;\n  background-color: darkred;\n  margin: 100px auto;\n  font-size: 25px;\n  width: 1em;\n  height: 1em;\n  border-radius: 50%;\n  position: relative;\n  text-indent: -9999em;\n  -webkit-transform: translateZ(0);\n  -ms-transform: translateZ(0);\n  transform: translateZ(0);\n\n  animation-name: load5;\n  animation-duration: 0s;\n  animation-timing-function: ease;\n  animation-delay: 0s;\n  animation-iteration-count: 0;\n  animation-direction: normal;\n  animation-fill-mode: forwards;\n}\n\n  @-webkit-keyframes load5 {\n    0%,\n    100% {\n      box-shadow: 0em -2.6em 0em 0em #2b2b2b, 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.5), -1.8em -1.8em 0 0em rgba(43,43,43, 0.7);\n    }\n    12.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.7), 1.8em -1.8em 0 0em #2b2b2b, 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.5);\n    }\n    25% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.5), 1.8em -1.8em 0 0em rgba(43,43,43, 0.7), 2.5em 0em 0 0em #2b2b2b, 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    37.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.5), 2.5em 0em 0 0em rgba(43,43,43, 0.7), 1.75em 1.75em 0 0em #2b2b2b, 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    50% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.5), 1.75em 1.75em 0 0em rgba(43,43,43, 0.7), 0em 2.5em 0 0em #2b2b2b, -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    62.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.5), 0em 2.5em 0 0em rgba(43,43,43, 0.7), -1.8em 1.8em 0 0em #2b2b2b, -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    75% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.5), -1.8em 1.8em 0 0em rgba(43,43,43, 0.7), -2.6em 0em 0 0em #2b2b2b, -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    87.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.5), -2.6em 0em 0 0em rgba(43,43,43, 0.7), -1.8em -1.8em 0 0em #2b2b2b;\n    }\n  }\n  @keyframes load5 {\n    0%,\n    100% {\n      box-shadow: 0em -2.6em 0em 0em #2b2b2b, 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.5), -1.8em -1.8em 0 0em rgba(43,43,43, 0.7);\n    }\n    12.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.7), 1.8em -1.8em 0 0em #2b2b2b, 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.5);\n    }\n    25% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.5), 1.8em -1.8em 0 0em rgba(43,43,43, 0.7), 2.5em 0em 0 0em #2b2b2b, 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    37.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.5), 2.5em 0em 0 0em rgba(43,43,43, 0.7), 1.75em 1.75em 0 0em #2b2b2b, 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    50% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.5), 1.75em 1.75em 0 0em rgba(43,43,43, 0.7), 0em 2.5em 0 0em #2b2b2b, -1.8em 1.8em 0 0em rgba(43,43,43, 0.2), -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    62.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.5), 0em 2.5em 0 0em rgba(43,43,43, 0.7), -1.8em 1.8em 0 0em #2b2b2b, -2.6em 0em 0 0em rgba(43,43,43, 0.2), -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    75% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.5), -1.8em 1.8em 0 0em rgba(43,43,43, 0.7), -2.6em 0em 0 0em #2b2b2b, -1.8em -1.8em 0 0em rgba(43,43,43, 0.2);\n    }\n    87.5% {\n      box-shadow: 0em -2.6em 0em 0em rgba(43,43,43, 0.2), 1.8em -1.8em 0 0em rgba(43,43,43, 0.2), 2.5em 0em 0 0em rgba(43,43,43, 0.2), 1.75em 1.75em 0 0em rgba(43,43,43, 0.2), 0em 2.5em 0 0em rgba(43,43,43, 0.2), -1.8em 1.8em 0 0em rgba(43,43,43, 0.5), -2.6em 0em 0 0em rgba(43,43,43, 0.7), -1.8em -1.8em 0 0em #2b2b2b;\n    }\n}\n  \n\u003C\u002Fstyle\u003E\n\n\u003Cheader\u003E\n  \u003Cdiv id="instruction"\u003E\n    \u003Ch2\u003E\n      Spin the spinner or play it safe!\n    \u003C\u002Fh2\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fheader\u003E\n\n\u003Cmain\u003E\n\n  \u003Cdiv style="display: grid; grid-template-columns: 1fr 1fr; width: 50%; margin: 0 auto; grid-column-gap: 50px; min-height: 250px; align-items: center; padding: 10px;" class="info"\u003E\n\n    \u003Cdiv id="gamble_spinner" style="display:grid; align-content: center;"\u003E\n      \u003Cdiv class="spinner" style="display:none;"\u003E\n      \u003C\u002Fdiv\u003E\n      \u003Cdiv id="gamble_info"\u003E\n        \u003Cdiv class="option" id="gamble" style="grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv id="gamble_win" style="height: 100%; display: grid; align-items: center; border-radius: 10px;"\u003E\n              Gain ${parameters.win}\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv id="gamble_lose" style="height: 100%; display: grid; align-items: center; border-radius: 10px;"\u003E\n              Lose ${parameters.lose}\n          \u003C\u002Fdiv\u003E      \n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n\n    \u003Cdiv class="option" id="fixed"\u003E\n     Gain ${parameters.fixed}\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\n  \u003Cdiv class="scoreBoard"\u003E\n    \u003Ch3\u003E Score \u003C\u002Fh3\u003E\n    \u003Cp id="score" class="info"\u003E ${state.score || 500} \u003C\u002Fp\u003E\n  \u003C\u002Fdiv\u003E\n\n  \u003Cdiv id="imageBoard"\u003E\u003C\u002Fdiv\u003E\n\n\n\u003C\u002Fmain\u003E',
                   tardy: true,
                 },
               ],
