@@ -24,20 +24,7 @@ const studyObject = {
     {
       type: 'lab.flow.Sequence',
       files: {},
-      parameters: {
-        rating_question: 'How likely are you to',
-        reference_group: 'peers in your age group',
-        min_rating_value: 0,
-        max_rating_value: 100,
-        nbExperimentalTrials: '20',
-        randomize: 'yes',
-        min_rating_label: 'Not at all',
-        max_rating_label: 'Very likely',
-        rating_question_for_instruction: 'how likely',
-        presentationTimeStatement: '3000',
-        presentationTimeProvidedRating: '3000',
-        presentationTimeITI: '1000',
-      },
+      parameters: {},
       responses: {},
       messageHandlers: {},
       title: 'Rating task',
@@ -93,7 +80,7 @@ const studyObject = {
               'before:prepare': function anonymous() {
                 // construct trials
                 const testParameters = this.options.templateParameters;
-                console.log('testParameters', testParameters);
+                // console.log('testParameters', testParameters);
                 // take the parameters from the outside or fallback to test parameters
                 const initParameters =
                   this.parameters.stimuli || testParameters;
@@ -128,10 +115,7 @@ const studyObject = {
                 const trialConstructor = trial => ({
                   number: trial.number,
                   statement: trial.statement,
-                  providedRating: getRandomIntInclusive(
-                    this.parameters.min_rating_value,
-                    this.parameters.max_rating_value
-                  ),
+                  providedRating: getRandomIntInclusive(1, 100),
                   stage: 'practice',
                 });
 
@@ -165,20 +149,9 @@ const studyObject = {
               title: 'Practice sequence',
               content: [
                 {
-                  type: 'lab.html.Screen',
-                  files: {},
-                  parameters: {},
-                  responses: {},
-                  messageHandlers: {},
-                  title: 'Statement',
-                  content:
-                    '\n\u003Cdiv class="container"\u003E\n  \u003Cmain class="content-horizontal-center\n               content-vertical-center"\n               style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Ch2\u003E${parameters.rating_question}\u003C\u002Fh2\u003E \n      \u003Ch1\u003E${parameters.statement}?\u003C\u002Fh1\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n\n',
-                  timeout: '${parameters.presentationTimeStatement}',
-                },
-                {
                   type: 'lab.html.Form',
                   content:
-                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    \u002F* Number input  *\u002F\n    input[type=number] {\n      font-size: 3rem;\n      text-align: center;\n    }\n\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Ch2\u003E\u003C\u002Fh2\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cinput type="range" name="rating_pre" min=${parameters.min_rating_value} max=${parameters.max_rating_value}  class="slider" id="rating_pre"\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n          \u003Cinput type="number" id="rating_input" value="" min=${parameters.min_rating_value} max=${parameters.max_rating_value} required\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cbutton type="submit"\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n',
+                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    output {\n      display: none;\n      position: absolute;\n      top: -65px;\n      width: 50px;\n      height: 50px;\n      border: 1px solid #e2e2e2;\n      background-color: #fff;\n      border-radius: 30px;\n      color: #1b1717;\n      font-size: 1rem;\n      line-height: 45px;\n      text-align: center;\n    }\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Cdiv\u003E\n          \u003Ch2\u003E${parameters.rating_question}\u003C\u002Fh2\u003E \n          \u003Ch1\u003E ${parameters.statement}?\u003C\u002Fh1\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cdiv style="position:relative;"\u003E\n            \u003Coutput id="rating_input" name="rangeVal"\u003E\u003C\u002Foutput\u003E\n            \u003Cinput type="range" name="rating_pre" min=1 max=100 class="slider" id="rating_pre"\u003E\n          \u003C\u002Fdiv\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cbutton type="submit" id="continue_btn" disabled\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n',
                   files: {},
                   parameters: {},
                   responses: {},
@@ -187,39 +160,117 @@ const studyObject = {
                       document.getElementById('rating_pre').oninput = function(
                         e
                       ) {
-                        e.target.classList.add('visible');
-                        document.getElementById('rating_input').value =
-                          e.target.value;
-                      };
+                        document.getElementById(
+                          'continue_btn'
+                        ).disabled = false;
+                        const target = document.getElementById('rating_pre');
+                        target.classList.add('visible');
+                        const output = document.getElementById('rating_input');
 
-                      document.getElementById(
-                        'rating_input'
-                      ).oninput = function(e) {
-                        document
-                          .getElementById('rating_pre')
-                          .classList.add('visible');
-                        document.getElementById('rating_pre').value =
-                          e.target.value;
+                        const controlMin = target.min;
+                        const controlMax = target.max;
+                        const controlVal = target.value;
+                        const controlThumbWidth = 40;
+
+                        const calculateOffset = (
+                          value,
+                          min,
+                          max,
+                          thumbWidth
+                        ) => {
+                          const range = controlMax - controlMin;
+                          const correction = 2.7 + (-8.2 - 2.7) * (value / 100);
+                          const position =
+                            ((value - min) / range) * 100 + correction;
+                          const offset =
+                            Math.round((thumbWidth * position) / 100) -
+                            thumbWidth / 2;
+                          return `calc(${position}% + ${offset}px)`;
+                        };
+
+                        output.style.left = calculateOffset(
+                          target.value,
+                          controlMin,
+                          controlMax,
+                          controlThumbWidth
+                        );
+                        output.value = controlVal;
+                        output.style.display = 'inline';
                       };
                     },
                   },
                   title: 'Rating 1',
                 },
                 {
-                  type: 'lab.html.Screen',
+                  type: 'lab.html.Form',
+                  content:
+                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: #008B8B; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: #008B8B; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: #008B8B; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    \u002F* Number input  *\u002F\n    input[type=range] {\n      margin: 0;\n    }\n\n    output {\n      display: inline;\n      position: absolute;\n      top: -65px;\n      width: 50px;\n      height: 50px;\n      border: 1px solid #e2e2e2;\n      background-color: #fff;\n      border-radius: 30px;\n      color: #1b1717;\n      font-size: 1rem;\n      line-height: 45px;\n      text-align: center;\n    }\n\n    .outputOthers {\n      display: inline;\n      position: absolute;\n      top: 30px;\n      border-radius: 30px;\n      color: #1b1717;\n      font-size: 1rem;\n      line-height: 45px;\n      text-align: center;\n    }\n\n    i {\n      border: solid #ff0101;\n      border-width: 0 10px 10px 0;\n      display: inline-block;\n      padding: 3px;\n      width: 30px;\n      height: 30px;\n    }\n\n    .up {\n      transform: rotate(-135deg);\n      -webkit-transform: rotate(-135deg);\n    }\n\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Cdiv\u003E\n          \u003Ch2\u003E${parameters.rating_question}\u003C\u002Fh2\u003E \n          \u003Ch1\u003E ${parameters.statement}?\u003C\u002Fh1\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cdiv style="position:relative;"\u003E\n            \u003Coutput id="rating_input" name="rangeVal"\u003E\u003C\u002Foutput\u003E\n            \u003Cinput type="range" name="rating_pre" min=1 max=100 value=${state.rating_pre} class="slider" id="rating_pre" readonly disabled\u003E\n            \u003Cdiv class=outputOthers id="rating_others" name="othersVal"\u003E\n              \u003Ci class="arrow up"\u003E\u003C\u002Fi\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Ch2\u003E${parameters.reference_group.charAt(0).toUpperCase() + parameters.reference_group.substring(1)} have rated: ${parameters.providedRating}\u003C\u002Fh2\u003E\n        \u003Cbutton type="submit"\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n',
                   files: {},
                   parameters: {},
                   responses: {},
-                  messageHandlers: {},
-                  title: 'Provided rating',
-                  content:
-                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: black; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: black; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: black; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  \u002F* Number input  *\u002F\n  input[type=number] {\n    font-size: 3rem;\n    text-align: center;\n    background: #f8f0f1;\n  }\n\n\u003C\u002Fstyle\u003E\n\n\n  \u003Cscript\u003E\n  \n  \u003C\u002Fscript\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Ch2\u003E${parameters.reference_group.charAt(0).toUpperCase() + parameters.reference_group.substring(1)} have rated:\u003C\u002Fh2\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cinput type="range" name="providedRating" min=${parameters.min_rating_value} max=${parameters.max_rating_value}  class="slider" id="providedRating" value=${parameters.providedRating} readonly disabled\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n        \u003Cinput type="number" id="rating_input" value=${parameters.providedRating} min=${parameters.min_rating_value} max=${parameters.max_rating_value}  readonly disabled\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n\n\n',
-                  timeout: '${parameters.presentationTimeProvidedRating}',
+                  messageHandlers: {
+                    run: function anonymous() {
+                      const target = document.getElementById('rating_pre');
+                      const width = target.parentElement.offsetWidth;
+                      const controlMin = target.min;
+                      const controlMax = target.max;
+                      const controlThumbWidth = 40;
+
+                      const output = document.getElementById('rating_input');
+                      const outputOthers = document.getElementById(
+                        'rating_others'
+                      );
+
+                      const calculateOffset = (value, min, max, thumbWidth) => {
+                        const range = controlMax - controlMin;
+                        const correction = 2.7 + (-8.2 - 2.7) * (value / 100);
+                        const position =
+                          ((value - min) / range) * 100 + correction;
+                        const offset =
+                          Math.round((thumbWidth * position) / 100) -
+                          thumbWidth / 2;
+                        return `calc(${position}% + ${offset}px)`;
+                      };
+
+                      const calculateOffsetOthers = (
+                        value,
+                        min,
+                        max,
+                        thumbWidth
+                      ) => {
+                        const range = controlMax - controlMin;
+                        const correction = 2.7 + (-8.2 - 2.7) * (value / 100);
+                        const position =
+                          ((value - min) / range) * 100 + correction;
+                        const offset =
+                          Math.round((thumbWidth * position) / 100) -
+                          thumbWidth / 2 +
+                          10;
+                        return `calc(${position}% + ${offset}px)`;
+                      };
+
+                      output.style.left = calculateOffset(
+                        this.state.rating_pre,
+                        controlMin,
+                        controlMax,
+                        controlThumbWidth
+                      );
+                      output.value = this.state.rating_pre;
+                      outputOthers.style.left = calculateOffsetOthers(
+                        this.parameters.providedRating,
+                        controlMin,
+                        controlMax,
+                        controlThumbWidth
+                      );
+                    },
+                  },
+                  title: 'Rating 1 + others',
+                  tardy: true,
                 },
                 {
                   type: 'lab.html.Form',
                   content:
-                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    \u002F* Number input  *\u002F\n    input[type=number] {\n      font-size: 3rem;\n      text-align: center;\n    }\n\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Ch2\u003EPlease rate again\u003C\u002Fh2\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cinput type="range" name="rating_post" min=${parameters.min_rating_value} max=${parameters.max_rating_value}  class="slider" id="rating_post"\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E \n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n          \u003Cinput type="number" id="rating_input" value="" min=${parameters.min_rating_value} max=${parameters.max_rating_value} required\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cbutton type="submit"\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n\n\n',
+                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    output {\n      display: none;\n      position: absolute;\n      top: -65px;\n      width: 50px;\n      height: 50px;\n      border: 1px solid #e2e2e2;\n      background-color: #fff;\n      border-radius: 30px;\n      color: #1b1717;\n      font-size: 1rem;\n      line-height: 45px;\n      text-align: center;\n    }\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Cdiv\u003E\n          \u003Ch2\u003EPlease rate again\u003C\u002Fh2\u003E\n          \u003Ch2\u003E${parameters.rating_question}\u003C\u002Fh2\u003E \n          \u003Ch1\u003E ${parameters.statement}?\u003C\u002Fh1\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cdiv style="position:relative;"\u003E\n            \u003Coutput id="rating_input" name="rangeVal"\u003E\u003C\u002Foutput\u003E\n            \u003Cinput type="range" name="rating_post" min=1 max=100 class="slider" id="rating_post"\u003E\n          \u003C\u002Fdiv\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cbutton type="submit" id="continue_btn" disabled\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n',
                   files: {},
                   parameters: {},
                   responses: {},
@@ -228,18 +279,42 @@ const studyObject = {
                       document.getElementById('rating_post').oninput = function(
                         e
                       ) {
-                        e.target.classList.add('visible');
-                        document.getElementById('rating_input').value =
-                          e.target.value;
-                      };
-                      document.getElementById(
-                        'rating_input'
-                      ).oninput = function(e) {
-                        document
-                          .getElementById('rating_post')
-                          .classList.add('visible');
-                        document.getElementById('rating_post').value =
-                          e.target.value;
+                        document.getElementById(
+                          'continue_btn'
+                        ).disabled = false;
+                        const target = document.getElementById('rating_post');
+                        target.classList.add('visible');
+                        const output = document.getElementById('rating_input');
+
+                        const controlMin = target.min;
+                        const controlMax = target.max;
+                        const controlVal = target.value;
+                        const controlThumbWidth = 40;
+
+                        const calculateOffset = (
+                          value,
+                          min,
+                          max,
+                          thumbWidth
+                        ) => {
+                          const range = controlMax - controlMin;
+                          const correction = 2.7 + (-8.2 - 2.7) * (value / 100);
+                          const position =
+                            ((value - min) / range) * 100 + correction;
+                          const offset =
+                            Math.round((thumbWidth * position) / 100) -
+                            thumbWidth / 2;
+                          return `calc(${position}% + ${offset}px)`;
+                        };
+
+                        output.style.left = calculateOffset(
+                          target.value,
+                          controlMin,
+                          controlMax,
+                          controlThumbWidth
+                        );
+                        output.value = controlVal;
+                        output.style.display = 'inline';
                       };
                     },
                   },
@@ -798,7 +873,7 @@ const studyObject = {
                 // construct trials
                 const testParameters = this.options.templateParameters;
 
-                console.log('testParameters', testParameters);
+                // console.log('testParameters', testParameters);
 
                 // take the parameters from the outside or fallback to test parameters
                 const initParameters =
@@ -835,10 +910,7 @@ const studyObject = {
                 const trialConstructor = trial => ({
                   number: trial.number,
                   statement: trial.statement,
-                  providedRating: getRandomIntInclusive(
-                    this.parameters.min_rating_value,
-                    this.parameters.max_rating_value
-                  ),
+                  providedRating: getRandomIntInclusive(1, 100),
                   stage: 'experiment',
                 });
 
@@ -872,20 +944,9 @@ const studyObject = {
               title: 'Sequence',
               content: [
                 {
-                  type: 'lab.html.Screen',
-                  files: {},
-                  parameters: {},
-                  responses: {},
-                  messageHandlers: {},
-                  title: 'Statement',
-                  content:
-                    '\n\u003Cdiv class="container"\u003E\n  \u003Cmain class="content-horizontal-center\n               content-vertical-center"\n               style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Ch2\u003E${parameters.rating_question}\u003C\u002Fh2\u003E \n      \u003Ch1\u003E ${parameters.statement}?\u003C\u002Fh1\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n\n',
-                  timeout: '${parameters.presentationTimeStatement}',
-                },
-                {
                   type: 'lab.html.Form',
                   content:
-                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    \u002F* Number input  *\u002F\n    input[type=number] {\n      font-size: 3rem;\n      text-align: center;\n    }\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Ch2\u003E\u003C\u002Fh2\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cinput type="range" name="rating_pre" min=${parameters.min_rating_value} max=${parameters.max_rating_value}  class="slider" id="rating_pre"\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n          \u003Cinput type="number" id="rating_input" value="" min=${parameters.min_rating_value} max=${parameters.max_rating_value} required\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cbutton type="submit"\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n',
+                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    output {\n      display: none;\n      position: absolute;\n      top: -65px;\n      width: 50px;\n      height: 50px;\n      border: 1px solid #e2e2e2;\n      background-color: #fff;\n      border-radius: 30px;\n      color: #1b1717;\n      font-size: 1rem;\n      line-height: 45px;\n      text-align: center;\n    }\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Cdiv\u003E\n          \u003Ch2\u003E${parameters.rating_question}\u003C\u002Fh2\u003E \n          \u003Ch1\u003E ${parameters.statement}?\u003C\u002Fh1\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cdiv style="position:relative;"\u003E\n            \u003Coutput id="rating_input" name="rangeVal"\u003E\u003C\u002Foutput\u003E\n            \u003Cinput type="range" name="rating_pre" min=1 max=100 class="slider" id="rating_pre"\u003E\n          \u003C\u002Fdiv\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cbutton type="submit" id="continue_btn" disabled\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n',
                   files: {},
                   parameters: {},
                   responses: {},
@@ -894,39 +955,117 @@ const studyObject = {
                       document.getElementById('rating_pre').oninput = function(
                         e
                       ) {
-                        e.target.classList.add('visible');
-                        document.getElementById('rating_input').value =
-                          e.target.value;
-                      };
+                        document.getElementById(
+                          'continue_btn'
+                        ).disabled = false;
+                        const target = document.getElementById('rating_pre');
+                        target.classList.add('visible');
+                        const output = document.getElementById('rating_input');
 
-                      document.getElementById(
-                        'rating_input'
-                      ).oninput = function(e) {
-                        document
-                          .getElementById('rating_pre')
-                          .classList.add('visible');
-                        document.getElementById('rating_pre').value =
-                          e.target.value;
+                        const controlMin = target.min;
+                        const controlMax = target.max;
+                        const controlVal = target.value;
+                        const controlThumbWidth = 40;
+
+                        const calculateOffset = (
+                          value,
+                          min,
+                          max,
+                          thumbWidth
+                        ) => {
+                          const range = controlMax - controlMin;
+                          const correction = 2.7 + (-8.2 - 2.7) * (value / 100);
+                          const position =
+                            ((value - min) / range) * 100 + correction;
+                          const offset =
+                            Math.round((thumbWidth * position) / 100) -
+                            thumbWidth / 2;
+                          return `calc(${position}% + ${offset}px)`;
+                        };
+
+                        output.style.left = calculateOffset(
+                          target.value,
+                          controlMin,
+                          controlMax,
+                          controlThumbWidth
+                        );
+                        output.value = controlVal;
+                        output.style.display = 'inline';
                       };
                     },
                   },
                   title: 'Rating 1',
                 },
                 {
-                  type: 'lab.html.Screen',
+                  type: 'lab.html.Form',
+                  content:
+                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: #008B8B; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: #008B8B; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: #008B8B; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    \u002F* Number input  *\u002F\n    input[type=range] {\n      margin: 0;\n    }\n\n    output {\n      display: inline;\n      position: absolute;\n      top: -65px;\n      width: 50px;\n      height: 50px;\n      border: 1px solid #e2e2e2;\n      background-color: #fff;\n      border-radius: 30px;\n      color: #1b1717;\n      font-size: 1rem;\n      line-height: 45px;\n      text-align: center;\n    }\n\n    .outputOthers {\n      display: inline;\n      position: absolute;\n      top: 30px;\n      border-radius: 30px;\n      color: #1b1717;\n      font-size: 1rem;\n      line-height: 45px;\n      text-align: center;\n    }\n\n    i {\n      border: solid #ff0101;\n      border-width: 0 10px 10px 0;\n      display: inline-block;\n      padding: 3px;\n      width: 30px;\n      height: 30px;\n    }\n\n    .up {\n      transform: rotate(-135deg);\n      -webkit-transform: rotate(-135deg);\n    }\n\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Cdiv\u003E\n          \u003Ch2\u003E${parameters.rating_question}\u003C\u002Fh2\u003E \n          \u003Ch1\u003E ${parameters.statement}?\u003C\u002Fh1\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cdiv style="position:relative;"\u003E\n            \u003Coutput id="rating_input" name="rangeVal"\u003E\u003C\u002Foutput\u003E\n            \u003Cinput type="range" name="rating_pre" min=1 max=100 value=${state.rating_pre} class="slider" id="rating_pre" readonly disabled\u003E\n            \u003Cdiv class=outputOthers id="rating_others" name="othersVal"\u003E\n              \u003Ci class="arrow up"\u003E\u003C\u002Fi\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Ch2\u003E${parameters.reference_group.charAt(0).toUpperCase() + parameters.reference_group.substring(1)} have rated: ${parameters.providedRating}\u003C\u002Fh2\u003E\n        \u003Cbutton type="submit"\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n',
                   files: {},
                   parameters: {},
                   responses: {},
-                  messageHandlers: {},
-                  title: 'Provided rating',
-                  content:
-                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: black; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: black; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: black; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  \u002F* Number input  *\u002F\n  input[type=number] {\n    font-size: 3rem;\n    text-align: center;\n  }\n\n\u003C\u002Fstyle\u003E\n\n\n  \n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Ch2\u003E${parameters.reference_group.charAt(0).toUpperCase() + parameters.reference_group.substring(1)} have rated:\u003C\u002Fh2\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cinput type="range" name="providedRating" min=${parameters.min_rating_value} max=${parameters.max_rating_value}  class="slider" id="providedRating" value=${parameters.providedRating} readonly disabled\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n        \u003Cinput type="number" id="rating_input" value=${parameters.providedRating} min=${parameters.min_rating_value} max=${parameters.max_rating_value}  readonly disabled\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n\n\n\u003Cmain\u003E\n\n  \n\n\u003C\u002Fmain\u003E',
-                  timeout: '${parameters.presentationTimeProvidedRating}',
+                  messageHandlers: {
+                    run: function anonymous() {
+                      const target = document.getElementById('rating_pre');
+                      const width = target.parentElement.offsetWidth;
+                      const controlMin = target.min;
+                      const controlMax = target.max;
+                      const controlThumbWidth = 40;
+
+                      const output = document.getElementById('rating_input');
+                      const outputOthers = document.getElementById(
+                        'rating_others'
+                      );
+
+                      const calculateOffset = (value, min, max, thumbWidth) => {
+                        const range = controlMax - controlMin;
+                        const correction = 2.7 + (-8.2 - 2.7) * (value / 100);
+                        const position =
+                          ((value - min) / range) * 100 + correction;
+                        const offset =
+                          Math.round((thumbWidth * position) / 100) -
+                          thumbWidth / 2;
+                        return `calc(${position}% + ${offset}px)`;
+                      };
+
+                      const calculateOffsetOthers = (
+                        value,
+                        min,
+                        max,
+                        thumbWidth
+                      ) => {
+                        const range = controlMax - controlMin;
+                        const correction = 2.7 + (-8.2 - 2.7) * (value / 100);
+                        const position =
+                          ((value - min) / range) * 100 + correction;
+                        const offset =
+                          Math.round((thumbWidth * position) / 100) -
+                          thumbWidth / 2 +
+                          10;
+                        return `calc(${position}% + ${offset}px)`;
+                      };
+
+                      output.style.left = calculateOffset(
+                        this.state.rating_pre,
+                        controlMin,
+                        controlMax,
+                        controlThumbWidth
+                      );
+                      output.value = this.state.rating_pre;
+                      outputOthers.style.left = calculateOffsetOthers(
+                        this.parameters.providedRating,
+                        controlMin,
+                        controlMax,
+                        controlThumbWidth
+                      );
+                    },
+                  },
+                  title: 'Rating 1 + others',
+                  tardy: true,
                 },
                 {
                   type: 'lab.html.Form',
                   content:
-                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    \u002F* Number input  *\u002F\n    input[type=number] {\n      font-size: 3rem;\n      text-align: center;\n    }\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Ch2\u003EPlease rate again\u003C\u002Fh2\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cinput type="range" name="rating_post" min=${parameters.min_rating_value} max=${parameters.max_rating_value}  class="slider" id="rating_post"\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E \n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n          \u003Cinput type="number" id="rating_input" value="" min=${parameters.min_rating_value} max=${parameters.max_rating_value} required\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cbutton type="submit"\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n\n\n',
+                    '\u003Cstyle\u003E\n\n  .slidecontainer {\n      width: 100%; \u002F* Width of the outside container *\u002F\n      margin: 0 auto; \u002F* Put in the middle *\u002F\n      display: grid; \n      grid-row-gap: 20px;\n      padding-top: 50px;\n  }\n  \u002F* The slider itself *\u002F\n  .slider {\n      -webkit-appearance: none;  \u002F* Override default CSS styles *\u002F\n      appearance: none;\n      width: 100%; \u002F* Full-width *\u002F\n      height: 15px; \u002F* Specified height *\u002F\n      border-radius: 5px;\n      background: linear-gradient( to right, #f78d8d 0%, #8ff591 100%);\n      outline: none; \u002F* Remove outline *\u002F\n      opacity: 0.7; \u002F* Set transparency (for mouse-over effects on hover) *\u002F\n      -webkit-transition: .2s; \u002F* 0.2 seconds transition on hover *\u002F\n      transition: opacity .2s;\n  }\n\n  \u002F* Mouse-over effects *\u002F\n  .slider:hover {\n      opacity: 1; \u002F* Fully shown on mouse-over *\u002F\n  }\n\n  \u002F* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) *\u002F\n  .slider::-webkit-slider-thumb {\n      -webkit-appearance: none; \u002F* Override default look *\u002F\n      appearance: none;\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-moz-range-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  .slider::-ms-thumb {\n      width: 40px; \u002F* Set a specific slider handle width *\u002F\n      height: 40px; \u002F* Slider handle height *\u002F\n      border-radius: 50%; \n      background: transparent; \u002F* Green background *\u002F\n      cursor: pointer; \u002F* Cursor on hover *\u002F\n      border: 1px solid transparent;\n  }\n\n  \u002F* Special styling for WebKit\u002FBlink *\u002F\n    input.visible[type=range]::-webkit-slider-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for Firefox *\u002F\n    input.visible[type=range]::-moz-range-thumb {\n      background: #008B8B;\n    }\n    \u002F* All the same stuff for IE *\u002F\n    input.visible[type=range]::-ms-thumb {\n      background: #008B8B;\n    }\n\n    output {\n      display: none;\n      position: absolute;\n      top: -65px;\n      width: 50px;\n      height: 50px;\n      border: 1px solid #e2e2e2;\n      background-color: #fff;\n      border-radius: 30px;\n      color: #1b1717;\n      font-size: 1rem;\n      line-height: 45px;\n      text-align: center;\n    }\n\u003C\u002Fstyle\u003E\n\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E \n        \u003Cdiv\u003E\n          \u003Ch2\u003EPlease rate again\u003C\u002Fh2\u003E\n          \u003Ch2\u003E${parameters.rating_question}\u003C\u002Fh2\u003E \n          \u003Ch1\u003E ${parameters.statement}?\u003C\u002Fh1\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cdiv class="slidecontainer"\u003E\n          \u003Cdiv style="position:relative;"\u003E\n            \u003Coutput id="rating_input" name="rangeVal"\u003E\u003C\u002Foutput\u003E\n            \u003Cinput type="range" name="rating_post" min=1 max=100 class="slider" id="rating_post"\u003E\n          \u003C\u002Fdiv\u003E\n          \u003Cdiv style="display:grid; grid-template-columns: 1fr 1fr;"\u003E\n            \u003Cdiv style="display:grid; justify-content: start;"\u003E\n              \u003Ch2\u003E\n                ${parameters.min_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n            \u003Cdiv style="display:grid; justify-content: end;"\u003E\n              \u003Ch2\u003E\n                ${parameters.max_rating_label}\n              \u003C\u002Fh2\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E \n        \u003C\u002Fdiv\u003E\n        \u003Cdiv\u003E\n        \u003C\u002Fdiv\u003E\n        \u003Cbutton type="submit" id="continue_btn" disabled\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n',
                   files: {},
                   parameters: {},
                   responses: {},
@@ -935,18 +1074,42 @@ const studyObject = {
                       document.getElementById('rating_post').oninput = function(
                         e
                       ) {
-                        e.target.classList.add('visible');
-                        document.getElementById('rating_input').value =
-                          e.target.value;
-                      };
-                      document.getElementById(
-                        'rating_input'
-                      ).oninput = function(e) {
-                        document
-                          .getElementById('rating_post')
-                          .classList.add('visible');
-                        document.getElementById('rating_post').value =
-                          e.target.value;
+                        document.getElementById(
+                          'continue_btn'
+                        ).disabled = false;
+                        const target = document.getElementById('rating_post');
+                        target.classList.add('visible');
+                        const output = document.getElementById('rating_input');
+
+                        const controlMin = target.min;
+                        const controlMax = target.max;
+                        const controlVal = target.value;
+                        const controlThumbWidth = 40;
+
+                        const calculateOffset = (
+                          value,
+                          min,
+                          max,
+                          thumbWidth
+                        ) => {
+                          const range = controlMax - controlMin;
+                          const correction = 2.7 + (-8.2 - 2.7) * (value / 100);
+                          const position =
+                            ((value - min) / range) * 100 + correction;
+                          const offset =
+                            Math.round((thumbWidth * position) / 100) -
+                            thumbWidth / 2;
+                          return `calc(${position}% + ${offset}px)`;
+                        };
+
+                        output.style.left = calculateOffset(
+                          target.value,
+                          controlMin,
+                          controlMax,
+                          controlThumbWidth
+                        );
+                        output.value = controlVal;
+                        output.style.display = 'inline';
                       };
                     },
                   },

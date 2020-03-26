@@ -2,24 +2,40 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import Router from 'next/router';
 import { Query, Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 import { ExperimentWindow } from '../../Labjs/index';
 import { StyledBox } from './styles';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import { ADD_RESULT_MUTATION } from '../../Results/Add/index';
 import { REVIEW_EXPERIMENT_QUERY } from '../Review/index';
 
+// write a query here, later refactor it in a separate file if it is used elsewhere
+const CUSTOM_PARAMETER_QUERY = gql`
+  query CUSTOM_PARAMETER_QUERY($id: ID!) {
+    parameter(where: { id: $id }) {
+      id
+      title
+      data
+      updatedAt
+      experiment {
+        title
+        id
+      }
+    }
+  }
+`;
+
 class RunExperiment extends Component {
   render() {
-    const { experimentId } = this.props;
+    const { id } = this.props;
     return (
-      <Query query={REVIEW_EXPERIMENT_QUERY} variables={{ id: experimentId }}>
+      <Query query={CUSTOM_PARAMETER_QUERY} variables={{ id }}>
         {({ error, loading, data }) => {
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
-          if (!data.experiment)
-            return <p>No experiment found for {experimentId}</p>;
-          const exp = data.experiment;
-          console.log('exp', exp);
+          if (!data.parameter) return <p>No experiment found for {id}</p>;
+          const { parameter } = data;
+          // console.log('parameter', parameter);
           return (
             <>
               <Head>
@@ -28,27 +44,17 @@ class RunExperiment extends Component {
               <StyledBox>
                 <Mutation
                   mutation={ADD_RESULT_MUTATION}
-                  variables={{ experimentId }}
+                  variables={{ experimentId: parameter.experiment.id }}
                   refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
                 >
                   {addResult => (
                     <ExperimentWindow
                       settings={{
-                        script: exp.title,
-                        params: {
-                          rating_question: 'How likely are you to',
-                          reference_group: 'peers in your age group',
-                          min_rating_value: 0,
-                          max_rating_value: 100,
-                          nbExperimentalTrials: '20',
-                          randomize: 'yes',
-                          min_rating_label: 'Not at all',
-                          max_rating_label: 'Very likely',
-                          rating_question_for_instruction: 'how likely',
-                          presentationTimeStatement: '3000',
-                          presentationTimeProvidedRating: '3000',
-                          presentationTimeITI: '1000',
-                        },
+                        script: parameter.experiment.title,
+                        params: parameter.data.reduce((obj, item) => {
+                          obj[item.name] = item.value;
+                          return obj;
+                        }, {}),
                         eventCallback: e => {
                           console.log('Event callback', e);
                         },
@@ -71,3 +77,4 @@ class RunExperiment extends Component {
 }
 
 export default RunExperiment;
+export { CUSTOM_PARAMETER_QUERY };

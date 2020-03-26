@@ -1,4 +1,4 @@
-import UpdateExperiment from '../../components/UpdateExperiment/index';
+import UpdateExperiment from '../../components/Experiment/Edit/index';
 import { PageOnlyForScientists } from '../../components/Permissions/Scientist/index';
 import Page from '../../components/Page/index';
 

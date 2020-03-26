@@ -40,21 +40,7 @@ const studyObject = {
         'dashboard.png': `${assetsDirectory}/2084e91d4dfd531fbbe8cd641f541541042abc6d1596b6a3123991e25bd65bfa.png`,
         'question.png': `${assetsDirectory}/ffe2fc3825b40cad0ed08ec7af0ba092d92e1bdeb39d465327327e87c1dd4246.png`,
       },
-      parameters: {
-        incrementImageFeedbackStep: 50,
-        rannomize: 'yes',
-        question: 'How happy are you right now?',
-        min_rating_label: 'Very unhappy',
-        max_rating_label: 'Very happy',
-        min_rating_value: 0,
-        max_rating_value: 100,
-        welcome_text:
-          'See how good you are at making decisions by winning as many points as you can. At the same time, help scientists study happiness by reporting how you feel during the game.',
-        starting_points: 500,
-        instructions_question:
-          'Help us study happiness. When asked how you feel, move the slider to the right when you feel happy and to the left when you feel unhappy. Mark exactly how you feel at that moment.',
-        whenShowQuestion: 3,
-      },
+      parameters: {},
       responses: {},
       messageHandlers: {},
       title: 'Risk-taking task',

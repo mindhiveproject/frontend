@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import Link from 'next/link';
 import { Center, ExperimentsList } from './styles';
-import ExperimentCard from '../ExperimentCard/index';
+import ExperimentCard from '../../ExperimentCard/index';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const ALL_EXPERIMENTS_QUERY = gql`
@@ -23,6 +24,28 @@ class Experiments extends Component {
   render() {
     return (
       <Center>
+        <Link
+          href={{
+            pathname: '/bank/custom',
+          }}
+        >
+          <a>
+            <button>
+              <h2>All custom experiments</h2>
+            </button>
+          </a>
+        </Link>
+        <Link
+          href={{
+            pathname: '/bank/mycustom',
+          }}
+        >
+          <a>
+            <button>
+              <h2>My experiments</h2>
+            </button>
+          </a>
+        </Link>
         <h1>Experiments</h1>
         <Query query={ALL_EXPERIMENTS_QUERY}>
           {({ data, error, loading }) => {

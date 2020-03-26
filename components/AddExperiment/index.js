@@ -4,6 +4,8 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { SignForm } from '../Styles/Forms';
 import Error from '../ErrorMessage/index';
+import { parameters_rating } from '../Labjs/protocols/rating';
+import { parameters_risktaking } from '../Labjs/protocols/risktaking';
 
 const CREATE_NEW_EXPERIMENT = gql`
   mutation CREATE_NEW_EXPERIMENT(
@@ -11,12 +13,14 @@ const CREATE_NEW_EXPERIMENT = gql`
     $description: String!
     $image: String
     $largeImage: String
+    $parameters: Json
   ) {
     createExperiment(
       title: $title
       description: $description
       image: $image
       largeImage: $largeImage
+      parameters: $parameters
     ) {
       id
     }
@@ -29,6 +33,7 @@ class AddExperiment extends Component {
     description: 'Test description',
     image: 'Test image',
     largeImage: 'Test large image',
+    parameters: [],
   };
 
   handleChange = e => {
@@ -37,6 +42,16 @@ class AddExperiment extends Component {
     this.setState({
       [name]: value,
     });
+    if (value === 'Risk taking task') {
+      this.setState({
+        parameters: parameters_risktaking,
+      });
+    }
+    if (value === 'Rating task') {
+      this.setState({
+        parameters: parameters_rating,
+      });
+    }
   };
 
   render() {

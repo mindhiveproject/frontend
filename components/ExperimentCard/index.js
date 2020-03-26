@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import { StyledExperimentCard } from './styles';
+import { StyledExperimentCard, StyledCardButtonsContainer } from './styles';
 
 import DeleteExperiment from '../Experiment/Delete/index';
 
@@ -37,6 +37,10 @@ class ExperimentCard extends Component {
           </a>
         </Link>
 
+        <ContainerOnlyForNoProfile>
+          <TokenSignup redirect={experiment.id} />
+        </ContainerOnlyForNoProfile>
+
         <ContainerOnlyForScientists>
           <Link
             href={{
@@ -45,28 +49,36 @@ class ExperimentCard extends Component {
             }}
           >
             <a>
-              <h2>Edit</h2>
+              <h2>Change</h2>
             </a>
           </Link>
           <DeleteExperiment id={experiment.id}>Delete</DeleteExperiment>
         </ContainerOnlyForScientists>
 
-        <ContainerOnlyForProfile>
-          <Link
-            href={{
-              pathname: '/exp/run',
-              query: { id: experiment.id },
-            }}
-          >
-            <a>
-              <h2>Run</h2>
-            </a>
-          </Link>
-        </ContainerOnlyForProfile>
-
-        <ContainerOnlyForNoProfile>
-          <TokenSignup redirect={experiment.id} />
-        </ContainerOnlyForNoProfile>
+        <StyledCardButtonsContainer>
+          <ContainerOnlyForProfile>
+            <Link
+              href={{
+                pathname: '/exp/run',
+                query: { id: experiment.id },
+              }}
+            >
+              <a>
+                <h2>Run</h2>
+              </a>
+            </Link>
+            <Link
+              href={{
+                pathname: '/bank/customize',
+                query: { id: experiment.id },
+              }}
+            >
+              <a>
+                <h2>Edit</h2>
+              </a>
+            </Link>
+          </ContainerOnlyForProfile>
+        </StyledCardButtonsContainer>
       </StyledExperimentCard>
     );
   }

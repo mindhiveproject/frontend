@@ -4,9 +4,7 @@ export const StyledExperimentCard = styled.div`
   background: white;
   border: 1px solid ${props => props.theme.offWhite};
   box-shadow: ${props => props.theme.bs};
-  position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   img {
     width: 100%;
     height: 400px;
@@ -16,7 +14,6 @@ export const StyledExperimentCard = styled.div`
     font-size: 12px;
     line-height: 2;
     font-weight: 400;
-    flex-grow: 1;
     padding: 0 3rem;
     font-size: 1.5rem;
   }
@@ -34,4 +31,12 @@ export const StyledExperimentCard = styled.div`
       padding: 1rem;
     }
   }
+`;
+
+export const StyledCardButtonsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  border: 1px solid #eef4fb;
+  align-self: end;
 `;
