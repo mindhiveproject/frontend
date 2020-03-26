@@ -6,6 +6,7 @@ import Error from '../../ErrorMessage/index';
 import { StyledParameterForm } from '../../Styles/Forms';
 import { StyledParameterBlock } from './styles';
 import { MY_PARAMETERS_QUERY } from '../../Experiments/Custom/my';
+import { ALL_PARAMETERS_QUERY } from '../../Experiments/Custom/index';
 import { parameters_rating } from '../../Labjs/protocols/rating';
 import { parameters_risktaking } from '../../Labjs/protocols/risktaking';
 
@@ -97,7 +98,10 @@ class ParameterForm extends Component {
       <Mutation
         mutation={CREATE_PARAMETER}
         variables={this.state}
-        refetchQueries={[{ query: MY_PARAMETERS_QUERY }]}
+        refetchQueries={[
+          { query: MY_PARAMETERS_QUERY },
+          { query: ALL_PARAMETERS_QUERY },
+        ]}
       >
         {(createParameter, { loading, error }) => {
           console.log('ready', this.state);
