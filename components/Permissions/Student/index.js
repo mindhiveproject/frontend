@@ -10,7 +10,7 @@ export const ContainerOnlyForStudents = props => (
       if (loading) return <p>Loading ... </p>;
       console.log('data', data);
       if (!data.me || !data.me.permissions.includes('STUDENT')) {
-        return <div></div>;
+        return false;
       }
       return props.children;
     }}

@@ -41,14 +41,6 @@ const Nav = () => (
             </Link>
           </>
         )}
-
-        {!me && (
-          <>
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
-          </>
-        )}
       </NavStyles>
     )}
   </User>

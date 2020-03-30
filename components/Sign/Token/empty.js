@@ -22,7 +22,7 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-class TokenSignup extends Component {
+class EmptyTokenSignup extends Component {
   state = {
     username: generate().dashed,
     token: uniqid(),
@@ -50,10 +50,10 @@ class TokenSignup extends Component {
               const res = await tokenSignUp();
               console.log('res', res);
               this.setState({ username: '', token: '', email: '' });
-              if (this.props.redirect) {
+              if (this.props.experiment.id) {
                 Router.push({
-                  pathname: '/exp/run',
-                  query: { id: this.props.redirect },
+                  pathname: '/e',
+                  query: { id: this.props.experiment.id },
                 });
               } else {
                 Router.push({
@@ -94,7 +94,9 @@ class TokenSignup extends Component {
                   onChange={this.saveToState}
                 />
               </label>
-              <button type="submit">Sign up</button>
+              <button type="submit">
+                Participate in {this.props.experiment.title}
+              </button>
             </fieldset>
           </TokenForm>
         )}
@@ -103,4 +105,4 @@ class TokenSignup extends Component {
   }
 }
 
-export default TokenSignup;
+export default EmptyTokenSignup;

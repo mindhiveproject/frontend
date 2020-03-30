@@ -4,18 +4,7 @@ import gql from 'graphql-tag';
 import styled from 'styled-components';
 import moment from 'moment';
 import Link from 'next/link';
-import { Center, ExperimentsList } from './styles';
-import DeleteCustomExperiment from '../../Experiment/CustomDelete/index';
-import ExperimentCard from '../../ExperimentCard/index';
-
-const StyledCustomExperimentLine = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
-  grid-column-gap: 20px;
-  border: 1px solid grey;
-  padding: 10px;
-  align-items: center;
-`;
+import { Center, ExperimentsList, StyledCustomExperimentLine } from './styles';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const ALL_PARAMETERS_QUERY = gql`
@@ -51,8 +40,29 @@ class CustomExperiments extends Component {
               <ExperimentsList>
                 {data.parameters.map(parameter => (
                   <StyledCustomExperimentLine key={parameter.id}>
-                    <h1>{parameter.title}</h1>
+                    <Link
+                      href={{
+                        pathname: '/custom',
+                        query: { id: parameter.id },
+                      }}
+                    >
+                      <a>
+                        <h1>{parameter.title}</h1>
+                      </a>
+                    </Link>
                     <p>{moment(parameter.updatedAt).fromNow()}</p>
+                    <Link
+                      href={{
+                        pathname: '/custom',
+                        query: { id: parameter.id },
+                      }}
+                    >
+                      <button>
+                        <a>
+                          <h2>Go to experiment page</h2>
+                        </a>
+                      </button>
+                    </Link>
                     <Link
                       href={{
                         pathname: '/e',
@@ -61,25 +71,10 @@ class CustomExperiments extends Component {
                     >
                       <button>
                         <a>
-                          <h2>Run experiment</h2>
+                          <h2>Participate in experiment</h2>
                         </a>
                       </button>
                     </Link>
-                    <Link
-                      href={{
-                        pathname: '/edit',
-                        query: { id: parameter.id },
-                      }}
-                    >
-                      <button>
-                        <a>
-                          <h2>Edit experiment</h2>
-                        </a>
-                      </button>
-                    </Link>
-                    <DeleteCustomExperiment id={parameter.id}>
-                      Delete
-                    </DeleteCustomExperiment>
                   </StyledCustomExperimentLine>
                 ))}
               </ExperimentsList>

@@ -7,7 +7,7 @@ export const ContainerOnlyForScientists = props => (
       if (loading) return <p>Loading ... </p>;
       console.log('data', data);
       if (!data.me || !data.me.permissions.includes('SCIENTIST')) {
-        return <div></div>;
+        return false;
       }
       return props.children;
     }}

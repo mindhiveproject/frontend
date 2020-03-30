@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Page from '../components/Page/index';
-import Onboarding from '../components/Onboarding/index';
+import Main from '../components/Main/index';
 
 const Home = props => (
   <Page>
-    <Onboarding />
+    <Main />
   </Page>
 );
 

@@ -13,6 +13,7 @@ const REVIEW_EXPERIMENT_QUERY = gql`
       title
       description
       largeImage
+      parameters
     }
   }
 `;

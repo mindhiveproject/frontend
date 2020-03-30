@@ -10,9 +10,11 @@ import {
   CloseButton,
   DashboardButton,
   DashboardTable,
+  StyledProfilePicture,
 } from './styles';
 import ResultPane from '../Results/Pane/index';
 import Signout from '../Signout/index';
+import { ContainerOnlyForStudents } from '../Permissions/Student/index';
 
 // use @client to look at only client (and do not check the server )
 const LOCAL_STATE_QUERY = gql`
@@ -43,7 +45,6 @@ class Dashboard extends Component {
         {({ user, toggleDashboard, localState }) => {
           if (!user.data) return null;
           const { me } = user.data;
-          // console.log('me', me);
           if (!me) return null;
           return (
             <CartStyles open={localState.data.dashboardOpen}>
@@ -53,48 +54,43 @@ class Dashboard extends Component {
                 </CloseButton>
                 <Supreme>{me.username}'s dashboard</Supreme>
 
-                <DashboardTable>
-                  <div>
+                <ContainerOnlyForStudents>
+                  <StyledProfilePicture>
+                    <img src={me.image} height="200px" alt="" />
+                  </StyledProfilePicture>
+                  <DashboardTable>
                     <h3>Your classes</h3>
-                    <ul>
-                      {me.studentIn.map(schoolclass => (
-                        <div key={schoolclass.id}>
-                          <Link
-                            href={{
-                              pathname: '/class',
-                              query: { id: schoolclass.id },
-                            }}
-                          >
-                            <a>{schoolclass.title}</a>
-                          </Link>
-                        </div>
-                      ))}
-                    </ul>
-                    <ul>
-                      {me.info &&
-                        me.info.interests
-                          .filter(i => !i.startsWith('other'))
-                          .map(i => <li key={i}>{i}</li>)}
-                      <li>{me.info && me.info.other1}</li>
-                      <li>{me.info && me.info.other2}</li>
-                      <li>{me.info && me.info.other3}</li>
-                      <li>{me.info && me.info.other4}</li>
-                    </ul>
-                  </div>
-
-                  <img src={me.image} height="200px" alt="" />
-                </DashboardTable>
-
-                <Link
-                  href={{
-                    pathname: '/res/my',
-                  }}
-                >
-                  <a>
-                    <DashboardButton>See my results</DashboardButton>
-                  </a>
-                </Link>
-
+                    <div>
+                      <ul>
+                        {me.studentIn.map(schoolclass => (
+                          <div key={schoolclass.id}>
+                            <Link
+                              href={{
+                                pathname: '/class',
+                                query: { id: schoolclass.id },
+                              }}
+                            >
+                              <a>{schoolclass.title}</a>
+                            </Link>
+                          </div>
+                        ))}
+                      </ul>
+                    </div>
+                  </DashboardTable>
+                  <p>
+                    You have {me.results.length} result
+                    {me.results.length === 1 ? '' : 's'}{' '}
+                  </p>
+                  <Link
+                    href={{
+                      pathname: '/res/my',
+                    }}
+                  >
+                    <a>
+                      <DashboardButton>See my results</DashboardButton>
+                    </a>
+                  </Link>
+                </ContainerOnlyForStudents>
                 {false && (
                   <>
                     <p>You are {me.permissions}</p>
@@ -102,15 +98,6 @@ class Dashboard extends Component {
                       You have {me.results.length} result
                       {me.results.length === 1 ? '' : 's'}{' '}
                     </p>
-                    <Link
-                      href={{
-                        pathname: '/res/my',
-                      }}
-                    >
-                      <a>
-                        <DashboardButton>See my results</DashboardButton>
-                      </a>
-                    </Link>
                     <ul>
                       {me.results.map(result => (
                         <ResultPane key={result.id} result={result} />

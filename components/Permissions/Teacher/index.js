@@ -7,7 +7,7 @@ export const ContainerOnlyForTeachers = props => (
       if (loading) return <p>Loading ... </p>;
       // console.log('data', data);
       if (!data.me || !data.me.permissions.includes('TEACHER')) {
-        return <div></div>;
+        return false;
       }
       return props.children;
     }}

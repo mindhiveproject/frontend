@@ -100,4 +100,14 @@ export const DashboardTable = styled.div`
   padding: 10px;
   display: grid;
   grid-template-columns: 1fr auto;
+  align-items: center;
+  a {
+    border-bottom: 5px solid orange;
+  }
+`;
+
+export const StyledProfilePicture = styled.div`
+  padding: 10px;
+  display: grid;
+  justify-content: center;
 `;

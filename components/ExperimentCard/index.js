@@ -11,7 +11,7 @@ import { ContainerOnlyForStudents } from '../Permissions/Student/index';
 import { ContainerOnlyForNoProfile } from '../Permissions/NoProfile/index';
 import { ContainerOnlyForProfile } from '../Permissions/Profile/index';
 
-import TokenSignup from '../Sign/Token/index';
+import HiddenTokenSignup from '../Sign/Token/hidden';
 
 class ExperimentCard extends Component {
   // prop types https://reactjs.org/docs/typechecking-with-proptypes.html
@@ -37,10 +37,6 @@ class ExperimentCard extends Component {
           </a>
         </Link>
 
-        <ContainerOnlyForNoProfile>
-          <TokenSignup redirect={experiment.id} />
-        </ContainerOnlyForNoProfile>
-
         <ContainerOnlyForScientists>
           <Link
             href={{
@@ -56,6 +52,9 @@ class ExperimentCard extends Component {
         </ContainerOnlyForScientists>
 
         <StyledCardButtonsContainer>
+          <ContainerOnlyForNoProfile>
+            <HiddenTokenSignup redirect={experiment.id} />
+          </ContainerOnlyForNoProfile>
           <ContainerOnlyForProfile>
             <Link
               href={{
@@ -64,9 +63,11 @@ class ExperimentCard extends Component {
               }}
             >
               <a>
-                <h2>Run</h2>
+                <h2>Participate</h2>
               </a>
             </Link>
+          </ContainerOnlyForProfile>
+          <ContainerOnlyForStudents>
             <Link
               href={{
                 pathname: '/bank/customize',
@@ -77,7 +78,7 @@ class ExperimentCard extends Component {
                 <h2>Edit</h2>
               </a>
             </Link>
-          </ContainerOnlyForProfile>
+          </ContainerOnlyForStudents>
         </StyledCardButtonsContainer>
       </StyledExperimentCard>
     );

@@ -11,3 +11,8 @@ export const ExperimentsList = styled.div`
   max-width: ${props => props.theme.maxWidth};
   margin: 0 auto;
 `;
+
+export const StyledLink = styled.span`
+  border-bottom: 5px solid orange;
+  cursor: pointer;
+`;

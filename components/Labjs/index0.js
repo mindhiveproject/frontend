@@ -9,6 +9,8 @@ import faceshouses from './scripts/faceshouses';
 import rating from './scripts/rating';
 import risk from './scripts/risktaking';
 
+const study;
+
 class ExperimentWindow extends Component {
   constructor(props) {
     super(props);
@@ -78,6 +80,8 @@ class ExperimentWindow extends Component {
   }
 
   componentWillUnmount() {
+    console.log('Closing the experiment');
+    debugger;
     try {
       if (this.study) {
         this.study.internals.controller.audioContext.close();

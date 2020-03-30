@@ -7,7 +7,7 @@ export const ContainerOnlyForNoProfile = props => (
       if (loading) return <p>Loading ... </p>;
       // console.log('data', data);
       if (data.me) {
-        return <div></div>;
+        return false;
       }
       return props.children;
     }}

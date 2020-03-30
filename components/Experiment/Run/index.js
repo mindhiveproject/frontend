@@ -35,20 +35,10 @@ class RunExperiment extends Component {
                     <ExperimentWindow
                       settings={{
                         script: exp.title,
-                        params: {
-                          rating_question: 'How likely are you to',
-                          reference_group: 'peers in your age group',
-                          min_rating_value: 0,
-                          max_rating_value: 100,
-                          nbExperimentalTrials: '20',
-                          randomize: 'yes',
-                          min_rating_label: 'Not at all',
-                          max_rating_label: 'Very likely',
-                          rating_question_for_instruction: 'how likely',
-                          presentationTimeStatement: '3000',
-                          presentationTimeProvidedRating: '3000',
-                          presentationTimeITI: '1000',
-                        },
+                        params: exp.parameters.reduce((obj, item) => {
+                          obj[item.name] = item.value;
+                          return obj;
+                        }, {}),
                         eventCallback: e => {
                           console.log('Event callback', e);
                         },

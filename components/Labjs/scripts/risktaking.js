@@ -408,6 +408,11 @@ const studyObject = {
                   responses: {},
                   messageHandlers: {
                     'before:prepare': function anonymous() {
+                      console.log(
+                        'debug',
+                        this.state.score,
+                        this.parameters.starting_points
+                      );
                       const preScore =
                         this.state.score || this.parameters.starting_points;
                       let waitingForChoice = true;

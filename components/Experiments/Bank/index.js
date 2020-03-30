@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Link from 'next/link';
-import { Center, ExperimentsList } from './styles';
+import { Center, ExperimentsList, StyledLink } from './styles';
 import ExperimentCard from '../../ExperimentCard/index';
+import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
+import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
+import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
+import TokenSignup from '../../Sign/Token/index';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const ALL_EXPERIMENTS_QUERY = gql`
@@ -24,28 +28,47 @@ class Experiments extends Component {
   render() {
     return (
       <Center>
-        <Link
-          href={{
-            pathname: '/bank/custom',
-          }}
-        >
-          <a>
-            <button>
-              <h2>All custom experiments</h2>
-            </button>
-          </a>
-        </Link>
-        <Link
-          href={{
-            pathname: '/bank/mycustom',
-          }}
-        >
-          <a>
-            <button>
-              <h2>My experiments</h2>
-            </button>
-          </a>
-        </Link>
+        <ContainerOnlyForProfile>
+          <Link
+            href={{
+              pathname: '/bank/custom',
+            }}
+          >
+            <a>
+              <button>
+                <h2>All custom experiments</h2>
+              </button>
+            </a>
+          </Link>
+        </ContainerOnlyForProfile>
+        <ContainerOnlyForStudents>
+          <Link
+            href={{
+              pathname: '/bank/mycustom',
+            }}
+          >
+            <a>
+              <button>
+                <h2>My experiments</h2>
+              </button>
+            </a>
+          </Link>
+        </ContainerOnlyForStudents>
+        <ContainerOnlyForNoProfile>
+          <TokenSignup />
+          <h3>
+            Have you already signed up as a participant? Then just
+            <Link
+              href={{
+                pathname: '/login/token',
+              }}
+            >
+              <StyledLink> login here </StyledLink>
+            </Link>
+            with your username.
+          </h3>
+        </ContainerOnlyForNoProfile>
+
         <h1>Experiments</h1>
         <Query query={ALL_EXPERIMENTS_QUERY}>
           {({ data, error, loading }) => {

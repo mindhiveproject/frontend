@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Link from 'next/link';
+import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
 const TOKEN_LOGIN_MUTATION = gql`
-  mutation TOKEN_LOGIN_MUTATION($token: String!) {
-    tokenLogin(token: $token) {
+  mutation TOKEN_LOGIN_MUTATION($username: String!) {
+    tokenLogin(username: $username) {
       id
       username
       permissions
@@ -18,7 +19,7 @@ const TOKEN_LOGIN_MUTATION = gql`
 
 class TokenLogin extends Component {
   state = {
-    token: '',
+    username: '',
   };
 
   saveToState = e => {
@@ -33,7 +34,7 @@ class TokenLogin extends Component {
         <Mutation
           mutation={TOKEN_LOGIN_MUTATION}
           variables={this.state}
-          refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+          refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
         >
           {(tokenLogin, { error, loading }) => (
             <SignForm
@@ -42,23 +43,26 @@ class TokenLogin extends Component {
                 e.preventDefault();
                 const res = await tokenLogin();
                 console.log('res', res);
-                this.setState({ token: '' });
+                this.setState({ username: '' });
+                Router.push({
+                  pathname: '/bank',
+                });
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
-                <h3>Login</h3>
+                <h3>Login for participants</h3>
                 <Error error={error} />
-                <label htmlFor="token">
-                  Token
+                <label htmlFor="username">
+                  Username
                   <input
                     type="text"
-                    name="token"
-                    placeholder="token"
-                    value={this.state.token}
+                    name="username"
+                    placeholder="username"
+                    value={this.state.username}
                     onChange={this.saveToState}
                   />
                 </label>
-                <button type="submit">Login with token</button>
+                <button type="submit">Log in</button>
               </fieldset>
             </SignForm>
           )}

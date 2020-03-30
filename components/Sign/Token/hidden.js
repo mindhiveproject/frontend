@@ -63,7 +63,6 @@ class TokenSignup extends Component {
             }}
           >
             <fieldset disabled={loading} aria-busy={loading}>
-              <h3>Sign up as a participant</h3>
               <Error error={error} />
               <label htmlFor="token">
                 <input
@@ -76,25 +75,25 @@ class TokenSignup extends Component {
                 />
               </label>
               <label htmlFor="username">
-                Username
                 <input
                   type="text"
                   name="username"
                   placeholder="username"
                   value={this.state.username}
                   onChange={this.saveToState}
+                  hidden
                 />
               </label>
               <label htmlFor="username">
-                Email
                 <input
                   type="text"
                   name="email"
                   value={this.state.email}
                   onChange={this.saveToState}
+                  hidden
                 />
               </label>
-              <button type="submit">Sign up</button>
+              <button type="submit">Start</button>
             </fieldset>
           </TokenForm>
         )}

@@ -35,7 +35,7 @@ export const StyledExperimentCard = styled.div`
 
 export const StyledCardButtonsContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   justify-items: center;
   border: 1px solid #eef4fb;
   align-self: end;
