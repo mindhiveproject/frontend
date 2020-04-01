@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
 import Error from '../../ErrorMessage/index';
+import ExperimentPage from '../../ExperimentPage/index';
 
 import { StyledExperiment } from './styles';
 
@@ -28,15 +29,7 @@ class ReviewExperiment extends Component {
           if (!data.experiment)
             return <p>No experiment found for {this.props.id}</p>;
           const exp = data.experiment;
-          return (
-            <StyledExperiment>
-              <Head>
-                <title>mindHIVE | {exp.title}</title>
-              </Head>
-              <h2>{exp.title}</h2>
-              <p>{exp.description}</p>
-            </StyledExperiment>
-          );
+          return <ExperimentPage exp={exp} />;
         }}
       </Query>
     );

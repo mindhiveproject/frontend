@@ -10,15 +10,13 @@ const Nav = () => (
   <User>
     {({ data: { me } }) => (
       <NavStyles>
-        <Link href="/onboarding">
-          <a>Onboarding</a>
+        <Link href="/bank">
+          <a>Join Experiment</a>
         </Link>
 
-        {true && (
-          <Link href="/bank">
-            <a>Experiments</a>
-          </Link>
-        )}
+        <Link href="/onboarding">
+          <a>Student Onboarding</a>
+        </Link>
 
         {me && (
           <>
@@ -41,14 +39,13 @@ const Nav = () => (
             </Link>
           </>
         )}
+
+        <Link href="/">
+          <a>Home</a>
+        </Link>
       </NavStyles>
     )}
   </User>
 );
 
 export default Nav;
-
-// <Link href="/me">
-//   <a>Me</a>
-// </Link>
-// <Signout />

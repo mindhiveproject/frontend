@@ -132,7 +132,7 @@ export const SignForm = styled.form`
 `;
 
 export const TokenForm = styled.form`
-  padding: 20px;
+  text-align: initial;
   font-size: 1.5rem;
   line-height: 1.5;
   font-weight: 600;
@@ -169,6 +169,9 @@ export const TokenForm = styled.form`
     &[disabled] {
       opacity: 0.5;
     }
+  }
+  p {
+    font-weight: 400;
   }
 `;
 

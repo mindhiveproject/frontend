@@ -10,6 +10,7 @@ import { CUSTOM_PARAMETER_QUERY } from '../CustomRun/index';
 import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
 import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
 import EmptyTokenSignup from '../../Sign/Token/empty';
+import ExperimentPage from '../../ExperimentPage/index';
 
 class ReviewCustomExperiment extends Component {
   render() {
@@ -22,34 +23,7 @@ class ReviewCustomExperiment extends Component {
             return <p>No experiment found for {this.props.id}</p>;
           const exp = data.parameter;
           console.log('exp', exp);
-          return (
-            <StyledExperiment>
-              <Head>
-                <title>mindHIVE | {exp.title}</title>
-              </Head>
-              <h2>{exp.title}</h2>
-              <div>
-                <ContainerOnlyForNoProfile>
-                  <EmptyTokenSignup experiment={exp} />
-                </ContainerOnlyForNoProfile>
-
-                <ContainerOnlyForProfile>
-                  <Link
-                    href={{
-                      pathname: '/e',
-                      query: { id: exp.id },
-                    }}
-                  >
-                    <button>
-                      <a>
-                        <h2>Participate in experiment</h2>
-                      </a>
-                    </button>
-                  </Link>
-                </ContainerOnlyForProfile>
-              </div>
-            </StyledExperiment>
-          );
+          return <ExperimentPage exp={exp} />;
         }}
       </Query>
     );

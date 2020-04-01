@@ -63,7 +63,7 @@ class Experiments extends Component {
                 pathname: '/login/token',
               }}
             >
-              <StyledLink> login here </StyledLink>
+              <StyledLink> log in here </StyledLink>
             </Link>
             with your username.
           </h3>

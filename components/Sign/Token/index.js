@@ -77,6 +77,12 @@ class TokenSignup extends Component {
               </label>
               <label htmlFor="username">
                 Username
+                <p>
+                  Using a single username is not obligatory but can be helpful:
+                  it will allow scientists to link your data between multiple
+                  studies which may help prevent you having to answer the same
+                  questions multiple times.
+                </p>
                 <input
                   type="text"
                   name="username"
@@ -87,6 +93,13 @@ class TokenSignup extends Component {
               </label>
               <label htmlFor="username">
                 Email
+                <p>
+                  Your email address will not be made available to researchers.
+                  (a) it will be used as a recovery email in case you forget
+                  your username (b) you may receive an email if a follow-up
+                  study is available for a study you've already. You can of
+                  course opt out of these emails at any time.
+                </p>
                 <input
                   type="text"
                   name="email"

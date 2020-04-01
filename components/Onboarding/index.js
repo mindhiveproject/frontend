@@ -22,10 +22,20 @@ class Onboarding extends Component {
           <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
         </Head>
         <article>
-          <h1>{title}</h1>
-          <HomeContent />
           <ContainerOnlyForNoProfile>
-            <OnboardingSignupWithClassInvite />
+            <h3>
+              This page is for students who are participating in the mindHIVE
+              program, if you are a participant, please navigate to
+              <Link
+                href={{
+                  pathname: '/bank',
+                }}
+              >
+                <StyledLink> EXPERIMENTS</StyledLink>
+              </Link>
+              .
+            </h3>
+
             <div>
               <h3>
                 Have you already done onboarding? Then just
@@ -34,28 +44,16 @@ class Onboarding extends Component {
                     pathname: '/login/invite',
                   }}
                 >
-                  <StyledLink> login here </StyledLink>
+                  <StyledLink> log in here </StyledLink>
                 </Link>
                 with your username.
               </h3>
             </div>
+            <OnboardingSignupWithClassInvite />
           </ContainerOnlyForNoProfile>
+
           <ContainerOnlyForStudents>
-            <div>
-              <h3>
-                Before you begin the MINDHIVE program, we want to learn a bit
-                about you!
-              </h3>
-            </div>
-            <div>
-              We’d like to know a few things about your research interests and
-              your current knowledge about brain and behavior research. This is
-              not a test! We are just interested in getting to know you a bit
-              better so that (a) we can give you the proper guidance through
-              your mindHIVE journey, (b) we can better understand how
-              participating in the program may affect your attitudes towards
-              science, and (c) we can improve the program for future users.
-            </div>
+            <HomeContent />
             <Lessons lessons={this.props.lessonsList} />
           </ContainerOnlyForStudents>
         </article>

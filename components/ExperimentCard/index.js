@@ -25,17 +25,8 @@ class ExperimentCard extends Component {
     const { experiment } = this.props;
     return (
       <StyledExperimentCard>
-        <Link
-          href={{
-            pathname: '/exp',
-            query: { id: experiment.id },
-          }}
-        >
-          <a>
-            <h2>{experiment.title}</h2>
-            <p>{experiment.description}</p>
-          </a>
-        </Link>
+        <h2>{experiment.title}</h2>
+        <p>{experiment.description}</p>
 
         <ContainerOnlyForScientists>
           <Link
@@ -52,33 +43,19 @@ class ExperimentCard extends Component {
         </ContainerOnlyForScientists>
 
         <StyledCardButtonsContainer>
-          <ContainerOnlyForNoProfile>
-            <HiddenTokenSignup redirect={experiment.id} />
-          </ContainerOnlyForNoProfile>
           <ContainerOnlyForProfile>
             <Link
               href={{
-                pathname: '/exp/run',
+                pathname: '/exp',
                 query: { id: experiment.id },
               }}
             >
               <a>
-                <h2>Participate</h2>
+                <h2>Open</h2>
               </a>
             </Link>
+            {false && <HiddenTokenSignup redirect={experiment.id} />}
           </ContainerOnlyForProfile>
-          <ContainerOnlyForStudents>
-            <Link
-              href={{
-                pathname: '/bank/customize',
-                query: { id: experiment.id },
-              }}
-            >
-              <a>
-                <h2>Edit</h2>
-              </a>
-            </Link>
-          </ContainerOnlyForStudents>
         </StyledCardButtonsContainer>
       </StyledExperimentCard>
     );
@@ -86,14 +63,3 @@ class ExperimentCard extends Component {
 }
 
 export default ExperimentCard;
-
-// <Link
-//   href={{
-//     pathname: '/exp/run',
-//     query: { id: experiment.id },
-//   }}
-// >
-//   <a>
-//     <h2>Sign up and run</h2>
-//   </a>
-// </Link>

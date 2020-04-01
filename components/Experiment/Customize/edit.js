@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import Error from '../../ErrorMessage/index';
 import { StyledParameterForm } from '../../Styles/Forms';
 import { StyledParameterBlock } from './styles';
@@ -68,6 +69,10 @@ class ParameterForm extends Component {
         id: this.props.id,
         ...this.state,
       },
+    });
+    // change the page
+    Router.push({
+      pathname: '/bank/mycustom',
     });
   };
 
