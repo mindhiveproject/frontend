@@ -1,9 +1,10 @@
 // parameters for Risk tating task
 export const parameters_risktaking = [
   {
-    name: 'incrementImageFeedbackStep',
-    value: 50,
+    name: 'numberOfTrials',
+    value: 30,
     type: 'number',
+    help: 'How many trials should be in the experiment?',
   },
   {
     name: 'randomize',

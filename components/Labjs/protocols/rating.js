@@ -12,8 +12,8 @@ export const parameters_rating = [
     type: 'text',
   },
   {
-    name: 'nbExperimentalTrials',
-    value: 20,
+    name: 'numberOfTrials',
+    value: 40,
     type: 'number',
     help: 'Number of experimental trials',
   },
@@ -30,7 +30,7 @@ export const parameters_rating = [
   },
   {
     name: 'max_rating_label',
-    value: 'Very likely',
+    value: 'Very',
     type: 'text',
   },
   {
@@ -39,18 +39,9 @@ export const parameters_rating = [
     type: 'text',
   },
   {
-    name: 'presentationTimeStatement',
-    value: 3000,
-    type: 'number',
-  },
-  {
-    name: 'presentationTimeProvidedRating',
-    value: 3000,
-    type: 'number',
-  },
-  {
     name: 'presentationTimeITI',
     value: 1000,
     type: 'number',
+    help: 'Inter-trial interval (in ms)',
   },
 ];
