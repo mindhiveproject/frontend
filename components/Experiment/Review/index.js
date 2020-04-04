@@ -15,6 +15,16 @@ const REVIEW_EXPERIMENT_QUERY = gql`
       description
       largeImage
       parameters
+      customExperiments {
+        id
+        title
+        author {
+          id
+          username
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;

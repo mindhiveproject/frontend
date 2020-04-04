@@ -52,7 +52,7 @@ class TokenSignup extends Component {
               this.setState({ username: '', token: '', email: '' });
               if (this.props.redirect) {
                 Router.push({
-                  pathname: '/exp/run',
+                  pathname: `${this.props.isCustom ? '/e' : '/exp/run'}`,
                   query: { id: this.props.redirect },
                 });
               } else {
@@ -93,7 +93,7 @@ class TokenSignup extends Component {
                   hidden
                 />
               </label>
-              <button type="submit">Start</button>
+              <button type="submit">Participate as a guest</button>
             </fieldset>
           </TokenForm>
         )}

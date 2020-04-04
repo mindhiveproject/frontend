@@ -55,18 +55,28 @@ class Experiments extends Component {
           </Link>
         </ContainerOnlyForStudents>
         <ContainerOnlyForNoProfile>
-          <TokenSignup />
-          <h3>
-            Have you already signed up as a participant? Then just
+          <h2>
+            Already signed up?
             <Link
               href={{
                 pathname: '/login/token',
               }}
             >
-              <StyledLink> log in here </StyledLink>
+              <StyledLink> Log in here </StyledLink>
             </Link>
-            with your username.
-          </h3>
+            or
+            <Link
+              href={{
+                pathname: '/sign/token',
+              }}
+            >
+              <StyledLink> sign up as participant.</StyledLink>
+            </Link>
+          </h2>
+          <p>
+            You can also participate as a guest. In this case, you'll have a
+            different random username each time you participate.
+          </p>
         </ContainerOnlyForNoProfile>
 
         <h1>Experiments</h1>

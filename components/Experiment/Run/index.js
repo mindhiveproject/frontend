@@ -10,7 +10,7 @@ import { REVIEW_EXPERIMENT_QUERY } from '../Review/index';
 
 class RunExperiment extends Component {
   render() {
-    const { experimentId } = this.props;
+    const { experimentId, preview } = this.props;
     return (
       <Query query={REVIEW_EXPERIMENT_QUERY} variables={{ id: experimentId }}>
         {({ error, loading, data }) => {
@@ -44,7 +44,11 @@ class RunExperiment extends Component {
                         },
                         on_finish: json => {
                           console.log('json data', json);
-                          addResult({ variables: { data: json } });
+                          if (preview) {
+                            console.log('Not saving any data in preview mode');
+                          } else {
+                            addResult({ variables: { data: json } });
+                          }
                           Router.push('/bank');
                         },
                       }}

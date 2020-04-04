@@ -11,7 +11,7 @@ const Nav = () => (
     {({ data: { me } }) => (
       <NavStyles>
         <Link href="/bank">
-          <a>Join Experiment</a>
+          <a>Experiments</a>
         </Link>
 
         <Link href="/onboarding">

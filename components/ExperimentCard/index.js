@@ -44,18 +44,18 @@ class ExperimentCard extends Component {
 
         <StyledCardButtonsContainer>
           <ContainerOnlyForProfile>
-            <Link
-              href={{
-                pathname: '/exp',
-                query: { id: experiment.id },
-              }}
-            >
-              <a>
-                <h2>Open</h2>
-              </a>
-            </Link>
             {false && <HiddenTokenSignup redirect={experiment.id} />}
           </ContainerOnlyForProfile>
+          <Link
+            href={{
+              pathname: '/exp',
+              query: { id: experiment.id },
+            }}
+          >
+            <a>
+              <h2>Open</h2>
+            </a>
+          </Link>
         </StyledCardButtonsContainer>
       </StyledExperimentCard>
     );

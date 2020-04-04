@@ -78,10 +78,12 @@ class TokenSignup extends Component {
               <label htmlFor="username">
                 Username
                 <p>
-                  Using a single username is not obligatory but can be helpful:
-                  it will allow scientists to link your data between multiple
-                  studies which may help prevent you having to answer the same
-                  questions multiple times.
+                  Choose your own username below (don't use your real name!) or
+                  proceed with the one we suggest. Remember or write it down for
+                  future use. Using a single username is not obligatory but can
+                  be helpful: it will allow scientists to link your data between
+                  multiple studies which may help prevent you having to answer
+                  the same questions multiple times.
                 </p>
                 <input
                   type="text"
@@ -98,7 +100,8 @@ class TokenSignup extends Component {
                   (a) it will be used as a recovery email in case you forget
                   your username (b) you may receive an email if a follow-up
                   study is available for a study you've already. You can of
-                  course opt out of these emails at any time.
+                  course opt out of these emails at any time. You don't have to
+                  give us your email address.
                 </p>
                 <input
                   type="text"

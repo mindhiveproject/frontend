@@ -27,7 +27,7 @@ const CUSTOM_PARAMETER_QUERY = gql`
 
 class RunExperiment extends Component {
   render() {
-    const { id } = this.props;
+    const { id, preview } = this.props;
     return (
       <Query query={CUSTOM_PARAMETER_QUERY} variables={{ id }}>
         {({ error, loading, data }) => {
@@ -60,7 +60,11 @@ class RunExperiment extends Component {
                         },
                         on_finish: json => {
                           console.log('json data', json);
-                          addResult({ variables: { data: json } });
+                          if (preview) {
+                            console.log('Not saving any data in preview mode');
+                          } else {
+                            addResult({ variables: { data: json } });
+                          }
                           Router.push('/bank');
                         },
                       }}
