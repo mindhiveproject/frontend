@@ -6,6 +6,7 @@ import Error from '../../ErrorMessage/index';
 import { StyledParameterForm } from '../../Styles/Forms';
 import { StyledParameterBlock } from './styles';
 import { CUSTOM_PARAMETER_QUERY } from '../CustomRun/index';
+import { REVIEW_EXPERIMENT_QUERY } from '../Review/index';
 
 const UPDATE_PARAMETER = gql`
   mutation UPDATE_PARAMETER($id: ID!, $title: String, $data: Json) {
@@ -78,7 +79,13 @@ class ParameterForm extends Component {
 
   render() {
     return (
-      <Mutation mutation={UPDATE_PARAMETER} variables={this.state}>
+      <Mutation
+        mutation={UPDATE_PARAMETER}
+        variables={this.state}
+        refetchQueries={[
+          { query: REVIEW_EXPERIMENT_QUERY, variables: { id: this.props.id } },
+        ]}
+      >
         {(updateParameter, { loading, error }) => {
           const { parameters, title } = this.props;
           // console.log('ready parameters', title, parameters);

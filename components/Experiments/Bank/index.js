@@ -28,32 +28,6 @@ class Experiments extends Component {
   render() {
     return (
       <Center>
-        <ContainerOnlyForProfile>
-          <Link
-            href={{
-              pathname: '/bank/custom',
-            }}
-          >
-            <a>
-              <button>
-                <h2>All custom experiments</h2>
-              </button>
-            </a>
-          </Link>
-        </ContainerOnlyForProfile>
-        <ContainerOnlyForStudents>
-          <Link
-            href={{
-              pathname: '/bank/mycustom',
-            }}
-          >
-            <a>
-              <button>
-                <h2>My experiments</h2>
-              </button>
-            </a>
-          </Link>
-        </ContainerOnlyForStudents>
         <ContainerOnlyForNoProfile>
           <h2>
             Already signed up?
@@ -101,3 +75,30 @@ class Experiments extends Component {
 
 export default Experiments;
 export { ALL_EXPERIMENTS_QUERY };
+
+// <ContainerOnlyForProfile>
+//   <Link
+//     href={{
+//       pathname: '/bank/custom',
+//     }}
+//   >
+//     <a>
+//       <button>
+//         <h2>All custom experiments</h2>
+//       </button>
+//     </a>
+//   </Link>
+// </ContainerOnlyForProfile>
+// <ContainerOnlyForStudents>
+//   <Link
+//     href={{
+//       pathname: '/bank/mycustom',
+//     }}
+//   >
+//     <a>
+//       <button>
+//         <h2>My experiments</h2>
+//       </button>
+//     </a>
+//   </Link>
+// </ContainerOnlyForStudents>

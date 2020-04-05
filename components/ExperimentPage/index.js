@@ -192,7 +192,7 @@ class ExperimentPage extends Component {
 
         {customExperiments && customExperiments.length > 0 && (
           <StyledCustomExperiments>
-            <h2>Experiments created based on {exp.title}</h2>
+            <h2>The experiments designed on the basis of {exp.title}</h2>
             {customExperiments.map(parameter => (
               <StyledCustomExperimentLine key={parameter.id}>
                 <Link
@@ -203,10 +203,14 @@ class ExperimentPage extends Component {
                 >
                   <a>
                     <h3>{parameter.title}</h3>
-                    <p>created by {parameter.author.username}</p>
                   </a>
                 </Link>
-                <p>updated {moment(parameter.updatedAt).fromNow()}</p>
+                <div>
+                  <div>
+                    updated by <em>{parameter.author.username} </em>
+                  </div>
+                  <div>{moment(parameter.updatedAt).fromNow()}</div>
+                </div>
                 <Link
                   href={{
                     pathname: '/custom',
@@ -215,7 +219,7 @@ class ExperimentPage extends Component {
                 >
                   <button>
                     <a>
-                      <h2>Go to experiment page</h2>
+                      <h2>Experiment page</h2>
                     </a>
                   </button>
                 </Link>

@@ -11,6 +11,7 @@ import {
   DashboardButton,
   DashboardTable,
   StyledProfilePicture,
+  StyledButtons,
 } from './styles';
 import ResultPane from '../Results/Pane/index';
 import Signout from '../Signout/index';
@@ -81,15 +82,27 @@ class Dashboard extends Component {
                     You have {me.results.length} result
                     {me.results.length === 1 ? '' : 's'}{' '}
                   </p>
-                  <Link
-                    href={{
-                      pathname: '/res/my',
-                    }}
-                  >
-                    <a>
-                      <DashboardButton>See my results</DashboardButton>
-                    </a>
-                  </Link>
+                  <StyledButtons>
+                    <Link
+                      href={{
+                        pathname: '/res/my',
+                      }}
+                    >
+                      <a>
+                        <button>See my results</button>
+                      </a>
+                    </Link>
+
+                    <Link
+                      href={{
+                        pathname: '/bank/mycustom',
+                      }}
+                    >
+                      <a>
+                        <button>My experiments</button>
+                      </a>
+                    </Link>
+                  </StyledButtons>
                 </ContainerOnlyForStudents>
                 {false && (
                   <>

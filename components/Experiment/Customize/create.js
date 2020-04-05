@@ -7,6 +7,7 @@ import { StyledParameterForm } from '../../Styles/Forms';
 import { StyledParameterBlock } from './styles';
 import { MY_PARAMETERS_QUERY } from '../../Experiments/Custom/my';
 import { ALL_PARAMETERS_QUERY } from '../../Experiments/Custom/index';
+import { REVIEW_EXPERIMENT_QUERY } from '../Review/index';
 import { parameters_rating } from '../../Labjs/protocols/rating';
 import { parameters_risktaking } from '../../Labjs/protocols/risktaking';
 
@@ -59,6 +60,7 @@ class ParameterForm extends Component {
   state = {
     title: this.props.title,
     data: this.props.parameters,
+    id: this.props.id,
   };
 
   handleChange = e => {
@@ -101,6 +103,7 @@ class ParameterForm extends Component {
         refetchQueries={[
           { query: MY_PARAMETERS_QUERY },
           { query: ALL_PARAMETERS_QUERY },
+          { query: REVIEW_EXPERIMENT_QUERY, variables: { id: this.props.id } },
         ]}
       >
         {(createParameter, { loading, error }) => {

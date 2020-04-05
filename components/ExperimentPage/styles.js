@@ -55,16 +55,30 @@ export const StyledCustomExperiments = styled.div`
 
 export const StyledCustomExperimentLine = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-  grid-column-gap: 20px;
-  border: 1px solid #b9c1b9;
-  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  grid-column-gap: 10px;
+  border: 1px solid #d6e3d6;
+  padding: 5px 10px 5px 10px;
   align-items: center;
   border-radius: 5px;
   button {
-    background: white;
+    font-weight: 300;
+    border: 1px solid grey;
+    border-radius: 0;
     cursor: pointer;
-    border-radius: 5px;
-    height: 50px;
+    text-transform: uppercase;
+    padding: 0.8rem 1.5rem;
+    transform: skew(-2deg);
+    display: inline-block;
+    transition: all 0.5s;
+    &[disabled] {
+      opacity: 0.5;
+    }
+  }
+  button: hover {
+    background: rgb(246, 110, 94);
+    a {
+      color: white;
+    }
   }
 `;
