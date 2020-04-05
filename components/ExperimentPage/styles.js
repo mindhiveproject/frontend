@@ -23,17 +23,34 @@ export const StyledExperiment = styled.div`
 export const StyledButtons = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  justify-items: center;
+  justify-items: left;
   align-self: end;
   button {
-    width: 200px;
-    background: #fdfffc;
-    border-radius: 5px;
+    font-weight: 300;
+    border: 1px solid grey;
+    border-radius: 0;
     cursor: pointer;
+    text-transform: uppercase;
+    padding: 0.8rem 1.5rem;
+    transform: skew(-2deg);
+    display: inline-block;
+    transition: all 0.5s;
+    &[disabled] {
+      opacity: 0.5;
+    }
+  }
+  button: hover {
+    background: rgb(246, 110, 94);
+    a {
+      color: white;
+    }
   }
   button:disabled,
   button[disabled] {
-    background-color: #dbdbdb;
+    background-color: black;
+    a {
+      color: white;
+    }
   }
 `;
 

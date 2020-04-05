@@ -10,6 +10,7 @@ const DISPLAY_RESULT_QUERY = gql`
       id
       experiment {
         id
+        title
       }
       user {
         id
@@ -50,3 +51,4 @@ class DisplayIndividualResult extends Component {
 }
 
 export default DisplayIndividualResult;
+export { DISPLAY_RESULT_QUERY };

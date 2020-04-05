@@ -4,19 +4,41 @@ import NavStyles from './styles';
 import User from '../User/index';
 // import Signout from '../Signout/index';
 
+import { ContainerOnlyForNoProfile } from '../Permissions/NoProfile/index';
+import { ContainerOnlyForStudents } from '../Permissions/Student/index';
+import { ContainerOnlyForParticipants } from '../Permissions/Participant/index';
+
 import { TOGGLE_DASHBOARD_MUTATION } from '../Dashboard/index';
 
 const Nav = () => (
   <User>
     {({ data: { me } }) => (
       <NavStyles>
-        <Link href="/bank">
-          <a>Experiments</a>
-        </Link>
+        <ContainerOnlyForNoProfile>
+          <Link href="/bank">
+            <a>Experiments</a>
+          </Link>
 
-        <Link href="/onboarding">
-          <a>Student Onboarding</a>
-        </Link>
+          <Link href="/onboarding">
+            <a>Student Onboarding</a>
+          </Link>
+        </ContainerOnlyForNoProfile>
+
+        <ContainerOnlyForStudents>
+          <Link href="/bank">
+            <a>Experiments</a>
+          </Link>
+
+          <Link href="/onboarding">
+            <a>Student Onboarding</a>
+          </Link>
+        </ContainerOnlyForStudents>
+
+        <ContainerOnlyForParticipants>
+          <Link href="/bank">
+            <a>Experiments</a>
+          </Link>
+        </ContainerOnlyForParticipants>
 
         {me && (
           <>
