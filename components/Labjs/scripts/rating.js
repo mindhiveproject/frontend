@@ -26,16 +26,7 @@ const studyObject = {
     {
       type: 'lab.flow.Sequence',
       files: {},
-      parameters: {
-        rating_question: 'How likely are you to',
-        reference_group: 'peers in your age group',
-        numberOfTrials: '40',
-        randomize: 'yes',
-        min_rating_label: 'Not at all',
-        max_rating_label: 'Very',
-        rating_question_for_instruction: 'how likely',
-        presentationTimeITI: '1000',
-      },
+      parameters: {},
       responses: {},
       messageHandlers: {},
       title: 'Rating task',

@@ -4,6 +4,7 @@ import { Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
+import { StyledParameterBlock } from './styles';
 
 const SINGLE_EXPERIMENT_QUERY = gql`
   query SINGLE_EXPERIMENT_QUERY($id: ID!) {
@@ -11,22 +12,61 @@ const SINGLE_EXPERIMENT_QUERY = gql`
       id
       title
       description
+      parameters
     }
   }
 `;
 
 const UPDATE_EXPERIMENT = gql`
-  mutation UPDATE_EXPERIMENT($id: ID!, $title: String, $description: String) {
-    updateExperiment(id: $id, title: $title, description: $description) {
+  mutation UPDATE_EXPERIMENT(
+    $id: ID!
+    $title: String
+    $description: String
+    $parameters: Json
+  ) {
+    updateExperiment(
+      id: $id
+      title: $title
+      description: $description
+      parameters: $parameters
+    ) {
       id
       title
       description
+      parameters
     }
   }
 `;
 
 class UpdateExperiment extends Component {
-  state = {};
+  render() {
+    return (
+      <Query query={SINGLE_EXPERIMENT_QUERY} variables={{ id: this.props.id }}>
+        {({ data, loading }) => {
+          if (loading) return <p>Loading ... </p>;
+          if (!data || !data.experiment)
+            return <p>No experiment found for id {this.props.id}</p>;
+          console.log('data.experiment', data.experiment);
+          return (
+            <OriginalExperimentForm
+              parameters={data.experiment.parameters}
+              title={data.experiment.title}
+              description={data.experiment.description}
+              id={this.props.id}
+            />
+          );
+        }}
+      </Query>
+    );
+  }
+}
+
+class OriginalExperimentForm extends Component {
+  state = {
+    title: this.props.title,
+    description: this.props.description,
+    parameters: this.props.parameters,
+  };
 
   handleChange = e => {
     const { name, type, value } = e.target;
@@ -36,9 +76,19 @@ class UpdateExperiment extends Component {
     });
   };
 
+  handleParamChange = e => {
+    const { name, type, value } = e.target;
+    const val = type === 'number' ? parseFloat(value) : value;
+    this.setState({
+      parameters: this.state.parameters.map(el =>
+        el.name === name ? { ...el, value: val } : el
+      ),
+    });
+  };
+
   updateExperiment = async (e, updateExperimentMutation) => {
     e.preventDefault();
-    console.log('updating experiment', this.state, this.props.id);
+    // console.log('updating experiment', this.state, this.props.id);
     const res = await updateExperimentMutation({
       variables: {
         id: this.props.id,
@@ -49,53 +99,60 @@ class UpdateExperiment extends Component {
 
   render() {
     return (
-      <Query query={SINGLE_EXPERIMENT_QUERY} variables={{ id: this.props.id }}>
-        {({ data, loading }) => {
-          if (loading) return <p>Loading ... </p>;
-          if (!data || !data.experiment)
-            return <p>No experiment found for id {this.props.id}</p>;
-          return (
-            <Mutation mutation={UPDATE_EXPERIMENT} variables={this.state}>
-              {(updateExperiment, { loading, error }) => (
-                <SignForm
-                  onSubmit={e => this.updateExperiment(e, updateExperiment)}
-                >
-                  <h2>Edit the experiment</h2>
-                  <Error error={error} />
-                  <fieldset disabled={loading} aria-busy={loading}>
-                    <label htmlFor="title">
-                      Title
-                      <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        placeholder="Title"
-                        defaultValue={data.experiment.title}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </label>
-                    <label htmlFor="description">
-                      Description
-                      <textarea
-                        id="description"
-                        name="description"
-                        placeholder="Description"
-                        defaultValue={data.experiment.description}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </label>
-                    <button type="submit">
-                      Sav{loading ? 'ing' : 'e'} changes
-                    </button>
-                  </fieldset>
-                </SignForm>
-              )}
-            </Mutation>
-          );
-        }}
-      </Query>
+      <Mutation mutation={UPDATE_EXPERIMENT} variables={this.state}>
+        {(updateExperiment, { loading, error }) => (
+          <SignForm onSubmit={e => this.updateExperiment(e, updateExperiment)}>
+            <h2>Edit the experiment</h2>
+            <Error error={error} />
+            <fieldset disabled={loading} aria-busy={loading}>
+              <label htmlFor="title">
+                Title
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  placeholder="Title"
+                  value={this.state.title}
+                  onChange={this.handleChange}
+                  required
+                />
+              </label>
+              <label htmlFor="description">
+                Description
+                <textarea
+                  id="description"
+                  name="description"
+                  placeholder="Description"
+                  value={this.state.description}
+                  onChange={this.handleChange}
+                  required
+                />
+              </label>
+
+              <h2>Edit your parameters</h2>
+
+              {this.state.parameters.map(({ name, value, type, help }) => (
+                <StyledParameterBlock key={name} htmlFor={name}>
+                  <div className="help">{help}</div>
+                  <div className="name">{name}</div>
+                  <div className="input">
+                    <input
+                      type={type}
+                      id={name}
+                      name={name}
+                      value={value}
+                      onChange={this.handleParamChange}
+                      required
+                    />
+                  </div>
+                </StyledParameterBlock>
+              ))}
+
+              <button type="submit">Sav{loading ? 'ing' : 'e'} changes</button>
+            </fieldset>
+          </SignForm>
+        )}
+      </Mutation>
     );
   }
 }

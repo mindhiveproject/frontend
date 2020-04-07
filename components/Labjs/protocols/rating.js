@@ -13,7 +13,7 @@ export const parameters_rating = [
   },
   {
     name: 'numberOfTrials',
-    value: 40,
+    value: 30,
     type: 'number',
     help: 'Number of experimental trials',
   },
