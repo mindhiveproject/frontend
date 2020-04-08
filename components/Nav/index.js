@@ -6,6 +6,7 @@ import User from '../User/index';
 
 import { ContainerOnlyForNoProfile } from '../Permissions/NoProfile/index';
 import { ContainerOnlyForStudents } from '../Permissions/Student/index';
+import { ContainerOnlyForScientists } from '../Permissions/Scientist/index';
 import { ContainerOnlyForParticipants } from '../Permissions/Participant/index';
 
 import { TOGGLE_DASHBOARD_MUTATION } from '../Dashboard/index';
@@ -23,6 +24,12 @@ const Nav = () => (
             <a>Student Onboarding</a>
           </Link>
         </ContainerOnlyForNoProfile>
+
+        <ContainerOnlyForScientists>
+          <Link href="/bank">
+            <a>Experiments</a>
+          </Link>
+        </ContainerOnlyForScientists>
 
         <ContainerOnlyForStudents>
           <Link href="/bank">

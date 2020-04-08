@@ -55,6 +55,16 @@ class ClassCard extends Component {
               <h2>Edit</h2>
             </a>
           </Link>
+          <Link
+            href={{
+              pathname: '/class/results',
+              query: { id: schoolclass.id },
+            }}
+          >
+            <a>
+              <h2>Class results</h2>
+            </a>
+          </Link>
           <DeleteClass id={schoolclass.id}>Delete</DeleteClass>
         </ContainerOnlyForTeachersOwners>
 
