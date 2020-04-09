@@ -70,8 +70,8 @@ class ExperimentPage extends Component {
               with your username.
             </h3>
             <p>
-              You can also participate as a guest. In this case, you'll have a
-              different random username each time you participate.
+              You can also participate as a guest (we will assign you a
+              different random username each time you participate).
             </p>
             <HiddenTokenSignup redirect={exp.id} isCustom={isCustom} />
           </ContainerOnlyForNoProfile>

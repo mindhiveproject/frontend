@@ -29,6 +29,9 @@ const Nav = () => (
           <Link href="/bank">
             <a>Experiments</a>
           </Link>
+          <Link href="/classes">
+            <a>Classes</a>
+          </Link>
         </ContainerOnlyForScientists>
 
         <ContainerOnlyForStudents>

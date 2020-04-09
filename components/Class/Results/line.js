@@ -60,8 +60,8 @@ class ResultLine extends Component {
 
     return (
       <StyledResultLine>
-        <h1>{result.experiment.title}</h1>
-        <h1>{result.user.username}</h1>
+        <h2>{result.experiment.title}</h2>
+        <h4>{result.user.username}</h4>
         <p>{moment(result.updatedAt).fromNow()}</p>
         <div>
           <button onClick={() => this.download(result)}>
