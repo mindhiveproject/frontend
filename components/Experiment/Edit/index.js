@@ -77,18 +77,34 @@ class OriginalExperimentForm extends Component {
   };
 
   handleParamChange = e => {
-    const { name, type, value } = e.target;
+    const { name, type, value, className } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
       parameters: this.state.parameters.map(el =>
-        el.name === name ? { ...el, value: val } : el
+        el.name === name ? { ...el, [className]: val } : el
       ),
+    });
+  };
+
+  handleAddNewParameter = e => {
+    e.preventDefault();
+    const name = document.querySelector('#newParameterName').value;
+    if (name) {
+      this.setState({
+        parameters: [...this.state.parameters, { name }],
+      });
+    }
+  };
+
+  deleteParameter = (e, name) => {
+    e.preventDefault();
+    this.setState({
+      parameters: this.state.parameters.filter(el => el.name !== name),
     });
   };
 
   updateExperiment = async (e, updateExperimentMutation) => {
     e.preventDefault();
-    // console.log('updating experiment', this.state, this.props.id);
     const res = await updateExperimentMutation({
       variables: {
         id: this.props.id,
@@ -129,24 +145,65 @@ class OriginalExperimentForm extends Component {
                 />
               </label>
 
-              <h2>Edit your parameters</h2>
+              <h2>Edit original parameters</h2>
 
-              {this.state.parameters.map(({ name, value, type, help }) => (
-                <StyledParameterBlock key={name} htmlFor={name}>
-                  <div className="help">{help}</div>
-                  <div className="name">{name}</div>
-                  <div className="input">
-                    <input
-                      type={type}
-                      id={name}
+              <div>
+                <input type="text" id="newParameterName" />
+                <button onClick={this.handleAddNewParameter}>
+                  add new parameter
+                </button>
+              </div>
+
+              {this.state.parameters.map(
+                ({ name, value, type, help, example }) => (
+                  <StyledParameterBlock key={name} htmlFor={name}>
+                    <div className="name">{name}</div>
+
+                    <div>Help</div>
+                    <textarea
+                      name={name}
+                      value={help}
+                      onChange={this.handleParamChange}
+                      required
+                      className="help"
+                    />
+
+                    <div>Example</div>
+                    <textarea
+                      name={name}
+                      value={example}
+                      onChange={this.handleParamChange}
+                      className="example"
+                    />
+
+                    <div>Type</div>
+                    <select
+                      type="text"
+                      name={name}
+                      value={type}
+                      onChange={this.handleParamChange}
+                      className="type"
+                    >
+                      <option value="text">Text</option>
+                      <option value="number">Number</option>
+                      <option value="textarea">Textarea</option>
+                    </select>
+
+                    <div>Value</div>
+                    <textarea
                       name={name}
                       value={value}
                       onChange={this.handleParamChange}
                       required
+                      className="value"
                     />
-                  </div>
-                </StyledParameterBlock>
-              ))}
+
+                    <button onClick={e => this.deleteParameter(e, name)}>
+                      Delete
+                    </button>
+                  </StyledParameterBlock>
+                )
+              )}
 
               <button type="submit">Sav{loading ? 'ing' : 'e'} changes</button>
             </fieldset>

@@ -3,17 +3,7 @@ const studyObject = {
   title: 'root',
   type: 'lab.flow.Sequence',
   parameters: {},
-  plugins: [
-    {
-      type: 'lab.plugins.Metadata',
-      path: undefined,
-    },
-    {
-      type: 'lab.plugins.Download',
-      filePrefix: 'rating',
-      path: undefined,
-    },
-  ],
+  plugins: [],
   metadata: {
     title: 'Rating',
     description: 'mindHive task',
@@ -55,7 +45,7 @@ const studyObject = {
         {
           type: 'lab.html.Form',
           content:
-            '\u003Cdiv class="container"\u003E\n  \u003Cmain class="content-horizontal-center\n               content-vertical-center"\n               style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n        \u003Ch1\u003E\n           Instructions\n        \u003C\u002Fh1\u003E\n\n        \u003Cp\u003E\n          In this task you will be asked to make a series of ratings about issues in climate change and environmental awareness. \n        \u003C\u002Fp\u003E\n\n        \u003Cp\u003E\n          First, you will be asked to rate, on a scale of ${parameters.min_rating_value} to ${parameters.max_rating_value}, of ${parameters.rating_question_for_instruction} you are to take a particular course of action. The questions will typically appear in the form of "${parameters.rating_question} _______?" The marker will not be initially visible, so please click on the scale to place the marker. \n        \u003C\u002Fp\u003E\n\n        \u003Cp\u003E\n          For example, you may be asked "${parameters.rating_question} throw away things in the trash that could be recycled?" Please rate ${parameters.rating_question_for_instruction} you are to behave in this way. We ask that you do these ratings sincerely. After the first rating, you will be shown how ${parameters.reference_group} have rated this question, i.e. ${parameters.rating_question_for_instruction} \'they are\' to behave this way? Finally, you will be asked to re-rate the question. \n        \u003C\u002Fp\u003E\n\n         \u003Cp\u003E\n           Let\'s do a practice trial! \n        \u003C\u002Fp\u003E\n\n        \u003Cform\u003E\n          \u003Cbutton type="submit"\u003EContinue\u003C\u002Fbutton\u003E\n        \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n\n\n\n',
+            '\u003Cdiv class="container"\u003E\n  \u003Cmain class="content-horizontal-center\n               content-vertical-center"\n               style="background: #fffaf0b5"\u003E\n    \u003Cdiv\u003E\n        \u003Ch1\u003E\n           Instructions\n        \u003C\u002Fh1\u003E\n\n        \u003Cdiv\u003E\n          ${parameters.instruction}\n        \u003C\u002Fdiv\u003E\n\n        \u003Cform\u003E\n          \u003Cbutton type="submit"\u003EContinue\u003C\u002Fbutton\u003E\n        \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E\n\n\n\n',
           files: {},
           parameters: {},
           responses: {},
