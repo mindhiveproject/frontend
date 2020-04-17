@@ -9,8 +9,13 @@ import ParameterForm from './parameterForm';
 import Error from '../../ErrorMessage/index';
 
 const UPDATE_PARAMETER = gql`
-  mutation UPDATE_PARAMETER($id: ID!, $title: String, $data: Json) {
-    updateParameter(id: $id, title: $title, data: $data) {
+  mutation UPDATE_PARAMETER(
+    $id: ID!
+    $title: String
+    $data: Json
+    $settings: Json
+  ) {
+    updateParameter(id: $id, title: $title, data: $data, settings: $settings) {
       id
       title
     }
@@ -22,6 +27,7 @@ class ParametersUpdateForm extends Component {
     title: this.props.title,
     data: this.props.parameters,
     id: this.props.id,
+    settings: this.props.settings,
   };
 
   handleChange = e => {
@@ -71,12 +77,14 @@ class ParametersUpdateForm extends Component {
           // console.log('ready parameters', title, parameters);
           return (
             <ParameterForm
+              id={this.props.id}
               onHandleSubmit={e => this.updateParameter(e, updateParameter)}
               onHandleChange={this.handleChange}
               onHandleParamChange={this.handleParamChange}
               title={this.state.title}
               data={this.state.data}
               loading={loading}
+              experiment={this.props.experiment}
             />
           );
         }}

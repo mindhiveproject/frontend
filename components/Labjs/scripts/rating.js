@@ -81,15 +81,30 @@ const studyObject = {
             messageHandlers: {
               'before:prepare': function anonymous() {
                 // construct trials
-                const testParameters = this.options.templateParameters;
-
                 // take the parameters from the outside or fallback to test parameters
-                const initParameters =
-                  this.parameters.stimuli || testParameters;
+                let initParameters;
+                if (
+                  this.parameters.showCustomStatements === 'Yes' &&
+                  this.parameters.statements
+                ) {
+                  const statements = this.parameters.statements.split('\n');
+                  const params = statements.map((statement, number) => ({
+                    number,
+                    statement,
+                  }));
+                  initParameters = params;
+                } else {
+                  initParameters = this.options.templateParameters;
+                }
+
                 // take the number of trials from outside of fallback to the length of provided parameters
-                const numberTrials = initParameters.length;
+                let numberTrials = this.parameters.numberOfTrials;
+                if (numberTrials > initParameters.length) {
+                  numberTrials = initParameters.length;
+                }
+
                 // randomize is either false or true, if there is no external parameter, the default is true
-                const randomize = this.parameters.practiceRandomize === 'yes';
+                const randomize = this.parameters.practiceRandomize === 'Yes';
 
                 // a helper function to shuffle the array
                 function shuffle(a) {
@@ -893,22 +908,36 @@ const studyObject = {
               },
             ],
             sample: {
-              mode: 'draw-shuffle',
-              n: '${parameters.numberOfTrials}',
+              mode: 'sequential',
+              n: '',
             },
             responses: {},
             messageHandlers: {
               'before:prepare': function anonymous() {
                 // construct trials
-                const testParameters = this.options.templateParameters;
                 // take the parameters from the outside or fallback to test parameters
-                const initParameters =
-                  this.parameters.stimuli || testParameters;
+                let initParameters;
+                if (
+                  this.parameters.showCustomStatements === 'Yes' &&
+                  this.parameters.statements
+                ) {
+                  const statements = this.parameters.statements.split('\n');
+                  const params = statements.map((statement, number) => ({
+                    number,
+                    statement,
+                  }));
+                  initParameters = params;
+                } else {
+                  initParameters = this.options.templateParameters;
+                }
+
                 // take the number of trials from outside of fallback to the length of provided parameters
-                const numberTrials =
-                  this.parameters.numberOfTrials || initParameters.length;
+                let numberTrials = this.parameters.numberOfTrials;
+                if (numberTrials > initParameters.length) {
+                  numberTrials = initParameters.length;
+                }
                 // randomize is either false or true, if there is no external parameter, the default is true
-                const randomize = this.parameters.randomize === 'yes';
+                const randomize = this.parameters.randomize === 'Yes';
 
                 // a helper function to shuffle the array
                 function shuffle(a) {

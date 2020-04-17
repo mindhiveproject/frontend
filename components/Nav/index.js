@@ -17,17 +17,13 @@ const Nav = () => (
       <NavStyles>
         <ContainerOnlyForNoProfile>
           <Link href="/bank">
-            <a>Experiments</a>
-          </Link>
-
-          <Link href="/onboarding">
-            <a>Student Onboarding</a>
+            <a>Research studies</a>
           </Link>
         </ContainerOnlyForNoProfile>
 
         <ContainerOnlyForScientists>
           <Link href="/bank">
-            <a>Experiments</a>
+            <a>Research studies</a>
           </Link>
           <Link href="/classes">
             <a>Classes</a>
@@ -36,7 +32,7 @@ const Nav = () => (
 
         <ContainerOnlyForStudents>
           <Link href="/bank">
-            <a>Experiments</a>
+            <a>Research studies</a>
           </Link>
 
           <Link href="/onboarding">
@@ -46,7 +42,7 @@ const Nav = () => (
 
         <ContainerOnlyForParticipants>
           <Link href="/bank">
-            <a>Experiments</a>
+            <a>Research studies</a>
           </Link>
         </ContainerOnlyForParticipants>
 

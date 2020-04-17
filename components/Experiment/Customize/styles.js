@@ -105,3 +105,50 @@ export const StyledParameterBlock = styled.div`
     height: 500px;
   }
 `;
+
+export const ControlButtons = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  grid-gap: 20px;
+  padding-top: 10px;
+  button {
+    cursor: pointer;
+  }
+`;
+
+export const StyledStatementLine = styled.div`
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  button {
+    cursor: pointer;
+    width: 4.3rem;
+    text-align: center;
+    border-radius: 2.25rem;
+    background-color: #4fbf1f;
+    color: white;
+    font-size: 2rem;
+    :hover {
+      background-color: #ea0707;
+      transform: scale(1.1);
+      transition: transform 0.5s;
+    }
+  }
+`;
+
+export const StyledOptionLine = styled.div`
+  width: auto;
+  background: white;
+  color: grey;
+  border: 0;
+  border-radius: 5px;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 1rem 1.2rem;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: 1px solid lightslategrey;
+  &.selected {
+    background: #24b781;
+    color: white;
+  }
+`;

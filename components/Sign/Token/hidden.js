@@ -86,7 +86,7 @@ class TokenSignup extends Component {
               </label>
               <label htmlFor="username">
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   value={this.state.email}
                   onChange={this.saveToState}

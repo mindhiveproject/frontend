@@ -40,6 +40,7 @@ class ExperimentPage extends Component {
     const { exp } = this.props;
     const isCustom = !!(exp.data && exp.data.length);
     const { customExperiments } = exp;
+
     return (
       <div>
         <StyledExperiment>
@@ -136,7 +137,7 @@ class ExperimentPage extends Component {
                       onChange={this.updateState}
                       checked={this.state.data === 'science'}
                     />
-                    You can use my data for science
+                    You can use my data for science and/or educational purposes
                   </label>
                 </div>
                 <div>
@@ -260,43 +261,50 @@ class ExperimentPage extends Component {
           )}
         </StyledExperiment>
 
-        {customExperiments && customExperiments.length > 0 && (
-          <StyledCustomExperiments>
-            <h2>The experiments designed on the basis of {exp.title}</h2>
-            {customExperiments.map(parameter => (
-              <StyledCustomExperimentLine key={parameter.id}>
-                <Link
-                  href={{
-                    pathname: '/custom',
-                    query: { id: parameter.id },
-                  }}
-                >
-                  <a>
-                    <h3>{parameter.title}</h3>
-                  </a>
-                </Link>
-                <div>
-                  <div>
-                    Created by <em>{parameter.author.username} </em>
-                  </div>
-                  <div>{moment(parameter.updatedAt).fromNow()}</div>
-                </div>
-                <Link
-                  href={{
-                    pathname: '/custom',
-                    query: { id: parameter.id },
-                  }}
-                >
-                  <button>
-                    <a>
-                      <h2>Experiment page</h2>
-                    </a>
-                  </button>
-                </Link>
-              </StyledCustomExperimentLine>
-            ))}
-          </StyledCustomExperiments>
-        )}
+        {!isCustom &&
+          customExperiments &&
+          customExperiments.length > 0 &&
+          customExperiments.filter(
+            e => e.settings && e.settings.status === 'public'
+          ).length > 0 && (
+            <StyledCustomExperiments>
+              <h2>The experiments designed on the basis of {exp.title}</h2>
+              {customExperiments
+                .filter(e => e.settings && e.settings.status === 'public')
+                .map(parameter => (
+                  <StyledCustomExperimentLine key={parameter.id}>
+                    <Link
+                      href={{
+                        pathname: '/custom',
+                        query: { id: parameter.id },
+                      }}
+                    >
+                      <a>
+                        <h3>{parameter.title}</h3>
+                      </a>
+                    </Link>
+                    <div>
+                      <div>
+                        Created by <em>{parameter.author.username} </em>
+                      </div>
+                      <div>{moment(parameter.updatedAt).fromNow()}</div>
+                    </div>
+                    <Link
+                      href={{
+                        pathname: '/custom',
+                        query: { id: parameter.id },
+                      }}
+                    >
+                      <button>
+                        <a>
+                          <h2>Experiment page</h2>
+                        </a>
+                      </button>
+                    </Link>
+                  </StyledCustomExperimentLine>
+                ))}
+            </StyledCustomExperiments>
+          )}
       </div>
     );
   }

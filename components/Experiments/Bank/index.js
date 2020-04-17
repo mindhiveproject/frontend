@@ -53,7 +53,7 @@ class Experiments extends Component {
           </p>
         </ContainerOnlyForNoProfile>
 
-        <h1>Experiments</h1>
+        <h1>Research studies</h1>
         <Query query={ALL_EXPERIMENTS_QUERY}>
           {({ data, error, loading }) => {
             console.log('data', data);

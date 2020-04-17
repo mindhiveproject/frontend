@@ -11,8 +11,18 @@ import Error from '../../ErrorMessage/index';
 import ParameterForm from './parameterForm';
 
 const CREATE_PARAMETER = gql`
-  mutation CREATE_PARAMETER($title: String!, $experimentId: ID!, $data: Json) {
-    createParameter(title: $title, experimentId: $experimentId, data: $data) {
+  mutation CREATE_PARAMETER(
+    $title: String!
+    $experimentId: ID!
+    $data: Json
+    $settings: Json
+  ) {
+    createParameter(
+      title: $title
+      experimentId: $experimentId
+      data: $data
+      settings: $settings
+    ) {
       id
       title
     }
@@ -24,6 +34,7 @@ class ParametersCreateForm extends Component {
     title: this.props.title,
     data: this.props.parameters,
     id: this.props.id,
+    settings: {},
   };
 
   handleChange = e => {
@@ -70,16 +81,17 @@ class ParametersCreateForm extends Component {
         ]}
       >
         {(createParameter, { loading, error }) => {
-          console.log('ready', this.state);
           const { parameters } = this.props;
           return (
             <ParameterForm
+              id={this.props.id}
               onHandleSubmit={e => this.createParameter(e, createParameter)}
               onHandleChange={this.handleChange}
               onHandleParamChange={this.handleParamChange}
               title={this.state.title}
               data={this.state.data}
               loading={loading}
+              experiment={this.props.experiment}
             />
           );
         }}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Head from 'next/head';
 import Router from 'next/router';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -16,6 +15,7 @@ const CUSTOM_PARAMETER_QUERY = gql`
       id
       title
       data
+      settings
       updatedAt
       experiment {
         title
@@ -38,9 +38,6 @@ class RunExperiment extends Component {
           // console.log('parameter', parameter);
           return (
             <>
-              <Head>
-                <link href="/static/lab.css" rel="stylesheet" />
-              </Head>
               <StyledBox>
                 <Mutation
                   mutation={ADD_RESULT_MUTATION}

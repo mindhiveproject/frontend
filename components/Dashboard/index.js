@@ -99,7 +99,7 @@ class Dashboard extends Component {
                       }}
                     >
                       <a>
-                        <button>My experiments</button>
+                        <button>My research studies</button>
                       </a>
                     </Link>
                   </StyledButtons>

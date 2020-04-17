@@ -104,7 +104,7 @@ class TokenSignup extends Component {
                   give us your email address.
                 </p>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   value={this.state.email}
                   onChange={this.saveToState}

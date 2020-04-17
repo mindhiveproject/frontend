@@ -26,4 +26,7 @@ export const StyledCustomExperimentLine = styled.div`
     border-radius: 5px;
     height: 100px;
   }
+  &.public {
+    background: #cfffcf;
+  }
 `;

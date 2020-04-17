@@ -24,6 +24,7 @@ const REVIEW_EXPERIMENT_QUERY = gql`
         }
         createdAt
         updatedAt
+        settings
       }
     }
   }

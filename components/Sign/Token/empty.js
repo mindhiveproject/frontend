@@ -101,7 +101,7 @@ class EmptyTokenSignup extends Component {
                   course opt out of these emails at any time.
                 </p>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   value={this.state.email}
                   onChange={this.saveToState}

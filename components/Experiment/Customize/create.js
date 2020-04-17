@@ -34,6 +34,7 @@ class CreateParameter extends Component {
               parameters={data.experiment.parameters}
               title={data.experiment.title}
               id={this.props.id}
+              experiment={data.experiment}
             />
           );
         }}

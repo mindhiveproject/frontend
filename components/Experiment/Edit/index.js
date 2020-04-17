@@ -155,7 +155,7 @@ class OriginalExperimentForm extends Component {
               </div>
 
               {this.state.parameters.map(
-                ({ name, value, type, help, example }) => (
+                ({ name, value, type, help, example, options }) => (
                   <StyledParameterBlock key={name} htmlFor={name}>
                     <div className="name">{name}</div>
 
@@ -187,7 +187,17 @@ class OriginalExperimentForm extends Component {
                       <option value="text">Text</option>
                       <option value="number">Number</option>
                       <option value="textarea">Textarea</option>
+                      <option value="select">Select one</option>
+                      <option value="vas">Visual scale</option>
                     </select>
+
+                    <div>Options</div>
+                    <textarea
+                      name={name}
+                      value={options}
+                      onChange={this.handleParamChange}
+                      className="options"
+                    />
 
                     <div>Value</div>
                     <textarea
