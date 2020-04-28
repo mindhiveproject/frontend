@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import VasBuilder from './vasBuilder';
 import SelectOne from './selectOne';
+import SurveyBuilder from './surveyBuilder';
 
 import {
   StyledParameterForm,
@@ -48,6 +49,14 @@ class ParameterForm extends Component {
             name={name}
             options={options}
             value={value}
+            onChange={this.props.onHandleParamChange}
+          />
+        );
+      case 'survey':
+        return (
+          <SurveyBuilder
+            name={name}
+            content={value}
             onChange={this.props.onHandleParamChange}
           />
         );

@@ -57,7 +57,7 @@ class VasBuilder extends Component {
             deleteStatement={this.deleteStatement}
           />
         ))}
-        <button onClick={this.addStatement}>Add new statement</button>
+        <button onClick={this.addStatement}>Add more</button>
       </div>
     );
   }

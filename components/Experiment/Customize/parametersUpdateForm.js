@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import { REVIEW_EXPERIMENT_QUERY } from '../Review/index';
+import { CUSTOM_PARAMETER_QUERY } from '../CustomRun/index';
 
 import ParameterForm from './parameterForm';
 import Error from '../../ErrorMessage/index';
@@ -70,6 +71,7 @@ class ParametersUpdateForm extends Component {
         variables={this.state}
         refetchQueries={[
           { query: REVIEW_EXPERIMENT_QUERY, variables: { id: this.props.id } },
+          { query: CUSTOM_PARAMETER_QUERY, variables: { id: this.props.id } },
         ]}
       >
         {(updateParameter, { loading, error }) => {

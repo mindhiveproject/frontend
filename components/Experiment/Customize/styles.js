@@ -104,6 +104,20 @@ export const StyledParameterBlock = styled.div`
   textarea {
     height: 500px;
   }
+  .addButton {
+    cursor: pointer;
+    width: 5.5rem;
+    text-align: center;
+    border-radius: 6rem;
+    background-color: #4fbf1f;
+    color: white;
+    font-size: 3rem;
+    :hover {
+      background-color: #3cb906;
+      transform: scale(1.1);
+      transition: transform 0.5s;
+    }
+  }
 `;
 
 export const ControlButtons = styled.div`
@@ -150,5 +164,71 @@ export const StyledOptionLine = styled.div`
   &.selected {
     background: #24b781;
     color: white;
+  }
+`;
+
+export const StyledItemLine = styled.div`
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  button {
+    cursor: pointer;
+    width: 4.3rem;
+    text-align: center;
+    border-radius: 2.25rem;
+    background-color: #4fbf1f;
+    color: white;
+    font-size: 2rem;
+    :hover {
+      background-color: #ea0707;
+      transform: scale(1.1);
+      transition: transform 0.5s;
+    }
+  }
+`;
+
+export const StyledSurveyBuilderItemLine = styled.div`
+  border-bottom: 1px white solid;
+  padding-bottom: 5px;
+  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  grid-column-gap: 10px;
+  .controlButtons {
+    display: grid;
+  }
+  .deleteDiv {
+    display: grid;
+    align-self: start;
+    justify-self: end;
+  }
+  .moveButtons {
+    display: grid;
+    align-self: end;
+    justify-self: end;
+    button {
+      background-color: orange;
+      :hover {
+        background-color: #d9b616;
+        transform: scale(1.1);
+        transition: transform 0.5s;
+      }
+    }
+  }
+  button {
+    cursor: pointer;
+    width: 4.3rem;
+    text-align: center;
+    border-radius: 2.25rem;
+    background-color: #ff2d2d;
+    color: white;
+    font-size: 2rem;
+    :hover {
+      background-color: #ea0707;
+      transform: scale(1.1);
+      transition: transform 0.5s;
+    }
+  }
+  textarea {
+    height: 120px;
   }
 `;

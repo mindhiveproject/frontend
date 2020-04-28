@@ -5,6 +5,7 @@ import * as lab from './lib/lab';
 
 import rating from './scripts/rating';
 import risk from './scripts/risktaking';
+import survey from './scripts/survey';
 
 class ExperimentWindow extends Component {
   constructor(props) {
@@ -20,13 +21,18 @@ class ExperimentWindow extends Component {
     );
     switch (props.settings.script) {
       case 'Risk taking task':
-      default:
         risk.parameters = props.settings.params;
         this.study = lab.util.fromObject(clonedeep(risk), lab);
         break;
       case 'Rating task':
         rating.parameters = props.settings.params;
         this.study = lab.util.fromObject(clonedeep(rating), lab);
+        break;
+      case 'Survey template':
+      default:
+        survey.parameters = props.settings.params;
+        console.log('survey.parameters', survey.parameters);
+        this.study = lab.util.fromObject(clonedeep(survey), lab);
         break;
     }
     this.study.run();

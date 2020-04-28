@@ -189,6 +189,7 @@ class OriginalExperimentForm extends Component {
                       <option value="textarea">Textarea</option>
                       <option value="select">Select one</option>
                       <option value="vas">Visual scale</option>
+                      <option value="survey">Survey builder</option>
                     </select>
 
                     <div>Options</div>
