@@ -14,8 +14,55 @@ class SurveyBuilder extends Component {
   handleChange = e => {
     const { id, value, className, name } = e.target;
     const { items } = this.state;
+    let updatedItems;
+    if (className === 'options') {
+      const updatedOptions = items
+        .filter(item => item.id === parseInt(name))
+        .map(item => item.options);
+      const options = updatedOptions[0];
+      options[id] = value;
+      updatedItems = items.map(item =>
+        item.id === parseInt(name) ? { ...item, options } : item
+      );
+    } else {
+      updatedItems = items.map(item =>
+        item.id === parseInt(name) ? { ...item, [className]: value } : item
+      );
+    }
+    this.setState({
+      items: updatedItems,
+    });
+    this.updateProps(updatedItems);
+  };
+
+  addNewOption = (e, id) => {
+    e.preventDefault();
+    const { items } = this.state;
+    const updatedOptions = items
+      .filter(item => item.id === parseInt(id))
+      .map(item => item.options)
+      .map(options => options.concat(['']));
+    const options = updatedOptions[0];
     const updatedItems = items.map(item =>
-      item.id === parseInt(name) ? { ...item, [className]: value } : item
+      item.id === parseInt(id) ? { ...item, options } : item
+    );
+    this.setState({
+      items: updatedItems,
+    });
+    this.updateProps(updatedItems);
+  };
+
+  deleteOption = (e, id, num) => {
+    e.preventDefault();
+    const { items } = this.state;
+    const updatedOptions = items
+      .filter(item => item.id === parseInt(id))
+      .map(item => item.options);
+    const options = updatedOptions[0].filter(
+      (options, number) => number !== parseInt(num)
+    );
+    const updatedItems = items.map(item =>
+      item.id === parseInt(id) ? { ...item, options } : item
     );
     this.setState({
       items: updatedItems,
@@ -38,11 +85,14 @@ class SurveyBuilder extends Component {
       ...items,
       {
         id: items.length,
-        type: 'select',
+        type: 'text',
+        text: '',
         question: '',
         min_rating_label: '',
         max_rating_label: '',
-        options: '',
+        min_value: '',
+        max_value: '',
+        options: [''],
       },
     ];
     this.setState({
@@ -109,6 +159,8 @@ class SurveyBuilder extends Component {
                 moveDown={this.moveDown}
                 moveUp={this.moveUp}
                 number={number}
+                addNewOption={this.addNewOption}
+                deleteOption={this.deleteOption}
               />
             ))}
           <button className="addButton" onClick={this.addItem}>
@@ -130,9 +182,12 @@ class Item extends Component {
     const {
       id,
       type,
+      text,
       question,
       min_rating_label,
       max_rating_label,
+      min_value,
+      max_value,
       options,
     } = this.props.item;
     return (
@@ -146,28 +201,63 @@ class Item extends Component {
             onChange={this.props.handleItemChange}
             className="type"
           >
+            <option value="text">Text</option>
             <option value="select">Multiple choice</option>
+            <option value="freeinput">Text input</option>
             <option value="vas">Visual scale</option>
           </select>
 
-          <div>Question</div>
-          <input
-            type="text"
-            name={id}
-            value={question}
-            onChange={this.props.handleItemChange}
-            className="question"
-          />
+          {type === 'text' && (
+            <>
+              <div>Text</div>
+              <textarea
+                type="text"
+                name={id}
+                value={text}
+                onChange={this.props.handleItemChange}
+                className="text"
+              />
+            </>
+          )}
+
+          {type !== 'text' && (
+            <>
+              <div>Question</div>
+              <input
+                type="text"
+                name={id}
+                value={question}
+                onChange={this.props.handleItemChange}
+                className="question"
+              />
+            </>
+          )}
 
           {type === 'select' && (
             <>
               <div>Options</div>
-              <textarea
-                name={id}
-                value={options}
-                onChange={this.props.handleItemChange}
-                className="options"
-              />
+              {options.map((option, num) => (
+                <div key={num} className="optionRow">
+                  <input
+                    key={num}
+                    id={num}
+                    type="text"
+                    name={id}
+                    value={option}
+                    onChange={this.props.handleItemChange}
+                    className="options"
+                  />
+                  <button onClick={e => this.props.deleteOption(e, id, num)}>
+                    &times;
+                  </button>
+                </div>
+              ))}
+              <button
+                onClick={e => this.props.addNewOption(e, id)}
+                className="addOptionButton"
+              >
+                + option
+              </button>
             </>
           )}
 
@@ -189,6 +279,24 @@ class Item extends Component {
                 value={max_rating_label}
                 onChange={this.props.handleItemChange}
                 className="max_rating_label"
+              />
+
+              <div>Minimum value</div>
+              <input
+                type="number"
+                name={id}
+                value={min_value}
+                onChange={this.props.handleItemChange}
+                className="min_value"
+              />
+
+              <div>Maximum value</div>
+              <input
+                type="number"
+                name={id}
+                value={max_value}
+                onChange={this.props.handleItemChange}
+                className="max_value"
               />
             </>
           )}

@@ -231,4 +231,23 @@ export const StyledSurveyBuilderItemLine = styled.div`
   textarea {
     height: 120px;
   }
+  .optionRow {
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+    grid-column-gap: 10px;
+  }
+  .addOptionButton {
+    cursor: pointer;
+    width: 10rem;
+    text-align: center;
+    border-radius: 3rem;
+    background-color: #a78803;
+    color: white;
+    font-size: 1.5rem;
+    :hover {
+      background-color: #e5bc0c;
+      transform: scale(1.1);
+      transition: transform 0.5s;
+    }
+  }
 `;
