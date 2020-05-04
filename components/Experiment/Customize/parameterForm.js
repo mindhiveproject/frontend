@@ -3,6 +3,7 @@ import Link from 'next/link';
 import VasBuilder from './vasBuilder';
 import SelectOne from './selectOne';
 import SurveyBuilder from './surveyBuilder';
+import ArrayBuilder from './arrayBuilder';
 
 import {
   StyledParameterForm,
@@ -23,7 +24,7 @@ class ParameterForm extends Component {
     });
   };
 
-  renderInput(type, name, value, options) {
+  renderInput(type, name, value, options, array) {
     switch (type) {
       case 'textarea':
         return (
@@ -55,6 +56,14 @@ class ParameterForm extends Component {
       case 'survey':
         return (
           <SurveyBuilder
+            name={name}
+            content={value}
+            onChange={this.props.onHandleParamChange}
+          />
+        );
+      case 'array':
+        return (
+          <ArrayBuilder
             name={name}
             content={value}
             onChange={this.props.onHandleParamChange}
@@ -107,12 +116,12 @@ class ParameterForm extends Component {
             </StyledParameterBlock>
 
             {this.props.data.map(
-              ({ name, value, type, help, example, options }) => (
+              ({ name, value, type, help, example, options, array }) => (
                 <StyledParameterBlock key={name} htmlFor={name}>
                   <div className="help">{help}</div>
                   <div className="example">{example}</div>
                   <div className="input">
-                    {this.renderInput(type, name, value, options)}
+                    {this.renderInput(type, name, value, options, array)}
                   </div>
                 </StyledParameterBlock>
               )

@@ -46,7 +46,6 @@ class UpdateExperiment extends Component {
           if (loading) return <p>Loading ... </p>;
           if (!data || !data.experiment)
             return <p>No experiment found for id {this.props.id}</p>;
-          console.log('data.experiment', data.experiment);
           return (
             <OriginalExperimentForm
               parameters={data.experiment.parameters}
@@ -76,9 +75,12 @@ class OriginalExperimentForm extends Component {
     });
   };
 
-  handleParamChange = e => {
+  handleParamChange = (e, classType) => {
     const { name, type, value, className } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    let val = type === 'number' ? parseFloat(value) : value;
+    if (classType === 'array') {
+      val = JSON.stringify(val.split('\n'));
+    }
     this.setState({
       parameters: this.state.parameters.map(el =>
         el.name === name ? { ...el, [className]: val } : el
@@ -155,7 +157,7 @@ class OriginalExperimentForm extends Component {
               </div>
 
               {this.state.parameters.map(
-                ({ name, value, type, help, example, options }) => (
+                ({ name, value, type, help, example, options, array }) => (
                   <StyledParameterBlock key={name} htmlFor={name}>
                     <div className="name">{name}</div>
 
@@ -190,24 +192,40 @@ class OriginalExperimentForm extends Component {
                       <option value="select">Select one</option>
                       <option value="vas">Visual scale</option>
                       <option value="survey">Survey builder</option>
+                      <option value="array">Provide array</option>
                     </select>
 
-                    <div>Options</div>
-                    <textarea
-                      name={name}
-                      value={options}
-                      onChange={this.handleParamChange}
-                      className="options"
-                    />
+                    {type !== 'array' && (
+                      <>
+                        <div>Options</div>
+                        <textarea
+                          name={name}
+                          value={options}
+                          onChange={this.handleParamChange}
+                          className="options"
+                        />
 
-                    <div>Value</div>
-                    <textarea
-                      name={name}
-                      value={value}
-                      onChange={this.handleParamChange}
-                      required
-                      className="value"
-                    />
+                        <div>Value</div>
+                        <textarea
+                          name={name}
+                          value={value}
+                          onChange={this.handleParamChange}
+                          className="value"
+                        />
+                      </>
+                    )}
+
+                    {type === 'array' && (
+                      <>
+                        <div>Array values</div>
+                        <textarea
+                          name={name}
+                          value={parseIt(value)}
+                          onChange={e => this.handleParamChange(e, 'array')}
+                          className="value"
+                        />
+                      </>
+                    )}
 
                     <button onClick={e => this.deleteParameter(e, name)}>
                       Delete
@@ -222,6 +240,15 @@ class OriginalExperimentForm extends Component {
         )}
       </Mutation>
     );
+  }
+}
+
+function parseIt(body) {
+  try {
+    const res = JSON.parse(body);
+    return res.join('\n');
+  } catch (e) {
+    return body;
   }
 }
 

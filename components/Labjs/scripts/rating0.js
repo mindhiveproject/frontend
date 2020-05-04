@@ -18,19 +18,7 @@ const studyObject = {
       files: {},
       parameters: {},
       responses: {},
-      messageHandlers: {
-        'before:prepare': function anonymous() {
-          function getRandomInt(max) {
-            return Math.floor(Math.random() * Math.floor(max));
-          }
-          const conditions = JSON.parse(this.parameters.reference_group);
-          this.parameters.conditions_reference_group = conditions;
-          const { length } = conditions;
-          const condition = getRandomInt(length);
-
-          this.parameters.reference_group = conditions[condition];
-        },
-      },
+      messageHandlers: {},
       title: 'Rating task',
       content: [
         {
