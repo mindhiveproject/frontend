@@ -15,14 +15,14 @@ class SurveyBuilder extends Component {
     const { id, value, className, name } = e.target;
     const { items } = this.state;
     let updatedItems;
-    if (className === 'options') {
+    if (className === 'options' || className === 'items') {
       const updatedOptions = items
         .filter(item => item.id === parseInt(name))
-        .map(item => item.options);
+        .map(item => item[className]);
       const options = updatedOptions[0];
       options[id] = value;
       updatedItems = items.map(item =>
-        item.id === parseInt(name) ? { ...item, options } : item
+        item.id === parseInt(name) ? { ...item, [className]: options } : item
       );
     } else {
       updatedItems = items.map(item =>
@@ -35,16 +35,16 @@ class SurveyBuilder extends Component {
     this.updateProps(updatedItems);
   };
 
-  addNewOption = (e, id) => {
+  addNewOption = (e, id, className) => {
     e.preventDefault();
     const { items } = this.state;
     const updatedOptions = items
       .filter(item => item.id === parseInt(id))
-      .map(item => item.options)
-      .map(options => options.concat(['']));
+      .map(item => item[className])
+      .map(opts => opts.concat(['']));
     const options = updatedOptions[0];
     const updatedItems = items.map(item =>
-      item.id === parseInt(id) ? { ...item, options } : item
+      item.id === parseInt(id) ? { ...item, [className]: options } : item
     );
     this.setState({
       items: updatedItems,
@@ -52,17 +52,17 @@ class SurveyBuilder extends Component {
     this.updateProps(updatedItems);
   };
 
-  deleteOption = (e, id, num) => {
+  deleteOption = (e, id, num, className) => {
     e.preventDefault();
     const { items } = this.state;
     const updatedOptions = items
       .filter(item => item.id === parseInt(id))
-      .map(item => item.options);
+      .map(item => item[className]);
     const options = updatedOptions[0].filter(
-      (options, number) => number !== parseInt(num)
+      (opts, number) => number !== parseInt(num)
     );
     const updatedItems = items.map(item =>
-      item.id === parseInt(id) ? { ...item, options } : item
+      item.id === parseInt(id) ? { ...item, [className]: options } : item
     );
     this.setState({
       items: updatedItems,
@@ -93,6 +93,7 @@ class SurveyBuilder extends Component {
         min_value: '',
         max_value: '',
         options: [''],
+        items: [''],
       },
     ];
     this.setState({
@@ -189,6 +190,7 @@ class Item extends Component {
       min_value,
       max_value,
       options,
+      items,
     } = this.props.item;
     return (
       <StyledSurveyBuilderItemLine>
@@ -205,6 +207,7 @@ class Item extends Component {
             <option value="select">Multiple choice</option>
             <option value="freeinput">Text input</option>
             <option value="vas">Visual scale</option>
+            <option value="likert">Likert scale</option>
           </select>
 
           {type === 'text' && (
@@ -233,7 +236,7 @@ class Item extends Component {
             </>
           )}
 
-          {type === 'select' && (
+          {(type === 'select' || type === 'likert') && (
             <>
               <div>Options</div>
               {options.map((option, num) => (
@@ -247,16 +250,50 @@ class Item extends Component {
                     onChange={this.props.handleItemChange}
                     className="options"
                   />
-                  <button onClick={e => this.props.deleteOption(e, id, num)}>
+                  <button
+                    onClick={e =>
+                      this.props.deleteOption(e, id, num, 'options')
+                    }
+                  >
                     &times;
                   </button>
                 </div>
               ))}
               <button
-                onClick={e => this.props.addNewOption(e, id)}
+                onClick={e => this.props.addNewOption(e, id, 'options')}
                 className="addOptionButton"
               >
                 + option
+              </button>
+            </>
+          )}
+
+          {type === 'likert' && (
+            <>
+              <div>Items for the Likert Scale</div>
+              {items.map((item, num) => (
+                <div key={num} className="optionRow">
+                  <input
+                    key={num}
+                    id={num}
+                    type="text"
+                    name={id}
+                    value={item}
+                    onChange={this.props.handleItemChange}
+                    className="items"
+                  />
+                  <button
+                    onClick={e => this.props.deleteOption(e, id, num, 'items')}
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
+              <button
+                onClick={e => this.props.addNewOption(e, id, 'items')}
+                className="addOptionButton"
+              >
+                + item
               </button>
             </>
           )}

@@ -6,6 +6,7 @@ import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import ResultPane from '../../Results/Pane/index';
 
 import { ContainerOnlyForTeachers } from '../../Permissions/Teacher/index';
+import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
 
 /* eslint-disable */
 // compose all components together
@@ -68,6 +69,17 @@ class Me extends Component {
                     </a>
                   </Link>
                 </ContainerOnlyForTeachers>
+                <ContainerOnlyForScientists>
+                  <Link
+                    href={{
+                      pathname: '/bank/add',
+                    }}
+                  >
+                    <a>
+                      <button>Add new study</button>
+                    </a>
+                  </Link>
+                </ContainerOnlyForScientists>
               </footer>
             </div>
           );

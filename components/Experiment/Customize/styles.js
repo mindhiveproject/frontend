@@ -187,8 +187,8 @@ export const StyledItemLine = styled.div`
 `;
 
 export const StyledSurveyBuilderItemLine = styled.div`
-  border-bottom: 1px white solid;
-  padding-bottom: 5px;
+  border-bottom: 3px #e7d6d6 solid;
+  padding-bottom: 30px;
   margin-bottom: 30px;
   display: grid;
   grid-template-columns: 9fr 1fr;

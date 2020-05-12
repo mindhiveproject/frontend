@@ -15,6 +15,7 @@ const ALL_EXPERIMENTS_QUERY = gql`
     experiments {
       id
       title
+      shortDescription
       description
       image
       largeImage

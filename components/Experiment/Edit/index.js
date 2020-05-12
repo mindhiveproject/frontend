@@ -11,6 +11,7 @@ const SINGLE_EXPERIMENT_QUERY = gql`
     experiment(where: { id: $id }) {
       id
       title
+      shortDescription
       description
       parameters
     }
@@ -21,17 +22,20 @@ const UPDATE_EXPERIMENT = gql`
   mutation UPDATE_EXPERIMENT(
     $id: ID!
     $title: String
+    $shortDescription: String
     $description: String
     $parameters: Json
   ) {
     updateExperiment(
       id: $id
       title: $title
+      shortDescription: $shortDescription
       description: $description
       parameters: $parameters
     ) {
       id
       title
+      shortDescription
       description
       parameters
     }
@@ -50,6 +54,7 @@ class UpdateExperiment extends Component {
             <OriginalExperimentForm
               parameters={data.experiment.parameters}
               title={data.experiment.title}
+              shortDescription={data.experiment.shortDescription}
               description={data.experiment.description}
               id={this.props.id}
             />
@@ -63,6 +68,7 @@ class UpdateExperiment extends Component {
 class OriginalExperimentForm extends Component {
   state = {
     title: this.props.title,
+    shortDescription: this.props.shortDescription,
     description: this.props.description,
     parameters: this.props.parameters,
   };
@@ -131,6 +137,17 @@ class OriginalExperimentForm extends Component {
                   name="title"
                   placeholder="Title"
                   value={this.state.title}
+                  onChange={this.handleChange}
+                  required
+                />
+              </label>
+              <label htmlFor="shortDescription">
+                Short description
+                <textarea
+                  id="shortDescription"
+                  name="shortDescription"
+                  placeholder="Short description"
+                  value={this.state.shortDescription}
                   onChange={this.handleChange}
                   required
                 />

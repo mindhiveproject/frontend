@@ -28,6 +28,25 @@ const studyObject = {
           // this.parameters.backgroundColor = '#fffaf0b5';
           // this.parameters.items = [
           //   {
+          //     type: 'likert',
+          //     question: 'Likert question',
+          //     options: [
+          //       'exceptionally long response option',
+          //       'not at all',
+          //       'moderately',
+          //       'a lot',
+          //       'very much a lot',
+          //       '6',
+          //       '7',
+          //     ],
+          //     items: [
+          //       'I like pizza',
+          //       'I go to the work every day',
+          //       'I hate traffic jams',
+          //       'I go to the work every day I go to the work every day I go to the work every day I go to the work every day',
+          //     ],
+          //   },
+          //   {
           //     type: 'vas',
           //     question: 'Question 2',
           //     min_rating_label: '0%',
@@ -52,7 +71,7 @@ const studyObject = {
           //   {
           //     type: 'select',
           //     question: 'Question 1',
-          //     options: 'option 1\noption 2',
+          //     options: ['option 1', 'option 2'],
           //   },
           // ];
         },
@@ -126,6 +145,7 @@ const studyObject = {
                   min_value: trial.min_value || '',
                   max_value: trial.max_value || '',
                   options: trial.options,
+                  items: trial.items,
                 });
 
                 let trialParameters = [];
@@ -159,6 +179,74 @@ const studyObject = {
               messageHandlers: {},
               title: 'Sequence',
               content: [
+                {
+                  type: 'lab.html.Form',
+                  content:
+                    '\u003Cstyle\u003E\n\n\n\u003C\u002Fstyle\u003E\n\n\u003Cdiv class="container"\u003E\n  \u003Cmain class="content-horizontal-center\n               content-vertical-center"\n               style="background: ${this.parameters.backgroundColor}"\u003E\n    \u003Cdiv\u003E\n      \u003Cform\u003E\n        \u003Cp\u003E\n          ${this.parameters.question}\n        \u003C\u002Fp\u003E\n\n        \u003Ctable id="likertTable" style="text-align: center; table-layout: fixed;"\u003E\n          \n        \u003C\u002Ftable\u003E\n\n        \n        \u003Cbutton type="submit"\u003EContinue\u003C\u002Fbutton\u003E\n      \u003C\u002Fform\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fmain\u003E\n\u003C\u002Fdiv\u003E',
+                  scrollTop: true,
+                  files: {},
+                  responses: {},
+                  parameters: {},
+                  messageHandlers: {
+                    run: function anonymous() {
+                      const likertTable = document.querySelector(
+                        '#likertTable'
+                      );
+                      const items = this.parameters.items || [];
+                      const options = this.parameters.options || [];
+                      const questionSlug = 'likert';
+
+                      // create a header of the table
+                      const header = document.createElement('tr');
+                      const e = document.createElement('div');
+                      header.appendChild(e);
+                      for (const option of options) {
+                        const l = document.createElement('label');
+                        l.textContent = option;
+                        const td_h = document.createElement('th');
+                        td_h.appendChild(l);
+                        header.appendChild(td_h);
+                      }
+                      likertTable.appendChild(header);
+
+                      // append items
+                      for (const item of items) {
+                        // create slugs
+                        const itemName = item
+                          .toLowerCase()
+                          .split(' ')
+                          .join('-');
+                        const itemSlug = `${questionSlug}-${itemName}`;
+                        // append label
+                        const div = document.createElement('tr');
+                        const a = document.createElement('label');
+                        a.textContent = item;
+                        const td_a = document.createElement('td');
+                        td_a.style['text-align'] = 'start';
+                        td_a.appendChild(a);
+                        div.appendChild(td_a);
+                        // append radio buttons
+                        for (const option of options) {
+                          const valueSlug = option
+                            .toLowerCase()
+                            .split(' ')
+                            .join('-');
+                          const o = document.createElement('INPUT');
+                          o.setAttribute('type', 'radio');
+                          o.setAttribute('name', itemSlug);
+                          o.setAttribute('value', valueSlug);
+                          o.setAttribute('id', `${itemSlug}-${valueSlug}`);
+                          const td_o = document.createElement('td');
+                          td_o.appendChild(o);
+                          div.appendChild(td_o);
+                        }
+                        likertTable.appendChild(div);
+                      }
+                    },
+                  },
+                  title: 'Likert scale',
+                  skip: "${this.parameters.type !== 'likert'}",
+                },
                 {
                   type: 'lab.html.Form',
                   content:

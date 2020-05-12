@@ -10,6 +10,7 @@ import { parameters_risktaking } from '../Labjs/protocols/risktaking';
 const CREATE_NEW_EXPERIMENT = gql`
   mutation CREATE_NEW_EXPERIMENT(
     $title: String!
+    $shortDescription: String!
     $description: String!
     $image: String
     $largeImage: String
@@ -17,6 +18,7 @@ const CREATE_NEW_EXPERIMENT = gql`
   ) {
     createExperiment(
       title: $title
+      shortDescription: $shortDescription
       description: $description
       image: $image
       largeImage: $largeImage
@@ -29,8 +31,9 @@ const CREATE_NEW_EXPERIMENT = gql`
 
 class AddExperiment extends Component {
   state = {
-    title: 'Test title',
-    description: 'Test description',
+    title: '',
+    description: '',
+    shortDescription: '',
     image: 'Test image',
     largeImage: 'Test large image',
     parameters: [],
@@ -80,6 +83,17 @@ class AddExperiment extends Component {
                   name="title"
                   placeholder="Title"
                   value={this.state.title}
+                  onChange={this.handleChange}
+                  required
+                />
+              </label>
+              <label htmlFor="shortDescription">
+                Short description
+                <textarea
+                  id="shortDescription"
+                  name="shortDescription"
+                  placeholder="Short description"
+                  value={this.state.shortDescription}
                   onChange={this.handleChange}
                   required
                 />

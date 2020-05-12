@@ -26,7 +26,7 @@ class ExperimentCard extends Component {
     return (
       <StyledExperimentCard>
         <h2>{experiment.title}</h2>
-        <p>{experiment.description}</p>
+        <p>{experiment.shortDescription}</p>
 
         <ContainerOnlyForScientists>
           <Link

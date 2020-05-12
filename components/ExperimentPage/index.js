@@ -22,6 +22,7 @@ class ExperimentPage extends Component {
   state = {
     under18: false,
     parentConsent: false,
+    englishComprehension: false,
   };
 
   saveToState = e => {
@@ -126,6 +127,17 @@ class ExperimentPage extends Component {
           <ContainerOnlyForProfile>
             <div>
               <fieldset>
+                <label htmlFor="englishComprehension">
+                  <input
+                    type="checkbox"
+                    id="englishComprehension"
+                    name="englishComprehension"
+                    onChange={this.saveToState}
+                    checked={this.state.englishComprehension}
+                  />
+                  I understand basic instructions written in English
+                </label>
+
                 <h3>How would you like us to use your data?</h3>
                 <div>
                   <label htmlFor="useDataForScience">
@@ -210,6 +222,7 @@ class ExperimentPage extends Component {
                   >
                     <button
                       disabled={
+                        !this.state.englishComprehension ||
                         !this.state.data ||
                         (this.state.data === 'science' &&
                           this.state.under18 &&
@@ -222,7 +235,7 @@ class ExperimentPage extends Component {
                           (this.state.data === 'science' &&
                             this.state.under18 &&
                             !this.state.parentConsent)
-                            ? 'Please answer on the question above'
+                            ? 'Please check one of the options above'
                             : 'I am ready to participate in this study'}{' '}
                         </h2>
                       </a>

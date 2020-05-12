@@ -7,6 +7,7 @@ import { StyledBox } from './styles';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import { ADD_RESULT_MUTATION } from '../../Results/Add/index';
 import { REVIEW_EXPERIMENT_QUERY } from '../Review/index';
+import Qualtrics from '../../Qualtrics/index';
 
 class RunExperiment extends Component {
   render() {
@@ -20,6 +21,7 @@ class RunExperiment extends Component {
             return <p>No experiment found for {experimentId}</p>;
           const exp = data.experiment;
           console.log('exp', exp);
+          if (exp.title === 'Qualtrics') return <Qualtrics />;
           return (
             <>
               <Head>
