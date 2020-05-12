@@ -231,7 +231,8 @@ class ExperimentPage extends Component {
                     >
                       <a>
                         <h2>
-                          {!this.state.data ||
+                          {!this.state.englishComprehension ||
+                          !this.state.data ||
                           (this.state.data === 'science' &&
                             this.state.under18 &&
                             !this.state.parentConsent)
