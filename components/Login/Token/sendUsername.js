@@ -39,7 +39,7 @@ class SendParticipantUsername extends Component {
               <h3>Forgot your username?</h3>
               <Error error={error} />
               {!error && !loading && called && (
-                <p>Success! Check your mailtrop email box for your username.</p>
+                <p>Success! Check your email box for your username.</p>
               )}
               <label htmlFor="email">
                 Email
