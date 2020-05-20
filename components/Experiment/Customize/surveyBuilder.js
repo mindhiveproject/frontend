@@ -49,7 +49,7 @@ class SurveyBuilder extends Component {
 
   deletePage = (e, number) => {
     e.preventDefault();
-    const nextPage = number > 1 ? number - 1 : number;
+    const nextPage = number > 0 ? number - 1 : number;
     this.setState({
       currentPage: nextPage,
     });
