@@ -76,14 +76,6 @@
     "prettier": "^1.19.1",
     "testcafe": "^1.8.1"
   },
-  "proxy": {
-    "/.netlify/functions": {
-      "target": "http://localhost:9000",
-      "pathRewrite": {
-        "^/\\.netlify/functions": ""
-      }
-    }
-  },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",
     "testPathIgnorePatterns": [
