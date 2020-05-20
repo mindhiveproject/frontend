@@ -118,6 +118,14 @@ export const StyledParameterBlock = styled.div`
       transition: transform 0.5s;
     }
   }
+  .activePageButton {
+    border-radius: 10rem;
+  }
+  .notActivePageButton {
+    border-radius: 10rem;
+    background-color: white;
+    color: darkgreen;
+  }
 `;
 
 export const ControlButtons = styled.div`
@@ -250,4 +258,17 @@ export const StyledSurveyBuilderItemLine = styled.div`
       transition: transform 0.5s;
     }
   }
+`;
+
+export const StyledPageButtons = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 50px);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin: 20px 0px 20px 0px;
+`;
+
+export const StyledPageHeader = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 1fr;
 `;

@@ -1,76 +1,19 @@
 import React, { Component } from 'react';
-import { StyledSurveyBuilderItemLine } from './styles';
+import {
+  StyledSurveyBuilderItemLine,
+  StyledPageButtons,
+  StyledPageHeader,
+} from './styles';
+import SurveyPageBuilder from './surveyPageBuilder';
 
 class SurveyBuilder extends Component {
+  // it holds all pages and displays the currently active page on the screen with surveyPageBuilder
   state = {
-    items: JSON.parse(this.props.content) || [],
+    pages: JSON.parse(this.props.content) || [],
+    currentPage: 0,
   };
 
-  updateProps = items => {
-    const packed = this.packTheObject(items);
-    this.props.onChange(packed);
-  };
-
-  handleChange = e => {
-    const { id, value, className, name } = e.target;
-    const { items } = this.state;
-    let updatedItems;
-    if (className === 'options' || className === 'items') {
-      const updatedOptions = items
-        .filter(item => item.id === parseInt(name))
-        .map(item => item[className]);
-      const options = updatedOptions[0];
-      options[id] = value;
-      updatedItems = items.map(item =>
-        item.id === parseInt(name) ? { ...item, [className]: options } : item
-      );
-    } else {
-      updatedItems = items.map(item =>
-        item.id === parseInt(name) ? { ...item, [className]: value } : item
-      );
-    }
-    this.setState({
-      items: updatedItems,
-    });
-    this.updateProps(updatedItems);
-  };
-
-  addNewOption = (e, id, className) => {
-    e.preventDefault();
-    const { items } = this.state;
-    const updatedOptions = items
-      .filter(item => item.id === parseInt(id))
-      .map(item => item[className])
-      .map(opts => opts.concat(['']));
-    const options = updatedOptions[0];
-    const updatedItems = items.map(item =>
-      item.id === parseInt(id) ? { ...item, [className]: options } : item
-    );
-    this.setState({
-      items: updatedItems,
-    });
-    this.updateProps(updatedItems);
-  };
-
-  deleteOption = (e, id, num, className) => {
-    e.preventDefault();
-    const { items } = this.state;
-    const updatedOptions = items
-      .filter(item => item.id === parseInt(id))
-      .map(item => item[className]);
-    const options = updatedOptions[0].filter(
-      (opts, number) => number !== parseInt(num)
-    );
-    const updatedItems = items.map(item =>
-      item.id === parseInt(id) ? { ...item, [className]: options } : item
-    );
-    this.setState({
-      items: updatedItems,
-    });
-    this.updateProps(updatedItems);
-  };
-
-  packTheObject = value => ({
+  packThePages = value => ({
     target: {
       name: this.props.name,
       type: 'survey',
@@ -78,282 +21,93 @@ class SurveyBuilder extends Component {
     },
   });
 
-  addItem = e => {
+  updateProps = pages => {
+    const packed = this.packThePages(pages);
+    this.props.onChange(packed);
+  };
+
+  updatePages = page => {
+    const updatedPages = this.state.pages;
+    updatedPages[this.state.currentPage] = { page };
+    this.updateProps(updatedPages);
+  };
+
+  moveToPage = (e, number) => {
     e.preventDefault();
-    const { items } = this.state;
-    const updatedItems = [
-      ...items,
-      {
-        id: items.length,
-        type: 'text',
-        text: '',
-        question: '',
-        min_rating_label: '',
-        max_rating_label: '',
-        min_value: '',
-        max_value: '',
-        options: [''],
-        items: [''],
-      },
-    ];
     this.setState({
-      items: updatedItems,
+      currentPage: number,
+      activePage: this.state.pages[number],
     });
-    this.updateProps(updatedItems);
   };
 
-  deleteItem = (e, number) => {
+  addNewPage = e => {
     e.preventDefault();
-    const updatedItems = this.state.items.filter((item, num) => num !== number);
+    const updatedPages = this.state.pages;
+    updatedPages.push({ page: [] });
+    this.updateProps(updatedPages);
+  };
+
+  deletePage = (e, number) => {
+    e.preventDefault();
+    const nextPage = number > 1 ? number - 1 : number;
     this.setState({
-      items: updatedItems,
+      currentPage: nextPage,
     });
-    this.updateProps(updatedItems);
-  };
-
-  moveUp = (e, number) => {
-    e.preventDefault();
-    const { items } = this.state;
-    if (number > 0) {
-      const currentItem = items[number];
-      const nextItem = items[number - 1];
-      const updatedItems = [...items];
-      updatedItems[number] = nextItem;
-      updatedItems[number - 1] = currentItem;
-      this.setState({
-        items: updatedItems,
-      });
-      this.updateProps(updatedItems);
-    }
-  };
-
-  moveDown = (e, number) => {
-    e.preventDefault();
-    const { items } = this.state;
-    if (number < items.length - 1) {
-      const currentItem = items[number];
-      const nextItem = items[number + 1];
-      const updatedItems = [...items];
-      updatedItems[number] = nextItem;
-      updatedItems[number + 1] = currentItem;
-      this.setState({
-        items: updatedItems,
-      });
-      this.updateProps(updatedItems);
-    }
+    const { pages } = this.state;
+    pages.splice(number, 1);
+    this.updateProps(pages);
   };
 
   render() {
-    const { items } = this.state;
-    if (items) {
-      return (
-        <div>
-          {items &&
-            items.length > 0 &&
-            items.map((item, number) => (
-              <Item
-                item={item}
-                key={item.id}
-                id={item.id}
-                handleItemChange={this.handleChange}
-                deleteItem={this.deleteItem}
-                moveDown={this.moveDown}
-                moveUp={this.moveUp}
-                number={number}
-                addNewOption={this.addNewOption}
-                deleteOption={this.deleteOption}
-              />
-            ))}
-          <button className="addButton" onClick={this.addItem}>
-            +
-          </button>
-        </div>
-      );
-    }
     return (
-      <button className="addButton" onClick={this.addItem}>
-        +
-      </button>
-    );
-  }
-}
+      <>
+        <StyledPageHeader>
+          {this.state.pages && this.state.pages.length > 0 ? (
+            <h2>Page {this.state.currentPage + 1}</h2>
+          ) : (
+            <h2>Add your first page</h2>
+          )}
 
-class Item extends Component {
-  render() {
-    const {
-      id,
-      type,
-      text,
-      question,
-      min_rating_label,
-      max_rating_label,
-      min_value,
-      max_value,
-      options,
-      items,
-    } = this.props.item;
-    return (
-      <StyledSurveyBuilderItemLine>
-        <div className="input">
-          <div>Type</div>
-          <select
-            type="text"
-            name={id}
-            value={type}
-            onChange={this.props.handleItemChange}
-            className="type"
+          <button
+            className="notActivePageButton"
+            onClick={e => this.deletePage(e, this.state.currentPage)}
           >
-            <option value="text">Text</option>
-            <option value="select">Multiple choice</option>
-            <option value="freeinput">Text input</option>
-            <option value="vas">Visual scale</option>
-            <option value="likert">Likert scale</option>
-          </select>
+            Delete this page
+          </button>
+        </StyledPageHeader>
 
-          {type === 'text' && (
-            <>
-              <div>Text</div>
-              <textarea
-                type="text"
-                name={id}
-                value={text}
-                onChange={this.props.handleItemChange}
-                className="text"
-              />
-            </>
-          )}
-
-          {type !== 'text' && (
-            <>
-              <div>Question</div>
-              <input
-                type="text"
-                name={id}
-                value={question}
-                onChange={this.props.handleItemChange}
-                className="question"
-              />
-            </>
-          )}
-
-          {(type === 'select' || type === 'likert') && (
-            <>
-              <div>Options</div>
-              {options.map((option, num) => (
-                <div key={num} className="optionRow">
-                  <input
-                    key={num}
-                    id={num}
-                    type="text"
-                    name={id}
-                    value={option}
-                    onChange={this.props.handleItemChange}
-                    className="options"
-                  />
-                  <button
-                    onClick={e =>
-                      this.props.deleteOption(e, id, num, 'options')
-                    }
-                  >
-                    &times;
-                  </button>
-                </div>
-              ))}
-              <button
-                onClick={e => this.props.addNewOption(e, id, 'options')}
-                className="addOptionButton"
-              >
-                + option
-              </button>
-            </>
-          )}
-
-          {type === 'likert' && (
-            <>
-              <div>Items for the Likert Scale</div>
-              {items.map((item, num) => (
-                <div key={num} className="optionRow">
-                  <input
-                    key={num}
-                    id={num}
-                    type="text"
-                    name={id}
-                    value={item}
-                    onChange={this.props.handleItemChange}
-                    className="items"
-                  />
-                  <button
-                    onClick={e => this.props.deleteOption(e, id, num, 'items')}
-                  >
-                    &times;
-                  </button>
-                </div>
-              ))}
-              <button
-                onClick={e => this.props.addNewOption(e, id, 'items')}
-                className="addOptionButton"
-              >
-                + item
-              </button>
-            </>
-          )}
-
-          {type === 'vas' && (
-            <>
-              <div>Minimum value label</div>
-              <input
-                type="text"
-                name={id}
-                value={min_rating_label}
-                onChange={this.props.handleItemChange}
-                className="min_rating_label"
-              />
-
-              <div>Maximum value label</div>
-              <input
-                type="text"
-                name={id}
-                value={max_rating_label}
-                onChange={this.props.handleItemChange}
-                className="max_rating_label"
-              />
-
-              <div>Minimum value</div>
-              <input
-                type="number"
-                name={id}
-                value={min_value}
-                onChange={this.props.handleItemChange}
-                className="min_value"
-              />
-
-              <div>Maximum value</div>
-              <input
-                type="number"
-                name={id}
-                value={max_value}
-                onChange={this.props.handleItemChange}
-                className="max_value"
-              />
-            </>
-          )}
-        </div>
-        <div className="controlButtons">
-          <div className="deleteDiv">
-            <button onClick={e => this.props.deleteItem(e, this.props.number)}>
-              &times;
+        <StyledPageButtons>
+          {this.state.pages.map((page, number) => (
+            <button
+              onClick={e => this.moveToPage(e, number)}
+              key={number}
+              className={
+                number === this.state.currentPage
+                  ? 'activePageButton'
+                  : 'notActivePageButton'
+              }
+            >
+              {number + 1}
             </button>
-          </div>
-          <div className="moveButtons">
-            <button onClick={e => this.props.moveUp(e, this.props.number)}>
-              ↑
+          ))}
+          {this.state.pages && (
+            <button
+              className="notActivePageButton"
+              onClick={e => this.addNewPage(e)}
+            >
+              +
             </button>
-            <button onClick={e => this.props.moveDown(e, this.props.number)}>
-              ↓
-            </button>
-          </div>
-        </div>
-      </StyledSurveyBuilderItemLine>
+          )}
+        </StyledPageButtons>
+
+        {this.state.pages && this.state.pages.length > 0 && (
+          <SurveyPageBuilder
+            name={this.props.name}
+            content={this.state.pages[this.state.currentPage] || { page: [] }}
+            onChange={this.updatePages}
+          />
+        )}
+      </>
     );
   }
 }
