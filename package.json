@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next -p 7777",
-    "build": "next build",
+    "build:app": "next build",
     "start": "next start -p $PORT",
     "test": "NODE_ENV=test jest --watch",
     "test-win": "SET NODE_ENV=test&& jest --watch",
@@ -15,7 +15,8 @@
     "testcafe": "testcafe chrome tests/",
     "export": "npm run build && next export",
     "start:lambda": "netlify-lambda serve functions",
-    "build:lambda": "netlify-lambda build functions"
+    "build:lambda": "netlify-lambda build functions",
+    "build": "npm-run-all --parallel build:**"
   },
   "author": "",
   "license": "ISC",
@@ -73,6 +74,7 @@
     "jest": "^23.6.0",
     "jest-transform-graphql": "^2.1.0",
     "netlify-lambda": "^1.6.3",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "testcafe": "^1.8.1"
   },
