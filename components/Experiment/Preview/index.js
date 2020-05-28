@@ -10,6 +10,8 @@ class ExperimentPreview extends Component {
           <CloseButton onClick={this.props.handleFinish}>&times;</CloseButton>
           <ExperimentWindow
             settings={{
+              experiment: this.props.experiment.id,
+              customExperiment: this.props.customExperiment,
               script: this.props.experiment.title,
               params: this.props.parameters.reduce((obj, item) => {
                 obj[item.name] = item.value;

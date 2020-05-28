@@ -35,7 +35,7 @@ class RunExperiment extends Component {
           if (loading) return <p>Loading</p>;
           if (!data.parameter) return <p>No experiment found for {id}</p>;
           const { parameter } = data;
-          // console.log('parameter', parameter);
+          console.log('parameter', parameter);
           return (
             <>
               <StyledBox>
@@ -47,6 +47,8 @@ class RunExperiment extends Component {
                   {addResult => (
                     <ExperimentWindow
                       settings={{
+                        experiment: parameter.experiment.id,
+                        customExperiment: parameter.id,
                         script: parameter.experiment.title,
                         params: parameter.data.reduce((obj, item) => {
                           obj[item.name] = item.value;

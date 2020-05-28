@@ -45,14 +45,15 @@ class RunExperiment extends Component {
                           console.log('Event callback', e);
                         },
                         on_finish: json => {
-                          console.log('json data', json);
-                          if (dataPolicy === 'no') {
-                            console.log('Not saving any data in preview mode');
-                          } else {
-                            addResult({
-                              variables: { data: json, dataPolicy },
-                            });
-                          }
+                          console.log('saving of data is deprecated here');
+                          // console.log('json data', json);
+                          // if (dataPolicy === 'no') {
+                          //   console.log('Not saving any data in preview mode');
+                          // } else {
+                          //   addResult({
+                          //     variables: { data: json, dataPolicy },
+                          //   });
+                          // }
                           Router.push('/bank');
                         },
                       }}

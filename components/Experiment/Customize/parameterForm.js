@@ -133,6 +133,7 @@ class ParameterForm extends Component {
           <ExperimentPreview
             parameters={this.props.data}
             experiment={this.props.experiment}
+            customExperiment={this.props.id}
             handleFinish={() => this.setState({ showPreview: false })}
           />
         )}

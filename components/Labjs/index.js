@@ -36,6 +36,13 @@ class ExperimentWindow extends Component {
       case 'Survey template':
       default:
         survey.parameters = props.settings.params;
+        survey.plugins = [
+          {
+            type: 'lab.plugins.Transmit',
+            url: `http://localhost:4444/api?exp=${props.settings.experiment}&custom=${props.settings.customExperiment}`,
+            callbacks: {},
+          },
+        ];
         this.study = lab.util.fromObject(clonedeep(survey), lab);
         break;
     }

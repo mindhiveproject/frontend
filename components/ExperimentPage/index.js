@@ -163,7 +163,7 @@ class ExperimentPage extends Component {
                       checked={this.state.data === 'education'}
                     />
                     I want my data to be saved for educational use only (e.g.,
-                    for demonstrations in class etc.)
+                    lectures and teaching materials)
                   </label>
                 </div>
                 <div>
@@ -176,8 +176,8 @@ class ExperimentPage extends Component {
                       onChange={this.updateState}
                       checked={this.state.data === 'no'}
                     />
-                    Don't record my data at all (note that this means it won't
-                    be included in class demonstrations)
+                    Don't record my data at all (if you’re a MindHive student:
+                    this means your data won't be included in class demos!)
                   </label>
                 </div>
                 {this.state.data === 'science' && (
@@ -236,7 +236,7 @@ class ExperimentPage extends Component {
                           (this.state.data === 'science' &&
                             this.state.under18 &&
                             !this.state.parentConsent)
-                            ? 'Please check one of the options above'
+                            ? 'Please answer all the questions above'
                             : 'I am ready to participate in this study'}{' '}
                         </h2>
                       </a>

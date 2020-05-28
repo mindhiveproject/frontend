@@ -31,7 +31,7 @@ class Onboarding extends Component {
                   pathname: '/bank',
                 }}
               >
-                <StyledLink> EXPERIMENTS</StyledLink>
+                <StyledLink> RESEARCH STUDIES</StyledLink>
               </Link>
               .
             </h3>

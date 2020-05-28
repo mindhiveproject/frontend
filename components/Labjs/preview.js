@@ -17,7 +17,8 @@ class ExperimentWindow extends Component {
     console.log(
       'props.settings.script',
       props.settings.script,
-      props.settings.params
+      props.settings.params,
+      props
     );
     switch (props.settings.script) {
       case 'Risk taking task':
@@ -31,7 +32,13 @@ class ExperimentWindow extends Component {
       case 'Survey template':
       default:
         survey.parameters = props.settings.params;
-        console.log('survey.parameters', survey.parameters);
+        survey.plugins = [
+          {
+            type: 'lab.plugins.Transmit',
+            url: `http://localhost:9000/incremental`,
+            callbacks: {},
+          },
+        ];
         this.study = lab.util.fromObject(clonedeep(survey), lab);
         break;
     }
