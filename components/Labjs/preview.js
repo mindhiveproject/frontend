@@ -35,7 +35,7 @@ class ExperimentWindow extends Component {
         survey.plugins = [
           {
             type: 'lab.plugins.Transmit',
-            url: `http://localhost:9000/incremental`,
+            url: `/.netlify/functions/incremental`,
             callbacks: {},
           },
         ];
