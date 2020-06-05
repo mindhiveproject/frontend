@@ -29,7 +29,6 @@ const UPDATE_EXPERIMENT = gql`
     $parameters: Json
     $script: String
     $style: String
-    $file: Json
   ) {
     updateExperiment(
       id: $id
@@ -39,7 +38,6 @@ const UPDATE_EXPERIMENT = gql`
       parameters: $parameters
       script: $script
       style: $style
-      file: $file
     ) {
       id
       title
@@ -81,7 +79,6 @@ class OriginalExperimentForm extends Component {
     parameters: this.props.parameters,
     script: '',
     style: '',
-    file: {},
   };
 
   handleChange = e => {
