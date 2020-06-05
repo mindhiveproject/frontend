@@ -77,8 +77,8 @@ class OriginalExperimentForm extends Component {
     shortDescription: this.props.shortDescription,
     description: this.props.description,
     parameters: this.props.parameters,
-    script: '',
-    style: '',
+    script: this.props.script,
+    style: this.props.style,
   };
 
   handleChange = e => {
