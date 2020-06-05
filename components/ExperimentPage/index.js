@@ -56,7 +56,8 @@ class ExperimentPage extends Component {
               Please
               <Link
                 href={{
-                  pathname: '/sign/token',
+                  pathname: `/sign/participant`,
+                  query: { exp: exp.id },
                 }}
               >
                 <StyledLink> sign up </StyledLink>
@@ -64,18 +65,24 @@ class ExperimentPage extends Component {
               as a participant or just
               <Link
                 href={{
-                  pathname: '/login/token',
+                  pathname: `/login/participant`,
+                  query: { exp: exp.id },
                 }}
               >
                 <StyledLink> log in here </StyledLink>
               </Link>
               with your username.
             </h3>
-            <p>
-              You can also participate as a guest (we will assign you a
-              different random username each time you participate).
-            </p>
-            <HiddenTokenSignup redirect={exp.id} isCustom={isCustom} />
+
+            {false && (
+              <>
+                <p>
+                  You can also participate as a guest (we will assign you a
+                  different random username each time you participate).
+                </p>
+                <HiddenTokenSignup redirect={exp.id} isCustom={isCustom} />
+              </>
+            )}
           </ContainerOnlyForNoProfile>
 
           <ContainerOnlyForStudents>

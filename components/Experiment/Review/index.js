@@ -15,6 +15,8 @@ const REVIEW_EXPERIMENT_QUERY = gql`
       description
       largeImage
       parameters
+      script
+      style
       customExperiments {
         id
         title

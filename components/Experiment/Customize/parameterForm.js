@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
+import { Query } from 'react-apollo';
 import VasBuilder from './vasBuilder';
 import SelectOne from './selectOne';
 import SurveyBuilder from './surveyBuilder';
 import ArrayBuilder from './arrayBuilder';
+
+// import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
+import { CURRENT_USER_QUERY } from '../../User/index';
 
 import {
   StyledParameterForm,
@@ -130,12 +134,25 @@ class ParameterForm extends Component {
         </StyledParameterForm>
 
         {this.state.showPreview && (
-          <ExperimentPreview
-            parameters={this.props.data}
-            experiment={this.props.experiment}
-            customExperiment={this.props.id}
-            handleFinish={() => this.setState({ showPreview: false })}
-          />
+          <Query query={CURRENT_USER_QUERY}>
+            {({ data, loading }) => {
+              if (loading) return <p>Loading ... </p>;
+              // console.log('data', data);
+              if (!data.me) {
+                return false;
+              }
+              console.log('data', data.me.id);
+              return (
+                <ExperimentPreview
+                  user={data.me.id}
+                  parameters={this.props.data}
+                  experiment={this.props.experiment}
+                  customExperiment={this.props.id}
+                  handleFinish={() => this.setState({ showPreview: false })}
+                />
+              );
+            }}
+          </Query>
         )}
       </>
     );

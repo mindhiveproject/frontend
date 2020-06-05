@@ -34,7 +34,7 @@ class Experiments extends Component {
             Already signed up?
             <Link
               href={{
-                pathname: '/login/token',
+                pathname: '/login/participant',
               }}
             >
               <StyledLink> Log in here </StyledLink>
@@ -42,7 +42,7 @@ class Experiments extends Component {
             or
             <Link
               href={{
-                pathname: '/sign/token',
+                pathname: '/sign/participant',
               }}
             >
               <StyledLink> sign up as participant.</StyledLink>

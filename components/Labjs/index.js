@@ -1,69 +1,76 @@
 import React, { Component } from 'react';
 import clonedeep from 'lodash.clonedeep';
 import Head from 'next/head';
-import * as lab from './lib/lab';
-
-import rating from './scripts/rating';
-import risk from './scripts/risktaking';
-import survey from './scripts/survey';
-import flanker from './scripts/flanker';
+// import ScriptTag from 'react-script-tag';
+import * as lab from 'lab.js';
+// import * as labjs from 'lab.js/dist/lab.dev';
 
 class ExperimentWindow extends Component {
   constructor(props) {
     super(props);
   }
 
+  deserialize(serializedJavascript) {
+    return eval(`(${serializedJavascript})`);
+  }
+
   componentDidMount() {
-    const { props } = this;
-    console.log(
-      'props.settings.script',
-      props.settings.script,
-      props.settings.params
-    );
-    switch (props.settings.script) {
-      case 'Risk taking task':
-        risk.parameters = props.settings.params;
-        this.study = lab.util.fromObject(clonedeep(risk), lab);
-        break;
-      case 'Rating task':
-        rating.parameters = props.settings.params;
-        this.study = lab.util.fromObject(clonedeep(rating), lab);
-        break;
-      case 'Flanker Task':
-        flanker.parameters = props.settings.params;
-        this.study = lab.util.fromObject(clonedeep(flanker), lab);
-        break;
-      case 'Survey template':
-      default:
-        survey.parameters = props.settings.params;
-        survey.plugins = [
-          {
-            type: 'lab.plugins.Transmit',
-            url: `http://localhost:4444/api?exp=${props.settings.experiment}&custom=${props.settings.customExperiment}`,
-            callbacks: {},
-          },
-        ];
-        this.study = lab.util.fromObject(clonedeep(survey), lab);
-        break;
+    const {
+      user,
+      experiment,
+      customExperiment,
+      policy,
+      params,
+      style,
+    } = this.props.settings;
+    console.log(user, experiment, customExperiment, policy, params, style);
+
+    const script = this.deserialize(this.props.settings.script);
+    console.log('script', script);
+
+    if (policy !== 'no' && policy !== 'preview') {
+      script.plugins = [
+        ...script.plugins,
+        {
+          type: 'lab.plugins.Transmit',
+          url: `/.netlify/functions/incremental/?user=${user}&experiment=${experiment}&custom=${customExperiment}&policy=${policy}`,
+          callbacks: {},
+        },
+      ];
     }
+
+    script.parameters = params;
+
+    this.study = lab.util.fromObject(clonedeep(script), lab);
+    console.log('this.study', this.study);
+
     this.study.run();
+
     this.study.on('end', () => {
-      // const csv = this.study.options.datastore.exportCsv();
-      const json = this.study.options.datastore.data;
       this.study = undefined;
-      props.settings.on_finish(json);
+      this.props.settings.on_finish();
     });
-    this.study.parameters.callbackForEEG = e => {
-      props.settings.eventCallback(e);
-    };
+    // this.study.parameters.eventCallback = e => {
+    //   props.settings.eventCallback(e);
+    // };
     this.study.options.events.keydown = async e => {
       if (e.code === 'Escape') {
         if (this.study) {
           await this.study.internals.controller.audioContext.close();
-          this.study.end();
+          // this.study.end();
+          this.study = undefined;
+          this.props.settings.on_finish();
         }
       }
     };
+
+    // css style
+    if (style) {
+      const styleNode = document.createElement('style');
+      const embeddedStyle = style.split('data:text/css,')[1];
+      styleNode.innerHTML = window.decodeURIComponent(embeddedStyle);
+      document.body.appendChild(styleNode);
+    }
   }
 
   componentWillUnmount() {
@@ -83,6 +90,7 @@ class ExperimentWindow extends Component {
         <Head>
           <link href="/static/lab.css" rel="stylesheet" />
         </Head>
+
         <div className="container fullscreen" data-labjs-section="main">
           <main className="content-vertical-center content-horizontal-center">
             <div>

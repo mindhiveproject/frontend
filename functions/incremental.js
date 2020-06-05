@@ -1,20 +1,44 @@
+import { SUBMIT_RESULTS_FROM_API_MUTATION } from '../pages/api/save';
+
 const axios = require('axios');
 
 exports.handler = async (event, context) => {
-  const response = await axios.get(
-    'https://samply.uni-konstanz.de/api/studies'
+  const { user, experiment, custom, policy } = event.queryStringParameters;
+  console.log(
+    'user, experiment, custom, policy',
+    user,
+    experiment,
+    custom,
+    policy
   );
+  const { metadata, url, data } = JSON.parse(event.body);
 
-  // "event" has information about the path, body, headers, etc. of the request
-  console.log('event', event);
-  // "context" has information about the lambda environment and user details
-  console.log('context', context);
-  // The "callback" ends the execution of the function and returns a response back to the caller
+  const response = await axios({
+    method: 'post',
+    url: 'http://localhost:4444/',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    data: JSON.stringify({
+      query: SUBMIT_RESULTS_FROM_API_MUTATION,
+      operationName: 'submitResultFromAPI',
+      variables: {
+        userId: user,
+        experimentId: experiment,
+        customExperimentId: custom === 'undefined' ? null : custom,
+        data,
+        metadata: {
+          id: metadata.id,
+          payload: metadata.payload,
+        },
+        dataPolicy: policy,
+      },
+    }),
+  });
 
   return {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: response.data,
-    }),
+    statusCode: response.status,
+    body: response.statusText,
   };
 };

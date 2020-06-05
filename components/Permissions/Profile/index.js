@@ -9,6 +9,7 @@ export const ContainerOnlyForProfile = props => (
       if (!data.me) {
         return false;
       }
+      console.log('data', data.me.id);
       return props.children;
     }}
   </Query>

@@ -4,8 +4,8 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { SignForm } from '../Styles/Forms';
 import Error from '../ErrorMessage/index';
-import { parameters_rating } from '../Labjs/protocols/rating';
-import { parameters_risktaking } from '../Labjs/protocols/risktaking';
+
+import assemble from './assemble/index';
 
 const CREATE_NEW_EXPERIMENT = gql`
   mutation CREATE_NEW_EXPERIMENT(
@@ -15,6 +15,8 @@ const CREATE_NEW_EXPERIMENT = gql`
     $image: String
     $largeImage: String
     $parameters: Json
+    $script: String
+    $style: String
   ) {
     createExperiment(
       title: $title
@@ -23,6 +25,8 @@ const CREATE_NEW_EXPERIMENT = gql`
       image: $image
       largeImage: $largeImage
       parameters: $parameters
+      script: $script
+      style: $style
     ) {
       id
     }
@@ -37,6 +41,8 @@ class AddExperiment extends Component {
     image: 'Test image',
     largeImage: 'Test large image',
     parameters: [],
+    script: '',
+    style: '',
   };
 
   handleChange = e => {
@@ -45,16 +51,25 @@ class AddExperiment extends Component {
     this.setState({
       [name]: value,
     });
-    if (value === 'Risk taking task') {
+  };
+
+  handleJSONFileChange = async e => {
+    const fileReader = new FileReader();
+    const fileName =
+      e.target.files[0].name && e.target.files[0].name.split('.')[0];
+    fileReader.onload = async fileLoadedEvent => {
+      const file = JSON.parse(fileLoadedEvent.target.result);
+      const result = await assemble(file, fileName);
+      console.log('result', result);
+      const script = result.files['script.js'].content;
       this.setState({
-        parameters: parameters_risktaking,
+        script,
+        style: result.files['style.css'].content,
+        file,
+        parameters: result.files.parameters,
       });
-    }
-    if (value === 'Rating task') {
-      this.setState({
-        parameters: parameters_rating,
-      });
-    }
+    };
+    fileReader.readAsText(e.target.files[0]);
   };
 
   render() {
@@ -106,6 +121,17 @@ class AddExperiment extends Component {
                   placeholder="Description"
                   value={this.state.description}
                   onChange={this.handleChange}
+                  required
+                />
+              </label>
+              <label htmlFor="script">
+                JSON file
+                <input
+                  type="file"
+                  id="script"
+                  name="script"
+                  onChange={this.handleJSONFileChange}
+                  accept=".json"
                   required
                 />
               </label>

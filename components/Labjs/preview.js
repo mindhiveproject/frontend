@@ -1,47 +1,23 @@
 import React, { Component } from 'react';
 import clonedeep from 'lodash.clonedeep';
 import Head from 'next/head';
-import * as lab from './lib/lab';
 
-import rating from './scripts/rating';
-import risk from './scripts/risktaking';
-import survey from './scripts/survey';
+import * as lab from 'lab.js';
 
 class ExperimentWindow extends Component {
   constructor(props) {
     super(props);
   }
 
+  deserialize(serializedJavascript) {
+    return eval(`(${serializedJavascript})`);
+  }
+
   componentDidMount() {
     const { props } = this;
-    console.log(
-      'props.settings.script',
-      props.settings.script,
-      props.settings.params,
-      props
-    );
-    switch (props.settings.script) {
-      case 'Risk taking task':
-        risk.parameters = props.settings.params;
-        this.study = lab.util.fromObject(clonedeep(risk), lab);
-        break;
-      case 'Rating task':
-        rating.parameters = props.settings.params;
-        this.study = lab.util.fromObject(clonedeep(rating), lab);
-        break;
-      case 'Survey template':
-      default:
-        survey.parameters = props.settings.params;
-        survey.plugins = [
-          {
-            type: 'lab.plugins.Transmit',
-            url: `/.netlify/functions/incremental`,
-            callbacks: {},
-          },
-        ];
-        this.study = lab.util.fromObject(clonedeep(survey), lab);
-        break;
-    }
+    const script = this.deserialize(props.settings.script);
+    script.parameters = props.settings.params;
+    this.study = lab.util.fromObject(clonedeep(script), lab);
     this.study.run();
     this.study.on('end', () => {
       props.settings.on_finish();
@@ -50,10 +26,18 @@ class ExperimentWindow extends Component {
       if (e.code === 'Escape') {
         if (this.study) {
           await this.study.internals.controller.audioContext.close();
-          this.study.end();
+          this.study = undefined;
+          props.settings.on_finish();
         }
       }
     };
+    // css style
+    if (props.settings.style) {
+      const styleNode = document.createElement('style');
+      const embeddedStyle = props.settings.style.split('data:text/css,')[1];
+      styleNode.innerHTML = window.decodeURIComponent(embeddedStyle);
+      document.body.appendChild(styleNode);
+    }
   }
 
   componentWillUnmount() {
@@ -73,7 +57,7 @@ class ExperimentWindow extends Component {
         <Head>
           <link href="/static/lab.css" rel="stylesheet" />
         </Head>
-        <div data-labjs-section="main">
+        <div className="fullscreen" data-labjs-section="main">
           <main className="content-vertical-center content-horizontal-center">
             <div>
               <h2>Loading Experiment</h2>

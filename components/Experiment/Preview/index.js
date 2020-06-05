@@ -10,13 +10,16 @@ class ExperimentPreview extends Component {
           <CloseButton onClick={this.props.handleFinish}>&times;</CloseButton>
           <ExperimentWindow
             settings={{
+              user: this.props.user,
               experiment: this.props.experiment.id,
               customExperiment: this.props.customExperiment,
-              script: this.props.experiment.title,
+              script: this.props.experiment.script,
+              style: this.props.experiment.style,
               params: this.props.parameters.reduce((obj, item) => {
                 obj[item.name] = item.value;
                 return obj;
               }, {}),
+              policy: 'preview',
               on_finish: () => {
                 console.log('Not saving any data in preview mode');
                 this.props.handleFinish();

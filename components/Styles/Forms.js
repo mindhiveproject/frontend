@@ -173,6 +173,9 @@ export const TokenForm = styled.form`
   p {
     font-weight: 400;
   }
+  input[type='checkbox'] {
+    width: auto;
+  }
 `;
 
 export const StyledParameterForm = styled.form`

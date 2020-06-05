@@ -6,6 +6,8 @@ import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { StyledParameterBlock } from './styles';
 
+import assemble from '../../AddExperiment/assemble/index';
+
 const SINGLE_EXPERIMENT_QUERY = gql`
   query SINGLE_EXPERIMENT_QUERY($id: ID!) {
     experiment(where: { id: $id }) {
@@ -25,6 +27,9 @@ const UPDATE_EXPERIMENT = gql`
     $shortDescription: String
     $description: String
     $parameters: Json
+    $script: String
+    $style: String
+    $file: Json
   ) {
     updateExperiment(
       id: $id
@@ -32,6 +37,9 @@ const UPDATE_EXPERIMENT = gql`
       shortDescription: $shortDescription
       description: $description
       parameters: $parameters
+      script: $script
+      style: $style
+      file: $file
     ) {
       id
       title
@@ -71,6 +79,9 @@ class OriginalExperimentForm extends Component {
     shortDescription: this.props.shortDescription,
     description: this.props.description,
     parameters: this.props.parameters,
+    script: '',
+    style: '',
+    file: {},
   };
 
   handleChange = e => {
@@ -79,6 +90,24 @@ class OriginalExperimentForm extends Component {
     this.setState({
       [name]: value,
     });
+  };
+
+  handleJSONFileChange = async e => {
+    const fileReader = new FileReader();
+    const fileName =
+      e.target.files[0].name && e.target.files[0].name.split('.')[0];
+    fileReader.onload = async fileLoadedEvent => {
+      const file = JSON.parse(fileLoadedEvent.target.result);
+      const result = await assemble(file, fileName);
+      const script = result.files['script.js'].content;
+      this.setState({
+        script,
+        style: result.files['style.css'].content,
+        file,
+        parameters: result.files.parameters,
+      });
+    };
+    fileReader.readAsText(e.target.files[0]);
   };
 
   handleParamChange = (e, classType) => {
@@ -160,6 +189,17 @@ class OriginalExperimentForm extends Component {
                   placeholder="Description"
                   value={this.state.description}
                   onChange={this.handleChange}
+                  required
+                />
+              </label>
+              <label htmlFor="script">
+                JSON file
+                <input
+                  type="file"
+                  id="script"
+                  name="script"
+                  onChange={this.handleJSONFileChange}
+                  accept=".json"
                   required
                 />
               </label>

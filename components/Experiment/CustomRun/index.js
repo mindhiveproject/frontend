@@ -4,7 +4,10 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { ExperimentWindow } from '../../Labjs/index';
 import { StyledBox } from './styles';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import {
+  CURRENT_USER_RESULTS_QUERY,
+  CURRENT_USER_QUERY,
+} from '../../User/index';
 import { ADD_RESULT_MUTATION } from '../../Results/Add/index';
 import { REVIEW_EXPERIMENT_QUERY } from '../Review/index';
 
@@ -20,6 +23,8 @@ const CUSTOM_PARAMETER_QUERY = gql`
       experiment {
         title
         id
+        script
+        style
       }
     }
   }
@@ -39,39 +44,31 @@ class RunExperiment extends Component {
           return (
             <>
               <StyledBox>
-                <Mutation
-                  mutation={ADD_RESULT_MUTATION}
-                  variables={{ experimentId: parameter.experiment.id }}
-                  refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
-                >
-                  {addResult => (
+                <Query query={CURRENT_USER_QUERY}>
+                  {({ data, loading }) => (
                     <ExperimentWindow
                       settings={{
+                        user: data && data.me && data.me.id,
                         experiment: parameter.experiment.id,
                         customExperiment: parameter.id,
-                        script: parameter.experiment.title,
+                        script: parameter.experiment.script,
+                        style: parameter.experiment.style,
                         params: parameter.data.reduce((obj, item) => {
                           obj[item.name] = item.value;
                           return obj;
                         }, {}),
+                        policy: dataPolicy,
                         eventCallback: e => {
                           console.log('Event callback', e);
                         },
                         on_finish: json => {
-                          console.log('json data', json);
-                          if (dataPolicy === 'no') {
-                            console.log('Not saving any data in preview mode');
-                          } else {
-                            addResult({
-                              variables: { data: json, dataPolicy },
-                            });
-                          }
+                          console.log('saving of data is deprecated here');
                           Router.push('/bank');
                         },
                       }}
                     />
                   )}
-                </Mutation>
+                </Query>
               </StyledBox>
             </>
           );
