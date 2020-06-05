@@ -197,7 +197,6 @@ class OriginalExperimentForm extends Component {
                   name="script"
                   onChange={this.handleJSONFileChange}
                   accept=".json"
-                  required
                 />
               </label>
 
