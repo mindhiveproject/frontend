@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import clonedeep from 'lodash.clonedeep';
 import Head from 'next/head';
-
-import * as lab from 'lab.js';
+import * as lab from './lab.js';
 
 class ExperimentWindow extends Component {
   constructor(props) {
