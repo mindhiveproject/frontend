@@ -13,6 +13,8 @@ const EXPERIMENT_DEFAULT_PARAMETER_QUERY = gql`
       title
       description
       parameters
+      script
+      style
     }
   }
 `;

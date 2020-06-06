@@ -33,28 +33,33 @@ class RunExperiment extends Component {
               </Head>
               <StyledBox>
                 <Query query={CURRENT_USER_QUERY}>
-                  {({ data, loading }) => (
-                    <ExperimentWindow
-                      settings={{
-                        user: data && data.me && data.me.id,
-                        experiment: experimentId,
-                        script: exp.script,
-                        style: exp.style,
-                        params: exp.parameters.reduce((obj, item) => {
-                          obj[item.name] = item.value;
-                          return obj;
-                        }, {}),
-                        policy: dataPolicy,
-                        eventCallback: e => {
-                          console.log('Event callback', e);
-                        },
-                        on_finish: () => {
-                          console.log('saving of data is deprecated here');
-                          Router.push('/bank');
-                        },
-                      }}
-                    />
-                  )}
+                  {({ data, loading }) => {
+                    const params = exp.parameters.reduce((obj, item) => {
+                      debugger;
+                      console.log('obj', obj);
+                      obj[item.name] = item.value;
+                      return obj;
+                    }, {});
+                    return (
+                      <ExperimentWindow
+                        settings={{
+                          user: data && data.me && data.me.id,
+                          experiment: experimentId,
+                          script: exp.script,
+                          style: exp.style,
+                          params,
+                          policy: dataPolicy,
+                          eventCallback: e => {
+                            console.log('Event callback', e);
+                          },
+                          on_finish: () => {
+                            console.log('saving of data is deprecated here');
+                            Router.push('/bank');
+                          },
+                        }}
+                      />
+                    );
+                  }}
                 </Query>
               </StyledBox>
             </>

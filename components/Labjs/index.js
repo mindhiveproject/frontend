@@ -38,7 +38,7 @@ class ExperimentWindow extends Component {
     }
 
     script.parameters = params;
-
+    console.log('script.parameters', script.parameters);
     this.study = lab.util.fromObject(clonedeep(script), lab);
     console.log('this.study', this.study);
 
