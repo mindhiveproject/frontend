@@ -66,7 +66,6 @@ class AddExperiment extends Component {
         script,
         style: result.files['style.css'].content,
         file,
-        parameters: result.files.parameters,
       });
     };
     fileReader.readAsText(e.target.files[0]);
@@ -110,7 +109,6 @@ class AddExperiment extends Component {
                   placeholder="Short description"
                   value={this.state.shortDescription}
                   onChange={this.handleChange}
-                  required
                 />
               </label>
               <label htmlFor="description">
@@ -121,7 +119,6 @@ class AddExperiment extends Component {
                   placeholder="Description"
                   value={this.state.description}
                   onChange={this.handleChange}
-                  required
                 />
               </label>
               <label htmlFor="script">
@@ -135,7 +132,94 @@ class AddExperiment extends Component {
                   required
                 />
               </label>
-              <button type="submit">Submit</button>
+
+              <h2>Add parameters</h2>
+
+              <div>
+                <input type="text" id="newParameterName" />
+                <button onClick={this.handleAddNewParameter}>
+                  add new parameter
+                </button>
+              </div>
+
+              {this.state.parameters.map(
+                ({ name, value, type, help, example, options, array }) => (
+                  <StyledParameterBlock key={name} htmlFor={name}>
+                    <div className="name">{name}</div>
+
+                    <div>Help</div>
+                    <textarea
+                      name={name}
+                      value={help}
+                      onChange={this.handleParamChange}
+                      className="help"
+                    />
+
+                    <div>Example</div>
+                    <textarea
+                      name={name}
+                      value={example}
+                      onChange={this.handleParamChange}
+                      className="example"
+                    />
+
+                    <div>Type</div>
+                    <select
+                      type="text"
+                      name={name}
+                      value={type}
+                      onChange={this.handleParamChange}
+                      className="type"
+                    >
+                      <option value="text">Text</option>
+                      <option value="number">Number</option>
+                      <option value="textarea">Textarea</option>
+                      <option value="select">Select one</option>
+                      <option value="vas">Visual scale</option>
+                      <option value="survey">Survey builder</option>
+                      <option value="array">Provide array</option>
+                    </select>
+
+                    {type !== 'array' && (
+                      <>
+                        <div>Options</div>
+                        <textarea
+                          name={name}
+                          value={options}
+                          onChange={this.handleParamChange}
+                          className="options"
+                        />
+
+                        <div>Value</div>
+                        <textarea
+                          name={name}
+                          value={value}
+                          onChange={this.handleParamChange}
+                          className="value"
+                        />
+                      </>
+                    )}
+
+                    {type === 'array' && (
+                      <>
+                        <div>Array values</div>
+                        <textarea
+                          name={name}
+                          value={parseIt(value)}
+                          onChange={e => this.handleParamChange(e, 'array')}
+                          className="value"
+                        />
+                      </>
+                    )}
+
+                    <button onClick={e => this.deleteParameter(e, name)}>
+                      Delete
+                    </button>
+                  </StyledParameterBlock>
+                )
+              )}
+
+              <button type="submit">Save</button>
             </fieldset>
           </SignForm>
         )}

@@ -15,9 +15,10 @@ class ExperimentWindow extends Component {
   componentDidMount() {
     const { props } = this;
     const script = this.deserialize(props.settings.script);
-    script.parameters = props.settings.params;
-    console.log('script.parameters', script.parameters);
-    // console.log('script.parameters', JSON.parse(script.parameters));
+    Object.assign(
+      script.content[0] && script.content[0].parameters,
+      props.settings.params || {}
+    );
     this.study = lab.util.fromObject(clonedeep(script), lab);
     this.study.run();
     this.study.on('end', () => {

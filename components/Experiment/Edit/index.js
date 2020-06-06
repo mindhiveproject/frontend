@@ -101,7 +101,6 @@ class OriginalExperimentForm extends Component {
         script,
         style: result.files['style.css'].content,
         file,
-        parameters: result.files.parameters,
       });
     };
     fileReader.readAsText(e.target.files[0]);
@@ -175,7 +174,6 @@ class OriginalExperimentForm extends Component {
                   placeholder="Short description"
                   value={this.state.shortDescription}
                   onChange={this.handleChange}
-                  required
                 />
               </label>
               <label htmlFor="description">
@@ -186,7 +184,6 @@ class OriginalExperimentForm extends Component {
                   placeholder="Description"
                   value={this.state.description}
                   onChange={this.handleChange}
-                  required
                 />
               </label>
               <label htmlFor="script">
@@ -219,7 +216,6 @@ class OriginalExperimentForm extends Component {
                       name={name}
                       value={help}
                       onChange={this.handleParamChange}
-                      required
                       className="help"
                     />
 
