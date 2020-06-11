@@ -13,25 +13,18 @@ class ExperimentWindow extends Component {
   }
 
   componentDidMount() {
-    const {
-      user,
-      experiment,
-      customExperiment,
-      policy,
-      params,
-      style,
-    } = this.props.settings;
-    console.log(user, experiment, customExperiment, policy, params, style);
+    const { user, template, task, policy, params, style } = this.props.settings;
+    console.log(user, template, task, policy, params, style);
 
     const script = this.deserialize(this.props.settings.script);
-    console.log('script', script);
+    // console.log('script', script);
 
     if (policy !== 'no' && policy !== 'preview') {
       script.plugins = [
         ...script.plugins,
         {
           type: 'lab.plugins.Transmit',
-          url: `/.netlify/functions/incremental/?user=${user}&experiment=${experiment}&custom=${customExperiment}&policy=${policy}`,
+          url: `/.netlify/functions/internal/?user=${user}&template=${template}&task=${task}&policy=${policy}`,
           callbacks: {},
         },
       ];
@@ -45,7 +38,7 @@ class ExperimentWindow extends Component {
     );
 
     this.study = lab.util.fromObject(clonedeep(script), lab);
-    console.log('this.study', this.study);
+    // console.log('this.study', this.study);
 
     this.study.run();
 

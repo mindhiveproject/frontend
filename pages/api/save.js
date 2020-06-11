@@ -4,16 +4,16 @@ import gql from 'graphql-tag';
 const SUBMIT_RESULTS_FROM_API_MUTATION = gql`
   mutation submitResultFromAPI(
     $userId: ID!
-    $experimentId: ID!
-    $customExperimentId: ID
+    $templateId: ID!
+    $taskId: ID
     $data: Json
     $metadata: Json
     $dataPolicy: String
   ) {
     submitResultFromAPI(
       userId: $userId
-      experimentId: $experimentId
-      customExperimentId: $customExperimentId
+      templateId: $templateId
+      taskId: $taskId
       data: $data
       metadata: $metadata
       dataPolicy: $dataPolicy
@@ -58,8 +58,8 @@ const handler = async (req, res) => {
       operationName: 'submitResultFromAPI',
       variables: {
         userId: req.query.user,
-        experimentId: req.query.exp,
-        customExperimentId: req.query.custom,
+        templateId: req.query.exp,
+        taskId: req.query.custom,
         data: req.body.data,
         metadata: req.body.metadata,
         dataPolicy: 'science',

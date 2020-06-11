@@ -8,7 +8,11 @@ const DISPLAY_RESULT_QUERY = gql`
   query DISPLAY_RESULT_QUERY($id: ID!) {
     result(where: { id: $id }) {
       id
-      experiment {
+      template {
+        id
+        title
+      }
+      task {
         id
         title
       }

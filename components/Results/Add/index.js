@@ -1,37 +1,39 @@
-import React, { Component } from 'react';
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+// TODO: deprecate in the future
 
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
-// import { REVIEW_MY_RESULTS } from '../Review/index';
-
-const ADD_RESULT_MUTATION = gql`
-  mutation addResult($experimentId: ID!, $data: Json, $dataPolicy: String) {
-    addResult(
-      experimentId: $experimentId
-      data: $data
-      dataPolicy: $dataPolicy
-    ) {
-      id
-      quantity
-    }
-  }
-`;
-
-class ResultCollector extends Component {
-  render() {
-    const { experimentId } = this.props;
-    return (
-      <Mutation
-        mutation={ADD_RESULT_MUTATION}
-        variables={{ experimentId }}
-        refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
-      >
-        {addResult => <button onClick={addResult}>Add a new result</button>}
-      </Mutation>
-    );
-  }
-}
-
-export default ResultCollector;
-export { ADD_RESULT_MUTATION };
+// import React, { Component } from 'react';
+// import { Mutation } from 'react-apollo';
+// import gql from 'graphql-tag';
+//
+// import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+// // import { REVIEW_MY_RESULTS } from '../Review/index';
+//
+// const ADD_RESULT_MUTATION = gql`
+//   mutation addResult($experimentId: ID!, $data: Json, $dataPolicy: String) {
+//     addResult(
+//       experimentId: $experimentId
+//       data: $data
+//       dataPolicy: $dataPolicy
+//     ) {
+//       id
+//       quantity
+//     }
+//   }
+// `;
+//
+// class ResultCollector extends Component {
+//   render() {
+//     const { experimentId } = this.props;
+//     return (
+//       <Mutation
+//         mutation={ADD_RESULT_MUTATION}
+//         variables={{ experimentId }}
+//         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+//       >
+//         {addResult => <button onClick={addResult}>Add a new result</button>}
+//       </Mutation>
+//     );
+//   }
+// }
+//
+// export default ResultCollector;
+// export { ADD_RESULT_MUTATION };

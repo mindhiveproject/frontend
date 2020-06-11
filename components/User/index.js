@@ -11,7 +11,11 @@ const CURRENT_USER_RESULTS_QUERY = gql`
       permissions
       results {
         id
-        experiment {
+        template {
+          id
+          title
+        }
+        task {
           id
           title
         }

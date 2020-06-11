@@ -22,6 +22,15 @@ const Nav = () => (
         </ContainerOnlyForNoProfile>
 
         <ContainerOnlyForScientists>
+          <Link href="/templates/my">
+            <a>My task templates</a>
+          </Link>
+          <Link href="/tasks/my">
+            <a>My tasks</a>
+          </Link>
+          <Link href="/studies/my">
+            <a>My studies</a>
+          </Link>
           <Link href="/bank">
             <a>Research studies</a>
           </Link>
