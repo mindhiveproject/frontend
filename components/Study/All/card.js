@@ -62,11 +62,7 @@ class StudyCard extends Component {
           </Link>
         </ContainerOnlyForScientists>
 
-        <Link
-          href={{
-            pathname: `/study/${study.slug}`,
-          }}
-        >
+        <Link href="/study/[slug]" as={`/study/${study.slug}`}>
           <a>
             <h2>Enter</h2>
           </a>

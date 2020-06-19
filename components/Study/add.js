@@ -125,9 +125,10 @@ class AddStudy extends Component {
               e.preventDefault();
               const res = await createStudy();
               // change the page
-              Router.push({
-                pathname: `/study/${res.data.createStudy.slug}`,
-              });
+              Router.push(
+                '/study/[slug]',
+                `/study/${res.data.createStudy.slug}`
+              );
             }}
           >
             <h2>Add a new study</h2>

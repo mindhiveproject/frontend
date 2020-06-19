@@ -66,11 +66,7 @@ class StudyCard extends Component {
           <DeleteStudy id={study.id}>Delete</DeleteStudy>
         </ContainerOnlyForScientists>
 
-        <Link
-          href={{
-            pathname: `/study/${study.slug}`,
-          }}
-        >
+        <Link href="/study/[slug]" as={`/study/${study.slug}`}>
           <a>
             <h2>Page for participants</h2>
           </a>
