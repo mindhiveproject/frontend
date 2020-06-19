@@ -12,9 +12,16 @@ const REVIEW_STUDY_QUERY = gql`
     study(where: { slug: $slug }) {
       id
       title
+      slug
       description
       settings
-      tasks
+      tasks {
+        id
+        title
+      }
+      image
+      largeImage
+      info
     }
   }
 `;
@@ -28,6 +35,7 @@ class ReviewStudyForParticipants extends Component {
           if (loading) return <p>Loading</p>;
           if (!data.study) return <p>No study found for {this.props.slug}</p>;
           const { study } = data;
+          console.log('study', study);
           return <StudyParticipantPage study={study} />;
         }}
       </Query>

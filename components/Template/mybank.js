@@ -8,7 +8,7 @@ import TemplateCard from './card';
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const MY_TEMPLATES_QUERY = gql`
   query MY_TEMPLATES_QUERY {
-    templates {
+    myTemplates {
       id
       title
       shortDescription
@@ -42,7 +42,7 @@ class MyTemplates extends Component {
             if (error) return <p>Error: {error.message}</p>;
             return (
               <TemplatesList>
-                {data.templates.map(template => (
+                {data.myTemplates.map(template => (
                   <TemplateCard template={template} key={template.id} />
                 ))}
               </TemplatesList>

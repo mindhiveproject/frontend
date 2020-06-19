@@ -20,8 +20,7 @@ class StudyCard extends Component {
       <StyledStudyCard>
         <Link
           href={{
-            pathname: '/studies/page',
-            query: { id: study.id },
+            pathname: `/study/${study.slug}`,
           }}
         >
           <a>
@@ -69,7 +68,7 @@ class StudyCard extends Component {
           }}
         >
           <a>
-            <h2>Page for participants</h2>
+            <h2>Enter</h2>
           </a>
         </Link>
       </StyledStudyCard>

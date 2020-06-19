@@ -21,8 +21,11 @@ const Header = () => (
   <StyledHeader>
     <div className="bar">
       <Logo>
-        <Link href="/">
-          <a>mindHIVE</a>
+        <Link href="/studies/all">
+          <div className="logo">
+            <img src="/static/logo.svg" alt="icon" />
+            <span>MINDHIVE</span>
+          </div>
         </Link>
       </Logo>
       <Nav />

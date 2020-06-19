@@ -52,16 +52,17 @@ class TaskCard extends Component {
             </a>
           </Link>
         </ContainerOnlyForScientists>
-
-        <Link
-          href={{
-            pathname: `/task/${task.slug}`,
-          }}
-        >
-          <a>
-            <h2>Task page for participants</h2>
-          </a>
-        </Link>
+        {false && (
+          <Link
+            href={{
+              pathname: `/task/${task.slug}`,
+            }}
+          >
+            <a>
+              <h2>Task page for participants</h2>
+            </a>
+          </Link>
+        )}
       </StyledTaskCard>
     );
   }

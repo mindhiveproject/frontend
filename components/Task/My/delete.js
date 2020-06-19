@@ -20,8 +20,8 @@ class DeleteTask extends Component {
     console.log('data', data);
     console.log('payload', payload);
     // 2. Filter the deleted items out of the page
-    data.tasks = data.tasks.filter(
-      exp => exp.id !== payload.data.deleteTask.id
+    data.myTasks = data.myTasks.filter(
+      task => task.id !== payload.data.deleteTask.id
     );
     // 3. Put the items back
     cache.writeQuery({ query: MY_TASKS_QUERY, data });

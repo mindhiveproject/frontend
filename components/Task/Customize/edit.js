@@ -11,9 +11,11 @@ const TASK_QUERY = gql`
     task(where: { id: $id }) {
       id
       title
+      description
       parameters
       settings
       updatedAt
+      link
       template {
         title
         id
@@ -40,6 +42,8 @@ class EditParameter extends Component {
               template={data.task.template}
               parameters={data.task.parameters}
               title={data.task.title}
+              description={data.task.description}
+              link={data.task.link}
               settings={data.task.settings}
             />
           );
@@ -50,3 +54,4 @@ class EditParameter extends Component {
 }
 
 export default EditParameter;
+export { TASK_QUERY };

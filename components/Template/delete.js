@@ -16,15 +16,15 @@ class DeleteTemplate extends Component {
   update = (cache, payload) => {
     // manually update the cache on the client so it matches the server
     // 1. read the cache
-    const data = cache.readQuery({ query: ALL_TEMPLATES_QUERY });
+    const data = cache.readQuery({ query: MY_TEMPLATES_QUERY });
     console.log('data', data);
     console.log('payload', payload);
     // 2. Filter the deleted items out of the page
-    data.templates = data.templates.filter(
-      exp => exp.id !== payload.data.deleteTemplate.id
+    data.myTemplates = data.myTemplates.filter(
+      template => template.id !== payload.data.deleteTemplate.id
     );
     // 3. Put the items back
-    cache.writeQuery({ query: ALL_TEMPLATES_QUERY, data });
+    cache.writeQuery({ query: MY_TEMPLATES_QUERY, data });
   };
 
   render() {

@@ -16,9 +16,11 @@ const Nav = () => (
     {({ data: { me } }) => (
       <NavStyles>
         <ContainerOnlyForNoProfile>
-          <Link href="/bank">
-            <a>Research studies</a>
-          </Link>
+          {false && (
+            <Link href="/studies/all">
+              <a>Research studies</a>
+            </Link>
+          )}
         </ContainerOnlyForNoProfile>
 
         <ContainerOnlyForScientists>
@@ -31,7 +33,7 @@ const Nav = () => (
           <Link href="/studies/my">
             <a>My studies</a>
           </Link>
-          <Link href="/bank">
+          <Link href="/studies/all">
             <a>Research studies</a>
           </Link>
           <Link href="/classes">
@@ -50,7 +52,7 @@ const Nav = () => (
         </ContainerOnlyForStudents>
 
         <ContainerOnlyForParticipants>
-          <Link href="/bank">
+          <Link href="/studies/all">
             <a>Research studies</a>
           </Link>
         </ContainerOnlyForParticipants>

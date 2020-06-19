@@ -49,10 +49,21 @@ class Signup extends Component {
               const res = await participantSignUp();
               console.log('res', res);
               this.setState({ username: '', password: '', email: '' });
-              Router.push({
-                pathname: this.props.redirect ? '/exp' : '/bank',
-                query: { id: this.props.redirect },
-              });
+              if (this.props.redirect) {
+                Router.push({
+                  pathname: `/studies/page`,
+                  query: { id: this.props.redirect },
+                });
+              } else {
+                Router.push({
+                  pathname: `/studies/all`,
+                });
+              }
+              // Router.push({
+              //   pathname: this.props.redirect
+              //     ? `/study/${this.props.redirect}`
+              //     : '/studies/all',
+              // });
             }}
           >
             <fieldset disabled={loading} aria-busy={loading}>

@@ -6,6 +6,7 @@ import { SignForm } from '../Styles/Forms';
 import Error from '../ErrorMessage/index';
 import { StyledParameterBlock } from './styles';
 import assemble from '../AddExperiment/assemble/index';
+import { MY_TEMPLATES_QUERY } from './mybank';
 
 const CREATE_NEW_TEMPLATE = gql`
   mutation CREATE_NEW_TEMPLATE(
@@ -104,7 +105,11 @@ class AddTemplate extends Component {
 
   render() {
     return (
-      <Mutation mutation={CREATE_NEW_TEMPLATE} variables={this.state}>
+      <Mutation
+        mutation={CREATE_NEW_TEMPLATE}
+        variables={this.state}
+        refetchQueries={[{ query: MY_TEMPLATES_QUERY }]}
+      >
         {(createTemplate, { loading, error }) => (
           <SignForm
             onSubmit={async e => {

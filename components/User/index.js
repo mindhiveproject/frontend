@@ -3,6 +3,37 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
+const CURRENT_USER_STUDIES_QUERY = gql`
+  query CURRENT_USER_STUDIES_QUERY {
+    me {
+      id
+      username
+      permissions
+      participantIn {
+        id
+        title
+        tasks {
+          id
+          title
+        }
+      }
+      studentIn {
+        id
+        title
+      }
+      results {
+        id
+        task {
+          id
+          title
+        }
+      }
+      image
+      info
+    }
+  }
+`;
+
 const CURRENT_USER_RESULTS_QUERY = gql`
   query CURRENT_USER_RESULTS_QUERY {
     me {
@@ -19,12 +50,24 @@ const CURRENT_USER_RESULTS_QUERY = gql`
           id
           title
         }
+        study {
+          id
+        }
         quantity
         updatedAt
+        payload
       }
       studentIn {
         id
         title
+      }
+      participantIn {
+        id
+        title
+        tasks {
+          id
+          title
+        }
       }
       image
       info
@@ -53,4 +96,8 @@ User.propTypes = {
 };
 
 export default User;
-export { CURRENT_USER_QUERY, CURRENT_USER_RESULTS_QUERY };
+export {
+  CURRENT_USER_QUERY,
+  CURRENT_USER_RESULTS_QUERY,
+  CURRENT_USER_STUDIES_QUERY,
+};

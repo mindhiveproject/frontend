@@ -56,15 +56,17 @@ class TaskCard extends Component {
           <DeleteTask id={task.id}>Delete</DeleteTask>
         </ContainerOnlyForScientists>
 
-        <Link
-          href={{
-            pathname: `/task/${task.slug}`,
-          }}
-        >
-          <a>
-            <h2>Task page for participants</h2>
-          </a>
-        </Link>
+        {false && (
+          <Link
+            href={{
+              pathname: `/task/${task.slug}`,
+            }}
+          >
+            <a>
+              <h2>Task page for participants</h2>
+            </a>
+          </Link>
+        )}
       </StyledTaskCard>
     );
   }

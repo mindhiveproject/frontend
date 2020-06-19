@@ -9,6 +9,8 @@ import {
   CURRENT_USER_QUERY,
 } from '../../User/index';
 
+import Qualtrics from '../../Qualtrics/index';
+
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const TASK_QUERY = gql`
   query TASK_QUERY($id: ID!) {
@@ -18,6 +20,7 @@ const TASK_QUERY = gql`
       parameters
       settings
       updatedAt
+      link
       template {
         title
         id
@@ -42,35 +45,51 @@ class RunExperiment extends Component {
           return (
             <>
               <StyledBox>
-                <Query query={CURRENT_USER_QUERY}>
+                <Query query={CURRENT_USER_RESULTS_QUERY}>
                   {({ error, loading, data }) => {
                     if (error) return <Error error={error} />;
                     if (loading) return <p>Loading</p>;
                     if (!data.me) return <p>No user found</p>;
                     const { me } = data;
-                    return (
-                      <ExperimentWindow
-                        settings={{
-                          user: me.id,
-                          template: task.template.id,
-                          task: task.id,
-                          script: task.template.script,
-                          style: task.template.style,
-                          params: task.parameters.reduce((obj, item) => {
-                            obj[item.name] = item.value;
-                            return obj;
-                          }, {}),
-                          policy,
-                          eventCallback: e => {
-                            console.log('Event callback', e);
-                          },
-                          on_finish: json => {
-                            console.log('saving of data is deprecated here');
-                            Router.push('/tasks/my');
-                          },
-                        }}
-                      />
-                    );
+                    if (task.template && task.template.id) {
+                      return (
+                        <ExperimentWindow
+                          settings={{
+                            user: me.id,
+                            template: task.template.id,
+                            task: task.id,
+                            study: this.props.study,
+                            script: task.template.script,
+                            style: task.template.style,
+                            params: task.parameters.reduce((obj, item) => {
+                              obj[item.name] = item.value;
+                              return obj;
+                            }, {}),
+                            policy,
+                            eventCallback: e => {
+                              console.log('Event callback', e);
+                            },
+                            on_finish: json => {
+                              console.log('saving of data is deprecated here');
+                              if (this.props.study) {
+                                Router.push({
+                                  pathname: `/studies/page`,
+                                  query: { id: this.props.study },
+                                });
+                              } else {
+                                Router.push({
+                                  pathname: `/studies/all`,
+                                });
+                              }
+                            },
+                          }}
+                        />
+                      );
+                    }
+                    if (task.link) {
+                      return <Qualtrics link={task.link} user={me} />;
+                    }
+                    return <div>No task found</div>;
                   }}
                 </Query>
               </StyledBox>

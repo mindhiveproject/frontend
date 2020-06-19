@@ -83,7 +83,6 @@ class TaskForm extends Component {
   }
 
   render() {
-    console.log('this.props', this.props);
     return (
       <>
         <StyledTaskForm onSubmit={this.props.onHandleSubmit}>
@@ -113,6 +112,34 @@ class TaskForm extends Component {
                   required
                 />
               </div>
+
+              {this.props.link && (
+                <>
+                  <div className="help">Web link (https://)</div>
+                  <div className="input">
+                    <input
+                      type="text"
+                      id="link"
+                      name="link"
+                      placeholder="Web link"
+                      value={this.props.link}
+                      onChange={this.props.onHandleChange}
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
+              <div className="help">Description</div>
+              <div className="input">
+                <textarea
+                  id="description"
+                  name="description"
+                  placeholder="Description"
+                  value={this.props.description}
+                  onChange={this.props.onHandleChange}
+                />
+              </div>
             </StyledTaskBlock>
 
             {this.props.parameters.map(
@@ -136,7 +163,6 @@ class TaskForm extends Component {
               if (!data.me) {
                 return false;
               }
-              console.log('data', data.me.id);
               return (
                 <ExperimentPreview
                   user={data.me.id}

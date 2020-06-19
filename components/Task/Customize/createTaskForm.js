@@ -3,8 +3,8 @@ import { Mutation } from 'react-apollo';
 
 import gql from 'graphql-tag';
 import Router from 'next/router';
-// import { MY_TASKS_QUERY } from '../../Experiments/Custom/my';
-// import { ALL_TASKS_QUERY } from '../../Experiments/Custom/index';
+import { MY_TASKS_QUERY } from '../My/index';
+import { ALL_TASKS_QUERY } from '../All/index';
 // import { REVIEW_EXPERIMENT_QUERY } from '../Review/index';
 
 import Error from '../../ErrorMessage/index';
@@ -75,13 +75,11 @@ class CreateTaskForm extends Component {
       <Mutation
         mutation={CREATE_TASK}
         variables={this.state}
-        refetchQueries={
-          [
-            // { query: MY_TASKS_QUERY },
-            // { query: ALL_TASKS_QUERY },
-            // { query: REVIEW_EXPERIMENT_QUERY, variables: { id: this.props.id } },
-          ]
-        }
+        refetchQueries={[
+          { query: MY_TASKS_QUERY },
+          { query: ALL_TASKS_QUERY },
+          // { query: REVIEW_EXPERIMENT_QUERY, variables: { id: this.props.id } },
+        ]}
       >
         {(createTask, { loading, error }) => (
           <TaskForm

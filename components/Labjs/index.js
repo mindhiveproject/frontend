@@ -13,8 +13,16 @@ class ExperimentWindow extends Component {
   }
 
   componentDidMount() {
-    const { user, template, task, policy, params, style } = this.props.settings;
-    console.log(user, template, task, policy, params, style);
+    const {
+      user,
+      template,
+      task,
+      study,
+      policy,
+      params,
+      style,
+    } = this.props.settings;
+    console.log(user, template, task, study, policy, params, style);
 
     const script = this.deserialize(this.props.settings.script);
     // console.log('script', script);
@@ -24,7 +32,7 @@ class ExperimentWindow extends Component {
         ...script.plugins,
         {
           type: 'lab.plugins.Transmit',
-          url: `/.netlify/functions/internal/?user=${user}&template=${template}&task=${task}&policy=${policy}`,
+          url: `/.netlify/functions/internal/?user=${user}&template=${template}&task=${task}&study=${study}&policy=${policy}`,
           callbacks: {},
         },
       ];

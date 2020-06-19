@@ -1,18 +1,30 @@
 import styled from 'styled-components';
 
-export const Logo = styled.h1`
-  margin-left: 2rem;
-  position: relative;
-  z-index: 2;
-  a {
-    padding: 0.5rem 1 rem;
-    background: ${props => props.theme.white};
-    color: green;
-    text-decoration: none;
-  }
+export const Logo = styled.a`
+  @import url('https://fonts.googleapis.com/css?family=Montserrat');
+  margin: 20px;
+  display: grid;
+  justify-items: start;
+  cursor: pointer;
   @media (max-width: 1300px) {
-    margin: 0;
+    margin: 10px;
     text-align: center;
+    justify-items: center;
+  }
+  .logo {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+  span {
+    color: #28619e;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+  }
+  img {
+    margin-right: 10px;
   }
 `;
 

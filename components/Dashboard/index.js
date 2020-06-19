@@ -3,7 +3,7 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
 import Link from 'next/link';
-import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
+import { CURRENT_USER_STUDIES_QUERY } from '../User/index';
 import {
   CartStyles,
   Supreme,
@@ -33,7 +33,7 @@ const TOGGLE_DASHBOARD_MUTATION = gql`
 /* eslint-disable */
 // compose all components together
 const Composed = adopt({
-  user: ({ render }) => <Query query={ CURRENT_USER_RESULTS_QUERY }>{render}</Query>,
+  user: ({ render }) => <Query query={ CURRENT_USER_STUDIES_QUERY }>{render}</Query>,
   toggleDashboard: ({ render }) => <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>{render}</Mutation>,
   localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
 })
@@ -46,6 +46,7 @@ class Dashboard extends Component {
         {({ user, toggleDashboard, localState }) => {
           if (!user.data) return null;
           const { me } = user.data;
+          // console.log('me', me);
           if (!me) return null;
           return (
             <CartStyles open={localState.data.dashboardOpen}>
@@ -104,6 +105,28 @@ class Dashboard extends Component {
                     </Link>
                   </StyledButtons>
                 </ContainerOnlyForStudents>
+
+                <h3>Your studies</h3>
+                <div>
+                  <ul>
+                    {me.participantIn.map(study => (
+                      <div key={study.id}>
+                        <Link
+                          href={{
+                            pathname: '/studies/page',
+                            query: { id: study.id },
+                          }}
+                        >
+                          <a>{study.title}</a>
+                        </Link>
+                        {study.tasks.map(task => (
+                          <div key={task.id}>{task.title}</div>
+                        ))}
+                      </div>
+                    ))}
+                  </ul>
+                </div>
+
                 {false && (
                   <>
                     <p>You are {me.permissions}</p>

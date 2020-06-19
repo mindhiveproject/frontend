@@ -8,6 +8,8 @@ import Router from 'next/router';
 import TaskForm from './taskForm';
 import Error from '../../ErrorMessage/index';
 
+import { TASK_QUERY } from './edit';
+
 const UPDATE_TASK = gql`
   mutation UPDATE_TASK(
     $id: ID!
@@ -15,6 +17,7 @@ const UPDATE_TASK = gql`
     $description: String
     $parameters: Json
     $settings: Json
+    $link: String
   ) {
     updateTask(
       id: $id
@@ -22,6 +25,7 @@ const UPDATE_TASK = gql`
       description: $description
       parameters: $parameters
       settings: $settings
+      link: $link
     ) {
       id
       title
@@ -32,8 +36,10 @@ const UPDATE_TASK = gql`
 class EditTaskForm extends Component {
   state = {
     title: this.props.title,
-    parameters: this.props.parameters,
-    templateId: this.props.template.id,
+    description: this.props.description,
+    link: this.props.link,
+    parameters: this.props.parameters || [],
+    templateId: this.props.template && this.props.template.id,
     settings: this.props.settings,
   };
 
@@ -75,12 +81,11 @@ class EditTaskForm extends Component {
       <Mutation
         mutation={UPDATE_TASK}
         variables={this.state}
-        refetchQueries={
-          [
-            // { query: REVIEW_EXPERIMENT_QUERY, variables: { id: this.props.id } },
-            // { query: CUSTOM_TASK_QUERY, variables: { id: this.props.id } },
-          ]
-        }
+        refetchQueries={[
+          { query: TASK_QUERY, variables: { id: this.props.id } },
+          // { query: REVIEW_EXPERIMENT_QUERY, variables: { id: this.props.id } },
+          // { query: CUSTOM_TASK_QUERY, variables: { id: this.props.id } },
+        ]}
       >
         {(updateTask, { loading, error }) => {
           const { parameters, title } = this.props;
@@ -91,6 +96,8 @@ class EditTaskForm extends Component {
               onHandleChange={this.handleChange}
               onHandleParamChange={this.handleParamChange}
               title={this.state.title}
+              description={this.state.description}
+              link={this.state.link}
               parameters={this.state.parameters}
               loading={loading}
               template={this.props.template}

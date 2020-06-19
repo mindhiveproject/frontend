@@ -11,10 +11,14 @@ const REVIEW_STUDY_QUERY = gql`
   query REVIEW_STUDY_QUERY($id: ID!) {
     study(where: { id: $id }) {
       id
+      slug
       title
       description
       settings
-      tasks
+      tasks {
+        id
+        title
+      }
     }
   }
 `;

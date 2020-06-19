@@ -9,35 +9,50 @@ import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
 import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
 import { ContainerOnlyForParticipants } from '../../Permissions/Participant/index';
 
-import { MY_TASKS_QUERY } from '../../Task/My/index';
 import { REVIEW_STUDY_QUERY } from './index';
 
 const BUILD_MY_STUDY = gql`
-  mutation BUILD_MY_STUDY($id: ID!, $tasks: Json) {
+  mutation BUILD_MY_STUDY($id: ID!, $tasks: [ID]!) {
     buildStudy(id: $id, tasks: $tasks) {
       id
       title
-      tasks
+      tasks {
+        id
+        title
+      }
     }
   }
 `;
 
 class StudyBuildPage extends Component {
   state = {
-    tasks: this.props.study.tasks,
+    studyTasks: this.props.studyTasks,
+    availableTasks: this.props.availableTasks,
   };
 
   addToStudy = id => {
-    const tasks = [...((this.state && this.state.tasks) || []), id];
+    const studyTasks = [
+      ...((this.state && this.state.studyTasks) || []),
+      this.state.availableTasks.filter(task => task.id === id)[0],
+    ];
+    const availableTasks = this.state.availableTasks.filter(
+      task => task.id !== id
+    );
     this.setState({
-      tasks,
+      studyTasks,
+      availableTasks,
     });
   };
 
-  removeFromStudy = num => {
-    const tasks = this.state.tasks.filter((task, number) => number !== num);
+  removeFromStudy = id => {
+    const studyTasks = this.state.studyTasks.filter(task => task.id !== id);
+    const availableTasks = [
+      ...((this.state && this.state.availableTasks) || []),
+      this.state.studyTasks.filter(task => task.id === id)[0],
+    ];
     this.setState({
-      tasks,
+      studyTasks,
+      availableTasks,
     });
   };
 
@@ -46,7 +61,7 @@ class StudyBuildPage extends Component {
     const res = await buildStudyMutation({
       variables: {
         id: this.props.id,
-        ...this.state,
+        tasks: this.state.studyTasks.map(task => task.id),
       },
     });
   };
@@ -75,32 +90,24 @@ class StudyBuildPage extends Component {
               <button onClick={e => this.saveBuild(e, buildStudy)}>Save</button>
             </div>
 
-            <Query query={MY_TASKS_QUERY}>
-              {({ data, error, loading }) => {
-                if (loading) return <p>Loading ...</p>;
-                if (error) return <p>Error: {error.message}</p>;
-                return (
-                  <div>
-                    {data.tasks &&
-                      data.tasks.map(task => (
-                        <div key={task.id}>
-                          {task.id} {task.title}
-                          <button onClick={() => this.addToStudy(task.id)}>
-                            Add to study
-                          </button>
-                        </div>
-                      ))}
+            <div>
+              {this.state.availableTasks &&
+                this.state.availableTasks.map(task => (
+                  <div key={task.id}>
+                    {task.title}
+                    <button onClick={() => this.addToStudy(task.id)}>
+                      Add to study
+                    </button>
                   </div>
-                );
-              }}
-            </Query>
+                ))}
+            </div>
 
             <div>
-              {this.state.tasks &&
-                this.state.tasks.map((task, num) => (
+              {this.state.studyTasks &&
+                this.state.studyTasks.map((task, num) => (
                   <div key={num}>
-                    {task}
-                    <button onClick={() => this.removeFromStudy(num)}>
+                    {task.title}
+                    <button onClick={() => this.removeFromStudy(task.id)}>
                       Remove from study
                     </button>
                   </div>

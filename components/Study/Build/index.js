@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Error from '../../ErrorMessage/index';
 import { StyledStudy } from '../styles';
 import StudyBuildPage from './page';
+import { ALL_TASKS_QUERY } from '../../Task/All/index';
 
 const REVIEW_STUDY_QUERY = gql`
   query REVIEW_STUDY_QUERY($id: ID!) {
@@ -13,7 +14,10 @@ const REVIEW_STUDY_QUERY = gql`
       title
       description
       settings
-      tasks
+      tasks {
+        id
+        title
+      }
     }
   }
 `;
@@ -27,8 +31,33 @@ class BuildStudy extends Component {
           if (loading) return <p>Loading</p>;
           if (!data.study) return <p>No study found for {this.props.id}</p>;
           const { study } = data;
-          console.log('study', study);
-          return <StudyBuildPage study={study} id={this.props.id} />;
+
+          return (
+            <Query query={ALL_TASKS_QUERY}>
+              {({ data, error, loading }) => {
+                if (loading) return <p>Loading ...</p>;
+                if (error) return <p>Error: {error.message}</p>;
+                const { tasks } = data;
+                const availableTasks = tasks.filter(
+                  task => !study.tasks.map(task => task.id).includes(task.id)
+                );
+                const studyTasks = tasks.filter(task =>
+                  study.tasks.map(task => task.id).includes(task.id)
+                );
+                console.log('study', study);
+                console.log('availableTasks', availableTasks);
+                console.log('studyTasks', studyTasks);
+                return (
+                  <StudyBuildPage
+                    study={study}
+                    availableTasks={availableTasks}
+                    studyTasks={studyTasks}
+                    id={this.props.id}
+                  />
+                );
+              }}
+            </Query>
+          );
         }}
       </Query>
     );
@@ -37,3 +66,7 @@ class BuildStudy extends Component {
 
 export default BuildStudy;
 export { REVIEW_STUDY_QUERY };
+
+// return (
+
+// );

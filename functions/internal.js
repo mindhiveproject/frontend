@@ -3,15 +3,18 @@ import { SUBMIT_RESULTS_FROM_API_MUTATION } from '../pages/api/save';
 const axios = require('axios');
 
 exports.handler = async (event, context) => {
-  const { user, template, task, policy } = event.queryStringParameters;
-  console.log(
-    'internal user, template, task, policy',
-    user,
-    template,
-    task,
-    policy
-  );
+  const { user, template, task, study, policy } = event.queryStringParameters;
+  // console.log(
+  //   'internal user, template, task, study, policy',
+  //   user,
+  //   template,
+  //   task,
+  //   study,
+  //   policy
+  // );
   const { metadata, url, data } = JSON.parse(event.body);
+
+  // console.log('study', study);
 
   const response = await axios({
     method: 'post',
@@ -27,6 +30,7 @@ exports.handler = async (event, context) => {
         userId: user,
         templateId: template,
         taskId: task === 'undefined' ? null : task,
+        studyId: study === 'undefined' ? null : study,
         data,
         metadata: {
           id: metadata.id,

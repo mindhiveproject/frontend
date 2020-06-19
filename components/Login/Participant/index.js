@@ -48,12 +48,22 @@ class Login extends Component {
               onSubmit={async e => {
                 e.preventDefault();
                 const res = await participantLogin();
-                console.log('res', res);
                 this.setState({ password: '', email: '', username: '' });
-                Router.push({
-                  pathname: this.props.redirect ? '/exp' : '/bank',
-                  query: { id: this.props.redirect },
-                });
+                if (this.props.redirect) {
+                  Router.push({
+                    pathname: `/studies/page`,
+                    query: { id: this.props.redirect },
+                  });
+                } else {
+                  Router.push({
+                    pathname: `/studies/all`,
+                  });
+                }
+                // Router.push({
+                //   pathname: this.props.redirect
+                //     ? `/study/${this.props.redirect}`
+                //     : '/studies/all',
+                // });
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
