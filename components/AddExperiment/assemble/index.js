@@ -14,7 +14,7 @@ const assemble = async (
 ) => {
   console.log('folder', folder);
   // Apply modification function to copy of current state
-  const updatedState = stateModifier(cloneDeep(state));
+  let updatedState = stateModifier(cloneDeep(state));
 
   // extract parameters
   const main_sequence_number = Object.values(updatedState.components)
