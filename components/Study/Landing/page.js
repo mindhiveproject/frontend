@@ -92,12 +92,14 @@ class StudyParticipantPage extends Component {
                       .map(i => ReactHtmlParser(i.text))}
 
                     <h2>FAQ</h2>
-                    <Accordion
-                      defaultActiveIndex={[]}
-                      panels={panels}
-                      exclusive={false}
-                      fluid
-                    />
+                    {false && (
+                      <Accordion
+                        defaultActiveIndex={[]}
+                        panels={panels}
+                        exclusive={false}
+                        fluid
+                      />
+                    )}
                   </div>
                 )}
               </div>

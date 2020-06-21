@@ -1,4 +1,5 @@
 import { SUBMIT_RESULTS_FROM_API_MUTATION } from '../pages/api/save';
+import { endpoint, prodEndpoint } from '../config';
 
 const axios = require('axios');
 
@@ -18,7 +19,7 @@ exports.handler = async (event, context) => {
 
   const response = await axios({
     method: 'post',
-    url: 'http://localhost:4444/',
+    url: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
