@@ -46,7 +46,7 @@ const StudyLandingPage = () => {
   if (!router.query.slug)
     return (
       <Page>
-        <h1>Not working</h1>
+        <p>Loading</p>
       </Page>
     );
   return (
