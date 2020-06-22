@@ -20,12 +20,7 @@ class StudyCard extends Component {
     const { study } = this.props;
     return (
       <StyledStudyCard>
-        <Link
-          href={{
-            pathname: '/studies/page',
-            query: { id: study.id },
-          }}
-        >
+        <Link href="/study/[slug]" as={`/study/${study.slug}`}>
           <a>
             <h2>{study.title}</h2>
           </a>

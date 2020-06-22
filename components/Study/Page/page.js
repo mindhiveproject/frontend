@@ -57,11 +57,7 @@ class StudyPage extends Component {
             <title>mindHIVE | {study.title}</title>
           </Head>
           <ContainerOnlyForNoProfile>
-            <Link
-              href={{
-                pathname: `/study/${study.slug}`,
-              }}
-            >
+            <Link href="/study/[slug]" as={`/study/${study.slug}`}>
               <a>X</a>
             </Link>
             {!this.state.login && (
