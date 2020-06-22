@@ -4,6 +4,6 @@
 
 [[redirects]]
   from = "/study/*"
-  to = "/study/[slug].js"
+  to = "/study/[slug].html"
   status = 200
   force = true
