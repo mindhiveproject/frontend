@@ -87,9 +87,10 @@ class StudyParticipantPage extends Component {
               <div>
                 {activeItem === 'what' && (
                   <div>
-                    {study.info
-                      .filter(i => i.name === 'what')
-                      .map(i => ReactHtmlParser(i.text))}
+                    {study.info &&
+                      study.info
+                        .filter(i => i.name === 'what')
+                        .map(i => ReactHtmlParser(i.text))}
 
                     <h2>FAQ</h2>
                     {false && (
@@ -106,18 +107,20 @@ class StudyParticipantPage extends Component {
               <div>
                 {activeItem === 'who' && (
                   <div>
-                    {study.info
-                      .filter(i => i.name === 'who')
-                      .map(i => ReactHtmlParser(i.text))}
+                    {study.info &&
+                      study.info
+                        .filter(i => i.name === 'who')
+                        .map(i => ReactHtmlParser(i.text))}
                   </div>
                 )}
               </div>
               <div>
                 {activeItem === 'how' && (
                   <div>
-                    {study.info
-                      .filter(i => i.name === 'how')
-                      .map(i => ReactHtmlParser(i.text))}
+                    {study.info &&
+                      study.info
+                        .filter(i => i.name === 'how')
+                        .map(i => ReactHtmlParser(i.text))}
                   </div>
                 )}
               </div>
