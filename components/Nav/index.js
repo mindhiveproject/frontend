@@ -16,11 +16,12 @@ const Nav = () => (
     {({ data: { me } }) => (
       <NavStyles>
         <ContainerOnlyForNoProfile>
-          {false && (
-            <Link href="/studies/all">
-              <a>Research studies</a>
-            </Link>
-          )}
+          <Link href="/login">
+            <a>Login</a>
+          </Link>
+          <Link href="/signup">
+            <a>Signup</a>
+          </Link>
         </ContainerOnlyForNoProfile>
 
         <ContainerOnlyForScientists>
@@ -78,10 +79,6 @@ const Nav = () => (
             </Link>
           </>
         )}
-
-        <Link href="/">
-          <a>Home</a>
-        </Link>
       </NavStyles>
     )}
   </User>

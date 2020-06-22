@@ -4,6 +4,8 @@ import { endpoint, prodEndpoint } from '../config';
 const axios = require('axios');
 
 exports.handler = async (event, context) => {
+  const serverUrl =
+    process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
   const { user, template, task, study, policy } = event.queryStringParameters;
   // console.log(
   //   'internal user, template, task, study, policy',
@@ -14,12 +16,11 @@ exports.handler = async (event, context) => {
   //   policy
   // );
   const { metadata, url, data } = JSON.parse(event.body);
-
   // console.log('study', study);
 
   const response = await axios({
     method: 'post',
-    url: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
+    url: serverUrl,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

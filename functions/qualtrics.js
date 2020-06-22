@@ -1,37 +1,17 @@
-// exports.handler = (event, context, callback) => {
-//   // "event" has information about the path, body, headers, etc. of the request
-//   console.log('event', event);
-//   // "context" has information about the lambda environment and user details
-//   console.log('context', context);
-//   // The "callback" ends the execution of the function and returns a response back to the caller
-//   return callback(null, {
-//     statusCode: 200,
-//     body: JSON.stringify({
-//       data: 'Data received from Qualtrics',
-//     }),
-//   });
-// };
-
 import { SUBMIT_RESULTS_FROM_API_MUTATION } from '../pages/api/save';
 import { endpoint, prodEndpoint } from '../config';
 
 const axios = require('axios');
 
 exports.handler = async (event, context) => {
+  const serverUrl =
+    process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
   const { user, experiment, custom, policy } = event.queryStringParameters;
   const { metadata, url, data } = JSON.parse(event.body);
 
-  console.log(
-    'user, experiment, custom, policy',
-    user,
-    experiment,
-    custom,
-    policy
-  );
-
   const response = await axios({
     method: 'post',
-    url: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
+    url: serverUrl,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

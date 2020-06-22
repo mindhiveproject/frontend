@@ -4,7 +4,7 @@ import { CURRENT_USER_QUERY } from '../../User/index';
 export const ContainerOnlyForTeachers = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
-      if (loading) return <p>Loading ... </p>;
+      if (loading) return <p></p>;
       // console.log('data', data);
       if (!data.me || !data.me.permissions.includes('TEACHER')) {
         return false;
@@ -17,7 +17,7 @@ export const ContainerOnlyForTeachers = props => (
 export const ContainerOnlyForTeachersOwners = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
-      if (loading) return <p>Loading ... </p>;
+      if (loading) return <p></p>;
       // console.log(
       //   'data teachers',
       //   !data.me,
@@ -39,7 +39,7 @@ export const ContainerOnlyForTeachersOwners = props => (
 export const PageOnlyForTeachers = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
-      if (loading) return <p>Loading ... </p>;
+      if (loading) return <p></p>;
       // console.log('data', data);
       if (!data.me || !data.me.permissions.includes('TEACHER')) {
         return (

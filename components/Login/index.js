@@ -3,29 +3,20 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Link from 'next/link';
 import Router from 'next/router';
-import { TokenForm } from '../../Styles/Forms';
-import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { TokenForm } from '../Styles/Forms';
+import Error from '../ErrorMessage/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
 
-const PARTICIPANT_LOGIN_MUTATION = gql`
-  mutation PARTICIPANT_LOGIN_MUTATION(
+const LOGIN_MUTATION = gql`
+  mutation LOGIN_MUTATION(
     $email: String
     $username: String
     $password: String!
-    $user: Json
-    $study: Json
   ) {
-    participantLogin(
-      email: $email
-      username: $username
-      password: $password
-      user: $user
-      study: $study
-    ) {
+    login(email: $email, username: $username, password: $password) {
       id
       username
       permissions
-      info
     }
   }
 `;
@@ -35,8 +26,6 @@ class Login extends Component {
     username: '',
     password: '',
     email: '',
-    user: this.props.user,
-    study: this.props.study,
   };
 
   saveToState = e => {
@@ -49,16 +38,16 @@ class Login extends Component {
     return (
       <>
         <Mutation
-          mutation={PARTICIPANT_LOGIN_MUTATION}
+          mutation={LOGIN_MUTATION}
           variables={this.state}
           refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
         >
-          {(participantLogin, { error, loading }) => (
+          {(login, { error, loading }) => (
             <TokenForm
               method="post"
               onSubmit={async e => {
                 e.preventDefault();
-                const res = await participantLogin();
+                const res = await login();
                 this.setState({ password: '', email: '', username: '' });
                 if (this.props.redirect) {
                   Router.push({
@@ -70,15 +59,10 @@ class Login extends Component {
                     pathname: `/studies/all`,
                   });
                 }
-                // Router.push({
-                //   pathname: this.props.redirect
-                //     ? `/study/${this.props.redirect}`
-                //     : '/studies/all',
-                // });
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
-                <h3>Login as a participant</h3>
+                <h3>Login</h3>
                 <p>Enter your email or username</p>
                 <Error error={error} />
                 <label htmlFor="username">

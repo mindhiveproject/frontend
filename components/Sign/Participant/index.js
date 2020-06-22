@@ -12,8 +12,16 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
     $email: String
     $username: String!
     $password: String!
+    $user: Json
+    $study: Json
   ) {
-    participantSignUp(email: $email, username: $username, password: $password) {
+    participantSignUp(
+      email: $email
+      username: $username
+      password: $password
+      user: $user
+      study: $study
+    ) {
       id
       username
       permissions
@@ -26,6 +34,8 @@ class Signup extends Component {
     username: generate().dashed,
     password: '',
     email: '',
+    user: this.props.user,
+    study: this.props.study,
   };
 
   saveToState = e => {
@@ -94,7 +104,6 @@ class Signup extends Component {
                   onChange={this.saveToState}
                   required
                 />
-                <p>Helper text</p>
               </label>
               <label htmlFor="password">
                 Password
@@ -106,7 +115,6 @@ class Signup extends Component {
                   onChange={this.saveToState}
                   required
                 />
-                <p>Helper text</p>
               </label>
 
               <div>
@@ -123,10 +131,10 @@ class Signup extends Component {
                 </label>
               </div>
 
-              <button type="submit">Next Step</button>
+              <button type="submit">Create account</button>
               <p>
-                By clicking on "Next Step", you agree to mindHive's Terms of
-                Service, including our Privacy Policy.
+                By clicking on "Create account", you agree to MindHive's Terms
+                of Service, including our Privacy Policy.
               </p>
             </fieldset>
           </TokenForm>

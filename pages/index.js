@@ -1,11 +1,22 @@
-import Link from 'next/link';
+import AllStudies from '../components/Study/All/index';
 import Page from '../components/Page/index';
-import Main from '../components/Main/index';
 
-const Home = props => (
+const AllStudiesPage = props => (
   <Page>
-    <Main />
+    <AllStudies />
   </Page>
 );
 
-export default Home;
+export default AllStudiesPage;
+
+// import Link from 'next/link';
+// import Page from '../components/Page/index';
+// import Main from '../components/Main/index';
+//
+// const Home = props => (
+//   <Page>
+//     <Main />
+//   </Page>
+// );
+//
+// export default Home;

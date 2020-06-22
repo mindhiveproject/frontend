@@ -21,7 +21,7 @@ const Header = () => (
   <StyledHeader>
     <div className="bar">
       <Logo>
-        <Link href="/studies/all">
+        <Link href="/">
           <div className="logo">
             <img src="/static/logo.svg" alt="icon" />
             <span>MINDHIVE</span>

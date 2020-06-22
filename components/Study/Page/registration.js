@@ -19,38 +19,44 @@ class StudyRegistration extends Component {
     console.log('user', user);
     return (
       <div>
-        <h2>How would you like to participate in the study?</h2>
-
-        <button
-          onClick={() => {
-            this.setState({ signup: true });
-          }}
-        >
-          Sign up with email
-        </button>
-
-        {this.state.login && (
-          <ParticipantLogin redirect={study.id} user={user} />
-        )}
-        {this.state.signup && (
-          <ParticipantSignup redirect={study.id} user={user} />
-        )}
-
-        {true && (
+        {!this.state.login && !this.state.signup && (
           <>
-            <p>Prefer to participate as a guest? Continue without an acount</p>
-            <GuestParticipantSignup redirect={study.id} />
+            <h2>How would you like to join?</h2>
+
+            <button
+              onClick={() => {
+                this.setState({ signup: true });
+              }}
+            >
+              Sign up with email/username
+            </button>
+
+            <p>Already have an account?</p>
+            <button
+              onClick={() => {
+                this.setState({ login: true });
+              }}
+            >
+              Login here
+            </button>
+
+            {true && (
+              <>
+                <p>
+                  Prefer to participate as a guest? Continue without an acount
+                </p>
+                <GuestParticipantSignup redirect={study.id} />
+              </>
+            )}
           </>
         )}
 
-        <p>Already have an account?</p>
-        <button
-          onClick={() => {
-            this.setState({ login: true });
-          }}
-        >
-          Login here
-        </button>
+        {this.state.login && (
+          <ParticipantLogin redirect={study.id} user={user} study={study} />
+        )}
+        {this.state.signup && (
+          <ParticipantSignup redirect={study.id} user={user} study={study} />
+        )}
       </div>
     );
   }

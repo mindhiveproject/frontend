@@ -4,7 +4,7 @@ import { CURRENT_USER_QUERY } from '../../User/index';
 export const ContainerOnlyForScientists = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
-      if (loading) return <p>Loading ... </p>;
+      if (loading) return <p></p>;
       if (!data.me || !data.me.permissions.includes('SCIENTIST')) {
         return false;
       }
@@ -16,7 +16,7 @@ export const ContainerOnlyForScientists = props => (
 export const PageOnlyForScientists = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
-      if (loading) return <p>Loading ... </p>;
+      if (loading) return <p></p>;
       if (!data.me || !data.me.permissions.includes('SCIENTIST')) {
         return (
           <div>
