@@ -1,12 +1,10 @@
 import { useRouter } from 'next/router';
-import ReviewStudyForParticipants, {
-  REVIEW_STUDY_QUERY,
-} from '../../components/Study/Landing/index';
+import ReviewStudyForParticipants from '../../components/Study/Landing/index';
 import Page from '../../components/Page/index';
-import { endpoint, prodEndpoint } from '../../config';
-import { ALL_STUDIES_QUERY } from '../../components/Study/All/index';
+// import { endpoint, prodEndpoint } from '../../config';
+// import { ALL_STUDIES_QUERY } from '../../components/Study/All/index';
 
-const url = process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+// const url = process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
 // export default class StudyLandingPage extends React.Component {
 //   static async getInitialProps({ req, query }) {
 //     let data;
