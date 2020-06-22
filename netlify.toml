@@ -1,3 +1,9 @@
 [build]
   command = "npm run export"
   functions = "lambda" #  netlify-lambda reads this
+
+[[redirects]]
+  from = "/study/*"
+  to = "/study/[slug].html"
+  status = 200
+  force = true
