@@ -9,8 +9,16 @@ const url = process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
 
 export default class StudyLandingPage extends React.Component {
   static async getInitialProps({ req, query }) {
-    const data = await getStudyInfo(query.slug);
-    const { study } = data;
+    let data;
+    if (process.browser) {
+      console.log('I am in browser');
+      data = await getStudyInfo(query.slug);
+    } else {
+      console.log('I am in server');
+      data = await getStudyInfo(query.slug);
+    }
+    console.log('data', data);
+    const study = (data && data.study) || {};
     // console.log('study', study);
     return { study };
   }
@@ -18,9 +26,16 @@ export default class StudyLandingPage extends React.Component {
   render() {
     // console.log('this.props', this.props);
     const { study } = this.props;
+    if (study) {
+      return (
+        <Page>
+          <ReviewStudyForParticipants study={study} />
+        </Page>
+      );
+    }
     return (
       <Page>
-        <ReviewStudyForParticipants study={study} />
+        <div>No study found</div>
       </Page>
     );
   }
