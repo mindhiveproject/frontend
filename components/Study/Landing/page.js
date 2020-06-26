@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-// import { Query } from 'react-apollo';
-// import gql from 'graphql-tag';
 import { Menu, Accordion } from 'semantic-ui-react';
 import _ from 'lodash';
 import faker from 'faker';
@@ -13,29 +11,6 @@ import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
 import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
 import { ContainerOnlyForParticipants } from '../../Permissions/Participant/index';
 
-// import TaskCard from './task';
-// import StudyRegistration from './registration';
-// import StudyConsent from './consent';
-
-// const CURRENT_USER_STUDIES = gql`
-//   query CURRENT_USER_STUDIES {
-//     me {
-//       id
-//       username
-//       permissions
-//       participantIn {
-//         id
-//       }
-//     }
-//   }
-// `;
-
-const panels = _.times(3, i => ({
-  key: `panel-${i}`,
-  title: faker.lorem.sentence(),
-  content: faker.lorem.paragraphs(),
-}));
-
 class StudyParticipantPage extends Component {
   state = { activeItem: 'what' };
 
@@ -45,6 +20,15 @@ class StudyParticipantPage extends Component {
     const { study } = this.props;
     const { activeItem } = this.state;
     console.log('study', study);
+    const panels = this.props.study.info
+      .filter(i => i.name.startsWith('faq'))
+      .map(i => ({
+        key: `panel-${i.name}`,
+        title: i.name,
+        content: i.text,
+      }));
+    console.log('panels', panels);
+
     return (
       <div>
         <StyledStudyPage>
@@ -52,8 +36,9 @@ class StudyParticipantPage extends Component {
             <title>mindHIVE | {study.title}</title>
           </Head>
           <div>
-            <h2>{study.title}</h2>
-            <p>{study.description}</p>
+            <h1>{study.title}</h1>
+            <h3>{study.description}</h3>
+
             <Link
               href={{
                 pathname: `/studies/page`,
@@ -93,7 +78,7 @@ class StudyParticipantPage extends Component {
                         .map(i => ReactHtmlParser(i.text))}
 
                     <h2>FAQ</h2>
-                    {false && (
+                    {true && (
                       <Accordion
                         defaultActiveIndex={[]}
                         panels={panels}
@@ -135,22 +120,47 @@ class StudyParticipantPage extends Component {
             <div className="timeFrequency">
               <div>
                 <div className="studyInformationHeader">Time to complete</div>
-                <div>10 minutes</div>
+                <div>
+                  {study.info &&
+                    study.info
+                      .filter(i => i.name === 'time')
+                      .map(i => ReactHtmlParser(i.text))}
+                </div>
               </div>
 
               <div>
                 <div className="studyInformationHeader">Frequency</div>
-                <div>Bi-weekly</div>
+                <div>
+                  {study.info &&
+                    study.info
+                      .filter(i => i.name === 'frequency')
+                      .map(i => ReactHtmlParser(i.text))}
+                </div>
               </div>
             </div>
 
             <div className="studyInformationHeader">In partnership with</div>
-            <div>Public Sentiment Berkely GRID</div>
+            <div className="partnersInfo">
+              {study.info &&
+                study.info
+                  .filter(i => i.name.startsWith('partners'))
+                  .map(i => {
+                    const src = `/content/studies/Brownsville/partners/${i.text}.svg`;
+                    return <img src={src} alt="icon" />;
+                  })}
+            </div>
 
             <div className="studyInformationHeader">Tags</div>
-            <span>Environment</span>
-            <span>Social brain</span>
-            <div className="studyInformationHeader">Similar projects</div>
+            <div>
+              {study.info &&
+                study.info
+                  .filter(i => i.name === 'tags')
+                  .map(i => ReactHtmlParser(i.text))}
+            </div>
+
+            {false && (
+              <div className="studyInformationHeader">Similar projects</div>
+            )}
           </div>
 
           {false && (

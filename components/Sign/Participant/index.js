@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import generate from 'project-name-generator';
-import { TokenForm } from '../../Styles/Forms';
+import { SignupForm, CreateAccountForm } from '../styles';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
@@ -14,6 +14,7 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
     $password: String!
     $user: Json
     $study: Json
+    $info: Json
   ) {
     participantSignUp(
       email: $email
@@ -21,6 +22,7 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
       password: $password
       user: $user
       study: $study
+      info: $info
     ) {
       id
       username
@@ -29,18 +31,28 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
   }
 `;
 
-class Signup extends Component {
+class ParticipantSignup extends Component {
   state = {
     username: generate().dashed,
     password: '',
     email: '',
     user: this.props.user,
     study: this.props.study,
+    info: { age: '', zipcode: '' },
   };
 
   saveToState = e => {
     this.setState({
       [e.target.name]: e.target.value,
+    });
+  };
+
+  saveToInfoState = e => {
+    this.setState({
+      info: {
+        ...this.state.info,
+        [e.target.name]: e.target.value,
+      },
     });
   };
 
@@ -52,96 +64,125 @@ class Signup extends Component {
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
         {(participantSignUp, { error, loading }) => (
-          <TokenForm
-            method="post"
-            onSubmit={async e => {
-              e.preventDefault();
-              const res = await participantSignUp();
-              console.log('res', res);
-              this.setState({ username: '', password: '', email: '' });
-              if (this.props.redirect) {
-                Router.push({
-                  pathname: `/studies/page`,
-                  query: { id: this.props.redirect },
-                });
-              } else {
-                Router.push({
-                  pathname: `/studies/all`,
-                });
-              }
-              // Router.push({
-              //   pathname: this.props.redirect
-              //     ? `/study/${this.props.redirect}`
-              //     : '/studies/all',
-              // });
-            }}
-          >
-            <fieldset disabled={loading} aria-busy={loading}>
-              <h3>Create your account</h3>
-              <Error error={error} />
-              <label htmlFor="username">
-                Username
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  value={this.state.username}
-                  onChange={this.saveToState}
-                />
-                <p>
-                  Your username <strong>will be visible to scientists</strong>.
-                  Proceed with the name we suggest or choose your own (but don't
-                  use your real name!).
-                </p>
-              </label>
-              <label htmlFor="email">
-                Email address
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.saveToState}
-                  required
-                />
-              </label>
-              <label htmlFor="password">
-                Password
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={this.state.password}
-                  onChange={this.saveToState}
-                  required
-                />
-              </label>
-
-              <div>
-                <label htmlFor="confirmUsername">
+          <SignupForm>
+            <CreateAccountForm
+              method="post"
+              onSubmit={async e => {
+                e.preventDefault();
+                const res = await participantSignUp();
+                console.log('res', res);
+                this.setState({ username: '', password: '', email: '' });
+                if (this.props.redirect) {
+                  Router.push({
+                    pathname: `/studies/page`,
+                    query: { id: this.props.redirect },
+                  });
+                } else {
+                  Router.push({
+                    pathname: `/studies/all`,
+                  });
+                }
+              }}
+            >
+              <fieldset disabled={loading} aria-busy={loading}>
+                <h1>Create your account</h1>
+                <Error error={error} />
+                <label htmlFor="username">
+                  <p>Username</p>
                   <input
-                    type="checkbox"
-                    id="confirmUsername"
-                    name="confirmUsername"
-                    value="checked"
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={this.state.username}
+                    onChange={this.saveToState}
+                  />
+                  <p>
+                    Your username <strong>will be visible to scientists</strong>
+                    . Proceed with the name we suggest or choose your own (but
+                    don't use your real name!).
+                  </p>
+                </label>
+                <label htmlFor="email">
+                  <p>Email address</p>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    value={this.state.email}
+                    onChange={this.saveToState}
                     required
                   />
-                  I confirm that my user name does not contain any personally
-                  identifiable information (first and last name).
                 </label>
-              </div>
+                <label htmlFor="password">
+                  <p>Password</p>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    value={this.state.password}
+                    onChange={this.saveToState}
+                    required
+                  />
+                </label>
 
-              <button type="submit">Create account</button>
-              <p>
-                By clicking on "Create account", you agree to MindHive's Terms
-                of Service, including our Privacy Policy.
-              </p>
-            </fieldset>
-          </TokenForm>
+                <label htmlFor="username">
+                  <p>Zip code</p>
+                  <input
+                    type="text"
+                    name="zipcode"
+                    placeholder="Enter your zip code"
+                    value={this.state.info.zipcode}
+                    onChange={this.saveToInfoState}
+                  />
+                </label>
+
+                <label htmlFor="username">
+                  <p>Age</p>
+                  <input
+                    type="text"
+                    name="age"
+                    placeholder="Enter your age"
+                    value={this.state.info.age}
+                    onChange={this.saveToInfoState}
+                  />
+                  <p>
+                    Your username <strong>will be visible to scientists</strong>
+                    . Proceed with the name we suggest or choose your own (but
+                    don't use your real name!).
+                  </p>
+                </label>
+
+                <div>
+                  <label htmlFor="confirmUsername">
+                    <div className="checkboxField">
+                      <input
+                        type="checkbox"
+                        id="confirmUsername"
+                        name="confirmUsername"
+                        value="checked"
+                        required
+                      />
+                      <span>
+                        I confirm that my user name does not contain any
+                        personally identifiable information (first and last
+                        name).
+                      </span>
+                    </div>
+                  </label>
+                </div>
+
+                <button type="submit">Create account</button>
+                <p>
+                  By clicking on "Create account", you agree to MindHive's Terms
+                  of Service, including our Privacy Policy.
+                </p>
+              </fieldset>
+            </CreateAccountForm>
+          </SignupForm>
         )}
       </Mutation>
     );
   }
 }
 
-export default Signup;
+export default ParticipantSignup;

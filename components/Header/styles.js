@@ -30,7 +30,7 @@ export const Logo = styled.a`
 
 export const StyledHeader = styled.header`
   .bar {
-    border-bottom: 3px solid ${props => props.theme.black};
+    /* border-bottom: 3px solid ${props => props.theme.black}; */
     display: grid;
     grid-template-columns: auto 1fr;
     justify-content: space-between;

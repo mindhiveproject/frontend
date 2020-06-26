@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Mutation } from 'react-apollo';
-import NavStyles from './styles';
+import { NavStyles, NavRightContainer, NavButton } from './styles';
 import User from '../User/index';
 // import Signout from '../Signout/index';
 
@@ -16,12 +16,14 @@ const Nav = () => (
     {({ data: { me } }) => (
       <NavStyles>
         <ContainerOnlyForNoProfile>
-          <Link href="/login">
-            <a>Login</a>
-          </Link>
-          <Link href="/signup">
-            <a>Signup</a>
-          </Link>
+          <NavRightContainer>
+            <Link href="/login">
+              <NavButton>Login</NavButton>
+            </Link>
+            <Link href="/signup">
+              <NavButton>Signup</NavButton>
+            </Link>
+          </NavRightContainer>
         </ContainerOnlyForNoProfile>
 
         <ContainerOnlyForScientists>

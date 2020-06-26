@@ -176,6 +176,19 @@ export const TokenForm = styled.form`
   input[type='checkbox'] {
     width: auto;
   }
+  .linkBtn {
+    background: none;
+    color: #666666;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    border-bottom: 1px solid #666666;
+    border-radius: 0px;
+    margin-top: 0px;
+  }
 `;
 
 export const StyledParameterForm = styled.form`

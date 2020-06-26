@@ -1,4 +1,4 @@
-import AddStudy from '../../components/Study/add';
+import AddStudy from '../../components/Study/Edit/add';
 import { PageOnlyForScientists } from '../../components/Permissions/Scientist/index';
 import Page from '../../components/Page/index';
 

@@ -66,7 +66,9 @@ class GuestParticipantSignup extends Component {
           >
             <fieldset disabled={loading} aria-busy={loading}>
               <Error error={error} />
-              <button type="submit">Participate as a guest</button>
+              <button className="linkBtn" type="submit">
+                Continue without an account
+              </button>
             </fieldset>
           </TokenForm>
         )}

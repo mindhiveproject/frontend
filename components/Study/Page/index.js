@@ -15,6 +15,7 @@ const REVIEW_STUDY_QUERY = gql`
       title
       description
       settings
+      info
       tasks {
         id
         title

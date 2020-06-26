@@ -1,14 +1,153 @@
 import styled from 'styled-components';
 
+export const OnboardingHeader = styled.div`
+  display: grid;
+  grid-template-columns: 12fr 1fr;
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #f2f2f2;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 100%;
+  align-items: center;
+  letter-spacing: 0.05em;
+  color: #28619e;
+`;
+
+export const OnboardingForm = styled.div`
+  display: grid;
+  max-width: 800px;
+  h1 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 56px;
+  }
+  h3 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+  }
+  p {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 20px;
+  }
+  input {
+    max-width: 500px;
+    font-family: Lato;
+    margin-bottom: 1rem;
+    height: 48px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    /* width: 100%; */
+    font-size: 16px;
+    line-height: 24px;
+    padding: 12px;
+    &:focus {
+      outline: 0;
+      border-color: ${props => props.theme.red};
+    }
+  }
+  button {
+    max-width: 500px;
+    font-family: Lato;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    width: 100%;
+    background: #007c70;
+    color: white;
+    padding: 1.5rem 0.5rem;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 100%;
+    border: 2px solid #007c70;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .checkboxField {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    display: grid;
+    grid-template-columns: 1fr 14fr;
+    align-items: center;
+    input {
+      margin-bottom: 0rem;
+      width: 40%;
+      color: #666666;
+    }
+  }
+`;
+
+export const ResponseButtons = styled.div`
+  .selectedBtn {
+    background: #007c70;
+    color: #ffffff;
+  }
+  button {
+    max-width: 322px;
+    font-family: Lato;
+    margin-top: 0.5rem;
+    margin-bottom: 3rem;
+    width: 100%;
+    background: none;
+    color: #666666;
+    padding: 1.5rem 0.5rem;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 100%;
+    border: 2px solid #007c70;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 90px;
+  }
+`;
+
 export const StyledStudyPage = styled.div`
   display: grid;
   grid-template-columns: 8fr 3fr;
+  grid-column-gap: 20px;
   max-width: 1500px;
   margin: 2rem auto;
   padding: 3rem;
   /* box-shadow: ${props => props.theme.bs}; */
   min-height: 800px;
-
+  p {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #666666;
+  }
+  h1 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 56px;
+    color: #1A1A1A;
+  }
+  h3 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+    color: #666666;
+  }
   button {
     height: 56px;
     width: 266px;
@@ -21,6 +160,8 @@ export const StyledStudyPage = styled.div`
     font-size: 18px;
     letter-spacing: 0.05em;
     cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   a {
     text-decoration-line: underline;
@@ -35,6 +176,14 @@ export const StyledStudyPage = styled.div`
   }
   .descriptionMenu {
     margin-bottom: 20px;
+    .item {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 23px;
+      color: #1A1A1A;
+    }
   }
   .details {
     margin: 3rem;
@@ -46,10 +195,22 @@ export const StyledStudyPage = styled.div`
   .timeFrequency {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   .studyInformationHeader {
     font-size: 14px;
     line-height: 28px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .partnersInfo {
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr 2fr;
+    grid-column-gap: 10px;
+    img {
+      height: 50px;
+    }
   }
 `;
 

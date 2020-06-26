@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
-const NavStyles = styled.ul`
+export const NavStyles = styled.ul`
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-self: end;
+  display: grid;
+  /* min-width: 300px; */
+  width: 100%;
+  /* justify-self: end; */
+  justify-content: end;
   font-size: 2rem;
-  a,
-  button {
+  align-items: center;
+  a {
     padding: 1rem 3rem;
     display: flex;
     align-items: center;
@@ -58,11 +61,31 @@ const NavStyles = styled.ul`
     }
   }
   @media (max-width: 1300px) {
-    border-top: 1px solid ${props => props.theme.lightgrey};
+    /* border-top: 1px solid ${props => props.theme.lightgrey}; */
     width: 100%;
     justify-content: center;
     font-size: 1.5rem;
   }
 `;
 
-export default NavStyles;
+export const NavRightContainer = styled.div`
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(137px, 1fr));
+  grid-column-gap: 6px; */
+`;
+
+export const NavButton = styled.button`
+  margin: 6px;
+  width: 137px;
+  height: 56px;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  color: #007c70;
+  border: 2px solid #007c70;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 1rem 3rem;
+  background: none;
+  align-items: center;
+`;

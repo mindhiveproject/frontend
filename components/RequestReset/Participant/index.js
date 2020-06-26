@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { SignForm } from '../../Styles/Forms';
+import { SignupForm, CreateAccountForm } from '../../Sign/styles';
 import Error from '../../ErrorMessage/index';
 
 const PARTICIPANT_REQUEST_RESET_MUTATION = gql`
@@ -30,33 +30,35 @@ class ParticipantRequestReset extends Component {
         variables={this.state}
       >
         {(participantReset, { error, loading, called }) => (
-          <SignForm
-            method="post"
-            onSubmit={async e => {
-              e.preventDefault();
-              const res = await participantReset();
-              this.setState({ email: '' });
-            }}
-          >
-            <fieldset disabled={loading} aria-busy={loading}>
-              <h3>Request a password reset</h3>
-              <Error error={error} />
-              {!error && !loading && called && (
-                <p>Success! Check your email box for a reset link.</p>
-              )}
-              <label htmlFor="email">
-                Email
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  value={this.state.email}
-                  onChange={this.saveToState}
-                />
-              </label>
-              <button type="submit">Request reset</button>
-            </fieldset>
-          </SignForm>
+          <SignupForm>
+            <CreateAccountForm
+              method="post"
+              onSubmit={async e => {
+                e.preventDefault();
+                const res = await participantReset();
+                this.setState({ email: '' });
+              }}
+            >
+              <fieldset disabled={loading} aria-busy={loading}>
+                <h1>Request a password reset</h1>
+                <Error error={error} />
+                {!error && !loading && called && (
+                  <p>Success! Check your email box for a reset link.</p>
+                )}
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    value={this.state.email}
+                    onChange={this.saveToState}
+                  />
+                </label>
+                <button type="submit">Request reset</button>
+              </fieldset>
+            </CreateAccountForm>
+          </SignupForm>
         )}
       </Mutation>
     );

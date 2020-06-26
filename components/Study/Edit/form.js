@@ -1,0 +1,203 @@
+import React, { Component } from 'react';
+import { SignForm } from '../../Styles/Forms';
+import Error from '../../ErrorMessage/index';
+import InformationBlock from './block';
+import SettingsBlock from './setting';
+
+class EditStudyForm extends Component {
+  state = {
+    title: this.props.study.title || '',
+    shortDescription: this.props.study.shortDescription || '',
+    description: this.props.study.description || '',
+    settings: this.props.study.settings || {
+      guestParticipation: false,
+      zipCode: true,
+    },
+    image: this.props.study.image || '',
+    largeImage: this.props.study.largeImage || '',
+    info: this.props.study.info || [
+      { name: 'what' },
+      { name: 'faq' },
+      { name: 'who' },
+      { name: 'how' },
+      { name: 'time' },
+      { name: 'frequency' },
+      { name: 'partners' },
+      { name: 'tags' },
+      { name: 'contacts' },
+    ],
+  };
+
+  handleChange = e => {
+    const { name, type, value } = e.target;
+    const val = type === 'number' ? parseFloat(value) : value;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  uploadFile = async e => {
+    const { files } = e.target;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'studies');
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/mindhive-science/image/upload',
+      { method: 'POST', body: data }
+    );
+    const file = await res.json();
+    this.setState({
+      image: file.secure_url,
+      largeImage: file.eager[0].secure_url,
+    });
+  };
+
+  uploadFileForInfo = async e => {
+    const { files, name, className } = e.target;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'studies');
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/mindhive-science/image/upload',
+      { method: 'POST', body: data }
+    );
+    const file = await res.json();
+    this.setState({
+      info: this.state.info.map(el =>
+        el.name === name ? { ...el, [className]: file.secure_url } : el
+      ),
+    });
+  };
+
+  handleInfoChange = (e, classType) => {
+    const { name, type, value, className } = e.target;
+    const val = type === 'number' ? parseFloat(value) : value;
+    this.setState({
+      info: this.state.info.map(el =>
+        el.name === name ? { ...el, [className]: val } : el
+      ),
+    });
+  };
+
+  handleAddNewParameter = e => {
+    e.preventDefault();
+    const name = document.querySelector('#newParameterName').value;
+    if (name) {
+      this.setState({
+        info: [...this.state.info, { name }],
+      });
+    }
+  };
+
+  deleteParameter = (e, name) => {
+    e.preventDefault();
+    this.setState({
+      info: this.state.info.filter(el => el.name !== name),
+    });
+  };
+
+  handleSettingsChange = e => {
+    const { name } = e.target;
+    const value = e.target.checked;
+    const settings = { ...this.state.settings };
+    settings[name] = value;
+    this.setState({
+      settings,
+    });
+  };
+
+  render() {
+    return (
+      <SignForm
+        onSubmit={e => this.props.onSubmit(e, this.state, this.props.callback)}
+      >
+        <h2>Edit the study</h2>
+        <Error error={this.props.error} />
+        <fieldset disabled={this.props.loading} aria-busy={this.props.loading}>
+          <label htmlFor="title">
+            Title
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Title"
+              value={this.state.title}
+              onChange={this.handleChange}
+              required
+            />
+          </label>
+          <label htmlFor="file">
+            Image
+            <input
+              type="file"
+              id="file"
+              name="file"
+              placeholder="Upload an image"
+              value={this.state.file}
+              onChange={this.uploadFile}
+            />
+            {this.state.image && (
+              <img width="200" src={this.state.image} alt="Upload preview" />
+            )}
+          </label>
+          <label htmlFor="shortDescription">
+            Short description
+            <textarea
+              id="shortDescription"
+              name="shortDescription"
+              placeholder="Short description"
+              value={this.state.shortDescription}
+              onChange={this.handleChange}
+            />
+          </label>
+          <label htmlFor="description">
+            Description
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Description"
+              value={this.state.description}
+              onChange={this.handleChange}
+            />
+          </label>
+
+          <h2>Study settings</h2>
+
+          {Object.keys(this.state.settings).map((name, i) => (
+            <SettingsBlock
+              key={i}
+              name={name}
+              value={this.state.settings[name]}
+              onChange={this.handleSettingsChange}
+            />
+          ))}
+
+          <h2>Information about the study</h2>
+
+          {this.state.info.map((block, i) => (
+            <InformationBlock
+              key={i}
+              block={block}
+              onDelete={this.deleteParameter}
+              onChange={this.handleInfoChange}
+              onFileChange={this.uploadFileForInfo}
+            />
+          ))}
+
+          <div>
+            <input type="text" id="newParameterName" />
+            <button onClick={this.handleAddNewParameter}>
+              Add new information block
+            </button>
+          </div>
+
+          <button type="submit">
+            Sav{this.props.loading ? 'ing' : 'e'} changes
+          </button>
+        </fieldset>
+      </SignForm>
+    );
+  }
+}
+
+export default EditStudyForm;

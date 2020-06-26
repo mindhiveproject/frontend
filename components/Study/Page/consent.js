@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { StyledStudy, StyledLink, StyledButtons } from '../styles';
+import { Accordion } from 'semantic-ui-react';
+import {
+  StyledStudy,
+  OnboardingForm,
+  ResponseButtons,
+  ResponseButton,
+  OnboardingHeader,
+} from '../styles';
 
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
@@ -46,7 +53,13 @@ class StudyConsent extends Component {
 
   render() {
     const { study } = this.props;
-
+    const consentForm = this.props.study.info
+      .filter(i => i.name.startsWith('faq'))
+      .map(i => ({
+        key: `panel-${i.name}`,
+        title: i.name,
+        content: i.text,
+      }));
     return (
       <Mutation
         mutation={JOIN_STUDY}
@@ -54,61 +67,87 @@ class StudyConsent extends Component {
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
         {(joinStudy, { loading, error }) => (
-          <div>
-            <h2>Join the study</h2>
-
-            <Link
-              href={{
-                pathname: `/study/${study.slug}`,
-              }}
-            >
-              <a>X</a>
-            </Link>
+          <OnboardingForm>
             {this.state.page == 1 && (
               <div id="page_1">
+                <OnboardingHeader>
+                  <div>Let's get started</div>
+                  <Link href="/study/[slug]" as={`/study/${study.slug}`}>
+                    <a>&times;</a>
+                  </Link>
+                </OnboardingHeader>
                 <h1>Let's get started</h1>
-                <p>
+                <h3>
                   We are glad that you are interested in participating in "How
                   are we impacted during COVID-19?". Before we begin, please
                   answer the following:
-                </p>
-                <fieldset>
-                  <div>
-                    <label htmlFor="zipCode">
-                      Your zip code
-                      <input
-                        type="number"
-                        id="zipCode"
-                        name="zipCode"
-                        onChange={this.updateState}
-                      />
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="englishComprehension">
-                      <input
-                        type="checkbox"
-                        id="englishComprehension"
-                        name="englishComprehension"
-                        onChange={this.saveToState}
-                        checked={this.state.englishComprehension}
-                      />
+                </h3>
+
+                <div>
+                  <label htmlFor="zipCode">
+                    <p>Your zip code</p>
+                    <input
+                      type="number"
+                      id="zipCode"
+                      name="zipCode"
+                      onChange={this.updateState}
+                    />
+                  </label>
+                </div>
+                <div>
+                  <label htmlFor="englishComprehension">
+                    <p>
                       Do you understand basic instruction written in English?
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="under18">
-                      <input
-                        type="checkbox"
-                        id="under18"
-                        name="under18"
-                        onChange={this.saveToState}
-                        checked={this.state.under18}
-                      />
-                      Are you under the age of 18?
-                    </label>
-                  </div>
-                </fieldset>
+                    </p>
+                    <ResponseButtons>
+                      <button
+                        onClick={() =>
+                          this.setButtonState('englishComprehension', 'yes')
+                        }
+                        className={
+                          this.state.englishComprehension === 'yes' &&
+                          'selectedBtn'
+                        }
+                      >
+                        Yes
+                      </button>
+                      <button
+                        onClick={() =>
+                          this.setButtonState('englishComprehension', 'no')
+                        }
+                        className={
+                          this.state.englishComprehension === 'no' &&
+                          'selectedBtn'
+                        }
+                      >
+                        No
+                      </button>
+                    </ResponseButtons>
+                  </label>
+                </div>
+                <div>
+                  <label htmlFor="under18">
+                    <p>Are you under the age of 18?</p>
+
+                    <ResponseButtons>
+                      <button
+                        onClick={() => this.setButtonState('under18', 'yes')}
+                        className={
+                          this.state.under18 === 'yes' && 'selectedBtn'
+                        }
+                      >
+                        Yes
+                      </button>
+                      <button
+                        onClick={() => this.setButtonState('under18', 'no')}
+                        className={this.state.under18 === 'no' && 'selectedBtn'}
+                      >
+                        No
+                      </button>
+                    </ResponseButtons>
+                  </label>
+                </div>
+
                 <button
                   onClick={() => this.setState({ page: this.state.page + 1 })}
                 >
@@ -119,8 +158,19 @@ class StudyConsent extends Component {
 
             {this.state.page == 2 && (
               <div id="page_2">
+                <OnboardingHeader>
+                  <div>Study consent</div>
+                  <Link href="/study/[slug]" as={`/study/${study.slug}`}>
+                    <a>&times;</a>
+                  </Link>
+                </OnboardingHeader>
                 <h1>Study consent</h1>
-                <p>Accordeon with the information here ...</p>
+                <Accordion
+                  defaultActiveIndex={[]}
+                  panels={consentForm}
+                  exclusive={false}
+                  fluid
+                />
                 <button
                   onClick={() => this.setState({ page: this.state.page + 1 })}
                 >
@@ -131,10 +181,17 @@ class StudyConsent extends Component {
 
             {this.state.page == 3 && (
               <div id="page_3">
+                <OnboardingHeader>
+                  <div>Data usage</div>
+                  <Link href="/study/[slug]" as={`/study/${study.slug}`}>
+                    <a>&times;</a>
+                  </Link>
+                </OnboardingHeader>
+
                 <h1>Data usage</h1>
                 <h3>How would you like us to use your data?</h3>
                 <div>
-                  <label htmlFor="useDataForScience">
+                  <div className="checkboxField">
                     <input
                       type="radio"
                       id="useDataForScience"
@@ -143,11 +200,14 @@ class StudyConsent extends Component {
                       onChange={this.updateState}
                       checked={this.state.data === 'science'}
                     />
-                    You can use my data for science and/or educational purposes
-                  </label>
+                    <label htmlFor="useDataForScience">
+                      You can use my data for science and/or educational
+                      purposes
+                    </label>
+                  </div>
                 </div>
                 <div>
-                  <label htmlFor="educationalUse">
+                  <div className="checkboxField">
                     <input
                       type="radio"
                       id="educationalUse"
@@ -156,12 +216,14 @@ class StudyConsent extends Component {
                       onChange={this.updateState}
                       checked={this.state.data === 'education'}
                     />
-                    I want my data to be saved for educational use only (e.g.,
-                    lectures and teaching materials)
-                  </label>
+                    <label htmlFor="educationalUse">
+                      I want my data to be saved for educational use only (e.g.,
+                      lectures and teaching materials)
+                    </label>
+                  </div>
                 </div>
                 <div>
-                  <label htmlFor="doNotRecord">
+                  <div className="checkboxField">
                     <input
                       type="radio"
                       id="doNotRecord"
@@ -170,26 +232,19 @@ class StudyConsent extends Component {
                       onChange={this.updateState}
                       checked={this.state.data === 'no'}
                     />
-                    Don't record my data at all (if you’re a MindHive student:
-                    this means your data won't be included in class demos!)
-                  </label>
+                    <label htmlFor="doNotRecord">
+                      Don't record my data at all (if you’re a MindHive student:
+                      this means your data won't be included in class demos!)
+                    </label>
+                  </div>
                 </div>
-                <StyledButtons>
-                  <button onClick={e => this.saveJoinStudy(e, joinStudy)}>
-                    <a>
-                      <h2>I am ready to participate in this study</h2>
-                    </a>
-                  </button>
-                </StyledButtons>
-              </div>
-            )}
 
-            {false && this.state.page == 4 && (
-              <div id="page_4">
-                <StudyRegistration study={study} user={this.state} />
+                <button onClick={e => this.saveJoinStudy(e, joinStudy)}>
+                  I am ready to participate in this study
+                </button>
               </div>
             )}
-          </div>
+          </OnboardingForm>
         )}
       </Mutation>
     );

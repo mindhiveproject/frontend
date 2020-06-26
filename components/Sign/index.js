@@ -1,33 +1,36 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
+import { SignupForm, SignupButton } from './styles';
 
 class Signup extends Component {
   render() {
     return (
-      <div>
-        <h2>Which role best describes you?</h2>
+      <SignupForm>
+        <h1>Which role best describes you?</h1>
 
-        <div>
-          <Link href="/signup/participant">
-            <a>Study participant</a>
+        <Link href="/signup/participant">
+          <SignupButton>Study participant</SignupButton>
+        </Link>
+
+        <Link href="/signup/student">
+          <SignupButton>Student</SignupButton>
+        </Link>
+
+        <Link href="/signup/scientist">
+          <SignupButton>Scientist</SignupButton>
+        </Link>
+
+        <Link href="/signup/teacher">
+          <SignupButton>Teacher</SignupButton>
+        </Link>
+
+        <span>
+          Already have an account?
+          <Link href="/login">
+            <a> Login here</a>
           </Link>
-        </div>
-        <div>
-          <Link href="/signup/student">
-            <a>Student</a>
-          </Link>
-        </div>
-        <div>
-          <Link href="/signup/scientist">
-            <a>Scientist</a>
-          </Link>
-        </div>
-        <div>
-          <Link href="/signup/teacher">
-            <a>Teacher</a>
-          </Link>
-        </div>
-      </div>
+        </span>
+      </SignupForm>
     );
   }
 }
