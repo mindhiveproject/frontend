@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Accordion } from 'semantic-ui-react';
+import Router from 'next/router';
 import {
   StyledStudy,
   OnboardingForm,
@@ -24,9 +25,10 @@ const JOIN_STUDY = gql`
 class StudyConsent extends Component {
   state = {
     page: 1,
-    zipcode: this.props.info.zipcode,
-    under18: this.props.info.under18,
-    englishComprehension: this.props.info.englishComprehension,
+    zipcode: this.props.info && this.props.info.zipcode,
+    under18: this.props.info && this.props.info.under18,
+    englishComprehension:
+      this.props.info && this.props.info.englishComprehension,
   };
 
   saveToState = e => {
@@ -60,6 +62,8 @@ class StudyConsent extends Component {
         },
       },
     });
+    this.props.onClose();
+    Router.push('/study/[slug]', `/study/${this.props.study.slug}`);
   };
 
   render() {

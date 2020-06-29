@@ -34,7 +34,7 @@ class ReviewStudy extends Component {
           if (loading) return <p>Loading</p>;
           if (!data.study) return <p>No study found for {this.props.id}</p>;
           const { study } = data;
-          return <StudyPage study={study} />;
+          return <StudyPage study={study} onClose={this.props.onClose} />;
         }}
       </Query>
     );

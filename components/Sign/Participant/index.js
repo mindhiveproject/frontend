@@ -76,11 +76,9 @@ class ParticipantSignup extends Component {
                 const res = await participantSignUp();
                 console.log('res', res);
                 this.setState({ username: '', password: '', email: '' });
+                this.props.onClose();
                 if (this.props.redirect) {
-                  Router.push({
-                    pathname: `/studies/page`,
-                    query: { id: this.props.redirect },
-                  });
+                  Router.push('/study/[slug]', `/study/${this.props.redirect}`);
                 } else {
                   Router.push({
                     pathname: `/studies/all`,

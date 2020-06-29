@@ -50,9 +50,10 @@ class StudyRegistration extends Component {
                 <>
                   <div>Prefer to participate as a guest?</div>
                   <GuestParticipantSignup
-                    redirect={study.id}
+                    redirect={study.slug}
                     user={user}
                     study={study}
+                    onClose={this.props.onClose}
                   />
                 </>
               </div>
@@ -61,11 +62,21 @@ class StudyRegistration extends Component {
         )}
 
         {this.state.login && (
-          <ParticipantLogin redirect={study.id} user={user} study={study} />
+          <ParticipantLogin
+            redirect={study.slug}
+            user={user}
+            study={study}
+            onClose={this.props.onClose}
+          />
         )}
 
         {this.state.signup && (
-          <ParticipantSignup redirect={study.id} user={user} study={study} />
+          <ParticipantSignup
+            redirect={study.slug}
+            user={user}
+            study={study}
+            onClose={this.props.onClose}
+          />
         )}
       </>
     );

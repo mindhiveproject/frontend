@@ -69,9 +69,12 @@ class StudyPage extends Component {
                 <div id="page_1">
                   <OnboardingHeader>
                     <div>Let's get started</div>
-                    <Link href="/study/[slug]" as={`/study/${study.slug}`}>
-                      <a>&times;</a>
-                    </Link>
+                    <a
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.onClose()}
+                    >
+                      &times;
+                    </a>
                   </OnboardingHeader>
                   <h1>Let's get started</h1>
                   <h3>
@@ -179,9 +182,12 @@ class StudyPage extends Component {
                 <div id="page_2">
                   <OnboardingHeader>
                     <div>Study consent</div>
-                    <Link href="/study/[slug]" as={`/study/${study.slug}`}>
-                      <a>&times;</a>
-                    </Link>
+                    <a
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.onClose()}
+                    >
+                      &times;
+                    </a>
                   </OnboardingHeader>
                   <h1>Study consent</h1>
                   <Accordion
@@ -202,9 +208,12 @@ class StudyPage extends Component {
                 <div id="page_3">
                   <OnboardingHeader>
                     <div>Data usage</div>
-                    <Link href="/study/[slug]" as={`/study/${study.slug}`}>
-                      <a>&times;</a>
-                    </Link>
+                    <a
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.onClose()}
+                    >
+                      &times;
+                    </a>
                   </OnboardingHeader>
                   <h1>Data usage</h1>
                   <h3>How would you like us to use your data?</h3>
@@ -270,9 +279,12 @@ class StudyPage extends Component {
                 <div id="page_4">
                   <OnboardingHeader>
                     <div>Account creation</div>
-                    <Link href="/study/[slug]" as={`/study/${study.slug}`}>
-                      <a>&times;</a>
-                    </Link>
+                    <a
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.props.onClose()}
+                    >
+                      &times;
+                    </a>
                   </OnboardingHeader>
                   <StudyRegistration
                     study={study}
@@ -282,13 +294,27 @@ class StudyPage extends Component {
                       englishComprehension: this.state.englishComprehension,
                       data: this.state.data,
                     }}
+                    onClose={this.props.onClose}
                   />
                 </div>
               )}
             </>
           )}
 
-          {this.state.login && <ParticipantLogin redirect={study.id} />}
+          {this.state.login && (
+            <ParticipantLogin
+              redirect={study.slug}
+              redirect={study.slug}
+              user={{
+                zipCode: this.state.zipCode,
+                under18: this.state.under18,
+                englishComprehension: this.state.englishComprehension,
+                data: this.state.data,
+              }}
+              study={study}
+              onClose={this.props.onClose}
+            />
+          )}
         </ContainerOnlyForNoProfile>
 
         <ContainerOnlyForProfile>
@@ -316,7 +342,6 @@ class StudyPage extends Component {
               if (studyIds.includes(study.id)) {
                 return (
                   <div>
-                    You are registered in this study.
                     {study.tasks &&
                       study.tasks.map((task, num) => (
                         <TaskCard
@@ -335,6 +360,7 @@ class StudyPage extends Component {
                 <StudyConsent
                   study={study}
                   info={me && me.info && me.info.general}
+                  onClose={this.props.onClose}
                 />
               );
             }}

@@ -69,11 +69,9 @@ class GuestParticipantSignup extends Component {
                 `Your username ${this.state.username} and password ${this.state.password}`
               );
               this.setState({ email: '', username: '', password: '' });
+              this.props.onClose();
               if (this.props.redirect) {
-                Router.push({
-                  pathname: `/studies/page`,
-                  query: { id: this.props.redirect },
-                });
+                Router.push('/study/[slug]', `/study/${this.props.redirect}`);
               } else {
                 Router.push({
                   pathname: `/studies/all`,
