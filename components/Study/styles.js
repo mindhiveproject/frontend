@@ -346,10 +346,15 @@ export const StyledBuildStudy = styled.div`
 `;
 
 export const StyledTaskCard = styled.div`
+  padding: 20px;
   background: white;
   border: 1px solid ${props => props.theme.offWhite};
   box-shadow: ${props => props.theme.bs};
   display: grid;
+  button {
+    background: white;
+    width: 100px;
+  }
   img {
     width: 100%;
     height: 400px;

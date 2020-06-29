@@ -5,16 +5,17 @@ const axios = require('axios');
 
 exports.handler = async (event, context) => {
   const serverUrl =
-    process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+    process.env.NODE_ENV === 'development' ? endpoint : endpoint;
   const { user, template, task, study, policy } = event.queryStringParameters;
-  // console.log(
-  //   'internal user, template, task, study, policy',
-  //   user,
-  //   template,
-  //   task,
-  //   study,
-  //   policy
-  // );
+  console.log('serverUrl', serverUrl, process.env.NODE_ENV);
+  console.log(
+    'internal user, template, task, study, policy',
+    user,
+    template,
+    task,
+    study,
+    policy
+  );
   const { metadata, url, data } = JSON.parse(event.body);
   // console.log('study', study);
 

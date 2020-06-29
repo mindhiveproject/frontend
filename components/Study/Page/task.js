@@ -17,7 +17,7 @@ class TaskCard extends Component {
       <StyledTaskCard>
         <h2>{task.title}</h2>
         {this.props.completed && <p>The task is already completed</p>}
-        {!this.props.completed && (
+        {!this.props.completed && !task.link && (
           <Link
             href={{
               pathname: `/tasks/run`,
@@ -34,6 +34,13 @@ class TaskCard extends Component {
               </a>
             </button>
           </Link>
+        )}
+        {!this.props.completed && task.link && (
+          <button>
+            <a href={`${task.link}?name=${this.props.user.username}`}>
+              <h2>Start</h2>
+            </a>
+          </button>
         )}
       </StyledTaskCard>
     );

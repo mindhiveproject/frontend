@@ -19,6 +19,7 @@ const REVIEW_STUDY_QUERY = gql`
       tasks {
         id
         title
+        link
       }
     }
   }

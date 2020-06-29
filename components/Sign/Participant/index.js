@@ -38,7 +38,11 @@ class ParticipantSignup extends Component {
     email: '',
     user: this.props.user,
     study: this.props.study,
-    info: { age: '', zipcode: '' },
+    info: {
+      age: '',
+      zipcode: this.props.user && this.props.user.zipCode,
+      under18: this.props.user && this.props.user.under18,
+    },
   };
 
   saveToState = e => {
@@ -125,32 +129,31 @@ class ParticipantSignup extends Component {
                   />
                 </label>
 
-                <label htmlFor="username">
-                  <p>Zip code</p>
-                  <input
-                    type="text"
-                    name="zipcode"
-                    placeholder="Enter your zip code"
-                    value={this.state.info.zipcode}
-                    onChange={this.saveToInfoState}
-                  />
-                </label>
+                {!(this.props.user && this.props.user.zipCode) && (
+                  <label htmlFor="zipcode">
+                    <p>Zip code</p>
+                    <input
+                      type="text"
+                      name="zipcode"
+                      placeholder="Enter your zip code"
+                      value={this.state.info.zipcode}
+                      onChange={this.saveToInfoState}
+                    />
+                  </label>
+                )}
 
-                <label htmlFor="username">
-                  <p>Age</p>
-                  <input
-                    type="text"
-                    name="age"
-                    placeholder="Enter your age"
-                    value={this.state.info.age}
-                    onChange={this.saveToInfoState}
-                  />
-                  <p>
-                    Your username <strong>will be visible to scientists</strong>
-                    . Proceed with the name we suggest or choose your own (but
-                    don't use your real name!).
-                  </p>
-                </label>
+                {!(this.props.user && this.props.user.under18) && (
+                  <label htmlFor="age">
+                    <p>Age</p>
+                    <input
+                      type="text"
+                      name="age"
+                      placeholder="Enter your age"
+                      value={this.state.info.age}
+                      onChange={this.saveToInfoState}
+                    />
+                  </label>
+                )}
 
                 <div>
                   <label htmlFor="confirmUsername">

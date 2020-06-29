@@ -32,8 +32,10 @@ class StudyRegistration extends Component {
 
             <div>
               <span>
-                Already have an account?
+                <>Already have an account?</>
+                <> </>
                 <a
+                  style={{ borderBottom: '1px solid grey', cursor: 'pointer' }}
                   onClick={() => {
                     this.setState({ login: true });
                   }}
@@ -43,14 +45,18 @@ class StudyRegistration extends Component {
               </span>
             </div>
 
-            <div className="guestParticipationBlock">
-              {true && (
+            {study.settings && study.settings.guestParticipation && (
+              <div className="guestParticipationBlock">
                 <>
                   <div>Prefer to participate as a guest?</div>
-                  <GuestParticipantSignup redirect={study.id} />
+                  <GuestParticipantSignup
+                    redirect={study.id}
+                    user={user}
+                    study={study}
+                  />
                 </>
-              )}
-            </div>
+              </div>
+            )}
           </SignupForm>
         )}
 

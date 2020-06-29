@@ -13,8 +13,18 @@ const GUEST_PARTICIPANT_SIGNUP_MUTATION = gql`
     $email: String
     $username: String!
     $password: String!
+    $user: Json
+    $study: Json
+    $info: Json
   ) {
-    participantSignUp(email: $email, username: $username, password: $password) {
+    participantSignUp(
+      email: $email
+      username: $username
+      password: $password
+      user: $user
+      study: $study
+      info: $info
+    ) {
       id
       username
       permissions
@@ -27,6 +37,13 @@ class GuestParticipantSignup extends Component {
     email: '',
     username: generate().dashed,
     password: uniqid(),
+    user: this.props.user,
+    study: this.props.study,
+    info: {
+      age: '',
+      zipcode: this.props.user && this.props.user.zipCode,
+      under18: this.props.user && this.props.user.under18,
+    },
   };
 
   saveToState = e => {

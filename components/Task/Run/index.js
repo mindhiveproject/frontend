@@ -9,7 +9,7 @@ import {
   CURRENT_USER_QUERY,
 } from '../../User/index';
 
-import Qualtrics from '../../Qualtrics/index';
+import Qualtrics from '../../Qualtrics/redirect';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const TASK_QUERY = gql`
@@ -70,16 +70,17 @@ class RunExperiment extends Component {
                               console.log('Event callback', e);
                             },
                             on_finish: json => {
-                              console.log('saving of data is deprecated here');
                               if (this.props.study) {
-                                Router.push({
-                                  pathname: `/studies/page`,
-                                  query: { id: this.props.study },
-                                });
+                                window.location.href = `/studies/page?id=${this.props.study}`;
+                                // Router.push({
+                                //   pathname: `/studies/page`,
+                                //   query: { id: this.props.study },
+                                // });
                               } else {
-                                Router.push({
-                                  pathname: `/studies/all`,
-                                });
+                                window.location.href = `/studies/all`;
+                                // Router.push({
+                                //   pathname: `/studies/all`,
+                                // });
                               }
                             },
                           }}

@@ -27,60 +27,64 @@ const Nav = () => (
         </ContainerOnlyForNoProfile>
 
         <ContainerOnlyForScientists>
-          <Link href="/templates/my">
-            <a>My task templates</a>
-          </Link>
-          <Link href="/tasks/my">
-            <a>My tasks</a>
-          </Link>
-          <Link href="/studies/my">
-            <a>My studies</a>
-          </Link>
-          <Link href="/studies/all">
-            <a>Research studies</a>
-          </Link>
-          <Link href="/classes">
-            <a>Classes</a>
-          </Link>
+          <NavRightContainer>
+            <Link href="/templates/my">
+              <NavButton>My task templates</NavButton>
+            </Link>
+            <Link href="/tasks/my">
+              <NavButton>My tasks</NavButton>
+            </Link>
+            <Link href="/studies/my">
+              <NavButton>My studies</NavButton>
+            </Link>
+            <Link href="/studies/all">
+              <NavButton>Research studies</NavButton>
+            </Link>
+            <Link href="/classes">
+              <NavButton>Classes</NavButton>
+            </Link>
+            {me && (
+              <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
+                {toggleDashboard => (
+                  <NavButton onClick={toggleDashboard}>Dashboard</NavButton>
+                )}
+              </Mutation>
+            )}
+          </NavRightContainer>
         </ContainerOnlyForScientists>
 
         <ContainerOnlyForStudents>
-          <Link href="/bank">
-            <a>Research studies</a>
-          </Link>
-
-          <Link href="/onboarding">
-            <a>Student Onboarding</a>
-          </Link>
+          <NavRightContainer>
+            <Link href="/bank">
+              <NavButton>Research studies</NavButton>
+            </Link>
+            <Link href="/onboarding">
+              <NavButton>Student Onboarding</NavButton>
+            </Link>
+            {me && (
+              <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
+                {toggleDashboard => (
+                  <NavButton onClick={toggleDashboard}>Dashboard</NavButton>
+                )}
+              </Mutation>
+            )}
+          </NavRightContainer>
         </ContainerOnlyForStudents>
 
         <ContainerOnlyForParticipants>
-          <Link href="/studies/all">
-            <a>Research studies</a>
-          </Link>
+          <NavRightContainer>
+            <Link href="/studies/all">
+              <NavButton>Research studies</NavButton>
+            </Link>
+            {me && (
+              <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
+                {toggleDashboard => (
+                  <NavButton onClick={toggleDashboard}>Dashboard</NavButton>
+                )}
+              </Mutation>
+            )}
+          </NavRightContainer>
         </ContainerOnlyForParticipants>
-
-        {me && (
-          <>
-            <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
-              {toggleDashboard => (
-                <button onClick={toggleDashboard}>Dashboard</button>
-              )}
-            </Mutation>
-          </>
-        )}
-
-        {!me && false && (
-          <>
-            <Link href="/signup">
-              <a>Signup</a>
-            </Link>
-
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
-          </>
-        )}
       </NavStyles>
     )}
   </User>

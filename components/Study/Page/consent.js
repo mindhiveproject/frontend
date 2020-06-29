@@ -24,14 +24,20 @@ const JOIN_STUDY = gql`
 class StudyConsent extends Component {
   state = {
     page: 1,
-    zipCode: '',
-    under18: false,
-    englishComprehension: false,
+    zipcode: this.props.info.zipcode,
+    under18: this.props.info.under18,
+    englishComprehension: this.props.info.englishComprehension,
   };
 
   saveToState = e => {
     this.setState({
       [e.target.name]: !this.state[e.target.name],
+    });
+  };
+
+  setButtonState = (name, value) => {
+    this.setState({
+      [name]: value,
     });
   };
 
@@ -46,7 +52,12 @@ class StudyConsent extends Component {
     const res = await joinStudyMutation({
       variables: {
         id: this.props.study.id,
-        info: this.state,
+        info: {
+          zipcode: this.state.zipcode,
+          under18: this.state.under18,
+          englishComprehension: this.state.englishComprehension,
+          data: this.state.data,
+        },
       },
     });
   };
@@ -83,70 +94,81 @@ class StudyConsent extends Component {
                   answer the following:
                 </h3>
 
-                <div>
-                  <label htmlFor="zipCode">
-                    <p>Your zip code</p>
-                    <input
-                      type="number"
-                      id="zipCode"
-                      name="zipCode"
-                      onChange={this.updateState}
-                    />
-                  </label>
-                </div>
-                <div>
-                  <label htmlFor="englishComprehension">
-                    <p>
-                      Do you understand basic instruction written in English?
-                    </p>
-                    <ResponseButtons>
-                      <button
-                        onClick={() =>
-                          this.setButtonState('englishComprehension', 'yes')
-                        }
-                        className={
-                          this.state.englishComprehension === 'yes' &&
-                          'selectedBtn'
-                        }
-                      >
-                        Yes
-                      </button>
-                      <button
-                        onClick={() =>
-                          this.setButtonState('englishComprehension', 'no')
-                        }
-                        className={
-                          this.state.englishComprehension === 'no' &&
-                          'selectedBtn'
-                        }
-                      >
-                        No
-                      </button>
-                    </ResponseButtons>
-                  </label>
-                </div>
-                <div>
-                  <label htmlFor="under18">
-                    <p>Are you under the age of 18?</p>
+                {!(this.props.info && this.props.info.zipcode) && (
+                  <div>
+                    <label htmlFor="zipcode">
+                      <p>Your zip code</p>
+                      <input
+                        type="number"
+                        id="zipcode"
+                        name="zipcode"
+                        value={this.state.zipcode}
+                        onChange={this.updateState}
+                      />
+                    </label>
+                  </div>
+                )}
 
-                    <ResponseButtons>
-                      <button
-                        onClick={() => this.setButtonState('under18', 'yes')}
-                        className={
-                          this.state.under18 === 'yes' && 'selectedBtn'
-                        }
-                      >
-                        Yes
-                      </button>
-                      <button
-                        onClick={() => this.setButtonState('under18', 'no')}
-                        className={this.state.under18 === 'no' && 'selectedBtn'}
-                      >
-                        No
-                      </button>
-                    </ResponseButtons>
-                  </label>
-                </div>
+                {!(this.props.info && this.props.info.englishComprehension) && (
+                  <div>
+                    <label htmlFor="englishComprehension">
+                      <p>
+                        Do you understand basic instruction written in English?
+                      </p>
+                      <ResponseButtons>
+                        <button
+                          onClick={() =>
+                            this.setButtonState('englishComprehension', 'yes')
+                          }
+                          className={
+                            this.state.englishComprehension === 'yes' &&
+                            'selectedBtn'
+                          }
+                        >
+                          Yes
+                        </button>
+                        <button
+                          onClick={() =>
+                            this.setButtonState('englishComprehension', 'no')
+                          }
+                          className={
+                            this.state.englishComprehension === 'no' &&
+                            'selectedBtn'
+                          }
+                        >
+                          No
+                        </button>
+                      </ResponseButtons>
+                    </label>
+                  </div>
+                )}
+
+                {!(this.props.info && this.props.info.under18) && (
+                  <div>
+                    <label htmlFor="under18">
+                      <p>Are you under the age of 18?</p>
+
+                      <ResponseButtons>
+                        <button
+                          onClick={() => this.setButtonState('under18', 'yes')}
+                          className={
+                            this.state.under18 === 'yes' && 'selectedBtn'
+                          }
+                        >
+                          Yes
+                        </button>
+                        <button
+                          onClick={() => this.setButtonState('under18', 'no')}
+                          className={
+                            this.state.under18 === 'no' && 'selectedBtn'
+                          }
+                        >
+                          No
+                        </button>
+                      </ResponseButtons>
+                    </label>
+                  </div>
+                )}
 
                 <button
                   onClick={() => this.setState({ page: this.state.page + 1 })}

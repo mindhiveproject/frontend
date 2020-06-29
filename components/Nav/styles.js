@@ -7,7 +7,7 @@ export const NavStyles = styled.ul`
   /* min-width: 300px; */
   width: 100%;
   /* justify-self: end; */
-  justify-content: end;
+  /* justify-content: end; */
   font-size: 2rem;
   align-items: center;
   a {
@@ -69,14 +69,16 @@ export const NavStyles = styled.ul`
 `;
 
 export const NavRightContainer = styled.div`
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(137px, 1fr));
-  grid-column-gap: 6px; */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+  grid-column-gap: 6px;
+  justify-content: end;
 `;
 
 export const NavButton = styled.button`
   margin: 6px;
-  width: 137px;
+  /* width: 137px; */
+  /* width: auto; */
   height: 56px;
   font-size: 18px;
   line-height: 100%;

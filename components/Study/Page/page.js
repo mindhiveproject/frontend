@@ -79,18 +79,20 @@ class StudyPage extends Component {
                     are we impacted during COVID-19?". Before we begin, please
                     answer the following:
                   </h3>
+                  {study.settings && study.settings.zipCode && (
+                    <div>
+                      <label htmlFor="zipCode">
+                        <p>Your zip code</p>
+                        <input
+                          type="number"
+                          id="zipCode"
+                          name="zipCode"
+                          onChange={this.updateState}
+                        />
+                      </label>
+                    </div>
+                  )}
 
-                  <div>
-                    <label htmlFor="zipCode">
-                      <p>Your zip code</p>
-                      <input
-                        type="number"
-                        id="zipCode"
-                        name="zipCode"
-                        onChange={this.updateState}
-                      />
-                    </label>
-                  </div>
                   <div>
                     <label htmlFor="englishComprehension">
                       <p>
@@ -155,8 +157,13 @@ class StudyPage extends Component {
 
                   <div>
                     <span>
-                      Already have an account?
+                      <>Already have an account?</>
+                      <> </>
                       <a
+                        style={{
+                          borderBottom: '1px solid grey',
+                          cursor: 'pointer',
+                        }}
                         onClick={() => {
                           this.setState({ login: true });
                         }}
@@ -285,7 +292,7 @@ class StudyPage extends Component {
         </ContainerOnlyForNoProfile>
 
         <ContainerOnlyForProfile>
-          <Query query={CURRENT_USER_RESULTS_QUERY}>
+          <Query query={CURRENT_USER_RESULTS_QUERY} pollInterval={5000}>
             {({ error, loading, data }) => {
               if (error) return <Error error={error} />;
               if (loading) return <p>Loading</p>;
@@ -304,10 +311,12 @@ class StudyPage extends Component {
                 )
                 .map(result => result.task.id);
 
+              console.log('me', me);
+
               if (studyIds.includes(study.id)) {
                 return (
                   <div>
-                    Registered
+                    You are registered in this study.
                     {study.tasks &&
                       study.tasks.map((task, num) => (
                         <TaskCard
@@ -316,12 +325,18 @@ class StudyPage extends Component {
                           policy={policy.data}
                           studyId={study.id}
                           completed={fullResultsInThisStudy.includes(task.id)}
+                          user={me}
                         />
                       ))}
                   </div>
                 );
               }
-              return <StudyConsent study={study} />;
+              return (
+                <StudyConsent
+                  study={study}
+                  info={me && me.info && me.info.general}
+                />
+              );
             }}
           </Query>
         </ContainerOnlyForProfile>
