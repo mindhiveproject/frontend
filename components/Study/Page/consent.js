@@ -88,9 +88,13 @@ class StudyConsent extends Component {
               <div id="page_1">
                 <OnboardingHeader>
                   <div>Let's get started</div>
-                  <Link href="/study/[slug]" as={`/study/${study.slug}`}>
-                    <a>&times;</a>
-                  </Link>
+
+                  <a
+                    style={{ cursor: 'pointer', textAlign: 'end' }}
+                    onClick={() => this.props.onClose()}
+                  >
+                    &times;
+                  </a>
                 </OnboardingHeader>
                 <h1>Let's get started</h1>
                 <h3>
@@ -126,8 +130,9 @@ class StudyConsent extends Component {
                             this.setButtonState('englishComprehension', 'yes')
                           }
                           className={
-                            this.state.englishComprehension === 'yes' &&
-                            'selectedBtn'
+                            this.state.englishComprehension === 'yes'
+                              ? 'selectedBtn'
+                              : undefined
                           }
                         >
                           Yes
@@ -137,8 +142,9 @@ class StudyConsent extends Component {
                             this.setButtonState('englishComprehension', 'no')
                           }
                           className={
-                            this.state.englishComprehension === 'no' &&
-                            'selectedBtn'
+                            this.state.englishComprehension === 'no'
+                              ? 'selectedBtn'
+                              : undefined
                           }
                         >
                           No
@@ -157,7 +163,9 @@ class StudyConsent extends Component {
                         <button
                           onClick={() => this.setButtonState('under18', 'yes')}
                           className={
-                            this.state.under18 === 'yes' && 'selectedBtn'
+                            this.state.under18 === 'yes'
+                              ? 'selectedBtn'
+                              : undefined
                           }
                         >
                           Yes
@@ -165,7 +173,9 @@ class StudyConsent extends Component {
                         <button
                           onClick={() => this.setButtonState('under18', 'no')}
                           className={
-                            this.state.under18 === 'no' && 'selectedBtn'
+                            this.state.under18 === 'no'
+                              ? 'selectedBtn'
+                              : undefined
                           }
                         >
                           No
@@ -187,9 +197,13 @@ class StudyConsent extends Component {
               <div id="page_2">
                 <OnboardingHeader>
                   <div>Study consent</div>
-                  <Link href="/study/[slug]" as={`/study/${study.slug}`}>
-                    <a>&times;</a>
-                  </Link>
+
+                  <a
+                    style={{ cursor: 'pointer', textAlign: 'end' }}
+                    onClick={() => this.props.onClose()}
+                  >
+                    &times;
+                  </a>
                 </OnboardingHeader>
                 <h1>Study consent</h1>
                 <Accordion
@@ -210,9 +224,13 @@ class StudyConsent extends Component {
               <div id="page_3">
                 <OnboardingHeader>
                   <div>Data usage</div>
-                  <Link href="/study/[slug]" as={`/study/${study.slug}`}>
-                    <a>&times;</a>
-                  </Link>
+
+                  <a
+                    style={{ cursor: 'pointer', textAlign: 'end' }}
+                    onClick={() => this.props.onClose()}
+                  >
+                    &times;
+                  </a>
                 </OnboardingHeader>
 
                 <h1>Data usage</h1>

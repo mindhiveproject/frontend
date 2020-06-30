@@ -70,17 +70,10 @@ class RunExperiment extends Component {
                               console.log('Event callback', e);
                             },
                             on_finish: json => {
-                              if (this.props.study) {
-                                window.location.href = `/studies/page?id=${this.props.study}`;
-                                // Router.push({
-                                //   pathname: `/studies/page`,
-                                //   query: { id: this.props.study },
-                                // });
+                              if (this.props.slug) {
+                                window.location.href = `/study/${this.props.slug}`;
                               } else {
                                 window.location.href = `/studies/all`;
-                                // Router.push({
-                                //   pathname: `/studies/all`,
-                                // });
                               }
                             },
                           }}

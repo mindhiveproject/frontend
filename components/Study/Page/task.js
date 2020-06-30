@@ -25,6 +25,7 @@ class TaskCard extends Component {
                 id: task.id,
                 policy: this.props.policy,
                 study: this.props.studyId,
+                s: this.props.studySlug,
               },
             }}
           >

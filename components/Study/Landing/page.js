@@ -23,7 +23,7 @@ class StudyParticipantPage extends Component {
   render() {
     const { study } = this.props;
     const { activeItem } = this.state;
-    console.log('study', study);
+    // console.log('study', study);
     const panels = this.props.study.info
       .filter(i => i.name.startsWith('faq'))
       .map(i => ({
@@ -46,7 +46,7 @@ class StudyParticipantPage extends Component {
               <h3>{study.description}</h3>
 
               <ContainerOnlyForProfile>
-                <Query query={CURRENT_USER_RESULTS_QUERY}>
+                <Query query={CURRENT_USER_RESULTS_QUERY} pollInterval={5000}>
                   {({ error, loading, data }) => {
                     if (error) return <Error error={error} />;
                     if (loading) return <p>Loading</p>;
@@ -54,13 +54,37 @@ class StudyParticipantPage extends Component {
                       return <p>No information found for your profile.</p>;
                     const { me } = data;
                     const studyIds = me.participantIn.map(study => study.id);
-                    console.log('studyIds', studyIds);
+                    const policy = (me.info && me.info[study.id]) || 'preview';
+
+                    const fullResultsInThisStudy = me.results
+                      .filter(
+                        result =>
+                          result.study.id === study.id &&
+                          result.payload === 'full'
+                      )
+                      .map(result => result.task.id);
+
+                    // console.log(
+                    //   'fullResultsInThisStudy',
+                    //   fullResultsInThisStudy
+                    // );
+
                     if (studyIds.includes(study.id)) {
                       return (
                         <div>
                           {study.tasks &&
                             study.tasks.map((task, num) => (
-                              <TaskCard key={num} task={task} user={me} />
+                              <TaskCard
+                                key={num}
+                                task={task}
+                                policy={policy.data}
+                                studyId={study.id}
+                                studySlug={study.slug}
+                                user={me}
+                                completed={fullResultsInThisStudy.includes(
+                                  task.id
+                                )}
+                              />
                             ))}
                         </div>
                       );
@@ -204,8 +228,8 @@ class StudyParticipantPage extends Component {
                   {study.info &&
                     study.info
                       .filter(i => i.name.startsWith('tag'))
-                      .map(i => (
-                        <div className="studyTag" key={i.text}>
+                      .map((i, n) => (
+                        <div className="studyTag" key={n}>
                           {ReactHtmlParser(i.text)}
                         </div>
                       ))}
@@ -220,8 +244,8 @@ class StudyParticipantPage extends Component {
                   {study.info &&
                     study.info
                       .filter(i => i.name.startsWith('contact'))
-                      .map(i => (
-                        <div key={i.text}>{ReactHtmlParser(i.text)}</div>
+                      .map((i, n) => (
+                        <div key={n}>{ReactHtmlParser(i.text)}</div>
                       ))}
                 </div>
               </div>
