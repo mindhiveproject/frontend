@@ -37,7 +37,9 @@ class TaskCard extends Component {
         )}
         {!this.props.completed && task.link && (
           <button>
-            <a href={`${task.link}?name=${this.props.user.username}`}>
+            <a
+              href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
+            >
               <h2>Start</h2>
             </a>
           </button>

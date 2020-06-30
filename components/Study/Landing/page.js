@@ -29,7 +29,7 @@ class StudyParticipantPage extends Component {
       .map(i => ({
         key: `panel-${i.name}`,
         title: i.header,
-        content: i.text,
+        content: ReactHtmlParser(i.text),
       }));
     console.log('panels', panels);
 
@@ -60,7 +60,7 @@ class StudyParticipantPage extends Component {
                         <div>
                           {study.tasks &&
                             study.tasks.map((task, num) => (
-                              <TaskCard key={num} task={task} />
+                              <TaskCard key={num} task={task} user={me} />
                             ))}
                         </div>
                       );

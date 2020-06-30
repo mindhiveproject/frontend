@@ -3,7 +3,7 @@ import { StyledParameterBlock } from '../styles';
 
 class InformationBlock extends Component {
   render() {
-    const { text, file, name } = this.props.block;
+    const { header, text, file, name } = this.props.block;
     return (
       <StyledParameterBlock key={name} htmlFor={name}>
         <div className="name">{name}</div>
@@ -12,6 +12,7 @@ class InformationBlock extends Component {
         <input
           type="text"
           name={name}
+          value={header}
           onChange={this.props.onChange}
           className="header"
         />

@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Accordion } from 'semantic-ui-react';
 import Router from 'next/router';
+import ReactHtmlParser from 'react-html-parser';
 import {
   StyledStudy,
   OnboardingForm,
@@ -73,7 +74,7 @@ class StudyConsent extends Component {
       .map(i => ({
         key: `panel-${i.name}`,
         title: i.header,
-        content: i.text,
+        content: ReactHtmlParser(i.text),
       }));
     return (
       <Mutation

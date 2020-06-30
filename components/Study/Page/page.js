@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Accordion } from 'semantic-ui-react';
+import ReactHtmlParser from 'react-html-parser';
 import {
   StyledStudy,
   OnboardingForm,
@@ -54,7 +55,7 @@ class StudyPage extends Component {
       .map(i => ({
         key: `panel-${i.name}`,
         title: i.header,
-        content: i.text,
+        content: ReactHtmlParser(i.text),
       }));
 
     return (

@@ -62,6 +62,7 @@
     "slugify": "^1.4.0",
     "styled-components": "^4.4.0",
     "uniqid": "^5.2.0",
+    "uuid": "^8.2.0",
     "waait": "^1.0.2"
   },
   "devDependencies": {
