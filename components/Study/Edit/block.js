@@ -8,6 +8,14 @@ class InformationBlock extends Component {
       <StyledParameterBlock key={name} htmlFor={name}>
         <div className="name">{name}</div>
 
+        <div>Header</div>
+        <input
+          type="text"
+          name={name}
+          onChange={this.props.onChange}
+          className="header"
+        />
+
         <div>Text</div>
         <textarea
           name={name}

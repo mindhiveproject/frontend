@@ -77,8 +77,6 @@ export const NavRightContainer = styled.div`
 
 export const NavButton = styled.button`
   margin: 6px;
-  /* width: 137px; */
-  /* width: auto; */
   height: 56px;
   font-size: 18px;
   line-height: 100%;
@@ -89,5 +87,20 @@ export const NavButton = styled.button`
   border-radius: 4px;
   padding: 1rem 3rem;
   background: none;
+  align-items: center;
+`;
+
+export const NavButtonSecondary = styled.button`
+  margin: 6px;
+  height: 56px;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  border: 2px solid #007c70;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 1rem 3rem;
+  background: #007c70;
   align-items: center;
 `;

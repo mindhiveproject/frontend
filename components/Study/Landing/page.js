@@ -28,7 +28,7 @@ class StudyParticipantPage extends Component {
       .filter(i => i.name.startsWith('faq'))
       .map(i => ({
         key: `panel-${i.name}`,
-        title: i.name,
+        title: i.header,
         content: i.text,
       }));
     console.log('panels', panels);
@@ -183,23 +183,47 @@ class StudyParticipantPage extends Component {
                 </div>
               </div>
 
-              <div className="studyInformationHeader">In partnership with</div>
-              <div className="partnersInfo">
-                {study.info &&
-                  study.info
-                    .filter(i => i.name.startsWith('partners'))
-                    .map(i => {
-                      const src = `/content/studies/Brownsville/partners/${i.text}.svg`;
-                      return <img key={src} src={src} alt="icon" />;
-                    })}
+              <div>
+                <div className="studyInformationHeader">
+                  In partnership with
+                </div>
+                <div className="partnersInfo">
+                  {study.info &&
+                    study.info
+                      .filter(i => i.name.startsWith('partners'))
+                      .map(i => {
+                        const src = `/content/studies/Brownsville/partners/${i.text}.svg`;
+                        return <img key={src} src={src} alt="icon" />;
+                      })}
+                </div>
               </div>
 
-              <div className="studyInformationHeader">Tags</div>
               <div>
-                {study.info &&
-                  study.info
-                    .filter(i => i.name === 'tags')
-                    .map(i => ReactHtmlParser(i.text))}
+                <div className="studyInformationHeader">Tags</div>
+                <div className="studyTags">
+                  {study.info &&
+                    study.info
+                      .filter(i => i.name.startsWith('tag'))
+                      .map(i => (
+                        <div className="studyTag" key={i.text}>
+                          {ReactHtmlParser(i.text)}
+                        </div>
+                      ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="studyInformationHeader">
+                  Contact information
+                </div>
+                <div>
+                  {study.info &&
+                    study.info
+                      .filter(i => i.name.startsWith('contact'))
+                      .map(i => (
+                        <div key={i.text}>{ReactHtmlParser(i.text)}</div>
+                      ))}
+                </div>
               </div>
             </div>
           </StyledStudyPage>

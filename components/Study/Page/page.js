@@ -53,7 +53,7 @@ class StudyPage extends Component {
       .filter(i => i.name.startsWith('faq'))
       .map(i => ({
         key: `panel-${i.name}`,
-        title: i.name,
+        title: i.header,
         content: i.text,
       }));
 
@@ -70,7 +70,7 @@ class StudyPage extends Component {
                   <OnboardingHeader>
                     <div>Let's get started</div>
                     <a
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: 'pointer', textAlign: 'end' }}
                       onClick={() => this.props.onClose()}
                     >
                       &times;
@@ -107,8 +107,9 @@ class StudyPage extends Component {
                             this.setButtonState('englishComprehension', 'yes')
                           }
                           className={
-                            this.state.englishComprehension === 'yes' &&
-                            'selectedBtn'
+                            this.state.englishComprehension === 'yes'
+                              ? 'selectedBtn'
+                              : undefined
                           }
                         >
                           Yes
@@ -118,8 +119,9 @@ class StudyPage extends Component {
                             this.setButtonState('englishComprehension', 'no')
                           }
                           className={
-                            this.state.englishComprehension === 'no' &&
-                            'selectedBtn'
+                            this.state.englishComprehension === 'no'
+                              ? 'selectedBtn'
+                              : undefined
                           }
                         >
                           No
@@ -135,7 +137,9 @@ class StudyPage extends Component {
                         <button
                           onClick={() => this.setButtonState('under18', 'yes')}
                           className={
-                            this.state.under18 === 'yes' && 'selectedBtn'
+                            this.state.under18 === 'yes'
+                              ? 'selectedBtn'
+                              : undefined
                           }
                         >
                           Yes
@@ -143,7 +147,9 @@ class StudyPage extends Component {
                         <button
                           onClick={() => this.setButtonState('under18', 'no')}
                           className={
-                            this.state.under18 === 'no' && 'selectedBtn'
+                            this.state.under18 === 'no'
+                              ? 'selectedBtn'
+                              : undefined
                           }
                         >
                           No
@@ -183,7 +189,7 @@ class StudyPage extends Component {
                   <OnboardingHeader>
                     <div>Study consent</div>
                     <a
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: 'pointer', textAlign: 'end' }}
                       onClick={() => this.props.onClose()}
                     >
                       &times;
@@ -191,7 +197,7 @@ class StudyPage extends Component {
                   </OnboardingHeader>
                   <h1>Study consent</h1>
                   <Accordion
-                    defaultActiveIndex={[]}
+                    defaultActiveIndex={consentForm.map((c, i) => i)}
                     panels={consentForm}
                     exclusive={false}
                     fluid
@@ -209,7 +215,7 @@ class StudyPage extends Component {
                   <OnboardingHeader>
                     <div>Data usage</div>
                     <a
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: 'pointer', textAlign: 'end' }}
                       onClick={() => this.props.onClose()}
                     >
                       &times;
@@ -280,7 +286,7 @@ class StudyPage extends Component {
                   <OnboardingHeader>
                     <div>Account creation</div>
                     <a
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: 'pointer', textAlign: 'end' }}
                       onClick={() => this.props.onClose()}
                     >
                       &times;

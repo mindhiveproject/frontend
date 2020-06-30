@@ -19,6 +19,7 @@ export const OnboardingHeader = styled.div`
 export const OnboardingForm = styled.div`
   display: grid;
   max-width: 800px;
+  margin: 0 auto;
   h1 {
     font-family: Lato;
     font-style: normal;
@@ -117,8 +118,8 @@ export const ResponseButtons = styled.div`
 
 export const StyledStudyPage = styled.div`
   display: grid;
-  grid-template-columns: 8fr 3fr;
-  grid-column-gap: 20px;
+  grid-template-columns: 8fr 4fr;
+  grid-column-gap: 40px;
   max-width: 1500px;
   margin: 2rem auto;
   padding: 3rem;
@@ -168,7 +169,6 @@ export const StyledStudyPage = styled.div`
   }
   img {
     width: 100%;
-    height: 150px;
     object-fit: contain;
   }
   .studyDescription {
@@ -190,27 +190,49 @@ export const StyledStudyPage = styled.div`
     font-size: 2rem;
   }
   .studyInformationBoard {
-
+    display: grid;
+    align-content: start;
+    grid-row-gap: 20px;
   }
   .timeFrequency {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-top: 20px;
-    margin-bottom: 20px;
   }
   .studyInformationHeader {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
     font-size: 14px;
     line-height: 28px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 7px;
+  }
+  .studyTags {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, auto));
+    grid-column-gap: 8px;
+
+  }
+  .studyTag {
+    background: #FFFFFF;
+    border: 2px solid #28619E;
+    border-radius: 100px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
+    color: #28619E;
+    padding: 8px;
+    /* margin: 10px; */
+    text-align: center;
+    /* width: fit-content; */
   }
   .partnersInfo {
     display: grid;
     grid-template-columns: 3fr 1fr 2fr 2fr;
     grid-column-gap: 10px;
-    img {
-      height: 50px;
-    }
+    align-items: center;
   }
 `;
 

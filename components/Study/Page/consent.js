@@ -72,7 +72,7 @@ class StudyConsent extends Component {
       .filter(i => i.name.startsWith('faq'))
       .map(i => ({
         key: `panel-${i.name}`,
-        title: i.name,
+        title: i.header,
         content: i.text,
       }));
     return (
@@ -192,7 +192,7 @@ class StudyConsent extends Component {
                 </OnboardingHeader>
                 <h1>Study consent</h1>
                 <Accordion
-                  defaultActiveIndex={[]}
+                  defaultActiveIndex={consentForm.map((c, i) => i)}
                   panels={consentForm}
                   exclusive={false}
                   fluid
