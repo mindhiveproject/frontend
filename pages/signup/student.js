@@ -1,4 +1,4 @@
-import ParticipantSignup from '../../components/Sign/Participant/index';
+import ParticipantSignup from '../../components/Sign/Student/index';
 import Page from '../../components/Page/index';
 
 const ParticipantSignupPage = props => (

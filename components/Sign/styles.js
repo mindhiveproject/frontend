@@ -10,6 +10,56 @@ const loading = keyframes`
   }
 `;
 
+export const Dialog = styled.div`
+  display: grid;
+  text-align: initial;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  font-weight: 600;
+  label {
+    display: block;
+    margin-top: 2rem;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  input,
+  textarea,
+  select {
+    font-family: Lato;
+    margin-bottom: 1rem;
+    height: 48px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 12px;
+    &:focus {
+      outline: 0;
+      border-color: ${props => props.theme.red};
+    }
+  }
+  button,
+  input[type='submit'] {
+    font-family: Lato;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    width: 100%;
+    background: #007c70;
+    color: white;
+    padding: 1.5rem 0.5rem;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 100%;
+    border: 2px solid #007c70;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+`;
+
 export const SignupForm = styled.div`
   font-family: Lato;
   max-width: 500px;
@@ -69,7 +119,8 @@ export const SignupForm = styled.div`
 export const SignupButton = styled.div`
   display: grid;
   align-items: center;
-  margin: 6px;
+  text-align: center;
+  margin: 0 auto;
   width: 300px;
   height: 56px;
   font-size: 18px;

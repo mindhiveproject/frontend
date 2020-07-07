@@ -1,4 +1,4 @@
-import Signup from '../../components/Sign/Email/index';
+import Signup from '../../components/Sign/Scientist/index';
 import Page from '../../components/Page/index';
 
 const SignupPage = props => (

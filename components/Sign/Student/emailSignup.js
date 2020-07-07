@@ -7,13 +7,14 @@ import { SignupForm, CreateAccountForm } from '../styles';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
-const PARTICIPANT_SIGNUP_MUTATION = gql`
-  mutation PARTICIPANT_SIGNUP_MUTATION(
+const STUDENT_SIGNUP_MUTATION = gql`
+  mutation STUDENT_SIGNUP_MUTATION(
     $email: String
     $username: String!
     $password: String!
     $user: Json
     $study: Json
+    $class: Json
     $info: Json
     $permissions: [Permission]
   ) {
@@ -23,6 +24,7 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
       password: $password
       user: $user
       study: $study
+      class: $class
       info: $info
       permissions: $permissions
     ) {
@@ -33,13 +35,14 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
   }
 `;
 
-class ParticipantSignup extends Component {
+class StudentSignup extends Component {
   state = {
     username: generate().dashed,
     password: '',
     email: '',
     user: this.props.user,
     study: this.props.study,
+    class: this.props.class,
     info: {
       age: '',
       zipcode: this.props.user && this.props.user.zipCode,
@@ -65,22 +68,21 @@ class ParticipantSignup extends Component {
   render() {
     return (
       <Mutation
-        mutation={PARTICIPANT_SIGNUP_MUTATION}
+        mutation={STUDENT_SIGNUP_MUTATION}
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
-        {(participantSignUp, { error, loading }) => (
+        {(studentSignUp, { error, loading }) => (
           <SignupForm>
             <CreateAccountForm
               method="post"
               onSubmit={async e => {
                 e.preventDefault();
-                const res = await participantSignUp({
-                  variables: { permissions: ['PARTICIPANT'] },
+                const res = await studentSignUp({
+                  variables: { permissions: ['STUDENT'] },
                 });
                 console.log('res', res);
                 this.setState({ username: '', password: '', email: '' });
-                if (this.props.onClose) this.props.onClose();
                 if (this.props.redirect) {
                   Router.push('/study/[slug]', `/study/${this.props.redirect}`);
                 } else {
@@ -91,7 +93,7 @@ class ParticipantSignup extends Component {
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
-                <h1>Create your account</h1>
+                <h1>Create your student account</h1>
                 <Error error={error} />
                 <label htmlFor="username">
                   <p>Username</p>
@@ -190,4 +192,4 @@ class ParticipantSignup extends Component {
   }
 }
 
-export default ParticipantSignup;
+export default StudentSignup;

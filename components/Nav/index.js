@@ -10,6 +10,7 @@ import User from '../User/index';
 // import Signout from '../Signout/index';
 
 import { ContainerOnlyForNoProfile } from '../Permissions/NoProfile/index';
+import { ContainerOnlyForProfile } from '../Permissions/Profile/index';
 import { ContainerOnlyForStudents } from '../Permissions/Student/index';
 import { ContainerOnlyForScientists } from '../Permissions/Scientist/index';
 import { ContainerOnlyForParticipants } from '../Permissions/Participant/index';
@@ -48,13 +49,6 @@ const Nav = () => (
             <Link href="/classes">
               <NavButton>Classes</NavButton>
             </Link>
-            {me && (
-              <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
-                {toggleDashboard => (
-                  <NavButton onClick={toggleDashboard}>Dashboard</NavButton>
-                )}
-              </Mutation>
-            )}
           </NavRightContainer>
         </ContainerOnlyForScientists>
 
@@ -66,13 +60,6 @@ const Nav = () => (
             <Link href="/onboarding">
               <NavButton>Student Onboarding</NavButton>
             </Link>
-            {me && (
-              <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
-                {toggleDashboard => (
-                  <NavButton onClick={toggleDashboard}>Dashboard</NavButton>
-                )}
-              </Mutation>
-            )}
           </NavRightContainer>
         </ContainerOnlyForStudents>
 
@@ -81,6 +68,11 @@ const Nav = () => (
             <Link href="/studies/all">
               <NavButton>Research studies</NavButton>
             </Link>
+          </NavRightContainer>
+        </ContainerOnlyForParticipants>
+
+        <ContainerOnlyForProfile>
+          <NavRightContainer>
             {me && (
               <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
                 {toggleDashboard => (
@@ -89,7 +81,7 @@ const Nav = () => (
               </Mutation>
             )}
           </NavRightContainer>
-        </ContainerOnlyForParticipants>
+        </ContainerOnlyForProfile>
       </NavStyles>
     )}
   </User>

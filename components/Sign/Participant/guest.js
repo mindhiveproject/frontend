@@ -16,14 +16,16 @@ const GUEST_PARTICIPANT_SIGNUP_MUTATION = gql`
     $user: Json
     $study: Json
     $info: Json
+    $permissions: [Permission]
   ) {
-    participantSignUp(
+    signUp(
       email: $email
       username: $username
       password: $password
       user: $user
       study: $study
       info: $info
+      permissions: $permissions
     ) {
       id
       username
@@ -64,12 +66,14 @@ class GuestParticipantSignup extends Component {
             method="post"
             onSubmit={async e => {
               e.preventDefault();
-              const res = await tokenSignUp();
+              const res = await tokenSignUp({
+                variables: { permissions: ['PARTICIPANT'] },
+              });
               alert(
                 `Your username ${this.state.username} and password ${this.state.password}`
               );
               this.setState({ email: '', username: '', password: '' });
-              this.props.onClose();
+              if (this.props.onClose) this.props.onClose();
               if (this.props.redirect) {
                 Router.push('/study/[slug]', `/study/${this.props.redirect}`);
               } else {
