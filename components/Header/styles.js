@@ -6,7 +6,7 @@ export const Logo = styled.a`
   display: grid;
   justify-items: start;
   cursor: pointer;
-  @media (max-width: 1300px) {
+  @media (max-width: 700px) {
     margin: 10px;
     text-align: center;
     justify-items: center;
@@ -35,7 +35,7 @@ export const StyledHeader = styled.header`
     grid-template-columns: auto 1fr;
     justify-content: space-between;
     align-items: stretch;
-    @media (max-width: 1300px) {
+    @media (max-width: 700px) {
       grid-template-columns: 1fr;
       justify-content: center;
     }

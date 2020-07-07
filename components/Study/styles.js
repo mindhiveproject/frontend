@@ -1,5 +1,160 @@
 import styled from 'styled-components';
 
+export const StyledStudyPage = styled.div`
+  display: grid;
+  grid-template-columns: 8fr 4fr;
+  grid-template-areas:
+    'description image'
+    'description time'
+    'description tags'
+    'info tags'
+    'info tags';
+  grid-gap: 15px;
+  max-width: 1500px;
+  margin: 2rem auto;
+  padding: 3rem;
+  min-height: 800px;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'image'
+      'description'
+      'time'
+      'info'
+      'tags';
+  }
+  @media (max-width: 375px) {
+    padding: 1rem;
+  }
+
+  p {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #666666;
+  }
+  h1 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 56px;
+    color: #1a1a1a;
+  }
+  h3 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+    color: #666666;
+  }
+  button {
+    height: 56px;
+    width: 266px;
+    background: ${props => props.theme.darkgreen};
+    border: 2px solid ${props => props.theme.darkgreen};
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: ${props => props.theme.white};
+    font-family: 'Lato';
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  a {
+    text-decoration-line: underline;
+  }
+  img {
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .studyImage,
+  .studyTitleDescriptionBtns,
+  .studyInfoTimePartners,
+  .studyWhatWhoHow,
+  .studyTagsContacts {
+    padding: 10px;
+  }
+
+  .studyImage {
+    grid-area: image;
+  }
+  .studyTitleDescriptionBtns {
+    grid-area: description;
+  }
+  .studyInfoTimePartners {
+    grid-area: time;
+  }
+  .studyWhatWhoHow {
+    grid-area: info;
+  }
+  .studyTagsContacts {
+    grid-area: tags;
+  }
+
+  .descriptionMenu {
+    margin-bottom: 20px;
+    .item {
+      font-family: Lato;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 23px;
+      color: #1a1a1a;
+    }
+  }
+  .details {
+    margin: 3rem;
+    font-size: 2rem;
+  }
+  .timeFrequency {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .studyInformationHeader {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 28px;
+    margin-bottom: 7px;
+  }
+  .studyTags {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, auto));
+    grid-column-gap: 8px;
+  }
+  .studyTag {
+    background: #ffffff;
+    border: 2px solid #28619e;
+    border-radius: 100px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0.03em;
+    color: #28619e;
+    padding: 8px;
+    /* margin: 10px; */
+    text-align: center;
+    /* width: fit-content; */
+  }
+  .partnersInfo {
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr 2fr;
+    grid-column-gap: 10px;
+    align-items: center;
+  }
+`;
+
 export const OnboardingHeader = styled.div`
   display: grid;
   grid-template-columns: 12fr 1fr;
@@ -113,126 +268,6 @@ export const ResponseButtons = styled.div`
     border-radius: 4px;
     cursor: pointer;
     width: 90px;
-  }
-`;
-
-export const StyledStudyPage = styled.div`
-  display: grid;
-  grid-template-columns: 8fr 4fr;
-  grid-column-gap: 40px;
-  max-width: 1500px;
-  margin: 2rem auto;
-  padding: 3rem;
-  /* box-shadow: ${props => props.theme.bs}; */
-  min-height: 800px;
-  p {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-    color: #666666;
-  }
-  h1 {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 48px;
-    line-height: 56px;
-    color: #1A1A1A;
-  }
-  h3 {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 32px;
-    color: #666666;
-  }
-  button {
-    height: 56px;
-    width: 266px;
-    background: ${props => props.theme.darkgreen};
-    border: 2px solid ${props => props.theme.darkgreen};
-    box-sizing: border-box;
-    border-radius: 4px;
-    color: ${props => props.theme.white};
-    font-family: 'Lato';
-    font-size: 18px;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  a {
-    text-decoration-line: underline;
-  }
-  img {
-    width: 100%;
-    object-fit: contain;
-  }
-  .studyDescription {
-    margin-top: 20px;
-  }
-  .descriptionMenu {
-    margin-bottom: 20px;
-    .item {
-      font-family: Lato;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 23px;
-      color: #1A1A1A;
-    }
-  }
-  .details {
-    margin: 3rem;
-    font-size: 2rem;
-  }
-  .studyInformationBoard {
-    display: grid;
-    align-content: start;
-    grid-row-gap: 20px;
-  }
-  .timeFrequency {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .studyInformationHeader {
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 28px;
-    margin-bottom: 7px;
-  }
-  .studyTags {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, auto));
-    grid-column-gap: 8px;
-
-  }
-  .studyTag {
-    background: #FFFFFF;
-    border: 2px solid #28619E;
-    border-radius: 100px;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 100%;
-    letter-spacing: 0.03em;
-    color: #28619E;
-    padding: 8px;
-    /* margin: 10px; */
-    text-align: center;
-    /* width: fit-content; */
-  }
-  .partnersInfo {
-    display: grid;
-    grid-template-columns: 3fr 1fr 2fr 2fr;
-    grid-column-gap: 10px;
-    align-items: center;
   }
 `;
 

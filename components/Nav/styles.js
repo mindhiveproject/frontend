@@ -4,10 +4,7 @@ export const NavStyles = styled.ul`
   margin: 0;
   padding: 0;
   display: grid;
-  /* min-width: 300px; */
   width: 100%;
-  /* justify-self: end; */
-  /* justify-content: end; */
   font-size: 2rem;
   align-items: center;
   a {
@@ -60,11 +57,10 @@ export const NavStyles = styled.ul`
       }
     }
   }
-  @media (max-width: 1300px) {
-    /* border-top: 1px solid ${props => props.theme.lightgrey}; */
-    width: 100%;
-    justify-content: center;
-    font-size: 1.5rem;
+  @media (max-width: 700px) {
+    // width: 100%;
+    // justify-content: center;
+    // font-size: 1.5rem;
   }
 `;
 
@@ -73,6 +69,9 @@ export const NavRightContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(150px, auto));
   grid-column-gap: 6px;
   justify-content: end;
+  @media (max-width: 700px) {
+    justify-content: center;
+  }
 `;
 
 export const NavButton = styled.button`

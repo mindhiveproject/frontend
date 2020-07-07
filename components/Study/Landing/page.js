@@ -41,7 +41,11 @@ class StudyParticipantPage extends Component {
               <title>mindHIVE | {study.title}</title>
             </Head>
 
-            <div>
+            <div className="studyImage">
+              <img src={study.image} alt={study.title} />
+            </div>
+
+            <div className="studyTitleDescriptionBtns">
               <h1>{study.title}</h1>
               <h3>{study.description}</h3>
 
@@ -63,11 +67,6 @@ class StudyParticipantPage extends Component {
                           result.payload === 'full'
                       )
                       .map(result => result.task.id);
-
-                    // console.log(
-                    //   'fullResultsInThisStudy',
-                    //   fullResultsInThisStudy
-                    // );
 
                     if (studyIds.includes(study.id)) {
                       return (
@@ -115,76 +114,9 @@ class StudyParticipantPage extends Component {
                   Take survey
                 </button>
               </ContainerOnlyForNoProfile>
-
-              <div className="studyDescription">
-                <div className="descriptionMenu">
-                  <Menu tabular>
-                    <Menu.Item
-                      name="what"
-                      active={activeItem === 'what'}
-                      onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                      name="who"
-                      active={activeItem === 'who'}
-                      onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                      name="how"
-                      active={activeItem === 'how'}
-                      onClick={this.handleItemClick}
-                    />
-                  </Menu>
-                </div>
-
-                <div>
-                  {activeItem === 'what' && (
-                    <div>
-                      {study.info &&
-                        study.info
-                          .filter(i => i.name === 'what')
-                          .map(i => ReactHtmlParser(i.text))}
-
-                      <h2>FAQ</h2>
-                      {true && (
-                        <Accordion
-                          defaultActiveIndex={[]}
-                          panels={panels}
-                          exclusive={false}
-                          fluid
-                        />
-                      )}
-                    </div>
-                  )}
-                </div>
-                <div>
-                  {activeItem === 'who' && (
-                    <div>
-                      {study.info &&
-                        study.info
-                          .filter(i => i.name === 'who')
-                          .map(i => ReactHtmlParser(i.text))}
-                    </div>
-                  )}
-                </div>
-                <div>
-                  {activeItem === 'how' && (
-                    <div>
-                      {study.info &&
-                        study.info
-                          .filter(i => i.name === 'how')
-                          .map(i => ReactHtmlParser(i.text))}
-                    </div>
-                  )}
-                </div>
-              </div>
             </div>
 
-            <div className="studyInformationBoard">
-              <div>
-                <img src={study.image} alt={study.title} />
-              </div>
-
+            <div className="studyInfoTimePartners">
               <div className="timeFrequency">
                 <div>
                   <div className="studyInformationHeader">Time to complete</div>
@@ -221,7 +153,72 @@ class StudyParticipantPage extends Component {
                       })}
                 </div>
               </div>
+            </div>
 
+            <div className="studyWhatWhoHow">
+              <div className="descriptionMenu">
+                <Menu tabular>
+                  <Menu.Item
+                    name="what"
+                    active={activeItem === 'what'}
+                    onClick={this.handleItemClick}
+                  />
+                  <Menu.Item
+                    name="who"
+                    active={activeItem === 'who'}
+                    onClick={this.handleItemClick}
+                  />
+                  <Menu.Item
+                    name="how"
+                    active={activeItem === 'how'}
+                    onClick={this.handleItemClick}
+                  />
+                </Menu>
+              </div>
+
+              <div>
+                {activeItem === 'what' && (
+                  <div>
+                    {study.info &&
+                      study.info
+                        .filter(i => i.name === 'what')
+                        .map(i => ReactHtmlParser(i.text))}
+
+                    <h2>FAQ</h2>
+                    {true && (
+                      <Accordion
+                        defaultActiveIndex={[]}
+                        panels={panels}
+                        exclusive={false}
+                        fluid
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+              <div>
+                {activeItem === 'who' && (
+                  <div>
+                    {study.info &&
+                      study.info
+                        .filter(i => i.name === 'who')
+                        .map(i => ReactHtmlParser(i.text))}
+                  </div>
+                )}
+              </div>
+              <div>
+                {activeItem === 'how' && (
+                  <div>
+                    {study.info &&
+                      study.info
+                        .filter(i => i.name === 'how')
+                        .map(i => ReactHtmlParser(i.text))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="studyTagsContacts">
               <div>
                 <div className="studyInformationHeader">Tags</div>
                 <div className="studyTags">
