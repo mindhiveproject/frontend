@@ -47,6 +47,7 @@ class StudentSignup extends Component {
       age: '',
       zipcode: this.props.user && this.props.user.zipCode,
       under18: this.props.user && this.props.user.under18,
+      useTeacherEmail: false,
     },
   };
 
@@ -110,17 +111,45 @@ class StudentSignup extends Component {
                     don't use your real name!).
                   </p>
                 </label>
-                <label htmlFor="email">
-                  <p>Email address</p>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    value={this.state.email}
-                    onChange={this.saveToState}
-                    required
-                  />
-                </label>
+                {true && (
+                  <label htmlFor="email">
+                    <p>Email address</p>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder={
+                        !this.state.info.useTeacherEmail && 'Enter your email'
+                      }
+                      value={this.state.email}
+                      onChange={this.saveToState}
+                      disabled={this.state.info.useTeacherEmail}
+                      required={!this.state.info.useTeacherEmail}
+                    />
+                  </label>
+                )}
+
+                <div>
+                  <label htmlFor="useTeacherEmail">
+                    <div className="checkboxField">
+                      <input
+                        type="checkbox"
+                        id="useTeacherEmail"
+                        name="useTeacherEmail"
+                        value={this.state.info.useTeacherEmail}
+                        onChange={() => {
+                          this.setState({
+                            info: {
+                              ...this.state.info,
+                              useTeacherEmail: !this.state.info.useTeacherEmail,
+                            },
+                          });
+                        }}
+                      />
+                      <h2>Use the email address of the teacher</h2>
+                    </div>
+                  </label>
+                </div>
+
                 <label htmlFor="password">
                   <p>Password</p>
                   <input
