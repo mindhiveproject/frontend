@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Link from 'next/link';
-// import { Center, TemplatesList, StyledLink } from './styles';
-import TemplateCard from './card';
+// import { Center, TasksList, StyledLink } from '../styles';
 
-import { StyledBoard, List, NavigationButtons } from '../Styles/Boards';
+import { StyledBoard, List, NavigationButtons } from '../../Styles/Boards';
+
+import TaskCard from './card';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
-const ALL_TEMPLATES_QUERY = gql`
-  query ALL_TEMPLATES_QUERY {
-    templates {
+const MY_TASKS_QUERY = gql`
+  query MY_TASKS_QUERY {
+    myTasks {
       id
       title
-      shortDescription
-      description
+      slug
       author {
         id
       }
@@ -24,45 +24,46 @@ const ALL_TEMPLATES_QUERY = gql`
 
 // using render props inside with query
 // https://www.prisma.io/blog/tutorial-render-props-in-react-apollo-2-1-199e9e2bd01e
-class AllTemplates extends Component {
+class MyTasks extends Component {
   render() {
     return (
       <StyledBoard>
-        <h1>Public templates</h1>
+        <h1>My tasks</h1>
         <NavigationButtons>
           <Link
             href={{
-              pathname: '/templates/add',
+              pathname: '/tasks/addlink',
             }}
           >
             <a>
               <button>
-                <h2>Add new template</h2>
+                <h2>Add a task with an external web link</h2>
               </button>
             </a>
           </Link>
           <Link
             href={{
-              pathname: '/templates/my',
+              pathname: '/tasks/all',
             }}
           >
             <a>
               <button>
-                <h2>My templates</h2>
+                <h2>All tasks</h2>
               </button>
             </a>
           </Link>
         </NavigationButtons>
-        <Query query={ALL_TEMPLATES_QUERY}>
+        <Query query={MY_TASKS_QUERY}>
           {({ data, error, loading }) => {
-            console.log('data', data);
+            // console.log('data', data);
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
             return (
               <List>
-                {data.templates.map(template => (
-                  <TemplateCard template={template} key={template.id} />
-                ))}
+                {data.myTasks &&
+                  data.myTasks.map(task => (
+                    <TaskCard task={task} key={task.id} />
+                  ))}
               </List>
             );
           }}
@@ -72,5 +73,5 @@ class AllTemplates extends Component {
   }
 }
 
-export default AllTemplates;
-export { ALL_TEMPLATES_QUERY };
+export default MyTasks;
+export { MY_TASKS_QUERY };

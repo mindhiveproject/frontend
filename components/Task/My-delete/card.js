@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import { StyledTaskCard, StyledCardButtonsContainer } from '../styles';
+// import { StyledTaskCard, StyledCardButtonsContainer } from '../styles';
+import { StyledCard } from '../../Styles/Cards';
 
 import DeleteTask from './delete';
 
@@ -19,7 +20,7 @@ class TaskCard extends Component {
   render() {
     const { task } = this.props;
     return (
-      <StyledTaskCard>
+      <StyledCard>
         <Link
           href={{
             pathname: '/tasks/page',
@@ -27,7 +28,7 @@ class TaskCard extends Component {
           }}
         >
           <a>
-            <h2>{task.title}</h2>
+            <h1>{task.title}</h1>
           </a>
         </Link>
         <p>{task.shortDescription}</p>
@@ -40,7 +41,9 @@ class TaskCard extends Component {
             }}
           >
             <a>
-              <h2>Edit</h2>
+              <h2>
+                <button>Edit</button>
+              </h2>
             </a>
           </Link>
           <Link
@@ -50,7 +53,9 @@ class TaskCard extends Component {
             }}
           >
             <a>
-              <h2>Info</h2>
+              <h2>
+                <button>Info</button>
+              </h2>
             </a>
           </Link>
           <DeleteTask id={task.id}>Delete</DeleteTask>
@@ -67,7 +72,7 @@ class TaskCard extends Component {
             </a>
           </Link>
         )}
-      </StyledTaskCard>
+      </StyledCard>
     );
   }
 }

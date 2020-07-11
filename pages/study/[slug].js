@@ -4,7 +4,7 @@ import ReviewStudyForParticipants, {
 } from '../../components/Study/Landing/index';
 import Page from '../../components/Page/index';
 import { endpoint, prodEndpoint } from '../../config';
-import { ALL_STUDIES_QUERY } from '../../components/Study/All/index';
+// import { ALL_STUDIES_QUERY } from '../../components/Study/Board/all';
 
 const url = process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
 // export default class StudyLandingPage extends React.Component {

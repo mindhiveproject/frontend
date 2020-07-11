@@ -55,6 +55,11 @@ class Dashboard extends Component {
                   &times;
                 </CloseButton>
                 <Supreme>{me.username}'s dashboard</Supreme>
+                <h1>
+                  {me.permissions.map(permission => (
+                    <>{permission} </>
+                  ))}
+                </h1>
 
                 <ContainerOnlyForStudents>
                   <StyledProfilePicture>
@@ -106,26 +111,30 @@ class Dashboard extends Component {
                   </StyledButtons>
                 </ContainerOnlyForStudents>
 
-                <h3>Your studies</h3>
-                <div>
-                  <ul>
-                    {me.participantIn.map(study => (
-                      <div key={study.id}>
-                        <Link
-                          href={{
-                            pathname: '/studies/page',
-                            query: { id: study.id },
-                          }}
-                        >
-                          <a>{study.title}</a>
-                        </Link>
-                        {study.tasks.map(task => (
-                          <div key={task.id}>{task.title}</div>
+                {me.participantIn.length > 0 && (
+                  <>
+                    <h3>You participate in studies</h3>
+                    <div>
+                      <ul>
+                        {me.participantIn.map(study => (
+                          <div key={study.id}>
+                            <Link
+                              href={{
+                                pathname: '/studies/page',
+                                query: { id: study.id },
+                              }}
+                            >
+                              <a>{study.title}</a>
+                            </Link>
+                            {study.tasks.map(task => (
+                              <div key={task.id}>{task.title}</div>
+                            ))}
+                          </div>
                         ))}
-                      </div>
-                    ))}
-                  </ul>
-                </div>
+                      </ul>
+                    </div>
+                  </>
+                )}
 
                 {false && (
                   <>

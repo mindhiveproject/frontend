@@ -1,4 +1,4 @@
-import AllStudies from '../../components/Study/All/index';
+import AllStudies from '../../components/Study/Board/all';
 import Page from '../../components/Page/index';
 
 const AllStudiesPage = props => (

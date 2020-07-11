@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { StyledParameterBlock } from '../styles';
-import { MY_STUDIES_QUERY } from '../My/index';
+import { MY_STUDIES_QUERY } from '../Board/my';
 import EditStudyForm from './form';
 
 const CREATE_NEW_STUDY = gql`

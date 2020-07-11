@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import { StyledTemplateCard, StyledCardButtonsContainer } from './styles';
+// import { StyledTemplateCard, StyledCardButtonsContainer } from './styles';
+import { StyledCard } from '../Styles/Cards';
 
 import DeleteTemplate from './delete';
 
-import { ContainerOnlyForScientists } from '../Permissions/Scientist/index';
+import { ContainerOnlyForAuthorizedScientists } from '../Permissions/Scientist/index';
 
 class TemplateCard extends Component {
   // prop types https://reactjs.org/docs/typechecking-with-proptypes.html
@@ -19,7 +20,7 @@ class TemplateCard extends Component {
   render() {
     const { template } = this.props;
     return (
-      <StyledTemplateCard>
+      <StyledCard>
         <Link
           href={{
             pathname: '/templates/page',
@@ -27,24 +28,10 @@ class TemplateCard extends Component {
           }}
         >
           <a>
-            <h2>{template.title}</h2>
+            <h1>{template.title}</h1>
           </a>
         </Link>
         <p>{template.shortDescription}</p>
-
-        <ContainerOnlyForScientists>
-          <Link
-            href={{
-              pathname: '/templates/edit',
-              query: { id: template.id },
-            }}
-          >
-            <a>
-              <h2>Edit</h2>
-            </a>
-          </Link>
-          <DeleteTemplate id={template.id}>Delete</DeleteTemplate>
-        </ContainerOnlyForScientists>
 
         <Link
           href={{
@@ -53,10 +40,28 @@ class TemplateCard extends Component {
           }}
         >
           <a>
-            <h2>Create a new task</h2>
+            <h2>
+              <button>Create a new task based on this template</button>
+            </h2>
           </a>
         </Link>
-      </StyledTemplateCard>
+
+        <ContainerOnlyForAuthorizedScientists id={template.author.id}>
+          <Link
+            href={{
+              pathname: '/templates/edit',
+              query: { id: template.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Edit</button>
+              </h2>
+            </a>
+          </Link>
+          <DeleteTemplate id={template.id}>Delete</DeleteTemplate>
+        </ContainerOnlyForAuthorizedScientists>
+      </StyledCard>
     );
   }
 }

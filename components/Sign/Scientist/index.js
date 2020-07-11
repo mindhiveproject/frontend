@@ -62,7 +62,7 @@ class Signup extends Component {
                   permissions: '',
                 });
                 Router.push({
-                  pathname: '/me',
+                  pathname: '/templates/my',
                 });
               }}
             >

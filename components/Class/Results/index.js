@@ -9,7 +9,7 @@ const MY_CLASS_RESULTS_QUERY = gql`
   query MY_CLASS_RESULTS_QUERY($id: ID!) {
     myClassResults(where: { id: $id }) {
       id
-      experiment {
+      study {
         id
         title
       }

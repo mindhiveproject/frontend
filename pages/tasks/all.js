@@ -1,4 +1,4 @@
-import AllTasks from '../../components/Task/All/index';
+import AllTasks from '../../components/Task/Board/all';
 import Page from '../../components/Page/index';
 
 const AllTasksPage = props => (

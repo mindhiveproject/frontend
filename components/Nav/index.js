@@ -14,6 +14,7 @@ import { ContainerOnlyForProfile } from '../Permissions/Profile/index';
 import { ContainerOnlyForStudents } from '../Permissions/Student/index';
 import { ContainerOnlyForScientists } from '../Permissions/Scientist/index';
 import { ContainerOnlyForParticipants } from '../Permissions/Participant/index';
+import { ContainerOnlyForTeachers } from '../Permissions/Teacher/index';
 
 import { TOGGLE_DASHBOARD_MUTATION } from '../Dashboard/index';
 
@@ -35,22 +36,24 @@ const Nav = () => (
         <ContainerOnlyForScientists>
           <NavRightContainer>
             <Link href="/templates/my">
-              <NavButton>My task templates</NavButton>
+              <NavButton>Templates</NavButton>
             </Link>
             <Link href="/tasks/my">
-              <NavButton>My tasks</NavButton>
+              <NavButton>Tasks</NavButton>
             </Link>
             <Link href="/studies/my">
-              <NavButton>My studies</NavButton>
-            </Link>
-            <Link href="/studies/all">
-              <NavButton>Research studies</NavButton>
-            </Link>
-            <Link href="/classes">
-              <NavButton>Classes</NavButton>
+              <NavButton>Studies</NavButton>
             </Link>
           </NavRightContainer>
         </ContainerOnlyForScientists>
+
+        <ContainerOnlyForTeachers>
+          <NavRightContainer>
+            <Link href="/classes/my">
+              <NavButton>Classes</NavButton>
+            </Link>
+          </NavRightContainer>
+        </ContainerOnlyForTeachers>
 
         <ContainerOnlyForStudents>
           <NavRightContainer>

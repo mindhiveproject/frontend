@@ -5,6 +5,9 @@ import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 
+import { MY_CLASSES_QUERY } from '../Board/my';
+import { ALL_CLASSES_QUERY } from '../Board/all';
+
 const CREATE_NEW_CLASS = gql`
   mutation CREATE_NEW_CLASS(
     $title: String!
@@ -63,7 +66,14 @@ class AddClass extends Component {
 
   render() {
     return (
-      <Mutation mutation={CREATE_NEW_CLASS} variables={this.state}>
+      <Mutation
+        mutation={CREATE_NEW_CLASS}
+        variables={this.state}
+        refetchQueries={[
+          { query: MY_CLASSES_QUERY },
+          { query: ALL_CLASSES_QUERY },
+        ]}
+      >
         {(createClass, { loading, error }) => (
           <SignForm
             onSubmit={async e => {

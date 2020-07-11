@@ -1,4 +1,4 @@
-import MyStudies from '../../components/Study/My/index';
+import MyStudies from '../../components/Study/Board/my';
 import { PageOnlyForScientists } from '../../components/Permissions/Scientist/index';
 import Page from '../../components/Page/index';
 

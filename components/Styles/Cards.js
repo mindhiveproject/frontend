@@ -13,6 +13,8 @@ export const List = styled.div`
 `;
 
 export const StyledCard = styled.div`
+  margin: 5px;
+  padding: 10px;
   background: white;
   border: 1px solid ${props => props.theme.offWhite};
   box-shadow: ${props => props.theme.bs};
@@ -31,6 +33,21 @@ export const StyledCard = styled.div`
     flex-grow: 1;
     padding: 0 3rem;
     font-size: 1.5rem;
+  }
+  button {
+    width: 100%;
+    margin-bottom: 5px;
+    margin: 6px;
+    min-height: 56px;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0.05em;
+    color: #007c70;
+    border: 2px solid #007c70;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 1rem 3rem;
+    background: none;
   }
   .buttonList {
     display: grid;

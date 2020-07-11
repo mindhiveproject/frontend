@@ -4,8 +4,8 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
-import { MY_TASKS_QUERY } from '../My/index';
-import { ALL_TASKS_QUERY } from '../All/index';
+import { MY_TASKS_QUERY } from '../Board/my';
+import { ALL_TASKS_QUERY } from '../Board/all';
 
 const CREATE_EXTERNAL_TASK = gql`
   mutation CREATE_EXTERNAL_TASK(

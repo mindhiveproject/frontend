@@ -3,8 +3,8 @@ import { Mutation } from 'react-apollo';
 
 import gql from 'graphql-tag';
 import Router from 'next/router';
-import { MY_TASKS_QUERY } from '../My/index';
-import { ALL_TASKS_QUERY } from '../All/index';
+import { MY_TASKS_QUERY } from '../Board/my';
+import { ALL_TASKS_QUERY } from '../Board/all';
 // import { REVIEW_EXPERIMENT_QUERY } from '../Review/index';
 
 import Error from '../../ErrorMessage/index';

@@ -1,4 +1,4 @@
-import MyTasks from '../../components/Task/My/index';
+import MyTasks from '../../components/Task/Board/my';
 import { PageOnlyForScientists } from '../../components/Permissions/Scientist/index';
 import Page from '../../components/Page/index';
 

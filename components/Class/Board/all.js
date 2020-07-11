@@ -2,21 +2,19 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Link from 'next/link';
-// import { Center, TemplatesList, StyledLink } from './styles';
-import TemplateCard from './card';
-
-import { StyledBoard, List, NavigationButtons } from '../Styles/Boards';
+import ClassCard from '../Card/index';
+import { StyledBoard, List, NavigationButtons } from '../../Styles/Boards';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
-const ALL_TEMPLATES_QUERY = gql`
-  query ALL_TEMPLATES_QUERY {
-    templates {
+const ALL_CLASSES_QUERY = gql`
+  query ALL_CLASSES_QUERY {
+    classes {
       id
       title
-      shortDescription
       description
-      author {
+      creator {
         id
+        username
       }
     }
   }
@@ -24,44 +22,33 @@ const ALL_TEMPLATES_QUERY = gql`
 
 // using render props inside with query
 // https://www.prisma.io/blog/tutorial-render-props-in-react-apollo-2-1-199e9e2bd01e
-class AllTemplates extends Component {
+class Classes extends Component {
   render() {
     return (
       <StyledBoard>
-        <h1>Public templates</h1>
+        <h1>All classes</h1>
         <NavigationButtons>
           <Link
             href={{
-              pathname: '/templates/add',
+              pathname: '/classes/my',
             }}
           >
             <a>
               <button>
-                <h2>Add new template</h2>
-              </button>
-            </a>
-          </Link>
-          <Link
-            href={{
-              pathname: '/templates/my',
-            }}
-          >
-            <a>
-              <button>
-                <h2>My templates</h2>
+                <h2>My classes</h2>
               </button>
             </a>
           </Link>
         </NavigationButtons>
-        <Query query={ALL_TEMPLATES_QUERY}>
+        <Query query={ALL_CLASSES_QUERY}>
           {({ data, error, loading }) => {
             console.log('data', data);
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
             return (
               <List>
-                {data.templates.map(template => (
-                  <TemplateCard template={template} key={template.id} />
+                {data.classes.map(schoolclass => (
+                  <ClassCard schoolclass={schoolclass} key={schoolclass.id} />
                 ))}
               </List>
             );
@@ -72,5 +59,5 @@ class AllTemplates extends Component {
   }
 }
 
-export default AllTemplates;
-export { ALL_TEMPLATES_QUERY };
+export default Classes;
+export { ALL_CLASSES_QUERY };

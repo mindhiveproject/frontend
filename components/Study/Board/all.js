@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import ClassCard from '../Card/index';
-import { Center, List } from '../../Styles/Cards.js';
+import Link from 'next/link';
+// import { Center, StudiesList, StyledLink } from '../styles';
+import { StyledBoard, List, NavigationButtons } from '../../Styles/Boards';
+import StudyCard from './card';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
-const ALL_CLASSES_QUERY = gql`
-  query ALL_CLASSES_QUERY {
-    classes {
+const ALL_STUDIES_QUERY = gql`
+  query ALL_STUDIES_QUERY {
+    studies {
       id
       title
-      description
-      creator {
+      slug
+      author {
         id
-        username
       }
     }
   }
@@ -21,29 +22,29 @@ const ALL_CLASSES_QUERY = gql`
 
 // using render props inside with query
 // https://www.prisma.io/blog/tutorial-render-props-in-react-apollo-2-1-199e9e2bd01e
-class Classes extends Component {
+class AllStudies extends Component {
   render() {
     return (
-      <Center>
-        <h1>Classes</h1>
-        <Query query={ALL_CLASSES_QUERY}>
+      <StyledBoard>
+        <h1>Studies</h1>
+        <Query query={ALL_STUDIES_QUERY}>
           {({ data, error, loading }) => {
             console.log('data', data);
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
             return (
               <List>
-                {data.classes.map(schoolclass => (
-                  <ClassCard schoolclass={schoolclass} key={schoolclass.id} />
+                {data.studies.map(study => (
+                  <StudyCard study={study} key={study.id} />
                 ))}
               </List>
             );
           }}
         </Query>
-      </Center>
+      </StyledBoard>
     );
   }
 }
 
-export default Classes;
-export { ALL_CLASSES_QUERY };
+export default AllStudies;
+export { ALL_STUDIES_QUERY };

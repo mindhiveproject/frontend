@@ -13,6 +13,24 @@ export const ContainerOnlyForScientists = props => (
   </Query>
 );
 
+export const ContainerOnlyForAuthorizedScientists = props => (
+  <Query query={CURRENT_USER_QUERY}>
+    {({ data, loading }) => {
+      console.log('props', props);
+      console.log('data.me', data.me);
+      if (loading) return <p></p>;
+      if (
+        !data.me ||
+        !data.me.permissions.includes('SCIENTIST') ||
+        data.me.id !== props.id
+      ) {
+        return false;
+      }
+      return props.children;
+    }}
+  </Query>
+);
+
 export const PageOnlyForScientists = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
