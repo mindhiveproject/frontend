@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Error from '../../ErrorMessage/index';
 import { StyledStudy } from '../styles';
 import StudyBuildPage from './page';
-import { ALL_TASKS_QUERY } from '../../Task/All/index';
+import { ALL_TASKS_QUERY } from '../../Task/Board/all';
 
 const REVIEW_STUDY_QUERY = gql`
   query REVIEW_STUDY_QUERY($id: ID!) {

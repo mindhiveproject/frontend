@@ -6,7 +6,7 @@ import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
-import { ALL_CLASSES_QUERY } from '../../Class/All/index';
+import { ALL_CLASSES_QUERY } from '../../Class/Board/all';
 
 const INVITE_LOGIN_MUTATION = gql`
   mutation INVITE_LOGIN_MUTATION($username: String!, $invitedIn: ID!) {
