@@ -1,4 +1,4 @@
-import Classes from '../../components/Class/Board/All';
+import Classes from '../../components/Class/Board/all';
 import Page from '../../components/Page/index';
 
 const Home = props => (
