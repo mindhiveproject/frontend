@@ -22,6 +22,8 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
+    "@react-pdf/renderer": "^2.0.0-beta.6",
+    "@react-pdf/styled-components": "^1.4.0",
     "apollo-boost": "^0.1.16",
     "apollo-client": "^2.6.10",
     "axios": "^0.19.2",

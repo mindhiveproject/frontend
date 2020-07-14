@@ -20,6 +20,7 @@ import StudyRegistration from './registration';
 import StudyConsent from './consent';
 import TaskCard from './task';
 import ParticipantLogin from '../../Login/Participant/index';
+import StudyConsentForm from './studyconsent';
 
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
@@ -79,9 +80,9 @@ class StudyPage extends Component {
                   </OnboardingHeader>
                   <h1>Let's get started</h1>
                   <h3>
-                    We are glad that you are interested in participating in "How
-                    are we impacted during COVID-19?". Before we begin, please
-                    answer the following:
+                    We are glad that you are interested in participating in "
+                    {study.title}". Before we begin, please answer the
+                    following:
                   </h3>
                   {study.settings && study.settings.zipCode && (
                     <div>
@@ -187,27 +188,12 @@ class StudyPage extends Component {
 
               {this.state.page == 2 && (
                 <div id="page_2">
-                  <OnboardingHeader>
-                    <div>Study consent</div>
-                    <a
-                      style={{ cursor: 'pointer', textAlign: 'end' }}
-                      onClick={() => this.props.onClose()}
-                    >
-                      &times;
-                    </a>
-                  </OnboardingHeader>
-                  <h1>Study consent</h1>
-                  <Accordion
-                    defaultActiveIndex={consentForm.map((c, i) => i)}
-                    panels={consentForm}
-                    exclusive={false}
-                    fluid
+                  <StudyConsentForm
+                    onClose={() => this.props.onClose()}
+                    consentForm={consentForm}
+                    onNext={() => this.setState({ page: this.state.page + 1 })}
+                    title={this.props.study.title}
                   />
-                  <button
-                    onClick={() => this.setState({ page: this.state.page + 1 })}
-                  >
-                    Next
-                  </button>
                 </div>
               )}
 
