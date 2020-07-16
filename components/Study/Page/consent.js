@@ -14,7 +14,12 @@ import {
 } from '../styles';
 
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
-import StudyConsentForm from './studyconsent';
+
+import GetStarted from './Steps/1-getStarted';
+import PreParentConsent from './Steps/2-preParentConsent';
+import ParentConsent from './Steps/3-parentConsent';
+import StudyConsentForm from './Steps/4-studyConsent';
+import DataUsage from './Steps/5-dataUsage';
 
 const JOIN_STUDY = gql`
   mutation JOIN_STUDY($id: ID!, $info: Json) {
@@ -87,114 +92,61 @@ class StudyConsent extends Component {
           <OnboardingForm>
             {this.state.page == 1 && (
               <div id="page_1">
-                <OnboardingHeader>
-                  <div>Let's get started</div>
-
-                  <a
-                    style={{ cursor: 'pointer', textAlign: 'end' }}
-                    onClick={() => this.props.onClose()}
-                  >
-                    &times;
-                  </a>
-                </OnboardingHeader>
-                <h1>Let's get started</h1>
-                <h3>
-                  We are glad that you are interested in participating in "
-                  {study.title}". Before we begin, please answer the following:
-                </h3>
-
-                {!(this.props.info && this.props.info.zipcode) && (
-                  <div>
-                    <label htmlFor="zipcode">
-                      <p>Your zip code</p>
-                      <input
-                        type="number"
-                        id="zipcode"
-                        name="zipcode"
-                        value={this.state.zipcode}
-                        onChange={this.updateState}
-                      />
-                    </label>
-                  </div>
-                )}
-
-                {!(this.props.info && this.props.info.englishComprehension) && (
-                  <div>
-                    <label htmlFor="englishComprehension">
-                      <p>
-                        Do you understand basic instruction written in English?
-                      </p>
-                      <ResponseButtons>
-                        <button
-                          onClick={() =>
-                            this.setButtonState('englishComprehension', 'yes')
-                          }
-                          className={
-                            this.state.englishComprehension === 'yes'
-                              ? 'selectedBtn'
-                              : undefined
-                          }
-                        >
-                          Yes
-                        </button>
-                        <button
-                          onClick={() =>
-                            this.setButtonState('englishComprehension', 'no')
-                          }
-                          className={
-                            this.state.englishComprehension === 'no'
-                              ? 'selectedBtn'
-                              : undefined
-                          }
-                        >
-                          No
-                        </button>
-                      </ResponseButtons>
-                    </label>
-                  </div>
-                )}
-
-                {!(this.props.info && this.props.info.under18) && (
-                  <div>
-                    <label htmlFor="under18">
-                      <p>Are you under the age of 18?</p>
-
-                      <ResponseButtons>
-                        <button
-                          onClick={() => this.setButtonState('under18', 'yes')}
-                          className={
-                            this.state.under18 === 'yes'
-                              ? 'selectedBtn'
-                              : undefined
-                          }
-                        >
-                          Yes
-                        </button>
-                        <button
-                          onClick={() => this.setButtonState('under18', 'no')}
-                          className={
-                            this.state.under18 === 'no'
-                              ? 'selectedBtn'
-                              : undefined
-                          }
-                        >
-                          No
-                        </button>
-                      </ResponseButtons>
-                    </label>
-                  </div>
-                )}
-
-                <button
-                  onClick={() => this.setState({ page: this.state.page + 1 })}
-                >
-                  Next
-                </button>
+                <GetStarted
+                  study={study}
+                  updateState={this.updateState}
+                  englishComprehension={this.state.englishComprehension}
+                  under18={this.state.under18}
+                  onBtnClick={(parameter, state) =>
+                    this.setButtonState(parameter, state)
+                  }
+                  onNext={() => {
+                    if (this.state.under18 && this.state.englishComprehension) {
+                      if (this.state.under18 === 'yes') {
+                        this.setState({ page: this.state.page + 1 });
+                      }
+                      if (this.state.under18 === 'no') {
+                        this.setState({ page: this.state.page + 3 });
+                      }
+                    }
+                  }}
+                  onLogin={() => {
+                    this.setState({ login: true });
+                  }}
+                  onClose={() => this.props.onClose()}
+                  showLogin={false}
+                  info={this.props.info}
+                />
               </div>
             )}
 
             {this.state.page == 2 && (
               <div id="page_2">
+                <PreParentConsent
+                  onClose={() => this.props.onClose()}
+                  onNext={() => this.setState({ page: this.state.page + 1 })}
+                />
+              </div>
+            )}
+
+            {this.state.page == 3 && (
+              <div id="page_3">
+                <ParentConsent
+                  onClose={() => this.props.onClose()}
+                  consentForm={consentForm}
+                  title={this.props.study.title}
+                  updateState={this.updateState}
+                  onNext={() => {
+                    if (this.state.parentName && this.state.parentEmail) {
+                      this.setState({ page: this.state.page + 2 });
+                    }
+                  }}
+                />
+              </div>
+            )}
+
+            {this.state.page == 4 && (
+              <div id="page_4">
                 <StudyConsentForm
                   onClose={() => this.props.onClose()}
                   consentForm={consentForm}
@@ -204,73 +156,14 @@ class StudyConsent extends Component {
               </div>
             )}
 
-            {this.state.page == 3 && (
-              <div id="page_3">
-                <OnboardingHeader>
-                  <div>Data usage</div>
-
-                  <a
-                    style={{ cursor: 'pointer', textAlign: 'end' }}
-                    onClick={() => this.props.onClose()}
-                  >
-                    &times;
-                  </a>
-                </OnboardingHeader>
-
-                <h1>Data usage</h1>
-                <h3>How would you like us to use your data?</h3>
-                <div>
-                  <div className="checkboxField">
-                    <input
-                      type="radio"
-                      id="useDataForScience"
-                      name="data"
-                      value="science"
-                      onChange={this.updateState}
-                      checked={this.state.data === 'science'}
-                    />
-                    <label htmlFor="useDataForScience">
-                      You can use my data for science and/or educational
-                      purposes
-                    </label>
-                  </div>
-                </div>
-                <div>
-                  <div className="checkboxField">
-                    <input
-                      type="radio"
-                      id="educationalUse"
-                      name="data"
-                      value="education"
-                      onChange={this.updateState}
-                      checked={this.state.data === 'education'}
-                    />
-                    <label htmlFor="educationalUse">
-                      I want my data to be saved for educational use only (e.g.,
-                      lectures and teaching materials)
-                    </label>
-                  </div>
-                </div>
-                <div>
-                  <div className="checkboxField">
-                    <input
-                      type="radio"
-                      id="doNotRecord"
-                      name="data"
-                      value="no"
-                      onChange={this.updateState}
-                      checked={this.state.data === 'no'}
-                    />
-                    <label htmlFor="doNotRecord">
-                      Don't record my data at all (if you’re a MindHive student:
-                      this means your data won't be included in class demos!)
-                    </label>
-                  </div>
-                </div>
-
-                <button onClick={e => this.saveJoinStudy(e, joinStudy)}>
-                  I am ready to participate in this study
-                </button>
+            {this.state.page == 5 && (
+              <div id="page_5">
+                <DataUsage
+                  onClose={() => this.props.onClose()}
+                  updateState={this.updateState}
+                  data={this.state.data}
+                  onNext={e => this.saveJoinStudy(e, joinStudy)}
+                />
               </div>
             )}
           </OnboardingForm>
