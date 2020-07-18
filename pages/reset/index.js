@@ -1,5 +1,5 @@
-import Reset from '../components/Reset/index';
-import Page from '../components/Page/index';
+import Reset from '../../components/Reset/index';
+import Page from '../../components/Page/index';
 
 const ResetPage = ({ query }) => (
   <Page>
