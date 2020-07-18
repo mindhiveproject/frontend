@@ -27,12 +27,6 @@ const REVIEW_STUDY_QUERY = gql`
   }
 `;
 
-// class ReviewStudyForParticipants extends Component {
-//   render() {
-//     return <StudyParticipantPage study={this.props.study} />;
-//   }
-// }
-//
 class ReviewStudyForParticipants extends Component {
   render() {
     return (

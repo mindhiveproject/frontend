@@ -57,7 +57,7 @@ const Nav = () => (
 
         <ContainerOnlyForStudents>
           <NavRightContainer>
-            <Link href="/bank">
+            <Link href="/studies/all">
               <NavButton>Research studies</NavButton>
             </Link>
             <Link href="/onboarding">

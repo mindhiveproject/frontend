@@ -13,6 +13,10 @@ const MY_CLASS_RESULTS_QUERY = gql`
         id
         title
       }
+      task {
+        id
+        title
+      }
       user {
         id
         username

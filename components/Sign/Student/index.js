@@ -22,7 +22,7 @@ const CLASS_QUERY = gql`
 class SignUp extends Component {
   state = {
     activePage: 'code',
-    classCode: '',
+    classCode: this.props.classCode || '',
   };
 
   updateState = e => {

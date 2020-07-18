@@ -38,8 +38,8 @@ const StyledResultLine = styled.div`
 
 class ResultLine extends Component {
   download = res => {
-    const { data, experiment } = res;
-    const name = experiment.title
+    const { data, task } = res;
+    const name = task.title
       .toLowerCase()
       .split(' ')
       .join('-');
@@ -67,7 +67,7 @@ class ResultLine extends Component {
           const { result } = data;
           return (
             <StyledResultLine>
-              <h1>{result.experiment.title}</h1>
+              <h1>{result.task.title}</h1>
               <p>{moment(result.updatedAt).fromNow()}</p>
 
               <div>

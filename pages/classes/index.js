@@ -1,10 +1,10 @@
-import ReviewClass from '../../components/Class/Review/index';
+import Classes from '../../components/Class/Board/all';
 import Page from '../../components/Page/index';
 
-const ReviewClassPage = ({ query }) => (
+const Home = props => (
   <Page>
-    <ReviewClass id={query.id} />
+    <Classes />
   </Page>
 );
 
-export default ReviewClassPage;
+export default Home;

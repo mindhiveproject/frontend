@@ -34,7 +34,7 @@ class ClassCard extends Component {
       <StyledCard>
         <Link
           href={{
-            pathname: '/classes',
+            pathname: '/class',
             query: { id: schoolclass.id },
           }}
         >
@@ -45,6 +45,18 @@ class ClassCard extends Component {
         </Link>
 
         <ContainerOnlyForTeachersOwners creator={schoolclass.creator.id}>
+          <Link
+            href={{
+              pathname: '/class',
+              query: { id: schoolclass.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Info</button>
+              </h2>
+            </a>
+          </Link>
           <Link
             href={{
               pathname: '/classes/edit',
@@ -82,8 +94,8 @@ class ClassCard extends Component {
         <ContainerOnlyForNoProfile>
           <Link
             href={{
-              pathname: '/sign/invite',
-              query: { id: schoolclass.id },
+              pathname: '/signup/student',
+              query: { c: schoolclass.code },
             }}
           >
             <a>

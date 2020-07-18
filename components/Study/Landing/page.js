@@ -23,7 +23,6 @@ class StudyParticipantPage extends Component {
   render() {
     const { study } = this.props;
     const { activeItem } = this.state;
-    // console.log('study', study);
     const panels = this.props.study.info
       .filter(i => i.name.startsWith('faq'))
       .map(i => ({
@@ -261,4 +260,3 @@ class StudyParticipantPage extends Component {
 }
 
 export default StudyParticipantPage;
-// export { CURRENT_USER_STUDIES };

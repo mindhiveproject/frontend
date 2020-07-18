@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
-import Reset from '../../components/Reset/index';
+import ReviewClass from '../../components/Class/Review/index';
 import Page from '../../components/Page/index';
 
-const ResetPage = () => {
+const ReviewClassPage = () => {
   const router = useRouter();
-  if (!router.query.t)
+  if (!router.query.id)
     return (
       <Page>
         <p>Loading</p>
@@ -12,9 +12,9 @@ const ResetPage = () => {
     );
   return (
     <Page>
-      <Reset resetToken={router.query.t} />
+      <ReviewClass id={router.query.id} />
     </Page>
   );
 };
 
-export default ResetPage;
+export default ReviewClassPage;

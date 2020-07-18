@@ -11,6 +11,7 @@ const ALL_CLASSES_QUERY = gql`
     classes {
       id
       title
+      code
       description
       creator {
         id

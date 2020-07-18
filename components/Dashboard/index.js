@@ -56,8 +56,8 @@ class Dashboard extends Component {
                 </CloseButton>
                 <Supreme>{me.username}'s dashboard</Supreme>
                 <h1>
-                  {me.permissions.map(permission => (
-                    <>{permission} </>
+                  {me.permissions.map((permission, i) => (
+                    <div key={i}>{permission}</div>
                   ))}
                 </h1>
 

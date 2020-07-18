@@ -111,22 +111,21 @@ class StudentSignup extends Component {
                     don't use your real name!).
                   </p>
                 </label>
-                {true && (
-                  <label htmlFor="email">
-                    <p>Email address</p>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder={
-                        !this.state.info.useTeacherEmail && 'Enter your email'
-                      }
-                      value={this.state.email}
-                      onChange={this.saveToState}
-                      disabled={this.state.info.useTeacherEmail}
-                      required={!this.state.info.useTeacherEmail}
-                    />
-                  </label>
-                )}
+
+                <label htmlFor="email">
+                  <p>Email address</p>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder={
+                      !this.state.info.useTeacherEmail && 'Enter your email'
+                    }
+                    value={this.state.email}
+                    onChange={this.saveToState}
+                    disabled={this.state.info.useTeacherEmail}
+                    required={!this.state.info.useTeacherEmail}
+                  />
+                </label>
 
                 <div>
                   <label htmlFor="useTeacherEmail">

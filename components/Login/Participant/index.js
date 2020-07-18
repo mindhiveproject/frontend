@@ -9,15 +9,13 @@ import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
 const PARTICIPANT_LOGIN_MUTATION = gql`
   mutation PARTICIPANT_LOGIN_MUTATION(
-    $email: String
-    $username: String
+    $usernameEmail: String!
     $password: String!
     $user: Json
     $study: Json
   ) {
     participantLogin(
-      email: $email
-      username: $username
+      usernameEmail: $usernameEmail
       password: $password
       user: $user
       study: $study
@@ -32,8 +30,7 @@ const PARTICIPANT_LOGIN_MUTATION = gql`
 
 class Login extends Component {
   state = {
-    username: '',
-    password: '',
+    usernameEmail: '',
     email: '',
     user: this.props.user,
     study: this.props.study,
@@ -60,7 +57,7 @@ class Login extends Component {
                 onSubmit={async e => {
                   e.preventDefault();
                   const res = await participantLogin();
-                  this.setState({ password: '', email: '', username: '' });
+                  this.setState({ password: '', usernameEmail: '' });
                   this.props.onClose();
                   if (this.props.redirect) {
                     Router.push(
@@ -78,26 +75,18 @@ class Login extends Component {
                   <h1>Login as a participant</h1>
                   <h3>Enter your email or username</h3>
                   <Error error={error} />
-                  <label htmlFor="username">
-                    Username
+
+                  <label htmlFor="usernameEmail">
+                    Username or email
                     <input
                       type="text"
-                      name="username"
-                      placeholder="Enter your username"
-                      value={this.state.username}
+                      name="usernameEmail"
+                      placeholder="Enter your username or email"
+                      value={this.state.usernameEmail}
                       onChange={this.saveToState}
                     />
                   </label>
-                  <label htmlFor="email">
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Enter your email"
-                      value={this.state.email}
-                      onChange={this.saveToState}
-                    />
-                  </label>
+
                   <label htmlFor="password">
                     Password
                     <input
@@ -111,7 +100,7 @@ class Login extends Component {
                   <button type="submit">Login</button>
                 </fieldset>
 
-                <Link href="/requestreset/participant">
+                <Link href="/requestreset">
                   <a style={{ float: 'right' }}>Forgot your password?</a>
                 </Link>
               </CreateAccountForm>
