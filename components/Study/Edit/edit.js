@@ -21,6 +21,9 @@ const SINGLE_STUDY_QUERY = gql`
       image
       largeImage
       info
+      author {
+        id
+      }
       collaborators {
         id
         username
