@@ -23,7 +23,7 @@ export const ContainerOnlyForAuthorizedCollaborators = props => (
         data.me &&
         (props.ids.includes(data.me.id) ||
           (data.me.permissions.includes('SCIENTIST') &&
-            data.me.id !== props.id))
+            data.me.id === props.id))
       ) {
         return props.children;
       }
