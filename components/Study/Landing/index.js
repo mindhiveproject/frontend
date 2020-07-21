@@ -23,6 +23,10 @@ const REVIEW_STUDY_QUERY = gql`
       image
       largeImage
       info
+      collaborators {
+        id
+        username
+      }
     }
   }
 `;

@@ -21,25 +21,26 @@ import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
 
 class TaskPage extends Component {
   state = {
-    under18: false,
-    parentConsent: false,
-    englishComprehension: false,
+    // under18: false,
+    // parentConsent: false,
+    // englishComprehension: false,
   };
 
-  saveToState = e => {
-    this.setState({
-      [e.target.name]: !this.state[e.target.name],
-    });
-  };
-
-  updateState = e => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
+  // saveToState = e => {
+  //   this.setState({
+  //     [e.target.name]: !this.state[e.target.name],
+  //   });
+  // };
+  //
+  // updateState = e => {
+  //   this.setState({
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   render() {
     const { task } = this.props;
+    console.log('task', task);
 
     return (
       <div>
@@ -72,7 +73,21 @@ class TaskPage extends Component {
           </ContainerOnlyForScientists>
 
           <ContainerOnlyForNoProfile></ContainerOnlyForNoProfile>
-          <ContainerOnlyForStudents></ContainerOnlyForStudents>
+          <ContainerOnlyForStudents>
+            <div>For students</div>
+            <Link
+              href={{
+                pathname: '/tasks/add',
+                query: { id: task.template.id },
+              }}
+            >
+              <a>
+                <h2>
+                  <button>Create a new task based on this template</button>
+                </h2>
+              </a>
+            </Link>
+          </ContainerOnlyForStudents>
         </StyledTask>
       </div>
     );

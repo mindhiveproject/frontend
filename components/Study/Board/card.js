@@ -8,6 +8,7 @@ import { StyledCard } from '../../Styles/Cards';
 import DeleteStudy from './delete';
 
 import { ContainerOnlyForAuthorizedScientists } from '../../Permissions/Scientist/index';
+import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
 
 class StudyCard extends Component {
   // prop types https://reactjs.org/docs/typechecking-with-proptypes.html
@@ -21,7 +22,7 @@ class StudyCard extends Component {
     const { study } = this.props;
     return (
       <StyledCard>
-        <Link href="/study/[slug]" as={`/study/${study.slug}`}>
+        <Link href="/studies/[slug]" as={`/studies/${study.slug}`}>
           <a>
             <h2>{study.title}</h2>
           </a>
@@ -33,7 +34,7 @@ class StudyCard extends Component {
         >
           <Link
             href={{
-              pathname: '/studies/edit',
+              pathname: '/study/edit',
               query: { id: study.id },
             }}
           >
@@ -45,7 +46,7 @@ class StudyCard extends Component {
           </Link>
           <Link
             href={{
-              pathname: '/studies/build',
+              pathname: '/study/build',
               query: { id: study.id },
             }}
           >
@@ -58,7 +59,7 @@ class StudyCard extends Component {
           {false && (
             <Link
               href={{
-                pathname: '/studies/page',
+                pathname: '/study/page',
                 query: { id: study.id },
               }}
             >
@@ -72,7 +73,24 @@ class StudyCard extends Component {
           <DeleteStudy id={study.id}>Delete</DeleteStudy>
         </ContainerOnlyForAuthorizedScientists>
 
-        <Link href="/study/[slug]" as={`/study/${study.slug}`}>
+        <ContainerOnlyForAuthorizedCollaborators
+          ids={study.collaborators && study.collaborators.map(c => c.id)}
+        >
+          <Link
+            href={{
+              pathname: '/study/edit',
+              query: { id: study.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Edit</button>
+              </h2>
+            </a>
+          </Link>
+        </ContainerOnlyForAuthorizedCollaborators>
+
+        <Link href="/studies/[slug]" as={`/studies/${study.slug}`}>
           <a>
             <h2>
               <button>Enter</button>

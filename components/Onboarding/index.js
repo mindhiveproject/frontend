@@ -23,33 +23,44 @@ class Onboarding extends Component {
         </Head>
         <article>
           <ContainerOnlyForNoProfile>
-            <h3>
-              This page is for students who are participating in the mindHIVE
+            <h1>
+              This page is for students who are participating in the MindHive
               program, if you are a participant, please navigate to
               <Link
                 href={{
-                  pathname: '/bank',
+                  pathname: '/',
                 }}
               >
                 <StyledLink> RESEARCH STUDIES</StyledLink>
               </Link>
               .
-            </h3>
+            </h1>
 
-            <div>
-              <h3>
-                Have you already done onboarding? Then just
-                <Link
-                  href={{
-                    pathname: '/login/invite',
-                  }}
-                >
-                  <StyledLink> log in here </StyledLink>
-                </Link>
-                with your username.
-              </h3>
-            </div>
-            <OnboardingSignupWithClassInvite />
+            <h1>
+              Have you already done onboarding? Then just
+              <Link
+                href={{
+                  pathname: '/login',
+                }}
+              >
+                <StyledLink> log in here </StyledLink>
+              </Link>
+              with your username.
+            </h1>
+
+            <h1>
+              Otherwise,
+              <Link
+                href={{
+                  pathname: '/signup/student',
+                }}
+              >
+                <StyledLink> sign in here </StyledLink>
+              </Link>
+              as a student.
+            </h1>
+
+            {false && <OnboardingSignupWithClassInvite />}
           </ContainerOnlyForNoProfile>
 
           <ContainerOnlyForStudents>

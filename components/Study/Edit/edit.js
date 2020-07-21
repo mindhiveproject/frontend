@@ -7,6 +7,7 @@ import Error from '../../ErrorMessage/index';
 import { StyledParameterBlock } from '../styles';
 import EditStudyForm from './form';
 import { REVIEW_STUDY_QUERY } from '../Landing/index';
+import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
 
 const SINGLE_STUDY_QUERY = gql`
   query SINGLE_STUDY_QUERY($id: ID!) {
@@ -20,6 +21,10 @@ const SINGLE_STUDY_QUERY = gql`
       image
       largeImage
       info
+      collaborators {
+        id
+        username
+      }
     }
   }
 `;
@@ -34,6 +39,7 @@ const UPDATE_STUDY = gql`
     $info: Json
     $image: String
     $largeImage: String
+    $collaborators: [String]
   ) {
     updateStudy(
       id: $id
@@ -44,6 +50,7 @@ const UPDATE_STUDY = gql`
       info: $info
       image: $image
       largeImage: $largeImage
+      collaborators: $collaborators
     ) {
       id
       slug
@@ -59,8 +66,8 @@ const UPDATE_STUDY = gql`
 
 class UpdateStudy extends Component {
   update = async (e, state, updateStudyMutation) => {
-    console.log('state', state);
-    console.log('this.props.id', this.props.id);
+    // console.log('state', state);
+    // console.log('this.props.id', this.props.id);
     e.preventDefault();
     const res = await updateStudyMutation({
       variables: {
@@ -68,7 +75,7 @@ class UpdateStudy extends Component {
         ...state,
       },
     });
-    Router.push('/study/[slug]', `/study/${res.data.updateStudy.slug}`);
+    Router.push('/studies/[slug]', `/studies/${res.data.updateStudy.slug}`);
   };
 
   render() {
@@ -80,25 +87,33 @@ class UpdateStudy extends Component {
             return <p>No study found for id {this.props.id}</p>;
           console.log('data.study', data.study);
           return (
-            <Mutation
-              mutation={UPDATE_STUDY}
-              refetchQueries={[
-                {
-                  query: REVIEW_STUDY_QUERY,
-                  variables: { slug: data.study.slug },
-                },
-              ]}
+            <ContainerOnlyForAuthorizedCollaborators
+              ids={
+                data.study.collaborators &&
+                data.study.collaborators.map(c => c.id)
+              }
+              id={data.study.author && data.study.author.id}
             >
-              {(updateStudy, { loading, error }) => (
-                <EditStudyForm
-                  error={error}
-                  loading={loading}
-                  study={data.study}
-                  onSubmit={this.update}
-                  callback={updateStudy}
-                />
-              )}
-            </Mutation>
+              <Mutation
+                mutation={UPDATE_STUDY}
+                refetchQueries={[
+                  {
+                    query: REVIEW_STUDY_QUERY,
+                    variables: { slug: data.study.slug },
+                  },
+                ]}
+              >
+                {(updateStudy, { loading, error }) => (
+                  <EditStudyForm
+                    error={error}
+                    loading={loading}
+                    study={data.study}
+                    onSubmit={this.update}
+                    callback={updateStudy}
+                  />
+                )}
+              </Mutation>
+            </ContainerOnlyForAuthorizedCollaborators>
           );
         }}
       </Query>
@@ -108,114 +123,3 @@ class UpdateStudy extends Component {
 
 export default UpdateStudy;
 export { UPDATE_STUDY };
-
-// class OriginalStudyForm extends Component {
-//   state = {
-//     title: this.props.title,
-//     shortDescription: this.props.shortDescription,
-//     description: this.props.description,
-//     settings: this.props.settings,
-//     image: this.props.image,
-//     largeImage: this.props.largeImage,
-//     info: this.props.info,
-//   };
-//
-//   render() {}
-// }
-
-// <SignForm onSubmit={e => this.updateStudy(e, updateStudy)}>
-//   <h2>Edit the study</h2>
-//   <Error error={error} />
-//   <fieldset disabled={loading} aria-busy={loading}>
-//     <label htmlFor="title">
-//       Title
-//       <input
-//         type="text"
-//         id="title"
-//         name="title"
-//         placeholder="Title"
-//         value={this.state.title}
-//         onChange={this.handleChange}
-//         required
-//       />
-//     </label>
-//     <label htmlFor="file">
-//       Image
-//       <input
-//         type="file"
-//         id="file"
-//         name="file"
-//         placeholder="Upload an image"
-//         value={this.state.file}
-//         onChange={this.uploadFile}
-//       />
-//       {this.state.image && (
-//         <img
-//           width="200"
-//           src={this.state.image}
-//           alt="Upload preview"
-//         />
-//       )}
-//     </label>
-//     <label htmlFor="shortDescription">
-//       Short description
-//       <textarea
-//         id="shortDescription"
-//         name="shortDescription"
-//         placeholder="Short description"
-//         value={this.state.shortDescription}
-//         onChange={this.handleChange}
-//       />
-//     </label>
-//     <label htmlFor="description">
-//       Description
-//       <textarea
-//         id="description"
-//         name="description"
-//         placeholder="Description"
-//         value={this.state.description}
-//         onChange={this.handleChange}
-//       />
-//     </label>
-//
-//     <h2>Provide information about the study</h2>
-//
-//     <div>
-//       <input type="text" id="newParameterName" />
-//       <button onClick={this.handleAddNewParameter}>
-//         Add new information block
-//       </button>
-//     </div>
-//
-//     {this.state.info.map(({ text, file, name }) => (
-//       <StyledParameterBlock key={name} htmlFor={name}>
-//         <div className="name">{name}</div>
-//
-//         <div>Text</div>
-//         <textarea
-//           name={name}
-//           value={text}
-//           onChange={this.handleInfoChange}
-//           className="text"
-//         />
-//
-//         <label htmlFor="file">
-//           Image
-//           <input
-//             type="file"
-//             name={name}
-//             placeholder="Upload an image"
-//             onChange={this.uploadFileForInfo}
-//             className="file"
-//           />
-//         </label>
-//
-//         <button onClick={e => this.deleteParameter(e, name)}>
-//           Delete
-//         </button>
-//       </StyledParameterBlock>
-//     ))}
-//
-//     <button type="submit">Sav{loading ? 'ing' : 'e'} changes</button>
-//   </fieldset>
-// </SignForm>

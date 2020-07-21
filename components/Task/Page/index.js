@@ -14,6 +14,9 @@ const REVIEW_TASK_QUERY = gql`
       title
       description
       parameters
+      template {
+        id
+      }
     }
   }
 `;

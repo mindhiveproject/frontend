@@ -26,6 +26,9 @@ class EditStudyForm extends Component {
       { name: 'tags' },
       { name: 'contacts' },
     ],
+    collaborators: (this.props.study.collaborators.map(c => c.username)
+      .length &&
+      this.props.study.collaborators.map(c => c.username)) || [''],
   };
 
   handleChange = e => {
@@ -106,6 +109,20 @@ class EditStudyForm extends Component {
     });
   };
 
+  handleCollaboratorsChange = e => {
+    const { name, value } = e.target;
+    console.log('name value', name, value);
+    const collaborators = [...this.state.collaborators];
+    console.log('collaborators', collaborators);
+    collaborators[name] = value;
+    if (name == collaborators.length - 1) {
+      collaborators.push('');
+    }
+    this.setState({
+      collaborators,
+    });
+  };
+
   render() {
     return (
       <SignForm
@@ -160,6 +177,16 @@ class EditStudyForm extends Component {
               onChange={this.handleChange}
             />
           </label>
+
+          <h2>Study collaborators (enter usernames)</h2>
+          {this.state.collaborators.map((name, i) => (
+            <input
+              key={i}
+              name={i}
+              value={this.state.collaborators[i]}
+              onChange={this.handleCollaboratorsChange}
+            />
+          ))}
 
           <h2>Study settings</h2>
 

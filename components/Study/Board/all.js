@@ -16,6 +16,9 @@ const ALL_STUDIES_QUERY = gql`
       author {
         id
       }
+      collaborators {
+        id
+      }
     }
   }
 `;

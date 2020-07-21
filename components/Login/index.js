@@ -55,7 +55,7 @@ class Login extends Component {
                     });
                   } else {
                     Router.push({
-                      pathname: `/studies/all`,
+                      pathname: `/study/all`,
                     });
                   }
                 }}

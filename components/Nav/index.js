@@ -41,7 +41,7 @@ const Nav = () => (
             <Link href="/tasks/my">
               <NavButton>Tasks</NavButton>
             </Link>
-            <Link href="/studies/my">
+            <Link href="/study/my">
               <NavButton>Studies</NavButton>
             </Link>
           </NavRightContainer>
@@ -57,7 +57,7 @@ const Nav = () => (
 
         <ContainerOnlyForStudents>
           <NavRightContainer>
-            <Link href="/studies/all">
+            <Link href="/study/all">
               <NavButton>Research studies</NavButton>
             </Link>
             <Link href="/onboarding">
@@ -68,7 +68,7 @@ const Nav = () => (
 
         <ContainerOnlyForParticipants>
           <NavRightContainer>
-            <Link href="/studies/all">
+            <Link href="/study/all">
               <NavButton>Research studies</NavButton>
             </Link>
           </NavRightContainer>

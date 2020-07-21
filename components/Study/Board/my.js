@@ -17,6 +17,10 @@ const MY_STUDIES_QUERY = gql`
       author {
         id
       }
+      collaborators {
+        id
+        username
+      }
     }
   }
 `;
@@ -31,7 +35,7 @@ class MyStudies extends Component {
         <NavigationButtons>
           <Link
             href={{
-              pathname: '/studies/add',
+              pathname: '/study/add',
             }}
           >
             <a>
@@ -42,7 +46,7 @@ class MyStudies extends Component {
           </Link>
           <Link
             href={{
-              pathname: '/studies/all',
+              pathname: '/study/all',
             }}
           >
             <a>

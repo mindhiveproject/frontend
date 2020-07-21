@@ -95,7 +95,7 @@ class StudyParticipantPage extends Component {
                           })
                         }
                       >
-                        Take survey
+                        Participate
                       </button>
                     );
                   }}

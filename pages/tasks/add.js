@@ -4,9 +4,7 @@ import Page from '../../components/Page/index';
 
 const AddTaskPage = ({ query }) => (
   <Page>
-    <PageOnlyForScientists>
-      <AddTask template={query.id} />
-    </PageOnlyForScientists>
+    <AddTask template={query.id} />
   </Page>
 );
 
