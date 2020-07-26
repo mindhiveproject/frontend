@@ -3,7 +3,7 @@
   functions = "lambda" #  netlify-lambda reads this
 
 [[redirects]]
-  from = "/study/*"
-  to = "/study/[slug].html"
+  from = "/studies/*"
+  to = "/studies/[slug].html"
   status = 200
   force = true

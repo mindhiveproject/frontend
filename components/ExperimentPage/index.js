@@ -46,7 +46,7 @@ class ExperimentPage extends Component {
       <div>
         <StyledExperiment>
           <Head>
-            <title>mindHIVE | {exp.title}</title>
+            <title>MindHive | {exp.title}</title>
           </Head>
           <h2>{exp.title}</h2>
           <p>{exp.description}</p>
