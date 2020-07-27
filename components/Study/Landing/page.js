@@ -14,6 +14,7 @@ import { ContainerOnlyForParticipants } from '../../Permissions/Participant/inde
 import StudyPage from '../Page/index';
 import TaskCard from '../Page/task';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
 
 class StudyParticipantPage extends Component {
   state = { activeItem: 'what', activePage: 'front' };
@@ -47,7 +48,23 @@ class StudyParticipantPage extends Component {
             <div className="studyTitleDescriptionBtns">
               <h1>{study.title}</h1>
               <h3>{study.description}</h3>
-
+              <ContainerOnlyForAuthorizedCollaborators
+                ids={study.collaborators && study.collaborators.map(c => c.id)}
+                id={study.author && study.author.id}
+              >
+                <Link
+                  href={{
+                    pathname: '/study/edit',
+                    query: { id: study.id },
+                  }}
+                >
+                  <a>
+                    <h2>
+                      <button>Edit</button>
+                    </h2>
+                  </a>
+                </Link>
+              </ContainerOnlyForAuthorizedCollaborators>
               <ContainerOnlyForProfile>
                 <Query query={CURRENT_USER_RESULTS_QUERY} pollInterval={5000}>
                   {({ error, loading, data }) => {
@@ -110,7 +127,7 @@ class StudyParticipantPage extends Component {
                     })
                   }
                 >
-                  Take survey
+                  Participate
                 </button>
               </ContainerOnlyForNoProfile>
             </div>

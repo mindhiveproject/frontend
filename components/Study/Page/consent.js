@@ -70,7 +70,7 @@ class StudyConsent extends Component {
       },
     });
     this.props.onClose();
-    Router.push('/study/[slug]', `/study/${this.props.study.slug}`);
+    Router.push('/studies/[slug]', `/studies/${this.props.study.slug}`);
   };
 
   render() {

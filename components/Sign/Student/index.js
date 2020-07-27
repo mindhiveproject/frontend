@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { SignupForm, Dialog, SignupButton } from '../styles';
 import StudentSignup from './emailSignup';
+import GoogleSignup from './googleSignup';
 
 const CLASS_QUERY = gql`
   query CLASS_QUERY($code: String!) {
@@ -114,6 +115,8 @@ class SignUp extends Component {
               >
                 Sign up with email/username
               </SignupButton>
+
+              <GoogleSignup class={{ code: this.state.classCode }} />
             </>
           )}
 

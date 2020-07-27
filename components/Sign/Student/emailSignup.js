@@ -85,10 +85,13 @@ class StudentSignup extends Component {
                 console.log('res', res);
                 this.setState({ username: '', password: '', email: '' });
                 if (this.props.redirect) {
-                  Router.push('/study/[slug]', `/study/${this.props.redirect}`);
+                  Router.push(
+                    '/studies/[slug]',
+                    `/studies/${this.props.redirect}`
+                  );
                 } else {
                   Router.push({
-                    pathname: `/studies/all`,
+                    pathname: `/study/all`,
                   });
                 }
               }}
@@ -221,3 +224,4 @@ class StudentSignup extends Component {
 }
 
 export default StudentSignup;
+export { STUDENT_SIGNUP_MUTATION };

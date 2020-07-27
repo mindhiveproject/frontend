@@ -7,6 +7,8 @@ import { SignupForm, CreateAccountForm, SignupButton } from '../Sign/styles';
 import Error from '../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
 
+import GoogleLogin from './Google/index';
+
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($usernameEmail: String!, $password: String!) {
     login(usernameEmail: $usernameEmail, password: $password) {
@@ -49,10 +51,10 @@ class Login extends Component {
                     usernameEmail: '',
                   });
                   if (this.props.redirect) {
-                    Router.push({
-                      pathname: `/studies/page`,
-                      query: { id: this.props.redirect },
-                    });
+                    Router.push(
+                      '/studies/[slug]',
+                      `/studies/${this.props.redirect}`
+                    );
                   } else {
                     Router.push({
                       pathname: `/study/all`,
@@ -86,10 +88,13 @@ class Login extends Component {
                     />
                   </label>
                   <button type="submit">Login</button>
+                  <GoogleLogin />
                 </fieldset>
 
                 <Link href="/requestreset">
-                  <a style={{ float: 'right' }}>Forgot your password?</a>
+                  <a style={{ float: 'right', marginTop: '20px' }}>
+                    Forgot your password?
+                  </a>
                 </Link>
               </CreateAccountForm>
             </SignupForm>
@@ -101,3 +106,4 @@ class Login extends Component {
 }
 
 export default Login;
+export { LOGIN_MUTATION };

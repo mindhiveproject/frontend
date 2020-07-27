@@ -71,7 +71,7 @@ class RunExperiment extends Component {
                             },
                             on_finish: json => {
                               if (this.props.slug) {
-                                window.location.href = `/study/${this.props.slug}`;
+                                window.location.href = `/studies/${this.props.slug}`;
                               } else {
                                 window.location.href = `/studies/all`;
                               }

@@ -18,6 +18,7 @@ const REVIEW_STUDY_QUERY = gql`
       tasks {
         id
         title
+        description
         link
       }
       image
@@ -26,6 +27,9 @@ const REVIEW_STUDY_QUERY = gql`
       collaborators {
         id
         username
+      }
+      author {
+        id
       }
     }
   }

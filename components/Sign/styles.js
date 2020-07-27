@@ -132,6 +132,7 @@ export const SignupButton = styled.div`
   border-radius: 4px;
   background: none;
   padding: 1rem 3rem;
+  margin-top: 20px;
 `;
 
 export const CreateAccountForm = styled.form`
