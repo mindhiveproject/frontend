@@ -29,6 +29,7 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
       id
       username
       permissions
+      info
     }
   }
 `;
@@ -82,10 +83,33 @@ class ParticipantSignup extends Component {
                 this.setState({ username: '', password: '', email: '' });
                 if (this.props.onClose) this.props.onClose();
                 if (this.props.redirect) {
-                  Router.push('/study/[slug]', `/study/${this.props.redirect}`);
+                  // Router.push(
+                  //   '/studies/[slug]',
+                  //   `/studies/${this.props.redirect}`
+                  // );
+                  Router.push({
+                    pathname: '/tasks/run',
+                    as: `/tasks/run`,
+                    query: {
+                      id:
+                        this.props.study.tasks &&
+                        this.props.study.tasks.length &&
+                        this.props.study.tasks.map(task => task.id)[0],
+                      policy:
+                        (res &&
+                          res.data &&
+                          res.data.signUp &&
+                          res.data.signUp.info &&
+                          res.data.signUp.info[this.props.study.id] &&
+                          res.data.signUp.info[this.props.study.id].data) ||
+                        'fallback',
+                      study: this.props.study.id,
+                      s: this.props.redirect,
+                    },
+                  });
                 } else {
                   Router.push({
-                    pathname: `/studies/all`,
+                    pathname: `/study/all`,
                   });
                 }
               }}

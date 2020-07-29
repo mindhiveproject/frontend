@@ -16,6 +16,10 @@ const ALL_TASKS_QUERY = gql`
       author {
         id
       }
+      collaborators {
+        id
+        username
+      }
     }
   }
 `;

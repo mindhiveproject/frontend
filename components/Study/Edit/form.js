@@ -26,8 +26,8 @@ class EditStudyForm extends Component {
       { name: 'tags' },
       { name: 'contacts' },
     ],
-    collaborators: (this.props.study.collaborators.map(c => c.username)
-      .length &&
+    collaborators: (this.props.study.collaborators &&
+      this.props.study.collaborators.map(c => c.username).length &&
       this.props.study.collaborators.map(c => c.username)) || [''],
   };
 

@@ -180,7 +180,6 @@ class StudyPage extends Component {
           {this.state.login && (
             <ParticipantLogin
               redirect={study.slug}
-              redirect={study.slug}
               user={{
                 zipCode: this.state.zipCode,
                 under18: this.state.under18,

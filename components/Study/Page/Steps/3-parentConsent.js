@@ -42,7 +42,7 @@ class ParentConsent extends Component {
               fileName="somename.pdf"
             >
               {({ blob, url, loading, error }) =>
-                loading ? 'Loading document...' : 'Study Concent'
+                loading ? 'Loading document...' : 'Study Consent'
               }
             </PDFDownloadLink>
           </a>

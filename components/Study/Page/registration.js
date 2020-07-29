@@ -7,6 +7,8 @@ import ParticipantLogin from '../../Login/Participant/index';
 
 import { SignupForm, SignupButton } from '../../Sign/styles';
 
+import GoogleSignup from '../../Sign/Google/index';
+
 class StudyRegistration extends Component {
   state = {
     login: false,
@@ -29,6 +31,14 @@ class StudyRegistration extends Component {
             >
               Sign up with email/username
             </SignupButton>
+
+            <GoogleSignup
+              redirect={study.slug}
+              user={user}
+              study={study}
+              permissions={['PARTICIPANT']}
+              onClose={this.props.onClose}
+            />
 
             <div>
               <span>

@@ -6,6 +6,8 @@ import { SignupForm, CreateAccountForm } from '../styles';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
+import GoogleSignup from '../Google/index';
+
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
     $email: String!
@@ -103,6 +105,8 @@ class Signup extends Component {
                   />
                 </label>
                 <button type="submit">Sign up</button>
+
+                <GoogleSignup permissions={['SCIENTIST']} />
               </fieldset>
             </CreateAccountForm>
           </SignupForm>

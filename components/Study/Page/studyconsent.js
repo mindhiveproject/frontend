@@ -31,7 +31,7 @@ class StudyConsentForm extends Component {
           Please read the following consent before deciding to participate. Save
           or print a copy of this consent for your records:
           {` `}
-          <a style={{ 'text-decoration': 'underline' }}>
+          <a style={{ textDecoration: 'underline' }}>
             <PDFDownloadLink
               document={
                 <MyDocument
@@ -39,10 +39,10 @@ class StudyConsentForm extends Component {
                   title={this.props.title}
                 />
               }
-              fileName="somename.pdf"
+              fileName="study-consent-form.pdf"
             >
               {({ blob, url, loading, error }) =>
-                loading ? 'Loading document...' : 'Study Concent'
+                loading ? 'Loading document...' : 'Study Consent'
               }
             </PDFDownloadLink>
           </a>
@@ -96,7 +96,5 @@ const MyDocument = ({ text, title }) => (
     </Page>
   </Document>
 );
-
-// ReactPDF.render(<MyDocument />, `${__dirname}/example.pdf`);
 
 export default StudyConsentForm;

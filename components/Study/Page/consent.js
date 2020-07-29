@@ -69,8 +69,22 @@ class StudyConsent extends Component {
         },
       },
     });
+    console.log('res', res);
     this.props.onClose();
-    Router.push('/studies/[slug]', `/studies/${this.props.study.slug}`);
+    // Router.push('/studies/[slug]', `/studies/${this.props.study.slug}`);
+    Router.push({
+      pathname: '/tasks/run',
+      as: `/tasks/run`,
+      query: {
+        id:
+          this.props.study.tasks &&
+          this.props.study.tasks.length &&
+          this.props.study.tasks.map(task => task.id)[0],
+        policy: this.state.data || 'fallback',
+        study: this.props.study.id,
+        s: this.props.study.slug,
+      },
+    });
   };
 
   render() {

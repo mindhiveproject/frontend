@@ -18,6 +18,7 @@ const UPDATE_TASK = gql`
     $parameters: Json
     $settings: Json
     $link: String
+    $collaborators: [String]
   ) {
     updateTask(
       id: $id
@@ -26,6 +27,7 @@ const UPDATE_TASK = gql`
       parameters: $parameters
       settings: $settings
       link: $link
+      collaborators: $collaborators
     ) {
       id
       title
@@ -41,6 +43,9 @@ class EditTaskForm extends Component {
     parameters: this.props.parameters || [],
     templateId: this.props.template && this.props.template.id,
     settings: this.props.settings,
+    collaborators: (this.props.collaborators &&
+      this.props.collaborators.map(c => c.username).length &&
+      this.props.collaborators.map(c => c.username)) || [''],
   };
 
   handleChange = e => {
@@ -76,6 +81,20 @@ class EditTaskForm extends Component {
     });
   };
 
+  handleCollaboratorsChange = e => {
+    const { name, value } = e.target;
+    console.log('name value', name, value);
+    const collaborators = [...this.state.collaborators];
+    console.log('collaborators', collaborators);
+    collaborators[name] = value;
+    if (name == collaborators.length - 1) {
+      collaborators.push('');
+    }
+    this.setState({
+      collaborators,
+    });
+  };
+
   render() {
     return (
       <Mutation
@@ -101,6 +120,8 @@ class EditTaskForm extends Component {
               parameters={this.state.parameters}
               loading={loading}
               template={this.props.template}
+              collaborators={this.state.collaborators}
+              onCollaboratorsChange={this.handleCollaboratorsChange}
             />
           );
         }}

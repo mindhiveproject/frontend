@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
-
+import Error from '../../ErrorMessage/index';
 import { SignupButton } from '../styles';
 
 const clientID =
@@ -30,6 +30,7 @@ const GOOGLE_SIGNUP_MUTATION = gql`
       id
       username
       permissions
+      info
     }
   }
 `;
@@ -47,13 +48,33 @@ class GoogleSignup extends Component {
   };
 
   googleResponse = async (e, signUp) => {
-    console.log('e', e);
     const res = await signUp({
-      variables: { token: e.tokenId, permissions: ['STUDENT'] },
+      variables: { token: e.tokenId, permissions: this.props.permissions },
     });
     console.log('res', res);
+    if (this.props.onClose) this.props.onClose();
     if (this.props.redirect) {
-      Router.push('/studies/[slug]', `/studies/${this.props.redirect}`);
+      // Router.push('/studies/[slug]', `/studies/${this.props.redirect}`);
+      Router.push({
+        pathname: '/tasks/run',
+        as: `/tasks/run`,
+        query: {
+          id:
+            this.props.study.tasks &&
+            this.props.study.tasks.length &&
+            this.props.study.tasks.map(task => task.id)[0],
+          policy:
+            (res &&
+              res.data &&
+              res.data.serviceSignUp &&
+              res.data.serviceSignUp.info &&
+              res.data.serviceSignUp.info[this.props.study.id] &&
+              res.data.serviceSignUp.info[this.props.study.id].data) ||
+            'fallback',
+          study: this.props.study.id,
+          s: this.props.redirect,
+        },
+      });
     } else {
       Router.push({
         pathname: `/study/all`,
@@ -68,21 +89,24 @@ class GoogleSignup extends Component {
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
-        {(serviceSignUp, { error, loading }) => (
-          <GoogleLogin
-            clientId={clientID}
-            render={renderProps => (
-              <SignupButton
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-              >
-                Sign up with Google
-              </SignupButton>
-            )}
-            onSuccess={e => this.googleResponse(e, serviceSignUp)}
-            onFailure={this.googleResponse}
-          />
-        )}
+        {(serviceSignUp, { error, loading }) => {
+          if (error) return <Error error={error} />;
+          return (
+            <GoogleLogin
+              clientId={clientID}
+              render={renderProps => (
+                <SignupButton
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  Sign up with Google
+                </SignupButton>
+              )}
+              onSuccess={e => this.googleResponse(e, serviceSignUp)}
+              onFailure={this.googleResponse}
+            />
+          );
+        }}
       </Mutation>
     );
   }

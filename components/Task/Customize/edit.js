@@ -22,6 +22,10 @@ const TASK_QUERY = gql`
         script
         style
       }
+      collaborators {
+        id
+        username
+      }
     }
   }
 `;
@@ -45,6 +49,7 @@ class EditParameter extends Component {
               description={data.task.description}
               link={data.task.link}
               settings={data.task.settings}
+              collaborators={data.task.collaborators}
             />
           );
         }}

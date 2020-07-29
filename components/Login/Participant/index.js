@@ -7,6 +7,8 @@ import { SignupForm, CreateAccountForm, SignupButton } from '../../Sign/styles';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
+import GoogleLogin from '../Google/index';
+
 const PARTICIPANT_LOGIN_MUTATION = gql`
   mutation PARTICIPANT_LOGIN_MUTATION(
     $usernameEmail: String!
@@ -60,13 +62,28 @@ class Login extends Component {
                   this.setState({ password: '', usernameEmail: '' });
                   this.props.onClose();
                   if (this.props.redirect) {
-                    Router.push(
-                      '/study/[slug]',
-                      `/study/${this.props.redirect}`
-                    );
+                    // Router.push(
+                    //   '/studies/[slug]',
+                    //   `/studies/${this.props.redirect}`
+                    // );
+                    Router.push({
+                      pathname: '/tasks/run',
+                      as: `/tasks/run`,
+                      query: {
+                        id:
+                          this.props.study.tasks &&
+                          this.props.study.tasks.length &&
+                          this.props.study.tasks.map(task => task.id)[0],
+                        policy:
+                          (this.state.user && this.state.user.data) ||
+                          'fallback',
+                        study: this.props.study.id,
+                        s: this.props.redirect,
+                      },
+                    });
                   } else {
                     Router.push({
-                      pathname: `/studies/all`,
+                      pathname: `/study/all`,
                     });
                   }
                 }}
@@ -104,6 +121,11 @@ class Login extends Component {
                   <a style={{ float: 'right' }}>Forgot your password?</a>
                 </Link>
               </CreateAccountForm>
+              <GoogleLogin
+                onClose={this.props.onClose}
+                redirect={this.props.redirect}
+                study={this.props.study}
+              />
             </SignupForm>
           )}
         </Mutation>

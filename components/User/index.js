@@ -3,6 +3,67 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
+const USER_DASHBOARD_QUERY = gql`
+  query USER_DASHBOARD_QUERY {
+    me {
+      id
+      username
+      permissions
+      results {
+        id
+        template {
+          id
+          title
+        }
+        task {
+          id
+          title
+        }
+        study {
+          id
+        }
+        quantity
+        updatedAt
+        payload
+      }
+      studentIn {
+        id
+        title
+      }
+      participantIn {
+        id
+        title
+        tasks {
+          id
+          title
+        }
+      }
+      teacherIn {
+        id
+        title
+      }
+      researcherIn {
+        id
+        title
+      }
+      collaboratorInStudy {
+        id
+        title
+      }
+      taskCreatorIn {
+        id
+        title
+      }
+      collaboratorInTask {
+        id
+        title
+      }
+      image
+      info
+    }
+  }
+`;
+
 const CURRENT_USER_STUDIES_QUERY = gql`
   query CURRENT_USER_STUDIES_QUERY {
     me {
@@ -100,4 +161,5 @@ export {
   CURRENT_USER_QUERY,
   CURRENT_USER_RESULTS_QUERY,
   CURRENT_USER_STUDIES_QUERY,
+  USER_DASHBOARD_QUERY,
 };

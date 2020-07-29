@@ -8,6 +8,7 @@ import { StyledCard } from '../../Styles/Cards';
 import DeleteTask from './delete';
 
 import { ContainerOnlyForAuthorizedScientists } from '../../Permissions/Scientist/index';
+import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
 
 class TaskCard extends Component {
   // prop types https://reactjs.org/docs/typechecking-with-proptypes.html
@@ -62,6 +63,23 @@ class TaskCard extends Component {
 
           <DeleteTask id={task.id}>Delete</DeleteTask>
         </ContainerOnlyForAuthorizedScientists>
+
+        <ContainerOnlyForAuthorizedCollaborators
+          ids={task.collaborators && task.collaborators.map(c => c.id)}
+        >
+          <Link
+            href={{
+              pathname: '/tasks/edit',
+              query: { id: task.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Edit</button>
+              </h2>
+            </a>
+          </Link>
+        </ContainerOnlyForAuthorizedCollaborators>
 
         {false && (
           <Link

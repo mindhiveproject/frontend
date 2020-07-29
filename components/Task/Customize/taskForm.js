@@ -113,6 +113,17 @@ class TaskForm extends Component {
                 />
               </div>
 
+              <h2>Study collaborators (enter usernames)</h2>
+              {this.props.collaborators &&
+                this.props.collaborators.map((name, i) => (
+                  <input
+                    key={i}
+                    name={i}
+                    value={this.props.collaborators[i]}
+                    onChange={this.props.onCollaboratorsChange}
+                  />
+                ))}
+
               {this.props.link && (
                 <>
                   <div className="help">Web link (https://)</div>
