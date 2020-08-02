@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Menu, Accordion } from 'semantic-ui-react';
-import _ from 'lodash';
-import faker from 'faker';
+// import _ from 'lodash';
+// import faker from 'faker';
 import ReactHtmlParser from 'react-html-parser';
 import { Query } from 'react-apollo';
 import { StyledStudyPage, StyledLink, StyledButtons } from '../styles';
@@ -11,10 +11,12 @@ import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
 import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
 import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
 import { ContainerOnlyForParticipants } from '../../Permissions/Participant/index';
-import StudyPage from '../Page/index';
-import TaskCard from '../Page/task';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import RegistrationFlow from '../Registration/index';
+// import TaskCard from '../TaskCard/index';
+// import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
+
+import CustomizedLandingPage from './customized';
 
 class StudyParticipantPage extends Component {
   state = { activeItem: 'what', activePage: 'front' };
@@ -31,7 +33,7 @@ class StudyParticipantPage extends Component {
         title: i.header,
         content: ReactHtmlParser(i.text),
       }));
-    console.log('panels', panels);
+    // console.log('panels', panels);
 
     return (
       <>
@@ -65,58 +67,16 @@ class StudyParticipantPage extends Component {
                   </a>
                 </Link>
               </ContainerOnlyForAuthorizedCollaborators>
+
               <ContainerOnlyForProfile>
-                <Query query={CURRENT_USER_RESULTS_QUERY} pollInterval={5000}>
-                  {({ error, loading, data }) => {
-                    if (error) return <Error error={error} />;
-                    if (loading) return <p>Loading</p>;
-                    if (!data.me)
-                      return <p>No information found for your profile.</p>;
-                    const { me } = data;
-                    const studyIds = me.participantIn.map(study => study.id);
-                    const policy = (me.info && me.info[study.id]) || 'preview';
-
-                    const fullResultsInThisStudy = me.results
-                      .filter(
-                        result =>
-                          result.study.id === study.id &&
-                          result.payload === 'full'
-                      )
-                      .map(result => result.task.id);
-
-                    if (studyIds.includes(study.id)) {
-                      return (
-                        <div>
-                          {study.tasks &&
-                            study.tasks.map((task, num) => (
-                              <TaskCard
-                                key={num}
-                                task={task}
-                                policy={policy.data}
-                                studyId={study.id}
-                                studySlug={study.slug}
-                                user={me}
-                                completed={fullResultsInThisStudy.includes(
-                                  task.id
-                                )}
-                              />
-                            ))}
-                        </div>
-                      );
-                    }
-                    return (
-                      <button
-                        onClick={() =>
-                          this.setState({
-                            activePage: 'registration',
-                          })
-                        }
-                      >
-                        Participate
-                      </button>
-                    );
-                  }}
-                </Query>
+                <CustomizedLandingPage
+                  study={study}
+                  onJoinStudy={() =>
+                    this.setState({
+                      activePage: 'registration',
+                    })
+                  }
+                />
               </ContainerOnlyForProfile>
 
               <ContainerOnlyForNoProfile>
@@ -266,7 +226,7 @@ class StudyParticipantPage extends Component {
           </StyledStudyPage>
         )}
         {this.state.activePage === 'registration' && (
-          <StudyPage
+          <RegistrationFlow
             id={study.id}
             onClose={() => this.setState({ activePage: 'front' })}
           />

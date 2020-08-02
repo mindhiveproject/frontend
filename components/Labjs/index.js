@@ -22,7 +22,7 @@ class ExperimentWindow extends Component {
       params,
       style,
     } = this.props.settings;
-    console.log(user, template, task, study, policy, params, style);
+    // console.log(user, template, task, study, policy, params, style);
 
     const script = this.deserialize(this.props.settings.script);
     // console.log('script', script);
@@ -51,8 +51,14 @@ class ExperimentWindow extends Component {
     this.study.run();
 
     this.study.on('end', () => {
+      const token =
+        (this.study.plugins &&
+          this.study.plugins.plugins
+            .filter(plugin => plugin.metadata)
+            .map(plugin => plugin.metadata.id)[0]) ||
+        'error';
       this.study = undefined;
-      this.props.settings.on_finish();
+      this.props.settings.on_finish(token);
     });
     // this.study.parameters.eventCallback = e => {
     //   props.settings.eventCallback(e);
@@ -60,10 +66,16 @@ class ExperimentWindow extends Component {
     this.study.options.events.keydown = async e => {
       if (e.code === 'Escape') {
         if (this.study) {
+          const token =
+            (this.study.plugins &&
+              this.study.plugins.plugins
+                .filter(plugin => plugin.metadata)
+                .map(plugin => plugin.metadata.id)[0]) ||
+            'error';
           await this.study.internals.controller.audioContext.close();
           // this.study.end();
           this.study = undefined;
-          this.props.settings.on_finish();
+          this.props.settings.on_finish(token);
         }
       }
     };

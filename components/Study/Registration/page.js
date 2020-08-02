@@ -18,7 +18,7 @@ import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
 import { ContainerOnlyForParticipants } from '../../Permissions/Participant/index';
 import StudyRegistration from './registration';
 import StudyConsent from './consent';
-import TaskCard from './task';
+import TaskCard from '../TaskCard/index';
 import ParticipantLogin from '../../Login/Participant/index';
 
 import GetStarted from './Steps/1-getStarted';
@@ -29,7 +29,7 @@ import DataUsage from './Steps/5-dataUsage';
 
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
-class StudyPage extends Component {
+class RegistrationPage extends Component {
   state = {
     page: 1,
     login: false,
@@ -246,4 +246,4 @@ class StudyPage extends Component {
   }
 }
 
-export default StudyPage;
+export default RegistrationPage;

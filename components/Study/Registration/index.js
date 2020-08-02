@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
 import Error from '../../ErrorMessage/index';
-import StudyPage from './page';
+import RegistrationPage from './page';
 
 import { StyledStudy } from '../styles';
 
@@ -25,7 +25,7 @@ const REVIEW_STUDY_QUERY = gql`
   }
 `;
 
-class ReviewStudy extends Component {
+class RegistrationFlow extends Component {
   render() {
     return (
       <Query query={REVIEW_STUDY_QUERY} variables={{ id: this.props.id }}>
@@ -34,12 +34,14 @@ class ReviewStudy extends Component {
           if (loading) return <p>Loading</p>;
           if (!data.study) return <p>No study found for {this.props.id}</p>;
           const { study } = data;
-          return <StudyPage study={study} onClose={this.props.onClose} />;
+          return (
+            <RegistrationPage study={study} onClose={this.props.onClose} />
+          );
         }}
       </Query>
     );
   }
 }
 
-export default ReviewStudy;
+export default RegistrationFlow;
 export { REVIEW_STUDY_QUERY };

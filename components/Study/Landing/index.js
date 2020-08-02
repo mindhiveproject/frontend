@@ -44,7 +44,7 @@ class ReviewStudyForParticipants extends Component {
           if (loading) return <p>Loading</p>;
           if (!data.study) return <p>No study found for {this.props.slug}</p>;
           const { study } = data;
-          console.log('study', study);
+          // console.log('study', study);
           return <StudyParticipantPage study={study} />;
         }}
       </Query>

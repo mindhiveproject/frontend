@@ -10,6 +10,7 @@ import {
 } from '../../User/index';
 
 import Qualtrics from '../../Qualtrics/redirect';
+import PostPrompt from './postprompt';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const TASK_QUERY = gql`
@@ -32,6 +33,8 @@ const TASK_QUERY = gql`
 `;
 
 class RunExperiment extends Component {
+  state = { activePage: 'task', token: '' };
+
   render() {
     const { id, policy } = this.props;
     return (
@@ -51,38 +54,59 @@ class RunExperiment extends Component {
                     if (loading) return <p>Loading</p>;
                     if (!data.me) return <p>No user found</p>;
                     const { me } = data;
-                    if (task.template && task.template.id) {
+
+                    if (this.state.activePage === 'task') {
+                      if (task.template && task.template.id) {
+                        return (
+                          <ExperimentWindow
+                            settings={{
+                              user: me.id,
+                              template: task.template.id,
+                              task: task.id,
+                              study: this.props.study,
+                              script: task.template.script,
+                              style: task.template.style,
+                              params: task.parameters.reduce((obj, item) => {
+                                obj[item.name] = item.value;
+                                return obj;
+                              }, {}),
+                              policy,
+                              eventCallback: e => {
+                                console.log('Event callback', e);
+                              },
+                              on_finish: token =>
+                                this.setState({
+                                  token,
+                                  activePage: 'post',
+                                }),
+                              // on_finish: json => {
+                              //   if (this.props.slug) {
+                              //     window.location.href = `/studies/${this.props.slug}`;
+                              //   } else {
+                              //     window.location.href = `/study/all`;
+                              //   }
+                              // },
+                            }}
+                          />
+                        );
+                      }
+                      if (task.link) {
+                        return <Qualtrics link={task.link} user={me} />;
+                      }
+                    }
+
+                    if (this.state.activePage === 'post') {
                       return (
-                        <ExperimentWindow
-                          settings={{
-                            user: me.id,
-                            template: task.template.id,
-                            task: task.id,
-                            study: this.props.study,
-                            script: task.template.script,
-                            style: task.template.style,
-                            params: task.parameters.reduce((obj, item) => {
-                              obj[item.name] = item.value;
-                              return obj;
-                            }, {}),
-                            policy,
-                            eventCallback: e => {
-                              console.log('Event callback', e);
-                            },
-                            on_finish: json => {
-                              if (this.props.slug) {
-                                window.location.href = `/studies/${this.props.slug}`;
-                              } else {
-                                window.location.href = `/studies/all`;
-                              }
-                            },
-                          }}
+                        <PostPrompt
+                          study={this.props.study}
+                          task={task.id}
+                          token={this.state.token}
+                          policy={this.props.policy}
+                          slug={this.props.slug}
                         />
                       );
                     }
-                    if (task.link) {
-                      return <Qualtrics link={task.link} user={me} />;
-                    }
+
                     return <div>No task found</div>;
                   }}
                 </Query>
