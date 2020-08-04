@@ -34,6 +34,40 @@ class StudyParticipantPage extends Component {
         content: ReactHtmlParser(i.text),
       }));
     // console.log('panels', panels);
+    const timeToComplete =
+      study.info &&
+      study.info
+        .filter(i => i.name === 'time' && i.text)
+        .map(i => i.text)
+        .map(i => ReactHtmlParser(i));
+    const frequency =
+      study.info &&
+      study.info
+        .filter(i => i.name === 'frequency' && i.text)
+        .map(i => i.text)
+        .map(i => ReactHtmlParser(i));
+    const partnership =
+      study.info &&
+      study.info
+        .filter(i => i.name.startsWith('partners') && i.text)
+        .map(i => {
+          const src = `/content/studies/Brownsville/partners/${i.text}.svg`;
+          return <img key={src} src={src} alt="icon" />;
+        });
+    const tags =
+      study.info &&
+      study.info
+        .filter(i => i.name.startsWith('tag') && i.text)
+        .map((i, n) => (
+          <div className="studyTag" key={n}>
+            {ReactHtmlParser(i.text)}
+          </div>
+        ));
+    const contacts =
+      study.info &&
+      study.info
+        .filter(i => i.name.startsWith('contact') && i.text)
+        .map((i, n) => <div key={n}>{ReactHtmlParser(i.text)}</div>);
 
     return (
       <>
@@ -43,9 +77,11 @@ class StudyParticipantPage extends Component {
               <title>mindHIVE | {study.title}</title>
             </Head>
 
-            <div className="studyImage">
-              <img src={study.image} alt={study.title} />
-            </div>
+            {study.image && (
+              <div className="studyImage">
+                <img src={study.image} alt={study.title} />
+              </div>
+            )}
 
             <div className="studyTitleDescriptionBtns">
               <h1>{study.title}</h1>
@@ -94,41 +130,39 @@ class StudyParticipantPage extends Component {
 
             <div className="studyInfoTimePartners">
               <div className="timeFrequency">
-                <div>
-                  <div className="studyInformationHeader">Time to complete</div>
+                {timeToComplete && timeToComplete.length ? (
                   <div>
-                    {study.info &&
-                      study.info
-                        .filter(i => i.name === 'time')
-                        .map(i => ReactHtmlParser(i.text))}
+                    <div className="studyInformationHeader">
+                      Time to complete
+                    </div>
+                    <div>{timeToComplete}</div>
                   </div>
-                </div>
+                ) : (
+                  <div></div>
+                )}
 
-                <div>
-                  <div className="studyInformationHeader">Frequency</div>
+                {frequency && frequency.length ? (
                   <div>
-                    {study.info &&
-                      study.info
-                        .filter(i => i.name === 'frequency')
-                        .map(i => ReactHtmlParser(i.text))}
+                    <div className="studyInformationHeader">
+                      Time to Frequency
+                    </div>
+                    <div>{frequency}</div>
                   </div>
-                </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
 
-              <div>
-                <div className="studyInformationHeader">
-                  In partnership with
+              {partnership && partnership.length ? (
+                <div>
+                  <div className="studyInformationHeader">
+                    In partnership with
+                  </div>
+                  <div className="partnersInfo">{partnership}</div>
                 </div>
-                <div className="partnersInfo">
-                  {study.info &&
-                    study.info
-                      .filter(i => i.name.startsWith('partners'))
-                      .map(i => {
-                        const src = `/content/studies/Brownsville/partners/${i.text}.svg`;
-                        return <img key={src} src={src} alt="icon" />;
-                      })}
-                </div>
-              </div>
+              ) : (
+                <div></div>
+              )}
             </div>
 
             <div className="studyWhatWhoHow">
@@ -195,33 +229,25 @@ class StudyParticipantPage extends Component {
             </div>
 
             <div className="studyTagsContacts">
-              <div>
-                <div className="studyInformationHeader">Tags</div>
-                <div className="studyTags">
-                  {study.info &&
-                    study.info
-                      .filter(i => i.name.startsWith('tag'))
-                      .map((i, n) => (
-                        <div className="studyTag" key={n}>
-                          {ReactHtmlParser(i.text)}
-                        </div>
-                      ))}
-                </div>
-              </div>
-
-              <div>
-                <div className="studyInformationHeader">
-                  Contact information
-                </div>
+              {tags && tags.length ? (
                 <div>
-                  {study.info &&
-                    study.info
-                      .filter(i => i.name.startsWith('contact'))
-                      .map((i, n) => (
-                        <div key={n}>{ReactHtmlParser(i.text)}</div>
-                      ))}
+                  <div className="studyInformationHeader">Tags</div>
+                  <div className="studyTags">{tags}</div>
                 </div>
-              </div>
+              ) : (
+                <div></div>
+              )}
+
+              {contacts && contacts.length ? (
+                <div>
+                  <div className="studyInformationHeader">
+                    Contact information
+                  </div>
+                  <div>{contacts}</div>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
           </StyledStudyPage>
         )}

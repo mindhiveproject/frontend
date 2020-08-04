@@ -5,7 +5,13 @@ export const ContainerOnlyForScientists = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
       if (loading) return <p></p>;
-      if (!data.me || !data.me.permissions.includes('SCIENTIST')) {
+      if (
+        !data.me ||
+        !(
+          data.me.permissions.includes('SCIENTIST') ||
+          data.me.permissions.includes('TEACHER')
+        )
+      ) {
         return false;
       }
       return props.children;
@@ -35,7 +41,13 @@ export const PageOnlyForScientists = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
       if (loading) return <p></p>;
-      if (!data.me || !data.me.permissions.includes('SCIENTIST')) {
+      if (
+        !data.me ||
+        !(
+          data.me.permissions.includes('SCIENTIST') ||
+          data.me.permissions.includes('TEACHER')
+        )
+      ) {
         return (
           <div>
             <p>Please sign in as a scientist in order to do that</p>
