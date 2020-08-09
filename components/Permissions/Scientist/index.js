@@ -27,7 +27,10 @@ export const ContainerOnlyForAuthorizedScientists = props => (
       if (loading) return <p></p>;
       if (
         !data.me ||
-        !data.me.permissions.includes('SCIENTIST') ||
+        !(
+          data.me.permissions.includes('SCIENTIST') ||
+          data.me.permissions.includes('TEACHER')
+        ) ||
         data.me.id !== props.id
       ) {
         return false;
