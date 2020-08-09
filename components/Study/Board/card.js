@@ -71,6 +71,18 @@ class StudyCard extends Component {
             </Link>
           )}
           <DeleteStudy id={study.id}>Delete</DeleteStudy>
+          <Link
+            href={{
+              pathname: '/study/results',
+              query: { id: study.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Study results</button>
+              </h2>
+            </a>
+          </Link>
         </ContainerOnlyForAuthorizedScientists>
 
         <ContainerOnlyForAuthorizedCollaborators

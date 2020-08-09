@@ -41,7 +41,7 @@ class AddStudy extends Component {
         ...state,
       },
     });
-    Router.push('/study/[slug]', `/study/${res.data.createStudy.slug}`);
+    Router.push('/studies/[slug]', `/studies/${res.data.createStudy.slug}`);
   };
 
   render() {
