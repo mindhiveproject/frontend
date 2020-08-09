@@ -119,16 +119,13 @@ class Dashboard extends Component {
                         {me.participantIn.map(study => (
                           <div key={study.id}>
                             <Link
-                              href={{
-                                pathname: '/studies/page',
-                                query: { id: study.id },
-                              }}
+                              href="/studies/[slug]"
+                              as={`/studies/${study.slug}`}
                             >
-                              <a>{study.title}</a>
+                              <a>
+                                <button>{study.title}</button>
+                              </a>
                             </Link>
-                            {study.tasks.map(task => (
-                              <div key={task.id}>{task.title}</div>
-                            ))}
                           </div>
                         ))}
                       </ul>
@@ -165,3 +162,7 @@ class Dashboard extends Component {
 
 export default Dashboard;
 export { LOCAL_STATE_QUERY, TOGGLE_DASHBOARD_MUTATION };
+
+// {study.tasks.map(task => (
+//   <div key={task.id}>{task.title}</div>
+// ))}

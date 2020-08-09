@@ -12,6 +12,7 @@ const REVIEW_TASK_QUERY = gql`
     task(where: { slug: $slug }) {
       id
       title
+      slug
       description
       parameters
     }

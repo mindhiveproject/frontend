@@ -50,6 +50,10 @@ class Login extends Component {
                     password: '',
                     usernameEmail: '',
                   });
+                  if (this.props.task) {
+                    Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
+                    return;
+                  }
                   if (this.props.redirect) {
                     Router.push(
                       '/studies/[slug]',
@@ -88,7 +92,7 @@ class Login extends Component {
                     />
                   </label>
                   <button type="submit">Login</button>
-                  <GoogleLogin />
+                  <GoogleLogin task={this.props.task} />
                 </fieldset>
 
                 <Link href="/requestreset">

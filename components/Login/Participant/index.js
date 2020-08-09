@@ -61,14 +61,18 @@ class Login extends Component {
                   const res = await participantLogin();
                   this.setState({ password: '', usernameEmail: '' });
                   this.props.onClose();
+                  if (this.props.task) {
+                    Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
+                    return;
+                  }
                   if (this.props.redirect) {
                     // Router.push(
                     //   '/studies/[slug]',
                     //   `/studies/${this.props.redirect}`
                     // );
                     Router.push({
-                      pathname: '/tasks/run',
-                      as: `/tasks/run`,
+                      pathname: '/task/run',
+                      as: `/task/run`,
                       query: {
                         id:
                           this.props.study.tasks &&

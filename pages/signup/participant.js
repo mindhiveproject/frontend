@@ -3,7 +3,7 @@ import Page from '../../components/Page/index';
 
 const ParticipantSignupPage = props => (
   <Page>
-    <ParticipantSignup redirect={props.query.study} />
+    <ParticipantSignup task={props.query.task} redirect={props.query.study} />
   </Page>
 );
 

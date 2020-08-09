@@ -77,7 +77,7 @@ class EditTaskForm extends Component {
     });
     // change the page
     Router.push({
-      pathname: '/tasks/my',
+      pathname: '/task/my',
     });
   };
 

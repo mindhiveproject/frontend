@@ -45,9 +45,10 @@ class PostPrompt extends Component {
     });
     console.log('res', res);
     // change the page
-    Router.push({
-      pathname: '/dashboard',
-    });
+    Router.push('/studies/[slug]', `/studies/${this.props.slug}`);
+    // Router.push({
+    //   pathname: '/dashboard',
+    // });
   };
 
   render() {
@@ -96,8 +97,8 @@ class PostPrompt extends Component {
                     checked={this.state.linking === 'study'}
                   />
                   <label htmlFor="linkToStudy">
-                    I only want my data to be linked to the study with id{' '}
-                    {this.props.study}
+                    I only want my data to be linked to the study{' '}
+                    {this.props.slug}
                   </label>
                 </div>
               </div>

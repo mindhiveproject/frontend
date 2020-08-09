@@ -82,14 +82,14 @@ class ParticipantSignup extends Component {
                 console.log('res', res);
                 this.setState({ username: '', password: '', email: '' });
                 if (this.props.onClose) this.props.onClose();
+                if (this.props.task) {
+                  Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
+                  return;
+                }
                 if (this.props.redirect) {
-                  // Router.push(
-                  //   '/studies/[slug]',
-                  //   `/studies/${this.props.redirect}`
-                  // );
                   Router.push({
-                    pathname: '/tasks/run',
-                    as: `/tasks/run`,
+                    pathname: '/task/run',
+                    as: `/task/run`,
                     query: {
                       id:
                         this.props.study.tasks &&

@@ -54,8 +54,8 @@ class TaskPage extends Component {
               Please
               <Link
                 href={{
-                  pathname: `/sign/participant`,
-                  query: { task: task.id },
+                  pathname: `/signup/participant`,
+                  query: { task: task.slug },
                 }}
               >
                 <StyledLink> sign up </StyledLink>
@@ -63,8 +63,8 @@ class TaskPage extends Component {
               as a participant or just
               <Link
                 href={{
-                  pathname: `/login/participant`,
-                  query: { task: task.id },
+                  pathname: `/login`,
+                  query: { task: task.slug },
                 }}
               >
                 <StyledLink> log in here </StyledLink>
@@ -177,7 +177,7 @@ class TaskPage extends Component {
                 <StyledButtons>
                   <Link
                     href={{
-                      pathname: `/tasks/run`,
+                      pathname: `/task/run`,
                       query: { id: task.id, policy: this.state.data },
                     }}
                   >
@@ -219,7 +219,7 @@ class TaskPage extends Component {
               <StyledButtons>
                 <Link
                   href={{
-                    pathname: '/tasks/customize',
+                    pathname: '/task/customize',
                     query: { id: task.id },
                   }}
                 >

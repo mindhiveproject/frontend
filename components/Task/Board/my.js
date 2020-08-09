@@ -36,7 +36,7 @@ class MyTasks extends Component {
         <NavigationButtons>
           <Link
             href={{
-              pathname: '/tasks/addlink',
+              pathname: '/task/addlink',
             }}
           >
             <a>
@@ -47,7 +47,7 @@ class MyTasks extends Component {
           </Link>
           <Link
             href={{
-              pathname: '/tasks/all',
+              pathname: '/task/all',
             }}
           >
             <a>

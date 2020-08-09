@@ -24,7 +24,7 @@ class TaskCard extends Component {
       <StyledCard>
         <Link
           href={{
-            pathname: '/tasks/page',
+            pathname: '/task/page',
             query: { id: task.id },
           }}
         >
@@ -34,12 +34,7 @@ class TaskCard extends Component {
         </Link>
         <p>{task.shortDescription}</p>
 
-        <Link
-          href={{
-            pathname: '/tasks/page',
-            query: { id: task.id },
-          }}
-        >
+        <Link href="/tasks/[slug]" as={`/tasks/${task.slug}`}>
           <a>
             <h2>
               <button>Open</button>
@@ -50,7 +45,7 @@ class TaskCard extends Component {
         <ContainerOnlyForAuthorizedScientists id={task.author.id}>
           <Link
             href={{
-              pathname: '/tasks/edit',
+              pathname: '/task/edit',
               query: { id: task.id },
             }}
           >
@@ -69,7 +64,7 @@ class TaskCard extends Component {
         >
           <Link
             href={{
-              pathname: '/tasks/edit',
+              pathname: '/task/edit',
               query: { id: task.id },
             }}
           >

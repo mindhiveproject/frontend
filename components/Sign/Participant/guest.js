@@ -74,16 +74,46 @@ class GuestParticipantSignup extends Component {
               );
               this.setState({ email: '', username: '', password: '' });
               if (this.props.onClose) this.props.onClose();
+              if (this.props.task) {
+                Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
+                return;
+              }
               if (this.props.redirect) {
-                Router.push(
-                  '/studies/[slug]',
-                  `/studies/${this.props.redirect}`
-                );
+                Router.push({
+                  pathname: '/task/run',
+                  as: `/task/run`,
+                  query: {
+                    id:
+                      this.props.study.tasks &&
+                      this.props.study.tasks.length &&
+                      this.props.study.tasks.map(task => task.id)[0],
+                    policy:
+                      (res &&
+                        res.data &&
+                        res.data.signUp &&
+                        res.data.signUp.info &&
+                        res.data.signUp.info[this.props.study.id] &&
+                        res.data.signUp.info[this.props.study.id].data) ||
+                      'fallback',
+                    study: this.props.study.id,
+                    s: this.props.redirect,
+                  },
+                });
               } else {
                 Router.push({
                   pathname: `/study/all`,
                 });
               }
+              // if (this.props.redirect) {
+              //   Router.push(
+              //     '/studies/[slug]',
+              //     `/studies/${this.props.redirect}`
+              //   );
+              // } else {
+              //   Router.push({
+              //     pathname: `/study/all`,
+              //   });
+              // }
             }}
           >
             <fieldset disabled={loading} aria-busy={loading}>

@@ -57,7 +57,7 @@ class TaskPage extends Component {
                 <StyledButtons>
                   <Link
                     href={{
-                      pathname: `/tasks/run`,
+                      pathname: `/task/run`,
                       query: { id: task.id, policy: 'preview' },
                     }}
                   >
@@ -77,7 +77,7 @@ class TaskPage extends Component {
             <div>For students</div>
             <Link
               href={{
-                pathname: '/tasks/add',
+                pathname: '/task/add',
                 query: { id: task.template.id },
               }}
             >

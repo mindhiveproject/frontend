@@ -55,7 +55,7 @@ class CreateExternalTask extends Component {
               e.preventDefault();
               const res = await createTask();
               Router.push({
-                pathname: '/tasks/my',
+                pathname: '/task/my',
               });
             }}
           >

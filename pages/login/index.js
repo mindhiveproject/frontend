@@ -3,7 +3,7 @@ import Page from '../../components/Page/index';
 
 const LoginPage = props => (
   <Page>
-    <Login />
+    <Login task={props.query.task} />
   </Page>
 );
 

@@ -21,7 +21,7 @@ class TaskCard extends Component {
         {!this.props.completed && !task.link && (
           <Link
             href={{
-              pathname: `/tasks/run`,
+              pathname: `/task/run`,
               query: {
                 id: task.id,
                 policy: this.props.policy,

@@ -33,6 +33,7 @@ const USER_DASHBOARD_QUERY = gql`
       participantIn {
         id
         title
+        slug
         tasks {
           id
           title
@@ -73,6 +74,7 @@ const CURRENT_USER_STUDIES_QUERY = gql`
       participantIn {
         id
         title
+        slug
         tasks {
           id
           title
@@ -125,6 +127,7 @@ const CURRENT_USER_RESULTS_QUERY = gql`
       participantIn {
         id
         title
+        slug
         tasks {
           id
           title

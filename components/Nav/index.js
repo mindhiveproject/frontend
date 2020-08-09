@@ -38,7 +38,7 @@ const Nav = () => (
             <Link href="/templates/my">
               <NavButton>Templates</NavButton>
             </Link>
-            <Link href="/tasks/my">
+            <Link href="/task/my">
               <NavButton>Tasks</NavButton>
             </Link>
             <Link href="/study/my">
