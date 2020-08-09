@@ -17,6 +17,7 @@ class TaskForm extends Component {
   };
 
   togglePreview = e => {
+    e.target.blur();
     e.preventDefault();
     this.setState({
       showPreview: !this.state.showPreview,

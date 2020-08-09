@@ -59,7 +59,7 @@ class ExperimentWindow extends Component {
         <Head>
           <link href="/static/lab.css" rel="stylesheet" />
         </Head>
-        <div className="fullscreen" data-labjs-section="main">
+        <div className="container fullscreen" data-labjs-section="main">
           <main className="content-vertical-center content-horizontal-center">
             <div>
               <h2>Loading Experiment</h2>

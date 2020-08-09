@@ -16,16 +16,19 @@ export const Preview = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 1rem 1.5rem;
-  width: 80%;
-  height: 80%;
-  border-radius: 0.3rem;
+  /* padding: 1rem 1rem; */
+  width: 100%;
+  height: 100%;
+  /* border-radius: 0.3rem; */
   overflow-y: auto;
-  font-size: 1rem;
+  /* font-size: 1rem; */
 `;
 
 export const CloseButton = styled.span`
-  float: right;
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  /* float: right; */
   width: 3.3rem;
   line-height: 3rem;
   text-align: center;
