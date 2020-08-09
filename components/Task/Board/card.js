@@ -45,6 +45,18 @@ class TaskCard extends Component {
         <ContainerOnlyForAuthorizedScientists id={task.author.id}>
           <Link
             href={{
+              pathname: '/task/page',
+              query: { id: task.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Preview</button>
+              </h2>
+            </a>
+          </Link>
+          <Link
+            href={{
               pathname: '/task/edit',
               query: { id: task.id },
             }}
@@ -62,6 +74,18 @@ class TaskCard extends Component {
         <ContainerOnlyForAuthorizedCollaborators
           ids={task.collaborators && task.collaborators.map(c => c.id)}
         >
+          <Link
+            href={{
+              pathname: '/task/page',
+              query: { id: task.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Preview</button>
+              </h2>
+            </a>
+          </Link>
           <Link
             href={{
               pathname: '/task/edit',
