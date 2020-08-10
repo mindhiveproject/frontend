@@ -148,6 +148,12 @@ class StudyConsent extends Component {
                 <ParentConsent
                   onClose={() => this.props.onClose()}
                   consentForm={consentForm}
+                  predefinedConsentForm={
+                    this.props.study.info &&
+                    this.props.study.info
+                      .filter(info => info.name === 'consentFormForParents')
+                      .map(info => info.text)
+                  }
                   title={this.props.study.title}
                   updateState={this.updateState}
                   onNext={() => {
@@ -166,6 +172,12 @@ class StudyConsent extends Component {
                   consentForm={consentForm}
                   onNext={() => this.setState({ page: this.state.page + 1 })}
                   title={this.props.study.title}
+                  predefinedConsentForm={
+                    this.props.study.info &&
+                    this.props.study.info
+                      .filter(info => info.name === 'consentForm')
+                      .map(info => info.text)
+                  }
                 />
               </div>
             )}

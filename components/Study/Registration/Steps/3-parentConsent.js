@@ -9,6 +9,7 @@ import {
   StyleSheet,
   PDFDownloadLink,
 } from '@react-pdf/renderer';
+import ReactHtmlParser from 'react-html-parser';
 import { ResponseButtons, OnboardingHeader } from '../../styles';
 
 class ParentConsent extends Component {
@@ -25,34 +26,41 @@ class ParentConsent extends Component {
           </a>
         </OnboardingHeader>
         <h1>Parental consent required</h1>
-        <p>
-          For the parent: Your child is invited to take part in the study named
-          "{this.props.title}". Please read the following consent before
-          allowing your child to participate. Save or print a copy of this
-          consent for your records:
-          {` `}
-          <a style={{ 'text-decoration': 'underline' }}>
-            <PDFDownloadLink
-              document={
-                <MyDocument
-                  text={this.props.consentForm}
-                  title={this.props.title}
-                />
-              }
-              fileName="somename.pdf"
-            >
-              {({ blob, url, loading, error }) =>
-                loading ? 'Loading document...' : 'Study Consent'
-              }
-            </PDFDownloadLink>
-          </a>
-        </p>
-        <Accordion
-          defaultActiveIndex={this.props.consentForm.map((c, i) => i)}
-          panels={this.props.consentForm}
-          exclusive={false}
-          fluid
-        />
+        {this.props.predefinedConsentForm ? (
+          ReactHtmlParser(this.props.predefinedConsentForm)
+        ) : (
+          <div>
+            <p>
+              For the parent: Your child is invited to take part in the study
+              named "{this.props.title}". Please read the following consent
+              before allowing your child to participate. Save or print a copy of
+              this consent for your records:
+              {` `}
+              {this.props.predefinedConsentForm}
+              <a style={{ 'text-decoration': 'underline' }}>
+                <PDFDownloadLink
+                  document={
+                    <MyDocument
+                      text={this.props.consentForm}
+                      title={this.props.title}
+                    />
+                  }
+                  fileName="somename.pdf"
+                >
+                  {({ blob, url, loading, error }) =>
+                    loading ? 'Loading document...' : 'Study Consent'
+                  }
+                </PDFDownloadLink>
+              </a>
+            </p>
+            <Accordion
+              defaultActiveIndex={this.props.consentForm.map((c, i) => i)}
+              panels={this.props.consentForm}
+              exclusive={false}
+              fluid
+            />
+          </div>
+        )}
 
         <div>
           <label htmlFor="parentName">

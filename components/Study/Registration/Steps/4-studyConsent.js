@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from '@react-pdf/styled-components';
 import { Accordion } from 'semantic-ui-react';
+import ReactHtmlParser from 'react-html-parser';
 
 import {
   Page,
@@ -27,33 +28,40 @@ class StudyConsentForm extends Component {
           </a>
         </OnboardingHeader>
         <h1>Study consent</h1>
-        <p>
-          Please read the following consent before deciding to participate. Save
-          or print a copy of this consent for your records:
-          {` `}
-          <a style={{ 'text-decoration': 'underline' }}>
-            <PDFDownloadLink
-              document={
-                <MyDocument
-                  text={this.props.consentForm}
-                  title={this.props.title}
-                />
-              }
-              fileName="somename.pdf"
-            >
-              {({ blob, url, loading, error }) =>
-                loading ? 'Loading document...' : 'Study Consent'
-              }
-            </PDFDownloadLink>
-          </a>
-        </p>
-        <Accordion
-          defaultActiveIndex={this.props.consentForm.map((c, i) => i)}
-          panels={this.props.consentForm}
-          exclusive={false}
-          fluid
-        />
-        <button onClick={this.props.onNext}>Next</button>
+        {this.props.predefinedConsentForm ? (
+          ReactHtmlParser(this.props.predefinedConsentForm)
+        ) : (
+          <div>
+            <p>
+              Please read the following consent before deciding to participate.
+              Save or print a copy of this consent for your records:
+              {` `}
+              <a style={{ 'text-decoration': 'underline' }}>
+                <PDFDownloadLink
+                  document={
+                    <MyDocument
+                      text={this.props.consentForm}
+                      title={this.props.title}
+                    />
+                  }
+                  fileName="somename.pdf"
+                >
+                  {({ blob, url, loading, error }) =>
+                    loading ? 'Loading document...' : 'Study Consent'
+                  }
+                </PDFDownloadLink>
+              </a>
+            </p>
+            <Accordion
+              defaultActiveIndex={this.props.consentForm.map((c, i) => i)}
+              panels={this.props.consentForm}
+              exclusive={false}
+              fluid
+            />
+          </div>
+        )}
+
+        <button onClick={this.props.onNext}>I agree, next</button>
       </div>
     );
   }

@@ -25,6 +25,8 @@ class EditStudyForm extends Component {
       { name: 'partners' },
       { name: 'tags' },
       { name: 'contacts' },
+      { name: 'consentForm' },
+      { name: 'consentFormForParents' },
     ],
     collaborators: (this.props.study.collaborators &&
       this.props.study.collaborators.map(c => c.username).length &&
