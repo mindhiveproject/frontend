@@ -17,8 +17,10 @@ const TASK_QUERY = gql`
       updatedAt
       link
       template {
-        title
         id
+        title
+        description
+        parameters
         script
         style
       }
@@ -50,12 +52,20 @@ class EditParameter extends Component {
               descriptionAfter: '',
             };
           }
+          let parameters = [];
+          if (data.task.parameters) {
+            parameters = data.task.parameters;
+          }
+          if (parameters.length === 0) {
+            parameters = data.task.template.parameters;
+          }
+          // console.log('data.task.parameters', parameters);
           // console.log('data', data.parameter);
           return (
             <EditTaskForm
               id={data.task.id}
               template={data.task.template}
-              parameters={data.task.parameters}
+              parameters={parameters}
               title={data.task.title}
               description={data.task.description}
               link={data.task.link}
