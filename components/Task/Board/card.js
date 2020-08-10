@@ -45,8 +45,8 @@ class TaskCard extends Component {
         <ContainerOnlyForAuthorizedScientists id={task.author.id}>
           <Link
             href={{
-              pathname: '/task/page',
-              query: { id: task.id },
+              pathname: `/task/run`,
+              query: { id: task.id, policy: 'preview' },
             }}
           >
             <a>

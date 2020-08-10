@@ -20,6 +20,7 @@ const REVIEW_STUDY_QUERY = gql`
         title
         description
         link
+        settings
       }
       image
       largeImage

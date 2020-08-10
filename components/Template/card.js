@@ -35,7 +35,7 @@ class TemplateCard extends Component {
 
         <Link
           href={{
-            pathname: '/tasks/add',
+            pathname: '/task/add',
             query: { id: template.id },
           }}
         >

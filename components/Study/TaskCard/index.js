@@ -16,7 +16,26 @@ class TaskCard extends Component {
     return (
       <StyledTaskCard>
         <h2>{task.title}</h2>
+
+        <p>
+          {task.settings &&
+            task.settings.duration &&
+            `Duration ${task.settings.duration}`}
+        </p>
+
         <p>{task.description}</p>
+
+        <p>
+          {!this.props.completed &&
+            task.settings &&
+            task.settings.descriptionBefore}
+        </p>
+        <p>
+          {this.props.completed &&
+            task.settings &&
+            task.settings.descriptionAfter}
+        </p>
+
         {this.props.completed && <p>The task is already completed</p>}
         {!this.props.completed && !task.link && (
           <Link

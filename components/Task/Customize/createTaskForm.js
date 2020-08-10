@@ -17,6 +17,7 @@ const CREATE_TASK = gql`
     $description: String
     $parameters: Json
     $settings: Json
+    $collaborators: [String]
   ) {
     createTask(
       title: $title
@@ -24,6 +25,7 @@ const CREATE_TASK = gql`
       description: $description
       parameters: $parameters
       settings: $settings
+      collaborators: $collaborators
     ) {
       id
       title
@@ -36,7 +38,14 @@ class CreateTaskForm extends Component {
     title: this.props.template.title,
     parameters: this.props.template.parameters,
     templateId: this.props.template.id,
-    settings: {},
+    settings: {
+      duration: '',
+      descriptionBefore: '',
+      descriptionAfter: '',
+    },
+    collaborators: (this.props.collaborators &&
+      this.props.collaborators.map(c => c.username).length &&
+      this.props.collaborators.map(c => c.username)) || [''],
   };
 
   handleChange = e => {
@@ -70,6 +79,28 @@ class CreateTaskForm extends Component {
     });
   };
 
+  handleCollaboratorsChange = e => {
+    const { name, value } = e.target;
+    const collaborators = [...this.state.collaborators];
+    collaborators[name] = value;
+    if (name == collaborators.length - 1) {
+      collaborators.push('');
+    }
+    this.setState({
+      collaborators,
+    });
+  };
+
+  handleSettingsChange = e => {
+    const { name } = e.target;
+    const { value } = e.target;
+    const settings = { ...this.state.settings };
+    settings[name] = value;
+    this.setState({
+      settings,
+    });
+  };
+
   render() {
     return (
       <Mutation
@@ -90,6 +121,10 @@ class CreateTaskForm extends Component {
             parameters={this.state.parameters}
             loading={loading}
             template={this.props.template}
+            collaborators={this.state.collaborators}
+            onCollaboratorsChange={this.handleCollaboratorsChange}
+            settings={this.state.settings}
+            onHandleSettingsChange={this.handleSettingsChange}
           />
         )}
       </Mutation>

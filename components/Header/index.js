@@ -23,8 +23,7 @@ const Header = () => (
       <Logo>
         <Link href="/">
           <div className="logo">
-            <img src="/static/logo.svg" alt="icon" />
-            <span>MINDHIVE</span>
+            <img src="/static/MindHive_logo.png" alt="icon" height="50" />
           </div>
         </Link>
       </Logo>

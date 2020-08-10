@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
   // const serverUrl = endpoint;
   // console.log('process.env.NODE_ENV', process.env.NODE_ENV);
   const serverUrl =
-    process.env.NODE_ENV === 'development' ? endpoint : endpoint;
+    process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
   const { user, template, task, study, policy } = event.queryStringParameters;
   console.log('serverUrl', serverUrl, process.env.NODE_ENV);
   console.log(

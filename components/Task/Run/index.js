@@ -74,11 +74,16 @@ class RunExperiment extends Component {
                               eventCallback: e => {
                                 console.log('Event callback', e);
                               },
-                              on_finish: token =>
+                              on_finish: token => {
+                                if (policy === 'preview') {
+                                  Router.push('/task/my');
+                                  return;
+                                }
                                 this.setState({
                                   token,
                                   activePage: 'post',
-                                }),
+                                });
+                              },
                               // on_finish: json => {
                               //   if (this.props.slug) {
                               //     window.location.href = `/studies/${this.props.slug}`;

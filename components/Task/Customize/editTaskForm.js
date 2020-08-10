@@ -83,15 +83,23 @@ class EditTaskForm extends Component {
 
   handleCollaboratorsChange = e => {
     const { name, value } = e.target;
-    console.log('name value', name, value);
     const collaborators = [...this.state.collaborators];
-    console.log('collaborators', collaborators);
     collaborators[name] = value;
     if (name == collaborators.length - 1) {
       collaborators.push('');
     }
     this.setState({
       collaborators,
+    });
+  };
+
+  handleSettingsChange = e => {
+    const { name } = e.target;
+    const { value } = e.target;
+    const settings = { ...this.state.settings };
+    settings[name] = value;
+    this.setState({
+      settings,
     });
   };
 
@@ -122,6 +130,8 @@ class EditTaskForm extends Component {
               template={this.props.template}
               collaborators={this.state.collaborators}
               onCollaboratorsChange={this.handleCollaboratorsChange}
+              settings={this.state.settings}
+              onHandleSettingsChange={this.handleSettingsChange}
             />
           );
         }}

@@ -39,6 +39,17 @@ class EditParameter extends Component {
           if (loading) return <p>Loading ... </p>;
           if (!data || !data.task)
             return <p>No task found for id {this.props.id}</p>;
+          let settings = {};
+          if (data.task.settings) {
+            settings = data.task.settings;
+          }
+          if (Object.keys(settings).length === 0) {
+            settings = {
+              duration: '',
+              descriptionBefore: '',
+              descriptionAfter: '',
+            };
+          }
           // console.log('data', data.parameter);
           return (
             <EditTaskForm
@@ -48,7 +59,7 @@ class EditParameter extends Component {
               title={data.task.title}
               description={data.task.description}
               link={data.task.link}
-              settings={data.task.settings}
+              settings={settings}
               collaborators={data.task.collaborators}
             />
           );

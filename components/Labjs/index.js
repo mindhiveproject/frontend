@@ -65,17 +65,25 @@ class ExperimentWindow extends Component {
     // };
     this.study.options.events.keydown = async e => {
       if (e.code === 'Escape') {
-        if (this.study) {
-          const token =
-            (this.study.plugins &&
-              this.study.plugins.plugins
-                .filter(plugin => plugin.metadata)
-                .map(plugin => plugin.metadata.id)[0]) ||
-            'error';
-          await this.study.internals.controller.audioContext.close();
-          // this.study.end();
-          this.study = undefined;
-          this.props.settings.on_finish(token);
+        let answer;
+        if (policy !== 'preview') {
+          answer = confirm(
+            'Are you sure you want to interrupt your task without finishing? You will have to start this task from the beginning.'
+          );
+        }
+        if (answer == true || policy === 'preview') {
+          if (this.study) {
+            const token =
+              (this.study.plugins &&
+                this.study.plugins.plugins
+                  .filter(plugin => plugin.metadata)
+                  .map(plugin => plugin.metadata.id)[0]) ||
+              'error';
+            await this.study.internals.controller.audioContext.close();
+            // this.study.end();
+            this.study = undefined;
+            this.props.settings.on_finish(token);
+          }
         }
       }
     };

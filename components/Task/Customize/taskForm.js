@@ -11,6 +11,8 @@ import { CURRENT_USER_QUERY } from '../../User/index';
 import { StyledTaskForm, StyledTaskBlock, ControlButtons } from '../styles';
 import ExperimentPreview from '../Preview/index';
 
+import SettingsBlock from './setting';
+
 class TaskForm extends Component {
   state = {
     showPreview: false,
@@ -152,6 +154,15 @@ class TaskForm extends Component {
                   onChange={this.props.onHandleChange}
                 />
               </div>
+
+              {Object.keys(this.props.settings).map((name, i) => (
+                <SettingsBlock
+                  key={i}
+                  name={name}
+                  value={this.props.settings[name]}
+                  onChange={this.props.onHandleSettingsChange}
+                />
+              ))}
             </StyledTaskBlock>
 
             {this.props.parameters.map(
