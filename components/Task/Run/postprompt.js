@@ -7,6 +7,7 @@ import {
   ResponseButtons,
   OnboardingHeader,
 } from '../../Study/styles';
+import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
 const UPDATE_RESULTS_INFO_MUTATION = gql`
   mutation UPDATE_RESULTS_INFO_MUTATION($id: ID!, $info: Json) {
@@ -53,7 +54,11 @@ class PostPrompt extends Component {
 
   render() {
     return (
-      <Mutation mutation={UPDATE_RESULTS_INFO_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={UPDATE_RESULTS_INFO_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+      >
         {(updateResult, { error }) => (
           <div>
             <OnboardingForm>
