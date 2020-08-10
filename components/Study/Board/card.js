@@ -112,6 +112,18 @@ class StudyCard extends Component {
               </h2>
             </a>
           </Link>
+          <Link
+            href={{
+              pathname: '/study/results',
+              query: { id: study.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Study results</button>
+              </h2>
+            </a>
+          </Link>
         </ContainerOnlyForAuthorizedCollaborators>
 
         <Link href="/studies/[slug]" as={`/studies/${study.slug}`}>
