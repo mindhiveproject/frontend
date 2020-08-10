@@ -26,14 +26,15 @@ class StudyParticipantPage extends Component {
   render() {
     const { study } = this.props;
     const { activeItem } = this.state;
-    const panels = this.props.study.info
-      .filter(i => i.name.startsWith('faq'))
-      .map(i => ({
-        key: `panel-${i.name}`,
-        title: i.header,
-        content: ReactHtmlParser(i.text),
-      }));
-    // console.log('panels', panels);
+    const faq =
+      study.info &&
+      study.info
+        .filter(i => i.name.startsWith('faq') && i.text)
+        .map(i => ({
+          key: `panel-${i.name}`,
+          title: i.header,
+          content: ReactHtmlParser(i.text),
+        }));
     const timeToComplete =
       study.info &&
       study.info
@@ -194,14 +195,18 @@ class StudyParticipantPage extends Component {
                         .filter(i => i.name === 'what')
                         .map(i => ReactHtmlParser(i.text))}
 
-                    <h2>FAQ</h2>
-                    {true && (
-                      <Accordion
-                        defaultActiveIndex={[]}
-                        panels={panels}
-                        exclusive={false}
-                        fluid
-                      />
+                    {faq && faq.length ? (
+                      <div>
+                        <h2>FAQ</h2>
+                        <Accordion
+                          defaultActiveIndex={[]}
+                          panels={faq}
+                          exclusive={false}
+                          fluid
+                        />
+                      </div>
+                    ) : (
+                      <div></div>
                     )}
                   </div>
                 )}
