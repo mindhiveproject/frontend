@@ -38,7 +38,7 @@ export const StyledTaskForm = styled.form`
   font-weight: 600;
   label {
     display: block;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
   }
   input,
   textarea,
@@ -119,7 +119,7 @@ export const StyledTaskBlock = styled.div`
     /* grid-column: 1/3; */
   }
   textarea {
-    height: 500px;
+    height: 300px;
   }
   .addButton {
     cursor: pointer;

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { StyledParameterBlock } from '../styles';
+import { StyledSettingsBlock } from '../styles';
 
 class SettingBlock extends Component {
   render() {
     const { name } = this.props;
     return (
-      <StyledParameterBlock key={name} htmlFor={name}>
-        <div className="name">{name}</div>
-        <div className="input">
+      <StyledSettingsBlock key={name} htmlFor={name}>
+        <div className="input" style={{ width: '50px' }}>
           <input
             type="checkbox"
             id={name}
@@ -16,7 +15,19 @@ class SettingBlock extends Component {
             onChange={this.props.onChange}
           />
         </div>
-      </StyledParameterBlock>
+        <div style={{ display: 'grid' }}>
+          {name === 'guestParticipation' && (
+            <label className="name" htmlFor={name}>
+              Allow guest participation
+            </label>
+          )}
+          {name === 'zipCode' && (
+            <label className="name" htmlFor={name}>
+              Ask zip code
+            </label>
+          )}
+        </div>
+      </StyledSettingsBlock>
     );
   }
 }

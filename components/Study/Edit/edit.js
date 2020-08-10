@@ -108,6 +108,7 @@ class UpdateStudy extends Component {
               >
                 {(updateStudy, { loading, error }) => (
                   <EditStudyForm
+                    title="Edit the study"
                     error={error}
                     loading={loading}
                     study={data.study}

@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import InformationBlock from './block';
 import SettingsBlock from './setting';
+
+import {
+  StyledTaskForm,
+  StyledTaskBlock,
+  ControlButtons,
+} from '../../Task/styles';
 
 class EditStudyForm extends Component {
   state = {
@@ -17,9 +22,9 @@ class EditStudyForm extends Component {
     largeImage: this.props.study.largeImage || '',
     info: this.props.study.info || [
       { name: 'what' },
-      { name: 'faq' },
       { name: 'who' },
       { name: 'how' },
+      { name: 'faq' },
       { name: 'time' },
       { name: 'frequency' },
       { name: 'partners' },
@@ -127,58 +132,67 @@ class EditStudyForm extends Component {
 
   render() {
     return (
-      <SignForm
+      <StyledTaskForm
         onSubmit={e => this.props.onSubmit(e, this.state, this.props.callback)}
       >
-        <h2>Edit the study</h2>
+        <h2>{this.props.title}</h2>
         <Error error={this.props.error} />
         <fieldset disabled={this.props.loading} aria-busy={this.props.loading}>
-          <label htmlFor="title">
-            Title
-            <input
-              type="text"
-              id="title"
-              name="title"
-              placeholder="Title"
-              value={this.state.title}
-              onChange={this.handleChange}
-              required
-            />
-          </label>
-          <label htmlFor="file">
-            Image
-            <input
-              type="file"
-              id="file"
-              name="file"
-              placeholder="Upload an image"
-              value={this.state.file}
-              onChange={this.uploadFile}
-            />
-            {this.state.image && (
-              <img width="200" src={this.state.image} alt="Upload preview" />
-            )}
-          </label>
-          <label htmlFor="shortDescription">
-            Short description
-            <textarea
-              id="shortDescription"
-              name="shortDescription"
-              placeholder="Short description"
-              value={this.state.shortDescription}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label htmlFor="description">
-            Description
-            <textarea
-              id="description"
-              name="description"
-              placeholder="Description"
-              value={this.state.description}
-              onChange={this.handleChange}
-            />
-          </label>
+          <ControlButtons>
+            <button type="submit">
+              Sav{this.props.loading ? 'ing' : 'e'} changes
+            </button>
+          </ControlButtons>
+
+          <StyledTaskBlock>
+            <label htmlFor="title">
+              Title
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Title"
+                value={this.state.title}
+                onChange={this.handleChange}
+                required
+              />
+            </label>
+            <label htmlFor="file">
+              Image
+              <input
+                type="file"
+                id="file"
+                name="file"
+                placeholder="Upload an image"
+                value={this.state.file}
+                onChange={this.uploadFile}
+              />
+              {this.state.image && (
+                <img width="200" src={this.state.image} alt="Upload preview" />
+              )}
+            </label>
+            <label htmlFor="shortDescription">
+              Description for researchers
+              <textarea
+                id="shortDescription"
+                name="shortDescription"
+                placeholder="Short description"
+                value={this.state.shortDescription}
+                onChange={this.handleChange}
+                rows="5"
+              />
+            </label>
+            <label htmlFor="description">
+              Description for participants
+              <textarea
+                id="description"
+                name="description"
+                placeholder="Description"
+                value={this.state.description}
+                onChange={this.handleChange}
+              />
+            </label>
+          </StyledTaskBlock>
 
           <h2>Study collaborators (enter usernames)</h2>
           {this.state.collaborators.map((name, i) => (
@@ -219,12 +233,8 @@ class EditStudyForm extends Component {
               Add new information block
             </button>
           </div>
-
-          <button type="submit">
-            Sav{this.props.loading ? 'ing' : 'e'} changes
-          </button>
         </fieldset>
-      </SignForm>
+      </StyledTaskForm>
     );
   }
 }
