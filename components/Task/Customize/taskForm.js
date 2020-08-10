@@ -96,7 +96,7 @@ class TaskForm extends Component {
             aria-busy={this.props.loading}
           >
             <ControlButtons>
-              <button onClick={this.togglePreview}>Preview experiment</button>
+              <button onClick={this.togglePreview}>Preview task</button>
               <button type="submit">
                 Sav{this.props.loading ? 'ing' : 'e'} changes
               </button>

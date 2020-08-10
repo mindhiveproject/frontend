@@ -106,11 +106,7 @@ class CreateTaskForm extends Component {
       <Mutation
         mutation={CREATE_TASK}
         variables={this.state}
-        refetchQueries={[
-          { query: MY_TASKS_QUERY },
-          { query: ALL_TASKS_QUERY },
-          // { query: REVIEW_EXPERIMENT_QUERY, variables: { id: this.props.id } },
-        ]}
+        refetchQueries={[{ query: MY_TASKS_QUERY }, { query: ALL_TASKS_QUERY }]}
       >
         {(createTask, { loading, error }) => (
           <TaskForm
@@ -133,3 +129,4 @@ class CreateTaskForm extends Component {
 }
 
 export default CreateTaskForm;
+export { CREATE_TASK };

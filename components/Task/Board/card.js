@@ -9,6 +9,7 @@ import DeleteTask from './delete';
 
 import { ContainerOnlyForAuthorizedScientists } from '../../Permissions/Scientist/index';
 import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
+import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
 
 class TaskCard extends Component {
   // prop types https://reactjs.org/docs/typechecking-with-proptypes.html
@@ -33,6 +34,21 @@ class TaskCard extends Component {
           </a>
         </Link>
         <p>{task.shortDescription}</p>
+
+        <ContainerOnlyForProfile>
+          <Link
+            href={{
+              pathname: '/task/fork',
+              query: { id: task.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Fork</button>
+              </h2>
+            </a>
+          </Link>
+        </ContainerOnlyForProfile>
 
         <Link href="/tasks/[slug]" as={`/tasks/${task.slug}`}>
           <a>
