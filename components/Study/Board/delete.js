@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { MY_STUDIES_QUERY } from './my';
+import { ALL_STUDIES_QUERY } from './all';
 
 const DELETE_STUDY_MUTATION = gql`
   mutation DELETE_STUDY_MUTATION($id: ID!) {
@@ -33,6 +34,7 @@ class DeleteStudy extends Component {
         mutation={DELETE_STUDY_MUTATION}
         variables={{ id: this.props.id }}
         update={this.update}
+        refetchQueries={[{ query: ALL_STUDIES_QUERY }]}
       >
         {(deleteStudy, { error }) => (
           <button

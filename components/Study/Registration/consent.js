@@ -73,8 +73,8 @@ class StudyConsent extends Component {
     this.props.onClose();
     // Router.push('/studies/[slug]', `/studies/${this.props.study.slug}`);
     Router.push({
-      pathname: '/tasks/run',
-      as: `/tasks/run`,
+      pathname: '/task/run',
+      as: `/task/run`,
       query: {
         id:
           this.props.study.tasks &&

@@ -6,6 +6,7 @@ import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { StyledParameterBlock } from '../styles';
 import { MY_STUDIES_QUERY } from '../Board/my';
+import { ALL_STUDIES_QUERY } from '../Board/all';
 import EditStudyForm from './form';
 
 const CREATE_NEW_STUDY = gql`
@@ -48,7 +49,10 @@ class AddStudy extends Component {
     return (
       <Mutation
         mutation={CREATE_NEW_STUDY}
-        refetchQueries={[{ query: MY_STUDIES_QUERY }]}
+        refetchQueries={[
+          { query: MY_STUDIES_QUERY },
+          { query: ALL_STUDIES_QUERY },
+        ]}
       >
         {(createStudy, { loading, error }) => (
           <EditStudyForm
