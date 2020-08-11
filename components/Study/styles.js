@@ -384,21 +384,99 @@ export const StyledStudy = styled.div`
 `;
 
 export const StyledBuildStudy = styled.div`
+  font-size: 18px;
   max-width: 1200px;
   margin: 2rem auto;
+  padding: 20px;
   box-shadow: ${props => props.theme.bs};
   display: grid;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
+  align-content: baseline;
+  grid-row-gap: 50px;
   min-height: 800px;
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
+  button {
+    /* margin-bottom: 5px; */
+    /* margin: 6px; */
+    /* min-height: 30px; */
+    /* font-size: 18px; */
+    /* line-height: 100%; */
+    letter-spacing: 0.05em;
+    color: #007c70;
+    border: 2px solid #007c70;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 1rem 3rem;
+    background: none;
+  }
+  .removeBtn {
+    border-radius: 10rem;
+    background-color: white;
+    color: darkgreen;
+    padding: 1rem 1.5rem;
+    color: red;
+    border-color: red;
+    :hover {
+      transform: scale(1.1);
+      transition: transform 0.5s;
+    }
+  }
+  .saveBtn {
+    background-color: red;
+    color: white;
+    border-color: red;
+  }
+  .selectedBtn {
+    background-color: #007c70;
+    color: white;
+  }
+  nonSelectedBtn {
+  }
   .details {
     margin: 3rem;
     font-size: 2rem;
+  }
+  .buildHeader {
+    display: grid;
+    justify-self: center;
+    justify-items: center;
+    align-self: baseline;
+  }
+  .buildBoard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-self: baseline;
+    grid-column-gap: 50px;
+  }
+  .buildTaskItem {
+    margin: 10px 0px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 10px;
+    align-items: center;
+  }
+  .buildStudyItem {
+    margin: 10px 0px;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    grid-column-gap: 10px;
+    align-items: center;
+  }
+  .moveButtons {
+    display: grid;
+    align-self: end;
+    justify-self: end;
+    button {
+      background-color: orange;
+      :hover {
+        background-color: white;
+        transform: scale(1.1);
+        transition: transform 0.5s;
+      }
+    }
   }
 `;
 

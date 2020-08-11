@@ -28,6 +28,8 @@ class StudyBuildPage extends Component {
   state = {
     studyTasks: this.props.studyTasks,
     availableTasks: this.props.availableTasks,
+    saved: true,
+    filter: 'my',
   };
 
   addToStudy = id => {
@@ -41,6 +43,7 @@ class StudyBuildPage extends Component {
     this.setState({
       studyTasks,
       availableTasks,
+      saved: false,
     });
   };
 
@@ -53,6 +56,7 @@ class StudyBuildPage extends Component {
     this.setState({
       studyTasks,
       availableTasks,
+      saved: false,
     });
   };
 
@@ -64,6 +68,42 @@ class StudyBuildPage extends Component {
         tasks: this.state.studyTasks.map(task => task.id),
       },
     });
+    this.setState({
+      saved: true,
+    });
+  };
+
+  moveUp = (e, number) => {
+    e.preventDefault();
+    console.log('number', number);
+    const { studyTasks } = this.state;
+    if (number > 0) {
+      const currentItem = studyTasks[number];
+      const nextItem = studyTasks[number - 1];
+      const updatedItems = [...studyTasks];
+      updatedItems[number] = nextItem;
+      updatedItems[number - 1] = currentItem;
+      this.setState({
+        studyTasks: updatedItems,
+        saved: false,
+      });
+    }
+  };
+
+  moveDown = (e, number) => {
+    e.preventDefault();
+    const { studyTasks } = this.state;
+    if (number < studyTasks.length - 1) {
+      const currentItem = studyTasks[number];
+      const nextItem = studyTasks[number + 1];
+      const updatedItems = [...studyTasks];
+      updatedItems[number] = nextItem;
+      updatedItems[number + 1] = currentItem;
+      this.setState({
+        studyTasks: updatedItems,
+        saved: false,
+      });
+    }
   };
 
   render() {
@@ -84,34 +124,89 @@ class StudyBuildPage extends Component {
               <title>mindHIVE | {study.title}</title>
             </Head>
 
-            <div>
-              <h2>{study.title}</h2>
-              <p>{study.description}</p>
-              <button onClick={e => this.saveBuild(e, buildStudy)}>Save</button>
+            <div className="buildHeader">
+              <h1>{study.title}</h1>
+              <button
+                onClick={e => this.saveBuild(e, buildStudy)}
+                className={this.state.saved ? 'savedBtn' : 'saveBtn'}
+              >
+                {loading ? 'Saving...' : this.state.saved ? 'Saved' : 'Save'}
+              </button>
             </div>
 
-            <div>
-              {this.state.availableTasks &&
-                this.state.availableTasks.map(task => (
-                  <div key={task.id}>
-                    {task.title}
-                    <button onClick={() => this.addToStudy(task.id)}>
-                      Add to study
-                    </button>
-                  </div>
-                ))}
-            </div>
+            <div className="buildBoard">
+              <div>
+                <h2>Choose the library of tasks</h2>
 
-            <div>
-              {this.state.studyTasks &&
-                this.state.studyTasks.map((task, num) => (
-                  <div key={num}>
-                    {task.title}
-                    <button onClick={() => this.removeFromStudy(task.id)}>
-                      Remove from study
-                    </button>
-                  </div>
-                ))}
+                <button
+                  onClick={e => this.setState({ filter: 'my' })}
+                  className={
+                    this.state.filter === 'my'
+                      ? 'selectedBtn'
+                      : 'nonSelectedBtn'
+                  }
+                >
+                  My tasks
+                </button>
+                <button
+                  onClick={e => this.setState({ filter: 'all' })}
+                  className={
+                    this.state.filter === 'all'
+                      ? 'selectedBtn'
+                      : 'nonSelectedBtn'
+                  }
+                >
+                  All tasks
+                </button>
+
+                {this.state.filter === 'my' &&
+                  this.state.availableTasks &&
+                  this.state.availableTasks
+                    .filter(
+                      task =>
+                        task.author && task.author.id == this.props.authorId
+                    )
+                    .map(task => (
+                      <div key={task.id} className="buildTaskItem">
+                        <button onClick={() => this.addToStudy(task.id)}>
+                          Add to study
+                        </button>
+                        {task.title}
+                      </div>
+                    ))}
+
+                {this.state.filter === 'all' &&
+                  this.state.availableTasks &&
+                  this.state.availableTasks.filter(task => task) &&
+                  this.state.availableTasks.map(task => (
+                    <div key={task.id} className="buildTaskItem">
+                      <button onClick={() => this.addToStudy(task.id)}>
+                        Add to study
+                      </button>
+                      {task.title}
+                    </div>
+                  ))}
+              </div>
+
+              <div>
+                <h2>The tasks of your study</h2>
+                {this.state.studyTasks &&
+                  this.state.studyTasks.map((task, num) => (
+                    <div key={num} className="buildStudyItem">
+                      <button
+                        className="removeBtn"
+                        onClick={() => this.removeFromStudy(task.id)}
+                      >
+                        &times;
+                      </button>
+                      {task.title}
+                      <div className="moveButtons">
+                        <button onClick={e => this.moveUp(e, num)}>↑</button>
+                        <button onClick={e => this.moveDown(e, num)}>↓</button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
           </StyledBuildStudy>
         )}

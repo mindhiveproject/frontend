@@ -38,6 +38,7 @@ class BuildStudy extends Component {
           if (loading) return <p>Loading</p>;
           if (!data.study) return <p>No study found for {this.props.id}</p>;
           const { study } = data;
+          const authorId = data.study.author && data.study.author.id;
 
           return (
             <ContainerOnlyForAuthorizedCollaborators
@@ -45,7 +46,7 @@ class BuildStudy extends Component {
                 data.study.collaborators &&
                 data.study.collaborators.map(c => c.id)
               }
-              id={data.study.author && data.study.author.id}
+              id={authorId}
             >
               <Query query={ALL_TASKS_QUERY}>
                 {({ data, error, loading }) => {
@@ -67,6 +68,7 @@ class BuildStudy extends Component {
                       availableTasks={availableTasks}
                       studyTasks={studyTasks}
                       id={this.props.id}
+                      authorId={authorId}
                     />
                   );
                 }}
