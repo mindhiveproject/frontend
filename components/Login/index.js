@@ -5,7 +5,12 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { SignupForm, CreateAccountForm, SignupButton } from '../Sign/styles';
 import Error from '../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
+import {
+  CURRENT_USER_QUERY,
+  CURRENT_USER_RESULTS_QUERY,
+  CURRENT_USER_STUDIES_QUERY,
+  USER_DASHBOARD_QUERY,
+} from '../User/index';
 
 import GoogleLogin from './Google/index';
 
@@ -37,7 +42,12 @@ class Login extends Component {
         <Mutation
           mutation={LOGIN_MUTATION}
           variables={this.state}
-          refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+          refetchQueries={[
+            { query: CURRENT_USER_QUERY },
+            { query: CURRENT_USER_RESULTS_QUERY },
+            { query: CURRENT_USER_STUDIES_QUERY },
+            { query: USER_DASHBOARD_QUERY },
+          ]}
         >
           {(login, { error, loading }) => (
             <SignupForm>
