@@ -75,7 +75,14 @@ class RunExperiment extends Component {
                                 console.log('Event callback', e);
                               },
                               on_finish: token => {
-                                if (policy === 'preview') {
+                                if (policy === 'preview' || !token) {
+                                  if (this.props.slug) {
+                                    Router.push(
+                                      '/studies/[slug]',
+                                      `/studies/${this.props.slug}`
+                                    );
+                                    return;
+                                  }
                                   Router.push('/task/my');
                                   return;
                                 }
@@ -84,13 +91,6 @@ class RunExperiment extends Component {
                                   activePage: 'post',
                                 });
                               },
-                              // on_finish: json => {
-                              //   if (this.props.slug) {
-                              //     window.location.href = `/studies/${this.props.slug}`;
-                              //   } else {
-                              //     window.location.href = `/study/all`;
-                              //   }
-                              // },
                             }}
                           />
                         );

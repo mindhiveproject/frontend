@@ -82,7 +82,7 @@ class ExperimentWindow extends Component {
             await this.study.internals.controller.audioContext.close();
             // this.study.end();
             this.study = undefined;
-            this.props.settings.on_finish(token);
+            this.props.settings.on_finish();
           }
         }
       }

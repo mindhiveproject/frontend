@@ -119,6 +119,7 @@ const CURRENT_USER_RESULTS_QUERY = gql`
         quantity
         updatedAt
         payload
+        info
       }
       studentIn {
         id

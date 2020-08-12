@@ -16,6 +16,22 @@ class CustomizedLandingPage extends Component {
           const studyIds = me.participantIn.map(study => study.id);
           const policy = (me.info && me.info[study.id]) || 'preview';
 
+          const incrementalResultsInThisStudy = me.results
+            .filter(
+              result =>
+                result.study &&
+                result.study.id === study.id &&
+                result.payload === 'incremental' &&
+                result.info &&
+                result.info.linking
+            )
+            .map(result => result.task.id);
+
+          console.log(
+            'incrementalResultsInThisStudy',
+            incrementalResultsInThisStudy
+          );
+
           const fullResultsInThisStudy = me.results
             .filter(
               result =>
@@ -37,7 +53,10 @@ class CustomizedLandingPage extends Component {
                       studyId={study.id}
                       studySlug={study.slug}
                       user={me}
-                      completed={fullResultsInThisStudy.includes(task.id)}
+                      completed={
+                        fullResultsInThisStudy.includes(task.id) ||
+                        incrementalResultsInThisStudy.includes(task.id)
+                      }
                     />
                   ))}
               </div>
