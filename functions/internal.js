@@ -19,7 +19,7 @@ exports.handler = async (event, context) => {
     policy
   );
   const { metadata, url, data } = JSON.parse(event.body);
-  // console.log('study', study);
+  console.log('metadata', metadata);
 
   const response = await axios({
     method: 'post',
@@ -45,6 +45,8 @@ exports.handler = async (event, context) => {
       },
     }),
   });
+
+  console.log('response', response);
 
   return {
     statusCode: response.status,
