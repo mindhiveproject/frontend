@@ -19,7 +19,9 @@ class CustomizedLandingPage extends Component {
           const fullResultsInThisStudy = me.results
             .filter(
               result =>
-                result.study.id === study.id && result.payload === 'full'
+                result.study &&
+                result.study.id === study.id &&
+                result.payload === 'full'
             )
             .map(result => result.task.id);
 
