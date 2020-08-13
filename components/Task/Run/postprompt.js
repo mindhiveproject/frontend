@@ -46,7 +46,12 @@ class PostPrompt extends Component {
     });
     console.log('res', res);
     // change the page
-    Router.push('/studies/[slug]', `/studies/${this.props.slug}`);
+    if (this.props.slug) {
+      Router.push('/studies/[slug]', `/studies/${this.props.slug}`);
+    } else {
+      Router.push('/task/my');
+    }
+
     // Router.push({
     //   pathname: '/dashboard',
     // });

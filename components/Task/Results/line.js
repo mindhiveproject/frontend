@@ -12,7 +12,7 @@ const StyledResultLine = styled.div`
   border: 1px solid grey;
   padding: 10px;
   align-items: center;
-  button {
+  /* button {
     border: 1px solid grey;
     border-radius: 0;
     cursor: pointer;
@@ -30,15 +30,15 @@ const StyledResultLine = styled.div`
     a {
       color: white;
     }
-  }
+  } */
 `;
 
 class ResultLine extends Component {
   download = res => {
-    const { data, study, user } = res;
+    const { data, task, user } = res;
     const name =
-      (study &&
-        study.title
+      (task &&
+        task.title
           .toLowerCase()
           .split(' ')
           .join('-')) ||

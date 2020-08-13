@@ -85,6 +85,18 @@ class TaskCard extends Component {
           </Link>
 
           <DeleteTask id={task.id}>Delete</DeleteTask>
+          <Link
+            href={{
+              pathname: '/task/results',
+              query: { id: task.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Task results</button>
+              </h2>
+            </a>
+          </Link>
         </ContainerOnlyForAuthorizedScientists>
 
         <ContainerOnlyForAuthorizedCollaborators
@@ -111,6 +123,18 @@ class TaskCard extends Component {
             <a>
               <h2>
                 <button>Edit</button>
+              </h2>
+            </a>
+          </Link>
+          <Link
+            href={{
+              pathname: '/task/results',
+              query: { id: task.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Task results</button>
               </h2>
             </a>
           </Link>
