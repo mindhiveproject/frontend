@@ -56,7 +56,12 @@ class EditParameter extends Component {
           if (data.task.parameters) {
             parameters = data.task.parameters;
           }
-          if (parameters.length === 0) {
+          if (
+            parameters.length === 0 &&
+            data.task &&
+            data.task.template &&
+            data.task.template.parameters
+          ) {
             parameters = data.task.template.parameters;
           }
           // console.log('data.task.parameters', parameters);
