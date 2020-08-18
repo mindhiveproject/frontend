@@ -7,3 +7,9 @@
   to = "/studies/[slug].html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/tasks/*"
+  to = "/tasks/[slug].html"
+  status = 200
+  force = true
