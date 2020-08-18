@@ -16,6 +16,7 @@ import {
 import ResultPane from '../Results/Pane/index';
 import Signout from '../Signout/index';
 import { ContainerOnlyForStudents } from '../Permissions/Student/index';
+import LeaveStudy from '../Study/Leave/index';
 
 // use @client to look at only client (and do not check the server )
 const LOCAL_STATE_QUERY = gql`
@@ -126,6 +127,7 @@ class Dashboard extends Component {
                                 <button>{study.title}</button>
                               </a>
                             </Link>
+                            <LeaveStudy id={study.id} />
                           </div>
                         ))}
                       </ul>

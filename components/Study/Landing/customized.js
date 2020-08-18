@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
+import Link from 'next/link';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import TaskCard from '../TaskCard/index';
 
@@ -44,6 +45,20 @@ class CustomizedLandingPage extends Component {
           if (studyIds.includes(study.id)) {
             return (
               <div>
+                <div>
+                  <Link
+                    href={{
+                      pathname: '/study/consent',
+                      query: { id: study.id },
+                    }}
+                  >
+                    <a>
+                      <h2>
+                        <button>Update consent</button>
+                      </h2>
+                    </a>
+                  </Link>
+                </div>
                 {study.tasks &&
                   study.tasks.map((task, num) => (
                     <TaskCard

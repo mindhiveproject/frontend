@@ -69,8 +69,6 @@ const UPDATE_STUDY = gql`
 
 class UpdateStudy extends Component {
   update = async (e, state, updateStudyMutation) => {
-    // console.log('state', state);
-    // console.log('this.props.id', this.props.id);
     e.preventDefault();
     const res = await updateStudyMutation({
       variables: {
