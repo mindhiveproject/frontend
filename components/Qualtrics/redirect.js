@@ -4,7 +4,7 @@ import { StyledBox } from './styles';
 class Qualtrics extends Component {
   render() {
     const { link, user } = this.props;
-    const customLink = `${link}?name=${user.username}`;
+    const customLink = `${link}?name=${user.username}&id=${user.id}`;
     return (
       <StyledBox>
         <h2>Embedded Qualtrics Survey</h2>

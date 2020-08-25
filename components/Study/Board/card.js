@@ -83,6 +83,18 @@ class StudyCard extends Component {
               </h2>
             </a>
           </Link>
+          <Link
+            href={{
+              pathname: '/study/participants',
+              query: { id: study.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Study participants</button>
+              </h2>
+            </a>
+          </Link>
         </ContainerOnlyForAuthorizedScientists>
 
         <ContainerOnlyForAuthorizedCollaborators
@@ -121,6 +133,18 @@ class StudyCard extends Component {
             <a>
               <h2>
                 <button>Study results</button>
+              </h2>
+            </a>
+          </Link>
+          <Link
+            href={{
+              pathname: '/study/participants',
+              query: { id: study.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Study participants</button>
               </h2>
             </a>
           </Link>
