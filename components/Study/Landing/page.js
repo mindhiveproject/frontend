@@ -84,7 +84,7 @@ class StudyParticipantPage extends Component {
 
             <div className="studyTitleDescriptionBtns">
               <h1>{study.title}</h1>
-              <h3>{study.description}</h3>
+              <h3>{ReactHtmlParser(study.description)}</h3>
               <ContainerOnlyForAuthorizedCollaborators
                 ids={study.collaborators && study.collaborators.map(c => c.id)}
                 id={study.author && study.author.id}
@@ -184,6 +184,13 @@ class StudyParticipantPage extends Component {
                     active={activeItem === 'how'}
                     onClick={this.handleItemClick}
                   />
+                  {faq && faq.length && (
+                    <Menu.Item
+                      name="FAQ"
+                      active={activeItem === 'FAQ'}
+                      onClick={this.handleItemClick}
+                    />
+                  )}
                 </Menu>
               </div>
 
@@ -194,20 +201,6 @@ class StudyParticipantPage extends Component {
                       study.info
                         .filter(i => i.name === 'what')
                         .map(i => ReactHtmlParser(i.text))}
-
-                    {faq && faq.length ? (
-                      <div>
-                        <h2>FAQ</h2>
-                        <Accordion
-                          defaultActiveIndex={[]}
-                          panels={faq}
-                          exclusive={false}
-                          fluid
-                        />
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
                   </div>
                 )}
               </div>
@@ -228,6 +221,18 @@ class StudyParticipantPage extends Component {
                       study.info
                         .filter(i => i.name === 'how')
                         .map(i => ReactHtmlParser(i.text))}
+                  </div>
+                )}
+              </div>
+              <div>
+                {activeItem === 'FAQ' && (
+                  <div>
+                    <Accordion
+                      defaultActiveIndex={[]}
+                      panels={faq}
+                      exclusive={false}
+                      fluid
+                    />
                   </div>
                 )}
               </div>

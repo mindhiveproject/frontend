@@ -206,13 +206,13 @@ class PostPrompt extends Component {
                           console.log('closing');
                         }}
                         title={study.title}
-                        consentTitle={task.consent.title}
-                        coveredStudies={task.consent.studies || []}
-                        coveredTasks={task.consent.tasks || []}
+                        consentTitle={task.consent?.title}
+                        coveredStudies={task.consent?.studies || []}
+                        coveredTasks={task.consent?.tasks || []}
                         onNext={e => {
                           this.setState({
                             consentGiven: true,
-                            consentId: task.consent.id,
+                            consentId: task.consent?.id,
                           });
                           this.onNext();
                         }}
