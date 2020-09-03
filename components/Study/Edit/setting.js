@@ -26,6 +26,11 @@ class SettingBlock extends Component {
               Ask zip code
             </label>
           )}
+          {name === 'consentObtained' && (
+            <label className="name" htmlFor={name}>
+              The study was reviewed by IRB (Institutional review board)
+            </label>
+          )}
         </div>
       </StyledSettingsBlock>
     );

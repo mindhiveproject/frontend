@@ -14,9 +14,11 @@ class EditStudyForm extends Component {
     title: this.props.study.title || '',
     shortDescription: this.props.study.shortDescription || '',
     description: this.props.study.description || '',
-    settings: this.props.study.settings || {
+    settings: {
+      consentObtained: false,
       guestParticipation: false,
       zipCode: true,
+      ...this.props.study.settings,
     },
     image: this.props.study.image || '',
     largeImage: this.props.study.largeImage || '',
