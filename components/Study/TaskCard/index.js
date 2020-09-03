@@ -25,18 +25,18 @@ class TaskCard extends Component {
             `Duration ${task.settings.duration}`}
         </p>
 
-        <p>{ReactHtmlParser(task.description)}</p>
+        <div>{ReactHtmlParser(task.description)}</div>
 
-        <p>
+        <div>
           {!this.props.completed &&
             task.settings &&
             ReactHtmlParser(task.settings.descriptionBefore)}
-        </p>
-        <p>
+        </div>
+        <div>
           {this.props.completed &&
             task.settings &&
             ReactHtmlParser(task.settings.descriptionAfter)}
-        </p>
+        </div>
 
         {this.props.completed && <p>The task is already completed</p>}
         {!this.props.completed && !task.link && (
@@ -49,8 +49,9 @@ class TaskCard extends Component {
           </>
         )}
         {!this.props.completed && task.link && (
-          <button>
+          <button onClick={() => this.props.onStartExternalTask(task.id)}>
             <a
+              target="_blank"
               href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
             >
               <h2>Start</h2>

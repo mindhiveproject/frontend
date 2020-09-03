@@ -113,6 +113,7 @@ class StudyParticipantPage extends Component {
                     })
                   }
                   onStartTheTask={this.props.onStartTheTask}
+                  onStartExternalTask={this.props.onStartExternalTask}
                 />
               </ContainerOnlyForProfile>
 
@@ -184,12 +185,14 @@ class StudyParticipantPage extends Component {
                     active={activeItem === 'how'}
                     onClick={this.handleItemClick}
                   />
-                  {faq && faq.length && (
+                  {faq && faq.length ? (
                     <Menu.Item
                       name="FAQ"
                       active={activeItem === 'FAQ'}
                       onClick={this.handleItemClick}
                     />
+                  ) : (
+                    <div></div>
                   )}
                 </Menu>
               </div>

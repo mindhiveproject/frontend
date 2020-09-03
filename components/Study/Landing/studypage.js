@@ -7,6 +7,7 @@ import TaskPage from '../../Task/Run/index';
 class StudyUserPage extends Component {
   state = {
     isTaskRunning: false,
+    isExternalTaskRunning: false,
     taskId: '',
   };
 
@@ -15,6 +16,16 @@ class StudyUserPage extends Component {
       this.setState({
         taskId,
         isTaskRunning: true,
+      });
+    }
+  };
+
+  startExternalTask = taskId => {
+    if (taskId) {
+      this.setState({
+        taskId,
+        isTaskRunning: true,
+        isExternalTaskRunning: true,
       });
     }
   };
@@ -34,6 +45,7 @@ class StudyUserPage extends Component {
             study={study}
             user={user}
             onStartTheTask={this.startTheTask}
+            onStartExternalTask={this.startExternalTask}
           />
         </Page>
       );
@@ -46,6 +58,7 @@ class StudyUserPage extends Component {
         policy={user?.generalInfo?.data || 'science'}
         onStartTheTask={this.startTheTask}
         onEndTask={this.endTask}
+        isExternalTaskRunning={this.state.isExternalTaskRunning}
       />
     );
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import moment from 'moment';
+import ReactHtmlParser from 'react-html-parser';
 import {
   StyledTask,
   StyledButtons,
@@ -15,29 +16,7 @@ import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
 import { ContainerOnlyForParticipants } from '../../Permissions/Participant/index';
 import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
 
-// import HiddenTokenSignup from '../../Sign/Token/hidden';
-// import TokenSignup from '../../Sign/Token/index';
-// import EmptyTokenSignup from '../../Sign/Token/empty';
-
 class TaskPage extends Component {
-  state = {
-    // under18: false,
-    // parentConsent: false,
-    // englishComprehension: false,
-  };
-
-  // saveToState = e => {
-  //   this.setState({
-  //     [e.target.name]: !this.state[e.target.name],
-  //   });
-  // };
-  //
-  // updateState = e => {
-  //   this.setState({
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
   render() {
     const { task } = this.props;
     console.log('task', task);
@@ -49,7 +28,7 @@ class TaskPage extends Component {
             <title>mindHIVE | {task.title}</title>
           </Head>
           <h2>{task.title}</h2>
-          <p>{task.description}</p>
+          <div>{ReactHtmlParser(task.description)}</div>
 
           <ContainerOnlyForScientists>
             <div>
@@ -57,8 +36,8 @@ class TaskPage extends Component {
                 <StyledButtons>
                   <Link
                     href={{
-                      pathname: `/task/run`,
-                      query: { id: task.id, policy: 'preview' },
+                      pathname: `/task/preview`,
+                      query: { id: task.id },
                     }}
                   >
                     <button>
@@ -78,7 +57,7 @@ class TaskPage extends Component {
             <Link
               href={{
                 pathname: '/task/add',
-                query: { id: task.template.id },
+                query: { id: task.template?.id },
               }}
             >
               <a>

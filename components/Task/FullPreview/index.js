@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { ExperimentWindow } from '../../Labjs/index';
 import { StyledBox } from '../Run/styles';
 
-import Qualtrics from '../../Qualtrics/redirect';
+import Qualtrics from '../../Qualtrics/preview';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const TASK_QUERY = gql`
@@ -76,7 +76,7 @@ class RunExperiment extends Component {
             );
           }
           if (task.link) {
-            return <Qualtrics link={task.link} policy="preview" />;
+            return <Qualtrics link={task.link} />;
           }
           return <div>No task found</div>;
         }}

@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { SignForm } from '../../Styles/Forms';
+// import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { MY_TASKS_QUERY } from '../Board/my';
 import { ALL_TASKS_QUERY } from '../Board/all';
+
+import { StyledTaskForm, StyledTaskBlock, ControlButtons } from '../styles';
 
 const CREATE_EXTERNAL_TASK = gql`
   mutation CREATE_EXTERNAL_TASK(
@@ -50,7 +52,7 @@ class CreateExternalTask extends Component {
         refetchQueries={[{ query: MY_TASKS_QUERY }, { query: ALL_TASKS_QUERY }]}
       >
         {(createTask, { loading, error }) => (
-          <SignForm
+          <StyledTaskForm
             onSubmit={async e => {
               e.preventDefault();
               const res = await createTask();
@@ -59,7 +61,7 @@ class CreateExternalTask extends Component {
               });
             }}
           >
-            <h2>Add an external task with the web link</h2>
+            <h2>Add an external (Qualtrics) task with the web link</h2>
             <Error error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
               <label htmlFor="title">
@@ -101,7 +103,7 @@ class CreateExternalTask extends Component {
 
               <button type="submit">Save</button>
             </fieldset>
-          </SignForm>
+          </StyledTaskForm>
         )}
       </Mutation>
     );

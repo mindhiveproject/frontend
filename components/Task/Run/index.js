@@ -46,7 +46,10 @@ const TASK_QUERY = gql`
 `;
 
 class RunExperiment extends Component {
-  state = { activePage: 'task', token: '' };
+  state = {
+    activePage: this.props.isExternalTaskRunning ? 'post' : 'task',
+    token: '',
+  };
 
   closePrompt = () => {
     this.setState({
