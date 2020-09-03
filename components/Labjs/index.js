@@ -22,7 +22,7 @@ class ExperimentWindow extends Component {
       params,
       style,
     } = this.props.settings;
-    // console.log(user, template, task, study, policy, params, style);
+    console.log(user, template, task, study, policy, params, style);
 
     const script = this.deserialize(this.props.settings.script);
     // console.log('script', script);
@@ -82,7 +82,7 @@ class ExperimentWindow extends Component {
             await this.study.internals.controller.audioContext.close();
             // this.study.end();
             this.study = undefined;
-            this.props.settings.on_finish();
+            this.props.settings.on_finish(token);
           }
         }
       }

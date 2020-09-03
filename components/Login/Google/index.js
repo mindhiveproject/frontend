@@ -12,8 +12,8 @@ const clientID =
   '1042393944588-od9nbqtdfefltmpq8kjnnhir0lbb14se.apps.googleusercontent.com';
 
 const GOOGLE_LOGIN_MUTATION = gql`
-  mutation GOOGLE_LOGIN_MUTATION($token: String!) {
-    serviceLogin(token: $token) {
+  mutation GOOGLE_LOGIN_MUTATION($token: String!, $user: Json, $study: Json) {
+    serviceLogin(token: $token, user: $user, study: $study) {
       id
       username
       permissions
@@ -27,6 +27,8 @@ class GoogleAuthLogin extends Component {
     const res = await login({
       variables: {
         token: e.tokenId,
+        user: this.props.user,
+        study: this.props.study,
       },
     });
     if (this.props.onClose) this.props.onClose();
@@ -35,27 +37,28 @@ class GoogleAuthLogin extends Component {
       return;
     }
     if (this.props.redirect) {
+      this.props.onStartTheTask(this.props.firstTaskId);
       // Router.push('/studies/[slug]', `/studies/${this.props.redirect}`);
-      Router.push({
-        pathname: '/task/run',
-        as: `/task/run`,
-        query: {
-          id:
-            this.props.study.tasks &&
-            this.props.study.tasks.length &&
-            this.props.study.tasks.map(task => task.id)[0],
-          policy:
-            (res &&
-              res.data &&
-              res.data.serviceLogin &&
-              res.data.serviceLogin.info &&
-              res.data.serviceLogin.info[this.props.study.id] &&
-              res.data.serviceLogin.info[this.props.study.id].data) ||
-            'fallback',
-          study: this.props.study.id,
-          s: this.props.redirect,
-        },
-      });
+      // Router.push({
+      //   pathname: '/task/run',
+      //   as: `/task/run`,
+      //   query: {
+      //     id:
+      //       this.props.study.tasks &&
+      //       this.props.study.tasks.length &&
+      //       this.props.study.tasks.map(task => task.id)[0],
+      //     policy:
+      //       (res &&
+      //         res.data &&
+      //         res.data.serviceLogin &&
+      //         res.data.serviceLogin.info &&
+      //         res.data.serviceLogin.info[this.props.study.id] &&
+      //         res.data.serviceLogin.info[this.props.study.id].data) ||
+      //       'fallback',
+      //     study: this.props.study.id,
+      //     s: this.props.redirect,
+      //   },
+      // });
     } else {
       Router.push({
         pathname: `/study/all`,

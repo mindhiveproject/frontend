@@ -18,6 +18,7 @@ const CREATE_TASK = gql`
     $parameters: Json
     $settings: Json
     $collaborators: [String]
+    $consent: ID
   ) {
     createTask(
       title: $title
@@ -26,6 +27,7 @@ const CREATE_TASK = gql`
       parameters: $parameters
       settings: $settings
       collaborators: $collaborators
+      consent: $consent
     ) {
       id
       title
@@ -121,6 +123,7 @@ class CreateTaskForm extends Component {
             onCollaboratorsChange={this.handleCollaboratorsChange}
             settings={this.state.settings}
             onHandleSettingsChange={this.handleSettingsChange}
+            consent={this.state.consent}
           />
         )}
       </Mutation>

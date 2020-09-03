@@ -10,6 +10,8 @@ import styled from 'styled-components';
 import ResultLine from './line';
 import Error from '../../ErrorMessage/index';
 
+const pako = require('pako');
+
 const StyledResults = styled.div`
   .resultsHeader {
     margin-bottom: 20px;
@@ -55,6 +57,14 @@ const MY_TASK_RESULTS_QUERY = gql`
       data
       createdAt
       updatedAt
+      fullData {
+        id
+        content
+      }
+      incrementalData {
+        id
+        content
+      }
     }
   }
 `;
@@ -63,7 +73,21 @@ class TaskResults extends Component {
   downloadAll = results => {
     const allData = results
       .map(result => {
-        const resultData = result.data.map(line => {
+        let { data } = result;
+        const fullContent = result.fullData?.content;
+        const incrementalContent =
+          result.incrementalData.length &&
+          result.incrementalData.map(d => d.content);
+        if (fullContent) {
+          data = JSON.parse(pako.inflate(fullContent, { to: 'string' }));
+        }
+        if (!fullContent && incrementalContent && incrementalContent.length) {
+          data = incrementalContent
+            .map(p => JSON.parse(pako.inflate(p, { to: 'string' })))
+            .reduce((total, amount) => total.concat(amount), []);
+        }
+
+        const resultData = data.map(line => {
           line.username = result.user && result.user.username;
           line.task = result.task && result.task.title;
           return line;
@@ -71,6 +95,7 @@ class TaskResults extends Component {
         return resultData;
       })
       .reduce((a, b) => a.concat(b), []);
+
     const name =
       (results.length &&
         results[0] &&

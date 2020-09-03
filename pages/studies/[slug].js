@@ -10,11 +10,7 @@ const StudyLandingPage = () => {
         <p>Loading</p>
       </Page>
     );
-  return (
-    <Page>
-      <ReviewStudyForParticipants slug={router.query.slug} />
-    </Page>
-  );
+  return <ReviewStudyForParticipants slug={router.query.slug} />;
 };
 
 export default StudyLandingPage;

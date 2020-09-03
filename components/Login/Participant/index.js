@@ -25,7 +25,6 @@ const PARTICIPANT_LOGIN_MUTATION = gql`
       id
       username
       permissions
-      info
     }
   }
 `;
@@ -66,25 +65,26 @@ class Login extends Component {
                     return;
                   }
                   if (this.props.redirect) {
+                    this.props.onStartTheTask(this.props.firstTaskId);
                     // Router.push(
                     //   '/studies/[slug]',
                     //   `/studies/${this.props.redirect}`
                     // );
-                    Router.push({
-                      pathname: '/task/run',
-                      as: `/task/run`,
-                      query: {
-                        id:
-                          this.props.study.tasks &&
-                          this.props.study.tasks.length &&
-                          this.props.study.tasks.map(task => task.id)[0],
-                        policy:
-                          (this.state.user && this.state.user.data) ||
-                          'fallback',
-                        study: this.props.study.id,
-                        s: this.props.redirect,
-                      },
-                    });
+                    // Router.push({
+                    //   pathname: '/task/run',
+                    //   as: `/task/run`,
+                    //   query: {
+                    //     id:
+                    //       this.props.study.tasks &&
+                    //       this.props.study.tasks.length &&
+                    //       this.props.study.tasks.map(task => task.id)[0],
+                    //     policy:
+                    //       (this.state.user && this.state.user.data) ||
+                    //       'fallback',
+                    //     study: this.props.study.id,
+                    //     s: this.props.redirect,
+                    //   },
+                    // });
                   } else {
                     Router.push({
                       pathname: `/study/all`,
@@ -129,6 +129,9 @@ class Login extends Component {
                 onClose={this.props.onClose}
                 redirect={this.props.redirect}
                 study={this.props.study}
+                user={this.props.user}
+                onStartTheTask={this.props.onStartTheTask}
+                firstTaskId={this.props.firstTaskId}
               />
             </SignupForm>
           )}

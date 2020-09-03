@@ -28,6 +28,10 @@ const TASK_QUERY = gql`
         id
         username
       }
+      consent {
+        id
+        title
+      }
     }
   }
 `;
@@ -76,6 +80,7 @@ class EditParameter extends Component {
               link={data.task.link}
               settings={settings}
               collaborators={data.task.collaborators}
+              consent={data.task.consent?.id}
             />
           );
         }}

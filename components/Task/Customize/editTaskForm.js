@@ -19,6 +19,7 @@ const UPDATE_TASK = gql`
     $settings: Json
     $link: String
     $collaborators: [String]
+    $consent: ID
   ) {
     updateTask(
       id: $id
@@ -28,6 +29,7 @@ const UPDATE_TASK = gql`
       settings: $settings
       link: $link
       collaborators: $collaborators
+      consent: $consent
     ) {
       id
       title
@@ -46,10 +48,12 @@ class EditTaskForm extends Component {
     collaborators: (this.props.collaborators &&
       this.props.collaborators.map(c => c.username).length &&
       this.props.collaborators.map(c => c.username)) || [''],
+    consent: this.props.consent,
   };
 
   handleChange = e => {
     const { name, type, value } = e.target;
+    console.log('name, type, value', name, type, value);
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
       [name]: value,
@@ -132,6 +136,7 @@ class EditTaskForm extends Component {
               onCollaboratorsChange={this.handleCollaboratorsChange}
               settings={this.state.settings}
               onHandleSettingsChange={this.handleSettingsChange}
+              consent={this.state.consent}
             />
           );
         }}

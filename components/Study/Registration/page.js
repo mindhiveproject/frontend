@@ -33,6 +33,12 @@ class RegistrationPage extends Component {
   state = {
     page: 1,
     login: false,
+    sharePersonalDataWithOtherStudies: true,
+    saveCoveredConsent: true,
+    firstTaskId:
+      this.props.study?.tasks &&
+      this.props.study?.tasks.length &&
+      this.props.study?.tasks[0].id,
   };
 
   saveToState = e => {
@@ -53,16 +59,15 @@ class RegistrationPage extends Component {
     });
   };
 
+  toggleState = e => {
+    this.setState({
+      [e.target.name]: !this.state[e.target.name],
+    });
+  };
+
   render() {
-    const { study } = this.props;
+    const { study, user } = this.props;
     const { tasks } = study;
-    const consentForm = this.props.study.info
-      .filter(i => i.name.startsWith('faq'))
-      .map(i => ({
-        key: `panel-${i.name}`,
-        title: i.header,
-        content: ReactHtmlParser(i.text),
-      }));
 
     return (
       <OnboardingForm>
@@ -77,8 +82,12 @@ class RegistrationPage extends Component {
                   <GetStarted
                     study={study}
                     updateState={this.updateState}
+                    toggleState={this.toggleState}
                     englishComprehension={this.state.englishComprehension}
                     under18={this.state.under18}
+                    sharePersonalDataWithOtherStudies={
+                      this.state.sharePersonalDataWithOtherStudies
+                    }
                     onBtnClick={(parameter, state) =>
                       this.setButtonState(parameter, state)
                     }
@@ -87,11 +96,17 @@ class RegistrationPage extends Component {
                         this.state.under18 &&
                         this.state.englishComprehension
                       ) {
-                        if (this.state.under18 === 'yes') {
-                          this.setState({ page: this.state.page + 1 });
-                        }
-                        if (this.state.under18 === 'no') {
-                          this.setState({ page: this.state.page + 3 });
+                        // if there is an IRB consent in the study
+                        if (study.consent) {
+                          if (this.state.under18 === 'yes') {
+                            this.setState({ page: this.state.page + 1 });
+                          }
+                          if (this.state.under18 === 'no') {
+                            this.setState({ page: this.state.page + 3 });
+                          }
+                        } else {
+                          // otherwise if there is no IRB consent, jump to the next stage
+                          this.setState({ page: this.state.page + 5 });
                         }
                       }
                     }}
@@ -117,10 +132,10 @@ class RegistrationPage extends Component {
                 <div id="page_3">
                   <ParentConsent
                     onClose={() => this.props.onClose()}
-                    consentForm={consentForm}
-                    predefinedConsentForm={
-                      this.props.study.info &&
-                      this.props.study.info
+                    consentFormText={
+                      study.info &&
+                      study.info.length &&
+                      study.info
                         .filter(info => info.name === 'consentFormForParents')
                         .map(info => info.text)
                     }
@@ -128,7 +143,11 @@ class RegistrationPage extends Component {
                     updateState={this.updateState}
                     onNext={() => {
                       if (this.state.parentName && this.state.parentEmail) {
-                        this.setState({ page: this.state.page + 2 });
+                        this.setState({
+                          parentConsentGiven: true,
+                          consentGiven: true,
+                          page: this.state.page + 3,
+                        });
                       }
                     }}
                   />
@@ -139,26 +158,31 @@ class RegistrationPage extends Component {
                 <div id="page_4">
                   <StudyConsentForm
                     onClose={() => this.props.onClose()}
-                    consentForm={consentForm}
-                    onNext={() => this.setState({ page: this.state.page + 1 })}
-                    title={this.props.study.title}
-                    predefinedConsentForm={
-                      this.props.study.info &&
-                      this.props.study.info
+                    title={study.title}
+                    consentTitle={study.consent?.title || []}
+                    coveredStudies={study.consent?.studies || []}
+                    coveredTasks={study.consent?.tasks || []}
+                    onNext={() =>
+                      this.setState({
+                        consentGiven: true,
+                        page: this.state.page + 2,
+                      })
+                    }
+                    onSkip={() =>
+                      this.setState({
+                        consentGiven: false,
+                        page: this.state.page + 2,
+                      })
+                    }
+                    consentFormText={
+                      study.info &&
+                      study.info.length &&
+                      study.info
                         .filter(info => info.name === 'consentForm')
                         .map(info => info.text)
                     }
-                  />
-                </div>
-              )}
-
-              {this.state.page == 5 && (
-                <div id="page_5">
-                  <DataUsage
-                    onClose={() => this.props.onClose()}
-                    updateState={this.updateState}
-                    data={this.state.data}
-                    onNext={() => this.setState({ page: this.state.page + 1 })}
+                    toggleState={this.toggleState}
+                    saveCoveredConsent={this.state.saveCoveredConsent}
                   />
                 </div>
               )}
@@ -180,9 +204,17 @@ class RegistrationPage extends Component {
                       zipCode: this.state.zipCode,
                       under18: this.state.under18,
                       englishComprehension: this.state.englishComprehension,
-                      data: this.state.data,
+                      consentGiven: this.state.consentGiven,
+                      saveCoveredConsent: this.state.saveCoveredConsent,
+                      sharePersonalDataWithOtherStudies: this.state
+                        .sharePersonalDataWithOtherStudies,
+                      parentConsentGiven: this.state.parentConsentGiven,
+                      parentEmail: this.state.parentEmail,
+                      parentName: this.state.parentName,
                     }}
                     onClose={this.props.onClose}
+                    onStartTheTask={this.props.onStartTheTask}
+                    firstTaskId={this.state.firstTaskId}
                   />
                 </div>
               )}
@@ -196,64 +228,31 @@ class RegistrationPage extends Component {
                 zipCode: this.state.zipCode,
                 under18: this.state.under18,
                 englishComprehension: this.state.englishComprehension,
-                data: this.state.data,
+                consentGiven: this.state.consentGiven,
+                saveCoveredConsent: this.state.saveCoveredConsent,
+                sharePersonalDataWithOtherStudies: this.state
+                  .sharePersonalDataWithOtherStudies,
+                parentConsentGiven: this.state.parentConsentGiven,
+                parentEmail: this.state.parentEmail,
+                parentName: this.state.parentName,
               }}
               study={study}
               onClose={this.props.onClose}
+              onStartTheTask={this.props.onStartTheTask}
+              firstTaskId={this.state.firstTaskId}
             />
           )}
         </ContainerOnlyForNoProfile>
 
         <ContainerOnlyForProfile>
-          <Query query={CURRENT_USER_RESULTS_QUERY} pollInterval={5000}>
-            {({ error, loading, data }) => {
-              if (error) return <Error error={error} />;
-              if (loading) return <p>Loading</p>;
-              if (!data.me)
-                return <p>No information found for your profile.</p>;
-              const { me } = data;
-
-              const studyIds = me.participantIn.map(study => study.id);
-
-              const policy = (me.info && me.info[study.id]) || 'preview';
-
-              const fullResultsInThisStudy = me.results
-                .filter(
-                  result =>
-                    result.study &&
-                    result.study.id === study.id &&
-                    result.payload === 'full'
-                )
-                .map(result => result.task.id);
-
-              console.log('me', me);
-
-              if (studyIds.includes(study.id)) {
-                return (
-                  <div>
-                    {study.tasks &&
-                      study.tasks.map((task, num) => (
-                        <TaskCard
-                          key={num}
-                          task={task}
-                          policy={policy.data}
-                          studyId={study.id}
-                          completed={fullResultsInThisStudy.includes(task.id)}
-                          user={me}
-                        />
-                      ))}
-                  </div>
-                );
-              }
-              return (
-                <StudyConsent
-                  study={study}
-                  info={me && me.info && me.info.general}
-                  onClose={this.props.onClose}
-                />
-              );
-            }}
-          </Query>
+          <StudyConsent
+            study={this.props.study}
+            user={this.props.user}
+            info={this.props.user?.generalInfo}
+            onClose={this.props.onClose}
+            onStartTheTask={this.props.onStartTheTask}
+            firstTaskId={this.state.firstTaskId}
+          />
         </ContainerOnlyForProfile>
       </OnboardingForm>
     );
@@ -261,3 +260,44 @@ class RegistrationPage extends Component {
 }
 
 export default RegistrationPage;
+//
+// class StudyPageForUser extends Component {
+//   render() {
+//     const { study, user } = this.props;
+//     const studyIds = user.participantIn.map(study => study.id);
+//     const policy = user.generalInfo?.data || 'preview';
+//     const fullResultsInThisStudy = user.results
+//       .filter(
+//         result =>
+//           result.study &&
+//           result.study.id === study.id &&
+//           result.payload === 'full'
+//       )
+//       .map(result => result.task.id);
+//     // if (studyIds.includes(study.id)) {
+//     //   return (
+//     //     <div>
+//     //       {study.tasks &&
+//     //         study.tasks.map((task, num) => (
+//     //           <TaskCard
+//     //             user={user}
+//     //             key={num}
+//     //             task={task}
+//     //             policy={policy.data}
+//     //             studyId={study.id}
+//     //             completed={fullResultsInThisStudy.includes(task.id)}
+//     //           />
+//     //         ))}
+//     //     </div>
+//     //   );
+//     // }
+//     return (
+//       <StudyConsent
+//         study={study}
+//         user={user}
+//         info={user && user.generalInfo}
+//         onClose={this.props.onClose}
+//       />
+//     );
+//   }
+// }

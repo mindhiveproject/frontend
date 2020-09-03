@@ -2,6 +2,7 @@ import { SUBMIT_RESULTS_FROM_API_MUTATION } from '../pages/api/save';
 import { endpoint, prodEndpoint } from '../config';
 
 const axios = require('axios');
+const pako = require('pako');
 
 exports.handler = async (event, context) => {
   // const serverUrl = endpoint;
@@ -9,17 +10,11 @@ exports.handler = async (event, context) => {
   const serverUrl =
     process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
   const { user, template, task, study, policy } = event.queryStringParameters;
-  console.log('serverUrl', serverUrl, process.env.NODE_ENV);
-  console.log(
-    'internal user, template, task, study, policy',
-    user,
-    template,
-    task,
-    study,
-    policy
-  );
+
   const { metadata, url, data } = JSON.parse(event.body);
-  console.log('metadata', metadata);
+
+  const dataRawString = JSON.stringify(data);
+  const dataString = pako.deflate(dataRawString, { to: 'string' });
 
   const response = await axios({
     method: 'post',
@@ -37,6 +32,7 @@ exports.handler = async (event, context) => {
         taskId: task === 'undefined' ? null : task,
         studyId: study === 'undefined' ? null : study,
         data,
+        dataString,
         metadata: {
           id: metadata.id,
           payload: metadata.payload,
@@ -45,8 +41,6 @@ exports.handler = async (event, context) => {
       },
     }),
   });
-
-  console.log('response', response);
 
   return {
     statusCode: response.status,

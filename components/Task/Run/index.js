@@ -11,6 +11,7 @@ import {
 
 import Qualtrics from '../../Qualtrics/redirect';
 import PostPrompt from './postprompt';
+// import Crossover from './crossover';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const TASK_QUERY = gql`
@@ -28,12 +29,30 @@ const TASK_QUERY = gql`
         script
         style
       }
+      consent {
+        id
+        title
+        studies {
+          id
+          title
+        }
+        tasks {
+          id
+          title
+        }
+      }
     }
   }
 `;
 
 class RunExperiment extends Component {
   state = { activePage: 'task', token: '' };
+
+  closePrompt = () => {
+    this.setState({
+      activePage: 'task',
+    });
+  };
 
   render() {
     const { id, policy } = this.props;
@@ -44,80 +63,74 @@ class RunExperiment extends Component {
           if (loading) return <p>Loading</p>;
           if (!data.task) return <p>No template found for {id}</p>;
           const { task } = data;
-          console.log('task', task);
-          return (
-            <>
-              <StyledBox>
-                <Query query={CURRENT_USER_RESULTS_QUERY}>
-                  {({ error, loading, data }) => {
-                    if (error) return <Error error={error} />;
-                    if (loading) return <p>Loading</p>;
-                    if (!data.me) return <p>No user found</p>;
-                    const { me } = data;
+          const me = this.props.user;
 
-                    if (this.state.activePage === 'task') {
-                      if (task.template && task.template.id) {
-                        return (
-                          <ExperimentWindow
-                            settings={{
-                              user: me.id,
-                              template: task.template.id,
-                              task: task.id,
-                              study: this.props.study,
-                              script: task.template.script,
-                              style: task.template.style,
-                              params: task.parameters.reduce((obj, item) => {
-                                obj[item.name] = item.value;
-                                return obj;
-                              }, {}),
-                              policy,
-                              eventCallback: e => {
-                                console.log('Event callback', e);
-                              },
-                              on_finish: token => {
-                                if (policy === 'preview' || !token) {
-                                  if (this.props.slug) {
-                                    Router.push(
-                                      '/studies/[slug]',
-                                      `/studies/${this.props.slug}`
-                                    );
-                                    return;
-                                  }
-                                  Router.push('/task/my');
-                                  return;
-                                }
-                                this.setState({
-                                  token,
-                                  activePage: 'post',
-                                });
-                              },
-                            }}
-                          />
-                        );
-                      }
-                      if (task.link) {
-                        return <Qualtrics link={task.link} user={me} />;
-                      }
-                    }
+          if (this.state.activePage === 'task') {
+            if (task.template && task.template.id) {
+              return (
+                <StyledBox>
+                  <ExperimentWindow
+                    settings={{
+                      user: me.id,
+                      template: task.template.id,
+                      task: task.id,
+                      study: this.props.study.id,
+                      script: task.template.script,
+                      style: task.template.style,
+                      params: task.parameters.reduce((obj, item) => {
+                        obj[item.name] = item.value;
+                        return obj;
+                      }, {}),
+                      policy,
+                      eventCallback: e => {
+                        console.log('Event callback', e);
+                      },
+                      on_finish: token => {
+                        if (policy === 'preview' || !token) {
+                          console.log('90 token', token);
+                          // if (this.props.slug) {
+                          //   Router.push(
+                          //     '/studies/[slug]',
+                          //     `/studies/${this.props.slug}`
+                          //   );
+                          //   return;
+                          // }
+                          // Router.push('/task/my');
+                          // return;
+                          alert('TO DO - where to come back after preview?');
+                        }
+                        this.setState({
+                          token,
+                          activePage: 'post',
+                        });
+                      },
+                    }}
+                  />
+                </StyledBox>
+              );
+            }
+            if (task.link) {
+              return <Qualtrics link={task.link} user={me} />;
+            }
+          }
 
-                    if (this.state.activePage === 'post') {
-                      return (
-                        <PostPrompt
-                          study={this.props.study}
-                          task={task.id}
-                          token={this.state.token}
-                          policy={this.props.policy}
-                          slug={this.props.slug}
-                        />
-                      );
-                    }
+          if (this.state.activePage === 'post') {
+            return (
+              <PostPrompt
+                user={me}
+                study={this.props.study}
+                task={task}
+                token={this.state.token}
+                policy={policy}
+                slug={this.props.study.slug}
+                onClosePrompt={this.closePrompt}
+                onStartTheTask={this.props.onStartTheTask}
+                onEndTask={this.props.onEndTask}
+              />
+            );
+          }
 
-                    return <div>No task found</div>;
-                  }}
-                </Query>
-              </StyledBox>
-            </>
-          );
+          return <div>No task found</div>;
         }}
       </Query>
     );

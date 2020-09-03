@@ -38,6 +38,8 @@ class StudyRegistration extends Component {
               study={study}
               permissions={['PARTICIPANT']}
               onClose={this.props.onClose}
+              onStartTheTask={this.props.onStartTheTask}
+              firstTaskId={this.props.firstTaskId}
             />
 
             <div>
@@ -64,6 +66,8 @@ class StudyRegistration extends Component {
                     user={user}
                     study={study}
                     onClose={this.props.onClose}
+                    onStartTheTask={this.props.onStartTheTask}
+                    firstTaskId={this.props.firstTaskId}
                   />
                 </>
               </div>
@@ -77,6 +81,8 @@ class StudyRegistration extends Component {
             user={user}
             study={study}
             onClose={this.props.onClose}
+            onStartTheTask={this.props.onStartTheTask}
+            firstTaskId={this.props.firstTaskId}
           />
         )}
 
@@ -86,6 +92,8 @@ class StudyRegistration extends Component {
             user={user}
             study={study}
             onClose={this.props.onClose}
+            onStartTheTask={this.props.onStartTheTask}
+            firstTaskId={this.props.firstTaskId}
           />
         )}
       </>

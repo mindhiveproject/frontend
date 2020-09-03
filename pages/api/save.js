@@ -8,6 +8,7 @@ const SUBMIT_RESULTS_FROM_API_MUTATION = gql`
     $taskId: ID
     $studyId: ID
     $data: Json
+    $dataString: String
     $metadata: Json
     $dataPolicy: String
   ) {
@@ -17,6 +18,7 @@ const SUBMIT_RESULTS_FROM_API_MUTATION = gql`
       taskId: $taskId
       studyId: $studyId
       data: $data
+      dataString: $dataString
       metadata: $metadata
       dataPolicy: $dataPolicy
     ) {

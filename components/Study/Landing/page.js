@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Menu, Accordion } from 'semantic-ui-react';
-// import _ from 'lodash';
-// import faker from 'faker';
+
 import ReactHtmlParser from 'react-html-parser';
 import { Query } from 'react-apollo';
 import { StyledStudyPage, StyledLink, StyledButtons } from '../styles';
@@ -12,8 +11,7 @@ import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
 import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
 import { ContainerOnlyForParticipants } from '../../Permissions/Participant/index';
 import RegistrationFlow from '../Registration/index';
-// import TaskCard from '../TaskCard/index';
-// import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+
 import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
 
 import CustomizedLandingPage from './customized';
@@ -108,11 +106,13 @@ class StudyParticipantPage extends Component {
               <ContainerOnlyForProfile>
                 <CustomizedLandingPage
                   study={study}
+                  user={this.props.user}
                   onJoinStudy={() =>
                     this.setState({
                       activePage: 'registration',
                     })
                   }
+                  onStartTheTask={this.props.onStartTheTask}
                 />
               </ContainerOnlyForProfile>
 
@@ -258,7 +258,9 @@ class StudyParticipantPage extends Component {
         )}
         {this.state.activePage === 'registration' && (
           <RegistrationFlow
-            id={study.id}
+            study={this.props.study}
+            user={this.props.user}
+            onStartTheTask={this.props.onStartTheTask}
             onClose={() => this.setState({ activePage: 'front' })}
           />
         )}

@@ -25,6 +25,14 @@ const MY_STUDY_RESULTS_QUERY = gql`
       data
       createdAt
       updatedAt
+      fullData {
+        id
+        content
+      }
+      incrementalData {
+        id
+        content
+      }
     }
   }
 `;
@@ -39,6 +47,7 @@ class StudyResults extends Component {
           if (!data.myStudyResults)
             return <p>No class found for {this.props.id}</p>;
           const { myStudyResults } = data;
+          console.log('myStudyResults', myStudyResults);
           return myStudyResults.map(result => (
             <ResultLine key={result.id} result={result} />
           ));

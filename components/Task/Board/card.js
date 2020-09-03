@@ -50,8 +50,8 @@ class TaskCard extends Component {
           </Link>
           <Link
             href={{
-              pathname: `/task/run`,
-              query: { id: task.id, policy: 'preview' },
+              pathname: `/task/preview`,
+              query: { id: task.id },
             }}
           >
             <a>
@@ -62,13 +62,15 @@ class TaskCard extends Component {
           </Link>
         </ContainerOnlyForProfile>
 
-        <Link href="/tasks/[slug]" as={`/tasks/${task.slug}`}>
-          <a>
-            <h2>
-              <button>Open</button>
-            </h2>
-          </a>
-        </Link>
+        {false && (
+          <Link href="/tasks/[slug]" as={`/tasks/${task.slug}`}>
+            <a>
+              <h2>
+                <button>Open</button>
+              </h2>
+            </a>
+          </Link>
+        )}
 
         <ContainerOnlyForAuthorizedScientists id={task.author.id}>
           <Link

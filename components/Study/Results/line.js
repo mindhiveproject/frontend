@@ -5,6 +5,8 @@ import moment from 'moment';
 import { saveAs } from 'file-saver';
 import { jsonToCSV } from 'react-papaparse';
 
+const pako = require('pako');
+
 const StyledResultLine = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -35,7 +37,21 @@ const StyledResultLine = styled.div`
 
 class ResultLine extends Component {
   download = res => {
-    const { data, study, user } = res;
+    const { study, user } = res;
+    let { data } = res;
+    const fullContent = res.fullData?.content;
+    const incrementalContent =
+      res.incrementalData.length && res.incrementalData.map(d => d.content);
+
+    if (fullContent) {
+      data = JSON.parse(pako.inflate(fullContent, { to: 'string' }));
+    }
+    if (!fullContent && incrementalContent && incrementalContent.length) {
+      data = incrementalContent
+        .map(p => JSON.parse(pako.inflate(p, { to: 'string' })))
+        .reduce((total, amount) => total.concat(amount), []);
+    }
+
     const name =
       (study &&
         study.title

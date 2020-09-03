@@ -43,8 +43,12 @@ class ParticipantSignup extends Component {
     study: this.props.study,
     info: {
       age: '',
-      zipcode: this.props.user && this.props.user.zipCode,
+      zipCode: this.props.user && this.props.user.zipCode,
       under18: this.props.user && this.props.user.under18,
+      agreeReceiveUpdates:
+        (this.props.user && this.props.user.agreeReceiveUpdates) || false,
+      confirmUsername: false,
+      agreeTermsConditions: false,
     },
   };
 
@@ -59,6 +63,15 @@ class ParticipantSignup extends Component {
       info: {
         ...this.state.info,
         [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  toggleState = e => {
+    this.setState({
+      info: {
+        ...this.state.info,
+        [e.target.name]: !this.state.info[e.target.name],
       },
     });
   };
@@ -86,27 +99,34 @@ class ParticipantSignup extends Component {
                   Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
                   return;
                 }
+
+                // redirect to the study page with the query parameter launch
                 if (this.props.redirect) {
-                  Router.push({
-                    pathname: '/task/run',
-                    as: `/task/run`,
-                    query: {
-                      id:
-                        this.props.study.tasks &&
-                        this.props.study.tasks.length &&
-                        this.props.study.tasks.map(task => task.id)[0],
-                      policy:
-                        (res &&
-                          res.data &&
-                          res.data.signUp &&
-                          res.data.signUp.info &&
-                          res.data.signUp.info[this.props.study.id] &&
-                          res.data.signUp.info[this.props.study.id].data) ||
-                        'fallback',
-                      study: this.props.study.id,
-                      s: this.props.redirect,
-                    },
-                  });
+                  this.props.onStartTheTask(this.props.firstTaskId);
+                  // Router.push(
+                  //   '/studies/[slug]?launch=true',
+                  //   `/studies/${this.props.redirect}?launch=true`
+                  // );
+                  // Router.push({
+                  //   pathname: '/task/run',
+                  //   as: `/task/run`,
+                  //   query: {
+                  //     id:
+                  //       this.props.study.tasks &&
+                  //       this.props.study.tasks.length &&
+                  //       this.props.study.tasks.map(task => task.id)[0],
+                  //     policy:
+                  //       (res &&
+                  //         res.data &&
+                  //         res.data.signUp &&
+                  //         res.data.signUp.info &&
+                  //         res.data.signUp.info[this.props.study.id] &&
+                  //         res.data.signUp.info[this.props.study.id].data) ||
+                  //       'fallback',
+                  //     study: this.props.study.id,
+                  //     s: this.props.redirect,
+                  //   },
+                  // });
                 } else {
                   Router.push({
                     pathname: `/study/all`,
@@ -188,13 +208,51 @@ class ParticipantSignup extends Component {
                         type="checkbox"
                         id="confirmUsername"
                         name="confirmUsername"
-                        value="checked"
+                        checked={this.state.info.confirmUsername}
+                        onChange={this.toggleState}
                         required
                       />
                       <span>
                         I confirm that my user name does not contain any
                         personally identifiable information (first and last
                         name).
+                      </span>
+                    </div>
+                  </label>
+                </div>
+
+                <div>
+                  <label htmlFor="agreeTermsConditions">
+                    <div className="checkboxField">
+                      <input
+                        type="checkbox"
+                        id="agreeTermsConditions"
+                        name="agreeTermsConditions"
+                        checked={this.state.info.agreeTermsConditions}
+                        onChange={this.toggleState}
+                        required
+                      />
+                      <span>I agree to the Terms and Conditions</span>
+                    </div>
+                  </label>
+                </div>
+
+                <div>
+                  <label htmlFor="agreeReceiveUpdates">
+                    <div className="checkboxField">
+                      <input
+                        type="checkbox"
+                        id="agreeReceiveUpdates"
+                        name="agreeReceiveUpdates"
+                        checked={this.state.info.agreeReceiveUpdates}
+                        onChange={this.toggleState}
+                      />
+                      <span>
+                        I agree to receive notifications and updates related to
+                        the studies I follow. NB: you can change your settings
+                        at any time in the Dashboard > Account Settings. If you
+                        uncheck this box, you will be asked to decide on a
+                        case-by-case basis.
                       </span>
                     </div>
                   </label>

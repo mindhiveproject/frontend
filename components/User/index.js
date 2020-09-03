@@ -135,7 +135,17 @@ const CURRENT_USER_RESULTS_QUERY = gql`
         }
       }
       image
-      info
+      generalInfo
+      tasksInfo
+      studiesInfo
+      consentsInfo
+      consentGivenFor {
+        id
+      }
+      authEmail {
+        id
+        email
+      }
     }
   }
 `;

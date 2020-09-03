@@ -23,7 +23,9 @@ class GetStarted extends Component {
         </h3>
         {this.props.study.settings &&
           this.props.study.settings.zipCode &&
-          !(this.props.info && this.props.info.zipcode) && (
+          !(
+            this.props.info && typeof this.props.info.zipCode !== 'undefined'
+          ) && (
             <div>
               <label htmlFor="zipCode">
                 <p>Your zip code</p>
@@ -37,7 +39,10 @@ class GetStarted extends Component {
             </div>
           )}
 
-        {!(this.props.info && this.props.info.englishComprehension) && (
+        {!(
+          this.props.info &&
+          typeof this.props.info.englishComprehension !== 'undefined'
+        ) && (
           <div>
             <label htmlFor="englishComprehension">
               <p>Do you understand basic instruction written in English?</p>
@@ -71,7 +76,9 @@ class GetStarted extends Component {
           </div>
         )}
 
-        {!(this.props.info && this.props.info.under18) && (
+        {!(
+          this.props.info && typeof this.props.info.under18 !== 'undefined'
+        ) && (
           <div>
             <label htmlFor="under18">
               <p>Are you under the age of 18?</p>
@@ -94,6 +101,28 @@ class GetStarted extends Component {
                   No
                 </button>
               </ResponseButtons>
+            </label>
+          </div>
+        )}
+
+        {true && (
+          <div>
+            <label htmlFor="sharePersonalDataWithOtherStudies">
+              <div className="checkboxField">
+                <input
+                  type="checkbox"
+                  id="sharePersonalDataWithOtherStudies"
+                  name="sharePersonalDataWithOtherStudies"
+                  checked={this.props.sharePersonalDataWithOtherStudies}
+                  onChange={this.props.toggleState}
+                />
+                <span>
+                  Save this info for future studies/tasks (if you uncheck this
+                  box, you will be asked these questions for each study/task;
+                  you can always change your settings under your Account
+                  Settings).
+                </span>
+              </div>
             </label>
           </div>
         )}

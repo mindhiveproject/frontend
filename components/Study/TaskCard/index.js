@@ -13,6 +13,25 @@ class TaskCard extends Component {
 
   render() {
     const { task } = this.props;
+
+    // find out completed and not completed tasks
+    // let nextTaskId;
+    // const fullResultsInThisStudy = this.props.user.results
+    //   .filter(
+    //     result =>
+    //       result.study &&
+    //       result.study.id === this.props.study.id &&
+    //       result.payload === 'full'
+    //   )
+    //   .map(result => result.task.id);
+    // const notCompletedTasks = this.props.study.tasks.filter(
+    //   task => !fullResultsInThisStudy.includes(task.id)
+    // );
+    // if (notCompletedTasks && notCompletedTasks.length > 1) {
+    //   nextTaskId = notCompletedTasks[1].id;
+    // }
+    // console.log('Line 34 - nextTaskId', nextTaskId);
+
     return (
       <StyledTaskCard>
         <h2>{task.title}</h2>
@@ -38,23 +57,13 @@ class TaskCard extends Component {
 
         {this.props.completed && <p>The task is already completed</p>}
         {!this.props.completed && !task.link && (
-          <Link
-            href={{
-              pathname: `/task/run`,
-              query: {
-                id: task.id,
-                policy: this.props.policy,
-                study: this.props.studyId,
-                s: this.props.studySlug,
-              },
-            }}
-          >
-            <button>
+          <>
+            <button onClick={() => this.props.onStartTheTask(task.id)}>
               <a>
                 <h2>Start</h2>
               </a>
             </button>
-          </Link>
+          </>
         )}
         {!this.props.completed && task.link && (
           <button>
@@ -71,3 +80,21 @@ class TaskCard extends Component {
 }
 
 export default TaskCard;
+
+// <Link
+//   href={{
+//     pathname: `/task/run`,
+//     query: {
+//       id: task.id,
+//       policy: this.props.policy,
+//       study: this.props.studyId,
+//       s: this.props.studySlug,
+//     },
+//   }}
+// >
+//   <button>
+//     <a>
+//       <h2>Start</h2>
+//     </a>
+//   </button>
+// </Link>

@@ -37,14 +37,9 @@ const GOOGLE_SIGNUP_MUTATION = gql`
 
 class GoogleSignup extends Component {
   state = {
-    user: this.props.user,
+    user: { ...this.props.user, agreeReceiveUpdates: true },
     study: this.props.study,
     class: this.props.class,
-    info: {
-      age: '',
-      zipcode: this.props.user && this.props.user.zipCode,
-      under18: this.props.user && this.props.user.under18,
-    },
   };
 
   googleResponse = async (e, signUp) => {
@@ -54,27 +49,27 @@ class GoogleSignup extends Component {
     console.log('res', res);
     if (this.props.onClose) this.props.onClose();
     if (this.props.redirect) {
-      // Router.push('/studies/[slug]', `/studies/${this.props.redirect}`);
-      Router.push({
-        pathname: '/task/run',
-        as: `/task/run`,
-        query: {
-          id:
-            this.props.study.tasks &&
-            this.props.study.tasks.length &&
-            this.props.study.tasks.map(task => task.id)[0],
-          policy:
-            (res &&
-              res.data &&
-              res.data.serviceSignUp &&
-              res.data.serviceSignUp.info &&
-              res.data.serviceSignUp.info[this.props.study.id] &&
-              res.data.serviceSignUp.info[this.props.study.id].data) ||
-            'fallback',
-          study: this.props.study.id,
-          s: this.props.redirect,
-        },
-      });
+      this.props.onStartTheTask(this.props.firstTaskId);
+      // Router.push({
+      //   pathname: '/task/run',
+      //   as: `/task/run`,
+      //   query: {
+      //     id:
+      //       this.props.study.tasks &&
+      //       this.props.study.tasks.length &&
+      //       this.props.study.tasks.map(task => task.id)[0],
+      //     policy:
+      //       (res &&
+      //         res.data &&
+      //         res.data.serviceSignUp &&
+      //         res.data.serviceSignUp.info &&
+      //         res.data.serviceSignUp.info[this.props.study.id] &&
+      //         res.data.serviceSignUp.info[this.props.study.id].data) ||
+      //       'fallback',
+      //     study: this.props.study.id,
+      //     s: this.props.redirect,
+      //   },
+      // });
     } else {
       Router.push({
         pathname: `/study/all`,

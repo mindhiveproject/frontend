@@ -13,6 +13,8 @@ exports.handler = async (event, context) => {
     policy
   );
   const { metadata, url, data } = JSON.parse(event.body);
+  const dataString = JSON.stringify(data);
+  console.log('dataString', dataString);
 
   const response = await axios({
     method: 'post',
@@ -29,6 +31,7 @@ exports.handler = async (event, context) => {
         experimentId: experiment,
         customExperimentId: custom === 'undefined' ? null : custom,
         data,
+        dataString,
         metadata: {
           id: metadata.id,
           payload: metadata.payload,
