@@ -18,6 +18,7 @@ class EditStudyForm extends Component {
       consentObtained: false,
       guestParticipation: false,
       zipCode: true,
+      proceedToFirstTask: false,
       ...this.props.study.settings,
     },
     image: this.props.study.image || '',
@@ -27,6 +28,7 @@ class EditStudyForm extends Component {
       { name: 'who' },
       { name: 'how' },
       { name: 'faq' },
+      { name: 'more' },
       { name: 'time' },
       { name: 'frequency' },
       { name: 'partners' },
@@ -34,6 +36,7 @@ class EditStudyForm extends Component {
       { name: 'contacts' },
       { name: 'consentForm' },
       { name: 'consentFormForParents' },
+      { name: 'thankYouMessage' },
     ],
     collaborators: (this.props.study.collaborators &&
       this.props.study.collaborators.map(c => c.username).length &&

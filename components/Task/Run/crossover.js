@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import {
   OnboardingForm,
   ResponseButtons,
@@ -7,6 +8,13 @@ import {
 
 class Crossover extends Component {
   render() {
+    const thankYouMessage =
+      this.props.study.info &&
+      this.props.study.info
+        .filter(i => i.name === 'thankYouMessage' && i.text)
+        .map(i => i.text)
+        .map(i => ReactHtmlParser(i));
+
     const isEmailAvailable =
       this.props.user?.authEmail &&
       this.props.user?.authEmail.length &&
@@ -57,6 +65,8 @@ class Crossover extends Component {
               )}
             </div>
           )}
+
+          {thankYouMessage}
 
           {isNextTask && (
             <button

@@ -49,27 +49,9 @@ class GoogleSignup extends Component {
     console.log('res', res);
     if (this.props.onClose) this.props.onClose();
     if (this.props.redirect) {
-      this.props.onStartTheTask(this.props.firstTaskId);
-      // Router.push({
-      //   pathname: '/task/run',
-      //   as: `/task/run`,
-      //   query: {
-      //     id:
-      //       this.props.study.tasks &&
-      //       this.props.study.tasks.length &&
-      //       this.props.study.tasks.map(task => task.id)[0],
-      //     policy:
-      //       (res &&
-      //         res.data &&
-      //         res.data.serviceSignUp &&
-      //         res.data.serviceSignUp.info &&
-      //         res.data.serviceSignUp.info[this.props.study.id] &&
-      //         res.data.serviceSignUp.info[this.props.study.id].data) ||
-      //       'fallback',
-      //     study: this.props.study.id,
-      //     s: this.props.redirect,
-      //   },
-      // });
+      if (this.props.study?.settings?.proceedToFirstTask) {
+        this.props.onStartTheTask(this.props.firstTaskId);
+      }
     } else {
       Router.push({
         pathname: `/study/all`,

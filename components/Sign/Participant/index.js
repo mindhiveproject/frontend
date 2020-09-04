@@ -99,34 +99,11 @@ class ParticipantSignup extends Component {
                   Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
                   return;
                 }
-
                 // redirect to the study page with the query parameter launch
                 if (this.props.redirect) {
-                  this.props.onStartTheTask(this.props.firstTaskId);
-                  // Router.push(
-                  //   '/studies/[slug]?launch=true',
-                  //   `/studies/${this.props.redirect}?launch=true`
-                  // );
-                  // Router.push({
-                  //   pathname: '/task/run',
-                  //   as: `/task/run`,
-                  //   query: {
-                  //     id:
-                  //       this.props.study.tasks &&
-                  //       this.props.study.tasks.length &&
-                  //       this.props.study.tasks.map(task => task.id)[0],
-                  //     policy:
-                  //       (res &&
-                  //         res.data &&
-                  //         res.data.signUp &&
-                  //         res.data.signUp.info &&
-                  //         res.data.signUp.info[this.props.study.id] &&
-                  //         res.data.signUp.info[this.props.study.id].data) ||
-                  //       'fallback',
-                  //     study: this.props.study.id,
-                  //     s: this.props.redirect,
-                  //   },
-                  // });
+                  if (this.props.study?.settings?.proceedToFirstTask) {
+                    this.props.onStartTheTask(this.props.firstTaskId);
+                  }
                 } else {
                   Router.push({
                     pathname: `/study/all`,

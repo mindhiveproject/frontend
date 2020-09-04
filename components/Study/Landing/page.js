@@ -67,6 +67,11 @@ class StudyParticipantPage extends Component {
       study.info
         .filter(i => i.name.startsWith('contact') && i.text)
         .map((i, n) => <div key={n}>{ReactHtmlParser(i.text)}</div>);
+    const more =
+      study.info &&
+      study.info
+        .filter(i => i.name === 'more')
+        .map(i => ReactHtmlParser(i.text));
 
     return (
       <>
@@ -194,6 +199,15 @@ class StudyParticipantPage extends Component {
                   ) : (
                     <div></div>
                   )}
+                  {more && more.length ? (
+                    <Menu.Item
+                      name="more"
+                      active={activeItem === 'more'}
+                      onClick={this.handleItemClick}
+                    />
+                  ) : (
+                    <div></div>
+                  )}
                 </Menu>
               </div>
 
@@ -239,6 +253,7 @@ class StudyParticipantPage extends Component {
                   </div>
                 )}
               </div>
+              <div>{activeItem === 'more' && <div>{more}</div>}</div>
             </div>
 
             <div className="studyTagsContacts">

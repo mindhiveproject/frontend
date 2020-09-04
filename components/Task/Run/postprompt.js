@@ -195,7 +195,7 @@ class PostPrompt extends Component {
                     </div>
                   </div>
 
-                  {this.state.data === 'science' && (
+                  {this.state.data === 'science' && task.consent && (
                     <div>
                       <p>
                         You agreed to use your data for scientific purposes,
@@ -229,7 +229,7 @@ class PostPrompt extends Component {
                     </div>
                   )}
 
-                  {this.state.data !== 'science' && (
+                  {!(this.state.data === 'science' && task.consent) && (
                     <button onClick={() => this.onNext()}>Next</button>
                   )}
                 </OnboardingForm>
@@ -239,6 +239,7 @@ class PostPrompt extends Component {
           return (
             <Crossover
               user={this.props.user}
+              study={this.props.study}
               onUpdateState={this.updateState}
               onToggleState={this.toggleState}
               agreeReceiveTaskUpdates={this.state.agreeReceiveTaskUpdates}

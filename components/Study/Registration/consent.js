@@ -32,6 +32,7 @@ const JOIN_STUDY = gql`
 class StudyConsent extends Component {
   getIntitialPage = () => {
     let page = 1; // demo questions
+    const { study } = this.props;
     // 2 - parent consent
     // 4 - study consent
     if (this.props.user.generalInfo?.sharePersonalDataWithOtherStudies) {
@@ -40,19 +41,23 @@ class StudyConsent extends Component {
         typeof this.props.user.generalInfo?.under18 !== 'undefined' &&
         typeof this.props.user.generalInfo?.englishComprehension !== 'undefined'
       ) {
-        if (this.props.user.generalInfo?.under18 === 'yes') {
-          page = 2;
-        } else {
-          // check whether the consent is already provided
-          const consentId = this.props?.study?.consent?.id;
-          const userConsent =
-            this.props.user?.consentsInfo &&
-            this.props.user.consentsInfo[consentId];
-          if (userConsent && userConsent.saveCoveredConsent) {
-            page = 5;
+        if (study.consent) {
+          if (this.props.user.generalInfo?.under18 === 'yes') {
+            page = 2;
           } else {
-            page = 4;
+            // check whether the consent is already provided
+            const consentId = this.props?.study?.consent?.id;
+            const userConsent =
+              this.props.user?.consentsInfo &&
+              this.props.user.consentsInfo[consentId];
+            if (userConsent && userConsent.saveCoveredConsent) {
+              page = 5;
+            } else {
+              page = 4;
+            }
           }
+        } else {
+          page = 5;
         }
       }
     }
@@ -117,36 +122,17 @@ class StudyConsent extends Component {
     // console.log('res', res);
     this.props.onClose();
 
-    this.props.onStartTheTask(this.props.firstTaskId);
-    // Router.push('/studies/[slug]', `/studies/${this.props.study.slug}`);
-    // Router.push({
-    //   pathname: '/task/run',
-    //   as: `/task/run`,
-    //   query: {
-    //     id:
-    //       this.props.study.tasks &&
-    //       this.props.study.tasks.length &&
-    //       this.props.study.tasks.map(task => task.id)[0],
-    //     policy: this.state.data || 'fallback',
-    //     study: this.props.study.id,
-    //     s: this.props.study.slug,
-    //   },
-    // });
+    if (this.props.study?.settings?.proceedToFirstTask) {
+      this.props.onStartTheTask(this.props.firstTaskId);
+    }
   };
 
   render() {
     const { study } = this.props;
     const { user } = this.props;
-    console.log('study', study);
-    console.log('user', user);
+    // console.log('128 study', study);
+    // console.log('user', user);
 
-    // const consentForm = this.props.study.info
-    //   .filter(i => i.name.startsWith('faq'))
-    //   .map(i => ({
-    //     key: `panel-${i.name}`,
-    //     title: i.header,
-    //     content: ReactHtmlParser(i.text),
-    //   }));
     return (
       <Mutation
         mutation={JOIN_STUDY}
@@ -171,13 +157,27 @@ class StudyConsent extends Component {
                   }
                   onNext={() => {
                     if (this.state.under18 && this.state.englishComprehension) {
-                      if (this.state.under18 === 'yes') {
-                        this.setState({ page: this.state.page + 1 });
-                      }
-                      if (this.state.under18 === 'no') {
-                        this.setState({ page: this.state.page + 3 });
+                      // if there is an IRB consent in the study
+                      if (study.consent) {
+                        if (this.state.under18 === 'yes') {
+                          this.setState({ page: this.state.page + 1 });
+                        }
+                        if (this.state.under18 === 'no') {
+                          this.setState({ page: this.state.page + 3 });
+                        }
+                      } else {
+                        // otherwise if there is no IRB consent, jump to the next stage
+                        this.setState({ page: this.state.page + 5 });
                       }
                     }
+                    // if (this.state.under18 && this.state.englishComprehension) {
+                    //   if (this.state.under18 === 'yes') {
+                    //     this.setState({ page: this.state.page + 1 });
+                    //   }
+                    //   if (this.state.under18 === 'no') {
+                    //     this.setState({ page: this.state.page + 3 });
+                    //   }
+                    // }
                   }}
                   onLogin={() => {
                     this.setState({ login: true });

@@ -31,6 +31,12 @@ class SettingBlock extends Component {
               The study was reviewed by IRB (Institutional review board)
             </label>
           )}
+          {name === 'proceedToFirstTask' && (
+            <label className="name" htmlFor={name}>
+              Participants automatically proceed to the first task after signing
+              in
+            </label>
+          )}
         </div>
       </StyledSettingsBlock>
     );

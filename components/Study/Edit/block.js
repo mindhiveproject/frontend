@@ -12,6 +12,7 @@ class InformationBlock extends Component {
         {name === 'how' && (
           <div>What do you expect the participants of your study to do?</div>
         )}
+        {name === 'more' && <div>More information</div>}
         {name === 'time' && <div>How long is your study?</div>}
         {name === 'frequency' && (
           <div>What is the frequency of your study?</div>
@@ -22,6 +23,9 @@ class InformationBlock extends Component {
         {name === 'consentForm' && <div>Consent form</div>}
         {name === 'consentFormForParents' && (
           <div>Consent form for parents</div>
+        )}
+        {name === 'thankYouMessage' && (
+          <div>Thank you message (shown at the end of each task)</div>
         )}
         {name.startsWith('faq') && (
           <div>
