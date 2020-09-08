@@ -38,6 +38,15 @@ const REVIEW_STUDY_QUERY = gql`
       }
       consent {
         id
+        title
+        studies {
+          id
+          title
+        }
+        tasks {
+          id
+          title
+        }
       }
     }
   }

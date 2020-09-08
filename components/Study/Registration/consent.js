@@ -202,18 +202,21 @@ class StudyConsent extends Component {
               <div id="page_3">
                 <ParentConsent
                   onClose={() => this.props.onClose()}
-                  consentFormText={
-                    study.info &&
-                    study.info.length &&
-                    study.info
-                      .filter(info => info.name === 'consentFormForParents')
-                      .map(info => info.text)
-                  }
                   title={this.props.study.title}
                   updateState={this.updateState}
                   onNext={e => {
                     this.saveJoinStudy(e, joinStudy, true);
                   }}
+                  consentFormText={
+                    study.info &&
+                    study.info.length &&
+                    study.info
+                      .filter(info => info.name === 'consentForm')
+                      .map(info => info.text)
+                  }
+                  consentTitle={study.consent?.title || []}
+                  coveredStudies={study.consent?.studies || []}
+                  coveredTasks={study.consent?.tasks || []}
                 />
               </div>
             )}
