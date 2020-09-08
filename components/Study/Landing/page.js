@@ -10,6 +10,7 @@ import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
 import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
 import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
 import { ContainerOnlyForParticipants } from '../../Permissions/Participant/index';
+import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
 import RegistrationFlow from '../Registration/index';
 
 import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
@@ -121,6 +122,21 @@ class StudyParticipantPage extends Component {
                   onStartExternalTask={this.props.onStartExternalTask}
                 />
               </ContainerOnlyForProfile>
+
+              <ContainerOnlyForScientists>
+                <Link
+                  href={{
+                    pathname: '/study/preview',
+                    query: { id: study.id },
+                  }}
+                >
+                  <a>
+                    <h2>
+                      <button>Preview</button>
+                    </h2>
+                  </a>
+                </Link>
+              </ContainerOnlyForScientists>
 
               <ContainerOnlyForNoProfile>
                 <button
