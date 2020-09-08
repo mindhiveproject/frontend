@@ -1,5 +1,51 @@
 import styled from 'styled-components';
 
+export const StyledDasboardPage = styled.div`
+  padding: 20px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  ${props => props.open && `transform: translateX(0);`};
+  header {
+    border-bottom: 5px solid ${props => props.theme.black};
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+  }
+  footer {
+    /* border-top: 10px double ${props => props.theme.black}; */
+    margin-top: 2rem;
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: auto;
+    align-items: end;
+    font-size: 3rem;
+    font-weight: 900;
+    p {
+      margin: 0;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* overflow: scroll; */
+  }
+  button {
+    font-weight: 500;
+    border: 1px solid grey;
+    border-radius: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 2rem;
+    padding: 0.8rem 1.5rem;
+    transform: skew(-2deg);
+    display: inline-block;
+    transition: all 0.5s;
+    &[disabled] {
+      opacity: 0.5;
+    }
+  }
+`;
+
 export const CartStyles = styled.div`
   padding: 20px;
   position: relative;

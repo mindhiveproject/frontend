@@ -77,11 +77,9 @@ const Nav = () => (
         <ContainerOnlyForProfile>
           <NavRightContainer>
             {me && (
-              <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
-                {toggleDashboard => (
-                  <NavButton onClick={toggleDashboard}>Dashboard</NavButton>
-                )}
-              </Mutation>
+              <Link href="/dashboard">
+                <NavButton>Dashboard</NavButton>
+              </Link>
             )}
           </NavRightContainer>
         </ContainerOnlyForProfile>
@@ -91,3 +89,9 @@ const Nav = () => (
 );
 
 export default Nav;
+
+// <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
+//   {toggleDashboard => (
+//     <NavButton onClick={toggleDashboard}>Dashboard</NavButton>
+//   )}
+// </Mutation>

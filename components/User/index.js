@@ -38,6 +38,10 @@ const USER_DASHBOARD_QUERY = gql`
           id
           title
         }
+        messages {
+          id
+          content
+        }
       }
       teacherIn {
         id
