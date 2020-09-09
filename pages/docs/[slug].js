@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Page from '../../components/Page/index';
+import Documents from '../../components/Documents/index';
 
 class Document extends Component {
   static async getInitialProps({ query }) {
@@ -21,18 +22,7 @@ class Document extends Component {
 
     return (
       <Page>
-        <article>
-          <h1>{title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: body }} />
-        </article>
-        <style jsx>{`
-          article {
-            margin: 0 auto;
-          }
-          h1 {
-            text-align: center;
-          }
-        `}</style>
+        <Documents date={date} title={title} body={body} />
       </Page>
     );
   }
