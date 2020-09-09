@@ -109,3 +109,7 @@ out/
 
 # Lambda functions
 /lambda
+
+# CMS docs
+content/docs
+public/img
