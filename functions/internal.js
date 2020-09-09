@@ -3,18 +3,23 @@ import { endpoint, prodEndpoint } from '../config';
 
 const axios = require('axios');
 const pako = require('pako');
+const LZUTF8 = require('lzutf8');
 
 exports.handler = async (event, context) => {
   // const serverUrl = endpoint;
   // console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-  const serverUrl =
-    process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+  const serverUrl = endpoint;
+  // const serverUrl =
+  //   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
   const { user, template, task, study, policy } = event.queryStringParameters;
 
   const { metadata, url, data } = JSON.parse(event.body);
 
   const dataRawString = JSON.stringify(data);
-  const dataString = pako.deflate(dataRawString, { to: 'string' });
+  // const dataString = pako.deflate(dataRawString, { to: 'string' });
+  const dataString = LZUTF8.compress(dataRawString, {
+    outputEncoding: 'StorageBinaryString',
+  });
 
   const response = await axios({
     method: 'post',
@@ -31,7 +36,6 @@ exports.handler = async (event, context) => {
         templateId: template,
         taskId: task === 'undefined' ? null : task,
         studyId: study === 'undefined' ? null : study,
-        data,
         dataString,
         metadata: {
           id: metadata.id,
