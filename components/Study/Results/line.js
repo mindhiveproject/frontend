@@ -5,7 +5,6 @@ import moment from 'moment';
 import { saveAs } from 'file-saver';
 import { jsonToCSV } from 'react-papaparse';
 
-const pako = require('pako');
 const LZUTF8 = require('lzutf8');
 
 const StyledResultLine = styled.div`
@@ -45,7 +44,6 @@ class ResultLine extends Component {
       res.incrementalData.length && res.incrementalData.map(d => d.content);
 
     if (fullContent) {
-      // data = JSON.parse(pako.inflate(fullContent, { to: 'string' }));
       data = JSON.parse(
         LZUTF8.decompress(fullContent, {
           inputEncoding: 'StorageBinaryString',
@@ -62,9 +60,6 @@ class ResultLine extends Component {
           )
         )
         .reduce((total, amount) => total.concat(amount), []);
-      // data = incrementalContent
-      //   .map(p => JSON.parse(pako.inflate(p, { to: 'string' })))
-      //   .reduce((total, amount) => total.concat(amount), []);
     }
 
     const name =

@@ -2,7 +2,6 @@ import { SUBMIT_RESULTS_FROM_API_MUTATION } from '../pages/api/save';
 import { endpoint, prodEndpoint } from '../config';
 
 const axios = require('axios');
-const pako = require('pako');
 const LZUTF8 = require('lzutf8');
 
 exports.handler = async (event, context) => {
@@ -16,7 +15,6 @@ exports.handler = async (event, context) => {
   const { metadata, url, data } = JSON.parse(event.body);
 
   const dataRawString = JSON.stringify(data);
-  // const dataString = pako.deflate(dataRawString, { to: 'string' });
   const dataString = LZUTF8.compress(dataRawString, {
     outputEncoding: 'StorageBinaryString',
   });

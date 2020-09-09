@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import ResultLine from './line';
 import Error from '../../ErrorMessage/index';
 
-const pako = require('pako');
+const LZUTF8 = require('lzutf8');
 
 const StyledResults = styled.div`
   .resultsHeader {
@@ -79,11 +79,21 @@ class TaskResults extends Component {
           result.incrementalData.length &&
           result.incrementalData.map(d => d.content);
         if (fullContent) {
-          data = JSON.parse(pako.inflate(fullContent, { to: 'string' }));
+          data = JSON.parse(
+            LZUTF8.decompress(fullContent, {
+              inputEncoding: 'StorageBinaryString',
+            })
+          );
         }
         if (!fullContent && incrementalContent && incrementalContent.length) {
           data = incrementalContent
-            .map(p => JSON.parse(pako.inflate(p, { to: 'string' })))
+            .map(p =>
+              JSON.parse(
+                LZUTF8.decompress(p, {
+                  inputEncoding: 'StorageBinaryString',
+                })
+              )
+            )
             .reduce((total, amount) => total.concat(amount), []);
         }
 
