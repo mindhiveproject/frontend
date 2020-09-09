@@ -14,7 +14,8 @@ class Document extends Component {
   }
 
   render() {
-    if (!this.props.document) return <div>Document not found</div>;
+    // if (!this.props.document) return <div>Document not found</div>;
+    console.log('this.props.document', this.props.document);
 
     const {
       attributes: { date, title, body },
