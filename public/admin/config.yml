@@ -4,6 +4,15 @@ backend:
 media_folder: public/img
 public_folder: img
 collections:
+  - name: "docs"
+    label: "Documents"
+    folder: 'content/docs'
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string', required: true }
+      - { label: 'Update Date', name: 'date', widget: 'datetime', required: true }
+      - { label: 'Content', name: 'content', widget: 'markdown', required: true }
   - name: "pages"
     label: "Pages"
     files:
