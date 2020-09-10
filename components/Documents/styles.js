@@ -36,6 +36,15 @@ export const StyledDocumentPage = styled.div`
     color: #1a1a1a;
   }
 
+  h3 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 32px;
+    color: #1a1a1a;
+  }
+
   .contents {
     display: grid;
     grid-auto-flow: column;
