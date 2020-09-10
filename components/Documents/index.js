@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import { Component } from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
 import ReactHtmlParser from 'react-html-parser';
+
+import { StyledDocumentPage } from './styles';
 
 class Document extends Component {
   render() {
@@ -12,9 +13,11 @@ class Document extends Component {
         <Head>
           <title>{title}</title>
         </Head>
-        <article>
-          <div>{ReactHtmlParser(content)}</div>
-        </article>
+
+        <StyledDocumentPage>
+          <h1>{title}</h1>
+          {ReactHtmlParser(content)}
+        </StyledDocumentPage>
       </>
     );
   }

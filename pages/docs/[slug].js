@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import marked from 'marked';
 import Page from '../../components/Page/index';
 import Document from '../../components/Documents/index';
 
@@ -23,9 +24,10 @@ export const getStaticProps = async ({ params: { slug } }) => {
     .readFileSync(path.join('content', 'docs', `${slug}.md`))
     .toString();
   const parsedMarkdown = matter(markdownWithMetadata);
+  const htmlString = marked(parsedMarkdown.content);
   return {
     props: {
-      content: parsedMarkdown.content,
+      content: htmlString,
       title: parsedMarkdown.data.title,
       date: parsedMarkdown.data.date.toString(),
     },
