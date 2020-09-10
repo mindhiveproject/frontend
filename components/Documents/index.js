@@ -4,20 +4,20 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import ReactHtmlParser from 'react-html-parser';
 
-class Onboarding extends Component {
+class Document extends Component {
   render() {
-    const { date, title, body } = this.props;
+    const { content, title, date } = this.props;
     return (
       <>
         <Head>
-          <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+          <title>{title}</title>
         </Head>
         <article>
-          <div>{ReactHtmlParser(body)}</div>
+          <div>{ReactHtmlParser(content)}</div>
         </article>
       </>
     );
   }
 }
 
-export default Onboarding;
+export default Document;
