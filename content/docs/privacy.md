@@ -1,6 +1,6 @@
 ---
 title: Privacy policy
-date: 2020-03-07T23:41:14.705Z
+date: 2020-09-09T22:41:14.705Z
 ---
 
 ## Preamble
@@ -29,7 +29,12 @@ Legitimate Interests (Article 6 (1) (f) GDPR) - Processing is necessary for the 
 </p>
 
 ## Security Precautions
+<p>
 We take appropriate technical and organisational measures in accordance with the legal requirements, taking into account the state of the art, the costs of implementation and the nature, scope, context and purposes of processing as well as the risk of varying likelihood and severity for the rights and freedoms of natural persons, in order to ensure a level of security appropriate to the risk.
+</p>
+<p>
 The measures include, in particular, safeguarding the confidentiality, integrity and availability of data by controlling physical and electronic access to the data as well as access to, input, transmission, securing and separation of the data. In addition, we have established procedures to ensure that data subjects' rights are respected, that data is erased, and that we are prepared to respond to data threats rapidly. Furthermore, we take the protection of personal data into account as early as the development or selection of hardware, software and service providers, in accordance with the principle of privacy by design and privacy by default.
+</p>
+<p>
 Masking of the IP address: If it is possible for us or the storage of the IP address is not necessary, we shorten or have your IP address shortened. When the IP address is shortened, also known as "IP masking", the last octet, i.e. the last two numbers of an IP address, is deleted (the IP address in this context is an identifier individually assigned to an Internet connection by the online access provider). With the shortening of the IP address, the identification of a person on the basis of their IP address is to be prevented or made considerably more difficult.
-SSL encryption (https): In order to protect your data transmitted via our online services in the best possible way, we use SSL encryption. You can recognize such encrypted connections by the prefix https:// in the address bar of your browser.
+</p>
