@@ -13,9 +13,3 @@
   to = "/tasks/[slug].html"
   status = 200
   force = true
-
-[[redirects]]
-  from = "/docs/*"
-  to = "/docs/[slug].html"
-  status = 200
-  force = true
