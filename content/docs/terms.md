@@ -1,5 +1,5 @@
 ---
-title: Terms
+title: MindHive Terms & Conditions
 date: 2020-09-10T20:01:48.286Z
 ---
 <p>
