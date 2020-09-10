@@ -35,4 +35,21 @@ export const StyledDocumentPage = styled.div`
     line-height: 32px;
     color: #1a1a1a;
   }
+
+  .contents {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(12, 1fr);
+    grid-column-gap: 30px;
+    a {
+      display: grid;
+      font-family: Lato;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+      text-decoration-line: underline;
+      color: #007c70;
+    }
+  }
 `;

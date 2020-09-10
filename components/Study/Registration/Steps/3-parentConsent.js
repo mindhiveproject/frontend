@@ -28,9 +28,7 @@ class ParentConsent extends Component {
 
         {this.props.coveredStudies.length || this.props.coveredTasks.length ? (
           <div>
-            <p>
-              Other studies and tasks on MindHive that belong to this protocol:
-            </p>
+            <p>Studies and tasks on MindHive that belong to this protocol:</p>
 
             {this.props.coveredStudies.length ? (
               <div>
