@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Error from '../../ErrorMessage/index';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 
-// import Signout from '../../Signout/index';
+import Signout from '../../Signout/index';
 // import LeaveStudy from '../../Study/Leave/index';
 // import UniversalBlock from './block';
 
@@ -30,6 +30,9 @@ class DashboardStatic extends Component {
                 studies={data.me.participantIn}
                 username={data.me.username}
               />
+              <footer>
+                <Signout />
+              </footer>
             </StyledDasboard>
           );
         }}

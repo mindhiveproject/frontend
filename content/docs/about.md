@@ -1,7 +1,8 @@
 ---
 title: About
-date: 2020-09-10T20:00:52.721Z
+date: 2020-09-09T22:41:14.705Z
 ---
+
 <p>
 MindHive is an online citizen science platform for human brain and behavior research for:
 </p>
