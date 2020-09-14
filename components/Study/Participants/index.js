@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
 
+import MessageSender from './message';
+
 const MY_STUDY_PARTICIPANTS_QUERY = gql`
   query MY_STUDY_PARTICIPANTS_QUERY($id: ID!) {
     myStudyParticipants(where: { id: $id }) {
@@ -50,24 +52,28 @@ class StudyParticipants extends Component {
           if (!participants.length) return <h2>No participants</h2>;
           console.log('participants', participants);
           return (
-            <Mutation
-              mutation={MAIL_MY_STUDY_PARTICIPANTS}
-              variables={{ id: this.props.id, info: this.state.info }}
-            >
-              {(mailParticipants, { loading, error }) => (
-                <div>
-                  <button onClick={mailParticipants}>Send email</button>
-                  {participants.map(participant => (
-                    <div key={participant.id} participant={participant}>
-                      {participant.username}{' '}
-                      {participant.authEmail.length
-                        ? participant.authEmail[0].email
-                        : ''}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </Mutation>
+            <div>
+              <MessageSender type="Study" id={this.props.id} />
+              <Mutation
+                mutation={MAIL_MY_STUDY_PARTICIPANTS}
+                variables={{ id: this.props.id, info: this.state.info }}
+              >
+                {(mailParticipants, { loading, error }) => (
+                  <div>
+                    <button onClick={mailParticipants}>Send email</button>
+
+                    {participants.map(participant => (
+                      <div key={participant.id} participant={participant}>
+                        {participant.username}{' '}
+                        {participant.authEmail.length
+                          ? participant.authEmail[0].email
+                          : ''}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </Mutation>
+            </div>
           );
         }}
       </Query>

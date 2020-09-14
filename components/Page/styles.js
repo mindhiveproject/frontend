@@ -11,6 +11,17 @@ export const StyledPage = styled.div`
   font-size: 1.5rem;
   line-height: 1.6;
 
+  display: grid;
+  margin: 0;
+  grid-gap: 10px;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'nav'
+    'main'
+    'footer';
+  grid-template-rows: auto 1fr auto;
+
   a {
     text-decoration: none;
     color: ${props => props.theme.black};
@@ -21,4 +32,5 @@ export const Inner = styled.div`
   max-width: ${props => props.theme.maxWidth};
   margin: 0 auto;
   padding: 2rem;
+  grid-area: main;
 `;

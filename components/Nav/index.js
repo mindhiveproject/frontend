@@ -44,6 +44,11 @@ const Nav = () => (
             <Link href="/study/my">
               <NavButton>Studies</NavButton>
             </Link>
+            {me && (
+              <Link href="/dashboard">
+                <NavButton>Dashboard</NavButton>
+              </Link>
+            )}
           </NavRightContainer>
         </ContainerOnlyForScientists>
 
@@ -52,6 +57,11 @@ const Nav = () => (
             <Link href="/classes/my">
               <NavButton>Classes</NavButton>
             </Link>
+            {me && (
+              <Link href="/dashboard">
+                <NavButton>Dashboard</NavButton>
+              </Link>
+            )}
           </NavRightContainer>
         </ContainerOnlyForTeachers>
 
@@ -63,6 +73,11 @@ const Nav = () => (
             <Link href="/onboarding">
               <NavButton>Student Onboarding</NavButton>
             </Link>
+            {me && (
+              <Link href="/dashboard">
+                <NavButton>Dashboard</NavButton>
+              </Link>
+            )}
           </NavRightContainer>
         </ContainerOnlyForStudents>
 
@@ -71,18 +86,25 @@ const Nav = () => (
             <Link href="/study/all">
               <NavButton>Research studies</NavButton>
             </Link>
-          </NavRightContainer>
-        </ContainerOnlyForParticipants>
-
-        <ContainerOnlyForProfile>
-          <NavRightContainer>
             {me && (
               <Link href="/dashboard">
                 <NavButton>Dashboard</NavButton>
               </Link>
             )}
           </NavRightContainer>
-        </ContainerOnlyForProfile>
+        </ContainerOnlyForParticipants>
+
+        {false && (
+          <ContainerOnlyForProfile>
+            <NavRightContainer>
+              {me && (
+                <Link href="/dashboard">
+                  <NavButton>Dashboard</NavButton>
+                </Link>
+              )}
+            </NavRightContainer>
+          </ContainerOnlyForProfile>
+        )}
       </NavStyles>
     )}
   </User>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 import Header from '../Header/index';
+import Footer from '../Footer/index';
 import Meta from '../Meta/index';
 
 import { StyledPage, Inner } from './styles';
@@ -20,9 +21,10 @@ const theme = {
 };
 
 const GlobalStyle = createGlobalStyle`
-  html {
+  html {
     box-sizing: border-box;
     font-size: 10px;
+    height: 100%;
   }
   *, *:before, *:after {
     box-sizing: inherit;
@@ -30,6 +32,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
+    display: grid;
+    height: 100%;
   }
 `;
 
@@ -41,6 +45,7 @@ class Page extends Component {
           <Meta />
           <Header />
           <Inner>{this.props.children}</Inner>
+          {false && <Footer />}
         </StyledPage>
         <GlobalStyle />
       </ThemeProvider>

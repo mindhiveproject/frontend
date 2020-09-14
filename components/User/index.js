@@ -34,6 +34,10 @@ const USER_DASHBOARD_QUERY = gql`
         id
         title
         slug
+        shortDescription
+        description
+        createdAt
+        image
         tasks {
           id
           title
@@ -41,6 +45,12 @@ const USER_DASHBOARD_QUERY = gql`
         messages {
           id
           content
+          author {
+            username
+          }
+          info
+          expireAt
+          createdAt
         }
       }
       teacherIn {

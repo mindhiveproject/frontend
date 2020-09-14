@@ -29,6 +29,8 @@ export const Logo = styled.a`
 `;
 
 export const StyledHeader = styled.header`
+  display: grid;
+  grid-area: nav;
   .bar {
     /* border-bottom: 3px solid ${props => props.theme.black}; */
     display: grid;
