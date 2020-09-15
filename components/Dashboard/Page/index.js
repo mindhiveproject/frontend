@@ -17,6 +17,7 @@ import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
 
 class DashboardStatic extends Component {
   render() {
+    console.log('this.props', this.props);
     return (
       <Query query={USER_DASHBOARD_QUERY}>
         {({ data, loading, error }) => {
@@ -30,9 +31,6 @@ class DashboardStatic extends Component {
                 studies={data.me.participantIn}
                 username={data.me.username}
               />
-              <footer>
-                <Signout />
-              </footer>
             </StyledDasboard>
           );
         }}

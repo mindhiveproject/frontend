@@ -1,5 +1,27 @@
 import styled from 'styled-components';
 
+export const StyledSidebar = styled.div`
+  display: grid;
+  grid-template-rows: 100px 4fr 1fr;
+  justify-items: center;
+  align-content: start;
+
+  .navLinks {
+    display: grid;
+    align-content: start;
+    grid-row-gap: 10px;
+  }
+  .navLink {
+    display: grid;
+    grid-template-columns: 10px auto;
+    grid-column-gap: 10px;
+    cursor: pointer;
+  }
+  footer {
+    display: grid;
+  }
+`;
+
 export const NavStyles = styled.ul`
   margin: 0;
   padding: 0;

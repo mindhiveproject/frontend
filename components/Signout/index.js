@@ -8,6 +8,8 @@ import {
   USER_DASHBOARD_QUERY,
 } from '../User/index';
 
+import { NavButton } from '../Nav/styles';
+
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
     signout {
@@ -26,7 +28,7 @@ const Signout = props => (
       { query: USER_DASHBOARD_QUERY },
     ]}
   >
-    {signout => <button onClick={signout}>Sign out</button>}
+    {signout => <NavButton onClick={signout}>Logoff</NavButton>}
   </Mutation>
 );
 

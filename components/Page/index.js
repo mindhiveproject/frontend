@@ -5,7 +5,7 @@ import Header from '../Header/index';
 import Footer from '../Footer/index';
 import Meta from '../Meta/index';
 
-import { StyledPage, Inner } from './styles';
+import { StyledPage, Inner, UserPage, UserInner } from './styles';
 
 const theme = {
   red: '#FF0000',
@@ -41,8 +41,8 @@ class Page extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
+        <Meta />
         <StyledPage>
-          <Meta />
           <Header />
           <Inner>{this.props.children}</Inner>
           {false && <Footer />}
@@ -54,5 +54,3 @@ class Page extends Component {
 }
 
 export default Page;
-
-// <GlobalStyle/>
