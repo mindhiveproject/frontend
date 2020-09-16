@@ -28,6 +28,9 @@ const SINGLE_STUDY_QUERY = gql`
         id
         username
       }
+      consent {
+        id
+      }
     }
   }
 `;
@@ -43,6 +46,7 @@ const UPDATE_STUDY = gql`
     $image: String
     $largeImage: String
     $collaborators: [String]
+    $consent: ID
   ) {
     updateStudy(
       id: $id
@@ -54,6 +58,7 @@ const UPDATE_STUDY = gql`
       image: $image
       largeImage: $largeImage
       collaborators: $collaborators
+      consent: $consent
     ) {
       id
       slug
@@ -63,6 +68,9 @@ const UPDATE_STUDY = gql`
       settings
       image
       largeImage
+      consent {
+        id
+      }
     }
   }
 `;
@@ -112,6 +120,7 @@ class UpdateStudy extends Component {
                     study={data.study}
                     onSubmit={this.update}
                     callback={updateStudy}
+                    consent={data.study.consent?.id}
                   />
                 )}
               </Mutation>

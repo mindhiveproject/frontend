@@ -35,6 +35,9 @@ const Nav = () => (
 
         <ContainerOnlyForScientists>
           <NavRightContainer>
+            <Link href="/irb/my">
+              <NavButton>IRB protocols</NavButton>
+            </Link>
             <Link href="/templates/my">
               <NavButton>Templates</NavButton>
             </Link>

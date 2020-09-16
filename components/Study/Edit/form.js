@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Query } from 'react-apollo';
 import Error from '../../ErrorMessage/index';
 import InformationBlock from './block';
 import SettingsBlock from './setting';
@@ -8,6 +9,8 @@ import {
   StyledTaskBlock,
   ControlButtons,
 } from '../../Task/styles';
+
+import { CONSENTS_QUERY } from '../../Task/Customize/taskForm';
 
 class EditStudyForm extends Component {
   state = {
@@ -34,13 +37,12 @@ class EditStudyForm extends Component {
       { name: 'partners' },
       { name: 'tags' },
       { name: 'contacts' },
-      { name: 'consentForm' },
-      { name: 'consentFormForParents' },
       { name: 'thankYouMessage' },
     ],
     collaborators: (this.props.study.collaborators &&
       this.props.study.collaborators.map(c => c.username).length &&
       this.props.study.collaborators.map(c => c.username)) || [''],
+    consent: this.props.consent || 'no',
   };
 
   handleChange = e => {
@@ -137,109 +139,144 @@ class EditStudyForm extends Component {
 
   render() {
     return (
-      <StyledTaskForm
-        onSubmit={e => this.props.onSubmit(e, this.state, this.props.callback)}
-      >
-        <h2>{this.props.title}</h2>
-        <Error error={this.props.error} />
-        <fieldset disabled={this.props.loading} aria-busy={this.props.loading}>
-          <ControlButtons>
-            <button type="submit">
-              Sav{this.props.loading ? 'ing' : 'e'} changes
-            </button>
-          </ControlButtons>
+      <Query query={CONSENTS_QUERY}>
+        {({ data, loading, error }) => {
+          if (loading) return <p>Loading ... </p>;
+          const { consents } = data;
+          console.log('consents', consents);
+          return (
+            <StyledTaskForm
+              onSubmit={e =>
+                this.props.onSubmit(e, this.state, this.props.callback)
+              }
+            >
+              <h2>{this.props.title}</h2>
+              <Error error={this.props.error} />
+              <fieldset
+                disabled={this.props.loading}
+                aria-busy={this.props.loading}
+              >
+                <ControlButtons>
+                  <button type="submit">
+                    Sav{this.props.loading ? 'ing' : 'e'} changes
+                  </button>
+                </ControlButtons>
 
-          <StyledTaskBlock>
-            <label htmlFor="title">
-              Title
-              <input
-                type="text"
-                id="title"
-                name="title"
-                placeholder="Title"
-                value={this.state.title}
-                onChange={this.handleChange}
-                required
-              />
-            </label>
-            <label htmlFor="file">
-              Image
-              <input
-                type="file"
-                id="file"
-                name="file"
-                placeholder="Upload an image"
-                value={this.state.file}
-                onChange={this.uploadFile}
-              />
-              {this.state.image && (
-                <img width="200" src={this.state.image} alt="Upload preview" />
-              )}
-            </label>
-            <label htmlFor="shortDescription">
-              Description for researchers
-              <textarea
-                id="shortDescription"
-                name="shortDescription"
-                placeholder="Short description"
-                value={this.state.shortDescription}
-                onChange={this.handleChange}
-                rows="5"
-              />
-            </label>
-            <label htmlFor="description">
-              Description for participants
-              <textarea
-                id="description"
-                name="description"
-                placeholder="Description"
-                value={this.state.description}
-                onChange={this.handleChange}
-              />
-            </label>
-          </StyledTaskBlock>
+                <StyledTaskBlock>
+                  <label htmlFor="title">
+                    Title
+                    <input
+                      type="text"
+                      id="title"
+                      name="title"
+                      placeholder="Title"
+                      value={this.state.title}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </label>
 
-          <h2>Study collaborators (enter usernames)</h2>
-          {this.state.collaborators.map((name, i) => (
-            <input
-              key={i}
-              name={i}
-              value={this.state.collaborators[i]}
-              onChange={this.handleCollaboratorsChange}
-            />
-          ))}
+                  <h2>IRB consent</h2>
+                  <select
+                    type="text"
+                    id="consent"
+                    name="consent"
+                    value={this.state.consent}
+                    onChange={this.handleChange}
+                  >
+                    <option value="no">Choose the consent form</option>
+                    {consents.map(consent => (
+                      <option key={consent.id} value={consent.id}>
+                        {consent.title}
+                      </option>
+                    ))}
+                  </select>
 
-          <h2>Study settings</h2>
+                  <label htmlFor="file">
+                    Image
+                    <input
+                      type="file"
+                      id="file"
+                      name="file"
+                      placeholder="Upload an image"
+                      value={this.state.file}
+                      onChange={this.uploadFile}
+                    />
+                    {this.state.image && (
+                      <img
+                        width="200"
+                        src={this.state.image}
+                        alt="Upload preview"
+                      />
+                    )}
+                  </label>
+                  <label htmlFor="shortDescription">
+                    Description for researchers
+                    <textarea
+                      id="shortDescription"
+                      name="shortDescription"
+                      placeholder="Short description"
+                      value={this.state.shortDescription}
+                      onChange={this.handleChange}
+                      rows="5"
+                    />
+                  </label>
+                  <label htmlFor="description">
+                    Description for participants
+                    <textarea
+                      id="description"
+                      name="description"
+                      placeholder="Description"
+                      value={this.state.description}
+                      onChange={this.handleChange}
+                    />
+                  </label>
+                </StyledTaskBlock>
 
-          {Object.keys(this.state.settings).map((name, i) => (
-            <SettingsBlock
-              key={i}
-              name={name}
-              value={this.state.settings[name]}
-              onChange={this.handleSettingsChange}
-            />
-          ))}
+                <h2>Study collaborators (enter usernames)</h2>
+                {this.state.collaborators.map((name, i) => (
+                  <input
+                    key={i}
+                    name={i}
+                    value={this.state.collaborators[i]}
+                    onChange={this.handleCollaboratorsChange}
+                  />
+                ))}
 
-          <h2>Information about the study</h2>
+                <h2>Study settings</h2>
 
-          {this.state.info.map((block, i) => (
-            <InformationBlock
-              key={i}
-              block={block}
-              onDelete={this.deleteParameter}
-              onChange={this.handleInfoChange}
-              onFileChange={this.uploadFileForInfo}
-            />
-          ))}
+                {Object.keys(this.state.settings).map((name, i) => (
+                  <SettingsBlock
+                    key={i}
+                    name={name}
+                    value={this.state.settings[name]}
+                    onChange={this.handleSettingsChange}
+                  />
+                ))}
 
-          <div>
-            <input type="text" id="newParameterName" />
-            <button onClick={this.handleAddNewParameter}>
-              Add new information block
-            </button>
-          </div>
-        </fieldset>
-      </StyledTaskForm>
+                <h2>Information about the study</h2>
+
+                {this.state.info.map((block, i) => (
+                  <InformationBlock
+                    key={i}
+                    block={block}
+                    onDelete={this.deleteParameter}
+                    onChange={this.handleInfoChange}
+                    onFileChange={this.uploadFileForInfo}
+                  />
+                ))}
+
+                <div>
+                  <input type="text" id="newParameterName" />
+                  <button onClick={this.handleAddNewParameter}>
+                    Add new information block
+                  </button>
+                </div>
+              </fieldset>
+            </StyledTaskForm>
+          );
+        }}
+      </Query>
     );
   }
 }

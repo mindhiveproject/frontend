@@ -243,3 +243,4 @@ class TaskForm extends Component {
 }
 
 export default TaskForm;
+export { CONSENTS_QUERY };

@@ -18,6 +18,7 @@ const CREATE_NEW_STUDY = gql`
     $info: Json
     $image: String
     $largeImage: String
+    $consent: ID
   ) {
     createStudy(
       title: $title
@@ -27,6 +28,7 @@ const CREATE_NEW_STUDY = gql`
       info: $info
       image: $image
       largeImage: $largeImage
+      consent: $consent
     ) {
       id
       slug
