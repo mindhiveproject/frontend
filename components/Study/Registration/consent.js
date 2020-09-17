@@ -20,6 +20,7 @@ import PreParentConsent from './Steps/2-preParentConsent';
 import ParentConsent from './Steps/3-parentConsent';
 import StudyConsentForm from './Steps/4-studyConsent';
 import StudyConsentFormText from './Steps/5-studyConsentText';
+import JoinStudy from './Steps/6-joinStudy';
 
 const JOIN_STUDY = gql`
   mutation JOIN_STUDY($id: ID!, $info: Json, $user: Json, $study: Json) {
@@ -33,6 +34,7 @@ class StudyConsent extends Component {
   getIntitialPage = () => {
     let page = 1; // demo questions
     const { study } = this.props;
+    console.log('study on 36', study);
     // 2 - parent consent
     // 4 - study consent
     if (this.props.user.generalInfo?.sharePersonalDataWithOtherStudies) {
@@ -57,7 +59,7 @@ class StudyConsent extends Component {
             }
           }
         } else {
-          page = 5;
+          page = 6;
         }
       }
     }
@@ -241,7 +243,7 @@ class StudyConsent extends Component {
             )}
 
             {this.state.page == 5 && (
-              <div id="page_4">
+              <div id="page_5">
                 <StudyConsentFormText
                   onClose={() => this.props.onClose()}
                   title={study.title}
@@ -255,6 +257,17 @@ class StudyConsent extends Component {
                   toggleState={this.toggleState}
                   saveCoveredConsent={this.state.saveCoveredConsent}
                   showCloseButton
+                />
+              </div>
+            )}
+
+            {this.state.page == 6 && (
+              <div id="page_6">
+                <JoinStudy
+                  onClose={() => this.props.onClose()}
+                  onNext={e => {
+                    this.saveJoinStudy(e, joinStudy, false);
+                  }}
                 />
               </div>
             )}

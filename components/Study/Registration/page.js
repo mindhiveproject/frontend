@@ -94,7 +94,9 @@ class RegistrationPage extends Component {
                     onNext={() => {
                       if (
                         this.state.under18 &&
-                        this.state.englishComprehension
+                        this.state.englishComprehension &&
+                        (this.state.zipCode ||
+                          !this.props.study.settings.zipCode)
                       ) {
                         // if there is an IRB consent in the study
                         if (study.consent) {

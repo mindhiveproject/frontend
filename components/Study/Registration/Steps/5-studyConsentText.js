@@ -7,9 +7,8 @@ import { OnboardingHeader, StyledConsentForm } from '../../styles';
 class StudyConsentForm extends Component {
   render() {
     const { consent } = this.props;
-    const { info } = consent;
     const regularAdultsConsent =
-      info
+      consent?.info
         .filter(info => info.name === 'regularAdults')
         .map(info => info.text) || '';
 
