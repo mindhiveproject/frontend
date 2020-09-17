@@ -244,6 +244,14 @@ export const OnboardingForm = styled.div`
       color: #666666;
     }
   }
+  .buttonsHolder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+  }
+  .emailInput {
+    width: 300px;
+  }
 `;
 
 export const ResponseButtons = styled.div`
@@ -586,5 +594,18 @@ export const StyledSettingsBlock = styled.div`
     color: #aa4747;
     width: fit-content;
     border: 1px solid grey;
+  }
+`;
+
+export const StyledConsentForm = styled.div`
+  display: grid;
+  .coveredStudiesAndTasks {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .buttonsHolder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
   }
 `;

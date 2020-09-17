@@ -25,7 +25,7 @@ import GetStarted from './Steps/1-getStarted';
 import PreParentConsent from './Steps/2-preParentConsent';
 import ParentConsent from './Steps/3-parentConsent';
 import StudyConsentForm from './Steps/4-studyConsent';
-import DataUsage from './Steps/5-dataUsage';
+import StudyConsentFormText from './Steps/5-studyConsentText';
 
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
@@ -162,30 +162,41 @@ class RegistrationPage extends Component {
                   <StudyConsentForm
                     onClose={() => this.props.onClose()}
                     title={study.title}
-                    consentTitle={study.consent?.title || []}
-                    coveredStudies={study.consent?.studies || []}
-                    coveredTasks={study.consent?.tasks || []}
+                    consent={study.consent}
                     onNext={() =>
                       this.setState({
                         consentGiven: true,
-                        page: this.state.page + 2,
+                        page: this.state.page + 1,
+                      })
+                    }
+                    toggleState={this.toggleState}
+                    saveCoveredConsent={this.state.saveCoveredConsent}
+                    showCloseButton
+                  />
+                </div>
+              )}
+
+              {this.state.page == 5 && (
+                <div id="page_5">
+                  <StudyConsentFormText
+                    onClose={() => this.props.onClose()}
+                    title={study.title}
+                    consent={study.consent}
+                    onNext={() =>
+                      this.setState({
+                        consentGiven: true,
+                        page: this.state.page + 1,
                       })
                     }
                     onSkip={() =>
                       this.setState({
                         consentGiven: false,
-                        page: this.state.page + 2,
+                        page: this.state.page + 1,
                       })
-                    }
-                    consentFormText={
-                      study.info &&
-                      study.info.length &&
-                      study.info
-                        .filter(info => info.name === 'consentForm')
-                        .map(info => info.text)
                     }
                     toggleState={this.toggleState}
                     saveCoveredConsent={this.state.saveCoveredConsent}
+                    showCloseButton
                   />
                 </div>
               )}

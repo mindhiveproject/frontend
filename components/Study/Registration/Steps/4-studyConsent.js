@@ -2,60 +2,65 @@ import React, { Component } from 'react';
 import styled from '@react-pdf/styled-components';
 import ReactHtmlParser from 'react-html-parser';
 
-import { OnboardingHeader } from '../../styles';
+import { OnboardingHeader, StyledConsentForm } from '../../styles';
 
 class StudyConsentForm extends Component {
   render() {
-    console.log('this.props', this.props);
+    const { consent } = this.props;
     return (
-      <div>
-        <OnboardingHeader>
-          <div>Study consent</div>
-          <a
-            style={{ cursor: 'pointer', textAlign: 'end' }}
-            onClick={this.props.onClose}
-          >
-            &times;
-          </a>
-        </OnboardingHeader>
+      <StyledConsentForm>
+        {this.props.showCloseButton && (
+          <OnboardingHeader>
+            <div>Study consent</div>
+            <a
+              style={{ cursor: 'pointer', textAlign: 'end' }}
+              onClick={this.props.onClose}
+            >
+              &times;
+            </a>
+          </OnboardingHeader>
+        )}
+
         <h1>Study consent</h1>
 
         <div>
           <p>
-            This study <strong>{this.props.title}</strong> is covered under{' '}
-            <strong>{this.props.consentTitle}</strong>. Before proceeding,
-            please review the consent form here and save a copy for your
-            records.
+            This study is part of the <strong>{consent.organization}</strong>{' '}
+            research protocol <strong>{consent.title}</strong>.
           </p>
 
-          <p>{ReactHtmlParser(this.props.consentFormText)}</p>
-
-          {this.props.coveredStudies.length ||
-          this.props.coveredTasks.length ? (
+          {consent.studies.length || consent.tasks.length ? (
             <div>
-              <p>Studies and tasks on MindHive that belong to this protocol:</p>
+              <p>
+                Studies and tasks on MindHive that are covered under this
+                protocol include:
+              </p>
 
-              {this.props.coveredStudies.length ? (
-                <div>
-                  <p>Studies</p>
-                  {this.props.coveredStudies.map(study => (
-                    <li key={study.id}>{study.title}</li>
-                  ))}
-                </div>
-              ) : (
-                <div></div>
-              )}
+              <div className="coveredStudiesAndTasks">
+                {consent.studies.length ? (
+                  <div>
+                    <p>Studies</p>
+                    {consent.studies.map(study => (
+                      <li key={study.id}>{study.title}</li>
+                    ))}
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
 
-              {this.props.coveredTasks.length ? (
-                <div>
-                  <p>Tasks</p>
-                  {this.props.coveredTasks.map(task => (
-                    <li key={task.id}>{task.title}</li>
-                  ))}
-                </div>
-              ) : (
-                <div></div>
-              )}
+              <div className="coveredStudiesAndTasks">
+                {consent.tasks.length ? (
+                  <div>
+                    <p>Tasks</p>
+                    {consent.tasks.map(task => (
+                      <li key={task.id}>{task.title}</li>
+                    ))}
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
             </div>
           ) : (
             <div></div>
@@ -83,9 +88,8 @@ class StudyConsentForm extends Component {
           )}
         </div>
 
-        <button onClick={this.props.onNext}>I agree, next</button>
-        <button onClick={this.props.onSkip}>Skip consent</button>
-      </div>
+        <button onClick={this.props.onNext}>Next</button>
+      </StyledConsentForm>
     );
   }
 }

@@ -7,36 +7,6 @@ import RegistrationPage from './page';
 
 import { StyledStudy } from '../styles';
 
-// const REVIEW_STUDY_QUERY = gql`
-//   query REVIEW_STUDY_QUERY($id: ID!) {
-//     study(where: { id: $id }) {
-//       id
-//       slug
-//       title
-//       description
-//       settings
-//       info
-//       tasks {
-//         id
-//         title
-//         link
-//       }
-//       consent {
-//         id
-//         title
-//         studies {
-//           id
-//           title
-//         }
-//         tasks {
-//           id
-//           title
-//         }
-//       }
-//     }
-//   }
-// `;
-
 class RegistrationFlow extends Component {
   render() {
     return (
@@ -51,4 +21,3 @@ class RegistrationFlow extends Component {
 }
 
 export default RegistrationFlow;
-// export { REVIEW_STUDY_QUERY };

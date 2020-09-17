@@ -50,6 +50,7 @@ class Crossover extends Component {
                   <label htmlFor="email">
                     <p>Please enter your email address here: </p>
                     <input
+                      className="emailInput"
                       type="email"
                       name="email"
                       placeholder="Enter your email"
@@ -68,30 +69,32 @@ class Crossover extends Component {
 
           {thankYouMessage}
 
-          {isNextTask && (
+          <div className="buttonsHolder">
+            {isNextTask && (
+              <button
+                onClick={e =>
+                  this.props.onSubmit(
+                    e,
+                    this.props.updateResultMutation,
+                    'nextTask'
+                  )
+                }
+              >
+                Proceed to the next task
+              </button>
+            )}
             <button
               onClick={e =>
                 this.props.onSubmit(
                   e,
                   this.props.updateResultMutation,
-                  'nextTask'
+                  'studyPage'
                 )
               }
             >
-              Proceed to the next task
+              Go back to the main study page
             </button>
-          )}
-          <button
-            onClick={e =>
-              this.props.onSubmit(
-                e,
-                this.props.updateResultMutation,
-                'studyPage'
-              )
-            }
-          >
-            Go back to the main study page
-          </button>
+          </div>
         </OnboardingForm>
       </div>
     );

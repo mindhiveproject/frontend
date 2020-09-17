@@ -32,6 +32,9 @@ const TASK_QUERY = gql`
       consent {
         id
         title
+        organization
+        info
+        settings
         studies {
           id
           title

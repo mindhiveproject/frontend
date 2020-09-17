@@ -11,6 +11,7 @@ import {
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import Crossover from './crossover';
 import StudyConsentForm from '../../Study/Registration/Steps/4-studyConsent';
+import StudyConsentFormText from '../../Study/Registration/Steps/5-studyConsentText';
 
 const UPDATE_RESULTS_INFO_MUTATION = gql`
   mutation UPDATE_RESULTS_INFO_MUTATION($id: ID!, $info: Json) {
@@ -23,7 +24,6 @@ const UPDATE_RESULTS_INFO_MUTATION = gql`
 class PostPrompt extends Component {
   checkConsent = () => {
     const { consent } = this.props.task;
-    console.log('consent', consent);
     console.log(
       'this.props.user.consentGivenFor',
       this.props.user.consentGivenFor
@@ -69,6 +69,8 @@ class PostPrompt extends Component {
     consentResponseGiven: this.checkConsent(),
     saveCoveredConsent: true,
     nextTaskId: this.checkNextTaskId(),
+    dataResponseGiven: false,
+    page: 1,
   };
 
   updateState = e => {
@@ -85,7 +87,7 @@ class PostPrompt extends Component {
 
   onNext = () => {
     this.setState({
-      consentResponseGiven: true,
+      dataResponseGiven: true,
     });
   };
 
@@ -137,7 +139,8 @@ class PostPrompt extends Component {
           const { study, user, task } = this.props;
           console.log('study, user, task', study, user, task);
 
-          if (!this.state.consentResponseGiven) {
+          // always show data usage prompt
+          if (!this.state.dataResponseGiven) {
             return (
               <div>
                 <OnboardingForm>
@@ -195,39 +198,65 @@ class PostPrompt extends Component {
                     </div>
                   </div>
 
-                  {this.state.data === 'science' && task.consent && (
-                    <div>
-                      <p>
-                        You agreed to use your data for scientific purposes,
-                        please consider providing consent.
-                      </p>
-                      <StudyConsentForm
-                        onClose={() => {
-                          console.log('closing');
-                        }}
-                        title={study.title}
-                        consentTitle={task.consent?.title}
-                        coveredStudies={task.consent?.studies || []}
-                        coveredTasks={task.consent?.tasks || []}
-                        onNext={e => {
-                          this.setState({
-                            consentGiven: true,
-                            consentId: task.consent?.id,
-                          });
-                          this.onNext();
-                        }}
-                        onSkip={e => {
-                          this.setState({
-                            consentGiven: false,
-                          });
-                          this.onNext();
-                        }}
-                        consentFormText="bla bla"
-                        toggleState={this.toggleState}
-                        saveCoveredConsent={this.state.saveCoveredConsent}
-                      />
-                    </div>
-                  )}
+                  {this.state.data === 'science' &&
+                    task.consent &&
+                    this.state.page === 1 && (
+                      <div>
+                        <p>
+                          You agreed to use your data for scientific purposes,
+                          please consider providing consent.
+                        </p>
+                        <StudyConsentForm
+                          onClose={() => {
+                            console.log('closing');
+                          }}
+                          title={study.title}
+                          consent={task.consent}
+                          onNext={() =>
+                            this.setState({
+                              page: this.state.page + 1,
+                            })
+                          }
+                          toggleState={this.toggleState}
+                          saveCoveredConsent={this.state.saveCoveredConsent}
+                          showCloseButton={false}
+                        />
+                      </div>
+                    )}
+
+                  {this.state.data === 'science' &&
+                    task.consent &&
+                    this.state.page === 2 && (
+                      <div>
+                        <p>
+                          You agreed to use your data for scientific purposes,
+                          please consider providing consent.
+                        </p>
+                        <StudyConsentFormText
+                          onClose={() => {
+                            console.log('closing');
+                          }}
+                          title={study.title}
+                          consent={task.consent}
+                          onNext={e => {
+                            this.setState({
+                              consentGiven: true,
+                              consentId: task.consent?.id,
+                            });
+                            this.onNext();
+                          }}
+                          onSkip={e => {
+                            this.setState({
+                              consentGiven: false,
+                            });
+                            this.onNext();
+                          }}
+                          toggleState={this.toggleState}
+                          saveCoveredConsent={this.state.saveCoveredConsent}
+                          showCloseButton={false}
+                        />
+                      </div>
+                    )}
 
                   {!(this.state.data === 'science' && task.consent) && (
                     <button onClick={() => this.onNext()}>Next</button>
@@ -255,52 +284,3 @@ class PostPrompt extends Component {
 }
 
 export default PostPrompt;
-
-// {false && (
-//   <>
-//     <p>
-//       Before proceeding, we'd like to confirm with you that
-//       you're ok with other MindHive researchers linking your
-//       responses to their study. This will prevent that you
-//       have to answer the same questions multiple times.
-//     </p>
-//     <p>
-//       Recall that (a) you always have to right to request that
-//       your data be removed, at any time and for any reason (b)
-//       we will never sell your data (c) we will never share any
-//       identifiable data (name, email address, etc.).
-//     </p>
-//     <div>
-//       <div className="checkboxField">
-//         <input
-//           type="radio"
-//           id="linkToAll"
-//           name="linking"
-//           value="all"
-//           onChange={this.updateState}
-//           checked={this.state.linking === 'all'}
-//         />
-//         <label htmlFor="linkToAll">
-//           Other researchers may link my MindHive data to their
-//           study
-//         </label>
-//       </div>
-//     </div>
-//     <div>
-//       <div className="checkboxField">
-//         <input
-//           type="radio"
-//           id="linkToStudy"
-//           name="linking"
-//           value="study"
-//           onChange={this.updateState}
-//           checked={this.state.linking === 'study'}
-//         />
-//         <label htmlFor="linkToStudy">
-//           I only want my data to be linked to the study{' '}
-//           {this.props.slug}
-//         </label>
-//       </div>
-//     </div>
-//   </>
-// )}
