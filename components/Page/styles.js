@@ -51,7 +51,7 @@ export const StyledPage = styled.div`
     'nav'
     'main'
     'footer';
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr 489px;
 
   a {
     text-decoration: none;
@@ -64,4 +64,5 @@ export const Inner = styled.div`
   margin: 0 auto;
   padding: 2rem;
   grid-area: main;
+  margin-bottom: 93px;
 `;

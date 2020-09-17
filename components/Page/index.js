@@ -45,7 +45,7 @@ class Page extends Component {
         <StyledPage>
           <Header />
           <Inner>{this.props.children}</Inner>
-          {false && <Footer />}
+          <Footer />
         </StyledPage>
         <GlobalStyle />
       </ThemeProvider>

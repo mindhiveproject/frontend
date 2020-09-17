@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { StyledFooter } from './styles';
 
 const Footer = () => (
@@ -18,10 +19,21 @@ const Footer = () => (
     </div>
 
     <div className="linksPanel">
-      <p>About</p>
-      <p>Contact</p>
-      <p>Privacy Policy</p>
-      <p>Terms & Conditions</p>
+      <Link href="/docs/about">
+        <p className="link">About</p>
+      </Link>
+
+      <Link href="/docs/contacts">
+        <p className="link">Contact</p>
+      </Link>
+
+      <Link href="/docs/privacy">
+        <p className="link">Privacy Policy</p>
+      </Link>
+
+      <Link href="/docs/terms">
+        <p className="link">Terms & Conditions</p>
+      </Link>
     </div>
   </StyledFooter>
 );

@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const StyledFooter = styled.div`
   display: grid;
+  align-content: center;
   grid-area: footer;
-
   background: #052c39;
   font-family: Lato;
   font-style: normal;
@@ -11,21 +11,32 @@ export const StyledFooter = styled.div`
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
-
   grid-template-columns: 1fr 1fr;
-  justify-content: space-between;
-  align-items: stretch;
-  @media (max-width: 375px) {
+
+  @media (max-width: 500px) {
     grid-template-columns: 1fr;
     justify-content: center;
   }
 
   .infoPanel {
-    /* display: grid; */
-    padding: 50px;
+    display: grid;
+    max-width: 374px;
+    margin: 0 auto;
+    justify-content: center;
+    @media (max-width: 500px) {
+      justify-content: start;
+      margin: 10px;
+    }
   }
   .linksPanel {
-    /* display: grid; */
-    padding: 50px;
+    display: grid;
+    justify-content: center;
+    @media (max-width: 500px) {
+      justify-content: start;
+      margin: 10px;
+    }
+  }
+  .link {
+    cursor: pointer;
   }
 `;
