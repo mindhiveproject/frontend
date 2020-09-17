@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Logo } from '../../../Header/styles';
+
 import { ResponseButtons, OnboardingHeader } from '../../styles';
 
 class GetStarted extends Component {
@@ -7,6 +9,11 @@ class GetStarted extends Component {
     return (
       <div>
         <OnboardingHeader>
+          <Logo>
+            <div className="logo">
+              <img src="/static/MindHive_logo.png" alt="icon" height="30" />
+            </div>
+          </Logo>
           <div>Let's get started</div>
           <a
             style={{ cursor: 'pointer', textAlign: 'end' }}
@@ -15,6 +22,7 @@ class GetStarted extends Component {
             &times;
           </a>
         </OnboardingHeader>
+
         <h1>Let's get started</h1>
         <h3>
           We are glad that you are interested in participating in "

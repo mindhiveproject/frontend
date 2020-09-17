@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import { Accordion } from 'semantic-ui-react';
 import ReactHtmlParser from 'react-html-parser';
 import { ResponseButtons, OnboardingHeader } from '../../styles';
+import { Logo } from '../../../Header/styles';
 
 class ParentConsent extends Component {
   render() {
     return (
       <div>
         <OnboardingHeader>
+          <Logo>
+            <div className="logo">
+              <img src="/static/MindHive_logo.png" alt="icon" height="30" />
+            </div>
+          </Logo>
           <div>Study consent</div>
           <a
             style={{ cursor: 'pointer', textAlign: 'end' }}

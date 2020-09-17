@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ResponseButtons, OnboardingHeader } from '../../styles';
+import { Logo } from '../../../Header/styles';
 
 class DataUsage extends Component {
   render() {
@@ -8,6 +9,11 @@ class DataUsage extends Component {
         {false && (
           <div>
             <OnboardingHeader>
+              <Logo>
+                <div className="logo">
+                  <img src="/static/MindHive_logo.png" alt="icon" height="30" />
+                </div>
+              </Logo>
               <div>Data usage</div>
               <a
                 style={{ cursor: 'pointer', textAlign: 'end' }}

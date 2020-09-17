@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Logo } from '../../../Header/styles';
 
 import { ResponseButtons, OnboardingHeader } from '../../styles';
 
@@ -7,6 +8,11 @@ class PreParentConsent extends Component {
     return (
       <div>
         <OnboardingHeader>
+          <Logo>
+            <div className="logo">
+              <img src="/static/MindHive_logo.png" alt="icon" height="30" />
+            </div>
+          </Logo>
           <div>Study consent</div>
           <a
             style={{ cursor: 'pointer', textAlign: 'end' }}

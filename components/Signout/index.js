@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import {
   CURRENT_USER_QUERY,
   CURRENT_USER_RESULTS_QUERY,
@@ -28,7 +29,18 @@ const Signout = props => (
       { query: USER_DASHBOARD_QUERY },
     ]}
   >
-    {signout => <NavButton onClick={signout}>Logoff</NavButton>}
+    {signout => (
+      <NavButton
+        onClick={() => {
+          signout();
+          Router.push({
+            pathname: `/`,
+          });
+        }}
+      >
+        Logoff
+      </NavButton>
+    )}
   </Mutation>
 );
 

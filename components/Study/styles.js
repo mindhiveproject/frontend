@@ -157,7 +157,7 @@ export const StyledStudyPage = styled.div`
 
 export const OnboardingHeader = styled.div`
   display: grid;
-  grid-template-columns: 12fr 1fr;
+  grid-template-columns: 1fr 12fr 1fr;
   padding-bottom: 20px;
   margin-bottom: 40px;
   border-bottom: 2px solid #f2f2f2;
@@ -169,12 +169,26 @@ export const OnboardingHeader = styled.div`
   align-items: center;
   letter-spacing: 0.05em;
   color: #28619e;
+  .logo {
+    display: grid;
+  }
+`;
+
+export const OnboardingModal = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background: white;
 `;
 
 export const OnboardingForm = styled.div`
   display: grid;
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 30px;
   h1 {
     font-family: Lato;
     font-style: normal;
