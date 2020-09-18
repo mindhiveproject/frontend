@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StyledFooter = styled.div`
   display: grid;
   align-content: center;
+  min-height: 489px;
   grid-area: footer;
   background: #052c39;
   font-family: Lato;

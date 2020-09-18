@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import { Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { SignForm } from '../../Styles/Forms';
+import { SimpleStyledForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 
 const SINGLE_CLASS_QUERY = gql`
   query SINGLE_CLASS_QUERY($id: ID!) {
     class(where: { id: $id }) {
       id
+      code
       title
       description
       image
@@ -20,6 +21,7 @@ const SINGLE_CLASS_QUERY = gql`
 const UPDATE_CLASS = gql`
   mutation UPDATE_CLASS(
     $id: ID!
+    $code: String
     $title: String
     $description: String
     $image: String
@@ -27,12 +29,14 @@ const UPDATE_CLASS = gql`
   ) {
     updateClass(
       id: $id
+      code: $code
       title: $title
       description: $description
       image: $image
       largeImage: $largeImage
     ) {
       id
+      code
       title
       description
     }
@@ -93,7 +97,9 @@ class UpdateClass extends Component {
           return (
             <Mutation mutation={UPDATE_CLASS} variables={this.state}>
               {(updateClass, { loading, error }) => (
-                <SignForm onSubmit={e => this.updateClass(e, updateClass)}>
+                <SimpleStyledForm
+                  onSubmit={e => this.updateClass(e, updateClass)}
+                >
                   <h2>Edit the class</h2>
                   <Error error={error} />
                   <fieldset disabled={loading} aria-busy={loading}>
@@ -126,6 +132,18 @@ class UpdateClass extends Component {
                         required
                       />
                     </label>
+                    <label htmlFor="code">
+                      Class code
+                      <input
+                        type="text"
+                        id="code"
+                        name="code"
+                        placeholder="Class code"
+                        defaultValue={data.class.code}
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </label>
                     <label htmlFor="description">
                       Description
                       <textarea
@@ -141,7 +159,7 @@ class UpdateClass extends Component {
                       Sav{loading ? 'ing' : 'e'} changes
                     </button>
                   </fieldset>
-                </SignForm>
+                </SimpleStyledForm>
               )}
             </Mutation>
           );

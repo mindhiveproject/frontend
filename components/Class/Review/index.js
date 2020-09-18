@@ -6,6 +6,11 @@ import moment from 'moment';
 import Error from '../../ErrorMessage/index';
 import { ClassTable } from './styles';
 
+import ExpelFromClass from '../Leave/expel';
+import MoveToClass from '../Leave/move';
+
+import { ContainerOnlyForTeachersOwners } from '../../Permissions/Teacher/index';
+
 const REVIEW_CLASS_QUERY = gql`
   query REVIEW_CLASS_QUERY($id: ID!) {
     class(where: { id: $id }) {
@@ -60,6 +65,18 @@ class ReviewClass extends Component {
                   <ClassTable key={i}>
                     <h3>{student.username}</h3>
                     <img src={student.image} height="100px" />
+
+                    <ContainerOnlyForTeachersOwners
+                      creator={schoolclass.creator.id}
+                    >
+                      <ExpelFromClass
+                        classId={schoolclass.id}
+                        studentId={student.id}
+                      >
+                        Expel from this class
+                      </ExpelFromClass>
+                      <MoveToClass studentId={student.id} />
+                    </ContainerOnlyForTeachersOwners>
                   </ClassTable>
                 ))}
               </ul>

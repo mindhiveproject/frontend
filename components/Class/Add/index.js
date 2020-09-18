@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
-import { SignForm } from '../../Styles/Forms';
+import { SimpleStyledForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 
 import { MY_CLASSES_QUERY } from '../Board/my';
@@ -28,10 +28,10 @@ const CREATE_NEW_CLASS = gql`
 
 class AddClass extends Component {
   state = {
-    title: 'Test title for the class',
-    description: 'Test description of the class',
-    image: 'nothing',
-    largeImage: 'largenothing',
+    title: '',
+    description: '',
+    image: '',
+    largeImage: '',
   };
 
   handleChange = e => {
@@ -75,7 +75,7 @@ class AddClass extends Component {
         ]}
       >
         {(createClass, { loading, error }) => (
-          <SignForm
+          <SimpleStyledForm
             onSubmit={async e => {
               e.preventDefault();
               const res = await createClass();
@@ -90,7 +90,7 @@ class AddClass extends Component {
             <Error error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
               <label htmlFor="image">
-                Image
+                Select an image for your class
                 <input
                   type="file"
                   id="image"
@@ -130,9 +130,9 @@ class AddClass extends Component {
                   required
                 />
               </label>
-              <button type="submit">Submit</button>
+              <button type="submit">Create new class</button>
             </fieldset>
-          </SignForm>
+          </SimpleStyledForm>
         )}
       </Mutation>
     );

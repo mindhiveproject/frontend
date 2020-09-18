@@ -46,7 +46,7 @@ class SignUp extends Component {
                     type="text"
                     id="classCode"
                     name="classCode"
-                    placeholder="e.g. P13bGD"
+                    placeholder="e.g. p13bgd"
                     onChange={this.updateState}
                     value={this.state.classCode}
                   />

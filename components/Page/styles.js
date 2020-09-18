@@ -51,7 +51,7 @@ export const StyledPage = styled.div`
     'nav'
     'main'
     'footer';
-  grid-template-rows: auto 1fr 489px;
+  grid-template-rows: auto 1fr auto;
 
   a {
     text-decoration: none;
