@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
+import PublishStudyToggle from '../Edit/publish';
+
 // import { StyledStudyCard, StyledCardButtonsContainer } from '../styles';
 import { StyledCard } from '../../Styles/Cards';
 
@@ -95,6 +97,7 @@ class StudyCard extends Component {
               </h2>
             </a>
           </Link>
+          <PublishStudyToggle id={study.id} isPublic={study.public} />
         </ContainerOnlyForAuthorizedScientists>
 
         <ContainerOnlyForAuthorizedCollaborators
@@ -148,6 +151,7 @@ class StudyCard extends Component {
               </h2>
             </a>
           </Link>
+          <PublishStudyToggle id={study.id} isPublic={study.public} />
         </ContainerOnlyForAuthorizedCollaborators>
 
         <Link href="/studies/[slug]" as={`/studies/${study.slug}`}>

@@ -21,6 +21,7 @@ const MY_STUDIES_QUERY = gql`
         id
         username
       }
+      public
     }
   }
 `;
