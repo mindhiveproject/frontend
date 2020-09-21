@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-// import Link from 'next/link';
 import Error from '../../ErrorMessage/index';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
-
-import ParticipantDashboard from './participant';
+import StudiesDashboard from './studies';
 
 import { StyledDasboard } from '../styles';
 
-// permissions
-import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
-
-class DashboardStatic extends Component {
+class DashboardParticipate extends Component {
   render() {
     return (
       <Query query={USER_DASHBOARD_QUERY}>
@@ -22,8 +17,8 @@ class DashboardStatic extends Component {
 
           return (
             <StyledDasboard>
-              <ParticipantDashboard
-                studies={data.me.participantIn}
+              <StudiesDashboard
+                participantStudies={data.me.participantIn}
                 username={data.me.username}
               />
             </StyledDasboard>
@@ -34,4 +29,4 @@ class DashboardStatic extends Component {
   }
 }
 
-export default DashboardStatic;
+export default DashboardParticipate;

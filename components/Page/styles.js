@@ -21,7 +21,7 @@ export const UserPage = styled.div`
 
 export const UserInner = styled.div`
   max-width: ${props => props.theme.maxWidth};
-  margin: 0 auto;
+  /* margin: 0 auto; */
   padding: 2rem;
   /* grid-area: main; */
 `;

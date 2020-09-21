@@ -19,7 +19,7 @@ const SidebarNav = () => (
   <StyledSidebar>
     <Logo>
       <Link href="/">
-        <div className="logo">
+        <div className="logoInSidebar">
           <img src="/static/MindHive_logo.png" alt="icon" height="50" />
         </div>
       </Link>
@@ -36,7 +36,7 @@ const SidebarNav = () => (
       <Link href="/dashboard/participate">
         <div className="navLink">
           <div>+</div>
-          <div>Participate</div>
+          <div>Discover</div>
         </div>
       </Link>
 

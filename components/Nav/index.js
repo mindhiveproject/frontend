@@ -70,9 +70,12 @@ const Nav = () => (
 
         <ContainerOnlyForStudents>
           <NavRightContainer>
-            <Link href="/study/all">
-              <NavButton>Research studies</NavButton>
-            </Link>
+            {false && (
+              <Link href="/study/all">
+                <NavButton>Research studies</NavButton>
+              </Link>
+            )}
+
             <Link href="/onboarding">
               <NavButton>Student Onboarding</NavButton>
             </Link>
