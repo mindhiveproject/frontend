@@ -19,6 +19,7 @@ const ALL_STUDIES_QUERY = gql`
       collaborators {
         id
       }
+      public
     }
   }
 `;
