@@ -9,37 +9,50 @@ We want to make sure you understand what it means if you agree to use our servic
 ## Summary
 
 <p>
-As detailed in our <About> page, MindHive is an online platform that hosts a collection of human brain and behavior citizen science projects  MindHive supports a network of (1) students & teachers who seek authentic STEM research experiences, (2) scientists (in neuroscience, cognitive science and/or psychology) who seek to address their research questions outside of the lab, (3) community-based organizations who seek to carry out grassroots research for policy change, and (4) members of the community who wish to contribute data by participating in our studies and learn about human brain and behavior research.
+As detailed in our <a target="_blank" href="https://mindhive.science/docs/about">About</a> page, MindHive is an online platform that hosts a collection of human brain and behavior citizen science projects. MindHive supports a network of (1) students & teachers who seek authentic STEM research experiences, (2) scientists (in neuroscience, cognitive science and/or psychology) who seek to address their research questions outside of the lab, (3) community-based organizations who seek to carry out grassroots research for policy change, and (4) members of the community who wish to contribute data by participating in our studies and learn about human brain and behavior research.
 </p>
 
 <p>
-We value you and the time you invest and want to make sure you understand that we will not abuse your contributions. In the text below and our <Privacy Policy>, you can read in detail what kind of data we collect; how we handle and protect your data; and how we expect you, the User, to handle and protect data stored on our platform. By agreeing to use the MindHive platform, you allow us and our collaborators to use your data responsibly and within the terms outlined in this agreement. We will never abuse these terms.
+We value you and the time you invest and want to make sure you understand that we will not abuse your contributions. In the text below, including the legal details, and in our <a target="_blank" href="https://mindhive.science/docs/privacy">Privacy Policy</a>, you can read in detail how you can use our platform, what kind of data we collect, how we handle and protect your data, and how we expect you, the user, to handle and protect data stored on our platform.
 </p>
 
 <p>
-Here’s a quick overview of some of the key points:
+By agreeing to use the MindHive platform, you allow us and our collaborators to use your data responsibly and within the terms outlined in this agreement.
 </p>
 
-## 1) Data Protection
+## How we handle and protect your data on MindHive
+
+### 1) Your participation is voluntary
 
 <p>
-For all data stored on our platform, we adhere to the EU General Data Protection Regulation where possible. This is one of the strictest consumer data protection laws out there, put into place in 2018, and we commit to applying it to all users, across the globe. So: even if you are in the USA or another country where data protection laws are less strict, these Terms apply to you.
+Your participation on Mindive is completely voluntary, and you may discontinue your participation at any time, for any reason. You may end your participation in any study by closing your browser window.  If you have an account on MindHive, you are free to delete your account at any time by navigating to <a target="_blank" href="https://mindhive.science/dashboard/settings">Account Settings</a>. You can also request that your data be removed from the platform at any time by contacting <a href="mailto: info@mindhive.science">info@mindhive.science</a>. Note that we only have control over data that is stored with us at the moment of request. Some data may be beyond our control (e.g., data that has already been shared with researchers or included in publications, or data that cannot be retrieved because you forgot your username).
+</p>
+
+### 2) We will never sell your data
+
+### 3) We take great care to protect your identity
+
+<p>
+Only anonymized or <em>de-identified</em> data will be visible to researchers and educators. That means that by default, your data will exclude any identifying information like your name, email address, etc., unless you give explicit consent to researchers or educators to access your data.
+</p>
+
+### 4) Your de-identified data can be used for research and educational purposes
+
+<p>
+When you contribute data to MindHive, your (<strong>fully anonymized</strong>) data may be used to (a) address any research questions, (b) illustrate brain and behavior concepts in classes and lessons, and (c) help improve user engagement in the platform. <strong>You will be able to customize these default settings on your Account page.</strong> We do not allow commercial use of your data.  
+</p>
+
+## General Data Protection Regulation
+
+<p>
+For all data stored on our platform, we adhere to the EU <strong>General Data Protection Regulation (GDPR)</strong> where possible. This is one of the strictest data protection laws out there, put into place in 2018, and we are committed to applying it to all users, across the globe. Therefore, even if you are using MindHive in the United States or another country where data protection laws may be less strict, these terms apply to you.
 </p>
 
 <p>
-What this means is any user with any access to data stored on the platform commits to the following Code of Conduct.
+By registering as a User which allows you to have access to data stored on the platform, you commit to these Code of Conduct guidelines. There are several ways in which you may be considered a User of the platform. Please read below to learn about the different types of users.
 </p>
 
-1. we will never (EVER!) sell your data.
-2. we will protect your identity: Only anonymized (“de-identified”) data will be visible to researchers and educators: That means that by default your data it will exclude any identifying information like your name, email address, etc., *unless* you give explicit consent to researchers or educators to access your data.
-3. you can opt out at any time: Whenever you want and for any reason, you can opt out of participation or contact us to have your data removed from the platform. Note that we only have control over data that is stored with us at the moment of request. Some data may be beyond our control (e.g., data that has already been shared with researchers or included in publications, or data that cannot be retrieved because you forgot your username).
-4. your de-identified data can be used for research and educational purposes: When you contribute data to MindHive, your (fully anonymized!!) data may be used to (a) address any research questions, (b) illustrate brain and behavior concepts in classes and lessons, and (c) help improve user engagement in the platform. You will be able to customize these default settings on your Account page. We do not allow commercial use of your data.  
-
-<p>
-By registering as a User whichthat allows you to have access to data stored on the platform, you commit to these Code of Conduct guidelines. There are several ways in which you may be considered a User of the platform. Please read below to learn about the different types of users.
-</p>
-
-## 2) How you can engage
+## How you can use our platform
 
 <p>
 You can engage in MindHive in a number of ways. Users fall into four categories, outlined below.
@@ -49,21 +62,25 @@ You can engage in MindHive in a number of ways. Users fall into four categories,
 Researcher and Educator accounts will be vetted by the MindHive team before being activated and will only be granted to individuals affiliated with an academic institution or registered educational or not-for-profit organization. Students accounts can only be created under the supervision of Educators.
 </p>
 
-a) Participants contribute data by participating in MindHive studies and tasks. Participants are encouraged but not required to register an account with MindHive. Having an account provides additional benefits to both participants and researchers. For example, you won’t have to fill out the same questions each time you go to MindHive, you can review results and updates about the studies and tasks you have previously taken part, and you can receive updates when new or follow-up studies are available.
+a) <strong>Participants</strong> contribute data by participating in MindHive studies and tasks. Participants are encouraged but not required to register an account with MindHive. Having an account provides additional benefits to both participants and researchers. For example, you won’t have to fill out the same questions each time you go to MindHive, you can review results and updates about the studies and tasks you have previously taken part, and you can receive updates when new or follow-up studies are available.
 
-b) Researchers can (a) host studies, tasks, and resources on MindHive, (b) collect data on MindHive, and (c) access de-identified data collected on the platform. For access to identifiable data, researchers are expected to abide by regulations put in place by their host institution (e.g. obtain IRB approval for data collection).
+b) <strong>Researchers</strong> can (a) host studies, tasks, and resources on MindHive, (b) collect data on MindHive, and (c) access de-identified data collected on the platform. For access to identifiable data, researchers are expected to abide by regulations put in place by their host institution (e.g. obtain IRB approval for data collection).
 
-c) Educators can (a) host studies, tasks, and resources on MindHive, (b) collect data on MindHive, (c) access de-identified data collected on the platform, and (d) add students to the platform. Educators can grant access to de-identified data collected on the platform to students for educational purposes at their own discretion.
+c) <strong>Educators</strong> can (a) host studies, tasks, and resources on MindHive, (b) collect data on MindHive, (c) access de-identified data collected on the platform, and (d) add students to the platform. Educators can grant access to de-identified data collected on the platform to students for educational purposes at their own discretion.
 
-d) Students can explore and participate (see Participant) in MindHive hosted studies and tasks, and develop their own studies and tasks (see Researcher). Students will only have access to data collected from studies for which they are co-owners. Student accounts can only be created as part of a class, using a class code provided by an Educator.
+d) <strong>Students</strong> can explore and participate (see Participant) in MindHive hosted studies and tasks, and develop their own studies and tasks (see Researcher). Students will only have access to data collected from studies for which they are co-owners. Student accounts can only be created as part of a class, using a class code provided by an Educator.
 
-### What if something changes to the Terms and Conditions?
+### Changes to the Terms and Conditions
 
 <p>
 The legal environment and the legal details by which we operate and make your data available can change. When this happens, we need to obtain your permission to move forward.  However, if you give us the broad permissions that are outlined in this agreement, we can quickly adapt to these circumstances and make the necessary legal changes without obtaining permission from every single user.  
 </p>
 <p>
-In sum, by engaging with MindHive, you agree that your de-identified data maycan be shared with authorized Users (Researchers and Educatorss, see Users below) and be used for research in  future research and educational purposes without your additional consent. Only non-commercial use of your data will be allowed: ; we will never ever sell your data to anyone. Finally, you can request that your data be removed from the platform at any time by contacting info@mindhive.science.
+In sum, by engaging with MindHive, you agree that your de-identified data may be shared with authorized Users (Researchers and Educators) and be used for research and educational purposes. Only non-commercial use of your data will be allowed: we will never ever sell your data to anyone. Finally, you can request that your data be removed from the platform at any time by contacting info@mindhive.science.
+</p>
+
+<p>
+Please read the following text for legal details.
 </p>
 
 ## Legal Details
@@ -75,7 +92,7 @@ In sum, by engaging with MindHive, you agree that your de-identified data maycan
 MindHive is an online platform forthat hosts a collection of human brain and behavior citizen science projects maintained by research groups at several institutions. This platform was developed by a team of science and education researchers, and developers and is hosted on https://mindhive.science (the "Site"), which provides services for hosting research studies and resources, and for collecting and storing data (collectively, the "Service"). Your use of the Service and our provision of the Service to you constitutes an agreement between you and MindHive to be bound by these Terms and Conditions.
 </p>
 <p>
-By registering for or otherwise using the Service, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions, including our Privacy Policy (together, these "Terms"). If you do not agree with anything we suggest in these Terms, please do not use any part of the Service.
+By registering for or otherwise using the Service, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions, including our <a target="_blank" href="https://mindhive.science/docs/privacy">Privacy Policy</a> (together, these "Terms"). If you do not agree with anything we suggest in these Terms, please do not use any part of the Service.
 </p>
 
 ### 2. Eligibility
@@ -112,11 +129,11 @@ If you download a study with one of these artworks, you may need permission from
 
 You can engage in MindHive in a number of ways. Users fall into four categories with different access privileges, as detailed below.   
 
-1. Participants can (a) contribute data by participating in MindHive studies and tasks, (b) log in and review the results of the studies and tasks they have previously taken part in (if they have registered an account) and (c) receive updates when new or follow-up studies are available (if they have registered an account). Participants are not required to register an account with MindHive, to engage with MindHive as a participant. Participant accounts do not have to be vetted by MindHive, meaning anyone eligible (“Eligibility”) can register an account without awaiting approval from the MindHive team.
+1. Participants can (a) contribute data by participating in MindHive studies and tasks, (b) log in and review the results of the studies and tasks they have previously taken part in (if they have registered an account) and (c) receive updates when new or follow-up studies are available (if they have registered an account). Participants are not required to register an account with MindHive Participant accounts do not have to be vetted by MindHive, meaning anyone eligible (“Eligibility”) can register an account without awaiting approval from the MindHive team.
 
-2. Researchers can (a) host studies, tasks, and resources on MindHive, (b) collect data on MindHive, and (c) access de-identified data collected on the platform. For access to identifiable data, Researchers are expected to abide by regulations at their host institution (e.g.., obtain IRB approval for data collection). Researcher accounts will be vetted by the MindHive team before being activated. Eligibility criteria for a Researcher account includerequires affiliation with a not-for-profit organization (e.g. academic institution, community-based organizations).
+2. Researchers can (a) host studies, tasks, and resources on MindHive, (b) collect data on MindHive, and (c) access de-identified data collected on the platform. For access to identifiable data, Researchers are expected to abide by regulations at their host institution (e.g.., obtain IRB approval for data collection). Researcher accounts will be vetted by the MindHive team before being activated. Eligibility criteria for a Researcher account includes affiliation with a not-for-profit organization (e.g. academic institution, community-based organizations).
 
-3. Educators can (a) host studies, tasks, and resources on MindHive, (b) collect data on MindHive, (c) access de-identified data collected on the platform (a) implement MindHive in their classrooms, (b) access MindHive materials and , and (dc) add students to the platform. Educators (teachers) will have access to all data collected on the platform and can grant access to students for educational purposes at their discretion. Educator accounts will be vetted by the MindHive team before being activated. Eligibility criteria for an Educator account includerequires affiliation with an educational organization.
+3. Educators can (a) host studies, tasks, and resources on MindHive, (b) collect data on MindHive, (c) access de-identified data collected on the platform, and (d) add students to the platform. Educators (teachers) will have access to all data collected on the platform and can grant access to students for educational purposes at their discretion. Educator accounts will be vetted by the MindHive team before being activated. Eligibility criteria for an Educator account include affiliation with an educational organization.
 
 4. Students can explore and participate (see Participant) in MindHive hosted studies and tasks, and develop their own studies and tasks (see Researcher). Students will only have access to data collected from studies for which they are co-owners. Student accounts can only be created as part of a class, using a class code provided by an Educator.
 
@@ -132,7 +149,8 @@ You are the owner of all your User Content, including any data and/or studies yo
 
  - Your User Content (including that used by you, us or other users of the Service) does not and will not infringe or misappropriate any third party rights, including copyrights and other intellectual property rights, privacy rights, rights of publicity or moral rights, or defame, libel or slander anyone. That is, your User Content must be your original work, and you must have the permission of third parties who have rights in the User Content before you upload or publish the User Content on the Service.
 
- - You can remove your User Content from the platform at any time. User Participants, you can request that your data be removed from the platform at any time by contacting info@mindhive.science.
+ - You can remove your User Content from the platform at any time. User Participants, you can request that your data be removed from the platform at any time by contacting <a mailto="info@mindhive.science">info@mindhive.science</a>.
+
 
 * Disclaimer. There is no reasonable way for us to monitor all User Content that is uploaded to or published on the Service, and we have no obligation to you or any other user to monitor, edit or control the User Content that you and other users upload to or publish on the Service. This means that we are not responsible for User Content on the Service and you agree not to make any claims against us based on User Content. Nevertheless, we may remove, edit, search or block User Content from the Service at any time if the User Content violates these Terms or is found to be otherwise offensive. If you use the Service, you will be exposed to User Content from other users, some of which may be insulting, inaccurate or offensive. We may investigate allegations that User Content violates these Terms and in such cases we will determine what action (if any) we take with respect to the User Content in question.
 
@@ -166,11 +184,11 @@ You may find tools on the Service that allow you to send information, including 
 
 ### 9. Termination of Your Account
 
-If you violate any of these terms, your permission to use the Service automatically terminates. You may cancel your account with the Service by going to https://mindhive.science/account/settings.
+If you violate any of these terms, your permission to use the Service automatically terminates. You may cancel your account with the Service by going to https://mindhive.science/dashboard/settings.
 
 ### 10. Privacy Policy and Additional Requirements
 
-We want you to know what information we collect from you and how we use it. Please read our privacy policy (the "Privacy Policy") carefully. The Privacy Policy is incorporated into these Terms as part of our Agreement. In addition, we may inform you of additional requirements that you must comply with when using the Service. These requirements may include such things as community guidelines. Any additional guidelines that we post on the Service or link to the Service will be incorporated into these Terms as part of our Agreement.
+We want you to know what information we collect from you and how we use it. Please read our privacy policy (the "<a target="_blank" href="https://mindhive.science/docs/privacy">Privacy Policy</a>") carefully. The <a target="_blank" href="https://mindhive.science/docs/privacy">Privacy Policy</a> is incorporated into these Terms as part of our Agreement. In addition, we may inform you of additional requirements that you must comply with when using the Service. These requirements may include such things as community guidelines. Any additional guidelines that we post on the Service or link to the Service will be incorporated into these Terms as part of our Agreement.
 
 ### 11. Modifying these Terms
 
@@ -190,12 +208,12 @@ The law prohibits disclaimers of warranties in some places, and you may have oth
 
 ### 14. General
 
-These Terms, together with the Privacy Policy and other policies incorporated into these Terms, constitute the entire agreement between you and us with respect to your use of the Service. Except for our right to update these Terms in accordance with Section 13 above, these Terms may only be modified by a written agreement signed by both you and us. You may not assign or transfer these Terms to any other person or entity without our consent, or transfer your account on the Service, including any transfers you may wish to make in connection with a business acquisition. We may assign these Terms with or without notice to you. Any delay or failure by you to enforce any rights under these Terms of Use or to require compliance with these Terms of Use shall not affect our right to enforce such rights at a later time or to require compliance with them. If we waive any breach by you of these Terms of Use, we do not waive any subsequent breach or your obligation to comply with the terms you have breached. We have included paragraph and section headings for convenience, but these headings do not affect the interpretation of these Terms. In the event that any part of these Terms is found unenforceable by a judge or arbitrator, the unenforceable part will be enforced to the maximum extent possible and the remaining parts will remain in full force and effect.
+These Terms, together with the <a target="_blank" href="https://mindhive.science/docs/privacy">Privacy Policy</a> and other policies incorporated into these Terms, constitute the entire agreement between you and us with respect to your use of the Service. Except for our right to update these Terms in accordance with Section 13 above, these Terms may only be modified by a written agreement signed by both you and us. You may not assign or transfer these Terms to any other person or entity without our consent, or transfer your account on the Service, including any transfers you may wish to make in connection with a business acquisition. We may assign these Terms with or without notice to you. Any delay or failure by you to enforce any rights under these Terms of Use or to require compliance with these Terms of Use shall not affect our right to enforce such rights at a later time or to require compliance with them. If we waive any breach by you of these Terms of Use, we do not waive any subsequent breach or your obligation to comply with the terms you have breached. We have included paragraph and section headings for convenience, but these headings do not affect the interpretation of these Terms. In the event that any part of these Terms is found unenforceable by a judge or arbitrator, the unenforceable part will be enforced to the maximum extent possible and the remaining parts will remain in full force and effect.
 
 ### 15. Consent to Electronic Communication
 
-You agree to receive electronic communications from us as described in our Privacy Policy. Please read our Privacy Policy to understand your choices regarding our electronic communications practices. We may send you notices, agreements, disclosures or other communications electronically.
+You agree to receive electronic communications from us as described in our <a target="_blank" href="https://mindhive.science/docs/privacy">Privacy Policy</a>. Please read our <a target="_blank" href="https://mindhive.science/docs/privacy">Privacy Policy</a> to understand your choices regarding our electronic communications practices. We may send you notices, agreements, disclosures or other communications electronically.
 
 ### 16. Contact Information
 
-The service is provided by researchers at New York University, at the Department of Psychology, at 6 Washington Place, New York, USA and at the Steinhardt School of Culture, Education, and Human Development at 82 Washington Square E, New York, NY 10003. You can reach us by sending letters to our address or by emailing us at info@mindhive.science. For questions about data management at New York University, you can contact the DATA MANAGEMENT office contact
+The service is provided by researchers at New York University, at the Department of Psychology, at 6 Washington Place, New York, USA and at the Steinhardt School of Culture, Education, and Human Development at 82 Washington Square E, New York, NY 10003. You can reach us by sending letters to our address or by emailing us at <a mailto="info@mindhive.science">info@mindhive.science</a>. For questions about data management and protection at New York University, you can contact the GDPR Office at <a mailto="gdpr-info@nyu.edu">gdpr-info@nyu.edu</a>.

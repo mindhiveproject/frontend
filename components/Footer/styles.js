@@ -14,7 +14,7 @@ export const StyledFooter = styled.div`
   color: #ffffff;
   grid-template-columns: 1fr 1fr;
 
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
     justify-content: center;
   }
@@ -24,7 +24,7 @@ export const StyledFooter = styled.div`
     max-width: 374px;
     margin: 0 auto;
     justify-content: center;
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
       justify-content: start;
       margin: 10px;
     }
@@ -32,9 +32,12 @@ export const StyledFooter = styled.div`
   .linksPanel {
     display: grid;
     justify-content: center;
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
       justify-content: start;
       margin: 10px;
+    }
+    a {
+      color: white;
     }
   }
   .link {

@@ -23,10 +23,6 @@ const Footer = () => (
         <p className="link">About</p>
       </Link>
 
-      <Link href="/docs/contacts">
-        <p className="link">Contact</p>
-      </Link>
-
       <Link href="/docs/privacy">
         <p className="link">Privacy Policy</p>
       </Link>
@@ -34,6 +30,8 @@ const Footer = () => (
       <Link href="/docs/terms">
         <p className="link">Terms & Conditions</p>
       </Link>
+
+      <a href="mailto: info@mindhive.science">info@mindhive.science</a>
     </div>
   </StyledFooter>
 );
