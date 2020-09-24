@@ -76,7 +76,14 @@ class GoogleSignup extends Component {
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >
-                  Sign up with Google
+                  <div>
+                    <img
+                      src="/static/assets/signup-google.png"
+                      alt="icon"
+                      height="20"
+                    />
+                  </div>
+                  <div>Sign up with Google</div>
                 </SignupButton>
               )}
               onSuccess={e => this.googleResponse(e, serviceSignUp)}

@@ -37,7 +37,7 @@ class SignUp extends Component {
       <SignupForm>
         <Dialog>
           {this.state.activePage === 'code' && (
-            <>
+            <div className="enterCodeScreen">
               <h1>Enter your class code</h1>
               <div>
                 <label htmlFor="classCode">
@@ -50,12 +50,24 @@ class SignUp extends Component {
                     onChange={this.updateState}
                     value={this.state.classCode}
                   />
+                  <div className="helpMessage">
+                    This code is provided by your teacher and is how you will
+                    join your class.
+                  </div>
                 </label>
               </div>
-              <button onClick={() => this.setState({ activePage: 'confirm' })}>
+              <button
+                onClick={() => {
+                  if (this.state.classCode) {
+                    this.setState({ activePage: 'confirm' });
+                  } else {
+                    alert('Please enter your class code');
+                  }
+                }}
+              >
                 Next
               </button>
-            </>
+            </div>
           )}
 
           {this.state.activePage === 'confirm' && (
@@ -69,37 +81,44 @@ class SignUp extends Component {
                 if (loading) return <p>Loading</p>;
                 if (!data.class)
                   return (
-                    <>
+                    <div className="classFoundScreen">
                       <h1>
                         No class found for the code{' '}
                         <i>{this.state.classCode}</i>
                       </h1>
                       <button
+                        className="primaryBtn"
                         onClick={() => this.setState({ activePage: 'code' })}
                       >
                         Go back
                       </button>
-                    </>
+                    </div>
                   );
 
                 const schoolclass = data.class;
                 return (
-                  <>
+                  <div className="classFoundScreen">
                     <h1>Do you want to join the following class?</h1>
-                    <h1>{schoolclass.title}</h1>
-                    <p>{schoolclass.description}</p>
-                    by <h3>{schoolclass.creator.username}</h3>
-                    <button
-                      onClick={() => this.setState({ activePage: 'code' })}
-                    >
-                      No, go back
-                    </button>
-                    <button
-                      onClick={() => this.setState({ activePage: 'choose' })}
-                    >
-                      Yes, continue
-                    </button>
-                  </>
+
+                    <div className="classInformation">
+                      {schoolclass.title} - {schoolclass.creator.username}
+                    </div>
+
+                    <div className="navigationBtns">
+                      <button
+                        className="secondaryBtn"
+                        onClick={() => this.setState({ activePage: 'code' })}
+                      >
+                        No, go back
+                      </button>
+                      <button
+                        className="primaryBtn"
+                        onClick={() => this.setState({ activePage: 'choose' })}
+                      >
+                        Yes, continue
+                      </button>
+                    </div>
+                  </div>
                 );
               }}
             </Query>
@@ -108,18 +127,27 @@ class SignUp extends Component {
           {this.state.activePage === 'choose' && (
             <>
               <h1>How would you like to join MindHive?</h1>
-              <SignupButton
-                onClick={() => {
-                  this.setState({ activePage: 'createAccount' });
-                }}
-              >
-                Sign up with email/username
-              </SignupButton>
+              <div className="studentSignupOptions">
+                <SignupButton
+                  onClick={() => {
+                    this.setState({ activePage: 'createAccount' });
+                  }}
+                >
+                  <div>
+                    <img
+                      src="/static/assets/signup-email.png"
+                      alt="icon"
+                      height="20"
+                    />
+                  </div>
+                  <div>Sign up with email/username</div>
+                </SignupButton>
 
-              <GoogleSignup
-                class={{ code: this.state.classCode }}
-                permissions={['STUDENT']}
-              />
+                <GoogleSignup
+                  class={{ code: this.state.classCode }}
+                  permissions={['STUDENT']}
+                />
+              </div>
             </>
           )}
 

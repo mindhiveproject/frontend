@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const UserPage = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Lato');
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
   background: #f6f9f8;
 
   color: ${props => props.theme.grey};

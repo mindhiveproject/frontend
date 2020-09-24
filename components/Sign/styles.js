@@ -58,15 +58,63 @@ export const Dialog = styled.div`
     border-radius: 4px;
     cursor: pointer;
   }
+  .helpMessage {
+    font-family: Lato;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+  .enterCodeScreen  {
+    max-width: 340px;
+  }
+  .classFoundScreen {
+    max-width: 700px;
+    display: grid;
+    text-align: center;
+    justify-items: center;
+  }
+  .classInformation {
+    background: #fff3cd;
+    border-radius: 4px;
+    padding: 19px 24px 19px 24px;
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: #1a1a1a;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  .navigationBtns {
+    display: grid;
+    grid-template-columns: 220px 220px;
+    grid-gap: 15px;
+  }
+  .primaryBtn {
+    background: #007c70;
+    color: #ffffff;
+    max-width: 220px;
+  }
+  .secondaryBtn {
+    background: #ffffff;
+    color: #007c70;
+    max-width: 220px;
+  }
 `;
 
 export const SignupForm = styled.div`
   font-family: Lato;
-  max-width: 500px;
   display: grid;
   justify-items: center;
-  grid-row-gap: 20px;
+  grid-row-gap: 10px;
   margin: 0 auto;
+  margin-top: 20px;
   text-align: center;
   align-items: center;
   h1 {
@@ -79,11 +127,11 @@ export const SignupForm = styled.div`
   span {
     font-size: 18px;
     line-height: 18px;
-    color: #64c9e2;
+    color: #795548;
     font-style: normal;
     font-weight: normal;
     a {
-      color: #64c9e2;
+      color: #007c70;
       border-bottom: 1px solid #64c9e2;
     }
     fieldset {
@@ -103,6 +151,20 @@ export const SignupForm = styled.div`
       }
     }
   }
+  .signupOptions {
+    margin-top: 35px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-gap: 20px;
+  }
+  .studentSignupOptions {
+    width: 380px;
+    margin-top: 35px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-gap: 20px;
+    justify-self: center;
+  }
   .guestParticipationBlock {
     margin-top: 40px;
     padding-top: 20px;
@@ -118,21 +180,23 @@ export const SignupForm = styled.div`
 
 export const SignupButton = styled.div`
   display: grid;
+  grid-template-columns: 20px auto;
+  grid-gap: 30px;
   align-items: center;
-  text-align: center;
+  text-align: left;
   margin: 0 auto;
-  width: 300px;
+  width: 100%;
   height: 56px;
   font-size: 18px;
   line-height: 100%;
   letter-spacing: 0.05em;
   color: #1a1a1a;
-  border: 2px solid #007c70;
+  border: 2px solid #e5e5e5;
   cursor: pointer;
   border-radius: 4px;
   background: none;
   padding: 1rem 3rem;
-  margin-top: 20px;
+  font-weight: 400;
 `;
 
 export const CreateAccountForm = styled.form`
@@ -140,9 +204,9 @@ export const CreateAccountForm = styled.form`
   font-size: 1.5rem;
   line-height: 1.5;
   font-weight: 600;
+  max-width: 330px;
   label {
     display: block;
-    margin-top: 2rem;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -152,7 +216,6 @@ export const CreateAccountForm = styled.form`
   textarea,
   select {
     font-family: Lato;
-    margin-bottom: 1rem;
     height: 48px;
     border: 1px solid #cccccc;
     border-radius: 4px;
@@ -169,7 +232,7 @@ export const CreateAccountForm = styled.form`
   input[type='submit'] {
     font-family: Lato;
     margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     width: 100%;
     background: #007c70;
     color: white;
@@ -192,8 +255,9 @@ export const CreateAccountForm = styled.form`
   p {
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 4px;
   }
   span {
     font-size: 14px;
@@ -201,11 +265,27 @@ export const CreateAccountForm = styled.form`
     color: #666666;
   }
   input[type='checkbox'] {
-    width: auto;
+    width: 24px;
+    height: 24px;
+    color: green;
   }
   .checkboxField {
     display: grid;
     grid-template-columns: 1fr 9fr;
+    grid-gap: 16px;
+  }
+  a {
+    color: #007c70;
+    border-bottom: 1px solid #64c9e2;
+  }
+  .helpText {
+    font-family: Lato;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
   }
 `;
 

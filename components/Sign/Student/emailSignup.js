@@ -97,7 +97,7 @@ class StudentSignup extends Component {
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
-                <h1>Create your student account</h1>
+                <h1>Create your account</h1>
                 <Error error={error} />
                 <label htmlFor="username">
                   <p>Username</p>
@@ -108,11 +108,11 @@ class StudentSignup extends Component {
                     value={this.state.username}
                     onChange={this.saveToState}
                   />
-                  <p>
+                  <div className="helpText">
                     Your username <strong>will be visible to scientists</strong>
-                    . Proceed with the name we suggest or choose your own (but
-                    don't use your real name!).
-                  </p>
+                    , so don’t use your real name. Proceed with the name we
+                    suggest or choose your own.
+                  </div>
                 </label>
 
                 <label htmlFor="email">
@@ -130,27 +130,30 @@ class StudentSignup extends Component {
                   />
                 </label>
 
-                <div>
-                  <label htmlFor="useTeacherEmail">
-                    <div className="checkboxField">
-                      <input
-                        type="checkbox"
-                        id="useTeacherEmail"
-                        name="useTeacherEmail"
-                        value={this.state.info.useTeacherEmail}
-                        onChange={() => {
-                          this.setState({
-                            info: {
-                              ...this.state.info,
-                              useTeacherEmail: !this.state.info.useTeacherEmail,
-                            },
-                          });
-                        }}
-                      />
-                      <h2>Use the email address of the teacher</h2>
-                    </div>
-                  </label>
-                </div>
+                {false && (
+                  <div>
+                    <label htmlFor="useTeacherEmail">
+                      <div className="checkboxField">
+                        <input
+                          type="checkbox"
+                          id="useTeacherEmail"
+                          name="useTeacherEmail"
+                          value={this.state.info.useTeacherEmail}
+                          onChange={() => {
+                            this.setState({
+                              info: {
+                                ...this.state.info,
+                                useTeacherEmail: !this.state.info
+                                  .useTeacherEmail,
+                              },
+                            });
+                          }}
+                        />
+                        <h2>Use the email address of the teacher</h2>
+                      </div>
+                    </label>
+                  </div>
+                )}
 
                 <label htmlFor="password">
                   <p>Password</p>
@@ -173,6 +176,7 @@ class StudentSignup extends Component {
                       placeholder="Enter your zip code"
                       value={this.state.info.zipcode}
                       onChange={this.saveToInfoState}
+                      required
                     />
                   </label>
                 )}
@@ -186,6 +190,7 @@ class StudentSignup extends Component {
                       placeholder="Enter your age"
                       value={this.state.info.age}
                       onChange={this.saveToInfoState}
+                      required
                     />
                   </label>
                 )}
@@ -201,9 +206,8 @@ class StudentSignup extends Component {
                         required
                       />
                       <span>
-                        I confirm that my user name does not contain any
-                        personally identifiable information (first and last
-                        name).
+                        I confirm my username does not have any personally
+                        identifable information (first, last name).
                       </span>
                     </div>
                   </label>
@@ -211,8 +215,18 @@ class StudentSignup extends Component {
 
                 <button type="submit">Create account</button>
                 <p>
-                  By clicking on "Create account", you agree to MindHive's Terms
-                  of Service, including our Privacy Policy.
+                  By clicking on “Create account” you agree to MindHive’s{' '}
+                  <a target="_blank" href="https://mindhive.science/docs/terms">
+                    Terms of Service
+                  </a>
+                  , including our{' '}
+                  <a
+                    target="_blank"
+                    href="https://mindhive.science/docs/privacy"
+                  >
+                    Privacy Policy
+                  </a>
+                  .
                 </p>
               </fieldset>
             </CreateAccountForm>
