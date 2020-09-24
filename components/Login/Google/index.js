@@ -63,7 +63,14 @@ class GoogleAuthLogin extends Component {
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >
-                  Login with Google
+                  <div>
+                    <img
+                      src="/static/assets/signup-google.png"
+                      alt="icon"
+                      height="20"
+                    />
+                  </div>
+                  <div>Login with Google</div>
                 </SignupButton>
               )}
               onSuccess={e => this.googleResponse(e, serviceLogin)}

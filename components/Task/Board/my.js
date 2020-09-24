@@ -22,6 +22,7 @@ const MY_TASKS_QUERY = gql`
         id
         username
       }
+      public
     }
   }
 `;
@@ -52,7 +53,7 @@ class MyTasks extends Component {
           >
             <a>
               <button>
-                <h2>All tasks</h2>
+                <h2>Public tasks</h2>
               </button>
             </a>
           </Link>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
+import PublishTaskToggle from '../Customize/publish';
 // import { StyledTaskCard, StyledCardButtonsContainer } from '../styles';
 import { StyledCard } from '../../Styles/Cards';
 
@@ -99,6 +100,7 @@ class TaskCard extends Component {
               </h2>
             </a>
           </Link>
+          <PublishTaskToggle id={task.id} isPublic={task.public} />
         </ContainerOnlyForAuthorizedScientists>
 
         <ContainerOnlyForAuthorizedCollaborators
@@ -140,6 +142,7 @@ class TaskCard extends Component {
               </h2>
             </a>
           </Link>
+          <PublishTaskToggle id={task.id} isPublic={task.public} />
         </ContainerOnlyForAuthorizedCollaborators>
 
         {false && (

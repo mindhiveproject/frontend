@@ -20,6 +20,7 @@ const ALL_TASKS_QUERY = gql`
         id
         username
       }
+      public
     }
   }
 `;
