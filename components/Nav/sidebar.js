@@ -28,35 +28,59 @@ const SidebarNav = () => (
     <div className="navLinks">
       <Link href="/dashboard">
         <div className="navLink">
-          <div>+</div>
+          <div>
+            <img
+              src="/static/assets/dashboard-home.png"
+              alt="icon"
+              height="20"
+            />
+          </div>
           <div>Home</div>
         </div>
       </Link>
 
       <Link href="/dashboard/participate">
         <div className="navLink">
-          <div>+</div>
+          <div>
+            <img
+              src="/static/assets/dashboard-discover.png"
+              alt="icon"
+              height="20"
+            />
+          </div>
           <div>Discover</div>
         </div>
       </Link>
 
       <Link href="/dashboard/create">
         <div className="navLink">
-          <div>+</div>
-          <div>Create</div>
+          <div>
+            <img
+              src="/static/assets/dashboard-studies.png"
+              alt="icon"
+              height="20"
+            />
+          </div>
+          <div>Your studies</div>
         </div>
       </Link>
     </div>
 
-    <footer>
+    <div className="navBottonLinks">
       <Link href="/dashboard/settings">
         <div className="navLink">
-          <div>+</div>
+          <div>
+            <img
+              src="/static/assets/dashboard-settings.png"
+              alt="icon"
+              height="20"
+            />
+          </div>
           <div>Settings</div>
         </div>
       </Link>
       <Signout />
-    </footer>
+    </div>
   </StyledSidebar>
 );
 

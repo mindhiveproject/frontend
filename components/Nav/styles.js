@@ -2,23 +2,38 @@ import styled from 'styled-components';
 
 export const StyledSidebar = styled.div`
   display: grid;
-  grid-template-rows: 100px 4fr 1fr;
+  /* grid-template-rows: 100px 4fr 1fr; */
+  grid-template-columns: 1fr;
+  grid-gap: 40px;
   justify-items: center;
   align-content: start;
 
   .navLinks {
     display: grid;
-    align-content: start;
-    grid-row-gap: 10px;
+    align-items: center;
+    grid-row-gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #e6e6e6;
   }
+
+  .navBottonLinks {
+    display: grid;
+    align-items: center;
+    grid-row-gap: 20px;
+  }
+
   .navLink {
     display: grid;
-    grid-template-columns: 10px auto;
-    grid-column-gap: 10px;
+    grid-template-columns: 20px auto;
+    grid-column-gap: 12px;
     cursor: pointer;
-  }
-  footer {
-    display: grid;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
   }
 `;
 
@@ -98,7 +113,7 @@ export const NavRightContainer = styled.div`
 
 export const NavButton = styled.button`
   margin: 6px;
-  height: 56px;
+  /* height: 46px; */
   font-size: 18px;
   line-height: 100%;
   letter-spacing: 0.05em;
@@ -106,7 +121,7 @@ export const NavButton = styled.button`
   border: 2px solid #007c70;
   cursor: pointer;
   border-radius: 4px;
-  padding: 1rem 3rem;
+  padding: 14px 24px 14px 24px;
   background: none;
   align-items: center;
 `;
