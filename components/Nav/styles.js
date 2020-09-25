@@ -35,6 +35,18 @@ export const StyledSidebar = styled.div`
     letter-spacing: 0em;
     text-align: left;
   }
+
+  .workspaceHeader {
+    font-family: Lato;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #b3b3b3;
+    margin-top: 7px;
+  }
 `;
 
 export const NavStyles = styled.ul`

@@ -11,9 +11,10 @@ class StudyMessage extends Component {
       <StyledMessage>
         <div className="infoMessage">
           <h2>{message.content}</h2>
-          <p>
-            {moment(message.createdAt).fromNow()} by {message.study}
-          </p>
+          <div className="contextInfo">
+            {moment(message.createdAt).fromNow()}
+          </div>
+          <div className="contextInfo">{message.study}</div>
         </div>
         <div className="linkMessage">
           <Link href="/studies/[slug]" as={`/studies/${message.slug}`}>

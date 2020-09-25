@@ -4,7 +4,7 @@ import { StyledParticipantDasboard } from '../styles';
 import StudyCard from './studycard';
 import MessageCard from './messagecard';
 
-class ParticipantDashboard extends Component {
+class HomeDashboard extends Component {
   render() {
     const { studies, username } = this.props;
     const messages = studies
@@ -29,29 +29,29 @@ class ParticipantDashboard extends Component {
       <StyledParticipantDasboard>
         <h1>Welcome back{username ? `, ${username}` : `!`}</h1>
 
-        <div className="infoBoard">
-          <div className="updatesBoard">
-            <h2>Latest updates</h2>
-            <div className="updates">
-              {sortedMessages.map((message, num) => (
-                <MessageCard key={num} message={message} />
-              ))}
-            </div>
+        <div className="updatesBoard">
+          <h2>Latest updates</h2>
+          <div className="updates">
+            {sortedMessages.map((message, num) => (
+              <MessageCard key={num} message={message} />
+            ))}
           </div>
+        </div>
 
+        {false && (
           <div className="studiesBoard">
             <h2>Your studies</h2>
-
             <div className="studies">
               {studies.map(study => (
                 <StudyCard key={study.id} study={study} />
               ))}
             </div>
           </div>
-        </div>
+        )}
+        <div className="infoBoard"></div>
       </StyledParticipantDasboard>
     );
   }
 }
 
-export default ParticipantDashboard;
+export default HomeDashboard;

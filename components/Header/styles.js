@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export const Logo = styled.a`
   @import url('https://fonts.googleapis.com/css?family=Montserrat');
   margin: 20px;
+  margin-top: 33px;
   display: grid;
   justify-items: start;
   cursor: pointer;
   @media (max-width: 700px) {
-    margin: 10px;
     text-align: center;
     justify-items: center;
   }

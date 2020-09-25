@@ -16,7 +16,7 @@ export const UserPage = styled.div`
   margin: 0;
   grid-gap: 10px;
   height: 100%;
-  grid-template-columns: 2fr 8fr;
+  grid-template-columns: 225px auto;
   /* grid-template-areas: 'nav' 'main'; */
 `;
 

@@ -20,7 +20,7 @@ const SidebarNav = () => (
     <Logo>
       <Link href="/">
         <div className="logoInSidebar">
-          <img src="/static/MindHive_logo.png" alt="icon" height="50" />
+          <img src="/static/MindHive_logo.png" alt="icon" width="150" />
         </div>
       </Link>
     </Logo>
@@ -52,16 +52,44 @@ const SidebarNav = () => (
         </div>
       </Link>
 
+      <div className="workspaceHeader">WORKSPACE</div>
+
       <Link href="/dashboard/create">
         <div className="navLink">
           <div>
             <img
-              src="/static/assets/dashboard-studies.png"
+              src="/static/assets/dashboard-create.png"
               alt="icon"
               height="20"
             />
           </div>
-          <div>Your studies</div>
+          <div>Create</div>
+        </div>
+      </Link>
+
+      <Link href="/dashboard/participate">
+        <div className="navLink">
+          <div>
+            <img
+              src="/static/assets/dashboard-participate.png"
+              alt="icon"
+              height="20"
+            />
+          </div>
+          <div>Participate</div>
+        </div>
+      </Link>
+
+      <Link href="/dashboard/follow">
+        <div className="navLink">
+          <div>
+            <img
+              src="/static/assets/dashboard-follow.png"
+              alt="icon"
+              height="20"
+            />
+          </div>
+          <div>Follow</div>
         </div>
       </Link>
     </div>

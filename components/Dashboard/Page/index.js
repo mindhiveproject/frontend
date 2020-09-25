@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import Error from '../../ErrorMessage/index';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 
-import ParticipantDashboard from './participant';
+import HomeDashboard from './home';
 
 import { StyledDasboard } from '../styles';
 
@@ -22,7 +22,7 @@ class DashboardStatic extends Component {
 
           return (
             <StyledDasboard>
-              <ParticipantDashboard
+              <HomeDashboard
                 studies={data.me.participantIn}
                 username={data.me.username}
               />

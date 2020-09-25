@@ -11,6 +11,33 @@ export const StyledParticipantDasboard = styled.div`
   display: grid;
   padding: 20px;
 
+  h1 {
+    font-family: Lato;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 56px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1a1a1a;
+  }
+
+  h2 {
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1a1a1a;
+  }
+
+  .updatesBoard {
+    display: grid;
+    margin-top: 40px;
+  }
+
   .infoBoard {
     display: grid;
     grid-template-columns: 2fr 4fr;
@@ -21,8 +48,9 @@ export const StyledParticipantDasboard = styled.div`
   }
 
   .updates {
+    margin-top: 30px;
     display: grid;
-    grid-row-gap: 15px;
+    grid-row-gap: 25px;
   }
 
   .studiesBoard {
@@ -77,6 +105,7 @@ export const StyledStudyCard = styled.div`
 
 export const StyledMessage = styled.div`
   display: grid;
+  max-width: 560px;
   grid-template-columns: 4fr 1fr;
   background: #ffffff;
   border: 1px solid #ebebeb;
@@ -109,6 +138,16 @@ export const StyledMessage = styled.div`
     display: grid;
     align-items: center;
     justify-content: center;
+  }
+  .contextInfo {
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #969696;
   }
 `;
 
