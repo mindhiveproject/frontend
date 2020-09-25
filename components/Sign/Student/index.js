@@ -12,6 +12,7 @@ const CLASS_QUERY = gql`
       title
       description
       image
+      code
       creator {
         id
         username
@@ -144,7 +145,7 @@ class SignUp extends Component {
                 </SignupButton>
 
                 <GoogleSignup
-                  class={{ code: this.state.classCode }}
+                  class={{ code: this.state.classCode.toLowerCase() }}
                   permissions={['STUDENT']}
                 />
               </div>
@@ -153,7 +154,9 @@ class SignUp extends Component {
 
           {this.state.activePage === 'createAccount' && (
             <>
-              <StudentSignup class={{ code: this.state.classCode }} />
+              <StudentSignup
+                class={{ code: this.state.classCode.toLowerCase() }}
+              />
             </>
           )}
         </Dialog>
