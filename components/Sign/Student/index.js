@@ -73,7 +73,7 @@ class SignUp extends Component {
           {this.state.activePage === 'confirm' && (
             <Query
               query={CLASS_QUERY}
-              variables={{ code: this.state.classCode }}
+              variables={{ code: this.state.classCode.toLowerCase() }}
             >
               {({ error, loading, data }) => {
                 console.log('data', data);
