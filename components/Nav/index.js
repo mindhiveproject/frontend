@@ -76,9 +76,12 @@ const Nav = () => (
               </Link>
             )}
 
-            <Link href="/onboarding">
-              <NavButton>Student Onboarding</NavButton>
-            </Link>
+            {false && (
+              <Link href="/onboarding">
+                <NavButton>Student Onboarding</NavButton>
+              </Link>
+            )}
+
             {me && (
               <Link href="/dashboard">
                 <NavButton>Dashboard</NavButton>
