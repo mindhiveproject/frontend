@@ -122,6 +122,7 @@ class PostPrompt extends Component {
       if (redirect === 'studyPage') {
         this.props.onEndTask();
       } else if (redirect === 'nextTask' && this.state.nextTaskId) {
+        console.log('starting the next task', this.state.nextTaskId);
         this.props.onStartTheTask(this.state.nextTaskId);
       }
       this.props.onClosePrompt();

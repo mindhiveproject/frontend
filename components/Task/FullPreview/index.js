@@ -35,6 +35,7 @@ const TASK_QUERY = gql`
           title
         }
       }
+      taskType
     }
   }
 `;
@@ -68,7 +69,13 @@ class RunExperiment extends Component {
                       console.log('Event callback', e);
                     },
                     on_finish: token => {
-                      Router.push('/task/my');
+                      Router.push({
+                        pathname: '/dashboard/discover',
+                        query: {
+                          tab: task.taskType === 'SURVEY' ? 'surveys' : 'tasks',
+                        },
+                      });
+                      // Router.push('/dashboard/discover');
                     },
                   }}
                 />

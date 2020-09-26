@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 
-import { StyledTaskCard, StyledCardButtonsContainer } from '../styles';
+import { StyledTaskCard } from '../../Bank/styles';
 
 class TaskCard extends Component {
   static propTypes = {
@@ -16,48 +16,53 @@ class TaskCard extends Component {
     const { task } = this.props;
 
     return (
-      <StyledTaskCard>
-        <h2>{task.title}</h2>
+      <StyledTaskCard taskType={task.taskType}>
+        <div className="cardInfo">
+          <h2>{task.title}</h2>
+          <p>{ReactHtmlParser(task.description)}</p>
+          <p>
+            {task.settings &&
+              task.settings.duration &&
+              `Duration ${task.settings.duration}`}
+          </p>
 
-        <p>
-          {task.settings &&
-            task.settings.duration &&
-            `Duration ${task.settings.duration}`}
-        </p>
-
-        <div>{ReactHtmlParser(task.description)}</div>
-
-        <div>
-          {!this.props.completed &&
-            task.settings &&
-            ReactHtmlParser(task.settings.descriptionBefore)}
+          {this.props.joinedTheStudy && (
+            <>
+              <div>
+                {!this.props.completed &&
+                  task.settings &&
+                  ReactHtmlParser(task.settings.descriptionBefore)}
+              </div>
+              <div>
+                {this.props.completed &&
+                  task.settings &&
+                  ReactHtmlParser(task.settings.descriptionAfter)}
+              </div>
+              <div className="actionLinks">
+                {this.props.completed && (
+                  <p>You have already completed this task</p>
+                )}
+                {!this.props.completed && !task.link && (
+                  <a onClick={() => this.props.onStartTheTask(task.id)}>
+                    <p>Go to task</p>
+                  </a>
+                )}
+                {!this.props.completed && task.link && (
+                  <button
+                    onClick={() => this.props.onStartExternalTask(task.id)}
+                  >
+                    <a
+                      target="_blank"
+                      href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
+                    >
+                      <p>Go to task</p>
+                    </a>
+                  </button>
+                )}
+              </div>
+            </>
+          )}
         </div>
-        <div>
-          {this.props.completed &&
-            task.settings &&
-            ReactHtmlParser(task.settings.descriptionAfter)}
-        </div>
-
-        {this.props.completed && <p>The task is already completed</p>}
-        {!this.props.completed && !task.link && (
-          <>
-            <button onClick={() => this.props.onStartTheTask(task.id)}>
-              <a>
-                <h2>Start</h2>
-              </a>
-            </button>
-          </>
-        )}
-        {!this.props.completed && task.link && (
-          <button onClick={() => this.props.onStartExternalTask(task.id)}>
-            <a
-              target="_blank"
-              href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
-            >
-              <h2>Start</h2>
-            </a>
-          </button>
-        )}
       </StyledTaskCard>
     );
   }

@@ -4,12 +4,6 @@ export const StyledDasboard = styled.div`
   display: grid;
   padding: 20px;
   width: 100%;
-`;
-
-export const StyledParticipantDasboard = styled.div`
-  width: 100%;
-  display: grid;
-  padding: 20px;
 
   h1 {
     font-family: Lato;
@@ -33,18 +27,27 @@ export const StyledParticipantDasboard = styled.div`
     color: #1a1a1a;
   }
 
+  a {
+    cursor: pointer;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #007c70;
+  }
+`;
+
+export const StyledHomeDasboard = styled.div`
+  width: 100%;
+  display: grid;
+  padding: 20px;
+
   .updatesBoard {
     display: grid;
     margin-top: 40px;
-  }
-
-  .infoBoard {
-    display: grid;
-    grid-template-columns: 2fr 4fr;
-    grid-column-gap: 38px;
-    @media (max-width: 500px) {
-      grid-template-columns: 1fr;
-    }
   }
 
   .updates {
@@ -52,10 +55,12 @@ export const StyledParticipantDasboard = styled.div`
     display: grid;
     grid-row-gap: 25px;
   }
+`;
 
-  .studiesBoard {
-    display: grid;
-  }
+export const StyledDiscoverDasboard = styled.div`
+  width: 100%;
+  display: grid;
+  padding: 20px;
 
   .studies {
     display: grid;
@@ -66,42 +71,89 @@ export const StyledParticipantDasboard = styled.div`
       grid-template-columns: 1fr;
     }
   }
-`;
 
-export const StyledStudyCard = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.09), 0px 5px 6px rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
-  img {
-    width: 100%;
-    height: 166px;
-    object-fit: cover;
+  .tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-column-gap: 26px;
+    grid-row-gap: 26px;
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
   }
-  .cardInfo {
-    padding: 16px;
+
+  .surveys {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-column-gap: 26px;
+    grid-row-gap: 26px;
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
   }
-  a {
-    letter-spacing: 0.04em;
-    text-decoration-line: underline;
-    color: #007c70;
-  }
-  h2 {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 30px;
-    color: #1a1a1a;
-  }
-  p {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-    color: #969696;
+
+  .discoverMenu {
+    margin-bottom: 24px !important;
+
+    .discoverMenuTitle {
+      width: 150px;
+      padding-bottom: 10px !important;
+      display: grid;
+      justify-content: center;
+      border-bottom: 2px solid #e6e6e6;
+      p {
+        font-family: Lato;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 23px;
+        letter-spacing: 0em;
+        color: #666666;
+      }
+    }
+    .selectedMenuTitle {
+      border-bottom: 4px solid #ffc107 !important;
+      p {
+        color: #1a1a1a;
+      }
+    }
   }
 `;
+//
+// export const StyledStudyCard = styled.div`
+//   background: #ffffff;
+//   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.09), 0px 5px 6px rgba(0, 0, 0, 0.08);
+//   border-radius: 4px;
+//   img {
+//     width: 100%;
+//     height: 166px;
+//     object-fit: cover;
+//   }
+//   .cardInfo {
+//     padding: 16px;
+//   }
+//   a {
+//     letter-spacing: 0.04em;
+//     text-decoration-line: underline;
+//     color: #007c70;
+//   }
+//   h2 {
+//     font-family: Roboto;
+//     font-style: normal;
+//     font-weight: normal;
+//     font-size: 24px;
+//     line-height: 30px;
+//     color: #1a1a1a;
+//   }
+//   p {
+//     font-family: Roboto;
+//     font-style: normal;
+//     font-weight: normal;
+//     font-size: 12px;
+//     line-height: 16px;
+//     color: #969696;
+//   }
+// `;
 
 export const StyledMessage = styled.div`
   display: grid;

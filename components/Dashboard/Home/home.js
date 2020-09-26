@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import sortBy from 'lodash/sortBy';
-import { StyledParticipantDasboard } from '../styles';
-import StudyCard from './studycard';
+import { StyledHomeDasboard } from '../styles';
 import MessageCard from './messagecard';
 
 class HomeDashboard extends Component {
@@ -22,11 +21,9 @@ class HomeDashboard extends Component {
     const sortedMessages = sortBy(messages, [
       message => message.createdAt,
     ]).reverse();
-    // console.log('6 Participant studies', studies);
-    console.log('sortedMessages', sortedMessages);
 
     return (
-      <StyledParticipantDasboard>
+      <StyledHomeDasboard>
         <h1>Welcome back{username ? `, ${username}` : `!`}</h1>
 
         <div className="updatesBoard">
@@ -37,19 +34,7 @@ class HomeDashboard extends Component {
             ))}
           </div>
         </div>
-
-        {false && (
-          <div className="studiesBoard">
-            <h2>Your studies</h2>
-            <div className="studies">
-              {studies.map(study => (
-                <StudyCard key={study.id} study={study} />
-              ))}
-            </div>
-          </div>
-        )}
-        <div className="infoBoard"></div>
-      </StyledParticipantDasboard>
+      </StyledHomeDasboard>
     );
   }
 }

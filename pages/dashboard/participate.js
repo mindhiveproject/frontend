@@ -1,10 +1,10 @@
-import DashboardParticipate from '../../components/Dashboard/Participate/index';
+import DashboardHome from '../../components/Dashboard/Home/index';
 import AuthorizedPage from '../../components/Page/userpage';
 
-const DashboardParticipatePage = props => (
+const DashboardHomePage = props => (
   <AuthorizedPage>
-    <DashboardParticipate />
+    <DashboardHome />
   </AuthorizedPage>
 );
 
-export default DashboardParticipatePage;
+export default DashboardHomePage;

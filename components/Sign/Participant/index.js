@@ -123,11 +123,11 @@ class ParticipantSignup extends Component {
                     value={this.state.username}
                     onChange={this.saveToState}
                   />
-                  <p>
+                  <div className="helpText">
                     Your username <strong>will be visible to scientists</strong>
                     . Proceed with the name we suggest or choose your own (but
                     don't use your real name!).
-                  </p>
+                  </div>
                 </label>
                 <label htmlFor="email">
                   <p>Email address</p>

@@ -273,6 +273,8 @@ export const CreateAccountForm = styled.form`
     display: grid;
     grid-template-columns: 1fr 9fr;
     grid-gap: 16px;
+    align-items: start;
+    margin-bottom: 10px;
   }
   a {
     color: #007c70;

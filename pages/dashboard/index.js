@@ -1,10 +1,10 @@
-import DashboardStatic from '../../components/Dashboard/Page/index';
+import DashboardHome from '../../components/Dashboard/Home/index';
 import AuthorizedPage from '../../components/Page/userpage';
 
-const DashboardPage = props => (
+const DashboardHomePage = props => (
   <AuthorizedPage>
-    <DashboardStatic />
+    <DashboardHome />
   </AuthorizedPage>
 );
 
-export default DashboardPage;
+export default DashboardHomePage;

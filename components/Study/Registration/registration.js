@@ -23,24 +23,32 @@ class StudyRegistration extends Component {
         {!this.state.login && !this.state.signup && (
           <SignupForm>
             <h1>How would you like to join?</h1>
+            <div className="studentSignupOptions">
+              <SignupButton
+                onClick={() => {
+                  this.setState({ signup: true });
+                }}
+              >
+                <div>
+                  <img
+                    src="/static/assets/signup-email.png"
+                    alt="icon"
+                    height="20"
+                  />
+                </div>
+                <div> Sign up with email/username</div>
+              </SignupButton>
 
-            <SignupButton
-              onClick={() => {
-                this.setState({ signup: true });
-              }}
-            >
-              Sign up with email/username
-            </SignupButton>
-
-            <GoogleSignup
-              redirect={study.slug}
-              user={user}
-              study={study}
-              permissions={['PARTICIPANT']}
-              onClose={this.props.onClose}
-              onStartTheTask={this.props.onStartTheTask}
-              firstTaskId={this.props.firstTaskId}
-            />
+              <GoogleSignup
+                redirect={study.slug}
+                user={user}
+                study={study}
+                permissions={['PARTICIPANT']}
+                onClose={this.props.onClose}
+                onStartTheTask={this.props.onStartTheTask}
+                firstTaskId={this.props.firstTaskId}
+              />
+            </div>
 
             <div>
               <span>

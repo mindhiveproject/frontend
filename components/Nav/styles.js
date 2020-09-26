@@ -5,8 +5,9 @@ export const StyledSidebar = styled.div`
   /* grid-template-rows: 100px 4fr 1fr; */
   grid-template-columns: 1fr;
   grid-gap: 40px;
-  justify-items: center;
+  justify-items: left;
   align-content: start;
+  padding-left: 30px;
 
   .navLinks {
     display: grid;
@@ -151,4 +152,19 @@ export const NavButtonSecondary = styled.button`
   padding: 1rem 3rem;
   background: #007c70;
   align-items: center;
+`;
+
+export const SignoutButton = styled.button`
+  width: 150px;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  color: #007c70;
+  border: 2px solid #007c70;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 14px 24px 14px 24px;
+  background: none;
+  align-items: center;
+  margin-top: 8px;
 `;

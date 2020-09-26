@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Logo = styled.a`
   @import url('https://fonts.googleapis.com/css?family=Montserrat');
-  margin: 20px;
+  /* margin: 20px; */
   margin-top: 33px;
   display: grid;
   justify-items: start;
@@ -12,6 +12,7 @@ export const Logo = styled.a`
     justify-items: center;
   }
   .logo {
+    margin-left: 20px;
     display: grid;
     grid-template-columns: 1fr 3fr;
   }

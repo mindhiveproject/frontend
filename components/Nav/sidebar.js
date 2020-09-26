@@ -39,7 +39,7 @@ const SidebarNav = () => (
         </div>
       </Link>
 
-      <Link href="/dashboard/participate">
+      <Link href="/dashboard/discover">
         <div className="navLink">
           <div>
             <img

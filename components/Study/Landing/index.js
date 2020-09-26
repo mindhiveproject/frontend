@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-
 import Error from '../../ErrorMessage/index';
-
 import StudyUserPage from './studypage';
-
-// import { StyledStudy } from '../styles';
-// import Head from 'next/head';
-
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
 const REVIEW_STUDY_QUERY = gql`
@@ -25,6 +19,7 @@ const REVIEW_STUDY_QUERY = gql`
         description
         link
         settings
+        taskType
       }
       image
       largeImage
@@ -80,11 +75,13 @@ class ReviewStudyForParticipants extends Component {
                 if (studyPayloadLoading) return <p>Loading</p>;
                 if (!studyPayloadData)
                   return <p>No study found for {this.props.slug}</p>;
-
                 return (
                   <StudyUserPage
                     study={studyPayloadData}
                     user={userPayloadData}
+                    withoutHeader={this.props.withoutHeader}
+                    onStartTask={this.props.onStartTask}
+                    onEndTask={this.props.onEndTask}
                   />
                 );
               }}

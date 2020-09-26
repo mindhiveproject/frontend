@@ -18,6 +18,9 @@ class StudyUserPage extends Component {
         isTaskRunning: true,
       });
     }
+    if (this.props.onStartTask) {
+      this.props.onStartTask(taskId);
+    }
   };
 
   startExternalTask = taskId => {
@@ -28,38 +31,54 @@ class StudyUserPage extends Component {
         isExternalTaskRunning: true,
       });
     }
+    if (this.props.onStartTask) {
+      this.props.onStartTask(taskId);
+    }
   };
 
   endTask = () => {
     this.setState({
       isTaskRunning: false,
     });
+    if (this.props.onEndTask()) {
+      this.props.onEndTask();
+    }
   };
 
   render() {
     const { study, user } = this.props;
-    if (!this.state.isTaskRunning) {
+    if (this.state.isTaskRunning) {
       return (
-        <Page>
-          <StudyPage
-            study={study}
-            user={user}
-            onStartTheTask={this.startTheTask}
-            onStartExternalTask={this.startExternalTask}
-          />
-        </Page>
+        <TaskPage
+          user={user}
+          study={study}
+          id={this.state.taskId}
+          policy={user?.generalInfo?.data || 'science'}
+          onStartTheTask={this.startTheTask}
+          onEndTask={this.endTask}
+          isExternalTaskRunning={this.state.isExternalTaskRunning}
+        />
+      );
+    }
+    if (this.props.withoutHeader) {
+      return (
+        <StudyPage
+          study={study}
+          user={user}
+          onStartTheTask={this.startTheTask}
+          onStartExternalTask={this.startExternalTask}
+        />
       );
     }
     return (
-      <TaskPage
-        user={user}
-        study={study}
-        id={this.state.taskId}
-        policy={user?.generalInfo?.data || 'science'}
-        onStartTheTask={this.startTheTask}
-        onEndTask={this.endTask}
-        isExternalTaskRunning={this.state.isExternalTaskRunning}
-      />
+      <Page>
+        <StudyPage
+          study={study}
+          user={user}
+          onStartTheTask={this.startTheTask}
+          onStartExternalTask={this.startExternalTask}
+        />
+      </Page>
     );
   }
 }

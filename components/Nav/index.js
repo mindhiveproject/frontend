@@ -92,9 +92,11 @@ const Nav = () => (
 
         <ContainerOnlyForParticipants>
           <NavRightContainer>
-            <Link href="/study/all">
-              <NavButton>Research studies</NavButton>
-            </Link>
+            {false && (
+              <Link href="/study/all">
+                <NavButton>Research studies</NavButton>
+              </Link>
+            )}
             {me && (
               <Link href="/dashboard">
                 <NavButton>Dashboard</NavButton>

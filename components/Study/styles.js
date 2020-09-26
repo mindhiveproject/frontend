@@ -11,8 +11,7 @@ export const StyledStudyPage = styled.div`
     'info tags';
   grid-gap: 15px;
   max-width: 1500px;
-  margin: 2rem auto;
-  padding: 3rem;
+  /* margin: 2rem auto; */
   min-height: 800px;
 
   @media (max-width: 700px) {
@@ -69,10 +68,17 @@ export const StyledStudyPage = styled.div`
   }
   a {
     text-decoration-line: underline;
+    cursor: pointer;
   }
   img {
     max-width: 100%;
+    max-height: 160px;
     object-fit: contain;
+  }
+
+  .studyImage {
+    display: grid;
+    justify-content: center;
   }
 
   .studyImage,
@@ -143,15 +149,28 @@ export const StyledStudyPage = styled.div`
     letter-spacing: 0.03em;
     color: #28619e;
     padding: 8px;
-    /* margin: 10px; */
     text-align: center;
-    /* width: fit-content; */
   }
   .partnersInfo {
     display: grid;
     grid-template-columns: 3fr 1fr 2fr 2fr;
     grid-column-gap: 10px;
     align-items: center;
+  }
+
+  .controlBtns {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    button {
+      width: auto;
+      margin: 0;
+    }
+    .secondaryBtn {
+      border: 2px solid #007c70;
+      color: #007c70;
+      background: #f7f9f8;
+    }
   }
 `;
 

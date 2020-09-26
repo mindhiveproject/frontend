@@ -76,7 +76,7 @@ class Login extends Component {
                 }}
               >
                 <fieldset disabled={loading} aria-busy={loading}>
-                  <h1>Login as a participant</h1>
+                  <h1>Login</h1>
                   <h3>Enter your email or username</h3>
                   <Error error={error} />
 
@@ -107,15 +107,16 @@ class Login extends Component {
                 <Link href="/requestreset">
                   <a style={{ float: 'right' }}>Forgot your password?</a>
                 </Link>
+
+                <GoogleLogin
+                  onClose={this.props.onClose}
+                  redirect={this.props.redirect}
+                  study={this.props.study}
+                  user={this.props.user}
+                  onStartTheTask={this.props.onStartTheTask}
+                  firstTaskId={this.props.firstTaskId}
+                />
               </CreateAccountForm>
-              <GoogleLogin
-                onClose={this.props.onClose}
-                redirect={this.props.redirect}
-                study={this.props.study}
-                user={this.props.user}
-                onStartTheTask={this.props.onStartTheTask}
-                firstTaskId={this.props.firstTaskId}
-              />
             </SignupForm>
           )}
         </Mutation>
