@@ -75,9 +75,10 @@ class DashboardDiscover extends Component {
             </a>
             <ReviewStudyForParticipants
               slug={this.state.study.slug}
-              withoutHeader
               onStartTask={this.startTask}
               onEndTask={this.endTask}
+              withoutHeader
+              openedFromDashboard
             />
           </StyledDasboard>
         </AuthorizedPage>

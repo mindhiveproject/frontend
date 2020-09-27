@@ -79,9 +79,10 @@ class ReviewStudyForParticipants extends Component {
                   <StudyUserPage
                     study={studyPayloadData}
                     user={userPayloadData}
-                    withoutHeader={this.props.withoutHeader}
                     onStartTask={this.props.onStartTask}
                     onEndTask={this.props.onEndTask}
+                    withoutHeader={this.props.withoutHeader}
+                    openedFromDashboard={this.props.openedFromDashboard}
                   />
                 );
               }}

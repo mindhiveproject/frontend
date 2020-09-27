@@ -86,9 +86,13 @@ class PostPrompt extends Component {
   };
 
   onNext = () => {
-    this.setState({
-      dataResponseGiven: true,
-    });
+    if (!this.state.data) {
+      alert('Please answer the question first');
+    } else {
+      this.setState({
+        dataResponseGiven: true,
+      });
+    }
   };
 
   onSubmit = async (e, updateResultsMutation, redirect) => {
@@ -201,6 +205,7 @@ class PostPrompt extends Component {
 
                   {this.state.data === 'science' &&
                     task.consent &&
+                    !this.state.consentResponseGiven &&
                     this.state.page === 1 && (
                       <div>
                         <p>
@@ -227,6 +232,7 @@ class PostPrompt extends Component {
 
                   {this.state.data === 'science' &&
                     task.consent &&
+                    !this.state.consentResponseGiven &&
                     this.state.page === 2 && (
                       <div>
                         <p>
@@ -259,9 +265,11 @@ class PostPrompt extends Component {
                       </div>
                     )}
 
-                  {!(this.state.data === 'science' && task.consent) && (
-                    <button onClick={() => this.onNext()}>Next</button>
-                  )}
+                  {!(
+                    this.state.data === 'science' &&
+                    task.consent &&
+                    !this.state.consentResponseGiven
+                  ) && <button onClick={() => this.onNext()}>Next</button>}
                 </OnboardingForm>
               </div>
             );

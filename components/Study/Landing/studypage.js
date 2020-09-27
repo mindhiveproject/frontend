@@ -13,35 +13,38 @@ class StudyUserPage extends Component {
 
   startTheTask = taskId => {
     if (taskId) {
-      this.setState({
-        taskId,
-        isTaskRunning: true,
-      });
-    }
-    if (this.props.onStartTask) {
-      this.props.onStartTask(taskId);
+      if (this.props.openedFromDashboard && this.props.onStartTask) {
+        this.props.onStartTask(taskId);
+      } else {
+        this.setState({
+          taskId,
+          isTaskRunning: true,
+        });
+      }
     }
   };
 
   startExternalTask = taskId => {
     if (taskId) {
-      this.setState({
-        taskId,
-        isTaskRunning: true,
-        isExternalTaskRunning: true,
-      });
-    }
-    if (this.props.onStartTask) {
-      this.props.onStartTask(taskId);
+      if (this.props.openedFromDashboard && this.props.onStartTask) {
+        this.props.onStartTask(taskId);
+      } else {
+        this.setState({
+          taskId,
+          isTaskRunning: true,
+          isExternalTaskRunning: true,
+        });
+      }
     }
   };
 
   endTask = () => {
-    this.setState({
-      isTaskRunning: false,
-    });
-    if (this.props.onEndTask()) {
+    if (this.props.openedFromDashboard && this.props.onEndTask) {
       this.props.onEndTask();
+    } else {
+      this.setState({
+        isTaskRunning: false,
+      });
     }
   };
 

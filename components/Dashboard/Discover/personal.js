@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import Error from '../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
+import Error from '../../ErrorMessage/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
-import DashboardDiscover from './Discover/index';
+import DashboardDiscover from './index';
 
 class PersonalDashboard extends Component {
   render() {
