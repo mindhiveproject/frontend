@@ -1,4 +1,4 @@
-import DashboardDiscover from '../../components/Dashboard/Discover/personal';
+import DashboardDiscover from '../../components/Dashboard/Discover/index';
 
 const DashboardDiscoverPage = ({ query }) => (
   <DashboardDiscover tab={query.tab} />

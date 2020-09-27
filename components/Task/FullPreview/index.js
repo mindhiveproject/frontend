@@ -43,6 +43,7 @@ const TASK_QUERY = gql`
 class RunExperiment extends Component {
   render() {
     const { id } = this.props;
+    const redirect = this.props.redirect === 'p' ? 'participate' : 'discover';
     return (
       <Query query={TASK_QUERY} variables={{ id }}>
         {({ error, loading, data }) => {
@@ -70,7 +71,7 @@ class RunExperiment extends Component {
                     },
                     on_finish: token => {
                       Router.push({
-                        pathname: '/dashboard/discover',
+                        pathname: `/dashboard/${redirect}`,
                         query: {
                           tab: task.taskType === 'SURVEY' ? 'surveys' : 'tasks',
                         },

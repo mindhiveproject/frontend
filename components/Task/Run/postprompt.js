@@ -110,6 +110,7 @@ class PostPrompt extends Component {
             agreeReceiveTaskUpdates: this.state.agreeReceiveTaskUpdates,
             consentGiven: this.state.consentGiven,
             saveCoveredConsent: this.state.saveCoveredConsent,
+            taskType: this.props.task.taskType,
           },
           consent: {
             id: this.state.consentId,

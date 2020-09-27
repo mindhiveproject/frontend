@@ -1,10 +1,8 @@
-import DashboardHome from '../../components/Dashboard/Home/index';
+import DashboardParticipate from '../../components/Dashboard/Participate/index';
 import AuthorizedPage from '../../components/Page/userpage';
 
-const DashboardHomePage = props => (
-  <AuthorizedPage>
-    <DashboardHome />
-  </AuthorizedPage>
+const DashboardParticipatePage = ({ query }) => (
+  <DashboardParticipate tab={query.tab} />
 );
 
-export default DashboardHomePage;
+export default DashboardParticipatePage;

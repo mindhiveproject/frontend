@@ -21,7 +21,7 @@ class TaskCard extends Component {
           <Link
             href={{
               pathname: '/task/preview',
-              query: { id: task.id },
+              query: { id: task.id, r: this.props.redirect },
             }}
           >
             <a>

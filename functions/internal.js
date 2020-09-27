@@ -7,9 +7,9 @@ const LZUTF8 = require('lzutf8');
 exports.handler = async (event, context) => {
   // const serverUrl = endpoint;
   // console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-  // const serverUrl = endpoint;
-  const serverUrl =
-    process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+  const serverUrl = endpoint;
+  // const serverUrl =
+  // process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
   const { user, template, task, study, policy } = event.queryStringParameters;
 
   const { metadata, url, data } = JSON.parse(event.body);

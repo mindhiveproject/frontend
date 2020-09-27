@@ -6,9 +6,9 @@ import { StyledBank, StyledSurveyCard } from '../styles';
 
 import SurveyCard from './surveycard';
 
-const ALL_PUBLIC_SURVEYS_QUERY = gql`
-  query ALL_PUBLIC_SURVEYS_QUERY {
-    tasks(where: { taskType: SURVEY }) {
+const ALL_PARTICIPATED_SURVEYS_QUERY = gql`
+  query ALL_PARTICIPATED_SURVEYS_QUERY($tasks: [ID!]) {
+    tasks(where: { taskType: SURVEY, id_in: $tasks }) {
       id
       title
       slug
@@ -30,7 +30,15 @@ class SurveysBank extends Component {
   render() {
     return (
       <>
-        <Query query={ALL_PUBLIC_SURVEYS_QUERY}>
+        <Query
+          query={ALL_PARTICIPATED_SURVEYS_QUERY}
+          variables={{
+            tasks:
+              (this.props.user.tasksInfo &&
+                Object.keys(this.props.user.tasksInfo)) ||
+              [],
+          }}
+        >
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
@@ -39,7 +47,7 @@ class SurveysBank extends Component {
               <StyledBank>
                 <div className="surveys">
                   {tasks.map(survey => (
-                    <SurveyCard key={survey.id} survey={survey} redirect="d" />
+                    <SurveyCard key={survey.id} survey={survey} redirect="p" />
                   ))}
                 </div>
               </StyledBank>

@@ -1,27 +1,44 @@
 import React, { Component } from 'react';
+import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Error from '../../ErrorMessage/index';
-import { USER_DASHBOARD_QUERY } from '../../User/index';
-import StudiesDashboard from './studies';
+import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
-import { StyledDasboard } from '../styles';
+import DashboardParticipate from './personalized';
 
-class DashboardParticipate extends Component {
+class PersonalDashboard extends Component {
   render() {
     return (
-      <Query query={USER_DASHBOARD_QUERY}>
-        {({ data, loading, error }) => {
-          if (error) return <Error error={error} />;
-          if (loading) return <p>Loading</p>;
-          if (!data.me) return <p>No user found. Please sign up or login.</p>;
+      <Query query={CURRENT_USER_RESULTS_QUERY}>
+        {userPayload => {
+          const userPayloadError = userPayload.error;
+          const userPayloadLoading = userPayload.loading;
+          const userPayloadData = userPayload.data && userPayload.data.me;
+          if (userPayloadError) return <Error error={error} />;
+          if (userPayloadLoading) return <p>Loading</p>;
+
+          console.log('userPayloadData', userPayloadData);
+          // calculate stats
+          const stats = {
+            studies: userPayloadData?.participantIn.length,
+            tasks:
+              userPayloadData?.tasksInfo &&
+              Object.values(userPayloadData?.tasksInfo).filter(
+                task => task.taskType === 'TASK'
+              ).length,
+            surveys:
+              userPayloadData?.tasksInfo &&
+              Object.values(userPayloadData?.tasksInfo).filter(
+                task => task.taskType === 'SURVEY'
+              ).length,
+          };
 
           return (
-            <StyledDasboard>
-              <StudiesDashboard
-                participantStudies={data.me.participantIn}
-                username={data.me.username}
-              />
-            </StyledDasboard>
+            <DashboardParticipate
+              user={userPayloadData}
+              tab={this.props.tab}
+              stats={stats}
+            />
           );
         }}
       </Query>
@@ -29,4 +46,4 @@ class DashboardParticipate extends Component {
   }
 }
 
-export default DashboardParticipate;
+export default PersonalDashboard;

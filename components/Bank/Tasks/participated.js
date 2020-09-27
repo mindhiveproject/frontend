@@ -6,9 +6,9 @@ import { StyledBank, StyledTaskCard } from '../styles';
 
 import TaskCard from './taskcard';
 
-const ALL_PUBLIC_TASKS_QUERY = gql`
-  query ALL_PUBLIC_TASKS_QUERY {
-    tasks(where: { taskType: TASK }) {
+const ALL_PARTICIPATED_TASKS_QUERY = gql`
+  query ALL_PARTICIPATED_TASKS_QUERY($tasks: [ID!]) {
+    tasks(where: { taskType: TASK, id_in: $tasks }) {
       id
       title
       slug
@@ -26,11 +26,19 @@ const ALL_PUBLIC_TASKS_QUERY = gql`
   }
 `;
 
-class TasksBank extends Component {
+class ParticipatedTasksBank extends Component {
   render() {
     return (
       <>
-        <Query query={ALL_PUBLIC_TASKS_QUERY}>
+        <Query
+          query={ALL_PARTICIPATED_TASKS_QUERY}
+          variables={{
+            tasks:
+              (this.props.user.tasksInfo &&
+                Object.keys(this.props.user.tasksInfo)) ||
+              [],
+          }}
+        >
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
@@ -40,7 +48,7 @@ class TasksBank extends Component {
               <StyledBank>
                 <div className="tasks">
                   {tasks.map(task => (
-                    <TaskCard key={task.id} task={task} redirect="d" />
+                    <TaskCard key={task.id} task={task} redirect="p" />
                   ))}
                 </div>
               </StyledBank>
@@ -52,4 +60,4 @@ class TasksBank extends Component {
   }
 }
 
-export default TasksBank;
+export default ParticipatedTasksBank;

@@ -44,6 +44,7 @@ const TASK_QUERY = gql`
           title
         }
       }
+      taskType
     }
   }
 `;

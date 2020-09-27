@@ -21,7 +21,7 @@ class SurveyCard extends Component {
           <Link
             href={{
               pathname: '/task/preview',
-              query: { id: survey.id },
+              query: { id: survey.id, r: this.props.redirect },
             }}
           >
             <a>
