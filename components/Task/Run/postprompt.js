@@ -13,6 +13,9 @@ import Crossover from './crossover';
 import StudyConsentText from '../../Study/Registration/Steps/4-studyConsentText';
 import StudyConsentForm from '../../Study/Registration/Steps/5-studyConsent';
 
+import DataUsageForStudent from './DataUsage/student';
+import DataUsageForParticipant from './DataUsage/participant';
+
 const UPDATE_RESULTS_INFO_MUTATION = gql`
   mutation UPDATE_RESULTS_INFO_MUTATION($id: ID!, $info: Json) {
     updateResultsInfo(id: $id, info: $info) {
@@ -74,6 +77,7 @@ class PostPrompt extends Component {
   };
 
   updateState = e => {
+    console.log('e', e.target.name, e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -96,7 +100,6 @@ class PostPrompt extends Component {
   };
 
   onSubmit = async (e, updateResultsMutation, redirect) => {
-    console.log('submit data', this.state);
     e.preventDefault();
     const res = await updateResultsMutation({
       variables: {
@@ -120,7 +123,6 @@ class PostPrompt extends Component {
         },
       },
     });
-    console.log('res', res);
 
     // return back to the study page or continue to the next task
     if (this.props.slug) {
@@ -144,6 +146,8 @@ class PostPrompt extends Component {
         {(updateResult, { error }) => {
           const { study, user, task } = this.props;
           console.log('study, user, task', study, user, task);
+          const isStudent = user?.permissions.includes('STUDENT');
+          console.log('isStudent', isStudent);
 
           // always show data usage prompt
           if (!this.state.dataResponseGiven) {
@@ -151,58 +155,17 @@ class PostPrompt extends Component {
               <div>
                 <OnboardingForm>
                   <h1>Thank you for participating in this task!</h1>
-                  <h1>Data usage</h1>
-                  <h3>How would you like us to use your data?</h3>
-
-                  <div>
-                    <div className="checkboxField">
-                      <input
-                        type="radio"
-                        id="useDataForScience"
-                        name="data"
-                        value="science"
-                        onChange={this.updateState}
-                        checked={this.state.data === 'science'}
-                      />
-                      <label htmlFor="useDataForScience">
-                        You can use my data for science and/or educational
-                        purposes
-                      </label>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="checkboxField">
-                      <input
-                        type="radio"
-                        id="educationalUse"
-                        name="data"
-                        value="education"
-                        onChange={this.updateState}
-                        checked={this.state.data === 'education'}
-                      />
-                      <label htmlFor="educationalUse">
-                        I want my data to be saved for educational use only
-                        (e.g., lectures and teaching materials)
-                      </label>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="checkboxField">
-                      <input
-                        type="radio"
-                        id="doNotRecord"
-                        name="data"
-                        value="no"
-                        onChange={this.updateState}
-                        checked={this.state.data === 'no'}
-                      />
-                      <label htmlFor="doNotRecord">
-                        Don't record my data at all (if you’re a MindHive
-                        student: this means your data won't be included in class
-                        demos!)
-                      </label>
-                    </div>
-                  </div>
+                  {isStudent ? (
+                    <DataUsageForStudent
+                      data={this.state.data}
+                      updateState={this.updateState}
+                    />
+                  ) : (
+                    <DataUsageForParticipant
+                      data={this.state.data}
+                      updateState={this.updateState}
+                    />
+                  )}
 
                   {this.state.data === 'science' &&
                     task.consent &&
