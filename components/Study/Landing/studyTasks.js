@@ -8,6 +8,7 @@ import TaskCard from '../TaskCard/index';
 const StyledTaskList = styled.div`
   display: grid;
   grid-gap: 36px;
+  grid-area: tasks;
 `;
 
 class StudyTasks extends Component {

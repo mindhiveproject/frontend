@@ -151,6 +151,9 @@ class RegistrationPage extends Component {
                           });
                         }
                       }}
+                      saveCoveredConsent={this.state.saveCoveredConsent}
+                      toggleState={this.toggleState}
+                      updateState={this.updateState}
                     />
                   </div>
                 )}
@@ -229,8 +232,8 @@ class RegistrationPage extends Component {
                         sharePersonalDataWithOtherStudies: this.state
                           .sharePersonalDataWithOtherStudies,
                         parentConsentGiven: this.state.parentConsentGiven,
-                        parentEmail: this.state.parentEmail,
                         parentName: this.state.parentName,
+                        parentEmail: this.state.parentEmail,
                       }}
                       onClose={this.props.onClose}
                       onStartTheTask={this.props.onStartTheTask}
@@ -253,8 +256,8 @@ class RegistrationPage extends Component {
                   sharePersonalDataWithOtherStudies: this.state
                     .sharePersonalDataWithOtherStudies,
                   parentConsentGiven: this.state.parentConsentGiven,
-                  parentEmail: this.state.parentEmail,
                   parentName: this.state.parentName,
+                  parentEmail: this.state.parentEmail,
                 }}
                 study={study}
                 onClose={this.props.onClose}

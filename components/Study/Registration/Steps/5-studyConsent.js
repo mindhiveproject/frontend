@@ -17,7 +17,7 @@ class StudyConsentForm extends Component {
                 <img src="/static/MindHive_logo.png" alt="icon" height="30" />
               </div>
             </Logo>
-            <div>Study consent</div>
+            <div className="headerTitle">Study consent</div>
             <a
               style={{ cursor: 'pointer', textAlign: 'end' }}
               onClick={this.props.onClose}
@@ -72,26 +72,24 @@ class StudyConsentForm extends Component {
             <div></div>
           )}
 
-          {true && (
-            <div>
-              <label htmlFor="saveCoveredConsent">
-                <div className="checkboxField">
-                  <input
-                    type="checkbox"
-                    id="saveCoveredConsent"
-                    name="saveCoveredConsent"
-                    checked={this.props.saveCoveredConsent}
-                    onChange={this.props.toggleState}
-                  />
-                  <span>
-                    Save my consent for all covered studies/tasks (if you
-                    uncheck this box, you will be prompted with this consent
-                    page each time).
-                  </span>
-                </div>
-              </label>
-            </div>
-          )}
+          <div>
+            <label htmlFor="saveCoveredConsent">
+              <div className="checkboxField">
+                <input
+                  type="checkbox"
+                  id="saveCoveredConsent"
+                  name="saveCoveredConsent"
+                  checked={this.props.saveCoveredConsent}
+                  onChange={this.props.toggleState}
+                />
+                <span>
+                  Save my consent for all covered studies/tasks (if you uncheck
+                  this box, you will be prompted with this consent page each
+                  time).
+                </span>
+              </div>
+            </label>
+          </div>
         </div>
 
         <button onClick={this.props.onNext}>Next</button>

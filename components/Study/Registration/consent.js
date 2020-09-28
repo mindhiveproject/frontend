@@ -30,48 +30,53 @@ const JOIN_STUDY = gql`
   }
 `;
 
-class StudyConsent extends Component {
-  getIntitialPage = () => {
-    let page = 1; // demo questions
-    const { study } = this.props;
-    if (this.props.user.generalInfo?.sharePersonalDataWithOtherStudies) {
-      if (
-        typeof this.props.user.generalInfo?.zipCode !== 'undefined' &&
-        typeof this.props.user.generalInfo?.under18 !== 'undefined' &&
-        typeof this.props.user.generalInfo?.englishComprehension !== 'undefined'
-      ) {
-        if (study.consent) {
-          if (this.props.user.generalInfo?.under18 === 'yes') {
-            page = 2;
-          } else {
-            const consentId = this.props?.study?.consent?.id;
-            const userConsent =
-              this.props.user?.consentsInfo &&
-              this.props.user.consentsInfo[consentId];
-            if (userConsent && userConsent.saveCoveredConsent) {
-              page = 5;
-            } else {
-              page = 4;
-            }
-          }
-        } else {
-          page = 6;
-        }
+// check whether the user has consent
+function checkExistingConsent(user, study) {
+  let isConsentGiven = false;
+  if (study.consent) {
+    const consentId = study?.consent?.id || null;
+    const userConsent =
+      (user?.consentsInfo && user.consentsInfo[consentId]) || false;
+    if (userConsent) {
+      isConsentGiven = true;
+    }
+  }
+  return isConsentGiven;
+}
+
+// get the first page
+function getIntitialPage(user, study) {
+  let page = 1; // demographics questions
+  const existingConsent = checkExistingConsent(user, study);
+  if (user.generalInfo?.sharePersonalDataWithOtherStudies) {
+    if (
+      !study?.settings?.zipCode ||
+      (typeof user.generalInfo?.zipCode !== 'undefined' &&
+        typeof user.generalInfo?.under18 !== 'undefined' &&
+        typeof user.generalInfo?.englishComprehension !== 'undefined')
+    ) {
+      if (existingConsent) {
+        page = 6;
+      } else if (user.generalInfo?.under18 === 'yes') {
+        page = 2;
+      } else {
+        page = 4;
       }
     }
-    return page;
-  };
+  }
+  return page;
+}
 
+class StudyConsent extends Component {
   state = {
-    page: this.getIntitialPage(),
-    zipCode: this.props.user && this.props.user.generalInfo?.zipCode,
-    age: this.props.user && this.props.user.generalInfo?.age,
-    under18: this.props.user && this.props.user.generalInfo?.under18,
-    englishComprehension:
-      this.props.user && this.props.user.generalInfo?.englishComprehension,
-    sharePersonalDataWithOtherStudies:
-      this.props.user &&
-      this.props.user.generalInfo?.sharePersonalDataWithOtherStudies,
+    page: getIntitialPage(this.props.user, this.props.study),
+    existingConsent: checkExistingConsent(this.props.user, this.props.study),
+    zipCode: this.props.user?.generalInfo?.zipCode,
+    age: this.props.user?.generalInfo?.age,
+    under18: this.props.user?.generalInfo?.under18,
+    englishComprehension: this.props.user?.generalInfo?.englishComprehension,
+    sharePersonalDataWithOtherStudies: this.props.user?.generalInfo
+      ?.sharePersonalDataWithOtherStudies,
     saveCoveredConsent: true,
   };
 
@@ -113,6 +118,8 @@ class StudyConsent extends Component {
             .sharePersonalDataWithOtherStudies,
           saveCoveredConsent: this.state.saveCoveredConsent,
           consentGiven,
+          parentName: this.state.parentName,
+          parentEmail: this.state.parentEmail,
         },
         study: this.props.study,
       },
@@ -152,17 +159,12 @@ class StudyConsent extends Component {
                   }
                   onNext={() => {
                     if (this.state.under18 && this.state.englishComprehension) {
-                      // if there is an IRB consent in the study
-                      if (study.consent) {
-                        if (this.state.under18 === 'yes') {
-                          this.setState({ page: this.state.page + 1 });
-                        }
-                        if (this.state.under18 === 'no') {
-                          this.setState({ page: this.state.page + 3 });
-                        }
-                      } else {
-                        // otherwise if there is no IRB consent, jump to the next stage
+                      if (this.state.existingConsent) {
                         this.setState({ page: this.state.page + 5 });
+                      } else if (this.state.under18 === 'yes') {
+                        this.setState({ page: this.state.page + 1 });
+                      } else {
+                        this.setState({ page: this.state.page + 3 });
                       }
                     }
                   }}
@@ -191,12 +193,14 @@ class StudyConsent extends Component {
                   onClose={() => this.props.onClose()}
                   title={study.title}
                   consent={study.consent}
-                  updateState={this.updateState}
                   onNext={e => {
                     if (this.state.parentName && this.state.parentEmail) {
                       this.saveJoinStudy(e, joinStudy, true);
                     }
                   }}
+                  saveCoveredConsent={this.state.saveCoveredConsent}
+                  toggleState={this.toggleState}
+                  updateState={this.updateState}
                 />
               </div>
             )}

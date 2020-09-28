@@ -5,8 +5,9 @@ export const StyledStudyPage = styled.div`
   grid-template-columns: 8fr 4fr;
   grid-template-areas:
     'description image'
-    'description time'
-    'description tags'
+    'tasks image'
+    'info time'
+    'info tags'
     'info tags'
     'info tags';
   grid-gap: 15px;
@@ -19,6 +20,7 @@ export const StyledStudyPage = styled.div`
     grid-template-areas:
       'image'
       'description'
+      'tasks'
       'time'
       'info'
       'tags';
@@ -72,13 +74,13 @@ export const StyledStudyPage = styled.div`
   }
   img {
     max-width: 100%;
-    max-height: 160px;
-    object-fit: contain;
+    /* max-height: 160px; */
+    object-fit: cover;
   }
 
   .studyImage {
-    display: grid;
-    justify-content: center;
+    /* display: grid; */
+    /* justify-content: center; */
   }
 
   .studyImage,
@@ -176,7 +178,9 @@ export const StyledStudyPage = styled.div`
 
 export const OnboardingHeader = styled.div`
   display: grid;
+  grid-gap: 20px;
   grid-template-columns: 1fr 12fr 1fr;
+  align-items: end;
   padding-bottom: 20px;
   margin-bottom: 40px;
   border-bottom: 2px solid #f2f2f2;
@@ -185,7 +189,6 @@ export const OnboardingHeader = styled.div`
   font-weight: normal;
   font-size: 18px;
   line-height: 100%;
-  align-items: center;
   letter-spacing: 0.05em;
   color: #28619e;
   .logo {
@@ -640,5 +643,9 @@ export const StyledConsentForm = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
+  }
+  .headerTitle {
+    display: grid;
+    align-self: center;
   }
 `;
