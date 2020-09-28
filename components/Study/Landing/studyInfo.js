@@ -131,7 +131,7 @@ class StudyInformation extends Component {
 
             {frequency && frequency.length ? (
               <div>
-                <div className="studyInformationHeader">Time to Frequency</div>
+                <div className="studyInformationHeader">Frequency</div>
                 <div>{frequency}</div>
               </div>
             ) : (
