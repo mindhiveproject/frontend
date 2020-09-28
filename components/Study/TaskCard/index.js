@@ -58,9 +58,9 @@ class TaskCard extends Component {
                   </button>
                 )}
                 {!this.props.completed && !task.link && (
-                  <a onClick={() => this.props.onStartTheTask(task.id)}>
+                  <button onClick={() => this.props.onStartTheTask(task.id)}>
                     <p>Take {taskType}</p>
-                  </a>
+                  </button>
                 )}
                 {!this.props.completed && task.link && (
                   <button

@@ -80,5 +80,19 @@ export const StyledTaskCard = styled.div`
   }
   .actionLinks {
     margin-top: 24px;
+    button {
+      background: #ffffff;
+      color: #007c70;
+      max-width: 150px;
+    }
+    p {
+      font-family: Lato;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 18px;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
   }
 `;
