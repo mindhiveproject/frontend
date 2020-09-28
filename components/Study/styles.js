@@ -5,10 +5,9 @@ export const StyledStudyPage = styled.div`
   grid-template-columns: 8fr 4fr;
   grid-template-areas:
     'description image'
-    'tasks image'
-    'tasks time'
+    'description time'
+    'description tags'
     'tasks tags'
-    'info tags'
     'info tags';
   grid-gap: 15px;
   max-width: 1500px;
@@ -102,9 +101,14 @@ export const StyledStudyPage = styled.div`
   }
   .studyWhatWhoHow {
     grid-area: info;
+    margin-top: 34px;
   }
   .studyTagsContacts {
     grid-area: tags;
+  }
+
+  .studyDescription {
+    margin-bottom: 49px;
   }
 
   .descriptionMenu {
@@ -163,6 +167,7 @@ export const StyledStudyPage = styled.div`
   .controlBtns {
     display: grid;
     grid-gap: 5px;
+    margin-bottom: 34px;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     button {
       width: auto;

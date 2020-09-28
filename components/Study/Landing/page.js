@@ -39,17 +39,12 @@ class StudyParticipantPage extends Component {
               <title>mindHIVE | {study.title}</title>
             </Head>
 
-            <StudyTasks
-              study={study}
-              user={this.props.user || undefined}
-              onStartTheTask={this.props.onStartTheTask}
-              onStartExternalTask={this.props.onStartExternalTask}
-            />
-
             <StudyInformation
               study={study}
               user={this.props.user || undefined}
               onRegister={() => this.register()}
+              onStartTheTask={this.props.onStartTheTask}
+              onStartExternalTask={this.props.onStartExternalTask}
             />
           </StyledStudyPage>
         )}

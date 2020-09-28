@@ -10,6 +10,8 @@ import { ContainerOnlyForParticipants } from '../../Permissions/Participant/inde
 import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
 import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
 
+import StudyTasks from './studyTasks';
+
 class StudyInformation extends Component {
   state = { activeItem: 'what' };
 
@@ -79,7 +81,9 @@ class StudyInformation extends Component {
 
         <div className="studyTitleDescriptionBtns">
           <h1>{study.title}</h1>
-          <h3>{ReactHtmlParser(study.description)}</h3>
+          <div className="studyDescription">
+            <h3>{ReactHtmlParser(study.description)}</h3>
+          </div>
 
           <div className="controlBtns">
             <ContainerOnlyForNoProfile>
@@ -116,6 +120,96 @@ class StudyInformation extends Component {
               </Link>
             </ContainerOnlyForAuthorizedCollaborators>
           </div>
+          <StudyTasks
+            study={study}
+            user={this.props.user || undefined}
+            onStartTheTask={this.props.onStartTheTask}
+            onStartExternalTask={this.props.onStartExternalTask}
+          />
+
+          <div className="studyWhatWhoHow">
+            <div className="descriptionMenu">
+              <Menu tabular>
+                <Menu.Item
+                  name="what"
+                  active={activeItem === 'what'}
+                  onClick={this.handleItemClick}
+                />
+                <Menu.Item
+                  name="who"
+                  active={activeItem === 'who'}
+                  onClick={this.handleItemClick}
+                />
+                <Menu.Item
+                  name="how"
+                  active={activeItem === 'how'}
+                  onClick={this.handleItemClick}
+                />
+                {faq && faq.length ? (
+                  <Menu.Item
+                    name="FAQ"
+                    active={activeItem === 'FAQ'}
+                    onClick={this.handleItemClick}
+                  />
+                ) : (
+                  <div></div>
+                )}
+                {more && more.length ? (
+                  <Menu.Item
+                    name="more"
+                    active={activeItem === 'more'}
+                    onClick={this.handleItemClick}
+                  />
+                ) : (
+                  <div></div>
+                )}
+              </Menu>
+            </div>
+
+            <div>
+              {activeItem === 'what' && (
+                <div>
+                  {study.info &&
+                    study.info
+                      .filter(i => i.name === 'what')
+                      .map(i => ReactHtmlParser(i.text))}
+                </div>
+              )}
+            </div>
+            <div>
+              {activeItem === 'who' && (
+                <div>
+                  {study.info &&
+                    study.info
+                      .filter(i => i.name === 'who')
+                      .map(i => ReactHtmlParser(i.text))}
+                </div>
+              )}
+            </div>
+            <div>
+              {activeItem === 'how' && (
+                <div>
+                  {study.info &&
+                    study.info
+                      .filter(i => i.name === 'how')
+                      .map(i => ReactHtmlParser(i.text))}
+                </div>
+              )}
+            </div>
+            <div>
+              {activeItem === 'FAQ' && (
+                <div>
+                  <Accordion
+                    defaultActiveIndex={[]}
+                    panels={faq}
+                    exclusive={false}
+                    fluid
+                  />
+                </div>
+              )}
+            </div>
+            <div>{activeItem === 'more' && <div>{more}</div>}</div>
+          </div>
         </div>
 
         <div className="studyInfoTimePartners">
@@ -147,90 +241,6 @@ class StudyInformation extends Component {
           ) : (
             <div></div>
           )}
-        </div>
-
-        <div className="studyWhatWhoHow">
-          <div className="descriptionMenu">
-            <Menu tabular>
-              <Menu.Item
-                name="what"
-                active={activeItem === 'what'}
-                onClick={this.handleItemClick}
-              />
-              <Menu.Item
-                name="who"
-                active={activeItem === 'who'}
-                onClick={this.handleItemClick}
-              />
-              <Menu.Item
-                name="how"
-                active={activeItem === 'how'}
-                onClick={this.handleItemClick}
-              />
-              {faq && faq.length ? (
-                <Menu.Item
-                  name="FAQ"
-                  active={activeItem === 'FAQ'}
-                  onClick={this.handleItemClick}
-                />
-              ) : (
-                <div></div>
-              )}
-              {more && more.length ? (
-                <Menu.Item
-                  name="more"
-                  active={activeItem === 'more'}
-                  onClick={this.handleItemClick}
-                />
-              ) : (
-                <div></div>
-              )}
-            </Menu>
-          </div>
-
-          <div>
-            {activeItem === 'what' && (
-              <div>
-                {study.info &&
-                  study.info
-                    .filter(i => i.name === 'what')
-                    .map(i => ReactHtmlParser(i.text))}
-              </div>
-            )}
-          </div>
-          <div>
-            {activeItem === 'who' && (
-              <div>
-                {study.info &&
-                  study.info
-                    .filter(i => i.name === 'who')
-                    .map(i => ReactHtmlParser(i.text))}
-              </div>
-            )}
-          </div>
-          <div>
-            {activeItem === 'how' && (
-              <div>
-                {study.info &&
-                  study.info
-                    .filter(i => i.name === 'how')
-                    .map(i => ReactHtmlParser(i.text))}
-              </div>
-            )}
-          </div>
-          <div>
-            {activeItem === 'FAQ' && (
-              <div>
-                <Accordion
-                  defaultActiveIndex={[]}
-                  panels={faq}
-                  exclusive={false}
-                  fluid
-                />
-              </div>
-            )}
-          </div>
-          <div>{activeItem === 'more' && <div>{more}</div>}</div>
         </div>
 
         <div className="studyTagsContacts">
