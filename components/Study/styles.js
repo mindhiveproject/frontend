@@ -6,8 +6,8 @@ export const StyledStudyPage = styled.div`
   grid-template-areas:
     'description image'
     'tasks image'
-    'info time'
-    'info tags'
+    'tasks time'
+    'tasks tags'
     'info tags'
     'info tags';
   grid-gap: 15px;
