@@ -56,6 +56,30 @@ class GuestParticipantSignup extends Component {
     });
   };
 
+  submitForm = async tokenSignUp => {
+    const res = await tokenSignUp({
+      variables: { permissions: ['PARTICIPANT'] },
+    });
+    alert(
+      `Your username ${this.state.username} and password ${this.state.password}`
+    );
+    this.setState({ email: '', username: '', password: '' });
+    if (this.props.onClose) this.props.onClose();
+    if (this.props.task) {
+      Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
+      return;
+    }
+    if (this.props.redirect) {
+      if (this.props.study?.settings?.proceedToFirstTask) {
+        this.props.onStartTheTask(this.props.firstTaskId);
+      }
+    } else {
+      Router.push({
+        pathname: `/dashboard`,
+      });
+    }
+  };
+
   render() {
     return (
       <Mutation
@@ -64,38 +88,35 @@ class GuestParticipantSignup extends Component {
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
         {(tokenSignUp, { error, loading }) => (
-          <TokenForm
-            method="post"
-            onSubmit={async e => {
-              e.preventDefault();
-              const res = await tokenSignUp({
-                variables: { permissions: ['PARTICIPANT'] },
-              });
-              alert(
-                `Your username ${this.state.username} and password ${this.state.password}`
-              );
-              this.setState({ email: '', username: '', password: '' });
-              if (this.props.onClose) this.props.onClose();
-              if (this.props.task) {
-                Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
-                return;
-              }
-              if (this.props.redirect) {
-                if (this.props.study?.settings?.proceedToFirstTask) {
-                  this.props.onStartTheTask(this.props.firstTaskId);
-                }
-              } else {
-                Router.push({
-                  pathname: `/dashboard`,
-                });
-              }
-            }}
-          >
+          <TokenForm>
             <fieldset disabled={loading} aria-busy={loading}>
               <Error error={error} />
-              <button className="linkBtn" type="submit">
-                Continue without an account
-              </button>
+              <div className="agreementText">
+                <div>Prefer to participate as a guest?</div>
+                <span>
+                  By clicking{' '}
+                  <a
+                    className="linkBtn"
+                    onClick={() => {
+                      this.submitForm(tokenSignUp);
+                    }}
+                  >
+                    continue without an account
+                  </a>{' '}
+                  you agree to MindHive’s{' '}
+                  <a target="_blank" href="https://mindhive.science/docs/terms">
+                    Terms or Service
+                  </a>{' '}
+                  and{' '}
+                  <a
+                    target="_blank"
+                    href="https://mindhive.science/docs/privacy"
+                  >
+                    Privacy Policy
+                  </a>
+                  .
+                </span>
+              </div>
             </fieldset>
           </TokenForm>
         )}

@@ -68,15 +68,16 @@ class StudyRegistration extends Component {
             {study.settings && study.settings.guestParticipation && (
               <div className="guestParticipationBlock">
                 <>
-                  <div>Prefer to participate as a guest?</div>
-                  <GuestParticipantSignup
-                    redirect={study.slug}
-                    user={user}
-                    study={study}
-                    onClose={this.props.onClose}
-                    onStartTheTask={this.props.onStartTheTask}
-                    firstTaskId={this.props.firstTaskId}
-                  />
+                  <div>
+                    <GuestParticipantSignup
+                      redirect={study.slug}
+                      user={user}
+                      study={study}
+                      onClose={this.props.onClose}
+                      onStartTheTask={this.props.onStartTheTask}
+                      firstTaskId={this.props.firstTaskId}
+                    />
+                  </div>
                 </>
               </div>
             )}

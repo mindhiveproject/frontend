@@ -277,17 +277,28 @@ export const TokenForm = styled.form`
     width: auto;
   }
   .linkBtn {
-    background: none;
+    /* background: none;
     color: #666666;
     font-family: Lato;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
-    line-height: 24px;
-    text-align: center;
+    line-height: 24px; */
     border-bottom: 1px solid #666666;
-    border-radius: 0px;
-    margin-top: 0px;
+    cursor: pointer;
+    /* border-radius: 0px;
+    margin-top: 0px; */
+  }
+  .agreementText {
+    width: 400px;
+    text-align: center;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
   }
 `;
 
