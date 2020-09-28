@@ -5,7 +5,7 @@ import { Logo } from '../../../Header/styles';
 
 import { OnboardingHeader, StyledConsentForm } from '../../styles';
 
-class StudyConsentForm extends Component {
+class StudyConsentFormText extends Component {
   render() {
     const { consent } = this.props;
     const regularAdultsConsent =
@@ -38,11 +38,13 @@ class StudyConsentForm extends Component {
 
         <div className="buttonsHolder">
           <button onClick={this.props.onNext}>I agree, next</button>
-          <button onClick={this.props.onSkip}>Skip consent</button>
         </div>
+        <a onClick={this.props.onSkip}>
+          <p>Skip consent</p>
+        </a>
       </StyledConsentForm>
     );
   }
 }
 
-export default StudyConsentForm;
+export default StudyConsentFormText;

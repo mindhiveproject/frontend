@@ -49,7 +49,7 @@ class Signup extends Component {
               console.log('res', res);
               this.setState({ username: '', password: '', email: '' });
               Router.push({
-                pathname: '/me',
+                pathname: `/dashboard`,
               });
             }}
           >

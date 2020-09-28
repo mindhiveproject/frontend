@@ -18,8 +18,8 @@ import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import GetStarted from './Steps/1-getStarted';
 import PreParentConsent from './Steps/2-preParentConsent';
 import ParentConsent from './Steps/3-parentConsent';
-import StudyConsentForm from './Steps/4-studyConsent';
-import StudyConsentFormText from './Steps/5-studyConsentText';
+import StudyConsentText from './Steps/4-studyConsentText';
+import StudyConsentForm from './Steps/5-studyConsent';
 import JoinStudy from './Steps/6-joinStudy';
 
 const JOIN_STUDY = gql`
@@ -34,9 +34,6 @@ class StudyConsent extends Component {
   getIntitialPage = () => {
     let page = 1; // demo questions
     const { study } = this.props;
-    console.log('study on 36', study);
-    // 2 - parent consent
-    // 4 - study consent
     if (this.props.user.generalInfo?.sharePersonalDataWithOtherStudies) {
       if (
         typeof this.props.user.generalInfo?.zipCode !== 'undefined' &&
@@ -47,7 +44,6 @@ class StudyConsent extends Component {
           if (this.props.user.generalInfo?.under18 === 'yes') {
             page = 2;
           } else {
-            // check whether the consent is already provided
             const consentId = this.props?.study?.consent?.id;
             const userConsent =
               this.props.user?.consentsInfo &&
@@ -121,7 +117,6 @@ class StudyConsent extends Component {
         study: this.props.study,
       },
     });
-    // console.log('res', res);
     this.props.onClose();
 
     if (this.props.study?.settings?.proceedToFirstTask) {
@@ -132,8 +127,6 @@ class StudyConsent extends Component {
   render() {
     const { study } = this.props;
     const { user } = this.props;
-    // console.log('128 study', study);
-    // console.log('user', user);
 
     return (
       <Mutation
@@ -172,14 +165,6 @@ class StudyConsent extends Component {
                         this.setState({ page: this.state.page + 5 });
                       }
                     }
-                    // if (this.state.under18 && this.state.englishComprehension) {
-                    //   if (this.state.under18 === 'yes') {
-                    //     this.setState({ page: this.state.page + 1 });
-                    //   }
-                    //   if (this.state.under18 === 'no') {
-                    //     this.setState({ page: this.state.page + 3 });
-                    //   }
-                    // }
                   }}
                   onLogin={() => {
                     this.setState({ login: true });
@@ -204,37 +189,36 @@ class StudyConsent extends Component {
               <div id="page_3">
                 <ParentConsent
                   onClose={() => this.props.onClose()}
-                  title={this.props.study.title}
+                  title={study.title}
+                  consent={study.consent}
                   updateState={this.updateState}
                   onNext={e => {
-                    this.saveJoinStudy(e, joinStudy, true);
+                    if (this.state.parentName && this.state.parentEmail) {
+                      this.saveJoinStudy(e, joinStudy, true);
+                    }
                   }}
-                  consentFormText={
-                    study.info &&
-                    study.info.length &&
-                    study.info
-                      .filter(info => info.name === 'consentForm')
-                      .map(info => info.text)
-                  }
-                  consentTitle={study.consent?.title || []}
-                  coveredStudies={study.consent?.studies || []}
-                  coveredTasks={study.consent?.tasks || []}
                 />
               </div>
             )}
 
             {this.state.page == 4 && (
               <div id="page_4">
-                <StudyConsentForm
+                <StudyConsentText
                   onClose={() => this.props.onClose()}
                   title={study.title}
                   consent={study.consent}
-                  onNext={() =>
+                  onNext={e => {
                     this.setState({
                       consentGiven: true,
                       page: this.state.page + 1,
-                    })
-                  }
+                    });
+                  }}
+                  onSkip={e => {
+                    this.setState({
+                      consentGiven: false,
+                      page: this.state.page + 2,
+                    });
+                  }}
                   toggleState={this.toggleState}
                   saveCoveredConsent={this.state.saveCoveredConsent}
                   showCloseButton
@@ -244,15 +228,12 @@ class StudyConsent extends Component {
 
             {this.state.page == 5 && (
               <div id="page_5">
-                <StudyConsentFormText
+                <StudyConsentForm
                   onClose={() => this.props.onClose()}
                   title={study.title}
                   consent={study.consent}
                   onNext={e => {
-                    this.saveJoinStudy(e, joinStudy, true);
-                  }}
-                  onSkip={e => {
-                    this.saveJoinStudy(e, joinStudy, false);
+                    this.saveJoinStudy(e, joinStudy, this.state.consentGiven);
                   }}
                   toggleState={this.toggleState}
                   saveCoveredConsent={this.state.saveCoveredConsent}

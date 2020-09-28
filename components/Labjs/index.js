@@ -52,7 +52,7 @@ class ExperimentWindow extends Component {
 
     this.study.on('end', () => {
       const token =
-        (this.study.plugins &&
+        (this.study?.plugins &&
           this.study.plugins.plugins
             .filter(plugin => plugin.metadata)
             .map(plugin => plugin.metadata.id)[0]) ||

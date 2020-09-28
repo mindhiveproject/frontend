@@ -6,6 +6,12 @@ import { Logo } from '../../../Header/styles';
 
 class ParentConsent extends Component {
   render() {
+    const { consent } = this.props;
+    const minorAdultsConsent =
+      consent?.info
+        .filter(info => info.name === 'regularMinors')
+        .map(info => info.text) || '';
+
     return (
       <div>
         <OnboardingHeader>
@@ -25,38 +31,44 @@ class ParentConsent extends Component {
         <h1>Parental consent required</h1>
 
         <p>
-          This study <strong>{this.props.title}</strong> is covered under{' '}
-          <strong>{this.props.consentTitle}</strong>. Before proceeding, please
-          review the consent form here and save a copy for your records.
+          This study is part of the <strong>{consent.organization}</strong>{' '}
+          research protocol <strong>{consent.title}</strong>.
         </p>
 
-        <p>{ReactHtmlParser(this.props.consentFormText)}</p>
+        <p>{ReactHtmlParser(minorAdultsConsent)}</p>
 
-        {this.props.coveredStudies.length || this.props.coveredTasks.length ? (
+        {consent.studies.length || consent.tasks.length ? (
           <div>
-            <p>Studies and tasks on MindHive that belong to this protocol:</p>
+            <p>
+              Studies and tasks on MindHive that are covered under this protocol
+              include:
+            </p>
 
-            {this.props.coveredStudies.length ? (
-              <div>
-                <p>Studies</p>
-                {this.props.coveredStudies.map(study => (
-                  <li key={study.id}>{study.title}</li>
-                ))}
-              </div>
-            ) : (
-              <div></div>
-            )}
+            <div className="coveredStudiesAndTasks">
+              {consent.studies.length ? (
+                <div>
+                  <p>Studies</p>
+                  {consent.studies.map(study => (
+                    <li key={study.id}>{study.title}</li>
+                  ))}
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
 
-            {this.props.coveredTasks.length ? (
-              <div>
-                <p>Tasks</p>
-                {this.props.coveredTasks.map(task => (
-                  <li key={task.id}>{task.title}</li>
-                ))}
-              </div>
-            ) : (
-              <div></div>
-            )}
+            <div className="coveredStudiesAndTasks">
+              {consent.tasks.length ? (
+                <div>
+                  <p>Tasks</p>
+                  {consent.tasks.map(task => (
+                    <li key={task.id}>{task.title}</li>
+                  ))}
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
           </div>
         ) : (
           <div></div>

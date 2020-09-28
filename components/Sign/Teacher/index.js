@@ -63,7 +63,7 @@ class Signup extends Component {
                   permissions: '',
                 });
                 Router.push({
-                  pathname: '/classes/my',
+                  pathname: `/dashboard`,
                 });
               }}
             >

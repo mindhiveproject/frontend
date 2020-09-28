@@ -10,8 +10,8 @@ import {
 } from '../../Study/styles';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import Crossover from './crossover';
-import StudyConsentForm from '../../Study/Registration/Steps/4-studyConsent';
-import StudyConsentFormText from '../../Study/Registration/Steps/5-studyConsentText';
+import StudyConsentText from '../../Study/Registration/Steps/4-studyConsentText';
+import StudyConsentForm from '../../Study/Registration/Steps/5-studyConsent';
 
 const UPDATE_RESULTS_INFO_MUTATION = gql`
   mutation UPDATE_RESULTS_INFO_MUTATION($id: ID!, $info: Json) {
@@ -213,34 +213,7 @@ class PostPrompt extends Component {
                           You agreed to use your data for scientific purposes,
                           please consider providing consent.
                         </p>
-                        <StudyConsentForm
-                          onClose={() => {
-                            console.log('closing');
-                          }}
-                          title={study.title}
-                          consent={task.consent}
-                          onNext={() =>
-                            this.setState({
-                              page: this.state.page + 1,
-                            })
-                          }
-                          toggleState={this.toggleState}
-                          saveCoveredConsent={this.state.saveCoveredConsent}
-                          showCloseButton={false}
-                        />
-                      </div>
-                    )}
-
-                  {this.state.data === 'science' &&
-                    task.consent &&
-                    !this.state.consentResponseGiven &&
-                    this.state.page === 2 && (
-                      <div>
-                        <p>
-                          You agreed to use your data for scientific purposes,
-                          please consider providing consent.
-                        </p>
-                        <StudyConsentFormText
+                        <StudyConsentText
                           onClose={() => {
                             console.log('closing');
                           }}
@@ -259,6 +232,29 @@ class PostPrompt extends Component {
                             });
                             this.onNext();
                           }}
+                          toggleState={this.toggleState}
+                          saveCoveredConsent={this.state.saveCoveredConsent}
+                          showCloseButton={false}
+                        />
+                      </div>
+                    )}
+
+                  {this.state.data === 'science' &&
+                    task.consent &&
+                    !this.state.consentResponseGiven &&
+                    this.state.page === 2 && (
+                      <div>
+                        <StudyConsentForm
+                          onClose={() => {
+                            console.log('closing');
+                          }}
+                          title={study.title}
+                          consent={task.consent}
+                          onNext={() =>
+                            this.setState({
+                              page: this.state.page + 1,
+                            })
+                          }
                           toggleState={this.toggleState}
                           saveCoveredConsent={this.state.saveCoveredConsent}
                           showCloseButton={false}

@@ -25,8 +25,8 @@ import ParticipantLogin from '../../Login/Participant/index';
 import GetStarted from './Steps/1-getStarted';
 import PreParentConsent from './Steps/2-preParentConsent';
 import ParentConsent from './Steps/3-parentConsent';
-import StudyConsentForm from './Steps/4-studyConsent';
-import StudyConsentFormText from './Steps/5-studyConsentText';
+import StudyConsentText from './Steps/4-studyConsentText';
+import StudyConsentForm from './Steps/5-studyConsent';
 
 import { Logo } from '../../Header/styles';
 
@@ -140,8 +140,8 @@ class RegistrationPage extends Component {
                   <div id="page_3">
                     <ParentConsent
                       onClose={() => this.props.onClose()}
-                      title={this.props.study.title}
-                      updateState={this.updateState}
+                      title={study.title}
+                      consent={study.consent}
                       onNext={() => {
                         if (this.state.parentName && this.state.parentEmail) {
                           this.setState({
@@ -151,42 +151,13 @@ class RegistrationPage extends Component {
                           });
                         }
                       }}
-                      consentFormText={
-                        study.info &&
-                        study.info.length &&
-                        study.info
-                          .filter(info => info.name === 'consentForm')
-                          .map(info => info.text)
-                      }
-                      consentTitle={study.consent?.title || []}
-                      coveredStudies={study.consent?.studies || []}
-                      coveredTasks={study.consent?.tasks || []}
                     />
                   </div>
                 )}
 
                 {this.state.page == 4 && (
                   <div id="page_4">
-                    <StudyConsentForm
-                      onClose={() => this.props.onClose()}
-                      title={study.title}
-                      consent={study.consent}
-                      onNext={() =>
-                        this.setState({
-                          consentGiven: true,
-                          page: this.state.page + 1,
-                        })
-                      }
-                      toggleState={this.toggleState}
-                      saveCoveredConsent={this.state.saveCoveredConsent}
-                      showCloseButton
-                    />
-                  </div>
-                )}
-
-                {this.state.page == 5 && (
-                  <div id="page_5">
-                    <StudyConsentFormText
+                    <StudyConsentText
                       onClose={() => this.props.onClose()}
                       title={study.title}
                       consent={study.consent}
@@ -199,6 +170,24 @@ class RegistrationPage extends Component {
                       onSkip={() =>
                         this.setState({
                           consentGiven: false,
+                          page: this.state.page + 2,
+                        })
+                      }
+                      toggleState={this.toggleState}
+                      saveCoveredConsent={this.state.saveCoveredConsent}
+                      showCloseButton
+                    />
+                  </div>
+                )}
+
+                {this.state.page == 5 && (
+                  <div id="page_5">
+                    <StudyConsentForm
+                      onClose={() => this.props.onClose()}
+                      title={study.title}
+                      consent={study.consent}
+                      onNext={() =>
+                        this.setState({
                           page: this.state.page + 1,
                         })
                       }
