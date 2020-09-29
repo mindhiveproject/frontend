@@ -17,8 +17,8 @@ export const StyledStudyCard = styled.div`
   .cardInfo {
     display: grid;
     align-items: start;
+    align-content: start;
     padding: 16px;
-    height: 100%;
     min-height: 314px;
   }
   a {
