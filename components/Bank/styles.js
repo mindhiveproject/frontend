@@ -20,6 +20,7 @@ export const StyledStudyCard = styled.div`
     align-content: start;
     padding: 16px;
     min-height: 314px;
+    grid-template-rows: auto auto 1fr;
   }
   a {
     letter-spacing: 0.04em;
