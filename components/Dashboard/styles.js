@@ -38,6 +38,11 @@ export const StyledDasboard = styled.div`
     text-align: left;
     color: #007c70;
   }
+
+  .backButton {
+    margin-bottom: 21px;
+    padding-left: 10px;
+  }
 `;
 
 export const StyledHomeDasboard = styled.div`

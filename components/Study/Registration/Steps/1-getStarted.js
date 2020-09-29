@@ -29,11 +29,9 @@ class GetStarted extends Component {
           {this.props.study.title}
           ". Before we begin, please answer the following:
         </h3>
-        {this.props.study.settings &&
-          this.props.study.settings.zipCode &&
-          !(
-            this.props.info && typeof this.props.info.zipCode !== 'undefined'
-          ) && (
+        {this.props.study?.settings?.zipCode &&
+          typeof this.props.sharePersonalDataWithOtherStudies ===
+            'undefined' && (
             <div>
               <label htmlFor="zipCode">
                 <p>Your zip code</p>
@@ -47,10 +45,8 @@ class GetStarted extends Component {
             </div>
           )}
 
-        {!(
-          this.props.info &&
-          typeof this.props.info.englishComprehension !== 'undefined'
-        ) && (
+        {typeof this.props.sharePersonalDataWithOtherStudies ===
+          'undefined' && (
           <div>
             <label htmlFor="englishComprehension">
               <p>Do you understand basic instruction written in English?</p>
@@ -84,9 +80,8 @@ class GetStarted extends Component {
           </div>
         )}
 
-        {!(
-          this.props.info && typeof this.props.info.under18 !== 'undefined'
-        ) && (
+        {typeof this.props.sharePersonalDataWithOtherStudies ===
+          'undefined' && (
           <div>
             <label htmlFor="under18">
               <p>Are you under the age of 18?</p>
@@ -113,27 +108,24 @@ class GetStarted extends Component {
           </div>
         )}
 
-        {true && (
-          <div>
-            <label htmlFor="sharePersonalDataWithOtherStudies">
-              <div className="checkboxField">
-                <input
-                  type="checkbox"
-                  id="sharePersonalDataWithOtherStudies"
-                  name="sharePersonalDataWithOtherStudies"
-                  checked={this.props.sharePersonalDataWithOtherStudies}
-                  onChange={this.props.toggleState}
-                />
-                <span>
-                  Save this info for future studies/tasks (if you uncheck this
-                  box, you will be asked these questions for each study/task;
-                  you can always change your settings under your Account
-                  Settings).
-                </span>
-              </div>
-            </label>
-          </div>
-        )}
+        <div>
+          <label htmlFor="sharePersonalDataWithOtherStudies">
+            <div className="checkboxField">
+              <input
+                type="checkbox"
+                id="sharePersonalDataWithOtherStudies"
+                name="sharePersonalDataWithOtherStudies"
+                checked={this.props.sharePersonalDataWithOtherStudies}
+                onChange={this.props.toggleState}
+              />
+              <span>
+                Save this info for future studies/tasks (if you uncheck this
+                box, you will be asked these questions for each study/task; you
+                can always change your settings under your Account Settings).
+              </span>
+            </div>
+          </label>
+        </div>
 
         <button onClick={this.props.onNext}>Next</button>
 

@@ -71,13 +71,22 @@ class StudyConsent extends Component {
   state = {
     page: getIntitialPage(this.props.user, this.props.study),
     existingConsent: checkExistingConsent(this.props.user, this.props.study),
-    zipCode: this.props.user?.generalInfo?.zipCode,
-    age: this.props.user?.generalInfo?.age,
-    under18: this.props.user?.generalInfo?.under18,
-    englishComprehension: this.props.user?.generalInfo?.englishComprehension,
     sharePersonalDataWithOtherStudies: this.props.user?.generalInfo
       ?.sharePersonalDataWithOtherStudies,
     saveCoveredConsent: true,
+    zipCode: this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies
+      ? this.props.user?.generalInfo?.zipCode
+      : undefined,
+    age: this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies
+      ? this.props.user?.generalInfo?.age
+      : undefined,
+    under18: this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies
+      ? this.props.user?.generalInfo?.under18
+      : undefined,
+    englishComprehension: this.props.user?.generalInfo
+      ?.sharePersonalDataWithOtherStudies
+      ? this.props.user?.generalInfo?.englishComprehension
+      : undefined,
   };
 
   saveToState = e => {
@@ -149,17 +158,17 @@ class StudyConsent extends Component {
                   study={study}
                   updateState={this.updateState}
                   toggleState={this.toggleState}
-                  englishComprehension={this.state.englishComprehension}
-                  under18={this.state.under18}
                   sharePersonalDataWithOtherStudies={
-                    this.state.sharePersonalDataWithOtherStudies
+                    this.props.user?.generalInfo
+                      ?.sharePersonalDataWithOtherStudies
                   }
                   onBtnClick={(parameter, state) =>
                     this.setButtonState(parameter, state)
                   }
                   onNext={() => {
                     if (this.state.under18 && this.state.englishComprehension) {
-                      if (this.state.existingConsent) {
+                      // if the study does not have a consent or there is already consent provided, skip the consent part
+                      if (!study.consent || this.state.existingConsent) {
                         this.setState({ page: this.state.page + 5 });
                       } else if (this.state.under18 === 'yes') {
                         this.setState({ page: this.state.page + 1 });
@@ -173,7 +182,10 @@ class StudyConsent extends Component {
                   }}
                   onClose={() => this.props.onClose()}
                   showLogin={false}
-                  info={this.props.info}
+                  zipCode={this.state.zipCode}
+                  englishComprehension={this.state.englishComprehension}
+                  under18={this.state.under18}
+                  age={this.state.age}
                 />
               </div>
             )}

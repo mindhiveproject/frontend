@@ -64,15 +64,17 @@ class DashboardDiscover extends Component {
       return (
         <AuthorizedPage>
           <StyledDasboard>
-            <a
-              onClick={() =>
-                this.setState({
-                  page: 'bank',
-                })
-              }
-            >
-              ← Back
-            </a>
+            <div className="backButton">
+              <a
+                onClick={() =>
+                  this.setState({
+                    page: 'bank',
+                  })
+                }
+              >
+                ← Back
+              </a>
+            </div>
             <ReviewStudyForParticipants
               slug={this.state.study.slug}
               onStartTask={this.startTask}
