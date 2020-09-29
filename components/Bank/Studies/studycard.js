@@ -19,13 +19,15 @@ class StudyCard extends Component {
         <div className="cardInfo">
           <h2>{study.title}</h2>
           <p>{ReactHtmlParser(study.description)}</p>
-          <a
-            onClick={() => {
-              this.props.onSelectStudy(study);
-            }}
-          >
-            Go to study
-          </a>
+          <div className="studyLink">
+            <a
+              onClick={() => {
+                this.props.onSelectStudy(study);
+              }}
+            >
+              Go to study
+            </a>
+          </div>
         </div>
       </StyledStudyCard>
     );

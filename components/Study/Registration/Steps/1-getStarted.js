@@ -30,8 +30,7 @@ class GetStarted extends Component {
           ". Before we begin, please answer the following:
         </h3>
         {this.props.study?.settings?.zipCode &&
-          typeof this.props.sharePersonalDataWithOtherStudies ===
-            'undefined' && (
+          !this.props.zipCodeDataAvailable && (
             <div>
               <label htmlFor="zipCode">
                 <p>Your zip code</p>
@@ -45,8 +44,7 @@ class GetStarted extends Component {
             </div>
           )}
 
-        {typeof this.props.sharePersonalDataWithOtherStudies ===
-          'undefined' && (
+        {!this.props.personalDataAvailable && (
           <div>
             <label htmlFor="englishComprehension">
               <p>Do you understand basic instruction written in English?</p>
@@ -80,8 +78,7 @@ class GetStarted extends Component {
           </div>
         )}
 
-        {typeof this.props.sharePersonalDataWithOtherStudies ===
-          'undefined' && (
+        {!this.props.personalDataAvailable && (
           <div>
             <label htmlFor="under18">
               <p>Are you under the age of 18?</p>

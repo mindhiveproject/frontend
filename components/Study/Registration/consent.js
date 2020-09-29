@@ -73,6 +73,11 @@ class StudyConsent extends Component {
     existingConsent: checkExistingConsent(this.props.user, this.props.study),
     sharePersonalDataWithOtherStudies: this.props.user?.generalInfo
       ?.sharePersonalDataWithOtherStudies,
+    personalDataAvailable: this.props.user?.generalInfo
+      ?.sharePersonalDataWithOtherStudies,
+    zipCodeDataAvailable:
+      this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies &&
+      this.props.user?.generalInfo?.zipCode,
     saveCoveredConsent: true,
     zipCode: this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies
       ? this.props.user?.generalInfo?.zipCode
@@ -159,9 +164,10 @@ class StudyConsent extends Component {
                   updateState={this.updateState}
                   toggleState={this.toggleState}
                   sharePersonalDataWithOtherStudies={
-                    this.props.user?.generalInfo
-                      ?.sharePersonalDataWithOtherStudies
+                    this.state.sharePersonalDataWithOtherStudies
                   }
+                  personalDataAvailable={this.state.personalDataAvailable}
+                  zipCodeDataAvailable={this.state.zipCodeDataAvailable}
                   onBtnClick={(parameter, state) =>
                     this.setButtonState(parameter, state)
                   }

@@ -15,7 +15,11 @@ export const StyledStudyCard = styled.div`
     object-fit: cover;
   }
   .cardInfo {
+    display: grid;
+    align-items: start;
     padding: 16px;
+    height: 100%;
+    min-height: 314px;
   }
   a {
     letter-spacing: 0.04em;
@@ -32,11 +36,17 @@ export const StyledStudyCard = styled.div`
   }
   p {
     font-family: Roboto;
+    font-size: 16px;
     font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-    color: #969696;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+  .studyLink {
+    display: grid;
+    align-self: end;
+    margin-bottom: 10px;
   }
 `;
 

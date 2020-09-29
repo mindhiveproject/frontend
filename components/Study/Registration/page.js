@@ -37,6 +37,8 @@ class RegistrationPage extends Component {
     page: 1,
     login: false,
     sharePersonalDataWithOtherStudies: true,
+    personalDataAvailable: false,
+    zipCodeDataAvailable: false,
     saveCoveredConsent: true,
     firstTaskId:
       this.props.study?.tasks &&
@@ -92,6 +94,8 @@ class RegistrationPage extends Component {
                       sharePersonalDataWithOtherStudies={
                         this.state.sharePersonalDataWithOtherStudies
                       }
+                      personalDataAvailable={this.state.personalDataAvailable}
+                      zipCodeDataAvailable={this.state.zipCodeDataAvailable}
                       onBtnClick={(parameter, state) =>
                         this.setButtonState(parameter, state)
                       }
