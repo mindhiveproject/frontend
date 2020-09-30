@@ -135,6 +135,30 @@ class TaskForm extends Component {
                       />
                     </div>
 
+                    {this.props.allowEditSlug && (
+                      <>
+                        <div className="help">Slug for url</div>
+
+                        <div>mindhive.science/tasks/{this.props.slug}</div>
+                        <div>
+                          A tip: avoid spaces in your slug to keep it clean and
+                          healthy! Use dashes, for example.
+                        </div>
+
+                        <div className="input">
+                          <input
+                            type="text"
+                            id="slug"
+                            name="slug"
+                            placeholder="Slug for url"
+                            value={this.props.slug}
+                            onChange={this.props.onHandleChange}
+                            required
+                          />
+                        </div>
+                      </>
+                    )}
+
                     <h2>IRB consent</h2>
                     <select
                       type="text"

@@ -14,6 +14,7 @@ const UPDATE_TASK = gql`
   mutation UPDATE_TASK(
     $id: ID!
     $title: String
+    $slug: String
     $description: String
     $parameters: Json
     $settings: Json
@@ -24,6 +25,7 @@ const UPDATE_TASK = gql`
     updateTask(
       id: $id
       title: $title
+      slug: $slug
       description: $description
       parameters: $parameters
       settings: $settings
@@ -40,6 +42,7 @@ const UPDATE_TASK = gql`
 class EditTaskForm extends Component {
   state = {
     title: this.props.title,
+    slug: this.props.slug,
     description: this.props.description,
     link: this.props.link,
     parameters: this.props.parameters || [],
@@ -127,6 +130,7 @@ class EditTaskForm extends Component {
               onHandleChange={this.handleChange}
               onHandleParamChange={this.handleParamChange}
               title={this.state.title}
+              slug={this.state.slug}
               description={this.state.description}
               link={this.state.link}
               parameters={this.state.parameters}
@@ -137,6 +141,7 @@ class EditTaskForm extends Component {
               settings={this.state.settings}
               onHandleSettingsChange={this.handleSettingsChange}
               consent={this.state.consent}
+              allowEditSlug
             />
           );
         }}

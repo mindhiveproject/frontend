@@ -39,6 +39,7 @@ const UPDATE_STUDY = gql`
   mutation UPDATE_STUDY(
     $id: ID!
     $title: String
+    $slug: String
     $shortDescription: String
     $description: String
     $settings: Json
@@ -51,6 +52,7 @@ const UPDATE_STUDY = gql`
     updateStudy(
       id: $id
       title: $title
+      slug: $slug
       shortDescription: $shortDescription
       description: $description
       settings: $settings
@@ -121,6 +123,7 @@ class UpdateStudy extends Component {
                     onSubmit={this.update}
                     callback={updateStudy}
                     consent={data.study.consent?.id}
+                    allowEditSlug
                   />
                 )}
               </Mutation>

@@ -15,6 +15,7 @@ import { CONSENTS_QUERY } from '../../Task/Customize/taskForm';
 class EditStudyForm extends Component {
   state = {
     title: this.props.study.title || '',
+    slug: this.props.study.slug || '',
     shortDescription: this.props.study.shortDescription || '',
     description: this.props.study.description || '',
     settings: {
@@ -175,6 +176,31 @@ class EditStudyForm extends Component {
                       required
                     />
                   </label>
+
+                  {this.props.allowEditSlug && (
+                    <>
+                      <label htmlFor="slug">
+                        Slug for url
+                        <p>
+                          mindhive.science/studies/
+                          {this.state.slug}
+                        </p>
+                        <p>
+                          A tip: avoid spaces in your slug to keep it clean and
+                          healthy! Use dashes, for example.
+                        </p>
+                        <input
+                          type="text"
+                          id="slug"
+                          name="slug"
+                          placeholder="Slug for url"
+                          value={this.state.slug}
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </label>
+                    </>
+                  )}
 
                   <h2>IRB consent</h2>
                   <select
