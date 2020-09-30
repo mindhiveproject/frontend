@@ -15,6 +15,7 @@ class ExperimentWindow extends Component {
   componentDidMount() {
     const { props } = this;
     const script = this.deserialize(props.settings.script);
+    console.log('props.settings.params', props.settings.params);
     Object.assign(
       script.content[0] && script.content[0].parameters,
       props.settings.params || {}

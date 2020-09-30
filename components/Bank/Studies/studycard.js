@@ -10,11 +10,13 @@ class StudyCard extends Component {
 
     return (
       <StyledStudyCard>
-        {study.image && (
-          <div className="studyImage">
+        <div className="studyImage">
+          {study.image ? (
             <img src={study.image} alt={study.title} />
-          </div>
-        )}
+          ) : (
+            <div className="noImage"></div>
+          )}
+        </div>
 
         <div className="cardInfo">
           <h2>{study.title}</h2>

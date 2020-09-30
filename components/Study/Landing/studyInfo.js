@@ -21,6 +21,8 @@ class StudyInformation extends Component {
     const { study, user } = this.props;
     const { activeItem } = this.state;
     const studyIds = user?.participantIn?.map(study => study.id) || [];
+    const joinedTheStudy = studyIds.includes(study.id);
+    console.log('joinedTheStudy', joinedTheStudy);
 
     const faq =
       study.info &&
@@ -120,12 +122,15 @@ class StudyInformation extends Component {
               </Link>
             </ContainerOnlyForAuthorizedCollaborators>
           </div>
-          <StudyTasks
-            study={study}
-            user={this.props.user || undefined}
-            onStartTheTask={this.props.onStartTheTask}
-            onStartExternalTask={this.props.onStartExternalTask}
-          />
+
+          {joinedTheStudy && (
+            <StudyTasks
+              study={study}
+              user={this.props.user || undefined}
+              onStartTheTask={this.props.onStartTheTask}
+              onStartExternalTask={this.props.onStartExternalTask}
+            />
+          )}
 
           <div className="studyWhatWhoHow">
             <div className="descriptionMenu">
@@ -210,6 +215,15 @@ class StudyInformation extends Component {
             </div>
             <div>{activeItem === 'more' && <div>{more}</div>}</div>
           </div>
+
+          {!joinedTheStudy && (
+            <StudyTasks
+              study={study}
+              user={this.props.user || undefined}
+              onStartTheTask={this.props.onStartTheTask}
+              onStartExternalTask={this.props.onStartExternalTask}
+            />
+          )}
         </div>
 
         <div className="studyInfoTimePartners">
