@@ -55,7 +55,7 @@ function getIntitialPage(user, study) {
         typeof user.generalInfo?.under18 !== 'undefined' &&
         typeof user.generalInfo?.englishComprehension !== 'undefined')
     ) {
-      if (existingConsent) {
+      if (existingConsent || !study.consent) {
         page = 6;
       } else if (user.generalInfo?.under18 === 'yes') {
         page = 2;
