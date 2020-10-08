@@ -68,10 +68,12 @@ const USER_DASHBOARD_QUERY = gql`
       taskCreatorIn {
         id
         title
+        taskType
       }
       collaboratorInTask {
         id
         title
+        taskType
       }
       image
       info

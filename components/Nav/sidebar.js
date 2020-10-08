@@ -54,7 +54,7 @@ const SidebarNav = () => (
 
       <div className="workspaceHeader">WORKSPACE</div>
 
-      <Link href="/dashboard/create">
+      <Link href="/dashboard/develop">
         <div className="navLink">
           <div>
             <img
@@ -63,7 +63,7 @@ const SidebarNav = () => (
               height="20"
             />
           </div>
-          <div>Create</div>
+          <div>Develop</div>
         </div>
       </Link>
 

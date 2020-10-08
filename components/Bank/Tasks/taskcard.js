@@ -35,6 +35,17 @@ class TaskCard extends Component {
               </a>
             </Link>
           )}
+          {this.props.onSelectTask && (
+            <div>
+              <a
+                onClick={() => {
+                  this.props.onSelectTask(task);
+                }}
+              >
+                Select
+              </a>
+            </div>
+          )}
         </div>
       </StyledTaskCard>
     );

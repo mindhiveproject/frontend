@@ -37,13 +37,3 @@ class StudyCard extends Component {
 }
 
 export default StudyCard;
-
-// <Link
-//   href={{
-//     pathname: `/studies/${study.slug}`,
-//   }}
-// >
-//   <a>
-//     <p>Go to study</p>
-//   </a>
-// </Link>

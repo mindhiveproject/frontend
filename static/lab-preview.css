@@ -47,8 +47,8 @@ body {
   width: var(--width-container);
 }
 header, footer, main {
-  padding: 24px;
-  padding: var(--padding-internal);
+   padding-top: 24px;
+  /*padding: var(--padding-internal); */
 }
 /* Individual parts: Height, borders and background */
 header, footer {
@@ -60,23 +60,33 @@ main {
   min-height: var(--height-min-header-footer);
 }
 
-/* Fullscreen layout */
-.container.fullscreen {
+input {
+  /* width: auto !important; */
+}
+
+
+/* Preview screen layout */
+.container.previewscreen {
   /* Full screen minus margins */
   margin: 24px;
   margin: var(--padding-internal);
-  min-height: calc(100vh - 2*24px);
-  min-height: calc(100vh - 2*var(--padding-internal));
-  width: calc(100vw - 2*24px);
-  width: calc(100vw - 2*var(--padding-internal));
+  min-height: calc(60vh - 2*24px);
+  /* min-height: calc(80vh - 2*var(--padding-internal)); */
+  /* width: calc(100vw - 2*24px);
+  width: calc(100vw - 2*var(--padding-internal)); */
   /* Display content using flexboxes */
+  display: -webkit-box;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
 }
-.container.fullscreen main {
+.container.previewscreen main {
   /* Flex positioning */
-  flex: 1;
+  -webkit-box-flex: 1;
+          flex: 1;
 }
+
 
 /* Frameless layout */
 .container.frameless {
@@ -107,8 +117,8 @@ main {
   }
   .container.fullscreen {
     /* IE11 miscalculates the height, so add some slack */
-    min-height: calc(100vh - 3*24px);
-    min-height: calc(100vh - 3*var(--padding-internal));
+    min-height: calc(60vh - 3*24px);
+    min-height: calc(60vh - 3*var(--padding-internal));
   }
 }
 
