@@ -304,8 +304,8 @@ class StudyBuilder extends Component {
     const { user } = this.props;
     const { study, needToClone } = this.state;
     const isAuthor =
-      user.id === study?.author?.id ||
-      study?.collaborators.map(c => c.id).includes(user.id);
+      user.id === this.props.study?.author?.id ||
+      this.props.study?.collaborators.includes(user.username);
 
     return (
       <>
