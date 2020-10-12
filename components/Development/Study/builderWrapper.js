@@ -92,7 +92,6 @@ class StudyBuilderWrapper extends Component {
                 onLeave={this.props.onLeave}
                 study={study}
                 user={this.props.user}
-                isAuthor={isAuthor}
                 needToClone={needToClone}
               />
             </EmptyPage>
@@ -104,3 +103,4 @@ class StudyBuilderWrapper extends Component {
 }
 
 export default StudyBuilderWrapper;
+export { STUDY_QUERY };

@@ -106,7 +106,6 @@ class ComponentBuilderWrapper extends Component {
               onLeave={this.props.onLeave}
               task={task}
               user={this.props.user}
-              isAuthor={isAuthor}
               needToClone={needToClone}
             />
           );

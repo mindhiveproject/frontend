@@ -112,6 +112,7 @@ const UPDATE_COMPONENT = gql`
 class ComponentBuilder extends Component {
   state = {
     task: { ...this.props.task },
+    needToClone: this.props.needToClone,
   };
 
   handleTaskChange = e => {
@@ -195,6 +196,7 @@ class ComponentBuilder extends Component {
     });
     const myTask = res.data.createTask;
     this.setState({
+      needToClone: false,
       task: {
         ...myTask,
         consent: myTask.consent?.id,
@@ -216,7 +218,12 @@ class ComponentBuilder extends Component {
   };
 
   render() {
-    const { user, isAuthor, needToClone } = this.props;
+    const { user } = this.props;
+    const { task, needToClone } = this.state;
+    const isAuthor =
+      user.id === task?.author?.id ||
+      task?.collaborators.map(c => c.id).includes(user.id);
+
     return (
       <StyledBuilderPage>
         <BuilderNav>

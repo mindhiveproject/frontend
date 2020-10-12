@@ -10,6 +10,7 @@ import TaskBuilderWrapper from '../Component/builderWrapper';
 
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 import { MY_DEVELOPED_STUDIES_QUERY } from '../../Bank/Studies/developed';
+import { STUDY_QUERY } from './builderWrapper';
 
 import {
   StyledBuilder,
@@ -124,6 +125,7 @@ class StudyBuilder extends Component {
     study: { ...this.props.study },
     isTaskSelectorOpen: false,
     isTaskBuilderOpen: false,
+    needToClone: this.props.needToClone,
   };
 
   handleStudyChange = e => {
@@ -265,6 +267,7 @@ class StudyBuilder extends Component {
     });
     const myStudy = res.data.createStudy;
     this.setState({
+      needToClone: false,
       study: {
         ...myStudy,
         consent: myStudy.consent?.id,
@@ -298,7 +301,12 @@ class StudyBuilder extends Component {
   };
 
   render() {
-    const { user, isAuthor, needToClone } = this.props;
+    const { user } = this.props;
+    const { study, needToClone } = this.state;
+    const isAuthor =
+      user.id === study?.author?.id ||
+      study?.collaborators.map(c => c.id).includes(user.id);
+
     return (
       <>
         {this.state.isTaskBuilderOpen ? (
@@ -318,7 +326,15 @@ class StudyBuilder extends Component {
               </div>
               {isAuthor && !needToClone ? (
                 <div className="saveBtn">
-                  <Mutation mutation={UPDATE_STUDY}>
+                  <Mutation
+                    mutation={UPDATE_STUDY}
+                    refetchQueries={[
+                      {
+                        query: STUDY_QUERY,
+                        variables: { id: this.state.study.id },
+                      },
+                    ]}
+                  >
                     {(updateStudy, { loading, error }) => (
                       <div>
                         <button
