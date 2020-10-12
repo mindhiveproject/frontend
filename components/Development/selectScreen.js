@@ -390,6 +390,7 @@ class DevelopmentSelectScreen extends Component {
                   proceedToFirstTask: false,
                   zipCode: false,
                 },
+                collaborators: [],
                 info: [
                   {
                     name: 'what',
