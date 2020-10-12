@@ -11,10 +11,49 @@ import TaskBuilder from './Component/builder';
 
 const StyledSelectionScreen = styled.div`
   display: grid;
-  height: 98vh;
-  justify-content: center;
-  align-content: center;
+  grid-template-rows: minmax(1px, auto) 1fr;
+  height: 100%;
   background: #f7f9f8;
+
+  .selectionHeader {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .goBackBtn {
+    cursor: pointer;
+    margin: 1rem;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #007c70;
+  }
+  .closeBtn {
+    width: 3.3rem;
+    line-height: 3rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 2.25rem;
+    color: #5f6871;
+    padding-bottom: 5px;
+    font-size: 2rem;
+    :hover {
+      transform: scale(1.1);
+      transition: transform 0.5s;
+    }
+  }
+
+  .selectionBody {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+  }
+
   h1 {
     font-family: Lato;
     font-size: 48px;
@@ -61,38 +100,7 @@ const StyledSelectionScreen = styled.div`
     align-items: center;
     justify-content: center;
   }
-  .goBackBtn {
-    position: absolute;
-    top: 1%;
-    left: 1%;
-    cursor: pointer;
-    margin: 1rem;
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #007c70;
-  }
-  .closeBtn {
-    position: absolute;
-    top: 1%;
-    right: 1%;
-    width: 3.3rem;
-    line-height: 3rem;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 2.25rem;
-    color: #5f6871;
-    padding-bottom: 5px;
-    font-size: 2rem;
-    :hover {
-      transform: scale(1.1);
-      transition: transform 0.5s;
-    }
-  }
+
   .option {
     cursor: pointer;
     padding: 60px 29px 60px 29px;
@@ -145,65 +153,70 @@ class DevelopmentSelectScreen extends Component {
     if (this.state.stage === 'selection-first-question') {
       return (
         <StyledSelectionScreen>
-          <div className="closeBtn">
-            <span onClick={this.props.onClose}>&times;</span>
+          <div className="selectionHeader">
+            <div></div>
+            <div className="closeBtn">
+              <span onClick={this.props.onClose}>&times;</span>
+            </div>
           </div>
 
-          <div>
-            <h1>What would you like to develop?</h1>
-          </div>
+          <div className="selectionBody">
+            <div>
+              <h1>What would you like to develop?</h1>
+            </div>
 
-          <div className="options">
-            <div
-              className="option"
-              onClick={() => this.handleTypeChoice('study')}
-            >
-              <div className="iconSelect">
-                <img
-                  src="/static/assets/develop-study.svg"
-                  alt="icon"
-                  width="50"
-                />
+            <div className="options">
+              <div
+                className="option"
+                onClick={() => this.handleTypeChoice('study')}
+              >
+                <div className="iconSelect">
+                  <img
+                    src="/static/assets/develop-study.svg"
+                    alt="icon"
+                    width="50"
+                  />
+                </div>
+                <h3>Study</h3>
+                <p>
+                  A study is a research project with a research question. It can
+                  consist of multiple tasks and/or surveys.
+                </p>
               </div>
-              <h3>Study</h3>
-              <p>
-                A study is a Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit.
-              </p>
-            </div>
-            <div
-              className="option"
-              onClick={() => this.handleTypeChoice('task')}
-            >
-              <div className="iconSelect">
-                <img
-                  src="/static/assets/develop-task.svg"
-                  alt="icon"
-                  width="50"
-                />
+              <div
+                className="option"
+                onClick={() => this.handleTypeChoice('task')}
+              >
+                <div className="iconSelect">
+                  <img
+                    src="/static/assets/develop-task.svg"
+                    alt="icon"
+                    width="50"
+                  />
+                </div>
+                <h3>Task</h3>
+                <p>
+                  In a task, participants are asked to perform specific actions
+                  (e.g., press a button) based on what they see or hear.
+                </p>
               </div>
-              <h3>Task</h3>
-              <p>
-                A task is a Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit.
-              </p>
-            </div>
-            <div
-              className="option"
-              onClick={() => this.handleTypeChoice('survey')}
-            >
-              <div className="iconSelect">
-                <img
-                  src="/static/assets/develop-survey.svg"
-                  alt="icon"
-                  width="50"
-                />
+              <div
+                className="option"
+                onClick={() => this.handleTypeChoice('survey')}
+              >
+                <div className="iconSelect">
+                  <img
+                    src="/static/assets/develop-survey.svg"
+                    alt="icon"
+                    width="50"
+                  />
+                </div>
+                <h3>Survey</h3>
+                <p>
+                  In a survey, participants are asked questions about
+                  themselves, about how they behave, or about how they feel.
+                </p>
               </div>
-              <h3>Survey</h3>
-              <p>
-                A survey is a Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit.
-              </p>
             </div>
           </div>
         </StyledSelectionScreen>
@@ -213,53 +226,56 @@ class DevelopmentSelectScreen extends Component {
       if (this.state.choice === 'study') {
         return (
           <StyledSelectionScreen>
-            <div className="goBackBtn">
-              <span
-                onClick={() => this.returnToStage('selection-first-question')}
-              >
-                ← Go back to previous step
-              </span>
-            </div>
-            <div className="closeBtn">
-              <span onClick={this.props.onClose}>&times;</span>
-            </div>
-            <div>
-              <h1>Develop a study</h1>
+            <div className="selectionHeader">
+              <div className="goBackBtn">
+                <span
+                  onClick={() => this.returnToStage('selection-first-question')}
+                >
+                  ← Go back to previous step
+                </span>
+              </div>
+              <div className="closeBtn">
+                <span onClick={this.props.onClose}>&times;</span>
+              </div>
             </div>
 
-            <div className="studyOptions">
-              <div
-                className="option"
-                onClick={() => this.handleActionChoice('clone')}
-              >
-                <div className="iconSelect">
-                  <img
-                    src="/static/assets/develop-clone-study.svg"
-                    alt="icon"
-                    width="50"
-                  />
-                </div>
-                <h3>Clone & modify a study</h3>
-                <p>
-                  Build a study structure from a pre-existing MindHive study.
-                </p>
+            <div className="selectionBody">
+              <div>
+                <h1>Develop a study</h1>
               </div>
-              <div
-                className="option"
-                onClick={() => this.handleActionChoice('create')}
-              >
-                <div className="iconSelect">
-                  <img
-                    src="/static/assets/develop-study-from-scratch.svg"
-                    alt="icon"
-                    width="50"
-                  />
+
+              <div className="studyOptions">
+                <div
+                  className="option"
+                  onClick={() => this.handleActionChoice('clone')}
+                >
+                  <div className="iconSelect">
+                    <img
+                      src="/static/assets/develop-clone-study.svg"
+                      alt="icon"
+                      width="50"
+                    />
+                  </div>
+                  <h3>Clone & modify a study</h3>
+                  <p>Build a study based on a pre-existing MindHive study.</p>
                 </div>
-                <h3>Start from scratch</h3>
-                <p>
-                  Select this option if you would prefer to build a study from
-                  the ground up.
-                </p>
+                <div
+                  className="option"
+                  onClick={() => this.handleActionChoice('create')}
+                >
+                  <div className="iconSelect">
+                    <img
+                      src="/static/assets/develop-study-from-scratch.svg"
+                      alt="icon"
+                      width="50"
+                    />
+                  </div>
+                  <h3>Start a study from scratch</h3>
+                  <p>
+                    Select this option if you would prefer to build a study from
+                    the ground up.
+                  </p>
+                </div>
               </div>
             </div>
           </StyledSelectionScreen>
@@ -279,54 +295,59 @@ class DevelopmentSelectScreen extends Component {
       if (this.state.choice === 'survey') {
         return (
           <StyledSelectionScreen>
-            <div className="goBackBtn">
-              <span
-                onClick={() => this.returnToStage('selection-first-question')}
-              >
-                ← Go back to previous step
-              </span>
-            </div>
-            <div className="closeBtn">
-              <span onClick={this.props.onClose}>&times;</span>
-            </div>
-            <div>
-              <h1>Develop a survey</h1>
+            <div className="selectionHeader">
+              <div className="goBackBtn">
+                <span
+                  onClick={() => this.returnToStage('selection-first-question')}
+                >
+                  ← Go back to previous step
+                </span>
+              </div>
+              <div className="closeBtn">
+                <span onClick={this.props.onClose}>&times;</span>
+              </div>
             </div>
 
-            <div className="studyOptions">
-              <div
-                className="option"
-                onClick={() => this.handleActionChoice('clone')}
-              >
-                <div className="iconSelect">
-                  <img
-                    src="/static/assets/develop-clone-survey.svg"
-                    alt="icon"
-                    width="50"
-                  />
-                </div>
-                <h3>Clone & modify a survey</h3>
-                <p>
-                  Duplicate and edit a pre-existing MindHive survey and it’s
-                  parameters.
-                </p>
+            <div className="selectionBody">
+              <div>
+                <h1>Develop a survey</h1>
               </div>
-              <div
-                className="option"
-                onClick={() => this.handleActionChoice('create')}
-              >
-                <div className="iconSelect">
-                  <img
-                    src="/static/assets/develop-survey-builder.svg"
-                    alt="icon"
-                    width="50"
-                  />
+
+              <div className="studyOptions">
+                <div
+                  className="option"
+                  onClick={() => this.handleActionChoice('clone')}
+                >
+                  <div className="iconSelect">
+                    <img
+                      src="/static/assets/develop-clone-survey.svg"
+                      alt="icon"
+                      width="50"
+                    />
+                  </div>
+                  <h3>Clone & modify a survey</h3>
+                  <p>
+                    Duplicate and edit a pre-existing MindHive survey and its
+                    parameters.
+                  </p>
                 </div>
-                <h3>Use the Survey Builder</h3>
-                <p>
-                  Select this option if you would prefer to build a survey
-                  entirely from scratch.
-                </p>
+                <div
+                  className="option"
+                  onClick={() => this.handleActionChoice('create')}
+                >
+                  <div className="iconSelect">
+                    <img
+                      src="/static/assets/develop-survey-builder.svg"
+                      alt="icon"
+                      width="50"
+                    />
+                  </div>
+                  <h3>Use the Survey Builder</h3>
+                  <p>
+                    Select this option if you would prefer to build a survey
+                    entirely from scratch.
+                  </p>
+                </div>
               </div>
             </div>
           </StyledSelectionScreen>

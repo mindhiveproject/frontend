@@ -84,42 +84,49 @@ class ChooseComponentToClone extends Component {
     const component = componentType === 'SURVEY' ? 'survey' : 'task';
     return (
       <StyledSelectionScreen>
-        <div className="goBackBtn">
-          <span onClick={this.props.onReturn}>← Go back to previous step</span>
-        </div>
-        <div className="closeBtn">
-          <span onClick={this.props.onClose}>&times;</span>
-        </div>
-        <div className="selectHeader">
-          <h1>Clone & modify a {component}</h1>
-          <p>Select which {component} you would like to clone below.</p>
+        <div className="selectionHeader">
+          <div className="goBackBtn">
+            <span onClick={this.props.onReturn}>
+              ← Go back to previous step
+            </span>
+          </div>
+          <div className="closeBtn">
+            <span onClick={this.props.onClose}>&times;</span>
+          </div>
         </div>
 
-        <Query
-          query={
-            componentType === 'SURVEY'
-              ? ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY
-              : ALL_PUBLIC_TASKS_TO_CLONE_QUERY
-          }
-        >
-          {({ data, error, loading }) => {
-            if (loading) return <p>Loading ...</p>;
-            if (error) return <p>Error: {error.message}</p>;
-            const { tasks } = data;
-            return (
-              <StyledBankToClone>
-                {tasks.map(task => (
-                  <Card
-                    key={task.id}
-                    task={task}
-                    onSelectTask={this.onSelectTask}
-                    user={this.props.user}
-                  />
-                ))}
-              </StyledBankToClone>
-            );
-          }}
-        </Query>
+        <div className="selectionBody">
+          <div className="selectHeader">
+            <h1>Clone & modify a {component}</h1>
+            <p>Select which {component} you would like to clone below.</p>
+          </div>
+
+          <Query
+            query={
+              componentType === 'SURVEY'
+                ? ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY
+                : ALL_PUBLIC_TASKS_TO_CLONE_QUERY
+            }
+          >
+            {({ data, error, loading }) => {
+              if (loading) return <p>Loading ...</p>;
+              if (error) return <p>Error: {error.message}</p>;
+              const { tasks } = data;
+              return (
+                <StyledBankToClone>
+                  {tasks.map(task => (
+                    <Card
+                      key={task.id}
+                      task={task}
+                      onSelectTask={this.onSelectTask}
+                      user={this.props.user}
+                    />
+                  ))}
+                </StyledBankToClone>
+              );
+            }}
+          </Query>
+        </div>
       </StyledSelectionScreen>
     );
   }

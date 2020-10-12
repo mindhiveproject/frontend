@@ -8,6 +8,9 @@ import PreviewPane from './previewPane';
 import SelectorPane from './componentSelector';
 import TaskBuilderWrapper from '../Component/builderWrapper';
 
+import { USER_DASHBOARD_QUERY } from '../../User/index';
+import { MY_DEVELOPED_STUDIES_QUERY } from '../../Bank/Studies/developed';
+
 import {
   StyledBuilder,
   BuilderNav,
@@ -320,24 +323,10 @@ class StudyBuilder extends Component {
               <div>
                 <p>{this.state.study.title}</p>
               </div>
-              {user.id !== this.state.study?.author?.id ? (
-                <div className="saveBtn">
-                  <Mutation mutation={CREATE_NEW_STUDY}>
-                    {(createStudy, { loading, error }) => (
-                      <div>
-                        <button
-                          className="secondaryBtn"
-                          onClick={() => {
-                            this.createNewStudy(createStudy);
-                          }}
-                        >
-                          Create new study
-                        </button>
-                      </div>
-                    )}
-                  </Mutation>
-                </div>
-              ) : (
+              {user.id === this.props.study?.author?.id ||
+              this.props.study?.collaborators
+                .map(c => c.id)
+                .includes(user.id) ? (
                 <div className="saveBtn">
                   <Mutation mutation={UPDATE_STUDY}>
                     {(updateStudy, { loading, error }) => (
@@ -349,6 +338,29 @@ class StudyBuilder extends Component {
                           }}
                         >
                           Save
+                        </button>
+                      </div>
+                    )}
+                  </Mutation>
+                </div>
+              ) : (
+                <div className="saveBtn">
+                  <Mutation
+                    mutation={CREATE_NEW_STUDY}
+                    refetchQueries={[
+                      { query: MY_DEVELOPED_STUDIES_QUERY },
+                      { query: USER_DASHBOARD_QUERY },
+                    ]}
+                  >
+                    {(createStudy, { loading, error }) => (
+                      <div>
+                        <button
+                          className="secondaryBtn"
+                          onClick={() => {
+                            this.createNewStudy(createStudy);
+                          }}
+                        >
+                          Create new study
                         </button>
                       </div>
                     )}

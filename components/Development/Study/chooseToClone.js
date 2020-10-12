@@ -45,36 +45,42 @@ class ChooseStudyToClone extends Component {
   render() {
     return (
       <StyledSelectionScreen>
-        <div className="goBackBtn">
-          <span onClick={this.props.onReturn}>← Go back to previous step</span>
-        </div>
-        <div className="closeBtn">
-          <span onClick={this.props.onClose}>&times;</span>
+        <div className="selectionHeader">
+          <div className="goBackBtn">
+            <span onClick={this.props.onReturn}>
+              ← Go back to previous step
+            </span>
+          </div>
+          <div className="closeBtn">
+            <span onClick={this.props.onClose}>&times;</span>
+          </div>
         </div>
 
-        <div className="selectHeader">
-          <h1>Clone & modify a study</h1>
-          <p>Select which study you would like to clone below.</p>
-        </div>
+        <div className="selectionBody">
+          <div className="selectHeader">
+            <h1>Clone & modify a study</h1>
+            <p>Select which study you would like to clone below.</p>
+          </div>
 
-        <Query query={ALL_PUBLIC_STUDIES_TO_CLONE_QUERY}>
-          {({ data, error, loading }) => {
-            if (loading) return <p>Loading ...</p>;
-            if (error) return <p>Error: {error.message}</p>;
-            const { studies } = data;
-            return (
-              <StyledBankToClone>
-                {studies.map(study => (
-                  <StudyCard
-                    key={study.id}
-                    study={study}
-                    onSelectStudy={this.onSelectStudy}
-                  />
-                ))}
-              </StyledBankToClone>
-            );
-          }}
-        </Query>
+          <Query query={ALL_PUBLIC_STUDIES_TO_CLONE_QUERY}>
+            {({ data, error, loading }) => {
+              if (loading) return <p>Loading ...</p>;
+              if (error) return <p>Error: {error.message}</p>;
+              const { studies } = data;
+              return (
+                <StyledBankToClone>
+                  {studies.map(study => (
+                    <StudyCard
+                      key={study.id}
+                      study={study}
+                      onSelectStudy={this.onSelectStudy}
+                    />
+                  ))}
+                </StyledBankToClone>
+              );
+            }}
+          </Query>
+        </div>
       </StyledSelectionScreen>
     );
   }

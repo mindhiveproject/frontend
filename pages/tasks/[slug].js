@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import TaskParticipantPage from '../../components/Task/ParticipantPage/index';
+import TaskParticipantPage from '../../components/Task/TaskPage/index';
 import Page from '../../components/Page/index';
 
 const TaskReviewParticipantPage = props => {
@@ -7,7 +7,7 @@ const TaskReviewParticipantPage = props => {
   if (!router.query.slug)
     return (
       <Page>
-        <p>Loading</p>
+        <p>Loading ...</p>
       </Page>
     );
   return (

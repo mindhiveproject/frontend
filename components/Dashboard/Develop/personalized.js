@@ -11,11 +11,18 @@ import DevelopmentSelectScreen from '../../Development/selectScreen';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
 
+function calculateStats(userPayloadData) {
+  return {
+    studies:
+      userPayloadData?.researcherIn.length +
+      userPayloadData?.collaboratorInStudy.length,
+  };
+}
+
 class DashboardDevelop extends Component {
   state = {
     page: this.props.page || 'bank',
     tab: this.props.tab || 'studies',
-    stats: this.props.stats || {},
     devInfo: {},
   };
 
@@ -69,6 +76,16 @@ class DashboardDevelop extends Component {
     const { page, tab } = this.state;
     const { user } = this.props;
 
+    const numberOfStudies =
+      user?.researcherIn.length + user?.collaboratorInStudy.length;
+    const numberOfTasks =
+      user?.taskCreatorIn.filter(task => task.taskType === 'TASK').length +
+      user?.collaboratorInTask.filter(task => task.taskType === 'TASK').length;
+    const numberOfSurveys =
+      user?.taskCreatorIn.filter(task => task.taskType === 'SURVEY').length +
+      user?.collaboratorInTask.filter(task => task.taskType === 'SURVEY')
+        .length;
+
     if (page === 'bank') {
       return (
         <AuthorizedPage>
@@ -99,10 +116,7 @@ class DashboardDevelop extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>
-                      My studies (
-                      {this.state.stats.studies ? this.state.stats.studies : 0})
-                    </p>
+                    <p>My studies ({numberOfStudies || 0})</p>
                   </Menu.Item>
 
                   <Menu.Item
@@ -115,10 +129,7 @@ class DashboardDevelop extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>
-                      My tasks (
-                      {this.state.stats.tasks ? this.state.stats.tasks : 0})
-                    </p>
+                    <p>My tasks ({numberOfTasks || 0})</p>
                   </Menu.Item>
 
                   <Menu.Item
@@ -131,10 +142,7 @@ class DashboardDevelop extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>
-                      My surveys (
-                      {this.state.stats.surveys ? this.state.stats.surveys : 0})
-                    </p>
+                    <p>My surveys ({numberOfSurveys || 0})</p>
                   </Menu.Item>
                 </Menu>
               </div>

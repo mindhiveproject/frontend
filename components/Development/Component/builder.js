@@ -10,6 +10,10 @@ import { MY_SURVEYS_QUERY } from '../Study/Selector/mySurveys';
 import { MY_TASKS_QUERY } from '../Study/Selector/myTasks';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 import { COMPONENT_QUERY } from '../Study/Preview/componentPane';
+import {
+  MY_DEVELOPED_TASKS_QUERY,
+  MY_DEVELOPED_SURVEYS_QUERY,
+} from '../../Bank/Components/developed';
 
 import {
   StyledBuilder,
@@ -229,30 +233,9 @@ class ComponentBuilder extends Component {
           <div>
             <p>{this.state.task.title}</p>
           </div>
-          {user.id !== this.state.task?.author?.id ? (
-            <div className="saveBtn">
-              <Mutation
-                mutation={CREATE_COMPONENT}
-                refetchQueries={[
-                  { query: MY_SURVEYS_QUERY },
-                  { query: MY_TASKS_QUERY },
-                  { query: USER_DASHBOARD_QUERY },
-                ]}
-              >
-                {(createTask, { loading, error }) => (
-                  <div>
-                    <button
-                      onClick={() => {
-                        this.createNewTask(createTask);
-                      }}
-                    >
-                      Create new task
-                    </button>
-                  </div>
-                )}
-              </Mutation>
-            </div>
-          ) : (
+
+          {user.id === this.props.task?.author?.id ||
+          this.props.task?.collaborators.map(c => c.id).includes(user.id) ? (
             <div className="saveBtn">
               <Mutation
                 mutation={UPDATE_COMPONENT}
@@ -273,6 +256,31 @@ class ComponentBuilder extends Component {
                       }}
                     >
                       Save
+                    </button>
+                  </div>
+                )}
+              </Mutation>
+            </div>
+          ) : (
+            <div className="saveBtn">
+              <Mutation
+                mutation={CREATE_COMPONENT}
+                refetchQueries={[
+                  { query: MY_SURVEYS_QUERY },
+                  { query: MY_TASKS_QUERY },
+                  { query: USER_DASHBOARD_QUERY },
+                  { query: MY_DEVELOPED_TASKS_QUERY },
+                  { query: MY_DEVELOPED_SURVEYS_QUERY },
+                ]}
+              >
+                {(createTask, { loading, error }) => (
+                  <div>
+                    <button
+                      onClick={() => {
+                        this.createNewTask(createTask);
+                      }}
+                    >
+                      Create new task
                     </button>
                   </div>
                 )}

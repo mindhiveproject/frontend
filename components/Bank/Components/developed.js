@@ -129,3 +129,4 @@ class DevelopedStudiesBank extends Component {
 }
 
 export default DevelopedStudiesBank;
+export { MY_DEVELOPED_TASKS_QUERY, MY_DEVELOPED_SURVEYS_QUERY };

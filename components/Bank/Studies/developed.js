@@ -101,3 +101,4 @@ class DevelopedStudiesBank extends Component {
 }
 
 export default DevelopedStudiesBank;
+export { MY_DEVELOPED_STUDIES_QUERY };
