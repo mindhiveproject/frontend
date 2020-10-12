@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Router from 'next/router';
 import TaskCard from '../TaskCard/index';
 
+import { COMPONENT_QUERY } from '../../Development/Study/Preview/componentPane';
+
 const StyledTaskList = styled.div`
   display: grid;
   grid-gap: 36px;
@@ -16,6 +18,8 @@ class StudyTasks extends Component {
     const { user } = this.props;
     const { study } = this.props;
     const studyIds = user?.participantIn?.map(study => study.id) || [];
+
+    const components = study.components || [];
 
     const fullResultsInThisStudy =
       user?.results
@@ -29,21 +33,35 @@ class StudyTasks extends Component {
 
     return (
       <StyledTaskList>
-        {study.tasks &&
-          study.tasks.map((task, num) => (
-            <TaskCard
-              key={num}
-              task={task}
-              studyId={study.id}
-              studySlug={study.slug}
-              user={user}
-              study={study}
-              completed={fullResultsInThisStudy.includes(task.id)}
-              onStartTheTask={this.props.onStartTheTask}
-              onStartExternalTask={this.props.onStartExternalTask}
-              joinedTheStudy={studyIds.includes(study.id)}
-            />
-          ))}
+        {components.map((task, num) => (
+          <Query query={COMPONENT_QUERY} variables={{ id: task.id }}>
+            {({ data, loading }) => {
+              if (loading) return <p>Loading ... </p>;
+              if (!data || !data.task)
+                return (
+                  <p>
+                    No task found for the task named{' '}
+                    <strong>{task.title}</strong>
+                  </p>
+                );
+              const component = data.task;
+              return (
+                <TaskCard
+                  key={num}
+                  task={component}
+                  studyId={study.id}
+                  studySlug={study.slug}
+                  user={user}
+                  study={study}
+                  completed={fullResultsInThisStudy.includes(task.id)}
+                  onStartTheTask={this.props.onStartTheTask}
+                  onStartExternalTask={this.props.onStartExternalTask}
+                  joinedTheStudy={studyIds.includes(study.id)}
+                />
+              );
+            }}
+          </Query>
+        ))}
       </StyledTaskList>
     );
   }

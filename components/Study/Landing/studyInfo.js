@@ -11,6 +11,7 @@ import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
 import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
 
 import StudyTasks from './studyTasks';
+import InfoTabs from './infoTabs';
 
 class StudyInformation extends Component {
   state = { activeItem: 'what' };
@@ -22,7 +23,12 @@ class StudyInformation extends Component {
     const { activeItem } = this.state;
     const studyIds = user?.participantIn?.map(study => study.id) || [];
     const joinedTheStudy = studyIds.includes(study.id);
-    console.log('joinedTheStudy', joinedTheStudy);
+
+    const infoBlocks =
+      study?.info?.reduce((acc, el) => {
+        acc[el.name] = el.text;
+        return acc;
+      }, {}) || {};
 
     const faq =
       study.info &&
@@ -132,89 +138,7 @@ class StudyInformation extends Component {
             />
           )}
 
-          <div className="studyWhatWhoHow">
-            <div className="descriptionMenu">
-              <Menu tabular>
-                <Menu.Item
-                  name="what"
-                  active={activeItem === 'what'}
-                  onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                  name="who"
-                  active={activeItem === 'who'}
-                  onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                  name="how"
-                  active={activeItem === 'how'}
-                  onClick={this.handleItemClick}
-                />
-                {faq && faq.length ? (
-                  <Menu.Item
-                    name="FAQ"
-                    active={activeItem === 'FAQ'}
-                    onClick={this.handleItemClick}
-                  />
-                ) : (
-                  <div></div>
-                )}
-                {more && more.length ? (
-                  <Menu.Item
-                    name="more"
-                    active={activeItem === 'more'}
-                    onClick={this.handleItemClick}
-                  />
-                ) : (
-                  <div></div>
-                )}
-              </Menu>
-            </div>
-
-            <div>
-              {activeItem === 'what' && (
-                <div>
-                  {study.info &&
-                    study.info
-                      .filter(i => i.name === 'what')
-                      .map(i => ReactHtmlParser(i.text))}
-                </div>
-              )}
-            </div>
-            <div>
-              {activeItem === 'who' && (
-                <div>
-                  {study.info &&
-                    study.info
-                      .filter(i => i.name === 'who')
-                      .map(i => ReactHtmlParser(i.text))}
-                </div>
-              )}
-            </div>
-            <div>
-              {activeItem === 'how' && (
-                <div>
-                  {study.info &&
-                    study.info
-                      .filter(i => i.name === 'how')
-                      .map(i => ReactHtmlParser(i.text))}
-                </div>
-              )}
-            </div>
-            <div>
-              {activeItem === 'FAQ' && (
-                <div>
-                  <Accordion
-                    defaultActiveIndex={[]}
-                    panels={faq}
-                    exclusive={false}
-                    fluid
-                  />
-                </div>
-              )}
-            </div>
-            <div>{activeItem === 'more' && <div>{more}</div>}</div>
-          </div>
+          <InfoTabs infoBlocks={infoBlocks} study={study} />
 
           {!joinedTheStudy && (
             <StudyTasks

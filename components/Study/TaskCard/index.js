@@ -20,7 +20,6 @@ class TaskCard extends Component {
       <StyledTaskCard taskType={task.taskType}>
         <div className="cardInfo">
           <h2>{task.title}</h2>
-          <p>{ReactHtmlParser(task.description)}</p>
           <p>
             {task.settings &&
               task.settings.duration &&
