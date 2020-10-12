@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import ReactHtmlParser from 'react-html-parser';
 import ExperimentPreview from '../../../Task/Preview/index';
 
 const StyledComponentPane = styled.div`
@@ -104,7 +105,6 @@ class ComponentPane extends Component {
           if (!data || !data.task)
             return <p>No task found for id {this.props.id}</p>;
           const component = data.task;
-          console.log('component', component);
           return (
             <>
               <StyledComponentPane type={component.type}>
@@ -121,12 +121,10 @@ class ComponentPane extends Component {
                       </button>
                     </div>
                   </div>
-                  {viewing === 'before' && (
-                    <p>{component?.settings?.descriptionBefore}</p>
-                  )}
-                  {viewing === 'after' && (
-                    <p>{component?.settings?.descriptionAfter}</p>
-                  )}
+                  {viewing === 'before' &&
+                    ReactHtmlParser(component?.settings?.descriptionBefore)}
+                  {viewing === 'after' &&
+                    ReactHtmlParser(component?.settings?.descriptionAfter)}
 
                   <div className="cardButtons">
                     <button

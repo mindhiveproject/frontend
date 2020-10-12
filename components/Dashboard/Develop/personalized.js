@@ -8,16 +8,10 @@ import AuthorizedPage from '../../Page/userpage';
 import EmptyPage from '../../Page/empty';
 
 import DevelopmentSelectScreen from '../../Development/selectScreen';
+import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
+import ComponentBuilderWrapper from '../../Development/Component/builderWrapper';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
-
-function calculateStats(userPayloadData) {
-  return {
-    studies:
-      userPayloadData?.researcherIn.length +
-      userPayloadData?.collaboratorInStudy.length,
-  };
-}
 
 class DashboardDevelop extends Component {
   state = {
@@ -29,13 +23,9 @@ class DashboardDevelop extends Component {
   handleItemClick = (e, { name }) => this.setState({ tab: name });
 
   goToStudy = study => {
-    console.log('study', study);
     this.setState({
-      page: 'develop',
+      page: 'studyBuilder',
       devInfo: {
-        stage: 'development',
-        choice: 'study',
-        action: 'create',
         studyIdToClone: study.id,
       },
     });
@@ -44,11 +34,8 @@ class DashboardDevelop extends Component {
   openComponentEditor = component => {
     console.log('component', component);
     this.setState({
-      page: 'develop',
+      page: 'componentBuilder',
       devInfo: {
-        stage: 'development',
-        choice: component.taskType === 'SURVEY' ? 'survey' : 'task',
-        action: 'create',
         componentId: component.id,
       },
     });
@@ -185,7 +172,39 @@ class DashboardDevelop extends Component {
         </EmptyPage>
       );
     }
+    if (page === 'studyBuilder') {
+      return (
+        <EmptyPage>
+          <StudyBuilderWrapper
+            onLeave={this.switchToBank}
+            studyId={this.state.devInfo.studyIdToClone}
+            user={this.props.user}
+            needToClone={false}
+          />
+        </EmptyPage>
+      );
+    }
+    if (page === 'componentBuilder') {
+      return (
+        <EmptyPage>
+          <ComponentBuilderWrapper
+            onLeave={this.switchToBank}
+            componentId={this.state.devInfo.componentId}
+            user={this.props.user}
+            needToClone={false}
+          />
+        </EmptyPage>
+      );
+    }
   }
 }
 
 export default DashboardDevelop;
+
+// {false && (
+//   <DevelopmentSelectScreen
+//     onClose={this.switchToBank}
+//     user={this.props.user}
+//     devInfo={this.state.devInfo}
+//   />
+// )}

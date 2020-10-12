@@ -141,7 +141,6 @@ class DevelopmentSelectScreen extends Component {
     this.setState({ action: 'create', studyIdToClone: study.id });
 
   chooseComponentToClone = component => {
-    console.log('component to clone', component);
     this.setState({
       stage: 'development',
       action: 'create',
@@ -369,11 +368,13 @@ class DevelopmentSelectScreen extends Component {
         }
         if (this.state.action === 'create') {
           if (this.state.studyIdToClone) {
+            console.log('this.state', this.state);
             return (
               <StudyBuilderWrapper
                 onLeave={this.props.onClose}
                 studyId={this.state.studyIdToClone}
                 user={this.props.user}
+                needToClone
               />
             );
           }
@@ -419,6 +420,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               componentId={this.state.componentId}
               user={this.props.user}
+              needToClone
             />
           );
         }
@@ -454,6 +456,7 @@ class DevelopmentSelectScreen extends Component {
                 this.state.componentId || 'ckdps2aw300i60743ge85gtb1'
               }
               user={this.props.user}
+              needToClone
             />
           );
         }

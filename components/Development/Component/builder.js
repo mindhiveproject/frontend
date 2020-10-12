@@ -111,14 +111,7 @@ const UPDATE_COMPONENT = gql`
 
 class ComponentBuilder extends Component {
   state = {
-    task: {
-      ...this.props.task,
-      templateId: this.props.task.template.id,
-      consent: this.props.task.consent?.id,
-      collaborators: (this.props.task.collaborators &&
-        this.props.task.collaborators.map(c => c.username).length &&
-        this.props.task.collaborators.map(c => c.username)) || [''],
-    },
+    task: { ...this.props.task },
   };
 
   handleTaskChange = e => {
@@ -223,7 +216,7 @@ class ComponentBuilder extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, isAuthor, needToClone } = this.props;
     return (
       <StyledBuilderPage>
         <BuilderNav>
@@ -234,8 +227,7 @@ class ComponentBuilder extends Component {
             <p>{this.state.task.title}</p>
           </div>
 
-          {user.id === this.props.task?.author?.id ||
-          this.props.task?.collaborators.map(c => c.id).includes(user.id) ? (
+          {isAuthor && !needToClone ? (
             <div className="saveBtn">
               <Mutation
                 mutation={UPDATE_COMPONENT}

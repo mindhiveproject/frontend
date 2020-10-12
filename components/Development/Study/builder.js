@@ -121,14 +121,7 @@ const makeSlug = title => {
 
 class StudyBuilder extends Component {
   state = {
-    study: {
-      ...this.props.study,
-      consent: this.props.study.consent?.id,
-      collaborators: (this.props.study.collaborators &&
-        this.props.study.collaborators.map(c => c.username).length &&
-        this.props.study.collaborators.map(c => c.username)) || [''],
-      slug: this.props.study.slug || makeSlug(this.props.study.title),
-    },
+    study: { ...this.props.study },
     isTaskSelectorOpen: false,
     isTaskBuilderOpen: false,
   };
@@ -305,7 +298,7 @@ class StudyBuilder extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, isAuthor, needToClone } = this.props;
     return (
       <>
         {this.state.isTaskBuilderOpen ? (
@@ -323,10 +316,7 @@ class StudyBuilder extends Component {
               <div>
                 <p>{this.state.study.title}</p>
               </div>
-              {user.id === this.props.study?.author?.id ||
-              this.props.study?.collaborators
-                .map(c => c.id)
-                .includes(user.id) ? (
+              {isAuthor && !needToClone ? (
                 <div className="saveBtn">
                   <Mutation mutation={UPDATE_STUDY}>
                     {(updateStudy, { loading, error }) => (

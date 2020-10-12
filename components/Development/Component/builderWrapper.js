@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
+import slugify from 'slugify';
 
 import ComponentBuilder from './builder';
 
@@ -12,6 +13,15 @@ import {
   StyledPreviewPane,
   StyledStudyBuilderPage,
 } from './styles';
+
+const makeSlug = title => {
+  const slug = slugify(title, {
+    replacement: '-', // replace spaces with replacement character, defaults to `-`
+    remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
+    lower: true, // convert to lower case, defaults to `false`
+  });
+  return slug;
+};
 
 const COMPONENT_TO_CLONE_QUERY = gql`
   query COMPONENT_TO_CLONE_QUERY($id: ID!) {
@@ -50,6 +60,7 @@ const COMPONENT_TO_CLONE_QUERY = gql`
 
 class ComponentBuilderWrapper extends Component {
   render() {
+    const { user, needToClone } = this.props;
     return (
       <Query
         query={COMPONENT_TO_CLONE_QUERY}
@@ -59,11 +70,44 @@ class ComponentBuilderWrapper extends Component {
           if (loading) return <p>Loading ... </p>;
           if (!data || !data.task)
             return <p>No task found for id {this.props.id}</p>;
+
+          const isAuthor =
+            user.id === data.task?.author?.id ||
+            data.task?.collaborators.map(c => c.id).includes(user.id);
+
+          let task;
+          if (needToClone) {
+            task = {
+              ...data.task,
+              templateId: data.task.template.id,
+              consent: null,
+              collaborators: [''],
+            };
+          } else if (isAuthor) {
+            task = {
+              ...data.task,
+              templateId: data.task.template.id,
+              consent: data.task.consent?.id,
+              collaborators: (data.task.collaborators &&
+                data.task.collaborators.map(c => c.username).length &&
+                data.task.collaborators.map(c => c.username)) || [''],
+            };
+          } else {
+            task = {
+              ...data.task,
+              templateId: data.task.template.id,
+              consent: null,
+              collaborators: [''],
+            };
+          }
+
           return (
             <ComponentBuilder
               onLeave={this.props.onLeave}
-              task={data.task}
+              task={task}
               user={this.props.user}
+              isAuthor={isAuthor}
+              needToClone={needToClone}
             />
           );
         }}
