@@ -10,6 +10,8 @@ import { MY_SURVEYS_QUERY } from '../Study/Selector/mySurveys';
 import { MY_TASKS_QUERY } from '../Study/Selector/myTasks';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 import { COMPONENT_QUERY } from '../Study/Preview/componentPane';
+import { COMPONENT_TO_CLONE_QUERY } from './builderWrapper';
+
 import {
   MY_DEVELOPED_TASKS_QUERY,
   MY_DEVELOPED_SURVEYS_QUERY,
@@ -34,6 +36,7 @@ const CREATE_COMPONENT = gql`
     $collaborators: [String]
     $consent: ID
     $taskType: TaskType
+    $submitForPublishing: Boolean
   ) {
     createTask(
       title: $title
@@ -45,6 +48,7 @@ const CREATE_COMPONENT = gql`
       collaborators: $collaborators
       consent: $consent
       taskType: $taskType
+      submitForPublishing: $submitForPublishing
     ) {
       id
       title
@@ -74,6 +78,8 @@ const CREATE_COMPONENT = gql`
         title
       }
       taskType
+      public
+      submitForPublishing
     }
   }
 `;
@@ -90,6 +96,7 @@ const UPDATE_COMPONENT = gql`
     $collaborators: [String]
     $consent: ID
     $taskType: TaskType
+    $submitForPublishing: Boolean
   ) {
     updateTask(
       id: $id
@@ -102,6 +109,7 @@ const UPDATE_COMPONENT = gql`
       collaborators: $collaborators
       consent: $consent
       taskType: $taskType
+      submitForPublishing: $submitForPublishing
     ) {
       id
       title
@@ -241,6 +249,12 @@ class ComponentBuilder extends Component {
                 refetchQueries={[
                   {
                     query: COMPONENT_QUERY,
+                    variables: {
+                      id: this.state.task.id,
+                    },
+                  },
+                  {
+                    query: COMPONENT_TO_CLONE_QUERY,
                     variables: {
                       id: this.state.task.id,
                     },

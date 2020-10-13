@@ -65,6 +65,8 @@ const COMPONENT_TO_CLONE_QUERY = gql`
         title
       }
       taskType
+      public
+      submitForPublishing
     }
   }
 `;
@@ -129,3 +131,4 @@ class ComponentBuilderWrapper extends Component {
 }
 
 export default ComponentBuilderWrapper;
+export { COMPONENT_TO_CLONE_QUERY };

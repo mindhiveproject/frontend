@@ -31,6 +31,7 @@ const CREATE_NEW_STUDY = gql`
     $largeImage: String
     $consent: ID
     $components: Json
+    $submitForPublishing: Boolean
   ) {
     createStudy(
       title: $title
@@ -42,6 +43,7 @@ const CREATE_NEW_STUDY = gql`
       largeImage: $largeImage
       consent: $consent
       components: $components
+      submitForPublishing: $submitForPublishing
     ) {
       id
       slug
@@ -63,6 +65,8 @@ const CREATE_NEW_STUDY = gql`
         id
         username
       }
+      public
+      submitForPublishing
     }
   }
 `;
@@ -81,6 +85,7 @@ const UPDATE_STUDY = gql`
     $collaborators: [String]
     $consent: ID
     $components: Json
+    $submitForPublishing: Boolean
   ) {
     updateStudy(
       id: $id
@@ -95,6 +100,7 @@ const UPDATE_STUDY = gql`
       collaborators: $collaborators
       consent: $consent
       components: $components
+      submitForPublishing: $submitForPublishing
     ) {
       id
       slug
@@ -107,6 +113,8 @@ const UPDATE_STUDY = gql`
       consent {
         id
       }
+      public
+      submitForPublishing
     }
   }
 `;

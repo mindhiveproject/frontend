@@ -33,6 +33,8 @@ const STUDY_QUERY = gql`
         description
       }
       components
+      public
+      submitForPublishing
     }
   }
 `;
