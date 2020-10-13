@@ -29,7 +29,7 @@ const ALL_PUBLIC_STUDIES_TO_CLONE_QUERY = gql`
       }
       public
       image
-      description
+      shortDescription
       tasks {
         id
       }

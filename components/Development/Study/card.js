@@ -93,7 +93,7 @@ class StudyCard extends Component {
 
         <div className="cardInfo">
           <h2>{study.title}</h2>
-          <p>{ReactHtmlParser(study.description)}</p>
+          {ReactHtmlParser(study.shortDescription)}
           <div className="cardBtn">
             <button
               onClick={() => {
