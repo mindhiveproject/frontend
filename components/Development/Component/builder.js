@@ -221,8 +221,8 @@ class ComponentBuilder extends Component {
     const { user } = this.props;
     const { task, needToClone } = this.state;
     const isAuthor =
-      user.id === this.props.task?.author?.id ||
-      this.props.task?.collaborators.includes(user.username);
+      user.id === task?.author?.id ||
+      task?.collaborators.includes(user.username);
 
     return (
       <StyledBuilderPage>

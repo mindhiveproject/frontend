@@ -37,13 +37,15 @@ const STUDY_QUERY = gql`
   }
 `;
 
-const makeSlug = title => {
-  const slug = slugify(title, {
+const makeCloneNames = title => {
+  const randomNumber = Math.floor(Math.random() * 10000);
+  const newTitle = `Clone of ${title}-${randomNumber}`;
+  const slug = slugify(newTitle, {
     replacement: '-', // replace spaces with replacement character, defaults to `-`
     remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
     lower: true, // convert to lower case, defaults to `false`
   });
-  return slug;
+  return { slug, title: newTitle };
 };
 
 class StudyBuilderWrapper extends Component {
@@ -66,7 +68,7 @@ class StudyBuilderWrapper extends Component {
               ...data.study,
               consent: null,
               collaborators: [''],
-              slug: data.study.slug || makeSlug(data.study.title),
+              ...makeCloneNames(data.study.title),
             };
           } else if (isAuthor) {
             study = {
@@ -75,14 +77,13 @@ class StudyBuilderWrapper extends Component {
               collaborators: (data.study.collaborators &&
                 data.study.collaborators.map(c => c.username).length &&
                 data.study.collaborators.map(c => c.username)) || [''],
-              slug: data.study.slug || makeSlug(data.study.title),
             };
           } else {
             study = {
               ...data.study,
               consent: null,
               collaborators: [''],
-              slug: data.study.slug || makeSlug(data.study.title),
+              ...makeCloneNames(data.study.title),
             };
           }
 
