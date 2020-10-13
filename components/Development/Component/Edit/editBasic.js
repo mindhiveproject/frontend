@@ -55,12 +55,12 @@ class EditBasic extends Component {
 
         <label htmlFor="description">
           Task card description (for Develop mode)
-          <input
-            type="text"
+          <textarea
             id="description"
             name="description"
             value={task.description}
             onChange={this.props.handleTaskChange}
+            rows="5"
           />
         </label>
         <span>

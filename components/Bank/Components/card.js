@@ -17,7 +17,7 @@ class TaskCard extends Component {
         )}
         <div className="cardInfo">
           <h2>{component.title}</h2>
-          <p>{ReactHtmlParser(component.description)}</p>
+          {this.props.developingMode && ReactHtmlParser(component.description)}
           {false && (
             <Link
               href={{

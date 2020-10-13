@@ -17,7 +17,6 @@ class SurveyCard extends Component {
         )}
         <div className="cardInfo">
           <h2>{survey.title}</h2>
-          <p>{ReactHtmlParser(survey.description)}</p>
           <Link
             href={{
               pathname: '/task/preview',

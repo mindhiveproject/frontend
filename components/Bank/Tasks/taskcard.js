@@ -17,7 +17,6 @@ class TaskCard extends Component {
         )}
         <div className="cardInfo">
           <h2>{task.title}</h2>
-          <p>{ReactHtmlParser(task.description)}</p>
           <Link
             href={{
               pathname: '/task/preview',

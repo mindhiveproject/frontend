@@ -54,6 +54,7 @@ const MY_DEVELOPED_STUDIES_QUERY = gql`
         username
       }
       public
+      shortDescription
     }
   }
 `;
@@ -88,6 +89,7 @@ class DevelopedStudiesBank extends Component {
                       study={study}
                       onSelectStudy={this.props.onSelectStudy}
                       user={this.props.user}
+                      developingMode
                     />
                   ))}
                 </div>

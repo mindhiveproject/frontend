@@ -44,6 +44,7 @@ const MY_DEVELOPED_TASKS_QUERY = gql`
       id
       title
       slug
+      description
       author {
         id
       }
@@ -63,6 +64,7 @@ const MY_DEVELOPED_SURVEYS_QUERY = gql`
       id
       title
       slug
+      description
       author {
         id
       }
@@ -116,6 +118,7 @@ class DevelopedStudiesBank extends Component {
                       component={component}
                       onSelectComponent={this.props.onSelectComponent}
                       user={this.props.user}
+                      developingMode
                     />
                   ))}
                 </div>

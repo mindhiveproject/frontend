@@ -87,7 +87,7 @@ class EditSharing extends Component {
           </ResponseButtons>
         </div>
 
-        {task.slug && (
+        {false && task.slug && (
           <div>
             <p>Private access link</p>
             <p>
