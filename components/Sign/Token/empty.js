@@ -57,7 +57,7 @@ class EmptyTokenSignup extends Component {
                 });
               } else {
                 Router.push({
-                  pathname: '/bank',
+                  pathname: '/dashboard',
                 });
               }
             }}

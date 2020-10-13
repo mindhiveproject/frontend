@@ -42,7 +42,7 @@ class GoogleAuthLogin extends Component {
       }
     } else {
       Router.push({
-        pathname: `/study/all`,
+        pathname: `/dashboard`,
       });
     }
   };

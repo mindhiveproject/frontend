@@ -46,7 +46,7 @@ class Login extends Component {
                 console.log('res', res);
                 this.setState({ password: '', email: '' });
                 Router.push({
-                  pathname: '/me',
+                  pathname: '/dashboard',
                 });
               }}
             >

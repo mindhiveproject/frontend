@@ -46,7 +46,7 @@ class TokenLogin extends Component {
                 console.log('res', res);
                 this.setState({ username: '' });
                 Router.push({
-                  pathname: '/bank',
+                  pathname: '/dashboard',
                 });
               }}
             >

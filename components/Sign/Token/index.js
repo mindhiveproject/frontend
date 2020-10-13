@@ -57,7 +57,7 @@ class TokenSignup extends Component {
                 });
               } else {
                 Router.push({
-                  pathname: '/bank',
+                  pathname: '/dashboard',
                 });
               }
             }}
