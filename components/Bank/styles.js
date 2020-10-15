@@ -53,6 +53,7 @@ export const StyledStudyCard = styled.div`
   }
   .studyLink {
     display: grid;
+    grid-template-columns: 1fr auto;
     align-self: end;
     margin-bottom: 10px;
   }
@@ -112,5 +113,11 @@ export const StyledTaskCard = styled.div`
       letter-spacing: 0.05em;
       text-align: center;
     }
+  }
+  .studyLink {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-self: end;
+    margin-bottom: 10px;
   }
 `;

@@ -200,11 +200,3 @@ class DashboardDevelop extends Component {
 }
 
 export default DashboardDevelop;
-
-// {false && (
-//   <DevelopmentSelectScreen
-//     onClose={this.switchToBank}
-//     user={this.props.user}
-//     devInfo={this.state.devInfo}
-//   />
-// )}

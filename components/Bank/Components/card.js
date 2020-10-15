@@ -3,10 +3,13 @@ import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { StyledTaskCard } from '../styles';
+import DeleteComponent from './delete';
 
 class TaskCard extends Component {
   render() {
-    const { component } = this.props;
+    const { component, user } = this.props;
+    const isAuthor = user?.id === component?.author?.id;
+    console.log('isAuthor', isAuthor);
 
     return (
       <StyledTaskCard taskType={component.taskType}>
@@ -18,6 +21,7 @@ class TaskCard extends Component {
         <div className="cardInfo">
           <h2>{component.title}</h2>
           {this.props.developingMode && ReactHtmlParser(component.description)}
+
           {false && (
             <Link
               href={{
@@ -31,24 +35,29 @@ class TaskCard extends Component {
             </Link>
           )}
 
-          {this.props.onSelectComponent && (
-            <div>
-              <a
-                onClick={() => {
-                  this.props.onSelectComponent(component);
-                }}
-              >
-                Open Editor
-              </a>
-            </div>
-          )}
-          {false && (
-            <Link href="/studies/[slug]" as={`/studies/${task.slug}`}>
-              <a>
-                <p>Create Using Task Template</p>
-              </a>
-            </Link>
-          )}
+          <div className="studyLink">
+            {this.props.onSelectComponent && (
+              <div>
+                <a
+                  onClick={() => {
+                    this.props.onSelectComponent(component);
+                  }}
+                >
+                  Open Editor
+                </a>
+              </div>
+            )}
+            {this.props.developingMode && isAuthor && (
+              <div>
+                <DeleteComponent
+                  id={component.id}
+                  taskType={component.taskType}
+                >
+                  Delete
+                </DeleteComponent>
+              </div>
+            )}
+          </div>
         </div>
       </StyledTaskCard>
     );

@@ -3,10 +3,12 @@ import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { StyledStudyCard } from '../styles';
+import DeleteStudy from './delete';
 
 class StudyCard extends Component {
   render() {
-    const { study } = this.props;
+    const { study, user } = this.props;
+    const isAuthor = user?.id === study?.author?.id;
 
     return (
       <StyledStudyCard>
@@ -24,14 +26,22 @@ class StudyCard extends Component {
           {this.props.developingMode && (
             <div>{ReactHtmlParser(study.shortDescription)}</div>
           )}
+
           <div className="studyLink">
-            <a
-              onClick={() => {
-                this.props.onSelectStudy(study);
-              }}
-            >
-              Go to study
-            </a>
+            <div>
+              <a
+                onClick={() => {
+                  this.props.onSelectStudy(study);
+                }}
+              >
+                Go to study
+              </a>
+            </div>
+            {this.props.developingMode && isAuthor && (
+              <div>
+                <DeleteStudy id={study.id}>Delete</DeleteStudy>
+              </div>
+            )}
           </div>
         </div>
       </StyledStudyCard>
