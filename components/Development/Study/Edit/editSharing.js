@@ -9,20 +9,6 @@ const StyledSharingPane = styled.div`
     margin-top: 20px;
     margin-bottom: 30px;
   }
-  .accessLink {
-    padding: 15px 10px 15px 10px;
-    background: #fff3cd;
-    border-radius: 4px;
-    font-family: Lato;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: left;
-    cursor: pointer;
-    margin-top: 14px;
-  }
 `;
 
 const ResponseButtons = styled.div`
@@ -38,16 +24,6 @@ const ResponseButtons = styled.div`
 `;
 
 class EditSharing extends Component {
-  copyLink = () => {
-    const copyLink = `https://mindhive.science/studies/${this.props.study.slug}`;
-    const temp = document.createElement('input');
-    document.body.append(temp);
-    temp.value = copyLink;
-    temp.select();
-    document.execCommand('copy');
-    temp.remove();
-  };
-
   render() {
     const { study } = this.props;
 
@@ -84,22 +60,6 @@ class EditSharing extends Component {
             </button>
           </ResponseButtons>
         </div>
-
-        {study.slug && (
-          <div>
-            <p>Private access link</p>
-            <span>
-              Anyone with the link will be able to preview the study. Click
-              below to copy link.
-            </span>
-            <label htmlFor="slug" onClick={() => this.copyLink()}>
-              <p className="accessLink">
-                https://mindhive.science/studies/
-                {study.slug}
-              </p>
-            </label>
-          </div>
-        )}
       </StyledSharingPane>
     );
   }

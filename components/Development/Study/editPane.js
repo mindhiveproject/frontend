@@ -64,6 +64,7 @@ class EditPane extends Component {
             <EditBasic
               study={this.props.study}
               handleStudyChange={this.props.handleStudyChange}
+              user={this.props.user}
             />
           )}
 

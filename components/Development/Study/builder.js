@@ -392,6 +392,7 @@ class StudyBuilder extends Component {
                   handleCollaboratorsChange={this.handleCollaboratorsChange}
                   handleSetState={this.handleSetState}
                   study={this.state.study}
+                  user={this.props.user}
                 />
               )}
               {this.state.isTaskSelectorOpen && (

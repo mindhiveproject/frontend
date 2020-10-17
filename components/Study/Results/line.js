@@ -9,11 +9,13 @@ const LZUTF8 = require('lzutf8');
 
 const StyledResultLine = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   grid-column-gap: 20px;
   border: 1px solid grey;
+  border-radius: 4px;
   padding: 10px;
   align-items: center;
+  max-height: 200px;
   button {
     border: 1px solid grey;
     border-radius: 0;
@@ -37,7 +39,7 @@ const StyledResultLine = styled.div`
 
 class ResultLine extends Component {
   download = res => {
-    const { study, user } = res;
+    const { study, task, user } = res;
     let { data } = res;
     const fullContent = res.fullData?.content;
     const incrementalContent =
@@ -62,14 +64,21 @@ class ResultLine extends Component {
         .reduce((total, amount) => total.concat(amount), []);
     }
 
-    const name =
+    const studyTitle =
       (study &&
         study.title
           .toLowerCase()
           .split(' ')
           .join('-')) ||
       '';
-    const username = user.username
+    const taskTitle =
+      (task &&
+        task.title
+          .toLowerCase()
+          .split(' ')
+          .join('-')) ||
+      '';
+    const publicId = user.publicId
       .toLowerCase()
       .split(' ')
       .join('-');
@@ -81,7 +90,7 @@ class ResultLine extends Component {
     const blob = new Blob([csv], {
       type: 'text/csv',
     });
-    saveAs(blob, `${username}-${name}.csv`);
+    saveAs(blob, `${studyTitle}--${taskTitle}--${publicId}.csv`);
   };
 
   render() {
@@ -91,7 +100,7 @@ class ResultLine extends Component {
       <StyledResultLine>
         <h1>{result.study && result.study.title}</h1>
         <h2>{result.task && result.task.title}</h2>
-        <h4>{result.user && result.user.username}</h4>
+        <h4>{result.user && result.user.publicId}</h4>
         <p>{moment(result.updatedAt).fromNow()}</p>
         <div>
           <button onClick={() => this.download(result)}>

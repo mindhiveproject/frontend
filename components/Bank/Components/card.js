@@ -9,7 +9,6 @@ class TaskCard extends Component {
   render() {
     const { component, user } = this.props;
     const isAuthor = user?.id === component?.author?.id;
-    console.log('isAuthor', isAuthor);
 
     return (
       <StyledTaskCard taskType={component.taskType}>

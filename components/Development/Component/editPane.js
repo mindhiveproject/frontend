@@ -68,6 +68,7 @@ class EditPane extends Component {
               handleSetMultipleValuesInState={
                 this.props.handleSetMultipleValuesInState
               }
+              user={this.props.user}
             />
           )}
 

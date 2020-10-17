@@ -61,9 +61,12 @@ export const StyledPage = styled.div`
 `;
 
 export const Inner = styled.div`
-  max-width: ${props => props.theme.maxWidth};
-  margin: 0 auto;
+  display: grid;
+  justify-items: center;
   padding: 2rem;
   grid-area: main;
   margin-bottom: 93px;
 `;
+
+// max-width: ${props => props.theme.maxWidth};
+// /* margin: 0 auto; */

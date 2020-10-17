@@ -311,6 +311,7 @@ class ComponentBuilder extends Component {
             handleSetState={this.handleSetState}
             task={this.state.task}
             handleSetMultipleValuesInState={this.handleSetMultipleValuesInState}
+            user={this.props.user}
           />
           <StyledPreviewPane>
             <PreviewPane task={this.state.task} user={this.props.user} />

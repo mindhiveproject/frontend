@@ -171,8 +171,8 @@ export const StyledEditPane = styled.div`
   }
 
   .consentSelector {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .closeBtnContainerEdit {

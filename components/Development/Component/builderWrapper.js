@@ -14,15 +14,6 @@ import {
   StyledStudyBuilderPage,
 } from './styles';
 
-// const makeSlug = title => {
-//   const slug = slugify(title, {
-//     replacement: '-', // replace spaces with replacement character, defaults to `-`
-//     remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
-//     lower: true, // convert to lower case, defaults to `false`
-//   });
-//   return slug;
-// };
-
 const makeCloneNames = title => {
   const randomNumber = Math.floor(Math.random() * 10000);
   const newTitle = `Clone of ${title}-${randomNumber}`;

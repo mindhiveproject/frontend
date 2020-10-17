@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
+import styled from 'styled-components';
 import Error from '../../ErrorMessage/index';
 import ResultLine from './line';
+
+const StyledResults = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  width: 90%;
+`;
 
 const MY_STUDY_RESULTS_QUERY = gql`
   query MY_STUDY_RESULTS_QUERY($id: ID!) {
@@ -19,7 +27,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
       }
       user {
         id
-        username
+        publicId
       }
       quantity
       data
@@ -40,19 +48,20 @@ const MY_STUDY_RESULTS_QUERY = gql`
 class StudyResults extends Component {
   render() {
     return (
-      <Query query={MY_STUDY_RESULTS_QUERY} variables={{ id: this.props.id }}>
-        {({ error, loading, data }) => {
-          if (error) return <Error error={error} />;
-          if (loading) return <p>Loading</p>;
-          if (!data.myStudyResults)
-            return <p>No class found for {this.props.id}</p>;
-          const { myStudyResults } = data;
-          console.log('myStudyResults', myStudyResults);
-          return myStudyResults.map(result => (
-            <ResultLine key={result.id} result={result} />
-          ));
-        }}
-      </Query>
+      <StyledResults>
+        <Query query={MY_STUDY_RESULTS_QUERY} variables={{ id: this.props.id }}>
+          {({ error, loading, data }) => {
+            if (error) return <Error error={error} />;
+            if (loading) return <p>Loading</p>;
+            if (!data.myStudyResults)
+              return <p>No study found for the id {this.props.id}</p>;
+            const { myStudyResults } = data;
+            return myStudyResults.map(result => (
+              <ResultLine key={result.id} result={result} />
+            ));
+          }}
+        </Query>
+      </StyledResults>
     );
   }
 }
