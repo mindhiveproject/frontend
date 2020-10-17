@@ -5,7 +5,7 @@ import MessageCard from './messagecard';
 
 class HomeDashboard extends Component {
   render() {
-    const { studies, username } = this.props;
+    const { studies, username, publicId } = this.props;
     const messages = studies
       .map(study =>
         study.messages.map(message => {
@@ -25,7 +25,7 @@ class HomeDashboard extends Component {
     return (
       <StyledHomeDasboard>
         <h1>Welcome back{username ? `, ${username}` : `!`}</h1>
-
+        <div>Your participant ID is {publicId}</div>
         <div className="updatesBoard">
           <h2>Latest updates</h2>
           <div className="updates">
