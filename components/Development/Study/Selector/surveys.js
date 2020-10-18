@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import styled from 'styled-components';
-import Card from './card';
+import CardWrapper from './cardWrapper';
 
 const StyledBank = styled.div`
   display: grid;
@@ -34,6 +34,7 @@ const ALL_PUBLIC_SURVEYS_QUERY = gql`
         script
         style
       }
+      link
     }
   }
 `;
@@ -51,10 +52,9 @@ class Surveys extends Component {
               <StyledBank>
                 <div className="surveys">
                   {tasks.map(survey => (
-                    <Card
+                    <CardWrapper
                       key={survey.id}
                       component={survey}
-                      redirect="d"
                       onAddComponent={this.props.onAddComponent}
                       openTaskEditor={this.props.openTaskEditor}
                     />

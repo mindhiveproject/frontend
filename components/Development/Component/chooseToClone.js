@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
-import Card from './card';
+// import Card from './card';
+import Card from './Card/index';
 
 import { StyledSelectionScreen } from '../selectScreen';
 
@@ -41,6 +42,7 @@ const ALL_PUBLIC_TASKS_TO_CLONE_QUERY = gql`
         script
         style
       }
+      link
     }
   }
 `;
@@ -70,13 +72,14 @@ const ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
         script
         style
       }
+      link
     }
   }
 `;
 
 class ChooseComponentToClone extends Component {
-  onSelectTask = task => {
-    this.props.onChoiceToClone(task);
+  onSelectComponent = component => {
+    this.props.onChoiceToClone(component);
   };
 
   render() {
@@ -114,12 +117,13 @@ class ChooseComponentToClone extends Component {
               const { tasks } = data;
               return (
                 <StyledBankToClone>
-                  {tasks.map(task => (
+                  {tasks.map(component => (
                     <Card
-                      key={task.id}
-                      task={task}
-                      onSelectTask={this.onSelectTask}
+                      key={component.id}
+                      component={component}
+                      onSelectComponent={this.onSelectComponent}
                       user={this.props.user}
+                      showDeveloperInfo
                     />
                   ))}
                 </StyledBankToClone>

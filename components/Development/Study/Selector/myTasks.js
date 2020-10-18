@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import styled from 'styled-components';
-import Card from './card';
+import CardWrapper from './cardWrapper';
 
 const StyledBank = styled.div`
   display: grid;
@@ -11,7 +11,7 @@ const StyledBank = styled.div`
 
 const MY_TASKS_QUERY = gql`
   query MY_TASKS_QUERY {
-    myTasks {
+    myTasks(where: { taskType: TASK }) {
       id
       title
       slug
@@ -33,6 +33,7 @@ const MY_TASKS_QUERY = gql`
         script
         style
       }
+      link
     }
   }
 `;
@@ -50,7 +51,7 @@ class MyTasks extends Component {
               <StyledBank>
                 <div className="tasks">
                   {tasks.map(task => (
-                    <Card
+                    <CardWrapper
                       key={task.id}
                       component={task}
                       redirect="d"
