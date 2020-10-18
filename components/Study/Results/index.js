@@ -52,10 +52,17 @@ class StudyResults extends Component {
         <Query query={MY_STUDY_RESULTS_QUERY} variables={{ id: this.props.id }}>
           {({ error, loading, data }) => {
             if (error) return <Error error={error} />;
-            if (loading) return <p>Loading</p>;
+            if (loading) return <p>Loading ... </p>;
             if (!data.myStudyResults)
               return <p>No study found for the id {this.props.id}</p>;
             const { myStudyResults } = data;
+            if (myStudyResults.length === 0) {
+              return (
+                <div>
+                  <h1>No results yet</h1>
+                </div>
+              );
+            }
             return myStudyResults.map(result => (
               <ResultLine key={result.id} result={result} />
             ));

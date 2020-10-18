@@ -268,7 +268,7 @@ class ComponentBuilder extends Component {
                         this.updateMyTask(updateTask);
                       }}
                     >
-                      Save
+                      {loading ? 'Saving' : 'Save'}
                     </button>
                   </div>
                 )}
@@ -293,7 +293,7 @@ class ComponentBuilder extends Component {
                         this.createNewTask(createTask);
                       }}
                     >
-                      Create new task
+                      {loading ? 'Creating new task' : 'Create new task'}
                     </button>
                   </div>
                 )}

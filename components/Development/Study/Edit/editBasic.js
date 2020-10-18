@@ -44,6 +44,9 @@ class EditBasic extends Component {
       (user.permissions.includes('TEACHER') ||
         user.permissions.includes('SCIENTIST') ||
         user.permissions.includes('ADMIN'));
+    const isAuthor =
+      user.id === study?.author?.id ||
+      study?.collaborators.includes(user.username);
 
     return (
       <StyledBasicPane>
@@ -110,18 +113,20 @@ class EditBasic extends Component {
           </div>
         )}
 
-        <Link
-          href={{
-            pathname: '/study/results',
-            query: { id: study.id },
-          }}
-        >
-          <a>
-            <h2>
-              <button>Study results</button>
-            </h2>
-          </a>
-        </Link>
+        {isAuthor && (
+          <Link
+            href={{
+              pathname: '/study/results',
+              query: { id: study.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Study results</button>
+              </h2>
+            </a>
+          </Link>
+        )}
       </StyledBasicPane>
     );
   }
