@@ -27,16 +27,11 @@ const UPDATE_RESULTS_INFO_MUTATION = gql`
 class PostPrompt extends Component {
   checkConsent = () => {
     const { consent } = this.props.task;
-    console.log(
-      'this.props.user.consentGivenFor',
-      this.props.user.consentGivenFor
-    );
     let isConsentGiven = false;
     if (consent && consent.id) {
       const userConsents = this.props.user.consentGivenFor.map(c => c.id);
       isConsentGiven = userConsents.includes(consent.id);
     }
-    console.log('isConsentGiven', isConsentGiven);
     return isConsentGiven;
   };
 
@@ -66,18 +61,25 @@ class PostPrompt extends Component {
     return nextTaskId;
   };
 
+  checkWhetherToShowDataUsageQuestion = () => {
+    const isStudent = this.props?.user?.permissions.includes('STUDENT');
+    if (isStudent) {
+      return true;
+    }
+    return false;
+  };
+
   state = {
     data: this.checkDataAgreement(),
     agreeReceiveTaskUpdates: true,
     consentResponseGiven: this.checkConsent(),
     saveCoveredConsent: true,
     nextTaskId: this.checkNextTaskId(),
-    dataResponseGiven: false,
+    askDataUsageQuestion: this.checkWhetherToShowDataUsageQuestion(),
     page: 1,
   };
 
   updateState = e => {
-    console.log('e', e.target.name, e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -94,7 +96,7 @@ class PostPrompt extends Component {
       alert('Please answer the question first');
     } else {
       this.setState({
-        dataResponseGiven: true,
+        askDataUsageQuestion: false,
       });
     }
   };
@@ -129,7 +131,6 @@ class PostPrompt extends Component {
       if (redirect === 'studyPage') {
         this.props.onEndTask();
       } else if (redirect === 'nextTask' && this.state.nextTaskId) {
-        console.log('starting the next task', this.state.nextTaskId);
         this.props.onStartTheTask(this.state.nextTaskId);
       }
       this.props.onClosePrompt();
@@ -145,12 +146,10 @@ class PostPrompt extends Component {
       >
         {(updateResult, { error }) => {
           const { study, user, task } = this.props;
-          console.log('study, user, task', study, user, task);
           const isStudent = user?.permissions.includes('STUDENT');
-          console.log('isStudent', isStudent);
 
           // always show data usage prompt
-          if (!this.state.dataResponseGiven) {
+          if (this.state.askDataUsageQuestion) {
             return (
               <div>
                 <OnboardingForm>
@@ -178,7 +177,7 @@ class PostPrompt extends Component {
                         </p>
                         <StudyConsentText
                           onClose={() => {
-                            console.log('closing');
+                            // console.log('closing');
                           }}
                           title={study.title}
                           consent={task.consent}
@@ -209,7 +208,7 @@ class PostPrompt extends Component {
                       <div>
                         <StudyConsentForm
                           onClose={() => {
-                            console.log('closing');
+                            // console.log('closing');
                           }}
                           title={study.title}
                           consent={task.consent}

@@ -94,7 +94,7 @@ class RunExperiment extends Component {
                       },
                       on_finish: token => {
                         if (policy === 'preview' || !token) {
-                          console.log('90 token', token);
+                          // console.log('90 token', token);
                           // if (this.props.slug) {
                           //   Router.push(
                           //     '/studies/[slug]',
@@ -102,9 +102,9 @@ class RunExperiment extends Component {
                           //   );
                           //   return;
                           // }
-                          // Router.push('/task/my');
+                          Router.push('/dashboard');
                           // return;
-                          alert('TO DO - where to come back after preview?');
+                          // alert('TO DO - where to come back after preview?');
                         }
                         this.setState({
                           token,
