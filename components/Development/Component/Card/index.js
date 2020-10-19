@@ -94,6 +94,17 @@ class Card extends Component {
                   <p>Preview</p>
                 </a>
               )}
+
+              {this.props.inStudyBuilder && (
+                <Link
+                  href={{
+                    pathname: '/task/results',
+                    query: { id: component.id },
+                  }}
+                >
+                  <button>Task results</button>
+                </Link>
+              )}
             </div>
           </div>
         </StyledTaskCard>

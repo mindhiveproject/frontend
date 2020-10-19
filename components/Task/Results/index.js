@@ -13,6 +13,10 @@ import Error from '../../ErrorMessage/index';
 const LZUTF8 = require('lzutf8');
 
 const StyledResults = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  width: 90%;
   .resultsHeader {
     margin-bottom: 20px;
   }
@@ -51,7 +55,7 @@ const MY_TASK_RESULTS_QUERY = gql`
       }
       user {
         id
-        username
+        publicId
       }
       quantity
       data
@@ -98,8 +102,9 @@ class TaskResults extends Component {
         }
 
         const resultData = data.map(line => {
-          line.username = result.user && result.user.username;
+          line.participantId = result.user && result.user.publicId;
           line.task = result.task && result.task.title;
+          line.study = result.study && result.study.title;
           return line;
         });
         return resultData;

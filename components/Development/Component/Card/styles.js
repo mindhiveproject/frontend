@@ -30,7 +30,7 @@ export const StyledTaskCard = styled.div`
     display: grid;
     align-items: center;
     justify-items: start;
-    grid-template-columns: 170px auto;
+    grid-template-columns: 170px auto 170px;
     grid-gap: 10px;
     button {
       padding: 10px 25px 10px 25px;

@@ -58,6 +58,7 @@ class ComponentPane extends Component {
                 onRemoveComponent={this.removeFromStudy}
                 viewing={viewing}
                 number={this.props.number}
+                inStudyBuilder
               />
             </>
           );
