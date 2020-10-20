@@ -8,7 +8,9 @@ import DeleteComponent from './delete';
 class TaskCard extends Component {
   render() {
     const { component, user } = this.props;
-    const isAuthor = user?.id === component?.author?.id;
+    const isAuthor =
+      user?.id === component?.author?.id ||
+      component?.collaborators.map(c => c.id).includes(user.id);
 
     return (
       <StyledTaskCard taskType={component.taskType}>

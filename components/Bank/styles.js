@@ -56,6 +56,7 @@ export const StyledStudyCard = styled.div`
     grid-template-columns: 1fr auto;
     align-self: end;
     margin-bottom: 10px;
+    align-items: end;
   }
 `;
 
@@ -119,5 +120,6 @@ export const StyledTaskCard = styled.div`
     grid-template-columns: 1fr auto;
     align-self: end;
     margin-bottom: 10px;
+    align-items: end;
   }
 `;

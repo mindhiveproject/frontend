@@ -8,7 +8,9 @@ import DeleteStudy from './delete';
 class StudyCard extends Component {
   render() {
     const { study, user } = this.props;
-    const isAuthor = user?.id === study?.author?.id;
+    const isAuthor =
+      user?.id === study?.author?.id ||
+      study?.collaborators.map(c => c.id).includes(user.id);
 
     return (
       <StyledStudyCard>
