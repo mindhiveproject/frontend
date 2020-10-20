@@ -15,7 +15,7 @@ import {
   NavButtonSecondary,
 } from './styles';
 
-const SidebarNav = () => (
+const SidebarNav = ({ user }) => (
   <StyledSidebar>
     <Logo>
       <Link href="/">
@@ -54,18 +54,23 @@ const SidebarNav = () => (
 
       <div className="workspaceHeader">WORKSPACE</div>
 
-      <Link href="/dashboard/develop">
-        <div className="navLink">
-          <div>
-            <img
-              src="/static/assets/dashboard-create.png"
-              alt="icon"
-              height="20"
-            />
+      {(user?.permissions.includes('ADMIN') ||
+        user?.permissions.includes('SCIENTIST') ||
+        user?.permissions.includes('TEACHER') ||
+        user?.permissions.includes('STUDENT')) && (
+        <Link href="/dashboard/develop">
+          <div className="navLink">
+            <div>
+              <img
+                src="/static/assets/dashboard-create.png"
+                alt="icon"
+                height="20"
+              />
+            </div>
+            <div>Develop</div>
           </div>
-          <div>Develop</div>
-        </div>
-      </Link>
+        </Link>
+      )}
 
       <Link href="/dashboard/participate">
         <div className="navLink">

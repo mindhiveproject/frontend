@@ -18,7 +18,7 @@ export const Dialog = styled.div`
   font-weight: 600;
   label {
     display: block;
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -246,6 +246,8 @@ export const CreateAccountForm = styled.form`
     cursor: pointer;
   }
   fieldset {
+    display: grid;
+    grid-gap: 10px;
     border: 0;
     padding: 0;
     &[disabled] {

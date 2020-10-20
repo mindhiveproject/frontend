@@ -92,7 +92,7 @@ class ParticipantSignup extends Component {
                 const res = await participantSignUp({
                   variables: { permissions: ['PARTICIPANT'] },
                 });
-                console.log('res', res);
+                // console.log('res', res);
                 this.setState({ username: '', password: '', email: '' });
                 if (this.props.onClose) this.props.onClose();
                 if (this.props.task) {

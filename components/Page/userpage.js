@@ -53,7 +53,7 @@ class AuthorizedPage extends Component {
             return (
               <UserPage>
                 <UserNav>
-                  <SidebarNav />
+                  <SidebarNav user={data.me} />
                 </UserNav>
                 <UserInner>{this.props.children}</UserInner>
               </UserPage>

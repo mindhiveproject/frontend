@@ -59,8 +59,9 @@ class Crossover extends Component {
                     />
                   </label>
                   <p>
-                    This email address will be linked to your automatically
-                    generated username and password.
+                    Your email address or any other personal information will
+                    not be shared with researchers without your explicit
+                    consent.
                   </p>
                 </div>
               )}

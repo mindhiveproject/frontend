@@ -7,6 +7,7 @@ const ALL_USERNAMES = gql`
   query ALL_USERNAMES {
     allUsernames {
       username
+      permissions
     }
   }
 `;
