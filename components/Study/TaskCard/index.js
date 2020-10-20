@@ -26,6 +26,13 @@ class TaskCard extends Component {
               `Duration ${task.settings.duration}`}
           </p>
 
+          {!this.props.joinedTheStudy && (
+            <div>
+              {task.settings &&
+                ReactHtmlParser(task.settings.descriptionBefore)}
+            </div>
+          )}
+
           {this.props.joinedTheStudy && (
             <>
               <div>
