@@ -10,7 +10,7 @@ class TaskCard extends Component {
     const { component, user } = this.props;
     const isAuthor =
       user?.id === component?.author?.id ||
-      component?.collaborators.map(c => c.id).includes(user.id);
+      component?.collaborators.map(c => c.id).includes(user?.id);
 
     return (
       <StyledTaskCard taskType={component.taskType}>

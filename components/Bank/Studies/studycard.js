@@ -10,7 +10,7 @@ class StudyCard extends Component {
     const { study, user } = this.props;
     const isAuthor =
       user?.id === study?.author?.id ||
-      study?.collaborators.map(c => c.id).includes(user.id);
+      study?.collaborators.map(c => c.id).includes(user?.id);
 
     return (
       <StyledStudyCard>
