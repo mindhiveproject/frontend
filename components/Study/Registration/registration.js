@@ -17,7 +17,6 @@ class StudyRegistration extends Component {
 
   render() {
     const { study, user } = this.props;
-    console.log('user', user);
     return (
       <>
         {!this.state.login && !this.state.signup && (
@@ -51,18 +50,22 @@ class StudyRegistration extends Component {
             </div>
 
             <div>
-              <span>
-                <>Already have an account?</>
-                <> </>
-                <a
-                  style={{ borderBottom: '1px solid grey', cursor: 'pointer' }}
-                  onClick={() => {
-                    this.setState({ login: true });
-                  }}
-                >
-                  Login here
-                </a>
-              </span>
+              <div className="loginHereLine">
+                <span>Already have an account?</span>
+                <span>
+                  <a
+                    style={{
+                      borderBottom: '1px solid grey',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => {
+                      this.setState({ login: true });
+                    }}
+                  >
+                    Login here
+                  </a>
+                </span>
+              </div>
             </div>
 
             {study.settings && study.settings.guestParticipation && (

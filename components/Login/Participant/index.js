@@ -105,7 +105,9 @@ class Login extends Component {
                 </fieldset>
 
                 <Link href="/requestreset">
-                  <a style={{ float: 'right' }}>Forgot your password?</a>
+                  <a style={{ float: 'right', marginBottom: '10px' }}>
+                    Forgot your password?
+                  </a>
                 </Link>
 
                 <GoogleLogin

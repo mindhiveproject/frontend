@@ -207,13 +207,14 @@ export const OnboardingHeader = styled.div`
 `;
 
 export const OnboardingModal = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   z-index: 10;
   background: white;
+  overflow: auto;
 `;
 
 export const OnboardingForm = styled.div`
@@ -221,6 +222,7 @@ export const OnboardingForm = styled.div`
   max-width: 800px;
   margin: 0 auto;
   margin-top: 30px;
+  padding: 20px;
   h1 {
     font-family: Lato;
     font-style: normal;

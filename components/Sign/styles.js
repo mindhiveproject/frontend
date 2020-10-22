@@ -158,7 +158,7 @@ export const SignupForm = styled.div`
     grid-gap: 20px;
   }
   .studentSignupOptions {
-    width: 380px;
+    max-width: 380px;
     margin-top: 35px;
     margin-bottom: 40px;
     display: grid;
@@ -175,6 +175,14 @@ export const SignupForm = styled.div`
     font-size: 18px;
     line-height: 24px;
     color: #666666;
+  }
+  .loginHereLine {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 5px;
+    @media (max-width: 400px) {
+      grid-template-columns: 1fr;
+    }
   }
 `;
 

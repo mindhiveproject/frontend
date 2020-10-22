@@ -290,7 +290,7 @@ export const TokenForm = styled.form`
     margin-top: 0px; */
   }
   .agreementText {
-    width: 400px;
+    max-width: 400px;
     text-align: center;
     font-family: Lato;
     font-size: 18px;
