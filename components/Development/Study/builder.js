@@ -343,18 +343,25 @@ class StudyBuilder extends Component {
                       },
                     ]}
                   >
-                    {(updateStudy, { loading, error }) => (
-                      <div>
-                        <button
-                          className="secondaryBtn"
-                          onClick={() => {
-                            this.updateMyStudy(updateStudy);
-                          }}
-                        >
-                          {loading ? 'Saving' : 'Save'}
-                        </button>
-                      </div>
-                    )}
+                    {(updateStudy, { loading, error }) => {
+                      if (error) {
+                        alert(
+                          'Oops! this link has already be taken: please pick another.'
+                        );
+                      }
+                      return (
+                        <div>
+                          <button
+                            className="secondaryBtn"
+                            onClick={() => {
+                              this.updateMyStudy(updateStudy);
+                            }}
+                          >
+                            {loading ? 'Saving' : 'Save'}
+                          </button>
+                        </div>
+                      );
+                    }}
                   </Mutation>
                 </div>
               ) : (

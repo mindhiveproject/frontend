@@ -97,7 +97,9 @@ export const StyledStudyPage = styled.div`
     grid-area: description;
   }
   .studyInfoTimePartners {
+    display: grid;
     grid-area: time;
+    grid-gap: 20px;
   }
   .studyWhatWhoHow {
     grid-area: info;
