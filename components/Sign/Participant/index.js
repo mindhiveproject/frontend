@@ -48,7 +48,7 @@ class ParticipantSignup extends Component {
       agreeReceiveUpdates:
         (this.props.user && this.props.user.agreeReceiveUpdates) || false,
       confirmUsername: false,
-      agreeTermsConditions: false,
+      agreeTermsConditions: true,
     },
   };
 
@@ -198,21 +198,23 @@ class ParticipantSignup extends Component {
                   </label>
                 </div>
 
-                <div>
-                  <label htmlFor="agreeTermsConditions">
-                    <div className="checkboxField">
-                      <input
-                        type="checkbox"
-                        id="agreeTermsConditions"
-                        name="agreeTermsConditions"
-                        checked={this.state.info.agreeTermsConditions}
-                        onChange={this.toggleState}
-                        required
-                      />
-                      <span>I agree to the Terms and Conditions</span>
-                    </div>
-                  </label>
-                </div>
+                {false && (
+                  <div>
+                    <label htmlFor="agreeTermsConditions">
+                      <div className="checkboxField">
+                        <input
+                          type="checkbox"
+                          id="agreeTermsConditions"
+                          name="agreeTermsConditions"
+                          checked={this.state.info.agreeTermsConditions}
+                          onChange={this.toggleState}
+                          required
+                        />
+                        <span>I agree to the Terms and Conditions</span>
+                      </div>
+                    </label>
+                  </div>
+                )}
 
                 <div>
                   <label htmlFor="agreeReceiveUpdates">
