@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import StudiesBank from '../../Bank/Studies/index';
 
 const StyledStudiesBoard = styled.div`
-  width: 100vh;
+  /* width: 100vh; */
   display: grid;
   padding: 20px;
 

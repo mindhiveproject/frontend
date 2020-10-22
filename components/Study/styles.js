@@ -88,6 +88,9 @@ export const StyledStudyPage = styled.div`
   .studyWhatWhoHow,
   .studyTagsContacts {
     padding: 10px;
+    @media (max-width: 375px) {
+      padding: 0px;
+    }
   }
 
   .studyImage {

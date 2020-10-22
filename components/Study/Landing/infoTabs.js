@@ -32,7 +32,7 @@ class InfoTabs extends Component {
     return (
       <div className="studyWhatWhoHow">
         <div className="descriptionMenu">
-          <Menu tabular>
+          <Menu tabular stackable>
             {tabs.map(atab => (
               <Menu.Item
                 name={atab.name}
