@@ -106,6 +106,9 @@ export const StyledStudyPage = styled.div`
     margin-top: 34px;
   }
   .studyTagsContacts {
+    display: grid;
+    grid-gap: 20px;
+    align-content: baseline;
     grid-area: tags;
   }
 
