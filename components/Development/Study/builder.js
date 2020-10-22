@@ -393,6 +393,7 @@ class StudyBuilder extends Component {
                   handleSetState={this.handleSetState}
                   study={this.state.study}
                   user={this.props.user}
+                  needToClone={needToClone}
                 />
               )}
               {this.state.isTaskSelectorOpen && (
@@ -417,6 +418,7 @@ class StudyBuilder extends Component {
                   toggleTaskSelector={this.toggleTaskSelector}
                   onRemoveComponent={this.removeComponent}
                   openTaskEditor={this.openTaskEditor}
+                  needToClone={needToClone}
                 />
               </StyledPreviewPane>
             </StyledBuilder>

@@ -14,15 +14,21 @@ class PreviewPane extends Component {
   };
 
   handleTitleChange = e => {
-    const slug = slugify(e.target.value, {
-      replacement: '-', // replace spaces with replacement character, defaults to `-`
-      remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
-      lower: true, // convert to lower case, defaults to `false`
-    });
-    this.props.handleSetMultipleValuesInState({
-      title: e.target.value,
-      slug,
-    });
+    if (this.props.needToClone) {
+      const slug = slugify(e.target.value, {
+        replacement: '-', // replace spaces with replacement character, defaults to `-`
+        remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
+        lower: true, // convert to lower case, defaults to `false`
+      });
+      this.props.handleSetMultipleValuesInState({
+        title: e.target.value,
+        slug,
+      });
+    } else {
+      this.props.handleSetMultipleValuesInState({
+        title: e.target.value,
+      });
+    }
   };
 
   render() {

@@ -65,6 +65,7 @@ class EditPane extends Component {
               study={this.props.study}
               handleStudyChange={this.props.handleStudyChange}
               user={this.props.user}
+              needToClone={this.props.needToClone}
             />
           )}
 

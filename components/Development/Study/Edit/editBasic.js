@@ -97,6 +97,29 @@ class EditBasic extends Component {
           </Query>
         )}
 
+        {!this.props.needToClone && (
+          <>
+            <label htmlFor="slug">
+              <span>
+                Click the box with the link to your study below to copy it. Feel
+                free to shorten it. A tip - avoid spaces in the url. Use dashes
+                instead, for example. You will share this link with
+                participants. Warning: if you have already shared this study,
+                the link you shared before will no longer work.
+              </span>
+              <input
+                type="text"
+                id="slug"
+                name="slug"
+                placeholder="Slug for url"
+                value={study.slug}
+                onChange={this.props.handleStudyChange}
+                required
+              />
+            </label>
+          </>
+        )}
+
         {study.slug && (
           <div>
             <p>Private access link</p>
