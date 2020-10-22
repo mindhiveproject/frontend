@@ -104,12 +104,6 @@ class Login extends Component {
                   <button type="submit">Login</button>
                 </fieldset>
 
-                <Link href="/requestreset">
-                  <a style={{ float: 'right', marginBottom: '10px' }}>
-                    Forgot your password?
-                  </a>
-                </Link>
-
                 <GoogleLogin
                   onClose={this.props.onClose}
                   redirect={this.props.redirect}
@@ -118,6 +112,18 @@ class Login extends Component {
                   onStartTheTask={this.props.onStartTheTask}
                   firstTaskId={this.props.firstTaskId}
                 />
+
+                <Link href="/requestreset">
+                  <a
+                    style={{
+                      float: 'right',
+                      marginTop: '20px',
+                      marginBottom: '20px',
+                    }}
+                  >
+                    Forgot your password?
+                  </a>
+                </Link>
               </CreateAccountForm>
             </SignupForm>
           )}

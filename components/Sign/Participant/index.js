@@ -236,10 +236,20 @@ class ParticipantSignup extends Component {
                 </div>
 
                 <button type="submit">Create account</button>
-                <p>
-                  By clicking on "Create account", you agree to MindHive's Terms
-                  of Service, including our Privacy Policy.
-                </p>
+                <span>
+                  By clicking on “Create account” you agree to MindHive’s{' '}
+                  <a target="_blank" href="https://mindhive.science/docs/terms">
+                    Terms of Service
+                  </a>
+                  , including our{' '}
+                  <a
+                    target="_blank"
+                    href="https://mindhive.science/docs/privacy"
+                  >
+                    Privacy Policy
+                  </a>
+                  .
+                </span>
               </fieldset>
             </CreateAccountForm>
           </SignupForm>
