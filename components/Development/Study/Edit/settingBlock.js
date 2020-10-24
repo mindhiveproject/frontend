@@ -8,7 +8,6 @@ const StyledSettingsBlock = styled.div`
   grid-gap: 16px;
   justify-items: start;
   border-radius: 5px;
-  /* padding: 10px; */
 `;
 
 class SettingBlock extends Component {
@@ -45,6 +44,11 @@ class SettingBlock extends Component {
             <label className="name" htmlFor={name}>
               After joining the study, automatically take participants to first
               task
+            </label>
+          )}
+          {name === 'minorsBlocked' && (
+            <label className="name" htmlFor={name}>
+              Only allow participants over 18 to take part in this study
             </label>
           )}
         </div>

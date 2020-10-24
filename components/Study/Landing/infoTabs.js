@@ -33,8 +33,9 @@ class InfoTabs extends Component {
       <div className="studyWhatWhoHow">
         <div className="descriptionMenu">
           <Menu tabular stackable>
-            {tabs.map(atab => (
+            {tabs.map((atab, num) => (
               <Menu.Item
+                key={num}
                 name={atab.name}
                 active={tab === atab.name}
                 onClick={this.handleItemClick}
@@ -45,12 +46,12 @@ class InfoTabs extends Component {
           </Menu>
         </div>
 
-        {tabs.map(atab => (
-          <>
+        {tabs.map((atab, num) => (
+          <div key={num}>
             {this.state.tab === atab.name && (
               <div>{ReactHtmlParser(infoBlocks[atab.name])}</div>
             )}
-          </>
+          </div>
         ))}
       </div>
     );

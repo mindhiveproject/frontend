@@ -27,7 +27,7 @@ import PreParentConsent from './Steps/2-preParentConsent';
 import ParentConsent from './Steps/3-parentConsent';
 import StudyConsentText from './Steps/4-studyConsentText';
 import StudyConsentForm from './Steps/5-studyConsent';
-
+import BlockingPage from './Steps/blockingPage';
 import { Logo } from '../../Header/styles';
 
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
@@ -100,6 +100,14 @@ class RegistrationPage extends Component {
                         this.setButtonState(parameter, state)
                       }
                       onNext={() => {
+                        if (
+                          this.state.under18 &&
+                          this.state.under18 === 'yes' &&
+                          study?.settings?.minorsBlocked
+                        ) {
+                          this.setState({ page: 'block' });
+                          return;
+                        }
                         if (
                           this.state.under18 &&
                           this.state.englishComprehension &&
@@ -242,6 +250,16 @@ class RegistrationPage extends Component {
                       onClose={this.props.onClose}
                       onStartTheTask={this.props.onStartTheTask}
                       firstTaskId={this.state.firstTaskId}
+                    />
+                  </div>
+                )}
+
+                {this.state.page == 'block' && (
+                  <div id="block">
+                    <BlockingPage
+                      onClose={() => this.props.onClose()}
+                      header=""
+                      message="We are very sorry but only participants who are 18 or older can take part in this study at this time."
                     />
                   </div>
                 )}

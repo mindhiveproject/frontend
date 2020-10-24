@@ -34,7 +34,7 @@ class StudyTasks extends Component {
     return (
       <StyledTaskList>
         {components.map((task, num) => (
-          <Query query={COMPONENT_QUERY} variables={{ id: task.id }}>
+          <Query query={COMPONENT_QUERY} variables={{ id: task.id }} key={num}>
             {({ data, loading }) => {
               if (loading) return <p>Loading ... </p>;
               if (!data || !data.task)

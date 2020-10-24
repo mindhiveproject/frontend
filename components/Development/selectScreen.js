@@ -390,6 +390,7 @@ class DevelopmentSelectScreen extends Component {
                   guestParticipation: true,
                   proceedToFirstTask: false,
                   zipCode: false,
+                  minorsBlocked: false,
                 },
                 collaborators: [],
                 info: [
