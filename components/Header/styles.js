@@ -40,8 +40,8 @@ export const StyledHeader = styled.header`
     justify-content: space-between;
     align-items: stretch;
     @media (max-width: 700px) {
-      grid-template-columns: 1fr;
-      justify-content: center;
+      /* grid-template-columns: 1fr;
+      justify-content: center; */
     }
   }
   .sub-bar {

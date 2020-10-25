@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Error from '../../ErrorMessage/index';
 import RegistrationPage from './page';
 
-import { StyledStudy } from '../styles';
+// import { StyledStudy } from '../styles';
 
 class RegistrationFlow extends Component {
   render() {

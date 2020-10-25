@@ -112,11 +112,23 @@ export const NavStyles = styled.ul`
     // justify-content: center;
     // font-size: 1.5rem;
   }
+  .openMenuBtn {
+    cursor: pointer;
+    color: #666666;
+    font-family: Lato;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    /* text-align: start; */
+    padding-right: 2rem;
+  }
 `;
 
 export const NavRightContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+  /* grid-template-columns: repeat(auto-fit, minmax(150px, auto)); */
   grid-column-gap: 6px;
   justify-content: end;
   @media (max-width: 700px) {

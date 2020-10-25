@@ -5,7 +5,6 @@ import { SignupForm, SignupButton } from './styles';
 
 class Signup extends Component {
   render() {
-    console.log('Router', Router);
     return (
       <SignupForm>
         <h1>Which role best describes you?</h1>
