@@ -3,7 +3,7 @@ import Page from '../../components/Page/index';
 
 const SignupPage = props => (
   <Page>
-    <Signup />
+    <Signup {...props} />
   </Page>
 );
 

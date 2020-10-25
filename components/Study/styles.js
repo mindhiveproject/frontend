@@ -193,7 +193,7 @@ export const OnboardingHeader = styled.div`
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 12fr 1fr;
-  align-items: end;
+  align-items: start;
   padding-bottom: 20px;
   margin-bottom: 40px;
   border-bottom: 2px solid #f2f2f2;
@@ -206,6 +206,13 @@ export const OnboardingHeader = styled.div`
   color: #28619e;
   .logo {
     display: grid;
+    margin: 0 0;
+  }
+  .closeBtn {
+    color: #5f6871;
+    cursor: pointer;
+    text-align: end;
+    font-size: 40px;
   }
 `;
 

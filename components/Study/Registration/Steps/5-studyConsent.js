@@ -18,10 +18,7 @@ class StudyConsentForm extends Component {
               </div>
             </Logo>
             <div className="headerTitle">Study consent</div>
-            <a
-              style={{ cursor: 'pointer', textAlign: 'end' }}
-              onClick={this.props.onClose}
-            >
+            <a className="closeBtn" onClick={this.props.onClose}>
               &times;
             </a>
           </OnboardingHeader>

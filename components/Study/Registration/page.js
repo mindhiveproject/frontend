@@ -227,7 +227,7 @@ class RegistrationPage extends Component {
                       </Logo>
                       <div>Account creation</div>
                       <a
-                        style={{ cursor: 'pointer', textAlign: 'end' }}
+                        className="closeBtn"
                         onClick={() => this.props.onClose()}
                       >
                         &times;

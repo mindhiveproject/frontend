@@ -15,10 +15,7 @@ class GetStarted extends Component {
             </div>
           </Logo>
           <div>Let's get started</div>
-          <a
-            style={{ cursor: 'pointer', textAlign: 'end' }}
-            onClick={this.props.onClose}
-          >
+          <a className="closeBtn" onClick={this.props.onClose}>
             &times;
           </a>
         </OnboardingHeader>
