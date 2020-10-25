@@ -149,6 +149,7 @@ export const NavRightContainerForAdmin = styled.div`
 
 export const NavButton = styled.button`
   margin: 6px;
+  height: 56px;
   /* height: 46px; */
   font-size: 18px;
   line-height: 100%;
