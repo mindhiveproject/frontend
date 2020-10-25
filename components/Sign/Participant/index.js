@@ -47,7 +47,6 @@ class ParticipantSignup extends Component {
       under18: this.props.user && this.props.user.under18,
       agreeReceiveUpdates:
         (this.props.user && this.props.user.agreeReceiveUpdates) || false,
-      confirmUsername: false,
       agreeTermsConditions: true,
     },
   };
@@ -124,9 +123,7 @@ class ParticipantSignup extends Component {
                     onChange={this.saveToState}
                   />
                   <div className="helpText">
-                    Your username <strong>will be visible to scientists</strong>
-                    . Proceed with the name we suggest or choose your own (but
-                    don't use your real name!).
+                    Proceed with the name we suggest or choose your own.
                   </div>
                 </label>
                 <label htmlFor="email">
@@ -178,25 +175,26 @@ class ParticipantSignup extends Component {
                   </label>
                 )}
 
-                <div>
-                  <label htmlFor="confirmUsername">
-                    <div className="checkboxField">
-                      <input
-                        type="checkbox"
-                        id="confirmUsername"
-                        name="confirmUsername"
-                        checked={this.state.info.confirmUsername}
-                        onChange={this.toggleState}
-                        required
-                      />
-                      <span>
-                        I confirm that my user name does not contain any
-                        personally identifiable information (first and last
-                        name).
-                      </span>
-                    </div>
-                  </label>
-                </div>
+                {false && (
+                  <div>
+                    <label htmlFor="confirmUsername">
+                      <div className="checkboxField">
+                        <input
+                          type="checkbox"
+                          id="confirmUsername"
+                          name="confirmUsername"
+                          checked={this.state.info.confirmUsername}
+                          onChange={this.toggleState}
+                        />
+                        <span>
+                          I confirm that my user name does not contain any
+                          personally identifiable information (first and last
+                          name).
+                        </span>
+                      </div>
+                    </label>
+                  </div>
+                )}
 
                 {false && (
                   <div>
