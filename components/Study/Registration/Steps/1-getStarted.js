@@ -45,6 +45,10 @@ class GetStarted extends Component {
           <div>
             <label htmlFor="englishComprehension">
               <p>Do you understand basic instruction written in English?</p>
+              <p>
+                La versión en español de la plataforma estará disponible
+                próximamente
+              </p>
               <ResponseButtons>
                 <button
                   onClick={() =>
