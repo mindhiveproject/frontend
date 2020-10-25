@@ -10,10 +10,10 @@ const MY_STUDY_PARTICIPANTS_QUERY = gql`
       id
       participants {
         id
-        username
         authEmail {
           email
         }
+        publicId
       }
     }
   }
@@ -61,13 +61,10 @@ class StudyParticipants extends Component {
                 {(mailParticipants, { loading, error }) => (
                   <div>
                     <button onClick={mailParticipants}>Send email</button>
-
-                    {participants.map(participant => (
+                    <h2>Participants' IDs</h2>
+                    {participants.map((participant, num) => (
                       <div key={participant.id} participant={participant}>
-                        {participant.username}{' '}
-                        {participant.authEmail.length
-                          ? participant.authEmail[0].email
-                          : ''}
+                        {num + 1}. {participant.publicId}
                       </div>
                     ))}
                   </div>

@@ -43,6 +43,7 @@ class MessageSender extends Component {
       <Mutation mutation={CREATE_MESSAGE} variables={this.state}>
         {(createMessage, { loading, error }) => (
           <div>
+            <h1>This functionality is currently in development</h1>
             <h2>Create an update for participants of this study</h2>
 
             <label htmlFor="content">
