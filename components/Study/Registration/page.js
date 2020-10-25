@@ -75,7 +75,7 @@ class RegistrationPage extends Component {
     const { tasks } = study;
 
     return (
-      <OnboardingModal>
+      <OnboardingModal id="OnboardingModal">
         <OnboardingForm>
           <Head>
             <title>mindHIVE | {study.title}</title>

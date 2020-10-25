@@ -5,6 +5,10 @@ import { Logo } from '../../../Header/styles';
 import { OnboardingHeader } from '../../styles';
 
 class BlockingPage extends Component {
+  componentDidMount() {
+    document.querySelector('#OnboardingModal').scrollTo(0, 0);
+  }
+
   render() {
     return (
       <div>

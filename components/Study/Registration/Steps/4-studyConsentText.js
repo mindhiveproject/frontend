@@ -6,6 +6,10 @@ import { Logo } from '../../../Header/styles';
 import { OnboardingHeader, StyledConsentForm } from '../../styles';
 
 class StudyConsentFormText extends Component {
+  componentDidMount() {
+    document.querySelector('#OnboardingModal').scrollTo(0, 0);
+  }
+
   render() {
     const { consent } = this.props;
     const regularAdultsConsent =

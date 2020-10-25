@@ -9,6 +9,10 @@ import {
 import { Logo } from '../../../Header/styles';
 
 class ParentConsent extends Component {
+  componentDidMount() {
+    document.querySelector('#OnboardingModal').scrollTo(0, 0);
+  }
+
   render() {
     const { consent } = this.props;
     const minorAdultsConsent =

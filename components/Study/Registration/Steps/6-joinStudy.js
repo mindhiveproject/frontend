@@ -11,6 +11,10 @@ const StyledStartButton = styled.div`
 `;
 
 class JoinStudy extends Component {
+  componentDidMount() {
+    document.querySelector('#OnboardingModal').scrollTo(0, 0);
+  }
+
   render() {
     return (
       <StyledStartButton>
