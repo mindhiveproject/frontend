@@ -294,6 +294,7 @@ export const OnboardingForm = styled.div`
     font-size: 18px;
     line-height: 24px;
     display: grid;
+    grid-gap: 10px;
     grid-template-columns: 1fr 14fr;
     align-items: center;
     input {
