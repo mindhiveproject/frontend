@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import {
   NavStyles,
   NavRightContainer,
+  NavRightContainerForAdmin,
   NavButton,
   NavButtonSecondary,
 } from './styles';
@@ -106,7 +107,7 @@ class Nav extends Component {
               </ContainerOnlyForNoProfile>
 
               <ContainerOnlyForScientists>
-                <NavRightContainer>
+                <NavRightContainerForAdmin>
                   <Link href="/irb/my">
                     <NavButton>IRB protocols</NavButton>
                   </Link>
@@ -124,7 +125,7 @@ class Nav extends Component {
                       <NavButton>Dashboard</NavButton>
                     </Link>
                   )}
-                </NavRightContainer>
+                </NavRightContainerForAdmin>
               </ContainerOnlyForScientists>
 
               <ContainerOnlyForTeachers>

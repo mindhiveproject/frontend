@@ -12,7 +12,6 @@ export const Logo = styled.a`
     justify-items: center;
   }
   .logo {
-    margin-top: 33px;
     margin-left: 20px;
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -35,10 +34,11 @@ export const StyledHeader = styled.header`
   grid-area: nav;
   .bar {
     /* border-bottom: 3px solid ${props => props.theme.black}; */
+    margin-top: 33px;
     display: grid;
     grid-template-columns: auto 1fr;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: start;
     @media (max-width: 700px) {
       /* grid-template-columns: 1fr;
       justify-content: center; */

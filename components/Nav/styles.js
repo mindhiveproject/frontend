@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StyledSidebar = styled.div`
   display: grid;
+  margin-top: 33px;
   /* grid-template-rows: 100px 4fr 1fr; */
   grid-template-columns: 1fr;
   grid-gap: 40px;
@@ -129,6 +130,16 @@ export const NavStyles = styled.ul`
 export const NavRightContainer = styled.div`
   display: grid;
   /* grid-template-columns: repeat(auto-fit, minmax(150px, auto)); */
+  grid-column-gap: 6px;
+  justify-content: end;
+  @media (max-width: 700px) {
+    justify-content: center;
+  }
+`;
+
+export const NavRightContainerForAdmin = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
   grid-column-gap: 6px;
   justify-content: end;
   @media (max-width: 700px) {
