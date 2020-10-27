@@ -56,7 +56,7 @@ class StudyInformation extends Component {
       study.info
         .filter(i => i.name.startsWith('partners') && i.text)
         .map(i => {
-          const src = `/content/studies/Brownsville/partners/${i.text}.svg`;
+          const src = i.file;
           return <img key={src} src={src} alt="icon" />;
         });
     const tags =

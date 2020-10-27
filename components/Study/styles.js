@@ -167,7 +167,7 @@ export const StyledStudyPage = styled.div`
   }
   .partnersInfo {
     display: grid;
-    grid-template-columns: 3fr 1fr 2fr 2fr;
+    grid-template-columns: 1fr;
     grid-column-gap: 10px;
     align-items: center;
   }

@@ -17,7 +17,12 @@ class InformationBlock extends Component {
         {name === 'frequency' && (
           <div>What is the frequency of your study?</div>
         )}
-        {name === 'partners' && <div>Partners</div>}
+        {name === 'partners' && (
+          <div>
+            Partners (the text is not shown on the study page, upload an image
+            with icons below)
+          </div>
+        )}
         {name === 'tags' && <div>Tags</div>}
         {name === 'contacts' && <div>Contacts</div>}
         {name === 'consentForm' && <div>Consent form</div>}
@@ -62,7 +67,7 @@ class InformationBlock extends Component {
           className="text"
         />
 
-        {false && (
+        {name === 'partners' && (
           <label htmlFor="file">
             Image
             <input
