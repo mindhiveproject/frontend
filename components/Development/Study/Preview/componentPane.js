@@ -47,7 +47,24 @@ class ComponentPane extends Component {
         {({ data, loading }) => {
           if (loading) return <p>Loading ... </p>;
           if (!data || !data.task)
-            return <p>No task found for id {this.props.id}</p>;
+            return (
+              <div>
+                <p>
+                  <em>{this.props.component.title}</em> was not found. It might
+                  be deleted.
+                </p>
+                <button
+                  onClick={() =>
+                    this.removeFromStudy(
+                      this.props.component,
+                      this.props.number
+                    )
+                  }
+                >
+                  Remove <em>{this.props.component.title}</em> from study
+                </button>
+              </div>
+            );
           const component = data.task;
           return (
             <>

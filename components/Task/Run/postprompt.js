@@ -51,7 +51,7 @@ class PostPrompt extends Component {
             result.payload === 'full'
         )
         .map(result => result.task.id) || [];
-    const notCompletedTasks = this.props.study.tasks.filter(
+    const notCompletedTasks = this.props.study.components.filter(
       task => !fullResultsInThisStudy.includes(task.id)
     );
     let nextTaskId;

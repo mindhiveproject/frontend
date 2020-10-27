@@ -41,9 +41,9 @@ class RegistrationPage extends Component {
     zipCodeDataAvailable: false,
     saveCoveredConsent: true,
     firstTaskId:
-      this.props.study?.tasks &&
-      this.props.study?.tasks.length &&
-      this.props.study?.tasks[0].id,
+      this.props.study?.components &&
+      this.props.study?.components.length &&
+      this.props.study?.components[0].id,
   };
 
   saveToState = e => {
