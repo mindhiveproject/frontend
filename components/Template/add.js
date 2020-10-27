@@ -103,6 +103,15 @@ class AddTemplate extends Component {
     });
   };
 
+  parseIt = body => {
+    try {
+      const res = JSON.parse(body);
+      return res.join('\n');
+    } catch (e) {
+      return body;
+    }
+  };
+
   render() {
     return (
       <Mutation
@@ -241,7 +250,7 @@ class AddTemplate extends Component {
                         <div>Array values</div>
                         <textarea
                           name={name}
-                          value={parseIt(value)}
+                          value={this.parseIt(value)}
                           onChange={e => this.handleParamChange(e, 'array')}
                           className="value"
                         />
