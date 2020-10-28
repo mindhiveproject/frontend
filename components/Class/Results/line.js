@@ -5,6 +5,8 @@ import moment from 'moment';
 import { saveAs } from 'file-saver';
 import { jsonToCSV } from 'react-papaparse';
 
+const LZUTF8 = require('lzutf8');
+
 const StyledResultLine = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -35,12 +37,45 @@ const StyledResultLine = styled.div`
 
 class ResultLine extends Component {
   download = res => {
-    const { data, study, user } = res;
-    const name = study.title
-      .toLowerCase()
-      .split(' ')
-      .join('-');
-    const username = user.username
+    const { study, task, user } = res;
+    let { data } = res;
+    const fullContent = res.fullData?.content;
+    const incrementalContent =
+      res.incrementalData.length && res.incrementalData.map(d => d.content);
+
+    if (fullContent) {
+      data = JSON.parse(
+        LZUTF8.decompress(fullContent, {
+          inputEncoding: 'StorageBinaryString',
+        })
+      );
+    }
+    if (!fullContent && incrementalContent && incrementalContent.length) {
+      data = incrementalContent
+        .map(p =>
+          JSON.parse(
+            LZUTF8.decompress(p, {
+              inputEncoding: 'StorageBinaryString',
+            })
+          )
+        )
+        .reduce((total, amount) => total.concat(amount), []);
+    }
+    const studyTitle =
+      (study &&
+        study.title
+          .toLowerCase()
+          .split(' ')
+          .join('-')) ||
+      '';
+    const taskTitle =
+      (task &&
+        task.title
+          .toLowerCase()
+          .split(' ')
+          .join('-')) ||
+      '';
+    const publicId = user.publicId
       .toLowerCase()
       .split(' ')
       .join('-');
@@ -52,7 +87,7 @@ class ResultLine extends Component {
     const blob = new Blob([csv], {
       type: 'text/csv',
     });
-    saveAs(blob, `${username}-${name}.csv`);
+    saveAs(blob, `${studyTitle}--${taskTitle}--${publicId}.csv`);
   };
 
   render() {
@@ -60,10 +95,10 @@ class ResultLine extends Component {
 
     return (
       <StyledResultLine>
-        <h1>{result.study.title}</h1>
-        <h2>{result.task.title}</h2>
-        <h4>{result.user.username}</h4>
-        <p>{moment(result.updatedAt).fromNow()}</p>
+        <h1>{result?.study?.title}</h1>
+        <h2>{result?.task?.title}</h2>
+        <h4>{result?.user?.username}</h4>
+        <p>{moment(result?.updatedAt).fromNow()}</p>
         <div>
           <button onClick={() => this.download(result)}>
             <a>

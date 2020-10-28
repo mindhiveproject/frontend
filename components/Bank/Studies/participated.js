@@ -26,6 +26,7 @@ const ALL_PARTICIPATED_STUDIES_QUERY = gql`
       tasks {
         id
       }
+      components
     }
   }
 `;

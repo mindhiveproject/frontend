@@ -19,12 +19,20 @@ const MY_CLASS_RESULTS_QUERY = gql`
       }
       user {
         id
-        username
+        publicId
       }
       quantity
       data
       createdAt
       updatedAt
+      fullData {
+        id
+        content
+      }
+      incrementalData {
+        id
+        content
+      }
     }
   }
 `;
