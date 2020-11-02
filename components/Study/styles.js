@@ -311,6 +311,10 @@ export const OnboardingForm = styled.div`
   .emailInput {
     width: 300px;
   }
+  .questionTitle {
+    font-size: 20px;
+    margin-top: 20px;
+  }
 `;
 
 export const ResponseButtons = styled.div`
@@ -322,7 +326,7 @@ export const ResponseButtons = styled.div`
     max-width: 322px;
     font-family: Lato;
     margin-top: 0.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     width: 100%;
     background: none;
     color: #666666;

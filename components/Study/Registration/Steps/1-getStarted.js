@@ -30,7 +30,7 @@ class GetStarted extends Component {
           !this.props.zipCodeDataAvailable && (
             <div>
               <label htmlFor="zipCode">
-                <p>Your zip code</p>
+                <p className="questionTitle">Your zip code</p>
                 <input
                   type="number"
                   id="zipCode"
@@ -44,10 +44,12 @@ class GetStarted extends Component {
         {!this.props.personalDataAvailable && (
           <div>
             <label htmlFor="englishComprehension">
-              <p>Do you understand basic instruction written in English?</p>
+              <p className="questionTitle">
+                Do you understand basic instruction written in English?
+              </p>
               <p>
-                La versión en español de la plataforma estará disponible
-                próximamente
+                (La versión en español de la plataforma estará disponible en
+                poco tiempo.)
               </p>
               <ResponseButtons>
                 <button
@@ -82,7 +84,7 @@ class GetStarted extends Component {
         {!this.props.personalDataAvailable && (
           <div>
             <label htmlFor="under18">
-              <p>Are you under the age of 18?</p>
+              <p className="questionTitle">Are you under the age of 18?</p>
 
               <ResponseButtons>
                 <button
