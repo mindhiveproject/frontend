@@ -64,6 +64,13 @@ class ResultLine extends Component {
         .reduce((total, amount) => total.concat(amount), []);
     }
 
+    data.map(line => {
+      line.participantId = user?.publicId;
+      line.task = task?.title;
+      line.study = study?.title;
+      return line;
+    });
+
     const studyTitle =
       (study &&
         study.title
