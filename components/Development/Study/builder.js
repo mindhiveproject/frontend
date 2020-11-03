@@ -381,7 +381,7 @@ class StudyBuilder extends Component {
                             this.createNewStudy(createStudy);
                           }}
                         >
-                          {loading ? 'Creating new study' : 'Create new study'}
+                          {loading ? 'Saving' : 'Save your study'}
                         </button>
                       </div>
                     )}

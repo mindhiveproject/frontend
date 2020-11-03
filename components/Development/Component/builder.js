@@ -123,7 +123,7 @@ class ComponentBuilder extends Component {
     needToClone: this.props.needToClone,
   };
 
-  handleTaskChange = e => {
+  handleComponentChange = e => {
     const { name, type, value } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
@@ -161,7 +161,6 @@ class ComponentBuilder extends Component {
   };
 
   handleSetState = (name, value) => {
-    console.log('name, value', name, value);
     this.setState({
       task: {
         ...this.state.task,
@@ -181,9 +180,7 @@ class ComponentBuilder extends Component {
 
   handleCollaboratorsChange = e => {
     const { name, value } = e.target;
-    // console.log('name value', name, value);
     const collaborators = [...this.state.task.collaborators];
-    // console.log('collaborators', collaborators);
     collaborators[name] = value;
     if (name == collaborators.length - 1) {
       collaborators.push('');
@@ -196,8 +193,8 @@ class ComponentBuilder extends Component {
     });
   };
 
-  createNewTask = async createTaskMutation => {
-    const res = await createTaskMutation({
+  createNewComponent = async createComponentMutation => {
+    const res = await createComponentMutation({
       variables: {
         ...this.state.task,
       },
@@ -213,16 +210,14 @@ class ComponentBuilder extends Component {
           myTask.collaborators.map(c => c.username)) || [''],
       },
     });
-    console.log('my new task', myTask);
   };
 
-  updateMyTask = async updateTaskMutation => {
-    const res = await updateTaskMutation({
+  updateMyComponent = async updateComponentMutation => {
+    const res = await updateComponentMutation({
       variables: {
         ...this.state.task,
       },
     });
-    console.log('updating result', res);
   };
 
   render() {
@@ -231,12 +226,13 @@ class ComponentBuilder extends Component {
     const isAuthor =
       user.id === task?.author?.id ||
       task?.collaborators.includes(user.username);
+    const taskType = task?.taskType === 'TASK' ? 'Task' : 'Survey';
 
     return (
       <StyledBuilderPage>
         <BuilderNav>
           <div className="goBackBtn" onClick={this.props.onLeave}>
-            ← Leave Task Builder
+            ← Leave {taskType} Builder
           </div>
           <div>
             <p>{this.state.task.title}</p>
@@ -265,7 +261,7 @@ class ComponentBuilder extends Component {
                   <div>
                     <button
                       onClick={() => {
-                        this.updateMyTask(updateTask);
+                        this.updateMyComponent(updateTask);
                       }}
                     >
                       {loading ? 'Saving' : 'Save'}
@@ -290,10 +286,12 @@ class ComponentBuilder extends Component {
                   <div>
                     <button
                       onClick={() => {
-                        this.createNewTask(createTask);
+                        this.createNewComponent(createTask);
                       }}
                     >
-                      {loading ? 'Creating new task' : 'Create new task'}
+                      {loading
+                        ? 'Saving'
+                        : `Save your ${taskType.toLowerCase()}`}
                     </button>
                   </div>
                 )}
@@ -304,7 +302,7 @@ class ComponentBuilder extends Component {
 
         <StyledBuilder>
           <EditPane
-            handleTaskChange={this.handleTaskChange}
+            handleTaskChange={this.handleComponentChange}
             handleParameterChange={this.handleParamChange}
             handleSettingsChange={this.handleSettingsChange}
             handleCollaboratorsChange={this.handleCollaboratorsChange}
