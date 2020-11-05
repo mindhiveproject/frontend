@@ -103,8 +103,8 @@ class ResultLine extends Component {
       <StyledResultLine>
         <h1>{result?.study?.title}</h1>
         <h2>{result?.task?.title}</h2>
-        <h4>{result?.user?.username}</h4>
-        <p>{moment(result?.updatedAt).fromNow()}</p>
+        <h3>{result.user && result.user.publicId}</h3>
+        <h3>{moment(result?.updatedAt).fromNow()}</h3>
         <div>
           <button onClick={() => this.download(result)}>
             <a>

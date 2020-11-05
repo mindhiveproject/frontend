@@ -3,13 +3,20 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
 import moment from 'moment';
+import styled from 'styled-components';
 import Error from '../../ErrorMessage/index';
 import { ClassTable } from './styles';
-
 import ExpelFromClass from '../Leave/expel';
 import MoveToClass from '../Leave/move';
 
 import { ContainerOnlyForTeachersOwners } from '../../Permissions/Teacher/index';
+
+const StyledResults = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  width: 90%;
+`;
 
 const REVIEW_CLASS_QUERY = gql`
   query REVIEW_CLASS_QUERY($id: ID!) {
@@ -35,36 +42,35 @@ const REVIEW_CLASS_QUERY = gql`
 class ReviewClass extends Component {
   render() {
     return (
-      <Query query={REVIEW_CLASS_QUERY} variables={{ id: this.props.id }}>
-        {({ error, loading, data }) => {
-          if (error) return <Error error={error} />;
-          if (loading) return <p>Loading</p>;
-          if (!data.class) return <p>No class found for {this.props.id}</p>;
-          const schoolclass = data.class;
-          console.log('schoolclass', schoolclass);
-          return (
-            <div>
-              <Head>
-                <title>mindHIVE | {schoolclass.title}</title>
-              </Head>
-              <h2>{schoolclass.title}</h2>
-              <h1>The class code {schoolclass.code}</h1>
-              {true && (
-                <>
-                  <p>
-                    This class is created by {schoolclass.creator.username}{' '}
-                    {moment(schoolclass.createdAt).fromNow()}.
-                  </p>
-                </>
-              )}
-              <p>{schoolclass.description}</p>
+      <StyledResults>
+        <Query query={REVIEW_CLASS_QUERY} variables={{ id: this.props.id }}>
+          {({ error, loading, data }) => {
+            if (error) return <Error error={error} />;
+            if (loading) return <p>Loading</p>;
+            if (!data.class) return <p>No class found for {this.props.id}</p>;
+            const schoolclass = data.class;
+            return (
+              <div>
+                <Head>
+                  <title>mindHIVE | {schoolclass.title}</title>
+                </Head>
+                <h2>{schoolclass.title}</h2>
+                <h1>The class code {schoolclass.code}</h1>
+                {true && (
+                  <>
+                    <p>
+                      This class is created by {schoolclass.creator.username}{' '}
+                      {moment(schoolclass.createdAt).fromNow()}.
+                    </p>
+                  </>
+                )}
+                <p>{schoolclass.description}</p>
 
-              <h3>Students of this class</h3>
-              <ul>
+                <h2>Students of this class</h2>
+
                 {schoolclass.students.map((student, i) => (
                   <ClassTable key={i}>
                     <h3>{student.username}</h3>
-                    <img src={student.image} height="100px" />
 
                     <ContainerOnlyForTeachersOwners
                       creator={schoolclass.creator.id}
@@ -79,11 +85,11 @@ class ReviewClass extends Component {
                     </ContainerOnlyForTeachersOwners>
                   </ClassTable>
                 ))}
-              </ul>
-            </div>
-          );
-        }}
-      </Query>
+              </div>
+            );
+          }}
+        </Query>
+      </StyledResults>
     );
   }
 }
