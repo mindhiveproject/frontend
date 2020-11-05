@@ -123,9 +123,11 @@ class ClassStudies extends Component {
                       orderedStudies = this.shuffleArray(classStudies);
                     } else {
                       orderedStudies = classStudies.sort((a, b) =>
-                        a.title.toLowerCase() > b.title.toLowerCase()
+                        a.title.toLowerCase().trim() >
+                        b.title.toLowerCase().trim()
                           ? 1
-                          : b.title.toLowerCase() > a.title.toLowerCase()
+                          : b.title.toLowerCase().trim() >
+                            a.title.toLowerCase().trim()
                           ? -1
                           : 0
                       );
