@@ -123,7 +123,11 @@ class ClassStudies extends Component {
                       orderedStudies = this.shuffleArray(classStudies);
                     } else {
                       orderedStudies = classStudies.sort((a, b) =>
-                        a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+                        a.title.toLowerCase() > b.title.toLowerCase()
+                          ? 1
+                          : b.title.toLowerCase() > a.title.toLowerCase()
+                          ? -1
+                          : 0
                       );
                     }
 
