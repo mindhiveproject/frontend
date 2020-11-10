@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Container, Draggable } from 'react-smooth-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import Block from './block';
 
 const StyledBlocks = styled.div`
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   border-radius: 4px;
   .block-drop-preview {
     background: white;
@@ -17,12 +18,53 @@ const StyledBlocks = styled.div`
 `;
 
 class Blocks extends Component {
-  onColumnDrop = ({ removedIndex, addedIndex, payload }) => {
-    if (this.props.blocks) {
-      const sortedBlocks = [...this.props.blocks];
-      sortedBlocks[removedIndex] = this.props.blocks[addedIndex];
-      sortedBlocks[addedIndex] = this.props.blocks[removedIndex];
-      this.props.onSetBlocks([...sortedBlocks]);
+  dragStart = () => {};
+
+  dragUpdate = update => {};
+
+  dragEnd = result => {
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    const startBlock = this.props.blocks.filter(
+      block => block.blockId === source.droppableId
+    )[0];
+    const finishBlock = this.props.blocks.filter(
+      block => block.blockId === destination.droppableId
+    )[0];
+
+    if (startBlock.blockId === finishBlock.blockId) {
+      const newTests = Array.from(startBlock.tests);
+      const removedTest = newTests.splice(source.index, 1);
+      newTests.splice(destination.index, 0, removedTest[0]);
+      this.onTestChange(startBlock.blockId, newTests);
+    } else {
+      const startNewTests = Array.from(startBlock.tests);
+      const removedStartTest = startNewTests.splice(source.index, 1);
+      const finishNewTests = Array.from(finishBlock.tests);
+      finishNewTests.splice(destination.index, 0, removedStartTest[0]);
+
+      const newBlocks = this.props.blocks.map(block => {
+        if (block.blockId === startBlock.blockId) {
+          const updatedBlock = { ...block };
+          updatedBlock.tests = startNewTests;
+          return updatedBlock;
+        }
+        if (block.blockId === finishBlock.blockId) {
+          const updatedBlock = { ...block };
+          updatedBlock.tests = finishNewTests;
+          return updatedBlock;
+        }
+        return block;
+      });
+      this.props.onSetBlocks([...newBlocks]);
     }
   };
 
@@ -42,38 +84,26 @@ class Blocks extends Component {
     const { blocks } = this.props;
     return (
       <StyledBlocks>
-        <Container
-          onDrop={this.onColumnDrop}
-          orientation="horizontal"
-          lockAxis="x"
-          onDragStart={() => {
-            // console.log('on drag start');
-          }}
-          dropPlaceholder={{
-            animationDuration: 150,
-            showOnTop: true,
-            className: 'block-drop-preview',
-          }}
-          getChildPayload={index => blocks[index]}
-          dragHandleSelector=".column-drag-handle"
-          dragClass="dragged-block"
+        <DragDropContext
+          onDragEnd={this.dragEnd}
+          onDragStart={this.dragStart}
+          onDragUpdate={this.dragUpdate}
         >
-          {blocks.map(block => (
-            <Draggable key={block.blockId}>
-              <Block
-                blocks={blocks}
-                block={block}
-                deleteBlock={this.props.deleteBlock}
-                onTestChange={this.onTestChange}
-                onCreateTest={this.props.onCreateTest}
-                onUpdateTest={this.props.onUpdateTest}
-                onDeleteTest={this.props.onDeleteTest}
-                openTaskEditor={this.props.openTaskEditor}
-                viewing={this.props.viewing}
-              />
-            </Draggable>
+          {blocks.map((block, index) => (
+            <Block
+              key={index}
+              blocks={blocks}
+              block={block}
+              deleteBlock={this.props.deleteBlock}
+              onTestChange={this.onTestChange}
+              onCreateTest={this.props.onCreateTest}
+              onUpdateTest={this.props.onUpdateTest}
+              onDeleteTest={this.props.onDeleteTest}
+              openTaskEditor={this.props.openTaskEditor}
+              viewing={this.props.viewing}
+            />
           ))}
-        </Container>
+        </DragDropContext>
       </StyledBlocks>
     );
   }

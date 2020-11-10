@@ -1,44 +1,47 @@
 import React, { Component, useState } from 'react';
 import sortBy from 'lodash/sortBy';
 
+import { Container, Draggable } from 'react-smooth-dnd';
 import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
 import Test from './test';
 
-const TestsList = styled.div`
-  transition: background-color 0.2s ease;
-  background-color: ${props => (props.isDraggingOver ? 'white' : '#e5e5e5')};
-  display: grid;
-  min-height: 100px;
-  align-content: baseline;
-`;
-
 const StyledBlock = styled.div`
   border: 1px solid #43dacb;
   border-radius: 4px;
-  display: grid;
-  grid-template-rows: 50px auto;
+  min-height: 100px;
   .column-drag-handle {
     background: #fef3cd;
+    cursor: move;
     display: grid;
     grid-template-columns: auto 1fr;
     grid-gap: 10px;
     justify-items: end;
     padding: 5px;
     border-radius: 4px;
-    height: 50px;
+  }
+  .test-drop-preview {
+    background: white;
+    border: 2px solid #007c70;
+    border-radius: 4px;
+  }
+  .dragged-test {
+    transform: rotate(2deg);
   }
   .deleteBtn {
     display: grid;
     align-content: center;
     width: 35px;
     height: 35px;
+    /* line-height: 2.5rem; */
     text-align: center;
     padding: 15px 10px;
     cursor: pointer;
     border-radius: 20px;
     border: 1px solid #cccccc;
+    /* background-color: #4fbf1f; */
     color: #666666;
+    /* padding-bottom: 5px; */
     font-family: Roboto;
     font-size: 16px;
     font-style: normal;
@@ -117,27 +120,49 @@ const Block = ({
         </div>
       </div>
 
-      <Droppable droppableId={block.blockId}>
-        {(provided, snapshot) => (
-          <TestsList
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            isDraggingOver={snapshot.isDraggingOver}
-          >
-            {tests.map((test, index) => (
-              <Test
-                key={test.testId}
-                test={test}
-                onDeleteTest={deleteTestMutation}
-                openTaskEditor={openTaskEditor}
-                viewing={viewing}
-                index={index}
-              />
-            ))}
-            {provided.placeholder}
-          </TestsList>
-        )}
-      </Droppable>
+      <div>
+        <Container
+          orientation="vertical"
+          groupName="col"
+          // onDragStart={(e) => console.log("Drag Started")}
+          // onDragEnd={(e) => console.log("drag end", e)}
+          onDrop={e => {
+            onTestDrop(block.blockId, e.addedIndex, e.removedIndex, e.payload);
+          }}
+          dragClass="dragged-test"
+          dropClass="test-ghost-drop"
+          onDragEnter={() => {
+            // console.log("drag enter:", item.id);
+          }}
+          getChildPayload={index => tests[index]}
+          onDragLeave={() => {
+            // console.log("drag leave:", item.id);
+          }}
+          // onDropReady={(p) => console.log("Drop ready: ", p)}
+          dropPlaceholder={{
+            animationDuration: 150,
+            showOnTop: true,
+            className: 'test-drop-preview',
+          }}
+          dropPlaceholderAnimationDuration={200}
+        >
+          {tests && tests.length ? (
+            tests.map(test => (
+              <Draggable key={test.testId}>
+                <Test
+                  key={test.testId}
+                  test={test}
+                  onDeleteTest={deleteTestMutation}
+                  openTaskEditor={openTaskEditor}
+                  viewing={viewing}
+                />
+              </Draggable>
+            ))
+          ) : (
+            <div></div>
+          )}
+        </Container>
+      </div>
     </StyledBlock>
   );
 };

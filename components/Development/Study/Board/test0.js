@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Draggable } from 'react-beautiful-dnd';
 import Card from './card';
 
 const StyledTaskCard = styled.div`
@@ -63,7 +62,11 @@ const StyledTaskCard = styled.div`
   }
 `;
 
-const StyledTest = styled.div``;
+const StyledTest = styled.div`
+  /* border: 1px brown solid;
+  background: #ffffea;
+  position: relative; */
+`;
 
 const COMPONENT_QUERY = gql`
   query COMPONENT_QUERY($id: ID!) {
@@ -93,36 +96,27 @@ class Test extends Component {
   render() {
     const { test } = this.props;
     return (
-      <Draggable draggableId={test.testId} index={this.props.index}>
-        {(provided, snapshot) => (
-          <StyledTest
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            isDragging={snapshot.isDragging}
-          >
-            <Query query={COMPONENT_QUERY} variables={{ id: test.id }}>
-              {({ data, loading }) => {
-                if (loading) return <p>Loading ... </p>;
-                const component = data.task;
-                return (
-                  <StyledTaskCard taskType={component.taskType}>
-                    <Card
-                      key={test.testId}
-                      testId={test.testId}
-                      component={component}
-                      openTaskEditor={this.props.openTaskEditor}
-                      viewing={this.props.viewing}
-                      onDeleteTest={this.props.onDeleteTest}
-                      inStudyBuilder
-                    />
-                  </StyledTaskCard>
-                );
-              }}
-            </Query>
-          </StyledTest>
-        )}
-      </Draggable>
+      <StyledTest>
+        <Query query={COMPONENT_QUERY} variables={{ id: test.id }}>
+          {({ data, loading }) => {
+            if (loading) return <p>Loading ... </p>;
+            const component = data.task;
+            return (
+              <StyledTaskCard taskType={component.taskType}>
+                <Card
+                  key={test.testId}
+                  testId={test.testId}
+                  component={component}
+                  openTaskEditor={this.props.openTaskEditor}
+                  viewing={this.props.viewing}
+                  onDeleteTest={this.props.onDeleteTest}
+                  inStudyBuilder
+                />
+              </StyledTaskCard>
+            );
+          }}
+        </Query>
+      </StyledTest>
     );
   }
 }
