@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import slugify from 'slugify';
 
+import uniqid from 'uniqid';
 import EditPane from './editPane';
 import PreviewPane from './previewPane';
 import SelectorPane from './componentSelector';
@@ -246,26 +247,91 @@ class StudyBuilder extends Component {
     });
   };
 
-  addComponent = component => {
-    const components = this.state.study.components || [];
+  updateComponents = components => {
     this.setState({
       study: {
         ...this.state.study,
-        components: [...components, component],
+        components,
       },
     });
   };
 
-  removeComponent = (component, num) => {
-    const components = this.state.study.components || [];
-    components.splice(num, 1);
+  addComponent = component => {
+    let updatedComponents;
+    // if there is no components,
+    if (this.state.study.components) {
+      updatedComponents = { ...this.state.study.components };
+    } else {
+      updatedComponents = {
+        blocks: [],
+      };
+    }
+    console.log('updatedComponents', updatedComponents);
+
+    // if there are no blocks, create blocks
+    if (!updatedComponents.blocks) {
+      updatedComponents.blocks = [];
+    }
+
+    // if the blocks are empty, create first block
+    if (updatedComponents.blocks.length === 0) {
+      updatedComponents.blocks.push({
+        blockId: uniqid.time(),
+        title: 'Main experiment sequence',
+        tests: [],
+      });
+    }
+    console.log('updatedComponents', updatedComponents);
+
+    // add new component to the first block
+    updatedComponents.blocks[0].tests.push({
+      ...component,
+      testId: uniqid.time(),
+    });
+    console.log('updateComponents', updatedComponents);
+    // update the state
     this.setState({
       study: {
         ...this.state.study,
-        components: [...components],
+        components: updatedComponents,
       },
     });
   };
+
+  // removeComponent = blockNumber => {
+  //   const components = this.state.study.components || [];
+  //   components.splice(blockNumber, 1);
+  //   this.setState({
+  //     study: {
+  //       ...this.state.study,
+  //       components: [...components],
+  //     },
+  //   });
+  // };
+
+  // updateBlock = (block, num) => {
+  //   const components = [...this.state.study.components];
+  //   components[num] = block;
+  //   this.setState({
+  //     study: {
+  //       ...this.state.study,
+  //       components,
+  //     },
+  //   });
+  // };
+
+  // moveComponent = (from, to, payload) => {
+  //   console.log('moving component', from, to, payload);
+  //   const components = [...this.state.study.components];
+  //   components[from] = this.state.study.components[to];
+  //   components[to] = this.state.study.components[from];
+  //   this.setState({
+  //     study: {
+  //       ...this.state.study,
+  //       components: [...components],
+  //     },
+  //   });
+  // };
 
   createNewStudy = async createStudyMutation => {
     const res = await createStudyMutation({
@@ -423,9 +489,9 @@ class StudyBuilder extends Component {
                   handleParameterChange={this.handleParameterChange}
                   deleteParameter={this.deleteParameter}
                   toggleTaskSelector={this.toggleTaskSelector}
-                  onRemoveComponent={this.removeComponent}
                   openTaskEditor={this.openTaskEditor}
                   needToClone={needToClone}
+                  updateComponents={this.updateComponents}
                 />
               </StyledPreviewPane>
             </StyledBuilder>

@@ -6,7 +6,9 @@ import { OnboardingHeader } from '../../styles';
 
 class BlockingPage extends Component {
   componentDidMount() {
-    document.querySelector('#OnboardingModal').scrollTo(0, 0);
+    if (document.querySelector('#OnboardingModal')) {
+      document.querySelector('#OnboardingModal').scrollTo(0, 0);
+    }
   }
 
   render() {

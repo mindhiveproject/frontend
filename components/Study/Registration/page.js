@@ -33,6 +33,29 @@ import { Logo } from '../../Header/styles';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 
 class RegistrationPage extends Component {
+  // need to assign a between-subjects block and the id of the first task
+  assignConditions = () => {
+    const { study } = this.props;
+    if (study?.components?.blocks) {
+      // choose randomly one block
+      const { blocks } = study.components;
+      const block = blocks[Math.floor(Math.random() * blocks.length)];
+      // return blockId, blockName and firstTaskId
+      return {
+        blockId: block.blockId,
+        blockName: block.title,
+        firstTaskId:
+          block.tests && block.tests.length ? block.tests[0].id : undefined,
+      };
+    }
+    return {
+      firstTaskId:
+        this.props.study?.components &&
+        this.props.study?.components.length &&
+        this.props.study?.components[0].id,
+    };
+  };
+
   state = {
     page: 1,
     login: false,
@@ -40,10 +63,7 @@ class RegistrationPage extends Component {
     personalDataAvailable: false,
     zipCodeDataAvailable: false,
     saveCoveredConsent: true,
-    firstTaskId:
-      this.props.study?.components &&
-      this.props.study?.components.length &&
-      this.props.study?.components[0].id,
+    ...this.assignConditions(),
   };
 
   saveToState = e => {
@@ -246,6 +266,8 @@ class RegistrationPage extends Component {
                         parentConsentGiven: this.state.parentConsentGiven,
                         parentName: this.state.parentName,
                         parentEmail: this.state.parentEmail,
+                        blockId: this.state.blockId,
+                        blockName: this.state.blockName,
                       }}
                       onClose={this.props.onClose}
                       onStartTheTask={this.props.onStartTheTask}
@@ -280,6 +302,8 @@ class RegistrationPage extends Component {
                   parentConsentGiven: this.state.parentConsentGiven,
                   parentName: this.state.parentName,
                   parentEmail: this.state.parentEmail,
+                  blockId: this.state.blockId,
+                  blockName: this.state.blockName,
                 }}
                 study={study}
                 onClose={this.props.onClose}
@@ -297,6 +321,8 @@ class RegistrationPage extends Component {
               onClose={this.props.onClose}
               onStartTheTask={this.props.onStartTheTask}
               firstTaskId={this.state.firstTaskId}
+              blockId={this.state.blockId}
+              blockName={this.state.blockName}
             />
           </ContainerOnlyForProfile>
         </OnboardingForm>

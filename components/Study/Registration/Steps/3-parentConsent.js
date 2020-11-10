@@ -10,7 +10,9 @@ import { Logo } from '../../../Header/styles';
 
 class ParentConsent extends Component {
   componentDidMount() {
-    document.querySelector('#OnboardingModal').scrollTo(0, 0);
+    if (document.querySelector('#OnboardingModal')) {
+      document.querySelector('#OnboardingModal').scrollTo(0, 0);
+    }
   }
 
   render() {

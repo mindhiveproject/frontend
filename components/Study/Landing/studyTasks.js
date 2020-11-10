@@ -19,7 +19,39 @@ class StudyTasks extends Component {
     const { study } = this.props;
     const studyIds = user?.participantIn?.map(study => study.id) || [];
 
-    const components = study.components || [];
+    // check whether there is a user and blocks, if yes, assign correct block of tasks to the user
+    let components = [];
+    if (
+      study.components &&
+      study.components.blocks &&
+      study.components.blocks.length &&
+      study.components.blocks[0].tests
+    ) {
+      if (user) {
+        console.log('user', user);
+        // select the blocks for the specific user
+        const userStudyInfo = user.studiesInfo && user.studiesInfo[study.id];
+        if (userStudyInfo) {
+          const userBlock = userStudyInfo.blockId;
+          console.log('user.studiesInfo', userStudyInfo, userBlock);
+          console.log('study.components.blocks', study.components.blocks);
+          const studyBlock = study.components.blocks.filter(
+            block => block.blockId === userBlock
+          );
+          if (studyBlock && studyBlock.length && studyBlock[0].tests) {
+            components = studyBlock[0].tests;
+          }
+          console.log('components', components);
+        } else {
+          components = study.components.blocks[0].tests;
+        }
+      } else {
+        // if there is no user logged in, show always the tests from the first block
+        components = study.components.blocks[0].tests;
+      }
+    } else {
+      components = study.components;
+    }
 
     const fullResultsInThisStudy =
       user?.results

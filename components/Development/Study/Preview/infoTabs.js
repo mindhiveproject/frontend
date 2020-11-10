@@ -54,8 +54,9 @@ class InfoTabs extends Component {
       <>
         <div className="infoTabsContainer">
           <Menu text stackable className="discoverMenu">
-            {tabs.map(atab => (
+            {tabs.map((atab, num) => (
               <Menu.Item
+                key={num}
                 name={atab.name}
                 active={tab === atab.name}
                 onClick={this.handleItemClick}
@@ -98,8 +99,8 @@ class InfoTabs extends Component {
           </button>
         </div>
 
-        {tabs.map(atab => (
-          <>
+        {tabs.map((atab, num) => (
+          <div key={num}>
             {this.state.tab === atab.name && (
               <div>
                 <textarea
@@ -111,7 +112,7 @@ class InfoTabs extends Component {
                 />
               </div>
             )}
-          </>
+          </div>
         ))}
       </>
     );

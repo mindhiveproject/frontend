@@ -61,6 +61,7 @@
     "react-papaparse": "^3.3.0",
     "react-plotly.js": "^2.4.0",
     "react-script-tag": "^1.1.2",
+    "react-smooth-dnd": "^0.11.1",
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^2.5.0",
     "semantic-ui-react": "^0.88.2",

@@ -42,8 +42,28 @@ class PostPrompt extends Component {
   };
 
   checkNextTaskId = () => {
+    const { study, user } = this.props;
+    let components = [];
+    if (
+      study.components &&
+      study.components.blocks &&
+      study.components.blocks.length &&
+      study.components.blocks[0].tests
+    ) {
+      // select the blocks for the specific user
+      const userStudyInfo = user.studiesInfo[study.id];
+      const userBlock = userStudyInfo.blockId;
+      const studyBlock = study.components.blocks.filter(
+        block => block.blockId === userBlock
+      );
+      if (studyBlock && studyBlock.length && studyBlock[0].tests) {
+        components = studyBlock[0].tests;
+      }
+    } else {
+      components = study.components;
+    }
     const fullResultsInThisStudy =
-      this.props.user?.results
+      user?.results
         .filter(
           result =>
             result.study &&
@@ -51,8 +71,7 @@ class PostPrompt extends Component {
             result.payload === 'full'
         )
         .map(result => result.task.id) || [];
-    console.log('this.props.study', this.props.study);
-    const notCompletedTasks = this.props.study?.components.filter(
+    const notCompletedTasks = components.filter(
       task => !fullResultsInThisStudy.includes(task.id)
     );
     let nextTaskId;

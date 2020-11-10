@@ -11,7 +11,6 @@ import {
 
 import Qualtrics from '../../Qualtrics/redirect';
 import PostPrompt from './postprompt';
-// import Crossover from './crossover';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const TASK_QUERY = gql`
@@ -94,17 +93,7 @@ class RunExperiment extends Component {
                       },
                       on_finish: token => {
                         if (policy === 'preview' || !token) {
-                          // console.log('90 token', token);
-                          // if (this.props.slug) {
-                          //   Router.push(
-                          //     '/studies/[slug]',
-                          //     `/studies/${this.props.slug}`
-                          //   );
-                          //   return;
-                          // }
                           Router.push('/dashboard');
-                          // return;
-                          // alert('TO DO - where to come back after preview?');
                         }
                         this.setState({
                           token,

@@ -92,6 +92,8 @@ class StudyConsent extends Component {
       ?.sharePersonalDataWithOtherStudies
       ? this.props.user?.generalInfo?.englishComprehension
       : undefined,
+    blockId: this.props.blockId,
+    blockName: this.props.blockName,
   };
 
   saveToState = e => {
@@ -134,6 +136,8 @@ class StudyConsent extends Component {
           consentGiven,
           parentName: this.state.parentName,
           parentEmail: this.state.parentEmail,
+          blockId: this.state.blockId,
+          blockName: this.state.blockName,
         },
         study: this.props.study,
       },

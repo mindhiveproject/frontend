@@ -76,7 +76,6 @@ class ReviewStudyForParticipants extends Component {
                 if (studyPayloadLoading) return <p>Loading</p>;
                 if (!studyPayloadData)
                   return <p>No study found for {this.props.slug}</p>;
-                // console.log('studyPayloadData', studyPayloadData);
                 return (
                   <StudyUserPage
                     study={studyPayloadData}

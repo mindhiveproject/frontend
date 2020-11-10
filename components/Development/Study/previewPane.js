@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import slugify from 'slugify';
-import ComponentPane from './Preview/componentPane';
+import { Container, Draggable } from 'react-smooth-dnd';
+import uniqid from 'uniqid';
+import Block from './Preview/block';
 import InfoTabs from './Preview/infoTabs';
 import { UploadImageContainer } from './styles';
+import Board from './Board/index';
 
 class PreviewPane extends Component {
   state = {
@@ -31,6 +34,13 @@ class PreviewPane extends Component {
     }
   };
 
+  onDrop = e => {
+    console.log('e', e);
+    // if (e.removedIndex !== e.addedIndex) {
+    //   this.props.onMoveComponent(e.removedIndex, e.addedIndex, e.payload);
+    // }
+  };
+
   render() {
     const { study } = this.props;
     const infoBlocks =
@@ -38,8 +48,27 @@ class PreviewPane extends Component {
         acc[el.name] = el.text;
         return acc;
       }, {}) || {};
+
     // get the study components or initialize an empty array
-    const components = study.components || [];
+    let blocks = [];
+    if (study.components) {
+      if (study.components.blocks) {
+        blocks = study.components.blocks;
+      } else {
+        const upgradedComponents = study.components.map(component => ({
+          id: component.id,
+          testId: uniqid.time(),
+          title: component.title,
+        }));
+        blocks = [
+          {
+            blockId: uniqid.time(),
+            title: 'Main experiment sequence',
+            tests: upgradedComponents,
+          },
+        ];
+      }
+    }
 
     return (
       <div>
@@ -183,18 +212,14 @@ class PreviewPane extends Component {
                 </div>
               </div>
             </div>
-            <div>
-              {components.map((component, num) => (
-                <ComponentPane
-                  key={num}
-                  number={num}
-                  component={component}
-                  onRemoveComponent={this.props.onRemoveComponent}
-                  openTaskEditor={this.props.openTaskEditor}
-                  viewing={this.state.viewing}
-                />
-              ))}
-            </div>
+
+            <Board
+              blocks={blocks}
+              openTaskEditor={this.props.openTaskEditor}
+              viewing={this.state.viewing}
+              updateComponents={this.props.updateComponents}
+            />
+
             <div>
               <button className="lightBtn" onClick={this.openTaskSelector}>
                 Add a task or survey
@@ -208,3 +233,21 @@ class PreviewPane extends Component {
 }
 
 export default PreviewPane;
+
+// {false && (
+//   <div>
+//     {components.map((component, blockNumber) => (
+//       <Block
+//         key={blockNumber}
+//         blockNumber={blockNumber}
+//         block={component}
+//         onRemoveComponent={this.props.onRemoveComponent}
+//         openTaskEditor={this.props.openTaskEditor}
+//         viewing={this.state.viewing}
+//         onUpdateBlock={this.props.onUpdateBlock}
+//         onDrop={this.onDrop}
+//       />
+//     ))}
+//   </div>
+// )}
+//

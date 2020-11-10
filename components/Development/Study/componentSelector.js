@@ -129,23 +129,3 @@ class componentSelector extends Component {
 }
 
 export default componentSelector;
-
-// <div>
-//   <Menu>
-//     <Menu.Item
-//       name="anyone"
-//       active={createdBy === 'anyone'}
-//       onClick={this.handleCreatedBySelect}
-//     >
-//       Anyone
-//     </Menu.Item>
-//
-//     <Menu.Item
-//       name="me"
-//       active={createdBy === 'me'}
-//       onClick={this.handleCreatedBySelect}
-//     >
-//       Me
-//     </Menu.Item>
-//   </Menu>
-// </div>
