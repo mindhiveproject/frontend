@@ -41,6 +41,57 @@ class GetStarted extends Component {
             </div>
           )}
 
+        {this.props.study?.settings?.sonaId && !this.props.sonaIdDataAvailable && (
+          <div>
+            <label htmlFor="sonaId">
+              <p className="questionTitle">Are you an NYU SONA participant?</p>
+              <ResponseButtons>
+                <button
+                  onClick={() =>
+                    this.props.onBtnClick('sonaParticipant', 'yes')
+                  }
+                  className={
+                    this.props.sonaParticipant === 'yes'
+                      ? 'selectedBtn'
+                      : undefined
+                  }
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={() => this.props.onBtnClick('sonaParticipant', 'no')}
+                  className={
+                    this.props.sonaParticipant === 'no'
+                      ? 'selectedBtn'
+                      : undefined
+                  }
+                >
+                  No
+                </button>
+              </ResponseButtons>
+            </label>
+          </div>
+        )}
+
+        {this.props.study?.settings?.sonaId &&
+          this.props.sonaParticipant === 'yes' && (
+            <div>
+              <label htmlFor="sonaId">
+                <p className="questionTitle">What is your NYU ID?</p>
+                <span>
+                  By entering your ID, we can ensure that you will receive
+                  course credit for your participation in this study.
+                </span>
+                <input
+                  type="text"
+                  id="sonaId"
+                  name="sonaId"
+                  onChange={this.props.updateState}
+                />
+              </label>
+            </div>
+          )}
+
         {!this.props.personalDataAvailable && (
           <div>
             <label htmlFor="englishComprehension">

@@ -40,6 +40,11 @@ class SettingBlock extends Component {
               Ask participants for zip code
             </label>
           )}
+          {name === 'sonaId' && (
+            <label className="name" htmlFor={name}>
+              Ask participants for NYU SONA ID
+            </label>
+          )}
           {name === 'proceedToFirstTask' && (
             <label className="name" htmlFor={name}>
               After joining the study, automatically take participants to first

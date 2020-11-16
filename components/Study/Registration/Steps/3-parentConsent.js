@@ -22,6 +22,11 @@ class ParentConsent extends Component {
         .filter(info => info.name === 'regularMinors')
         .map(info => info.text) || '';
 
+    const minorAdultsSonaConsent =
+      consent?.info
+        .filter(info => info.name === 'sonaMinors')
+        .map(info => info.text) || '';
+
     return (
       <StyledConsentForm>
         <OnboardingHeader>
@@ -43,7 +48,13 @@ class ParentConsent extends Component {
             research protocol <strong>{consent.title}</strong>.
           </p>
 
-          <p>{ReactHtmlParser(minorAdultsConsent)}</p>
+          {!this.props.sonaParticipant && (
+            <div>{ReactHtmlParser(minorAdultsConsent)}</div>
+          )}
+
+          {this.props.sonaParticipant && (
+            <div>{ReactHtmlParser(minorAdultsSonaConsent)}</div>
+          )}
 
           {consent.studies.length || consent.tasks.length ? (
             <div>

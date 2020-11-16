@@ -51,7 +51,9 @@ function getIntitialPage(user, study) {
   if (user.generalInfo?.sharePersonalDataWithOtherStudies) {
     if (
       !study?.settings?.zipCode ||
+      !study?.settings?.sonaId ||
       (typeof user.generalInfo?.zipCode !== 'undefined' &&
+        typeof user.generalInfo?.sonaParticipant !== 'undefined' &&
         typeof user.generalInfo?.under18 !== 'undefined' &&
         typeof user.generalInfo?.englishComprehension !== 'undefined')
     ) {
@@ -78,9 +80,19 @@ class StudyConsent extends Component {
     zipCodeDataAvailable:
       this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies &&
       this.props.user?.generalInfo?.zipCode,
+    sonaIdDataAvailable:
+      this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies &&
+      this.props.user?.generalInfo?.sonaParticipant,
     saveCoveredConsent: true,
     zipCode: this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies
       ? this.props.user?.generalInfo?.zipCode
+      : undefined,
+    sonaParticipant: this.props.user?.generalInfo
+      ?.sharePersonalDataWithOtherStudies
+      ? this.props.user?.generalInfo?.sonaParticipant
+      : undefined,
+    sonaId: this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies
+      ? this.props.user?.generalInfo?.sonaId
       : undefined,
     age: this.props.user?.generalInfo?.sharePersonalDataWithOtherStudies
       ? this.props.user?.generalInfo?.age
@@ -127,6 +139,8 @@ class StudyConsent extends Component {
         id: this.props.study.id,
         user: {
           zipCode: this.state.zipCode,
+          sonaParticipant: this.state.sonaParticipant,
+          sonaId: this.state.sonaId,
           age: this.state.age,
           under18: this.state.under18,
           englishComprehension: this.state.englishComprehension,
@@ -172,6 +186,8 @@ class StudyConsent extends Component {
                   }
                   personalDataAvailable={this.state.personalDataAvailable}
                   zipCodeDataAvailable={this.state.zipCodeDataAvailable}
+                  sonaIdDataAvailable={this.state.sonaIdDataAvailable}
+                  sonaParticipant={this.state.sonaParticipant}
                   onBtnClick={(parameter, state) =>
                     this.setButtonState(parameter, state)
                   }
@@ -223,6 +239,7 @@ class StudyConsent extends Component {
                   saveCoveredConsent={this.state.saveCoveredConsent}
                   toggleState={this.toggleState}
                   updateState={this.updateState}
+                  sonaParticipant={this.state.sonaParticipant}
                 />
               </div>
             )}
@@ -248,6 +265,7 @@ class StudyConsent extends Component {
                   toggleState={this.toggleState}
                   saveCoveredConsent={this.state.saveCoveredConsent}
                   showCloseButton
+                  sonaParticipant={this.state.sonaParticipant}
                 />
               </div>
             )}

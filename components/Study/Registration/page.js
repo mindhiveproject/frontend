@@ -62,6 +62,7 @@ class RegistrationPage extends Component {
     sharePersonalDataWithOtherStudies: true,
     personalDataAvailable: false,
     zipCodeDataAvailable: false,
+    sonaIdDataAvailable: false,
     saveCoveredConsent: true,
     ...this.assignConditions(),
   };
@@ -116,6 +117,8 @@ class RegistrationPage extends Component {
                       }
                       personalDataAvailable={this.state.personalDataAvailable}
                       zipCodeDataAvailable={this.state.zipCodeDataAvailable}
+                      sonaIdDataAvailable={this.state.sonaIdDataAvailable}
+                      sonaParticipant={this.state.sonaParticipant}
                       onBtnClick={(parameter, state) =>
                         this.setButtonState(parameter, state)
                       }
@@ -186,6 +189,7 @@ class RegistrationPage extends Component {
                       saveCoveredConsent={this.state.saveCoveredConsent}
                       toggleState={this.toggleState}
                       updateState={this.updateState}
+                      sonaParticipant={this.state.sonaParticipant}
                     />
                   </div>
                 )}
@@ -211,6 +215,7 @@ class RegistrationPage extends Component {
                       toggleState={this.toggleState}
                       saveCoveredConsent={this.state.saveCoveredConsent}
                       showCloseButton
+                      sonaParticipant={this.state.sonaParticipant}
                     />
                   </div>
                 )}
@@ -257,6 +262,8 @@ class RegistrationPage extends Component {
                       study={study}
                       user={{
                         zipCode: this.state.zipCode,
+                        sonaParticipant: this.state.sonaParticipant,
+                        sonaId: this.state.sonaId,
                         under18: this.state.under18,
                         englishComprehension: this.state.englishComprehension,
                         consentGiven: this.state.consentGiven,
@@ -293,6 +300,8 @@ class RegistrationPage extends Component {
                 redirect={study.slug}
                 user={{
                   zipCode: this.state.zipCode,
+                  sonaParticipant: this.state.sonaParticipant,
+                  sonaId: this.state.sonaId,
                   under18: this.state.under18,
                   englishComprehension: this.state.englishComprehension,
                   consentGiven: this.state.consentGiven,

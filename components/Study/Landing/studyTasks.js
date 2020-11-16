@@ -50,7 +50,7 @@ class StudyTasks extends Component {
         components = study.components.blocks[0].tests;
       }
     } else {
-      components = study.components;
+      components = study.components || [];
     }
 
     const fullResultsInThisStudy =

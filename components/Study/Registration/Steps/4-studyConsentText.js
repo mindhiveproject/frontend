@@ -19,6 +19,11 @@ class StudyConsentFormText extends Component {
         .filter(info => info.name === 'regularAdults')
         .map(info => info.text) || '';
 
+    const regularAdultsSonaConsent =
+      consent?.info
+        .filter(info => info.name === 'sonaAdults')
+        .map(info => info.text) || '';
+
     return (
       <StyledConsentForm>
         {this.props.showCloseButton && (
@@ -37,7 +42,13 @@ class StudyConsentFormText extends Component {
 
         <h1>Study consent</h1>
 
-        <div>{ReactHtmlParser(regularAdultsConsent)}</div>
+        {!this.props.sonaParticipant && (
+          <div>{ReactHtmlParser(regularAdultsConsent)}</div>
+        )}
+
+        {this.props.sonaParticipant && (
+          <div>{ReactHtmlParser(regularAdultsSonaConsent)}</div>
+        )}
 
         <div className="buttonsHolder">
           <button onClick={this.props.onNext}>I agree, next</button>
