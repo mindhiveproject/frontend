@@ -32,17 +32,19 @@ class ClassCard extends Component {
     const { schoolclass } = this.props;
     return (
       <StyledCard>
-        <Link
-          href={{
-            pathname: '/class',
-            query: { id: schoolclass.id },
-          }}
-        >
-          <a>
-            <h2>{schoolclass.title}</h2>
-            <p>{schoolclass.description}</p>
-          </a>
-        </Link>
+        {false && (
+          <Link
+            href={{
+              pathname: '/class',
+              query: { id: schoolclass.id },
+            }}
+          >
+            <a></a>
+          </Link>
+        )}
+
+        <h2>{schoolclass.title}</h2>
+        <p>{schoolclass.description}</p>
 
         <ContainerOnlyForTeachersOwners creator={schoolclass.creator.id}>
           <Link
