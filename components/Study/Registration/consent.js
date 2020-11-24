@@ -265,7 +265,6 @@ class StudyConsent extends Component {
                   toggleState={this.toggleState}
                   saveCoveredConsent={this.state.saveCoveredConsent}
                   showCloseButton
-                  sonaParticipant={this.state.sonaParticipant}
                 />
               </div>
             )}
