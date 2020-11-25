@@ -48,11 +48,11 @@ class ParentConsent extends Component {
             research protocol <strong>{consent.title}</strong>.
           </p>
 
-          {!this.props.sonaParticipant && (
+          {this.props.sonaParticipant === 'no' && (
             <div>{ReactHtmlParser(minorAdultsConsent)}</div>
           )}
 
-          {this.props.sonaParticipant && (
+          {this.props.sonaParticipant === 'yes' && (
             <div>{ReactHtmlParser(minorAdultsSonaConsent)}</div>
           )}
 

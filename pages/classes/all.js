@@ -1,10 +1,13 @@
 import Classes from '../../components/Class/Board/all';
 import Page from '../../components/Page/index';
+import { PageOnlyFor } from '../../components/Permissions/General/index';
 
 const Home = props => (
-  <Page>
-    <Classes />
-  </Page>
+  <PageOnlyFor roles={['TEACHER', 'ADMIN']}>
+    <Page>
+      <Classes />
+    </Page>
+  </PageOnlyFor>
 );
 
 export default Home;
