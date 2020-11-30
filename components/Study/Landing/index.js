@@ -40,6 +40,7 @@ const REVIEW_STUDY_QUERY = gql`
         studies {
           id
           title
+          public
         }
         tasks {
           id

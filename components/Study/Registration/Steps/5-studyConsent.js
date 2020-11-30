@@ -14,6 +14,7 @@ class StudyConsentForm extends Component {
 
   render() {
     const { consent } = this.props;
+    console.log('consent', consent);
     return (
       <StyledConsentForm>
         {this.props.showCloseButton && (
@@ -41,35 +42,38 @@ class StudyConsentForm extends Component {
           {consent.studies.length || consent.tasks.length ? (
             <div>
               <p>
-                Studies and tasks on MindHive that are covered under this
-                protocol include:
+                Tasks and surveys associated with the following studies are
+                covered under this protocol
               </p>
 
               <div className="coveredStudiesAndTasks">
                 {consent.studies.length ? (
                   <div>
-                    <p>Studies</p>
-                    {consent.studies.map(study => (
-                      <li key={study.id}>{study.title}</li>
-                    ))}
+                    {consent.studies.map(study => {
+                      if (study.public) {
+                        return <li key={study.id}>{study.title}</li>;
+                      }
+                    })}
                   </div>
                 ) : (
                   <div></div>
                 )}
               </div>
 
-              <div className="coveredStudiesAndTasks">
-                {consent.tasks.length ? (
-                  <div>
-                    <p>Tasks</p>
-                    {consent.tasks.map(task => (
-                      <li key={task.id}>{task.title}</li>
-                    ))}
-                  </div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
+              {false && (
+                <div className="coveredStudiesAndTasks">
+                  {consent.tasks.length ? (
+                    <div>
+                      <p>Tasks</p>
+                      {consent.tasks.map(task => (
+                        <li key={task.id}>{task.title}</li>
+                      ))}
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+              )}
             </div>
           ) : (
             <div></div>
