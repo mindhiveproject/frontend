@@ -23,7 +23,7 @@ class TaskCard extends Component {
           <h2>{component.title}</h2>
           {this.props.developingMode && ReactHtmlParser(component.description)}
 
-          {false && (
+          {this.props.participateMode && (
             <Link
               href={{
                 pathname: '/task/preview',

@@ -42,7 +42,8 @@ class StudyConsentFormText extends Component {
 
         <h1>Study consent</h1>
 
-        {this.props.sonaParticipant === 'no' && (
+        {(this.props.sonaParticipant === 'no' ||
+          typeof this.props.sonaParticipant === 'undefined') && (
           <div>{ReactHtmlParser(regularAdultsConsent)}</div>
         )}
 

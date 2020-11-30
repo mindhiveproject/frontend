@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-
 import Link from 'next/link';
-import styled from 'styled-components';
-import { StyledBank, StyledStudyCard, StyledZeroState } from '../styles';
+
+import { StyledBank, StyledTaskCard, StyledZeroState } from '../styles';
 import Card from './card';
 
-const MY_DEVELOPED_TASKS_QUERY = gql`
-  query MY_DEVELOPED_TASKS_QUERY {
-    myTasks(where: { taskType: TASK }) {
+const ALL_PARTICIPATED_TASKS_QUERY = gql`
+  query ALL_PARTICIPATED_TASKS_QUERY($tasks: [ID!]) {
+    tasks(where: { taskType: TASK, id_in: $tasks }) {
       id
       title
       slug
-      description
       author {
         id
       }
@@ -22,18 +20,18 @@ const MY_DEVELOPED_TASKS_QUERY = gql`
         username
       }
       public
+      description
       taskType
     }
   }
 `;
 
-const MY_DEVELOPED_SURVEYS_QUERY = gql`
-  query MY_DEVELOPED_SURVEYS_QUERY {
-    myTasks(where: { taskType: SURVEY }) {
+const ALL_PARTICIPATED_SURVEYS_QUERY = gql`
+  query ALL_PARTICIPATED_SURVEYS_QUERY($tasks: [ID!]) {
+    tasks(where: { taskType: SURVEY, id_in: $tasks }) {
       id
       title
       slug
-      description
       author {
         id
       }
@@ -42,12 +40,13 @@ const MY_DEVELOPED_SURVEYS_QUERY = gql`
         username
       }
       public
+      description
       taskType
     }
   }
 `;
 
-class DevelopedStudiesBank extends Component {
+class ParticipatedTasksBank extends Component {
   render() {
     const { componentType } = this.props;
     const component = componentType === 'SURVEY' ? 'survey' : 'task';
@@ -57,22 +56,42 @@ class DevelopedStudiesBank extends Component {
         <Query
           query={
             componentType === 'SURVEY'
-              ? MY_DEVELOPED_SURVEYS_QUERY
-              : MY_DEVELOPED_TASKS_QUERY
+              ? ALL_PARTICIPATED_SURVEYS_QUERY
+              : ALL_PARTICIPATED_TASKS_QUERY
           }
+          variables={{
+            tasks:
+              (this.props.user.tasksInfo &&
+                Object.keys(this.props.user.tasksInfo)) ||
+              [],
+          }}
         >
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
-            const tasks = data.myTasks;
+            const { tasks } = data;
             if (tasks.length === 0) {
               return (
                 <StyledZeroState>
                   <div className="message">
-                    <h2>You haven't developed a {component} yet.</h2>
+                    <h2>You haven't participated in any {component} yet.</h2>
                     <p>
-                      Once you develop your {component} first, it will appear
-                      here.
+                      <span>See </span>
+                      <Link
+                        href={{
+                          pathname: '/dashboard/discover',
+                        }}
+                      >
+                        <span
+                          style={{
+                            textDecoration: 'underline',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          Discover
+                        </span>
+                      </Link>
+                      <span> to browse our database.</span>
                     </p>
                   </div>
                 </StyledZeroState>
@@ -80,14 +99,14 @@ class DevelopedStudiesBank extends Component {
             }
             return (
               <StyledBank>
-                <div className="studies">
+                <div className="tasks">
                   {tasks.map(component => (
                     <Card
                       key={component.id}
                       component={component}
-                      onSelectComponent={this.props.onSelectComponent}
                       user={this.props.user}
-                      developingMode
+                      redirect="p"
+                      participateMode
                     />
                   ))}
                 </div>
@@ -100,5 +119,4 @@ class DevelopedStudiesBank extends Component {
   }
 }
 
-export default DevelopedStudiesBank;
-export { MY_DEVELOPED_TASKS_QUERY, MY_DEVELOPED_SURVEYS_QUERY };
+export default ParticipatedTasksBank;

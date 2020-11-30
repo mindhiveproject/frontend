@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 
 import { Menu } from 'semantic-ui-react';
 import ParticipatedStudiesBank from '../../Bank/Studies/participated';
-import ParticipatedTasksBank from '../../Bank/Tasks/participated';
-import ParticipatedSurveysBank from '../../Bank/Surveys/participated';
+import ParticipatedComponentsBank from '../../Bank/Components/participated';
 
 import AuthorizedPage from '../../Page/userpage';
 
@@ -92,7 +91,7 @@ class DashboardParticipate extends Component {
             <h1>Participate</h1>
             <p>
               All studies, tasks or surveys you have{' '}
-              <strong>participated in</strong>.
+              <strong>participated in</strong>. Find new studies under Discover.
             </p>
 
             <div>
@@ -155,11 +154,17 @@ class DashboardParticipate extends Component {
             )}
 
             {this.state.tab === 'tasks' && (
-              <ParticipatedTasksBank user={this.props.user} />
+              <ParticipatedComponentsBank
+                componentType="TASK"
+                user={this.props.user}
+              />
             )}
 
             {this.state.tab === 'surveys' && (
-              <ParticipatedSurveysBank user={this.props.user} />
+              <ParticipatedComponentsBank
+                componentType="SURVEY"
+                user={this.props.user}
+              />
             )}
           </StyledDiscoverDasboard>
         </StyledDasboard>

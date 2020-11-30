@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 
 import { Menu } from 'semantic-ui-react';
 import StudiesBank from '../../Bank/Studies/index';
-import TasksBank from '../../Bank/Tasks/index';
-import SurveysBank from '../../Bank/Surveys/index';
+import ComponentsBank from '../../Bank/Components/index';
 
 import AuthorizedPage from '../../Page/userpage';
 
@@ -143,9 +142,13 @@ class DashboardDiscover extends Component {
               <StudiesBank onSelectStudy={this.goToStudy} />
             )}
 
-            {this.state.tab === 'tasks' && <TasksBank />}
+            {this.state.tab === 'tasks' && (
+              <ComponentsBank componentType="TASK" />
+            )}
 
-            {this.state.tab === 'surveys' && <SurveysBank />}
+            {this.state.tab === 'surveys' && (
+              <ComponentsBank componentType="SURVEY" />
+            )}
           </StyledDiscoverDasboard>
         </StyledDasboard>
       </AuthorizedPage>

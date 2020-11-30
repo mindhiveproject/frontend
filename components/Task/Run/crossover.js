@@ -84,18 +84,19 @@ class Crossover extends Component {
                 Proceed to the next task
               </button>
             )}
-            <button
-              onClick={e =>
-                this.props.onSubmit(
-                  e,
-                  this.props.updateResultMutation,
-                  'studyPage'
-                )
-              }
-            >
-              Go back to the main study page
-            </button>
           </div>
+          <p
+            style={{ 'text-decoration': 'underline', cursor: 'pointer' }}
+            onClick={e =>
+              this.props.onSubmit(
+                e,
+                this.props.updateResultMutation,
+                'studyPage'
+              )
+            }
+          >
+            Go back to the main study page
+          </p>
         </OnboardingForm>
       </div>
     );

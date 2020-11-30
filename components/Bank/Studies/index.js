@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { StyledBank, StyledStudyCard } from '../styles';
 import StudyCard from './studycard';
 
-// import sortBy from 'lodash/sortBy';
-
 const ALL_PUBLIC_STUDIES_QUERY = gql`
   query ALL_PUBLIC_STUDIES_QUERY {
     studies {
