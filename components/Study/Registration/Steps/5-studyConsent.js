@@ -14,6 +14,8 @@ class StudyConsentForm extends Component {
 
   render() {
     const { consent } = this.props;
+    const publicStudies = consent?.studies.filter(study => study.public) || [];
+
     console.log('consent', consent);
     return (
       <StyledConsentForm>
@@ -39,7 +41,7 @@ class StudyConsentForm extends Component {
             research protocol <strong>{consent.title}</strong>.
           </p>
 
-          {consent.studies.length || consent.tasks.length ? (
+          {publicStudies.length ? (
             <div>
               <p>
                 Tasks and surveys associated with the following studies are
@@ -47,17 +49,9 @@ class StudyConsentForm extends Component {
               </p>
 
               <div className="coveredStudiesAndTasks">
-                {consent.studies.length ? (
-                  <div>
-                    {consent.studies.map(study => {
-                      if (study.public) {
-                        return <li key={study.id}>{study.title}</li>;
-                      }
-                    })}
-                  </div>
-                ) : (
-                  <div></div>
-                )}
+                {publicStudies.map(study => (
+                  <li key={study.id}>{study.title}</li>
+                ))}
               </div>
 
               {false && (

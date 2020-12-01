@@ -14,6 +14,8 @@ class StudyConsentFormText extends Component {
 
   render() {
     const { consent } = this.props;
+    const publicStudies = consent?.studies.filter(study => study.public) || [];
+
     const regularAdultsConsent =
       consent?.info
         .filter(info => info.name === 'regularAdults')

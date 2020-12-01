@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
-
 const DELETE_RESULT_MUTATION = gql`
   mutation DELETE_RESULT_MUTATION($id: ID!) {
     deleteResult(id: $id) {
@@ -19,7 +17,7 @@ class DeleteResult extends Component {
         mutation={DELETE_RESULT_MUTATION}
         variables={{ id: this.props.id }}
         update={this.update}
-        refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+        refetchQueries={this.props.refetchQueries}
       >
         {(deleteResult, { error }) => (
           <button
@@ -32,7 +30,7 @@ class DeleteResult extends Component {
               }
             }}
           >
-            <h2>{this.props.children}</h2>
+            {this.props.children}
           </button>
         )}
       </Mutation>

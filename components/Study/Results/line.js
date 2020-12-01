@@ -5,6 +5,8 @@ import moment from 'moment';
 import { saveAs } from 'file-saver';
 import { jsonToCSV } from 'react-papaparse';
 
+import DeleteResult from '../../Results/Delete/delete';
+
 const LZUTF8 = require('lzutf8');
 
 const StyledResultLine = styled.div`
@@ -115,6 +117,14 @@ class ResultLine extends Component {
               <h2>Download csv file</h2>
             </a>
           </button>
+        </div>
+        <div>
+          <DeleteResult
+            id={result.id}
+            refetchQueries={this.props.refetchQueries}
+          >
+            <h2>Delete</h2>
+          </DeleteResult>
         </div>
       </StyledResultLine>
     );

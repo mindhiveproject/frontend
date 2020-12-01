@@ -64,7 +64,16 @@ class StudyResults extends Component {
               );
             }
             return myStudyResults.map(result => (
-              <ResultLine key={result.id} result={result} />
+              <ResultLine
+                key={result.id}
+                result={result}
+                refetchQueries={[
+                  {
+                    query: MY_STUDY_RESULTS_QUERY,
+                    variables: { id: this.props.id },
+                  },
+                ]}
+              />
             ));
           }}
         </Query>
