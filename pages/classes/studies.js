@@ -15,7 +15,7 @@ const ClassStudiesPage = () => {
     );
   return (
     <Page>
-      <PageOnlyFor roles={['TEACHER', 'ADMIN']}>
+      <PageOnlyFor roles={['TEACHER', 'ADMIN', 'STUDENT']}>
         <ClassStudies id={router.query.id} />
       </PageOnlyFor>
     </Page>
