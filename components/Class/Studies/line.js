@@ -37,8 +37,9 @@ class StudyLine extends Component {
     const { study } = this.props;
     const authors = [
       study?.author?.username,
-      study.collaborators.map(c => c.username),
+      ...study.collaborators.map(c => c.username),
     ].join(', ');
+    console.log('authors', authors);
     return (
       <StyledStudyLine>
         <h1>{study.title}</h1>
