@@ -39,7 +39,6 @@ class StudyLine extends Component {
       study?.author?.username,
       ...study.collaborators.map(c => c.username),
     ].join(', ');
-    console.log('authors', authors);
     return (
       <StyledStudyLine>
         <h1>{study.title}</h1>
