@@ -24,6 +24,12 @@ const CLASS_STUDIES_QUERY = gql`
       participants {
         id
       }
+      author {
+        username
+      }
+      collaborators {
+        username
+      }
     }
   }
 `;

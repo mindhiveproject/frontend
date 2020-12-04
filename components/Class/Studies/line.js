@@ -35,9 +35,14 @@ const StyledStudyLine = styled.div`
 class StudyLine extends Component {
   render() {
     const { study } = this.props;
+    const authors = [
+      study?.author?.username,
+      study.collaborators.map(c => c.username),
+    ].join(', ');
     return (
       <StyledStudyLine>
         <h1>{study.title}</h1>
+        <p>{authors}</p>
         <h2>{study.participants.length} participants signed up</h2>
         <h3>{moment(study.createdAt).format('dddd, MMMM Do YYYY, h:mm a')}</h3>
         <div>https://mindhive/studies/{study.slug}</div>
