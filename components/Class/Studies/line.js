@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import moment from 'moment';
 
+import { ContainerOnlyForTeachers } from '../../Permissions/Teacher/index';
+
 const StyledStudyLine = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -53,6 +55,20 @@ class StudyLine extends Component {
             </h2>
           </a>
         </Link>
+        <ContainerOnlyForTeachers>
+          <Link
+            href={{
+              pathname: '/study/results',
+              query: { id: study.id },
+            }}
+          >
+            <a>
+              <h2>
+                <button>Study results</button>
+              </h2>
+            </a>
+          </Link>
+        </ContainerOnlyForTeachers>
       </StyledStudyLine>
     );
   }
