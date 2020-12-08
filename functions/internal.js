@@ -5,14 +5,11 @@ const axios = require('axios');
 const LZUTF8 = require('lzutf8');
 
 exports.handler = async (event, context) => {
-  // const serverUrl = endpoint;
-  // console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-  // const serverUrl = endpoint;
-
   const serverUrl =
-    process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+    process.env.NODE_ENV === 'production' ? prodEndpoint : endpoint;
   const { user, template, task, study, policy } = event.queryStringParameters;
 
+  console.log('serverUrl', process.env.NODE_ENV, serverUrl);
   const { metadata, url, data } = JSON.parse(event.body);
 
   const dataRawString = JSON.stringify(data);

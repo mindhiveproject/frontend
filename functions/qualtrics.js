@@ -6,7 +6,7 @@ const axios = require('axios');
 
 exports.handler = async (event, context) => {
   const serverUrl =
-    process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+    process.env.NODE_ENV === 'production' ? prodEndpoint : endpoint;
   const { user, template, task, study, policy } = event.headers;
   const data = JSON.parse(event.body);
   const metadata = {

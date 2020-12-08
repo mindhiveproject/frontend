@@ -18,7 +18,7 @@ exports.handler = async (event, context) => {
 
   const response = await axios({
     method: 'post',
-    url: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
+    url: process.env.NODE_ENV === 'production' ? prodEndpoint : endpoint,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
