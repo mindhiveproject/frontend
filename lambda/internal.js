@@ -9454,13 +9454,12 @@ exports.handler = /*#__PURE__*/function () {
           case 0:
             serverUrl =  false ? undefined : _config__WEBPACK_IMPORTED_MODULE_3__["endpoint"];
             _event$queryStringPar = event.queryStringParameters, user = _event$queryStringPar.user, template = _event$queryStringPar.template, task = _event$queryStringPar.task, study = _event$queryStringPar.study, policy = _event$queryStringPar.policy;
-            console.log('serverUrl', "development", serverUrl);
             _JSON$parse = JSON.parse(event.body), metadata = _JSON$parse.metadata, url = _JSON$parse.url, data = _JSON$parse.data;
             dataRawString = JSON.stringify(data);
             dataString = LZUTF8.compress(dataRawString, {
               outputEncoding: 'StorageBinaryString'
             });
-            _context.next = 8;
+            _context.next = 7;
             return axios({
               method: 'post',
               url: serverUrl,
@@ -9486,14 +9485,14 @@ exports.handler = /*#__PURE__*/function () {
               })
             });
 
-          case 8:
+          case 7:
             response = _context.sent;
             return _context.abrupt("return", {
               statusCode: response.status,
               body: response.statusText
             });
 
-          case 10:
+          case 9:
           case "end":
             return _context.stop();
         }

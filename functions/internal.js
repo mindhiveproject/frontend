@@ -8,10 +8,7 @@ exports.handler = async (event, context) => {
   const serverUrl =
     process.env.NODE_ENV === 'production' ? prodEndpoint : endpoint;
   const { user, template, task, study, policy } = event.queryStringParameters;
-
-  console.log('serverUrl', process.env.NODE_ENV, serverUrl);
   const { metadata, url, data } = JSON.parse(event.body);
-
   const dataRawString = JSON.stringify(data);
   const dataString = LZUTF8.compress(dataRawString, {
     outputEncoding: 'StorageBinaryString',

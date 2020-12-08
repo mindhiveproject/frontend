@@ -113,8 +113,8 @@ class StudyResults extends Component {
     const name =
       (results.length &&
         results[0] &&
-        results[0].task &&
-        results[0].task.title
+        results[0].study &&
+        results[0].study.title
           .toLowerCase()
           .split(' ')
           .join('-')) ||
