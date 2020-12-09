@@ -54,6 +54,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
       user {
         id
         publicId
+        generalInfo
       }
       quantity
       data

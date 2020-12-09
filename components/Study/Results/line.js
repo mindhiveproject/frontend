@@ -18,6 +18,7 @@ const StyledResultLine = styled.div`
   padding: 10px;
   align-items: center;
   max-height: 200px;
+  background: ${props => (props.incomplete ? '#ffaea5' : 'white')};
   button {
     border: 1px solid grey;
     border-radius: 0;
@@ -106,10 +107,20 @@ class ResultLine extends Component {
     const { result } = this.props;
 
     return (
-      <StyledResultLine>
+      <StyledResultLine incomplete={!result.fullData?.content}>
         <h1>{result.study && result.study.title}</h1>
-        <h2>{result.task && result.task.title}</h2>
-        <h4>{result.user && result.user.publicId}</h4>
+        <div>
+          <h2>{result.task && result.task.title}</h2>
+          {!result.fullData?.content && 'Incomplete'}
+        </div>
+        <div>
+          <h4>{result.user && result.user.publicId}</h4>
+          <p>
+            {result.user &&
+              result.user.generalInfo &&
+              result.user.generalInfo.sonaId}
+          </p>
+        </div>
         <p>{moment(result.updatedAt).fromNow()}</p>
         <div>
           <button onClick={() => this.download(result)}>
