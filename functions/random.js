@@ -1,4 +1,4 @@
-const friendlyWords = require('friendly-words');
+import friendlyWords from 'friendly-words';
 
 exports.handler = function(event, context, callback) {
   const { predicates, objects } = friendlyWords;
