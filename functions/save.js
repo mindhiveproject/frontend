@@ -12,6 +12,9 @@ exports.handler = async (event, context) => {
   // The "callback" ends the execution of the function and returns a response back to the caller
 
   return {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     statusCode: 200,
     body: JSON.stringify({
       data: response.data,
