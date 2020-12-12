@@ -10,6 +10,7 @@ exports.handler = async (event, context) => {
   // "context" has information about the lambda environment and user details
   console.log('context', context);
   // The "callback" ends the execution of the function and returns a response back to the caller
+  // console.log('query parameters', event.queryStringParameters.study);
 
   return {
     headers: {

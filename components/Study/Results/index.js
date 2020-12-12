@@ -39,6 +39,39 @@ const StyledResults = styled.div`
   }
 `;
 
+const STUDY_RESULTS_QUERY = gql`
+  query STUDY_RESULTS_QUERY($slug: String!) {
+    studyResults(slug: $slug) {
+      id
+      study {
+        id
+        title
+      }
+      task {
+        id
+        title
+      }
+      user {
+        id
+        publicId
+        generalInfo
+      }
+      quantity
+      data
+      createdAt
+      updatedAt
+      fullData {
+        id
+        content
+      }
+      incrementalData {
+        id
+        content
+      }
+    }
+  }
+`;
+
 const MY_STUDY_RESULTS_QUERY = gql`
   query MY_STUDY_RESULTS_QUERY($id: ID!) {
     myStudyResults(where: { id: $id }) {
@@ -177,4 +210,5 @@ class StudyResults extends Component {
 }
 
 export default StudyResults;
+export { STUDY_RESULTS_QUERY };
 export { MY_STUDY_RESULTS_QUERY };
