@@ -80,7 +80,7 @@ exports.handler = async (event, context) => {
     },
     statusCode: 200,
     body: JSON.stringify({
-      data: studyResults,
+      data: 'OK',
     }),
   };
 
