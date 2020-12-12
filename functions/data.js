@@ -25,42 +25,42 @@ exports.handler = async (event, context) => {
   const { studyResults } = allRequestedData;
   // console.log(studyResults);
 
-  const data = studyResults
-    .map(result => {
-      let data;
-      const fullContent = result.fullData?.content;
-      const incrementalContent =
-        result.incrementalData.length &&
-        result.incrementalData.map(d => d.content);
-      if (fullContent) {
-        data = JSON.parse(
-          LZUTF8.decompress(fullContent, {
-            inputEncoding: 'StorageBinaryString',
-          })
-        );
-      }
-      if (!fullContent && incrementalContent && incrementalContent.length) {
-        data = incrementalContent
-          .map(p =>
-            JSON.parse(
-              LZUTF8.decompress(p, {
-                inputEncoding: 'StorageBinaryString',
-              })
-            )
-          )
-          .reduce((total, amount) => total.concat(amount), []);
-      }
-
-      const resultData = data.map(line => {
-        line.participantId = result.user && result.user.publicId;
-        line.task = result.task && result.task.title;
-        line.study = result.study && result.study.title;
-        line.dataType = fullContent ? 'complete' : 'incremental';
-        return line;
-      });
-      return resultData;
-    })
-    .reduce((a, b) => a.concat(b), []);
+  // const data = studyResults
+  //   .map(result => {
+  //     let data;
+  //     const fullContent = result.fullData?.content;
+  //     const incrementalContent =
+  //       result.incrementalData.length &&
+  //       result.incrementalData.map(d => d.content);
+  //     if (fullContent) {
+  //       data = JSON.parse(
+  //         LZUTF8.decompress(fullContent, {
+  //           inputEncoding: 'StorageBinaryString',
+  //         })
+  //       );
+  //     }
+  //     if (!fullContent && incrementalContent && incrementalContent.length) {
+  //       data = incrementalContent
+  //         .map(p =>
+  //           JSON.parse(
+  //             LZUTF8.decompress(p, {
+  //               inputEncoding: 'StorageBinaryString',
+  //             })
+  //           )
+  //         )
+  //         .reduce((total, amount) => total.concat(amount), []);
+  //     }
+  //
+  //     const resultData = data.map(line => {
+  //       line.participantId = result.user && result.user.publicId;
+  //       line.task = result.task && result.task.title;
+  //       line.study = result.study && result.study.title;
+  //       line.dataType = fullContent ? 'complete' : 'incremental';
+  //       return line;
+  //     });
+  //     return resultData;
+  //   })
+  //   .reduce((a, b) => a.concat(b), []);
 
   // const fullContent = results.studyResults[0].fullData.content;
 
@@ -71,6 +71,8 @@ exports.handler = async (event, context) => {
   //   })
   // );
 
+  // https://jun711.github.io/aws/handling-aws-api-gateway-and-lambda-413-error/
+
   // send data
   return {
     headers: {
@@ -78,7 +80,7 @@ exports.handler = async (event, context) => {
     },
     statusCode: 200,
     body: JSON.stringify({
-      data,
+      data: studyResults,
     }),
   };
 
