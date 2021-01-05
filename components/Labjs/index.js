@@ -101,7 +101,10 @@ class ExperimentWindow extends Component {
     try {
       if (this.study) {
         this.study.internals.controller.audioContext.close();
-        this.study.end();
+        alert(
+          'The study has been interrupted. Sorry, the next time you do the same task or survey, you will have to start from the beginning!'
+        );
+        // this.study.end();
       }
     } catch (e) {
       console.log('Experiment closed before unmount');

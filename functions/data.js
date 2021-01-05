@@ -73,6 +73,8 @@ exports.handler = async (event, context) => {
 
   // https://jun711.github.io/aws/handling-aws-api-gateway-and-lambda-413-error/
 
+  // the only problem with 6mb limit is here ⬇️
+
   // send data
   return {
     headers: {
