@@ -1,6 +1,7 @@
 import App from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 import withData from '../lib/withData';
+import 'normalize.css';
 
 class MyApp extends App {
   // get initial props of pages and resolve queries and mutation before rendering the page

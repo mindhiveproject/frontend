@@ -9,7 +9,6 @@ export const StyledStudyBuilderPage = styled.div`
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0em;
-    /* text-align: left; */
     color: #666666;
     margin-bottom: 4px;
   }
@@ -20,8 +19,6 @@ export const StyledStudyBuilderPage = styled.div`
     font-weight: 400;
     line-height: 16px;
     letter-spacing: 0em;
-    /* text-align: left; */
-    /* color: #999999; */
   }
   label {
     font-family: Lato;
@@ -197,9 +194,30 @@ export const StyledEditPane = styled.div`
   }
 `;
 
+// this is probably deprecated - has to be deleted later
 export const StyledPreviewPane = styled.div`
   display: grid;
   margin: 40px 70px 40px 70px;
+
+  input,
+  textarea,
+  select {
+    background: #e5e5e5;
+    width: 100%;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    &:focus {
+      outline: 0;
+      background: white;
+      border-color: mintcream;
+    }
+  }
+  button {
+    background: #007c70;
+    color: white;
+    max-width: 256px;
+  }
+
   .title {
     font-family: Lato;
     font-size: 48px;
@@ -326,25 +344,6 @@ export const StyledPreviewPane = styled.div`
         color: #1a1a1a;
       }
     }
-  }
-
-  input,
-  textarea,
-  select {
-    background: #e5e5e5;
-    width: 100%;
-    border: 1px solid #e6e6e6;
-    border-radius: 4px;
-    &:focus {
-      outline: 0;
-      background: white;
-      border-color: mintcream;
-    }
-  }
-  button {
-    background: #007c70;
-    color: white;
-    max-width: 256px;
   }
 `;
 

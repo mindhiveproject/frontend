@@ -81,28 +81,58 @@ export const BuilderNav = styled.div`
   grid-gap: 30px;
   justify-content: stretch;
   align-items: center;
-  margin: 5px 34px 5px 34px;
+  margin: 20px 22.5px 10px 42px;
   p {
     margin: 0;
   }
   .goBackBtn {
     font-family: Lato;
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 19px;
+    line-height: 22px;
     letter-spacing: 0em;
     text-align: left;
     color: #007c70;
     cursor: pointer;
   }
+  .taskTitle {
+    p {
+      font-family: Lato;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #1a1a1a;
+    }
+  }
   .saveBtn {
     display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
     justify-self: end;
+    margin: 0px 0px 0px 0px;
   }
   .secondaryBtn {
     background: #007c70;
     color: #ffffff;
+  }
+  button {
+    border: 2px solid #007c70;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 14px 24px;
+    height: 46px;
+    color: #007c70;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: center;
   }
 `;
 
@@ -200,6 +230,28 @@ export const StyledEditPane = styled.div`
 export const StyledPreviewPane = styled.div`
   display: grid;
   margin: 40px 70px 40px 70px;
+
+  input,
+  textarea,
+  select {
+    background: #e5e5e5;
+    font-family: Lato;
+    width: 100%;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    font-size: 16px;
+    &:focus {
+      outline: 0;
+      background: white;
+      border-color: mintcream;
+    }
+  }
+  button {
+    background: #007c70;
+    color: white;
+    max-width: 256px;
+  }
+
   .title {
     font-family: Lato;
     font-size: 48px;
@@ -336,24 +388,6 @@ export const StyledPreviewPane = styled.div`
         color: #1a1a1a;
       }
     }
-  }
-  input,
-  textarea,
-  select {
-    background: #e5e5e5;
-    width: 100%;
-    border: 1px solid #e6e6e6;
-    border-radius: 4px;
-    &:focus {
-      outline: 0;
-      background: white;
-      border-color: mintcream;
-    }
-  }
-  button {
-    background: #007c70;
-    color: white;
-    max-width: 256px;
   }
 `;
 

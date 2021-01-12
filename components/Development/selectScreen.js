@@ -7,7 +7,7 @@ import StudyBuilder from './Study/builder';
 
 import ChooseComponentToClone from './Component/chooseToClone';
 import ComponentBuilderWrapper from './Component/builderWrapper';
-import TaskBuilder from './Component/builder';
+import ComponentBuilder from './Component/builder';
 
 const StyledSelectionScreen = styled.div`
   display: grid;
@@ -427,7 +427,7 @@ class DevelopmentSelectScreen extends Component {
           );
         }
         return (
-          <TaskBuilder
+          <ComponentBuilder
             onLeave={this.props.onClose}
             task={{
               title: 'A task - 12942',

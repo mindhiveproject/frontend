@@ -33,7 +33,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     display: grid;
-    // height: 100%;
     height: 100vh;
   }
 `;

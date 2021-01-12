@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import EditPane from './editPane';
 import PreviewPane from './previewPane';
 
+import PreviewInBuilder from '../../Task/PreviewInBuilder/index';
+
 import { MY_SURVEYS_QUERY } from '../Study/Selector/mySurveys';
 import { MY_TASKS_QUERY } from '../Study/Selector/myTasks';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
@@ -121,6 +123,15 @@ class ComponentBuilder extends Component {
   state = {
     task: { ...this.props.task },
     needToClone: this.props.needToClone,
+    showPreview: false,
+  };
+
+  togglePreview = e => {
+    e.target.blur();
+    e.preventDefault();
+    this.setState({
+      showPreview: !this.state.showPreview,
+    });
   };
 
   handleComponentChange = e => {
@@ -229,93 +240,115 @@ class ComponentBuilder extends Component {
     const taskType = task?.taskType === 'TASK' ? 'Task' : 'Survey';
 
     return (
-      <StyledBuilderPage>
-        <BuilderNav>
-          <div className="goBackBtn" onClick={this.props.onLeave}>
-            ← Leave {taskType} Builder
-          </div>
-          <div>
-            <p>{this.state.task.title}</p>
-          </div>
+      <>
+        {!this.state.showPreview && (
+          <StyledBuilderPage>
+            <BuilderNav>
+              <div className="goBackBtn" onClick={this.props.onLeave}>
+                ← Leave {taskType} Editor
+              </div>
+              <div className="taskTitle">
+                <p>{this.state.task.title}</p>
+              </div>
 
-          {isAuthor && !needToClone ? (
-            <div className="saveBtn">
-              <Mutation
-                mutation={UPDATE_COMPONENT}
-                refetchQueries={[
-                  {
-                    query: COMPONENT_QUERY,
-                    variables: {
-                      id: this.state.task.id,
-                    },
-                  },
-                  {
-                    query: COMPONENT_TO_CLONE_QUERY,
-                    variables: {
-                      id: this.state.task.id,
-                    },
-                  },
-                ]}
-              >
-                {(updateTask, { loading, error }) => (
+              <div className="saveBtn">
+                <button onClick={this.togglePreview}>Fullscreen Preview</button>
+
+                {isAuthor && !needToClone ? (
                   <div>
-                    <button
-                      onClick={() => {
-                        this.updateMyComponent(updateTask);
-                      }}
+                    <Mutation
+                      mutation={UPDATE_COMPONENT}
+                      refetchQueries={[
+                        {
+                          query: COMPONENT_QUERY,
+                          variables: {
+                            id: this.state.task.id,
+                          },
+                        },
+                        {
+                          query: COMPONENT_TO_CLONE_QUERY,
+                          variables: {
+                            id: this.state.task.id,
+                          },
+                        },
+                      ]}
                     >
-                      {loading ? 'Saving' : 'Save'}
-                    </button>
+                      {(updateTask, { loading, error }) => (
+                        <div>
+                          <button
+                            className="secondaryBtn"
+                            onClick={() => {
+                              this.updateMyComponent(updateTask);
+                            }}
+                          >
+                            {loading ? 'Saving' : 'Save'}
+                          </button>
+                        </div>
+                      )}
+                    </Mutation>
+                  </div>
+                ) : (
+                  <div>
+                    <Mutation
+                      mutation={CREATE_COMPONENT}
+                      refetchQueries={[
+                        { query: MY_SURVEYS_QUERY },
+                        { query: MY_TASKS_QUERY },
+                        { query: USER_DASHBOARD_QUERY },
+                        { query: MY_DEVELOPED_TASKS_QUERY },
+                        { query: MY_DEVELOPED_SURVEYS_QUERY },
+                      ]}
+                    >
+                      {(createTask, { loading, error }) => (
+                        <div>
+                          <button
+                            className="secondaryBtn"
+                            onClick={() => {
+                              this.createNewComponent(createTask);
+                            }}
+                          >
+                            {loading
+                              ? 'Saving'
+                              : `Save your ${taskType.toLowerCase()}`}
+                          </button>
+                        </div>
+                      )}
+                    </Mutation>
                   </div>
                 )}
-              </Mutation>
-            </div>
-          ) : (
-            <div className="saveBtn">
-              <Mutation
-                mutation={CREATE_COMPONENT}
-                refetchQueries={[
-                  { query: MY_SURVEYS_QUERY },
-                  { query: MY_TASKS_QUERY },
-                  { query: USER_DASHBOARD_QUERY },
-                  { query: MY_DEVELOPED_TASKS_QUERY },
-                  { query: MY_DEVELOPED_SURVEYS_QUERY },
-                ]}
-              >
-                {(createTask, { loading, error }) => (
-                  <div>
-                    <button
-                      onClick={() => {
-                        this.createNewComponent(createTask);
-                      }}
-                    >
-                      {loading
-                        ? 'Saving'
-                        : `Save your ${taskType.toLowerCase()}`}
-                    </button>
-                  </div>
-                )}
-              </Mutation>
-            </div>
-          )}
-        </BuilderNav>
+              </div>
+            </BuilderNav>
 
-        <StyledBuilder>
-          <EditPane
-            handleTaskChange={this.handleComponentChange}
-            handleParameterChange={this.handleParamChange}
-            handleSettingsChange={this.handleSettingsChange}
-            handleCollaboratorsChange={this.handleCollaboratorsChange}
-            handleSetState={this.handleSetState}
-            task={this.state.task}
-            handleSetMultipleValuesInState={this.handleSetMultipleValuesInState}
-            user={this.props.user}
+            <StyledBuilder>
+              <EditPane
+                handleTaskChange={this.handleComponentChange}
+                handleParameterChange={this.handleParamChange}
+                handleSettingsChange={this.handleSettingsChange}
+                handleCollaboratorsChange={this.handleCollaboratorsChange}
+                handleSetState={this.handleSetState}
+                task={this.state.task}
+                handleSetMultipleValuesInState={
+                  this.handleSetMultipleValuesInState
+                }
+                user={this.props.user}
+              />
+              <StyledPreviewPane>
+                <PreviewPane task={this.state.task} user={this.props.user} />
+              </StyledPreviewPane>
+            </StyledBuilder>
+          </StyledBuilderPage>
+        )}
+
+        {this.state.showPreview && (
+          <PreviewInBuilder
+            user={this.props.user.id}
+            parameters={this.props.task.parameters}
+            template={this.props.task.template}
+            handleFinish={() => this.setState({ showPreview: false })}
+            showPreview={this.state.showPreview}
           />
-          <StyledPreviewPane>
-            <PreviewPane task={this.state.task} user={this.props.user} />
-          </StyledPreviewPane>
-        </StyledBuilder>
-      </StyledBuilderPage>
+        )}
+      </>
     );
   }
 }

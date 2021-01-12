@@ -1,10 +1,6 @@
-import Data from '../../components/Data/Results/index';
-import Page from '../../components/Page/index';
+import Data from '../../components/DataViz/index';
+// import Page from '../../components/Page/index';
 
-const DataPage = ({ query }) => (
-  <Page>
-    <Data id={query.id} />
-  </Page>
-);
+const DataPage = ({ query }) => <Data id={query.id} />;
 
 export default DataPage;
