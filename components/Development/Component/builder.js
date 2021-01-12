@@ -342,7 +342,7 @@ class ComponentBuilder extends Component {
         {this.state.showPreview && (
           <PreviewInBuilder
             user={this.props.user.id}
-            parameters={this.props.task.parameters}
+            parameters={this.state.task.parameters}
             template={this.props.task.template}
             handleFinish={() => this.setState({ showPreview: false })}
             showPreview={this.state.showPreview}
