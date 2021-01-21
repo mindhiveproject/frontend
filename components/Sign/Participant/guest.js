@@ -50,10 +50,10 @@ class GuestParticipantSignup extends Component {
       variables: { permissions: ['PARTICIPANT'] },
     });
     const { signUp } = res.data;
-    this.setState({ email: '', username: '', password: '' });
     alert(
       `Please save this information. Your username ${this.state.username} and password ${this.state.password}`
     );
+    this.setState({ email: '', username: '', password: '' });
     joinStudyRedirect(this.props.study, signUp);
   };
 
