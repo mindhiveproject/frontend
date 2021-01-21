@@ -4,7 +4,7 @@ import Page from '../../Page/index';
 import StudyPage from './studyPage';
 import TaskPage from '../../Task/Run/index';
 
-class StudyUserPage extends Component {
+class StudyWrapper extends Component {
   state = {
     isTaskRunning: !!this.props.task,
     isExternalTaskRunning: false,
@@ -86,4 +86,4 @@ class StudyUserPage extends Component {
   }
 }
 
-export default StudyUserPage;
+export default StudyWrapper;

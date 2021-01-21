@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Link from 'next/link';
 import Error from '../../ErrorMessage/index';
-import StudyUserPage from './studyWrapper';
+import StudyWrapper from './studyWrapper';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import Page from '../../Page/index';
 
@@ -90,7 +90,7 @@ class StudyLanding extends Component {
                     </Page>
                   );
                 return (
-                  <StudyUserPage
+                  <StudyWrapper
                     study={studyPayloadData}
                     user={userPayloadData}
                     onStartTask={this.props.onStartTask}
