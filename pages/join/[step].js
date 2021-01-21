@@ -1,0 +1,26 @@
+import { useRouter } from 'next/router';
+import StudyUserWrapper from '../../components/SignFlow/StudyUserWrapper';
+import Page from '../../components/Page/index';
+
+const GetStartedPage = () => {
+  const router = useRouter();
+  if (!router.query.step)
+    return (
+      <Page>
+        <h1>Loading ...</h1>
+      </Page>
+    );
+  if (!router.query.id)
+    return (
+      <Page>
+        <h1>The information about the study is missing</h1>
+      </Page>
+    );
+  return (
+    <Page>
+      <StudyUserWrapper query={router.query} />
+    </Page>
+  );
+};
+
+export default GetStartedPage;

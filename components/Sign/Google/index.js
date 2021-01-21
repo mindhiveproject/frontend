@@ -6,6 +6,7 @@ import Router from 'next/router';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import Error from '../../ErrorMessage/index';
 import { SignupButton } from '../styles';
+import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
 
 const clientID =
   '1042393944588-od9nbqtdfefltmpq8kjnnhir0lbb14se.apps.googleusercontent.com';
@@ -30,14 +31,14 @@ const GOOGLE_SIGNUP_MUTATION = gql`
       id
       username
       permissions
-      info
+      studiesInfo
     }
   }
 `;
 
 class GoogleSignup extends Component {
   state = {
-    user: { ...this.props.user, agreeReceiveUpdates: true },
+    info: this.props.info, // pass all collected in the form information
     study: this.props.study,
     class: this.props.class,
   };
@@ -46,17 +47,8 @@ class GoogleSignup extends Component {
     const res = await signUp({
       variables: { token: e.tokenId, permissions: this.props.permissions },
     });
-    console.log('res', res);
-    if (this.props.onClose) this.props.onClose();
-    if (this.props.redirect) {
-      if (this.props.study?.settings?.proceedToFirstTask) {
-        this.props.onStartTheTask(this.props.firstTaskId);
-      }
-    } else {
-      Router.push({
-        pathname: `/dashboard`,
-      });
-    }
+    const { serviceSignUp } = res.data;
+    joinStudyRedirect(this.props.study, serviceSignUp);
   };
 
   render() {

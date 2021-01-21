@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import Link from 'next/link';
 import Error from '../../ErrorMessage/index';
-import StudyUserPage from './studypage';
+import StudyUserPage from './studyWrapper';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import Page from '../../Page/index';
 
-const REVIEW_STUDY_QUERY = gql`
-  query REVIEW_STUDY_QUERY($slug: String!) {
+const STUDY_QUERY = gql`
+  query STUDY_QUERY($slug: String!) {
     study(where: { slug: $slug }) {
       id
       title
@@ -52,7 +54,7 @@ const REVIEW_STUDY_QUERY = gql`
   }
 `;
 
-class ReviewStudyForParticipants extends Component {
+class StudyLanding extends Component {
   render() {
     return (
       <Query query={CURRENT_USER_RESULTS_QUERY}>
@@ -64,10 +66,7 @@ class ReviewStudyForParticipants extends Component {
           if (userPayloadLoading) return <p>Loading</p>;
 
           return (
-            <Query
-              query={REVIEW_STUDY_QUERY}
-              variables={{ slug: this.props.slug }}
-            >
+            <Query query={STUDY_QUERY} variables={{ slug: this.props.slug }}>
               {studyPayload => {
                 const studyPayloadError = studyPayload.error;
                 const studyPayloadLoading = studyPayload.loading;
@@ -76,7 +75,20 @@ class ReviewStudyForParticipants extends Component {
                 if (studyPayloadError) return <Error error={error} />;
                 if (studyPayloadLoading) return <p>Loading</p>;
                 if (!studyPayloadData)
-                  return <p>No study found for {this.props.slug}</p>;
+                  return (
+                    <Page>
+                      <h1>No study found</h1>
+                      <Link
+                        href={{
+                          pathname: '/',
+                        }}
+                      >
+                        <a>
+                          <p>Check the list of public studies</p>
+                        </a>
+                      </Link>
+                    </Page>
+                  );
                 return (
                   <StudyUserPage
                     study={studyPayloadData}
@@ -85,6 +97,7 @@ class ReviewStudyForParticipants extends Component {
                     onEndTask={this.props.onEndTask}
                     withoutHeader={this.props.withoutHeader}
                     openedFromDashboard={this.props.openedFromDashboard}
+                    task={this.props.c}
                   />
                 );
               }}
@@ -96,5 +109,5 @@ class ReviewStudyForParticipants extends Component {
   }
 }
 
-export default ReviewStudyForParticipants;
-export { REVIEW_STUDY_QUERY };
+export default StudyLanding;
+export { STUDY_QUERY };

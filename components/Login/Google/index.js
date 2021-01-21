@@ -7,17 +7,18 @@ import Router from 'next/router';
 import { SignupButton } from '../../Sign/styles';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
 
 const clientID =
   '1042393944588-od9nbqtdfefltmpq8kjnnhir0lbb14se.apps.googleusercontent.com';
 
 const GOOGLE_LOGIN_MUTATION = gql`
-  mutation GOOGLE_LOGIN_MUTATION($token: String!, $user: Json, $study: Json) {
-    serviceLogin(token: $token, user: $user, study: $study) {
+  mutation GOOGLE_LOGIN_MUTATION($token: String!, $info: Json, $study: Json) {
+    serviceLogin(token: $token, info: $info, study: $study) {
       id
       username
       permissions
-      info
+      studiesInfo
     }
   }
 `;
@@ -27,24 +28,12 @@ class GoogleAuthLogin extends Component {
     const res = await login({
       variables: {
         token: e.tokenId,
-        user: this.props.user,
+        info: this.props.info,
         study: this.props.study,
       },
     });
-    if (this.props.onClose) this.props.onClose();
-    if (this.props.task) {
-      Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
-      return;
-    }
-    if (this.props.redirect) {
-      if (this.props.study?.settings?.proceedToFirstTask) {
-        this.props.onStartTheTask(this.props.firstTaskId);
-      }
-    } else {
-      Router.push({
-        pathname: `/dashboard`,
-      });
-    }
+    const { serviceLogin } = res.data;
+    joinStudyRedirect(this.props.study, serviceLogin);
   };
 
   render() {

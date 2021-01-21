@@ -6,6 +6,7 @@ import generate from 'project-name-generator';
 import { SignupForm, CreateAccountForm } from '../styles';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
 
 const PARTICIPANT_SIGNUP_MUTATION = gql`
   mutation PARTICIPANT_SIGNUP_MUTATION(
@@ -29,7 +30,7 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
       id
       username
       permissions
-      info
+      studiesInfo
     }
   }
 `;
@@ -37,18 +38,10 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
 class ParticipantSignup extends Component {
   state = {
     username: generate().dashed,
-    password: '',
     email: '',
-    user: this.props.user,
+    password: '',
+    info: { ...this.props.info, updates: true }, // all information that is coming from the registration forms
     study: this.props.study,
-    info: {
-      age: '',
-      zipCode: this.props.user && this.props.user.zipCode,
-      under18: this.props.user && this.props.user.under18,
-      agreeReceiveUpdates:
-        (this.props.user && this.props.user.agreeReceiveUpdates) || false,
-      agreeTermsConditions: true,
-    },
   };
 
   saveToState = e => {
@@ -91,23 +84,9 @@ class ParticipantSignup extends Component {
                 const res = await participantSignUp({
                   variables: { permissions: ['PARTICIPANT'] },
                 });
-                // console.log('res', res);
+                const { signUp } = res.data;
                 this.setState({ username: '', password: '', email: '' });
-                if (this.props.onClose) this.props.onClose();
-                if (this.props.task) {
-                  Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
-                  return;
-                }
-                // redirect to the study page with the query parameter launch
-                if (this.props.redirect) {
-                  if (this.props.study?.settings?.proceedToFirstTask) {
-                    this.props.onStartTheTask(this.props.firstTaskId);
-                  }
-                } else {
-                  Router.push({
-                    pathname: `/dashboard`,
-                  });
-                }
+                joinStudyRedirect(this.props.study, signUp);
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
@@ -149,79 +128,14 @@ class ParticipantSignup extends Component {
                   />
                 </label>
 
-                {!(this.props.user && this.props.user.zipCode) && (
-                  <label htmlFor="zipcode">
-                    <p>Zip code</p>
-                    <input
-                      type="text"
-                      name="zipcode"
-                      placeholder="Enter your zip code"
-                      value={this.state.info.zipcode}
-                      onChange={this.saveToInfoState}
-                    />
-                  </label>
-                )}
-
-                {!(this.props.user && this.props.user.under18) && (
-                  <label htmlFor="age">
-                    <p>Age</p>
-                    <input
-                      type="text"
-                      name="age"
-                      placeholder="Enter your age"
-                      value={this.state.info.age}
-                      onChange={this.saveToInfoState}
-                    />
-                  </label>
-                )}
-
-                {false && (
-                  <div>
-                    <label htmlFor="confirmUsername">
-                      <div className="checkboxField">
-                        <input
-                          type="checkbox"
-                          id="confirmUsername"
-                          name="confirmUsername"
-                          checked={this.state.info.confirmUsername}
-                          onChange={this.toggleState}
-                        />
-                        <span>
-                          I confirm that my user name does not contain any
-                          personally identifiable information (first and last
-                          name).
-                        </span>
-                      </div>
-                    </label>
-                  </div>
-                )}
-
-                {false && (
-                  <div>
-                    <label htmlFor="agreeTermsConditions">
-                      <div className="checkboxField">
-                        <input
-                          type="checkbox"
-                          id="agreeTermsConditions"
-                          name="agreeTermsConditions"
-                          checked={this.state.info.agreeTermsConditions}
-                          onChange={this.toggleState}
-                          required
-                        />
-                        <span>I agree to the Terms and Conditions</span>
-                      </div>
-                    </label>
-                  </div>
-                )}
-
                 <div>
-                  <label htmlFor="agreeReceiveUpdates">
+                  <label htmlFor="updates">
                     <div className="checkboxField">
                       <input
                         type="checkbox"
-                        id="agreeReceiveUpdates"
-                        name="agreeReceiveUpdates"
-                        checked={this.state.info.agreeReceiveUpdates}
+                        id="updates"
+                        name="updates"
+                        checked={this.state.info.updates}
                         onChange={this.toggleState}
                       />
                       <span>

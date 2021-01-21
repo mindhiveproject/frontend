@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import Link from 'next/link';
-import { Menu, Accordion } from 'semantic-ui-react';
+// import { Menu, Accordion } from 'semantic-ui-react';
 
 import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
 import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
@@ -14,22 +14,24 @@ import StudyTasks from './studyTasks';
 import InfoTabs from './infoTabs';
 
 class StudyInformation extends Component {
-  state = { activeItem: 'what' };
+  state = { activeTab: 'what' };
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name }) => this.setState({ activeTab: name });
 
   render() {
     const { study, user } = this.props;
-    const { activeItem } = this.state;
+    const { activeTab } = this.state;
+
+    // whether the user joined the study
     const studyIds = user?.participantIn?.map(study => study.id) || [];
     const joinedTheStudy = studyIds.includes(study.id);
 
+    // parse study information
     const infoBlocks =
       study?.info?.reduce((acc, el) => {
         acc[el.name] = el.text;
         return acc;
       }, {}) || {};
-
     const faq =
       study.info &&
       study.info
@@ -95,12 +97,26 @@ class StudyInformation extends Component {
 
           <div className="controlBtns">
             <ContainerOnlyForNoProfile>
-              <button onClick={this.props.onRegister}>Participate</button>
+              <Link
+                href={{
+                  pathname: '/join/getstarted',
+                  query: { id: study.id },
+                }}
+              >
+                <button>Participate</button>
+              </Link>
             </ContainerOnlyForNoProfile>
 
             <ContainerOnlyForProfile>
               {!studyIds.includes(study.id) && (
-                <button onClick={this.props.onRegister}>Participate</button>
+                <Link
+                  href={{
+                    pathname: '/join/getstarted',
+                    query: { id: study.id },
+                  }}
+                >
+                  <button>Participate</button>
+                </Link>
               )}
             </ContainerOnlyForProfile>
 
@@ -114,6 +130,7 @@ class StudyInformation extends Component {
                 <button>Preview</button>
               </Link>
             </ContainerOnlyForScientists>
+
             <ContainerOnlyForAuthorizedCollaborators
               ids={study.collaborators && study.collaborators.map(c => c.id)}
               id={study.author && study.author.id}
@@ -132,7 +149,7 @@ class StudyInformation extends Component {
           {joinedTheStudy && (
             <StudyTasks
               study={study}
-              user={this.props.user || undefined}
+              user={this.props.user}
               onStartTheTask={this.props.onStartTheTask}
               onStartExternalTask={this.props.onStartExternalTask}
             />
@@ -143,7 +160,7 @@ class StudyInformation extends Component {
           {!joinedTheStudy && (
             <StudyTasks
               study={study}
-              user={this.props.user || undefined}
+              user={this.props.user}
               onStartTheTask={this.props.onStartTheTask}
               onStartExternalTask={this.props.onStartExternalTask}
             />

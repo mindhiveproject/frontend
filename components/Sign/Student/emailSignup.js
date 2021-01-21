@@ -45,7 +45,7 @@ class StudentSignup extends Component {
     class: this.props.class,
     info: {
       age: '',
-      zipcode: this.props.user && this.props.user.zipCode,
+      zipcode: this.props.user && this.props.user.zipcode,
       under18: this.props.user && this.props.user.under18,
       useTeacherEmail: false,
     },
@@ -167,7 +167,7 @@ class StudentSignup extends Component {
                   />
                 </label>
 
-                {!(this.props.user && this.props.user.zipCode) && (
+                {!(this.props.user && this.props.user.zipcode) && (
                   <label htmlFor="zipcode">
                     <p>Zip code</p>
                     <input

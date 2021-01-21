@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import sortBy from 'lodash/sortBy';
+import styled from 'styled-components';
 import { StyledHomeDasboard } from '../styles';
 import MessageCard from './messagecard';
+import StudyParticipantCard from './StudyParticipantCard';
+
+const StyledStudyParticipantCards = styled.div`
+  display: grid;
+`;
 
 class HomeDashboard extends Component {
   render() {
@@ -24,8 +30,16 @@ class HomeDashboard extends Component {
 
     return (
       <StyledHomeDasboard>
-        <h1>Welcome back{username ? `, ${username}` : `!`}</h1>
+        <h1>Welcome{username && `, ${username}`}!</h1>
         {publicId && <div>Your participant ID is {publicId}</div>}
+        <div>
+          <h2>Your studies</h2>
+          <StyledStudyParticipantCards>
+            {studies.map((study, num) => (
+              <StudyParticipantCard key={num} study={study} />
+            ))}
+          </StyledStudyParticipantCards>
+        </div>
         <div className="updatesBoard">
           <h2>Latest updates</h2>
           <div className="updates">

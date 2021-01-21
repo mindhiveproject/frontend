@@ -15,8 +15,7 @@ const StyledTaskList = styled.div`
 
 class StudyTasks extends Component {
   render() {
-    const { user } = this.props;
-    const { study } = this.props;
+    const { user, study } = this.props;
     const studyIds = user?.participantIn?.map(study => study.id) || [];
 
     // check whether there is a user and blocks, if yes, assign correct block of tasks to the user
@@ -28,20 +27,24 @@ class StudyTasks extends Component {
       study.components.blocks[0].tests
     ) {
       if (user) {
-        console.log('user', user);
         // select the blocks for the specific user
         const userStudyInfo = user.studiesInfo && user.studiesInfo[study.id];
         if (userStudyInfo) {
           const userBlock = userStudyInfo.blockId;
-          console.log('user.studiesInfo', userStudyInfo, userBlock);
-          console.log('study.components.blocks', study.components.blocks);
-          const studyBlock = study.components.blocks.filter(
-            block => block.blockId === userBlock
-          );
-          if (studyBlock && studyBlock.length && studyBlock[0].tests) {
-            components = studyBlock[0].tests;
+          if (userBlock) {
+            const studyBlock = study.components.blocks.filter(
+              block => block.blockId === userBlock
+            );
+            if (studyBlock && studyBlock.length && studyBlock[0].tests) {
+              components = studyBlock[0].tests;
+            }
+          } else {
+            // assign a random between-subjects block to the user in case if the user does not have any info saved
+            const { blocks } = study.components;
+            const randomBlock =
+              blocks[Math.floor(Math.random() * blocks.length)];
+            components = randomBlock.tests;
           }
-          console.log('components', components);
         } else {
           components = study.components.blocks[0].tests;
         }
@@ -71,10 +74,10 @@ class StudyTasks extends Component {
               if (loading) return <p>Loading ... </p>;
               if (!data || !data.task)
                 return (
-                  <p>
+                  <h2>
                     No task found for the task named{' '}
                     <strong>{task.title}</strong>
-                  </p>
+                  </h2>
                 );
               const component = data.task;
               return (

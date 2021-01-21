@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import ReviewStudyForParticipants from '../../components/Study/Landing/index';
+import StudyLanding from '../../components/Study/Landing/index';
 import Page from '../../components/Page/index';
 
 const StudyLandingPage = () => {
@@ -7,10 +7,10 @@ const StudyLandingPage = () => {
   if (!router.query.slug)
     return (
       <Page>
-        <p>Loading ...</p>
+        <h1>Loading ...</h1>
       </Page>
     );
-  return <ReviewStudyForParticipants slug={router.query.slug} />;
+  return <StudyLanding {...router.query} />;
 };
 
 export default StudyLandingPage;

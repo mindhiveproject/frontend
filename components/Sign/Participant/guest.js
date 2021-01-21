@@ -7,6 +7,7 @@ import generate from 'project-name-generator';
 import { TokenForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
 
 const GUEST_PARTICIPANT_SIGNUP_MUTATION = gql`
   mutation GUEST_PARTICIPANT_SIGNUP_MUTATION(
@@ -30,54 +31,30 @@ const GUEST_PARTICIPANT_SIGNUP_MUTATION = gql`
       id
       username
       permissions
+      studiesInfo
     }
   }
 `;
 
 class GuestParticipantSignup extends Component {
   state = {
-    email: '',
     username: generate().dashed,
+    email: '',
     password: uniqid(),
-    user: this.props.user,
+    info: this.props.info, // all information that is coming from the registration forms
     study: this.props.study,
-    info: {
-      age: '',
-      zipcode: this.props.user && this.props.user.zipCode,
-      under18: this.props.user && this.props.user.under18,
-      agreeTermsConditions: true,
-      agreeReceiveUpdates: false,
-    },
-  };
-
-  saveToState = e => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
   };
 
   submitForm = async tokenSignUp => {
     const res = await tokenSignUp({
       variables: { permissions: ['PARTICIPANT'] },
     });
-    alert(
-      `Your username ${this.state.username} and password ${this.state.password}`
-    );
+    const { signUp } = res.data;
     this.setState({ email: '', username: '', password: '' });
-    if (this.props.onClose) this.props.onClose();
-    if (this.props.task) {
-      Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
-      return;
-    }
-    if (this.props.redirect) {
-      if (this.props.study?.settings?.proceedToFirstTask) {
-        this.props.onStartTheTask(this.props.firstTaskId);
-      }
-    } else {
-      Router.push({
-        pathname: `/dashboard`,
-      });
-    }
+    alert(
+      `Please save this information. Your username ${this.state.username} and password ${this.state.password}`
+    );
+    joinStudyRedirect(this.props.study, signUp);
   };
 
   render() {

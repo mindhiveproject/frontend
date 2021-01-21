@@ -1,89 +1,28 @@
 import React, { Component } from 'react';
+import Head from 'next/head';
+import { StyledStudyPage } from '../styles';
+import StudyInformation from './studyInfo';
 
-import Page from '../../Page/index';
-import StudyPage from './page';
-import TaskPage from '../../Task/Run/index';
-
-class StudyUserPage extends Component {
-  state = {
-    isTaskRunning: false,
-    isExternalTaskRunning: false,
-    taskId: '',
-  };
-
-  startTheTask = taskId => {
-    if (taskId) {
-      if (this.props.openedFromDashboard && this.props.onStartTask) {
-        this.props.onStartTask(taskId);
-      } else {
-        this.setState({
-          taskId,
-          isTaskRunning: true,
-        });
-      }
-    }
-  };
-
-  startExternalTask = taskId => {
-    if (taskId) {
-      if (this.props.openedFromDashboard && this.props.onStartTask) {
-        this.props.onStartTask(taskId);
-      } else {
-        this.setState({
-          taskId,
-          isTaskRunning: true,
-          isExternalTaskRunning: true,
-        });
-      }
-    }
-  };
-
-  endTask = () => {
-    if (this.props.openedFromDashboard && this.props.onEndTask) {
-      this.props.onEndTask();
-    } else {
-      this.setState({
-        isTaskRunning: false,
-      });
-    }
-  };
+class StudyParticipantPage extends Component {
+  state = {};
 
   render() {
-    const { study, user } = this.props;
-    if (this.state.isTaskRunning) {
-      return (
-        <TaskPage
-          user={user}
-          study={study}
-          id={this.state.taskId}
-          policy={user?.generalInfo?.data || 'science'}
-          onStartTheTask={this.startTheTask}
-          onEndTask={this.endTask}
-          isExternalTaskRunning={this.state.isExternalTaskRunning}
-        />
-      );
-    }
-    if (this.props.withoutHeader) {
-      return (
-        <StudyPage
-          study={study}
-          user={user}
-          onStartTheTask={this.startTheTask}
-          onStartExternalTask={this.startExternalTask}
-        />
-      );
-    }
+    const { study } = this.props;
     return (
-      <Page>
-        <StudyPage
+      <StyledStudyPage>
+        <Head>
+          <title>MindHive | {study.title}</title>
+        </Head>
+
+        <StudyInformation
           study={study}
-          user={user}
-          onStartTheTask={this.startTheTask}
-          onStartExternalTask={this.startExternalTask}
+          user={this.props.user}
+          onStartTheTask={this.props.onStartTheTask}
+          onStartExternalTask={this.props.onStartExternalTask}
         />
-      </Page>
+      </StyledStudyPage>
     );
   }
 }
 
-export default StudyUserPage;
+export default StudyParticipantPage;
