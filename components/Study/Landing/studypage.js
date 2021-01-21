@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { StyledStudyPage } from '../styles';
 import StudyInformation from './studyInfo';
 
-class StudyParticipantPage extends Component {
+class StudyPage extends Component {
   state = {};
 
   render() {
@@ -25,4 +25,4 @@ class StudyParticipantPage extends Component {
   }
 }
 
-export default StudyParticipantPage;
+export default StudyPage;
