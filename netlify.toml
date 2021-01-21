@@ -13,3 +13,9 @@
   to = "/tasks/[slug].html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/join/*"
+  to = "/join/[step].html"
+  status = 200
+  force = true
