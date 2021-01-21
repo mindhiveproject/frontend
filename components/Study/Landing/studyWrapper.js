@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Page from '../../Page/index';
-import StudyPage from './studyPage';
+import StudyPage from './studyParticipantPage';
 import TaskPage from '../../Task/Run/index';
 
 class StudyWrapper extends Component {

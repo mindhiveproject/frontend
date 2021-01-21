@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import Link from 'next/link';
-// import { Menu, Accordion } from 'semantic-ui-react';
 
 import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
 import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
