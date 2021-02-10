@@ -39,7 +39,7 @@ class StudyCard extends Component {
                 Go to study
               </a>
             </div>
-            {this.props.developingMode && isAuthor && (
+            {this.props.developingMode && !this.props.readOnlyMode && isAuthor && (
               <div>
                 <DeleteStudy id={study.id}>Delete</DeleteStudy>
               </div>

@@ -87,7 +87,7 @@ class componentSelector extends Component {
                 },
                 {
                   key: 'me',
-                  text: 'Created by me',
+                  text: 'Owned by me',
                   value: 'me',
                 },
               ]}

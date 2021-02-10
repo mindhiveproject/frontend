@@ -29,18 +29,28 @@ const PipelineOperator = ({
   helper,
   pipeline,
   activeOperationPosition,
+  transformPipe,
 }) => {
   const header = 'Pipeline operator';
   const filterTemplate = {
     type: 'FILTER',
   };
+  const calculateTemplate = {
+    type: 'CALCULATE',
+  };
+  const aggregationTemplate = {
+    type: 'AGGREGATE',
+  };
+  const displayTemplate = {
+    type: 'DISPLAY',
+  };
   return (
     <StyledPipelineOperator>
       <h3>{header}</h3>
-      <p>Pipeline length {pipeline.length}</p>
+      <p>Transform pipeline length {transformPipe.length}</p>
       <p>Active operation is {activeOperationPosition}</p>
       <div className="operations">
-        {pipeline.map((operation, position) => (
+        {transformPipe.map((operation, position) => (
           // console.log('operation', position, operation);
           <div className="operationThumb" key={position}>
             <span>{operation.type}</span>
@@ -54,7 +64,7 @@ const PipelineOperator = ({
             <button
               onClick={() =>
                 PipelineFunctions.removeOperation(
-                  pipeline,
+                  transformPipe,
                   position,
                   updateState
                 )
@@ -69,13 +79,49 @@ const PipelineOperator = ({
         <button
           onClick={() =>
             PipelineFunctions.addOperation(
-              pipeline,
+              transformPipe,
               filterTemplate,
               updateState
             )
           }
         >
-          Add filtering
+          Add filtering operation
+        </button>
+
+        <button
+          onClick={() =>
+            PipelineFunctions.addOperation(
+              transformPipe,
+              calculateTemplate,
+              updateState
+            )
+          }
+        >
+          Add calculation operation
+        </button>
+
+        <button
+          onClick={() =>
+            PipelineFunctions.addOperation(
+              transformPipe,
+              aggregationTemplate,
+              updateState
+            )
+          }
+        >
+          Add aggregation operation
+        </button>
+
+        <button
+          onClick={() =>
+            PipelineFunctions.addOperation(
+              transformPipe,
+              displayTemplate,
+              updateState
+            )
+          }
+        >
+          Add display operation
         </button>
       </div>
     </StyledPipelineOperator>

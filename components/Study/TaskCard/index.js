@@ -13,8 +13,10 @@ class TaskCard extends Component {
   };
 
   render() {
-    const { task } = this.props;
+    const { task, study } = this.props;
     const taskType = task.taskType === 'SURVEY' ? 'survey' : 'task';
+
+    const allowRetake = !study.settings?.forbidRetake;
 
     return (
       <StyledTaskCard taskType={task.taskType}>
@@ -45,42 +47,32 @@ class TaskCard extends Component {
                   task.settings &&
                   ReactHtmlParser(task.settings.descriptionAfter)}
               </div>
-              <div className="actionLinks">
-                {this.props.completed && !task.link && (
-                  <a onClick={() => this.props.onStartTheTask(task.id)}>
-                    <p>Retake {taskType}</p>
-                  </a>
-                )}
-                {this.props.completed && task.link && (
-                  <button
-                    onClick={() => this.props.onStartExternalTask(task.id)}
-                  >
+
+              {!this.props.completed && (
+                <div className="actionLinks">
+                  <button>
                     <a
                       target="_blank"
-                      href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
+                      href={`/dt/r?t=${task.id}&s=${this.props.study.id}`}
                     >
-                      <p>Retake external {taskType}</p>
+                      <p>Take {taskType}</p>
                     </a>
                   </button>
-                )}
-                {!this.props.completed && !task.link && (
-                  <button onClick={() => this.props.onStartTheTask(task.id)}>
-                    <p>Take {taskType}</p>
-                  </button>
-                )}
-                {!this.props.completed && task.link && (
-                  <button
-                    onClick={() => this.props.onStartExternalTask(task.id)}
-                  >
+                </div>
+              )}
+
+              {allowRetake && this.props.completed && (
+                <div className="actionLinks">
+                  <button>
                     <a
                       target="_blank"
-                      href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
+                      href={`/dt/r?t=${task.id}&s=${this.props.study.id}`}
                     >
-                      <p>Take external {taskType}</p>
+                      <p>Retake {taskType}</p>
                     </a>
                   </button>
-                )}
-              </div>
+                </div>
+              )}
             </>
           )}
         </div>
@@ -90,3 +82,48 @@ class TaskCard extends Component {
 }
 
 export default TaskCard;
+
+// <div className="actionLinks">
+//   {this.props.completed && !task.link && (
+//     <a onClick={() => this.props.onStartTheTask(task.id)}>
+//       <p>Retake {taskType}</p>
+//     </a>
+//   )}
+//   {this.props.completed && task.link && (
+//     <button
+//       onClick={() => this.props.onStartExternalTask(task.id)}
+//     >
+//       <a
+//         target="_blank"
+//         href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
+//       >
+//         <p>Retake external {taskType}</p>
+//       </a>
+//     </button>
+//   )}
+//
+//   {!this.props.completed && !task.link && (
+//     <button onClick={() => this.props.onStartTheTask(task.id)}>
+//       <p>Take {taskType}</p>
+//     </button>
+//   )}
+//   {!this.props.completed && task.link && (
+//     <button
+//       onClick={() => this.props.onStartExternalTask(task.id)}
+//     >
+//       <a
+//         target="_blank"
+//         href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
+//       >
+//         <p>Take external {taskType}</p>
+//       </a>
+//     </button>
+//   )}
+//
+//   <a
+//     target="_blank"
+//     href={`/dt/r?id=${task.id}&study=${this.props.study.id}&s=${this.props.study.slug}`}
+//   >
+//     <p>Take {taskType}</p>
+//   </a>
+// </div>

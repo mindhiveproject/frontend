@@ -1,13 +1,14 @@
-// add a new operation to a pipeline
-const addOperation = (pipeline, operation, updateState) => {
-  pipeline.push(operation);
-  updateState('pipeline', pipeline);
+// add a new operation to a transformPipe
+const addOperation = (transformPipe, operation, updateState) => {
+  console.log('operation', operation);
+  transformPipe.push(operation);
+  updateState('transformPipe', transformPipe);
 };
 
-// remove an operation from a pipeline by index
-const removeOperation = (pipeline, position, updateState) => {
-  pipeline.splice(position, 1);
-  updateState('pipeline', pipeline);
+// remove an operation from a transformPipe by index
+const removeOperation = (transformPipe, position, updateState) => {
+  transformPipe.splice(position, 1);
+  updateState('transformPipe', transformPipe);
 };
 
 // activate an operation

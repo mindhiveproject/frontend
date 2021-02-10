@@ -2,7 +2,7 @@ import { jsonToCSV } from 'react-papaparse';
 
 // download the current state of the data as a csv file
 const download = data => {
-  console.log('data', data);
+  // console.log('data', data);
   const name = 'temp-name';
   const allKeys = data
     .map(line => Object.keys(line))
@@ -56,8 +56,9 @@ const getColumnValues = (data, columnName) => {
   const values = data.map(row => row[columnName]);
   const set = Array.from(new Set(values));
   // undefined might be also included into the outcome - might be useful to filter out missing values
-  console.log('values', values);
+  // console.log('values', values);
   console.log('set', set);
+  return set;
 };
 
 // compute the size of the column (how many values? how many unique values?)

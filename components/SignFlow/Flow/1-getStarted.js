@@ -167,7 +167,7 @@ class GetStarted extends Component {
 
         {!birthdayDataAvailable && (
           <div>
-            <p className="questionTitle">When is your birthday?</p>
+            <p className="questionTitle">What is your date of birth?</p>
 
             <BirthdayPicker onDateInput={this.setStateToValue} />
           </div>

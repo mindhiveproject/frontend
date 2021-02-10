@@ -135,6 +135,7 @@ class StudyBuilder extends Component {
     isTaskSelectorOpen: false,
     isTaskBuilderOpen: false,
     needToClone: this.props.needToClone,
+    readOnlyMode: this.props.readOnlyMode,
   };
 
   handleStudyChange = e => {
@@ -266,7 +267,6 @@ class StudyBuilder extends Component {
         blocks: [],
       };
     }
-    console.log('updatedComponents', updatedComponents);
 
     // if there are no blocks, create blocks
     if (!updatedComponents.blocks) {
@@ -281,14 +281,13 @@ class StudyBuilder extends Component {
         tests: [],
       });
     }
-    console.log('updatedComponents', updatedComponents);
 
     // add new component to the first block
     updatedComponents.blocks[0].tests.push({
       ...component,
       testId: uniqid.time(),
     });
-    console.log('updateComponents', updatedComponents);
+
     // update the state
     this.setState({
       study: {
@@ -297,41 +296,6 @@ class StudyBuilder extends Component {
       },
     });
   };
-
-  // removeComponent = blockNumber => {
-  //   const components = this.state.study.components || [];
-  //   components.splice(blockNumber, 1);
-  //   this.setState({
-  //     study: {
-  //       ...this.state.study,
-  //       components: [...components],
-  //     },
-  //   });
-  // };
-
-  // updateBlock = (block, num) => {
-  //   const components = [...this.state.study.components];
-  //   components[num] = block;
-  //   this.setState({
-  //     study: {
-  //       ...this.state.study,
-  //       components,
-  //     },
-  //   });
-  // };
-
-  // moveComponent = (from, to, payload) => {
-  //   console.log('moving component', from, to, payload);
-  //   const components = [...this.state.study.components];
-  //   components[from] = this.state.study.components[to];
-  //   components[to] = this.state.study.components[from];
-  //   this.setState({
-  //     study: {
-  //       ...this.state.study,
-  //       components: [...components],
-  //     },
-  //   });
-  // };
 
   createNewStudy = async createStudyMutation => {
     const res = await createStudyMutation({
@@ -376,7 +340,7 @@ class StudyBuilder extends Component {
 
   render() {
     const { user } = this.props;
-    const { study, needToClone } = this.state;
+    const { study, needToClone, readOnlyMode } = this.state;
     const isAuthor =
       user.id === study?.author?.id ||
       study?.collaborators.includes(user.username);
@@ -398,61 +362,66 @@ class StudyBuilder extends Component {
               <div>
                 <p>{this.state.study.title}</p>
               </div>
-              {isAuthor && !needToClone ? (
-                <div className="saveBtn">
-                  <Mutation
-                    mutation={UPDATE_STUDY}
-                    refetchQueries={[
-                      {
-                        query: STUDY_QUERY,
-                        variables: { id: this.state.study.id },
-                      },
-                    ]}
-                  >
-                    {(updateStudy, { loading, error }) => {
-                      if (error) {
-                        alert(
-                          'Oops! this link has already be taken: please pick another.'
-                        );
-                      }
-                      return (
-                        <div>
-                          <button
-                            className="secondaryBtn"
-                            onClick={() => {
-                              this.updateMyStudy(updateStudy);
-                            }}
-                          >
-                            {loading ? 'Saving' : 'Save'}
-                          </button>
-                        </div>
-                      );
-                    }}
-                  </Mutation>
-                </div>
-              ) : (
-                <div className="saveBtn">
-                  <Mutation
-                    mutation={CREATE_NEW_STUDY}
-                    refetchQueries={[
-                      { query: MY_DEVELOPED_STUDIES_QUERY },
-                      { query: USER_DASHBOARD_QUERY },
-                    ]}
-                  >
-                    {(createStudy, { loading, error }) => (
-                      <div>
-                        <button
-                          className="secondaryBtn"
-                          onClick={() => {
-                            this.createNewStudy(createStudy);
-                          }}
-                        >
-                          {loading ? 'Saving' : 'Save your study'}
-                        </button>
-                      </div>
-                    )}
-                  </Mutation>
-                </div>
+
+              {!readOnlyMode && (
+                <>
+                  {isAuthor && !needToClone ? (
+                    <div className="saveBtn">
+                      <Mutation
+                        mutation={UPDATE_STUDY}
+                        refetchQueries={[
+                          {
+                            query: STUDY_QUERY,
+                            variables: { id: this.state.study.id },
+                          },
+                        ]}
+                      >
+                        {(updateStudy, { loading, error }) => {
+                          if (error) {
+                            alert(
+                              'Oops! this link has already be taken: please pick another.'
+                            );
+                          }
+                          return (
+                            <div>
+                              <button
+                                className="secondaryBtn"
+                                onClick={() => {
+                                  this.updateMyStudy(updateStudy);
+                                }}
+                              >
+                                {loading ? 'Saving' : 'Save'}
+                              </button>
+                            </div>
+                          );
+                        }}
+                      </Mutation>
+                    </div>
+                  ) : (
+                    <div className="saveBtn">
+                      <Mutation
+                        mutation={CREATE_NEW_STUDY}
+                        refetchQueries={[
+                          { query: MY_DEVELOPED_STUDIES_QUERY },
+                          { query: USER_DASHBOARD_QUERY },
+                        ]}
+                      >
+                        {(createStudy, { loading, error }) => (
+                          <div>
+                            <button
+                              className="secondaryBtn"
+                              onClick={() => {
+                                this.createNewStudy(createStudy);
+                              }}
+                            >
+                              {loading ? 'Saving' : 'Save your study'}
+                            </button>
+                          </div>
+                        )}
+                      </Mutation>
+                    </div>
+                  )}
+                </>
               )}
             </BuilderNav>
 

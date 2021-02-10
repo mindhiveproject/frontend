@@ -56,6 +56,16 @@ class SettingBlock extends Component {
               Only allow participants over 18 to take part in this study
             </label>
           )}
+          {name === 'forbidRetake' && (
+            <label className="name" htmlFor={name}>
+              Forbid participants to retake tasks or surveys
+            </label>
+          )}
+          {name === 'hideParticipateButton' && (
+            <label className="name" htmlFor={name}>
+              Hide "Participate" button
+            </label>
+          )}
         </div>
       </StyledSettingsBlock>
     );

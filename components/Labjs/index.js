@@ -14,18 +14,16 @@ class ExperimentWindow extends Component {
 
   componentDidMount() {
     const {
-      user,
-      template,
-      task,
-      study,
-      policy,
-      params,
-      style,
+      user, // user id
+      template, // the id of the original task
+      task, // the id of the test
+      study, // the id of the study
+      policy, // the data policy chosen by the user
+      params, // the test parameters
+      style, // the css style
     } = this.props.settings;
-    console.log(user, template, task, study, policy, params, style);
 
     const script = this.deserialize(this.props.settings.script);
-    // console.log('script', script);
 
     if (policy !== 'no' && policy !== 'preview') {
       script.plugins = [
@@ -38,15 +36,12 @@ class ExperimentWindow extends Component {
       ];
     }
 
-    // script.parameters = params;
-    // console.log('script.parameters', script.parameters);
     Object.assign(
       script.content[0] && script.content[0].parameters,
       params || {}
     );
 
     this.study = lab.util.fromObject(clonedeep(script), lab);
-    // console.log('this.study', this.study);
 
     this.study.run();
 
@@ -60,9 +55,12 @@ class ExperimentWindow extends Component {
       this.study = undefined;
       this.props.settings.on_finish(token);
     });
+
+    // can be used as a callback in case of the event inside of lab.js task
     // this.study.parameters.eventCallback = e => {
     //   props.settings.eventCallback(e);
     // };
+
     this.study.options.events.keydown = async e => {
       if (e.code === 'Escape') {
         let answer;
@@ -71,7 +69,7 @@ class ExperimentWindow extends Component {
             'Are you sure you want to interrupt your task without finishing? You will have to start this task from the beginning.'
           );
         }
-        if (answer == true || policy === 'preview') {
+        if (answer === true || policy === 'preview') {
           if (this.study) {
             const token =
               (this.study.plugins &&
@@ -80,7 +78,6 @@ class ExperimentWindow extends Component {
                   .map(plugin => plugin.metadata.id)[0]) ||
               'error';
             await this.study.internals.controller.audioContext.close();
-            // this.study.end();
             this.study = undefined;
             this.props.settings.on_finish(token);
           }
@@ -104,7 +101,6 @@ class ExperimentWindow extends Component {
         alert(
           'The study has been interrupted. Sorry, the next time you do the same task or survey, you will have to start from the beginning!'
         );
-        // this.study.end();
       }
     } catch (e) {
       console.log('Experiment closed before unmount');

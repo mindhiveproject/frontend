@@ -105,6 +105,9 @@ class Test extends Component {
               {({ data, loading }) => {
                 if (loading) return <p>Loading ... </p>;
                 const component = data.task;
+                if (!component) {
+                  return <p></p>;
+                }
                 return (
                   <StyledTaskCard taskType={component.taskType}>
                     <Card

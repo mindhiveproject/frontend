@@ -392,6 +392,8 @@ class DevelopmentSelectScreen extends Component {
                   zipCode: false,
                   sonaId: false,
                   minorsBlocked: false,
+                  forbidRetake: false,
+                  hideParticipateButton: false,
                 },
                 collaborators: [],
                 info: [

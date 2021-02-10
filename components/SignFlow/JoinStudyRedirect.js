@@ -12,10 +12,20 @@ const joinStudyRedirect = (study, profile) => {
       if (studyBlock && studyBlock.length && studyBlock[0].tests) {
         const components = studyBlock[0].tests;
         const taskId = components[0].id;
+
         Router.push({
           pathname: `/studies/${study.slug}`,
-          query: { c: taskId },
         });
+
+        // open the test on a new page
+        const url = `/dt/r?t=${taskId}&s=${study.id}`;
+        const win = window.open(url, '_blank');
+        win.focus();
+
+        // Router.push({
+        //   pathname: `/studies/${study.slug}`,
+        //   query: { c: taskId },
+        // });
       } else {
         Router.push({
           pathname: `/studies/${study.slug}`,

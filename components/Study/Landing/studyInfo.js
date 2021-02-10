@@ -25,6 +25,9 @@ class StudyInformation extends Component {
     const studyIds = user?.participantIn?.map(study => study.id) || [];
     const joinedTheStudy = studyIds.includes(study.id);
 
+    // whether to show Participate button
+    const showParticipateBtn = !study.settings?.hideParticipateButton;
+
     // parse study information
     const infoBlocks =
       study?.info?.reduce((acc, el) => {
@@ -95,29 +98,33 @@ class StudyInformation extends Component {
           </div>
 
           <div className="controlBtns">
-            <ContainerOnlyForNoProfile>
-              <Link
-                href={{
-                  pathname: '/join/getstarted',
-                  query: { id: study.id },
-                }}
-              >
-                <button>Participate</button>
-              </Link>
-            </ContainerOnlyForNoProfile>
+            {showParticipateBtn && (
+              <>
+                <ContainerOnlyForNoProfile>
+                  <Link
+                    href={{
+                      pathname: '/join/getstarted',
+                      query: { id: study.id },
+                    }}
+                  >
+                    <button>Participate</button>
+                  </Link>
+                </ContainerOnlyForNoProfile>
 
-            <ContainerOnlyForProfile>
-              {!studyIds.includes(study.id) && (
-                <Link
-                  href={{
-                    pathname: '/join/getstarted',
-                    query: { id: study.id },
-                  }}
-                >
-                  <button>Participate</button>
-                </Link>
-              )}
-            </ContainerOnlyForProfile>
+                <ContainerOnlyForProfile>
+                  {!studyIds.includes(study.id) && (
+                    <Link
+                      href={{
+                        pathname: '/join/getstarted',
+                        query: { id: study.id },
+                      }}
+                    >
+                      <button>Participate</button>
+                    </Link>
+                  )}
+                </ContainerOnlyForProfile>
+              </>
+            )}
 
             <ContainerOnlyForScientists>
               <Link

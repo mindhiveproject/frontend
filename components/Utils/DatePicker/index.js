@@ -5,7 +5,7 @@ import DatePicker from 'react-date-picker/dist/entry.nostyle';
 import { StyledBirthdayPicker } from './styles';
 
 export default function BirthdayPicker({ onDateInput }) {
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState(null);
 
   const onInput = e => {
     onChange(e);

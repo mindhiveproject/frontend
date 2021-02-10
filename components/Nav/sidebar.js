@@ -97,6 +97,24 @@ const SidebarNav = ({ user }) => (
           <div>Follow</div>
         </div>
       </Link>
+
+      {user?.permissions.includes('ADMIN') && (
+        <>
+          <div className="workspaceHeader">ADMIN</div>
+          <Link href="/dashboard/overview">
+            <div className="navLink">
+              <div>
+                <img
+                  src="/static/assets/dashboard-create.png"
+                  alt="icon"
+                  height="20"
+                />
+              </div>
+              <div>Overview</div>
+            </div>
+          </Link>
+        </>
+      )}
     </div>
 
     <div className="navBottonLinks">

@@ -41,16 +41,22 @@ const Displayer = ({
   columnsToFilter,
   updateState,
   helper,
-  pipeline,
   activeOperationPosition,
+  transformPipe,
+  spec,
 }) => {
   const header = 'Displayer';
   return (
     <>
       <h1>{header}</h1>
       <p>
-        Dataset size is {helper.computeSize(data, columnsToFilter).columns}x
-        {helper.computeSize(data, columnsToFilter).rows}
+        Original dataset size is {helper.computeSize(data, []).columns}x
+        {helper.computeSize(data, []).rows}
+      </p>
+      <p>
+        Current dataset size is{' '}
+        {helper.computeSize(currentStateData, columnsToFilter).columns}x
+        {helper.computeSize(currentStateData, columnsToFilter).rows}
       </p>
       <StyledDisplayer>
         <ColumnNamesList
@@ -62,11 +68,13 @@ const Displayer = ({
         />
         <WorkingDashboard
           data={data}
+          currentStateData={currentStateData}
           columnsToFilter={columnsToFilter}
           updateState={updateState}
           helper={helper}
-          pipeline={pipeline}
           activeOperationPosition={activeOperationPosition}
+          transformPipe={transformPipe}
+          spec={spec}
         />
       </StyledDisplayer>
     </>

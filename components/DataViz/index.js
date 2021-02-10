@@ -105,9 +105,9 @@ class StudyResults extends Component {
                 </div>
               );
             }
-            // console.log('myStudyResults', myStudyResults);
+
             const processedData = this.processRawData(myStudyResults);
-            // console.log('processedData', processedData);
+
             return (
               <>
                 <h2>Data Viz</h2>

@@ -8,6 +8,7 @@ const StyledColumnNamesList = styled.div`
   border: 1px solid grey;
 `;
 
+// display the processed data in currentStateData
 const ColumnNamesList = ({
   data,
   currentStateData,

@@ -8,8 +8,9 @@ class Manager extends Component {
   state = {
     data: this.props.data,
     columnsToFilter: [],
-    pipeline: [], // array of pipeline operations
     activeOperationPosition: -1, // TODO: default active operation
+    transformPipe: [], // transform pipe
+    spec: {},
   };
 
   // general function to update the data in the state
@@ -28,8 +29,9 @@ class Manager extends Component {
           data={this.state.data}
           columnsToFilter={this.state.columnsToFilter}
           updateState={this.updateState}
-          pipeline={this.state.pipeline}
           activeOperationPosition={this.state.activeOperationPosition}
+          transformPipe={this.state.transformPipe}
+          spec={this.state.spec}
         />
       </>
     );
