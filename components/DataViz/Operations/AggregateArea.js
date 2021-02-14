@@ -6,31 +6,40 @@ import OperationFunctions from '../Functions/operations';
 // selects and edit filters (its parameters) and change it in the pipeline
 const AggregateArea = ({
   currentStateData,
-  activeOperationPosition,
-  updateState,
+  updateSpec,
   operation,
   helper,
-  transformPipe,
+  spec,
+  activeTransformationPosition,
 }) => {
   // Declare a new state variable, which we'll call "count"
   const [field, setColumn] = useState('');
   React.useEffect(() => {
-    setColumn(operation?.parameters?.aggregate[0]?.field || '');
+    setColumn(
+      (operation?.aggregate.length && operation?.aggregate[0]?.field) || ''
+    );
   }, [operation]);
 
   const [op, setOp] = useState('mean');
   React.useEffect(() => {
-    setOp(operation?.parameters?.aggregate[0]?.op || 'mean');
+    setOp(
+      (operation?.aggregate.length && operation?.aggregate[0]?.op) || 'mean'
+    );
   }, [operation]);
 
   const [groupby, setGroupby] = useState('');
   React.useEffect(() => {
-    setGroupby(operation?.parameters?.groupby[0] || '');
+    setGroupby(
+      (operation?.groupby &&
+        operation?.groupby.length &&
+        operation?.groupby[0]) ||
+        ''
+    );
   }, [operation]);
 
   const [as, setAs] = useState('');
   React.useEffect(() => {
-    setAs(operation?.parameters?.aggregate[0]?.as || '');
+    setAs((operation?.aggregate.length && operation?.aggregate[0]?.as) || '');
   }, [operation]);
 
   // https://vega.github.io/vega-lite/docs/aggregate.html#ops
@@ -105,15 +114,15 @@ const AggregateArea = ({
       <button
         onClick={() =>
           OperationFunctions.addAggregateOperation(
-            transformPipe,
-            activeOperationPosition,
+            spec,
+            activeTransformationPosition,
             {
               field,
               op,
               groupby,
               as,
             },
-            updateState
+            updateSpec
           )
         }
       >

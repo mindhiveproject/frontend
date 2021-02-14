@@ -1,9 +1,28 @@
 import styled from 'styled-components';
 
+export const StyledHeader = styled.header`
+  display: grid;
+  grid-area: nav;
+  .bar {
+    margin-top: 33px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-content: space-between;
+    align-items: start;
+    @media (max-width: 700px) {
+      /* grid-template-columns: 1fr;
+      justify-content: center; */
+    }
+  }
+  .sub-bar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-bottom: 1px solid ${props => props.theme.lightgrey};
+  }
+`;
+
 export const Logo = styled.a`
   @import url('https://fonts.googleapis.com/css?family=Montserrat');
-  /* margin: 20px; */
-  /* margin-top: 33px; */
   display: grid;
   justify-items: start;
   cursor: pointer;
@@ -26,27 +45,5 @@ export const Logo = styled.a`
   }
   img {
     margin-right: 10px;
-  }
-`;
-
-export const StyledHeader = styled.header`
-  display: grid;
-  grid-area: nav;
-  .bar {
-    /* border-bottom: 3px solid ${props => props.theme.black}; */
-    margin-top: 33px;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    justify-content: space-between;
-    align-items: start;
-    @media (max-width: 700px) {
-      /* grid-template-columns: 1fr;
-      justify-content: center; */
-    }
-  }
-  .sub-bar {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    border-bottom: 1px solid ${props => props.theme.lightgrey};
   }
 `;

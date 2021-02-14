@@ -4,26 +4,26 @@ import OperationFunctions from '../Functions/operations';
 // selects and edit filters (its parameters) and change it in the pipeline
 const FilterArea = ({
   currentStateData,
-  activeOperationPosition,
-  updateState,
+  updateSpec,
   operation,
   helper,
-  transformPipe,
+  spec,
+  activeTransformationPosition,
 }) => {
   // Declare a new state variable, which we'll call "count"
   const [field, setField] = useState('');
   React.useEffect(() => {
-    setField(operation?.parameters?.filter?.field || '');
+    setField(operation?.filter?.field || '');
   }, [operation]);
 
   const [predicate, setPredicate] = useState('equal');
   React.useEffect(() => {
-    setPredicate(operation?.parameters?.filter?.predicate || 'equal');
+    setPredicate(operation?.filter?.predicate || 'equal');
   }, [operation]);
 
   const [value, setValue] = useState('');
   React.useEffect(() => {
-    setValue(operation?.parameters?.filter?.value || '');
+    setValue(operation?.filter?.value || '');
   }, [operation]);
 
   const [operators] = React.useState([
@@ -91,14 +91,14 @@ const FilterArea = ({
       <button
         onClick={() =>
           OperationFunctions.addFilterOperation(
-            transformPipe,
-            activeOperationPosition,
+            spec,
+            activeTransformationPosition,
             {
               field,
               predicate,
               value,
             },
-            updateState
+            updateSpec
           )
         }
       >

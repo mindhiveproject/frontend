@@ -2,10 +2,8 @@ import Link from 'next/link';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import Nav from '../Nav/index';
-import Dashboard from '../Dashboard/index';
-import Search from '../Search/index';
 
-import { Logo, StyledHeader } from './styles';
+import { StyledHeader, Logo } from './styles';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -29,14 +27,6 @@ const Header = () => (
       </Logo>
       <Nav />
     </div>
-    {false && (
-      <>
-        <div className="sub-bar">
-          <Search />
-        </div>
-        <Dashboard />
-      </>
-    )}
   </StyledHeader>
 );
 

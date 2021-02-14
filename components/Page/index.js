@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 import Header from '../Header/index';
 import Footer from '../Footer/index';
 import Meta from '../Meta/index';
 
-import { StyledPage, Inner, UserPage, UserInner } from './styles';
+import { StyledPage, Inner } from './styles';
 
 const theme = {
   red: '#FF0000',
@@ -21,6 +21,13 @@ const theme = {
 };
 
 const GlobalStyle = createGlobalStyle`
+  // @font-face {
+  //   font-family: 'radnika_next';
+  //   src: url('https://fonts.googleapis.com/css?family=Lato');
+  //   format('Lato');
+  //   font-style: normal;
+  //   font-weight: normal;
+  // }
   html {
     box-sizing: border-box;
     font-size: 10px;
@@ -41,13 +48,13 @@ class Page extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Meta />
         <StyledPage>
           <Header />
           <Inner>{this.props.children}</Inner>
           <Footer />
         </StyledPage>
-        <GlobalStyle />
       </ThemeProvider>
     );
   }

@@ -8,9 +8,8 @@ class Manager extends Component {
   state = {
     data: this.props.data,
     columnsToFilter: [],
-    activeOperationPosition: -1, // TODO: default active operation
-    transformPipe: [], // transform pipe
     spec: {},
+    activeTransformationPosition: -1, // TODO: default active operation
   };
 
   // general function to update the data in the state
@@ -20,20 +19,27 @@ class Manager extends Component {
     });
   };
 
+  // update specification
+  updateSpec = (name, value) => {
+    const { spec } = this.state;
+    const newSpec = { ...spec };
+    newSpec[name] = value;
+    this.setState({
+      spec: newSpec,
+    });
+  };
+
   // here i am testing the functions with simple buttons
   render() {
     return (
-      <>
-        <div>Hello there, i am data manager and I manage the state</div>
-        <Runner
-          data={this.state.data}
-          columnsToFilter={this.state.columnsToFilter}
-          updateState={this.updateState}
-          activeOperationPosition={this.state.activeOperationPosition}
-          transformPipe={this.state.transformPipe}
-          spec={this.state.spec}
-        />
-      </>
+      <Runner
+        data={this.state.data}
+        columnsToFilter={this.state.columnsToFilter}
+        updateState={this.updateState}
+        updateSpec={this.updateSpec}
+        activeTransformationPosition={this.state.activeTransformationPosition}
+        spec={this.state.spec}
+      />
     );
   }
 }

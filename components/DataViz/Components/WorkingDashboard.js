@@ -20,15 +20,18 @@ const WorkingDashboard = ({
   data,
   columnsToFilter,
   updateState,
+  updateSpec,
   helper,
-  activeOperationPosition,
+  activeTransformationPosition,
   currentStateData,
-  transformPipe,
   spec,
 }) => {
   const header = 'Working Area';
-  const operation = transformPipe[activeOperationPosition];
-  const operationType = transformPipe[activeOperationPosition]?.type;
+  const transformPipe = spec.transform || [];
+  const operation = transformPipe[activeTransformationPosition] || {};
+  const operationType =
+    Object.keys(operation).length && Object.keys(operation)[0].toUpperCase();
+
   return (
     <div>
       <h1>{header}</h1>
@@ -37,57 +40,60 @@ const WorkingDashboard = ({
         currentStateData={currentStateData}
         columnsToFilter={columnsToFilter}
         updateState={updateState}
+        updateSpec={updateSpec}
         helper={helper}
-        activeOperationPosition={activeOperationPosition}
-        transformPipe={transformPipe}
+        activeTransformationPosition={activeTransformationPosition}
+        spec={spec}
       />
       <StyledActiveArea>
         <h3>Active area</h3>
-        <p>Active operation position is {activeOperationPosition}</p>
+        <p>Active transformation position is {activeTransformationPosition}</p>
         <p>Operation type: {operationType}</p>
         <p>{JSON.stringify(operation)}</p>
         {operationType === 'FILTER' && (
           <FilterArea
             currentStateData={currentStateData}
-            activeOperationPosition={activeOperationPosition}
-            updateState={updateState}
+            updateSpec={updateSpec}
             operation={operation}
             helper={helper}
-            transformPipe={transformPipe}
+            spec={spec}
+            activeTransformationPosition={activeTransformationPosition}
           />
         )}
         {operationType === 'CALCULATE' && (
           <CalculateArea
             currentStateData={currentStateData}
-            activeOperationPosition={activeOperationPosition}
-            updateState={updateState}
+            updateSpec={updateSpec}
             operation={operation}
             helper={helper}
-            transformPipe={transformPipe}
+            spec={spec}
+            activeTransformationPosition={activeTransformationPosition}
           />
         )}
         {operationType === 'AGGREGATE' && (
           <AggregateArea
             currentStateData={currentStateData}
-            activeOperationPosition={activeOperationPosition}
-            updateState={updateState}
+            updateSpec={updateSpec}
             operation={operation}
             helper={helper}
-            transformPipe={transformPipe}
-          />
-        )}
-        {operationType === 'DISPLAY' && (
-          <DisplayArea
-            currentStateData={currentStateData}
-            activeOperationPosition={activeOperationPosition}
-            updateState={updateState}
-            operation={operation}
-            helper={helper}
-            transformPipe={transformPipe}
+            spec={spec}
+            activeTransformationPosition={activeTransformationPosition}
           />
         )}
 
-        <Render data={currentStateData} transform={transformPipe} spec={spec} />
+        {spec.mark && (
+          <DisplayArea
+            currentStateData={currentStateData}
+            updateSpec={updateSpec}
+            updateState={updateState}
+            operation={operation}
+            helper={helper}
+            spec={spec}
+            activeTransformationPosition={activeTransformationPosition}
+          />
+        )}
+
+        <Render data={currentStateData} spec={spec} />
       </StyledActiveArea>
     </div>
   );

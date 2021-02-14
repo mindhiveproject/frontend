@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import SpecEditor from './Components/SpecEditor';
 import ColumnNamesList from './Components/ColumnNamesList';
 import WorkingDashboard from './Components/WorkingDashboard';
+
+const StyledContainer = styled.div`
+  margin: 20px;
+  display: grid;
+`;
 
 const StyledDisplayer = styled.div`
   display: grid;
@@ -32,6 +38,7 @@ const StyledDisplayer = styled.div`
 `;
 
 // display things
+// SpecEditor specification editor
 // ColumnNamesList: the column names on the left
 // WorkingDashboard: working area on the right
 
@@ -40,24 +47,15 @@ const Displayer = ({
   currentStateData,
   columnsToFilter,
   updateState,
+  updateSpec,
   helper,
-  activeOperationPosition,
-  transformPipe,
+  activeTransformationPosition,
   spec,
 }) => {
-  const header = 'Displayer';
+  const header = 'Data Viz (version 0.0.1)';
   return (
-    <>
+    <StyledContainer>
       <h1>{header}</h1>
-      <p>
-        Original dataset size is {helper.computeSize(data, []).columns}x
-        {helper.computeSize(data, []).rows}
-      </p>
-      <p>
-        Current dataset size is{' '}
-        {helper.computeSize(currentStateData, columnsToFilter).columns}x
-        {helper.computeSize(currentStateData, columnsToFilter).rows}
-      </p>
       <StyledDisplayer>
         <ColumnNamesList
           data={data}
@@ -71,13 +69,30 @@ const Displayer = ({
           currentStateData={currentStateData}
           columnsToFilter={columnsToFilter}
           updateState={updateState}
+          updateSpec={updateSpec}
           helper={helper}
-          activeOperationPosition={activeOperationPosition}
-          transformPipe={transformPipe}
+          activeTransformationPosition={activeTransformationPosition}
           spec={spec}
         />
       </StyledDisplayer>
-    </>
+
+      <SpecEditor spec={spec} updateState={updateState} />
+
+      <p>
+        Original dataset size is {helper.computeSize(data, []).columns}x
+        {helper.computeSize(data, []).rows}
+      </p>
+      <p>
+        Current dataset size is{' '}
+        {helper.computeSize(currentStateData, columnsToFilter).columns}x
+        {helper.computeSize(currentStateData, columnsToFilter).rows}
+      </p>
+      <div>
+        <button onClick={() => helper.download(currentStateData)}>
+          Download
+        </button>
+      </div>
+    </StyledContainer>
   );
 };
 

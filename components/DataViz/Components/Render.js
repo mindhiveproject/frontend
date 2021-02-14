@@ -5,34 +5,14 @@ import { VegaLite } from 'react-vega';
 
 class Render extends Component {
   render() {
-    // get the transformation pipeline
-    const transform = this.props.transform.map(t => t.parameters);
+    // get the specification
     const spec = this.props.spec || {};
-    // const spec = {
-    //   width: 400,
-    //   height: 300,
-    //   mark: 'point', // bar, point
-    //   transform,
-    //   encoding: {
-    //     x: {
-    //       field: 'color',
-    //       type: 'ordinal',
-    //       title: 'Color',
-    //     },
-    //     y: {
-    //       field: 'duration-mean',
-    //       type: 'quantitative',
-    //       title: 'Time',
-    //     },
-    //   },
-    //   data: { name: 'values' }, // note: vega-lite data attribute is a plain object instead of an array
-    // };
 
-    const barData = {
+    const data = {
       values: this.props.data,
     };
 
-    return <VegaLite spec={spec} data={barData} />;
+    return <VegaLite spec={spec} data={data} />;
   }
 }
 

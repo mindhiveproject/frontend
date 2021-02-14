@@ -4,20 +4,20 @@ import OperationFunctions from '../Functions/operations';
 // selects and edit filters (its parameters) and change it in the pipeline
 const CalculateArea = ({
   currentStateData,
-  activeOperationPosition,
-  updateState,
+  updateSpec,
   operation,
   helper,
-  transformPipe,
+  spec,
+  activeTransformationPosition,
 }) => {
   const [calculate, setCalculate] = useState('');
   React.useEffect(() => {
-    setCalculate(operation?.parameters?.calculate || '');
+    setCalculate(operation?.calculate || '');
   }, [operation]);
 
   const [as, setAs] = useState('');
   React.useEffect(() => {
-    setAs(operation?.parameters?.as || '');
+    setAs(operation?.as || '');
   }, [operation]);
 
   const header = 'Calculate area';
@@ -28,7 +28,9 @@ const CalculateArea = ({
       <div>
         <p>
           <label>
-            Enter the formula (use "datum." in front of the name of variables)
+            <p>
+              Enter the formula (use "datum." in front of the name of variables)
+            </p>
             <input
               type="text"
               value={calculate}
@@ -39,7 +41,7 @@ const CalculateArea = ({
 
         <p>
           <label>
-            Enter the new variable name
+            <p>Enter the new variable name</p>
             <input
               type="text"
               value={as}
@@ -51,13 +53,13 @@ const CalculateArea = ({
       <button
         onClick={() =>
           OperationFunctions.addCalculateOperation(
-            transformPipe,
-            activeOperationPosition,
+            spec,
+            activeTransformationPosition,
             {
               calculate,
               as,
             },
-            updateState
+            updateSpec
           )
         }
       >

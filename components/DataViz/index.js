@@ -108,12 +108,7 @@ class StudyResults extends Component {
 
             const processedData = this.processRawData(myStudyResults);
 
-            return (
-              <>
-                <h2>Data Viz</h2>
-                <Manager data={processedData} />
-              </>
-            );
+            return <Manager data={processedData} />;
           }}
         </Query>
       </>

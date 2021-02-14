@@ -4,16 +4,14 @@ import Processor from './Functions/processor';
 import Helper from './Functions/helper';
 import Displayer from './displayer';
 
-import SpecEditor from './Components/SpecEditor';
-
 // suppose to run things and put together everything with which users can interact
 
 const Runner = ({
   data,
   columnsToFilter,
   updateState,
-  activeOperationPosition,
-  transformPipe,
+  updateSpec,
+  activeTransformationPosition,
   spec,
 }) => {
   const header = 'Runner';
@@ -22,25 +20,16 @@ const Runner = ({
   const currentStateData = Processor.processData(data, columnsToFilter);
 
   return (
-    <>
-      <h1>{header}</h1>
-      <div>
-        <button onClick={() => Helper.download(currentStateData)}>
-          Download
-        </button>
-      </div>
-      <SpecEditor spec={spec} updateState={updateState} />
-      <Displayer
-        data={data}
-        currentStateData={currentStateData}
-        columnsToFilter={columnsToFilter}
-        updateState={updateState}
-        helper={Helper}
-        activeOperationPosition={activeOperationPosition}
-        transformPipe={transformPipe}
-        spec={spec}
-      />
-    </>
+    <Displayer
+      data={data}
+      currentStateData={currentStateData}
+      columnsToFilter={columnsToFilter}
+      updateState={updateState}
+      updateSpec={updateSpec}
+      helper={Helper}
+      activeTransformationPosition={activeTransformationPosition}
+      spec={spec}
+    />
   );
 };
 

@@ -12,6 +12,11 @@ const StyledSettingsList = styled.div`
 class EditParameters extends Component {
   render() {
     const { study } = this.props;
+    const settings = {
+      forbidRetake: false,
+      hideParticipateButton: false,
+      ...study.settings,
+    };
 
     const studyThankYouMessageBlock = study.info.filter(
       el => el.name === 'thankYouMessage'
@@ -31,7 +36,7 @@ class EditParameters extends Component {
         ))}
 
         <StyledSettingsList>
-          {Object.keys(study.settings).map((name, i) => (
+          {Object.keys(settings).map((name, i) => (
             <SettingsBlock
               key={i}
               name={name}

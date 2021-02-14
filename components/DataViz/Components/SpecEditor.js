@@ -19,13 +19,17 @@ const SpecEditor = ({ spec, updateState }) => {
 
   return (
     <div>
-      <h2>Spec Editor</h2>
+      <h2>Specification Editor</h2>
       <p>Enter the specification</p>
       <textarea
+        cols="100"
+        rows="10"
         value={specString}
         onChange={e => setSpecString(e.target.value)}
       />
-      <button onClick={e => evaluate()}>Evaluate</button>
+      <p>
+        <button onClick={e => evaluate()}>Evaluate</button>
+      </p>
     </div>
   );
 };

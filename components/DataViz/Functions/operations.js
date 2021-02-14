@@ -1,22 +1,12 @@
-// add a new filter parameters to a pipeline
-// const addFilter = (
-//   pipeline,
-//   activeOperationPosition,
-//   parameters,
-//   updateState
-// ) => {
-//   pipeline[activeOperationPosition].parameters = parameters;
-//   console.log('pipeline', pipeline);
-//   updateState('pipeline', pipeline);
-// };
-
 const addFilterOperation = (
-  transformPipe,
-  activeOperationPosition,
+  spec,
+  activeTransformationPosition,
   parameters,
-  updateState
+  updateSpec
 ) => {
-  transformPipe[activeOperationPosition].parameters = {
+  const transform = spec.transform || [];
+  const newTransform = [...transform];
+  newTransform[activeTransformationPosition] = {
     filter: {
       field: parameters.field,
       [parameters.predicate]: parameters.value,
@@ -24,29 +14,33 @@ const addFilterOperation = (
       value: parameters.value,
     },
   };
-  updateState('transformPipe', transformPipe);
+  updateSpec('transform', newTransform);
 };
 
 const addCalculateOperation = (
-  transformPipe,
-  activeOperationPosition,
+  spec,
+  activeTransformationPosition,
   parameters,
-  updateState
+  updateSpec
 ) => {
-  transformPipe[activeOperationPosition].parameters = {
+  const transform = spec.transform || [];
+  const newTransform = [...transform];
+  newTransform[activeTransformationPosition] = {
     calculate: parameters.calculate,
     as: parameters.as,
   };
-  updateState('transformPipe', transformPipe);
+  updateSpec('transform', newTransform);
 };
 
 const addAggregateOperation = (
-  transformPipe,
-  activeOperationPosition,
+  spec,
+  activeTransformationPosition,
   parameters,
-  updateState
+  updateSpec
 ) => {
-  transformPipe[activeOperationPosition].parameters = {
+  const transform = spec.transform || [];
+  const newTransform = [...transform];
+  newTransform[activeTransformationPosition] = {
     aggregate: [
       {
         op: parameters.op,
@@ -56,13 +50,23 @@ const addAggregateOperation = (
     ],
     groupby: [parameters.groupby],
   };
-  updateState('transformPipe', transformPipe);
+  updateSpec('transform', newTransform);
+};
+
+const editDislaySpec = (spec, parameters, updateState) => {
+  const previousSpec = { ...spec } || {};
+  const newSpec = {
+    ...previousSpec,
+    ...parameters,
+  };
+  updateState('spec', newSpec);
 };
 
 const OperationFunctions = {
   addFilterOperation,
   addCalculateOperation,
   addAggregateOperation,
+  editDislaySpec,
 };
 
 export default OperationFunctions;
