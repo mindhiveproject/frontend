@@ -1,6 +1,10 @@
+import { useRouter } from 'next/router';
 import Data from '../../components/DataViz/index';
-// import Page from '../../components/Page/index';
 
-const DataPage = ({ query }) => <Data id={query.id} />;
+const DataPage = () => {
+  const router = useRouter();
+  if (!router.query.id) return <p>Loading...</p>;
+  return <Data id={router.query.id} />;
+};
 
 export default DataPage;
