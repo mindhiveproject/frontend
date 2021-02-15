@@ -110,6 +110,7 @@ class StudyResults extends Component {
             }
 
             const processedData = this.processRawData(myStudyResults);
+            console.log('processedData', processedData);
 
             return <Manager data={processedData} />;
           }}
