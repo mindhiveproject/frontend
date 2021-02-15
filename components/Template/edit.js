@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import { SignForm } from '../Styles/Forms';
 import Error from '../ErrorMessage/index';
 import { StyledParameterBlock } from './styles';
+import lz from "lzutf8";
 
 import assemble from '../AddExperiment/assembleDev/index';
 
@@ -97,9 +98,10 @@ class OriginalTemplateForm extends Component {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
       const script = result.files['script.js'].content;
-      console.log('result', result);
+      const compressedString = lz.encodeBase64(lz.compress(script));
+      console.log('compressedString', compressedString);
       this.setState({
-        script,
+        script: compressedString,
         style: result.files['style.css'].content,
         file,
       });

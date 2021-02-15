@@ -2,20 +2,16 @@ import React, { Component } from 'react';
 import clonedeep from 'lodash.clonedeep';
 import Head from 'next/head';
 import * as lab from './lib/lab.js';
+import { convert } from './functions';
 
 class ExperimentWindow extends Component {
   constructor(props) {
     super(props);
   }
 
-  deserialize(serializedJavascript) {
-    return eval(`(${serializedJavascript})`);
-  }
-
   componentDidMount() {
     const { props } = this;
-    const script = this.deserialize(props.settings.script);
-    console.log('props.settings.params', props.settings.params);
+    const script = convert(props.settings.script);
     Object.assign(
       script.content[0] && script.content[0].parameters,
       props.settings.params || {}

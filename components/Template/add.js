@@ -7,6 +7,7 @@ import Error from '../ErrorMessage/index';
 import { StyledParameterBlock } from './styles';
 import assemble from '../AddExperiment/assembleDev/index';
 import { MY_TEMPLATES_QUERY } from './mybank';
+import { compress } from 'lz-string';
 
 const CREATE_NEW_TEMPLATE = gql`
   mutation CREATE_NEW_TEMPLATE(
@@ -62,10 +63,10 @@ class AddTemplate extends Component {
     fileReader.onload = async fileLoadedEvent => {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
-      console.log('result', result);
       const script = result.files['script.js'].content;
+      const compressedString = compress(script);
       this.setState({
-        script,
+        script: compressedString,
         style: result.files['style.css'].content,
         file,
       });

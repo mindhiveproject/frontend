@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import clonedeep from 'lodash.clonedeep';
 import Head from 'next/head';
+import { convert } from './functions';
+
 import * as lab from './lib/lab.js';
 
 class ExperimentWindow extends Component {
   constructor(props) {
     super(props);
-  }
-
-  deserialize(serializedJavascript) {
-    return eval(`(${serializedJavascript})`);
   }
 
   componentDidMount() {
@@ -23,7 +21,7 @@ class ExperimentWindow extends Component {
       style, // the css style
     } = this.props.settings;
 
-    const script = this.deserialize(this.props.settings.script);
+    const script = convert(this.props.settings.script);
 
     if (policy !== 'no' && policy !== 'preview') {
       script.plugins = [
@@ -47,7 +45,7 @@ class ExperimentWindow extends Component {
 
     this.study.on('end', () => {
       // compute aggregated data here?
-      debugger;
+      // debugger;
       const token =
         (this.study?.plugins &&
           this.study.plugins.plugins
