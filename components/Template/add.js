@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { SignForm } from '../Styles/Forms';
 import Error from '../ErrorMessage/index';
 import { StyledParameterBlock } from './styles';
-import assemble from '../AddExperiment/assemble/index';
+import assemble from '../AddExperiment/assembleDev/index';
 import { MY_TEMPLATES_QUERY } from './mybank';
 
 const CREATE_NEW_TEMPLATE = gql`

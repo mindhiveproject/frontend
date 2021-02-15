@@ -6,7 +6,7 @@ import { SignForm } from '../Styles/Forms';
 import Error from '../ErrorMessage/index';
 import { StyledParameterBlock } from './styles';
 
-import assemble from '../AddExperiment/assemble/index';
+import assemble from '../AddExperiment/assembleDev/index';
 
 const SINGLE_TEMPLATE_QUERY = gql`
   query SINGLE_TEMPLATE_QUERY($id: ID!) {
@@ -97,6 +97,7 @@ class OriginalTemplateForm extends Component {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
       const script = result.files['script.js'].content;
+      console.log('result', result);
       this.setState({
         script,
         style: result.files['style.css'].content,

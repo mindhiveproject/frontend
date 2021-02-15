@@ -46,6 +46,8 @@ class ExperimentWindow extends Component {
     this.study.run();
 
     this.study.on('end', () => {
+      // compute aggregated data here?
+      debugger;
       const token =
         (this.study?.plugins &&
           this.study.plugins.plugins
