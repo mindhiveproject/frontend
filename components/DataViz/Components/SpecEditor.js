@@ -20,7 +20,6 @@ const SpecEditor = ({ spec, updateState }) => {
   return (
     <div>
       <h2>Specification Editor</h2>
-      <p>Enter the specification</p>
       <textarea
         cols="100"
         rows="10"

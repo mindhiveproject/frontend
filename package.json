@@ -59,6 +59,7 @@
     "project-name-generator": "^2.1.7",
     "prop-types": "^15.6.2",
     "react": "^16.13.1",
+    "react-addons-pure-render-mixin": "^15.6.3",
     "react-adopt": "^0.6.0",
     "react-apollo": "^2.2.1",
     "react-beautiful-dnd": "^13.0.0",

@@ -3,6 +3,7 @@ import OperationFunctions from '../Functions/operations';
 
 // selects and edit filters (its parameters) and change it in the pipeline
 const FilterArea = ({
+  transformedData,
   currentStateData,
   updateSpec,
   operation,
@@ -37,7 +38,7 @@ const FilterArea = ({
     { label: 'Valid', value: 'valid' },
   ]);
 
-  const header = 'Filter Area';
+  const header = `${activeTransformationPosition + 1}) Filter`;
 
   return (
     <div>
@@ -47,7 +48,7 @@ const FilterArea = ({
           <label>
             Select column
             <select value={field} onChange={e => setField(e.target.value)}>
-              {['', ...helper.getColumnNames(currentStateData)].map(
+              {['', ...helper.getColumnNames(transformedData)].map(
                 (value, num) => (
                   <option key={num} value={value}>
                     {value}
@@ -77,7 +78,7 @@ const FilterArea = ({
             Select value
             <select value={value} onChange={e => setValue(e.target.value)}>
               {field &&
-                ['', ...helper.getColumnValues(currentStateData, field)].map(
+                ['', ...helper.getColumnValues(transformedData, field)].map(
                   (value, num) => (
                     <option key={num} value={value}>
                       {JSON.stringify(value)}
@@ -102,7 +103,7 @@ const FilterArea = ({
           )
         }
       >
-        Add
+        Update
       </button>
     </div>
   );

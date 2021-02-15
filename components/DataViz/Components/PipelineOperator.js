@@ -5,21 +5,34 @@ import PipelineFunctions from '../Functions/pipeline';
 
 const StyledPipelineOperator = styled.div`
   display: grid;
-  border: 1px solid grey;
-  margin: 5px;
-  padding: 10px;
-  .operations {
+  align-content: flex-start;
+  /* border: 1px solid lightgrey; */
+  /* margin: 5px;
+  padding: 10px; */
+  .pipelineButtons {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 1fr;
-    /* grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); */
+    grid-template-columns: auto auto;
+    justify-content: flex-start;
+    margin-bottom: 5px;
   }
-  .operationThumb {
+  .operations {
     display: grid;
-    grid-gap: 5px;
-    grid-template-columns: 3fr 2fr 1fr;
-    border: 1px solid grey;
+    grid-gap: 30px;
+    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
+`;
+
+const StyledOperationThumb = styled.div`
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 3fr 1fr;
+  border: 1px solid grey;
+  align-items: center;
+  cursor: pointer;
+  background: ${props => (props.active ? '#007c70' : 'white')};
+  color: ${props => (props.active ? 'white' : 'black')};
 `;
 
 // displays controllers for editing the pipeline and activating one of the operations
@@ -36,7 +49,7 @@ const PipelineOperator = ({
 }) => {
   const transformPipe = spec.transform || [];
 
-  const header = 'Pipeline operator';
+  const header = 'Preprocessing pipeline';
   const filterTemplate = {
     filter: {},
   };
@@ -44,54 +57,10 @@ const PipelineOperator = ({
     calculate: '',
     as: '',
   };
-  const aggregationTemplate = {
-    aggregate: [],
-    groupby: [],
-  };
-  const displayTemplate = {
-    type: 'DISPLAY',
-  };
+
   return (
     <StyledPipelineOperator>
-      <h3>{header}</h3>
-      <p>Transform pipeline length {transformPipe.length}</p>
-      <p>
-        Active transformation operation's position is{' '}
-        {activeTransformationPosition}
-      </p>
-      <div className="operations">
-        {transformPipe.map((operation, position) => {
-          const operationName = Object.keys(operation)[0].toUpperCase();
-          return (
-            <div className="operationThumb" key={position}>
-              <span>{operationName}</span>
-              <button
-                onClick={() =>
-                  PipelineFunctions.activateOperation(
-                    'TRANSFORM',
-                    position,
-                    updateState
-                  )
-                }
-              >
-                Edit
-              </button>
-              <button
-                onClick={() =>
-                  PipelineFunctions.removeTransformOperation(
-                    spec,
-                    position,
-                    updateSpec
-                  )
-                }
-              >
-                X
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      <div>
+      <div className="pipelineButtons">
         <div>
           <button
             onClick={() =>
@@ -102,7 +71,7 @@ const PipelineOperator = ({
               )
             }
           >
-            + FILTER
+            ADD FILTER
           </button>
         </div>
         <div>
@@ -115,35 +84,74 @@ const PipelineOperator = ({
               )
             }
           >
-            + CALCULATION
+            ADD CALCULATION
           </button>
         </div>
-        <div>
-          <button
-            onClick={() =>
-              PipelineFunctions.addTransformOperation(
-                spec,
-                aggregationTemplate,
-                updateSpec
-              )
-            }
-          >
-            + AGGREGATION
-          </button>
-        </div>
-        // TO do - make display separate
-        <div>
-          <button
-            onClick={() =>
-              PipelineFunctions.addDisplayOperation(spec, updateState)
-            }
-          >
-            + DISPLAY
-          </button>
-        </div>
+      </div>
+
+      <h3>{header}</h3>
+
+      <div className="operations">
+        {transformPipe.map((operation, position) => {
+          const operationName = Object.keys(operation)[0].toUpperCase();
+          return (
+            <StyledOperationThumb
+              key={position}
+              active={activeTransformationPosition === position}
+            >
+              <div
+                onClick={() =>
+                  PipelineFunctions.activateOperation(
+                    'TRANSFORM',
+                    position,
+                    updateState
+                  )
+                }
+              >
+                <span>
+                  {position + 1}) {operationName}
+                </span>
+              </div>
+              <button
+                onClick={() =>
+                  PipelineFunctions.removeTransformOperation(
+                    spec,
+                    position,
+                    updateSpec
+                  )
+                }
+              >
+                X
+              </button>
+            </StyledOperationThumb>
+          );
+        })}
       </div>
     </StyledPipelineOperator>
   );
 };
 
 export default PipelineOperator;
+
+// <div>
+//   <button
+//     onClick={() =>
+//       PipelineFunctions.addTransformOperation(
+//         spec,
+//         aggregationTemplate,
+//         updateSpec
+//       )
+//     }
+//   >
+//     + AGGREGATION
+//   </button>
+// </div>
+// TO do - make display separate
+
+// <div className="debuggerInfo">
+//   <div>Transform pipeline length {transformPipe.length}</div>
+//   <div>
+//     Active transformation operation's position is{' '}
+//     {activeTransformationPosition}
+//   </div>
+// </div>

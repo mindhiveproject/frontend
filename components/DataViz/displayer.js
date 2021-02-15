@@ -12,9 +12,9 @@ const StyledContainer = styled.div`
 
 const StyledDisplayer = styled.div`
   display: grid;
-  grid-template-columns: 2fr 4fr;
+  grid-template-columns: 2fr 7fr;
   grid-gap: 20px;
-  border: 1px solid grey;
+  border: 1px solid white;
   width: 90%;
   button {
     border: 1px solid grey;
@@ -38,12 +38,13 @@ const StyledDisplayer = styled.div`
 `;
 
 // display things
-// SpecEditor specification editor
 // ColumnNamesList: the column names on the left
 // WorkingDashboard: working area on the right
+// SpecEditor specification editor
 
 const Displayer = ({
   data,
+  transformedData,
   currentStateData,
   columnsToFilter,
   updateState,
@@ -55,10 +56,12 @@ const Displayer = ({
   const header = 'Data Viz (version 0.0.1)';
   return (
     <StyledContainer>
-      <h1>{header}</h1>
+      <h2>{header}</h2>
+
       <StyledDisplayer>
         <ColumnNamesList
           data={data}
+          transformedData={transformedData}
           currentStateData={currentStateData}
           columnsToFilter={columnsToFilter}
           updateState={updateState}
@@ -66,6 +69,7 @@ const Displayer = ({
         />
         <WorkingDashboard
           data={data}
+          transformedData={transformedData}
           currentStateData={currentStateData}
           columnsToFilter={columnsToFilter}
           updateState={updateState}
@@ -77,21 +81,6 @@ const Displayer = ({
       </StyledDisplayer>
 
       <SpecEditor spec={spec} updateState={updateState} />
-
-      <p>
-        Original dataset size is {helper.computeSize(data, []).columns}x
-        {helper.computeSize(data, []).rows}
-      </p>
-      <p>
-        Current dataset size is{' '}
-        {helper.computeSize(currentStateData, columnsToFilter).columns}x
-        {helper.computeSize(currentStateData, columnsToFilter).rows}
-      </p>
-      <div>
-        <button onClick={() => helper.download(currentStateData)}>
-          Download
-        </button>
-      </div>
     </StyledContainer>
   );
 };

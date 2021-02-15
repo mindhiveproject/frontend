@@ -4,20 +4,42 @@ import PipelineOperator from './PipelineOperator';
 
 import FilterArea from '../Operations/FilterArea';
 import CalculateArea from '../Operations/CalculateArea';
-import AggregateArea from '../Operations/AggregateArea';
 import DisplayArea from '../Operations/DisplayArea';
+
+import PipelineFunctions from '../Functions/pipeline';
 
 import Render from './Render';
 
-const StyledActiveArea = styled.div`
+const StyledDashboard = styled.div`
   display: grid;
-  border: 1px solid grey;
+  border: 1px solid lightgrey;
   margin: 5px;
   padding: 10px;
+  height: 100%;
+  grid-template-rows: auto 1fr;
+`;
+
+const StyledPreprocessingArea = styled.div`
+  display: grid;
+  align-content: flex-start;
+  min-height: 300px;
+  .operationBoard {
+    margin-top: 5px;
+    border: 1px solid #ffffef;
+    background: #ffffef;
+  }
+`;
+
+const StyledDisplayArea = styled.div`
+  display: grid;
+  border-top: 1px solid lightgrey;
+  height: 100%;
+  grid-template-rows: auto 1fr;
 `;
 
 const WorkingDashboard = ({
   data,
+  transformedData,
   columnsToFilter,
   updateState,
   updateSpec,
@@ -26,63 +48,56 @@ const WorkingDashboard = ({
   currentStateData,
   spec,
 }) => {
-  const header = 'Working Area';
   const transformPipe = spec.transform || [];
   const operation = transformPipe[activeTransformationPosition] || {};
   const operationType =
     Object.keys(operation).length && Object.keys(operation)[0].toUpperCase();
 
   return (
-    <div>
-      <h1>{header}</h1>
-      <PipelineOperator
-        data={data}
-        currentStateData={currentStateData}
-        columnsToFilter={columnsToFilter}
-        updateState={updateState}
-        updateSpec={updateSpec}
-        helper={helper}
-        activeTransformationPosition={activeTransformationPosition}
-        spec={spec}
-      />
-      <StyledActiveArea>
-        <h3>Active area</h3>
-        <p>Active transformation position is {activeTransformationPosition}</p>
-        <p>Operation type: {operationType}</p>
-        <p>{JSON.stringify(operation)}</p>
-        {operationType === 'FILTER' && (
-          <FilterArea
-            currentStateData={currentStateData}
-            updateSpec={updateSpec}
-            operation={operation}
-            helper={helper}
-            spec={spec}
-            activeTransformationPosition={activeTransformationPosition}
-          />
-        )}
-        {operationType === 'CALCULATE' && (
-          <CalculateArea
-            currentStateData={currentStateData}
-            updateSpec={updateSpec}
-            operation={operation}
-            helper={helper}
-            spec={spec}
-            activeTransformationPosition={activeTransformationPosition}
-          />
-        )}
-        {operationType === 'AGGREGATE' && (
-          <AggregateArea
-            currentStateData={currentStateData}
-            updateSpec={updateSpec}
-            operation={operation}
-            helper={helper}
-            spec={spec}
-            activeTransformationPosition={activeTransformationPosition}
-          />
-        )}
+    <StyledDashboard>
+      <StyledPreprocessingArea>
+        <PipelineOperator
+          data={data}
+          transformedData={transformedData}
+          currentStateData={currentStateData}
+          columnsToFilter={columnsToFilter}
+          updateState={updateState}
+          updateSpec={updateSpec}
+          helper={helper}
+          activeTransformationPosition={activeTransformationPosition}
+          spec={spec}
+        />
 
+        <div className="operationBoard">
+          {operationType === 'FILTER' && (
+            <FilterArea
+              transformedData={transformedData}
+              currentStateData={currentStateData}
+              updateSpec={updateSpec}
+              operation={operation}
+              helper={helper}
+              spec={spec}
+              activeTransformationPosition={activeTransformationPosition}
+            />
+          )}
+          {operationType === 'CALCULATE' && (
+            <CalculateArea
+              transformedData={transformedData}
+              currentStateData={currentStateData}
+              updateSpec={updateSpec}
+              operation={operation}
+              helper={helper}
+              spec={spec}
+              activeTransformationPosition={activeTransformationPosition}
+            />
+          )}
+        </div>
+      </StyledPreprocessingArea>
+
+      <StyledDisplayArea>
         {spec.mark && (
           <DisplayArea
+            transformedData={transformedData}
             currentStateData={currentStateData}
             updateSpec={updateSpec}
             updateState={updateState}
@@ -92,11 +107,40 @@ const WorkingDashboard = ({
             activeTransformationPosition={activeTransformationPosition}
           />
         )}
-
-        <Render data={currentStateData} spec={spec} />
-      </StyledActiveArea>
-    </div>
+        <Render data={currentStateData} spec={spec} updateState={updateState} />
+      </StyledDisplayArea>
+    </StyledDashboard>
   );
 };
 
 export default WorkingDashboard;
+
+// {operationType === 'AGGREGATE' && (
+//   <AggregateArea
+//     transformedData={transformedData}
+//     currentStateData={currentStateData}
+//     updateSpec={updateSpec}
+//     operation={operation}
+//     helper={helper}
+//     spec={spec}
+//     activeTransformationPosition={activeTransformationPosition}
+//   />
+// )}
+
+// <div className="debuggerInfo">
+//   <div>
+//     Active transformation position is {activeTransformationPosition}
+//   </div>
+//   <div>Operation type: {operationType}</div>
+//   <div>{JSON.stringify(operation)}</div>
+// </div>
+
+// <div>
+//   <button
+//     onClick={() =>
+//       PipelineFunctions.addDisplayOperation(spec, updateState)
+//     }
+//   >
+//     Initialize display
+//   </button>
+// </div>

@@ -52,12 +52,14 @@ const filterColumn = (columnsToFilter, columnName, isRemove, updateState) => {
 };
 
 // get the set of all column values in the dataset
-const getColumnValues = (data, columnName) => {
+const getColumnValues = (data, columnName, isAlert) => {
   const values = data.map(row => row[columnName]);
   const set = Array.from(new Set(values));
-  // undefined might be also included into the outcome - might be useful to filter out missing values
-  // console.log('values', values);
-  console.log('set', set);
+  // if the user needs to be alerted of values
+  if (isAlert) {
+    console.log('Unique values', set);
+    alert(JSON.stringify(set));
+  }
   return set;
 };
 

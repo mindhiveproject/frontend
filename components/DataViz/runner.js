@@ -8,6 +8,7 @@ import Displayer from './displayer';
 
 const Runner = ({
   data,
+  transformedData,
   columnsToFilter,
   updateState,
   updateSpec,
@@ -22,6 +23,7 @@ const Runner = ({
   return (
     <Displayer
       data={data}
+      transformedData={transformedData}
       currentStateData={currentStateData}
       columnsToFilter={columnsToFilter}
       updateState={updateState}

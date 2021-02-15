@@ -7,8 +7,19 @@ class Manager extends Component {
   // main state
   state = {
     data: this.props.data,
+    transformedData: this.props.data,
     columnsToFilter: [],
-    spec: {},
+    spec: {
+      width: 'container',
+      height: 'container',
+      mark: 'bar',
+      transform: [],
+      encoding: {
+        x: { field: 'color', type: 'ordinal' },
+        y: { field: 'duration', type: 'quantitative' },
+      },
+      data: { name: 'values' },
+    },
     activeTransformationPosition: -1, // TODO: default active operation
   };
 
@@ -39,6 +50,7 @@ class Manager extends Component {
         updateSpec={this.updateSpec}
         activeTransformationPosition={this.state.activeTransformationPosition}
         spec={this.state.spec}
+        transformedData={this.state.transformedData}
       />
     );
   }

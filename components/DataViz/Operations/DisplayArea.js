@@ -6,14 +6,15 @@ import OperationFunctions from '../Functions/operations';
 
 const StyledSelectorLine = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr 2fr 1fr;
-  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 5px;
   align-items: baseline;
-  justif
 `;
 
 // selects and edit filters (its parameters) and change it in the pipeline
 const DisplayArea = ({
+  data,
+  transformedData,
   currentStateData,
   updateState,
   updateSpec,
@@ -34,6 +35,12 @@ const DisplayArea = ({
     setEncoding_X_type(spec?.encoding?.x?.type || 'ordinal');
   }, [spec]);
 
+  // X variable aggregate
+  const [encoding_X_aggregate, setEncoding_X_aggregate] = useState('');
+  React.useEffect(() => {
+    setEncoding_X_aggregate(spec?.encoding?.x?.aggregate || '');
+  }, [spec]);
+
   // Y variable
   const [encoding_Y_field, setEncoding_Y_field] = useState('');
   React.useEffect(() => {
@@ -44,6 +51,12 @@ const DisplayArea = ({
   const [encoding_Y_type, setEncoding_Y_type] = useState('quantitative');
   React.useEffect(() => {
     setEncoding_Y_type(spec?.encoding?.y?.type || 'quantitative');
+  }, [spec]);
+
+  // X variable aggregate
+  const [encoding_Y_aggregate, setEncoding_Y_aggregate] = useState('');
+  React.useEffect(() => {
+    setEncoding_Y_aggregate(spec?.encoding?.y?.aggregate || '');
   }, [spec]);
 
   // type of the graph (mark)
@@ -68,6 +81,14 @@ const DisplayArea = ({
 
   const header = 'Display Parameters';
 
+  const originalColumns = helper.getColumnNames(currentStateData);
+  const transformeColumns = helper.getColumnNames(transformedData);
+  const newColumns = transformeColumns.filter(
+    column => !originalColumns.includes(column)
+  );
+  const databaseColumns = [...originalColumns, ...newColumns];
+  console.log('databaseColumns', databaseColumns);
+
   return (
     <div>
       <h3>{header}</h3>
@@ -91,13 +112,11 @@ const DisplayArea = ({
           value={encoding_X_field}
           onChange={e => setEncoding_X_field(e.target.value)}
         >
-          {['', ...helper.getColumnNames(currentStateData)].map(
-            (value, num) => (
-              <option key={num} value={value}>
-                {value}
-              </option>
-            )
-          )}
+          {['', ...databaseColumns].map((value, num) => (
+            <option key={num} value={value}>
+              {value}
+            </option>
+          ))}
         </select>
         <p>Select type of X variable</p>
         <select
@@ -105,6 +124,19 @@ const DisplayArea = ({
           onChange={e => setEncoding_X_type(e.target.value)}
         >
           {['nominal', 'ordinal', 'quantitative', 'temporal'].map(
+            (value, num) => (
+              <option key={num} value={value}>
+                {value}
+              </option>
+            )
+          )}
+        </select>
+        <p>Select type of X aggregate</p>
+        <select
+          value={encoding_X_aggregate}
+          onChange={e => setEncoding_X_aggregate(e.target.value)}
+        >
+          {['', 'mean', 'median', 'min', 'max', 'sum', 'count'].map(
             (value, num) => (
               <option key={num} value={value}>
                 {value}
@@ -120,13 +152,11 @@ const DisplayArea = ({
           value={encoding_Y_field}
           onChange={e => setEncoding_Y_field(e.target.value)}
         >
-          {['', ...helper.getColumnNames(currentStateData)].map(
-            (value, num) => (
-              <option key={num} value={value}>
-                {value}
-              </option>
-            )
-          )}
+          {['', ...databaseColumns].map((value, num) => (
+            <option key={num} value={value}>
+              {value}
+            </option>
+          ))}
         </select>
         <p>Select type of Y variable</p>
         <select
@@ -134,6 +164,19 @@ const DisplayArea = ({
           onChange={e => setEncoding_Y_type(e.target.value)}
         >
           {['nominal', 'ordinal', 'quantitative', 'temporal'].map(
+            (value, num) => (
+              <option key={num} value={value}>
+                {value}
+              </option>
+            )
+          )}
+        </select>
+        <p>Select type of Y aggregate</p>
+        <select
+          value={encoding_Y_aggregate}
+          onChange={e => setEncoding_Y_aggregate(e.target.value)}
+        >
+          {['', 'mean', 'median', 'min', 'max', 'sum', 'count'].map(
             (value, num) => (
               <option key={num} value={value}>
                 {value}
@@ -150,15 +193,23 @@ const DisplayArea = ({
             {
               mark,
               encoding: {
-                x: { field: encoding_X_field, type: encoding_X_type },
-                y: { field: encoding_Y_field, type: encoding_Y_type },
+                x: {
+                  field: encoding_X_field,
+                  type: encoding_X_type,
+                  aggregate: encoding_X_aggregate,
+                },
+                y: {
+                  field: encoding_Y_field,
+                  type: encoding_Y_type,
+                  aggregate: encoding_Y_aggregate,
+                },
               },
             },
             updateState
           )
         }
       >
-        Add
+        Update
       </button>
     </div>
   );

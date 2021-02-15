@@ -3,6 +3,7 @@ import OperationFunctions from '../Functions/operations';
 
 // selects and edit filters (its parameters) and change it in the pipeline
 const CalculateArea = ({
+  transformedData,
   currentStateData,
   updateSpec,
   operation,
@@ -20,7 +21,7 @@ const CalculateArea = ({
     setAs(operation?.as || '');
   }, [operation]);
 
-  const header = 'Calculate area';
+  const header = `${activeTransformationPosition + 1}) Calculate`;
 
   return (
     <div>
@@ -28,9 +29,7 @@ const CalculateArea = ({
       <div>
         <p>
           <label>
-            <p>
-              Enter the formula (use "datum." in front of the name of variables)
-            </p>
+            Enter the formula (use "datum." in front of the name of variables)
             <input
               type="text"
               value={calculate}
@@ -41,7 +40,7 @@ const CalculateArea = ({
 
         <p>
           <label>
-            <p>Enter the new variable name</p>
+            Enter the new variable name
             <input
               type="text"
               value={as}
@@ -63,7 +62,7 @@ const CalculateArea = ({
           )
         }
       >
-        Add
+        Update
       </button>
     </div>
   );

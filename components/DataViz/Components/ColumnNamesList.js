@@ -3,55 +3,78 @@ import styled from 'styled-components';
 
 const StyledColumnNamesList = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr auto 100px;
+  margin: 3px;
+  padding: 5px;
+  grid-template-columns: 1fr auto auto;
   grid-gap: 10px;
-  border: 1px solid grey;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  color: ${props => (props.empty ? 'lightgrey' : 'black')};
+  .infoIcon {
+    cursor: pointer;
+  }
+`;
+
+const StyledDatasetHeader = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-gap: 10px;
+  align-items: center;
 `;
 
 // display the processed data in currentStateData
 const ColumnNamesList = ({
   data,
+  transformedData,
   currentStateData,
   columnsToFilter,
   updateState,
   helper,
 }) => {
-  const header = 'ColumnNamesList';
+  const header = 'Dataset';
+  const originalColumns = helper.getColumnNames(data);
+  const transformeColumns = helper.getColumnNames(transformedData);
+  const newColumns = transformeColumns.filter(
+    column => !originalColumns.includes(column)
+  );
+
   return (
     <div>
-      <h1>{header}</h1>
-      {helper.getColumnNames(data).map((name, i) => {
-        const isFiltered = columnsToFilter.includes(name);
+      <StyledDatasetHeader>
+        <h4>{header}</h4>
+        <span>
+          {helper.computeSize(transformedData, columnsToFilter).columns} columns
+          x{` `}
+          {helper.computeSize(transformedData, columnsToFilter).rows} rows
+        </span>
+        <div>
+          <button onClick={() => helper.download(transformedData)}>
+            Download
+          </button>
+        </div>
+      </StyledDatasetHeader>
+
+      {[...originalColumns, ...newColumns].map((name, i) => {
+        // const isFiltered = columnsToFilter.includes(name);
         // get the length of values and length of unique values for the column
         const {
           valuesLength,
           uniqueValuesLength,
-        } = helper.computeColumnValuesSize(currentStateData, name);
+        } = helper.computeColumnValuesSize(transformedData, name);
         return (
-          <StyledColumnNamesList key={i}>
-            <input
-              type="checkbox"
-              name={name}
-              id={name}
-              checked={!isFiltered}
-              onChange={() =>
-                helper.filterColumn(
-                  columnsToFilter,
-                  name,
-                  !isFiltered,
-                  updateState
-                )
-              }
-            />
+          <StyledColumnNamesList empty={valuesLength === 0} key={i}>
             <label htmlFor={name}>{name}</label>
             <label>
               {valuesLength} ({uniqueValuesLength})
             </label>
-            <button
-              onClick={() => helper.getColumnValues(currentStateData, name)}
+            <span
+              className="infoIcon"
+              onClick={() =>
+                helper.getColumnValues(transformedData, name, true)
+              }
             >
-              Values
-            </button>
+              ℹ️
+            </span>
           </StyledColumnNamesList>
         );
       })}
@@ -60,3 +83,23 @@ const ColumnNamesList = ({
 };
 
 export default ColumnNamesList;
+
+// <input
+//   type="checkbox"
+//   name={name}
+//   id={name}
+//   checked={!isFiltered}
+//   onChange={() =>
+//     helper.filterColumn(
+//       columnsToFilter,
+//       name,
+//       !isFiltered,
+//       updateState
+//     )
+//   }
+// />
+
+// <p>
+//   Original dataset size is {helper.computeSize(data, []).columns}x
+//   {helper.computeSize(data, []).rows}
+// </p>

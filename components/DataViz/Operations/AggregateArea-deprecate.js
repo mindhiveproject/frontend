@@ -5,6 +5,7 @@ import OperationFunctions from '../Functions/operations';
 
 // selects and edit filters (its parameters) and change it in the pipeline
 const AggregateArea = ({
+  transformedData,
   currentStateData,
   updateSpec,
   operation,
