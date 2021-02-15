@@ -45,7 +45,6 @@ const StyledDisplayer = styled.div`
 const Displayer = ({
   data,
   transformedData,
-  currentStateData,
   columnsToFilter,
   updateState,
   updateSpec,
@@ -62,16 +61,12 @@ const Displayer = ({
         <ColumnNamesList
           data={data}
           transformedData={transformedData}
-          currentStateData={currentStateData}
-          columnsToFilter={columnsToFilter}
           updateState={updateState}
           helper={helper}
         />
         <WorkingDashboard
           data={data}
           transformedData={transformedData}
-          currentStateData={currentStateData}
-          columnsToFilter={columnsToFilter}
           updateState={updateState}
           updateSpec={updateSpec}
           helper={helper}

@@ -40,12 +40,10 @@ const StyledDisplayArea = styled.div`
 const WorkingDashboard = ({
   data,
   transformedData,
-  columnsToFilter,
   updateState,
   updateSpec,
   helper,
   activeTransformationPosition,
-  currentStateData,
   spec,
 }) => {
   const transformPipe = spec.transform || [];
@@ -59,8 +57,6 @@ const WorkingDashboard = ({
         <PipelineOperator
           data={data}
           transformedData={transformedData}
-          currentStateData={currentStateData}
-          columnsToFilter={columnsToFilter}
           updateState={updateState}
           updateSpec={updateSpec}
           helper={helper}
@@ -72,7 +68,6 @@ const WorkingDashboard = ({
           {operationType === 'FILTER' && (
             <FilterArea
               transformedData={transformedData}
-              currentStateData={currentStateData}
               updateSpec={updateSpec}
               operation={operation}
               helper={helper}
@@ -83,7 +78,6 @@ const WorkingDashboard = ({
           {operationType === 'CALCULATE' && (
             <CalculateArea
               transformedData={transformedData}
-              currentStateData={currentStateData}
               updateSpec={updateSpec}
               operation={operation}
               helper={helper}
@@ -97,8 +91,8 @@ const WorkingDashboard = ({
       <StyledDisplayArea>
         {spec.mark && (
           <DisplayArea
+            data={data}
             transformedData={transformedData}
-            currentStateData={currentStateData}
             updateSpec={updateSpec}
             updateState={updateState}
             operation={operation}
@@ -107,7 +101,7 @@ const WorkingDashboard = ({
             activeTransformationPosition={activeTransformationPosition}
           />
         )}
-        <Render data={currentStateData} spec={spec} updateState={updateState} />
+        <Render data={data} spec={spec} updateState={updateState} />
       </StyledDisplayArea>
     </StyledDashboard>
   );
@@ -118,7 +112,7 @@ export default WorkingDashboard;
 // {operationType === 'AGGREGATE' && (
 //   <AggregateArea
 //     transformedData={transformedData}
-//     currentStateData={currentStateData}
+
 //     updateSpec={updateSpec}
 //     operation={operation}
 //     helper={helper}

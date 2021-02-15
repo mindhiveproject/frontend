@@ -6,9 +6,6 @@ import PipelineFunctions from '../Functions/pipeline';
 const StyledPipelineOperator = styled.div`
   display: grid;
   align-content: flex-start;
-  /* border: 1px solid lightgrey; */
-  /* margin: 5px;
-  padding: 10px; */
   .pipelineButtons {
     display: grid;
     grid-gap: 10px;
@@ -38,12 +35,10 @@ const StyledOperationThumb = styled.div`
 // displays controllers for editing the pipeline and activating one of the operations
 const PipelineOperator = ({
   data,
-  columnsToFilter,
   updateState,
   updateSpec,
   helper,
   pipeline,
-  activeOperationPosition,
   activeTransformationPosition,
   spec,
 }) => {

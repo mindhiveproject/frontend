@@ -2,7 +2,6 @@ import { jsonToCSV } from 'react-papaparse';
 
 // download the current state of the data as a csv file
 const download = data => {
-  // console.log('data', data);
   const name = 'temp-name';
   const allKeys = data
     .map(line => Object.keys(line))
@@ -20,7 +19,7 @@ const getColumnNames = data => {
   const allKeys = data
     .map(line => Object.keys(line))
     .reduce((a, b) => a.concat(b), []);
-  const keys = Array.from(new Set(allKeys));
+  const keys = Array.from(new Set(allKeys)).sort();
   return keys;
 };
 
@@ -54,7 +53,7 @@ const filterColumn = (columnsToFilter, columnName, isRemove, updateState) => {
 // get the set of all column values in the dataset
 const getColumnValues = (data, columnName, isAlert) => {
   const values = data.map(row => row[columnName]);
-  const set = Array.from(new Set(values));
+  const set = Array.from(new Set(values)).sort();
   // if the user needs to be alerted of values
   if (isAlert) {
     console.log('Unique values', set);

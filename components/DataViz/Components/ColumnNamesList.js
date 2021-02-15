@@ -23,29 +23,22 @@ const StyledDatasetHeader = styled.div`
 `;
 
 // display the processed data in currentStateData
-const ColumnNamesList = ({
-  data,
-  transformedData,
-  currentStateData,
-  columnsToFilter,
-  updateState,
-  helper,
-}) => {
+const ColumnNamesList = ({ data, transformedData, updateState, helper }) => {
   const header = 'Dataset';
   const originalColumns = helper.getColumnNames(data);
   const transformeColumns = helper.getColumnNames(transformedData);
   const newColumns = transformeColumns.filter(
     column => !originalColumns.includes(column)
   );
+  const columnNames = [...originalColumns, ...newColumns].sort();
 
   return (
     <div>
       <StyledDatasetHeader>
         <h4>{header}</h4>
         <span>
-          {helper.computeSize(transformedData, columnsToFilter).columns} columns
-          x{` `}
-          {helper.computeSize(transformedData, columnsToFilter).rows} rows
+          {helper.computeSize(transformedData, []).columns} columns x{` `}
+          {helper.computeSize(transformedData, []).rows} rows
         </span>
         <div>
           <button onClick={() => helper.download(transformedData)}>
@@ -54,8 +47,7 @@ const ColumnNamesList = ({
         </div>
       </StyledDatasetHeader>
 
-      {[...originalColumns, ...newColumns].map((name, i) => {
-        // const isFiltered = columnsToFilter.includes(name);
+      {columnNames.map((name, i) => {
         // get the length of values and length of unique values for the column
         const {
           valuesLength,

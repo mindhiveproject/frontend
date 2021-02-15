@@ -22,10 +22,8 @@ const Runner = ({
 
   return (
     <Displayer
-      data={data}
+      data={currentStateData} // put the pre-processed data
       transformedData={transformedData}
-      currentStateData={currentStateData}
-      columnsToFilter={columnsToFilter}
       updateState={updateState}
       updateSpec={updateSpec}
       helper={Helper}

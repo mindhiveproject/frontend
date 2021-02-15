@@ -8,7 +8,7 @@ import styled from 'styled-components';
 const StyledRender = styled.div`
   display: grid;
   margin: 10px;
-  max-height: 500px;
+  justify-content: center;
 `;
 
 class Render extends Component {
@@ -34,14 +34,13 @@ class Render extends Component {
             export: true,
             source: false,
             compiled: false,
-            editor: true,
+            editor: false,
           }}
           onParseError={error => {
             console.log('error', error);
           }}
           onNewView={view => {
             const newData = view.data('data_0');
-            console.log('newData', newData);
             if (
               newData &&
               newData.length &&

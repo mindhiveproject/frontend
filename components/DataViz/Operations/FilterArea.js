@@ -4,7 +4,6 @@ import OperationFunctions from '../Functions/operations';
 // selects and edit filters (its parameters) and change it in the pipeline
 const FilterArea = ({
   transformedData,
-  currentStateData,
   updateSpec,
   operation,
   helper,
