@@ -26,9 +26,9 @@ class Manager extends Component {
       mark: 'bar',
       transform: [],
       encoding: {
-        x: { field: 'participantId', type: 'nominal' },
-        y: { field: 'duration', type: 'quantitative', aggregate: 'mean' },
-        color: { field: 'word', type: 'nominal' },
+        x: { field: '', type: 'nominal' },
+        y: { field: '', type: 'quantitative', aggregate: '' },
+        color: { field: '', type: '' },
       },
       data: { name: 'values' },
     },
