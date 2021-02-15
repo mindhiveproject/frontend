@@ -26,8 +26,8 @@ class Manager extends Component {
       mark: 'bar',
       transform: [],
       encoding: {
-        x: { field: '', type: 'nominal' },
-        y: { field: '', type: 'quantitative', aggregate: '' },
+        x: { field: 'task', type: 'nominal' },
+        y: { field: 'duration', type: 'quantitative', aggregate: '' },
         color: { field: '', type: '' },
       },
       data: { name: 'values' },
@@ -57,12 +57,12 @@ class Manager extends Component {
     return (
       <Runner
         data={this.state.data}
+        transformedData={this.state.transformedData}
         columnsToFilter={this.state.columnsToFilter}
         updateState={this.updateState}
         updateSpec={this.updateSpec}
         activeTransformationPosition={this.state.activeTransformationPosition}
         spec={this.state.spec}
-        transformedData={this.state.transformedData}
       />
     );
   }
