@@ -19,3 +19,9 @@
   to = "/join/[step].html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/data/study"
+  to = "/data/study.html"
+  status = 200
+  force = true
