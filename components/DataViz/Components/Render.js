@@ -47,6 +47,7 @@ class Render extends Component {
               JSON.stringify(newData) !==
                 JSON.stringify(this.state.transformedData)
             ) {
+              console.log('transformedData', newData);
               this.setState({
                 transformedData: [...newData],
               });

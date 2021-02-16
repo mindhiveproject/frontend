@@ -22,8 +22,33 @@ const StyledDatasetHeader = styled.div`
   align-items: center;
 `;
 
+const StyledSwitch = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  align-items: center;
+  justify-items: center;
+`;
+
+const StyledOperationThumb = styled.div`
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid grey;
+  align-items: center;
+  cursor: pointer;
+  background: ${props => (props.active ? '#007c70' : 'white')};
+  color: ${props => (props.active ? 'white' : 'black')};
+`;
+
 // display the processed data in currentStateData
-const ColumnNamesList = ({ data, transformedData, updateState, helper }) => {
+const ColumnNamesList = ({
+  data,
+  transformedData,
+  updateState,
+  helper,
+  datasetType,
+  onDatasetTypeChange,
+}) => {
   const header = 'Dataset';
   const originalColumns = helper.getColumnNames(data);
   const transformeColumns = helper.getColumnNames(transformedData);
@@ -34,6 +59,22 @@ const ColumnNamesList = ({ data, transformedData, updateState, helper }) => {
 
   return (
     <div>
+      <StyledSwitch>
+        <StyledOperationThumb
+          className="selectionBtns"
+          active={datasetType === 'aggregated'}
+          onClick={() => onDatasetTypeChange('aggregated')}
+        >
+          Aggregated
+        </StyledOperationThumb>
+        <StyledOperationThumb
+          className="selectionBtns"
+          active={datasetType === 'raw'}
+          onClick={() => onDatasetTypeChange('raw')}
+        >
+          Raw data
+        </StyledOperationThumb>
+      </StyledSwitch>
       <StyledDatasetHeader>
         <h4>{header}</h4>
         <span>

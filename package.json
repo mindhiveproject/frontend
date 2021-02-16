@@ -67,6 +67,7 @@
     "react-dom": "^16.13.1",
     "react-google-login": "^5.1.21",
     "react-html-parser": "^2.0.2",
+    "react-json-editor-ajrm": "^2.5.13",
     "react-papaparse": "^3.3.0",
     "react-plotly.js": "^2.4.0",
     "react-script-tag": "^1.1.2",

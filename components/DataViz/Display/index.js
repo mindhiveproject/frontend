@@ -7,6 +7,9 @@ const StyledSelectorLine = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 5px;
   align-items: baseline;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid lightgrey;
 `;
 
 // selects and edit filters (its parameters) and change it in the pipeline
@@ -20,6 +23,30 @@ const DisplayArea = ({
   spec,
   activeTransformationPosition,
 }) => {
+  // type of the graph (mark)
+  const [title, setTitle] = useState('');
+  React.useEffect(() => {
+    setTitle(spec?.title || '');
+  }, [spec]);
+
+  // type of the graph (mark)
+  const [mark, setMark] = useState('bar');
+  React.useEffect(() => {
+    setMark(spec?.mark || 'bar');
+  }, [spec]);
+
+  // type of the graph (mark)
+  const [width, setWidth] = useState(400);
+  React.useEffect(() => {
+    setWidth(spec?.width || 400);
+  }, [spec]);
+
+  // type of the graph (mark)
+  const [height, setHeight] = useState(500);
+  React.useEffect(() => {
+    setHeight(spec?.height || 500);
+  }, [spec]);
+
   // X variable
   const [encoding_X_field, setEncoding_X_field] = useState('');
   React.useEffect(() => {
@@ -60,12 +87,6 @@ const DisplayArea = ({
   const [encoding_Y_aggregate, setEncoding_Y_aggregate] = useState('');
   React.useEffect(() => {
     setEncoding_Y_aggregate(spec?.encoding?.y?.aggregate || '');
-  }, [spec]);
-
-  // type of the graph (mark)
-  const [mark, setMark] = useState('bar');
-  React.useEffect(() => {
-    setMark(spec?.mark || 'bar');
   }, [spec]);
 
   // Detail variable
@@ -128,17 +149,46 @@ const DisplayArea = ({
     <div>
       <h3>{header}</h3>
 
-      <div>
-        <label>
-          <select value={mark} onChange={e => setMark(e.target.value)}>
-            {marks.map(({ value, label }) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
+      <StyledSelectorLine>
+        <div>
+          <label>
+            Type of the graph
+            <select value={mark} onChange={e => setMark(e.target.value)}>
+              {marks.map(({ value, label }) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <div>
+          Width
+          <input
+            value={width}
+            type="number"
+            onChange={e => setWidth(e.target.value)}
+          />
+        </div>
+
+        <div>
+          Height
+          <input
+            value={height}
+            type="number"
+            onChange={e => setHeight(e.target.value)}
+          />
+        </div>
+        <div>
+          Title
+          <input
+            value={title}
+            type="text"
+            onChange={e => setTitle(e.target.value)}
+          />
+        </div>
+      </StyledSelectorLine>
 
       <StyledSelectorLine>
         <p>Select X variable</p>
@@ -268,7 +318,10 @@ const DisplayArea = ({
           OperationFunctions.editDislaySpec(
             spec,
             {
+              title,
               mark,
+              width,
+              height,
               encoding: {
                 x: {
                   field: encoding_X_field,

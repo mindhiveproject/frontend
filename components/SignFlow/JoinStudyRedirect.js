@@ -21,11 +21,6 @@ const joinStudyRedirect = (study, profile) => {
         const url = `/dt/r?t=${taskId}&s=${study.id}`;
         const win = window.open(url, '_blank');
         win.focus();
-
-        // Router.push({
-        //   pathname: `/studies/${study.slug}`,
-        //   query: { c: taskId },
-        // });
       } else {
         Router.push({
           pathname: `/studies/${study.slug}`,

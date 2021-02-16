@@ -4,9 +4,8 @@ import PipelineOperator from './PipelineOperator';
 
 import FilterArea from '../Operations/FilterArea';
 import CalculateArea from '../Operations/CalculateArea';
-import DisplayArea from '../Operations/DisplayArea';
 
-import PipelineFunctions from '../Functions/pipeline';
+import DisplaySpec from '../Display/index';
 
 import Render from './Render';
 
@@ -22,7 +21,7 @@ const StyledDashboard = styled.div`
 const StyledPreprocessingArea = styled.div`
   display: grid;
   align-content: flex-start;
-  min-height: 300px;
+  /* min-height: 300px; */
   .operationBoard {
     margin-top: 5px;
     border: 1px solid #ffffef;
@@ -90,7 +89,7 @@ const WorkingDashboard = ({
 
       <StyledDisplayArea>
         {spec.mark && (
-          <DisplayArea
+          <DisplaySpec
             data={data}
             transformedData={transformedData}
             updateSpec={updateSpec}

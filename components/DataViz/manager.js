@@ -6,33 +6,19 @@ import Runner from './runner';
 class Manager extends Component {
   // main state
   state = {
-    data: this.props.data,
-    transformedData: this.props.data,
-    columnsToFilter: [
-      'url',
-      'meta',
-      'sender_id',
-      'ended_on',
-      'time_run',
-      'time_render',
-      'time_show',
-      'time_end',
-      'time_commit',
-      'time_switch',
-    ],
-    spec: {
-      width: '500',
-      height: '400',
-      mark: 'bar',
-      transform: [],
-      encoding: {
-        x: { field: 'task', type: 'nominal' },
-        y: { field: 'duration', type: 'quantitative', aggregate: '' },
-        color: { field: '', type: '' },
-      },
-      data: { name: 'values' },
-    },
-    activeTransformationPosition: -1, // TODO: default active operation
+    data:
+      this.props.datasetTypeDefault === 'raw'
+        ? this.props.dataRaw
+        : this.props.dataAggregated,
+    transformedData:
+      this.props.datasetTypeDefault === 'raw'
+        ? this.props.dataRaw
+        : this.props.dataAggregated,
+    columnsToFilter: this.props.columnsToFilterDefault,
+    spec: this.props.specDefault,
+    activeTransformationPosition: this.props
+      .activeTransformationPositionDefault, // TODO: default active operation
+    datasetType: this.props.datasetTypeDefault,
   };
 
   // general function to update the data in the state
@@ -52,7 +38,20 @@ class Manager extends Component {
     });
   };
 
-  // here i am testing the functions with simple buttons
+  onDatasetTypeChange = datasetType => {
+    this.setState({
+      datasetType,
+      data:
+        datasetType === 'raw' ? this.props.dataRaw : this.props.dataAggregated,
+      transformedData:
+        datasetType === 'raw' ? this.props.dataRaw : this.props.dataAggregated,
+      columnsToFilter: this.props.columnsToFilterDefault,
+      spec: this.props.specDefault,
+      activeTransformationPosition: this.props
+        .activeTransformationPositionDefault,
+    });
+  };
+
   render() {
     return (
       <Runner
@@ -63,6 +62,8 @@ class Manager extends Component {
         updateSpec={this.updateSpec}
         activeTransformationPosition={this.state.activeTransformationPosition}
         spec={this.state.spec}
+        onDatasetTypeChange={this.onDatasetTypeChange}
+        datasetType={this.state.datasetType}
       />
     );
   }

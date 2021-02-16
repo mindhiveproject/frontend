@@ -51,6 +51,8 @@ const Displayer = ({
   helper,
   activeTransformationPosition,
   spec,
+  onDatasetTypeChange,
+  datasetType,
 }) => {
   const header = 'Data Viz (version 0.0.1)';
   return (
@@ -58,12 +60,17 @@ const Displayer = ({
       <h2>{header}</h2>
 
       <StyledDisplayer>
-        <ColumnNamesList
-          data={data}
-          transformedData={transformedData}
-          updateState={updateState}
-          helper={helper}
-        />
+        <div>
+          <ColumnNamesList
+            data={data}
+            transformedData={transformedData}
+            updateState={updateState}
+            helper={helper}
+            onDatasetTypeChange={onDatasetTypeChange}
+            datasetType={datasetType}
+          />
+          <SpecEditor spec={spec} updateState={updateState} />
+        </div>
         <WorkingDashboard
           data={data}
           transformedData={transformedData}
@@ -74,8 +81,6 @@ const Displayer = ({
           spec={spec}
         />
       </StyledDisplayer>
-
-      <SpecEditor spec={spec} updateState={updateState} />
     </StyledContainer>
   );
 };

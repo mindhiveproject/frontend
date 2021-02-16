@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { saveAs } from 'file-saver';
 import { jsonToCSV } from 'react-papaparse';
 import Error from '../ErrorMessage/index';
-import Manager from './manager';
+import Router from './router';
 
 const LZUTF8 = require('lzutf8');
 
@@ -99,8 +99,6 @@ class StudyResults extends Component {
               return <p>No study found for the id {this.props.id}</p>;
             const { myStudyResults } = data;
 
-            console.log('myStudyResults', myStudyResults);
-
             if (myStudyResults.length === 0) {
               return (
                 <div>
@@ -110,9 +108,9 @@ class StudyResults extends Component {
             }
 
             const processedData = this.processRawData(myStudyResults);
-            console.log('processedData', processedData);
+            // console.log('processedData length', processedData.length);
 
-            return <Manager data={processedData} />;
+            return <Router data={processedData} />;
           }}
         </Query>
       </>

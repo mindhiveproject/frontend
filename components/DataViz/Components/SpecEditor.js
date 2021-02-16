@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 
+import JSONInput from 'react-json-editor-ajrm';
+import locale from 'react-json-editor-ajrm/locale/en';
+
 // Spec Editor
 const SpecEditor = ({ spec, updateState }) => {
   // local string version of the spec
-  const [specString, setSpecString] = useState(JSON.stringify({}));
+  const [localSpec, setLocalSpec] = useState(JSON.stringify({}));
   React.useEffect(() => {
-    setSpecString(JSON.stringify(spec) || JSON.stringify({}));
+    setLocalSpec(spec);
   }, [spec]);
 
   const evaluate = () => {
     try {
-      const parsedSpec = JSON.parse(specString);
-      updateState('spec', parsedSpec);
+      updateState('spec', localSpec);
     } catch (error) {
       console.log('error', error);
     }
@@ -20,17 +22,31 @@ const SpecEditor = ({ spec, updateState }) => {
   return (
     <div>
       <h2>Specification Editor</h2>
-      <textarea
-        cols="100"
-        rows="10"
-        value={specString}
-        onChange={e => setSpecString(e.target.value)}
-      />
       <p>
-        <button onClick={e => evaluate()}>Evaluate</button>
+        <button onClick={e => evaluate()}>Update</button>
       </p>
+      <JSONInput
+        placeholder={spec}
+        onChange={value => {
+          setLocalSpec(value.jsObject);
+        }}
+        locale={locale}
+        theme="light_mitsuketa_tribute"
+        style={{
+          body: {
+            fontSize: '18px',
+          },
+        }}
+      />
     </div>
   );
 };
 
 export default SpecEditor;
+
+// <textarea
+//   cols="100"
+//   rows="10"
+//   value={specString}
+//   onChange={e => setSpecString(e.target.value)}
+// />

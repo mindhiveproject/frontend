@@ -14,6 +14,8 @@ const Runner = ({
   updateSpec,
   activeTransformationPosition,
   spec,
+  onDatasetTypeChange,
+  datasetType,
 }) => {
   const header = 'Runner';
 
@@ -29,6 +31,8 @@ const Runner = ({
       helper={Helper}
       activeTransformationPosition={activeTransformationPosition}
       spec={spec}
+      onDatasetTypeChange={onDatasetTypeChange}
+      datasetType={datasetType}
     />
   );
 };
