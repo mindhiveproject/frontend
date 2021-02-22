@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import { Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import lz from 'lzutf8';
 import { SignForm } from '../Styles/Forms';
 import Error from '../ErrorMessage/index';
 import { StyledParameterBlock } from './styles';
-import lz from "lzutf8";
 
 import assemble from '../AddExperiment/assembleDev/index';
 
@@ -99,7 +99,6 @@ class OriginalTemplateForm extends Component {
       const result = await assemble(file, fileName);
       const script = result.files['script.js'].content;
       const compressedString = lz.encodeBase64(lz.compress(script));
-      console.log('compressedString', compressedString);
       this.setState({
         script: compressedString,
         style: result.files['style.css'].content,

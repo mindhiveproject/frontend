@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import lz from 'lzutf8';
 import { SignForm } from '../Styles/Forms';
 import Error from '../ErrorMessage/index';
 import { StyledParameterBlock } from './styles';
 import assemble from '../AddExperiment/assembleDev/index';
 import { MY_TEMPLATES_QUERY } from './mybank';
-import { compress } from 'lz-string';
 
 const CREATE_NEW_TEMPLATE = gql`
   mutation CREATE_NEW_TEMPLATE(
@@ -64,7 +64,7 @@ class AddTemplate extends Component {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
       const script = result.files['script.js'].content;
-      const compressedString = compress(script);
+      const compressedString = lz.encodeBase64(lz.compress(script));
       this.setState({
         script: compressedString,
         style: result.files['style.css'].content,
