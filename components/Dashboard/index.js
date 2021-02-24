@@ -164,7 +164,3 @@ class Dashboard extends Component {
 
 export default Dashboard;
 export { LOCAL_STATE_QUERY, TOGGLE_DASHBOARD_MUTATION };
-
-// {study.tasks.map(task => (
-//   <div key={task.id}>{task.title}</div>
-// ))}

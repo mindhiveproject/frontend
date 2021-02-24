@@ -11,12 +11,18 @@ class InformationBlock extends Component {
           <div>The consent form for regular adult participants</div>
         )}
         {name === 'regularMinors' && (
+          <div>The consent form for parents of participants under 18</div>
+        )}
+        {name === 'regularMinorsKids' && (
           <div>The consent form for regular participants under 18</div>
         )}
         {name === 'sonaAdults' && (
           <div>The consent form for SONA adult participants</div>
         )}
         {name === 'sonaMinors' && (
+          <div>The consent form for parents of SONA participants under 18</div>
+        )}
+        {name === 'sonaMinorsKids' && (
           <div>The consent form for SONA participants under 18</div>
         )}
 

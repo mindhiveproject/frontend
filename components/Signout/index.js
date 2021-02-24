@@ -38,7 +38,7 @@ const Signout = props => (
           });
         }}
       >
-        Logoff
+        Log off
       </SignoutButton>
     )}
   </Mutation>

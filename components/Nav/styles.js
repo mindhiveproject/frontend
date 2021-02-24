@@ -18,10 +18,10 @@ export const StyledSidebar = styled.div`
     border-bottom: 1px solid #e6e6e6;
   }
 
-  .navBottonLinks {
+  .navBottomLinks {
     display: grid;
     align-items: center;
-    grid-row-gap: 20px;
+    grid-row-gap: 31px;
   }
 
   .navLink {

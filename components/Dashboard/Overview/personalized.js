@@ -41,18 +41,6 @@ class DashboardOverview extends Component {
     });
   };
 
-  // developNew = () => {
-  //   this.setState({
-  //     page: 'develop',
-  //     devInfo: {
-  //       stage: null,
-  //       choice: null,
-  //       action: null,
-  //       studyIdToClone: null,
-  //     },
-  //   });
-  // };
-
   switchToBank = () => {
     this.setState({
       page: 'bank',
@@ -160,29 +148,3 @@ class DashboardOverview extends Component {
 }
 
 export default DashboardOverview;
-
-// <Menu.Item
-//   name="tasks"
-//   active={tab === 'tasks'}
-//   onClick={this.handleItemClick}
-//   className={
-//     tab === 'tasks'
-//       ? 'discoverMenuTitle selectedMenuTitle'
-//       : 'discoverMenuTitle'
-//   }
-// >
-//   <p>All tasks</p>
-// </Menu.Item>
-//
-// <Menu.Item
-//   name="surveys"
-//   active={tab === 'surveys'}
-//   onClick={this.handleItemClick}
-//   className={
-//     tab === 'surveys'
-//       ? 'discoverMenuTitle selectedMenuTitle'
-//       : 'discoverMenuTitle'
-//   }
-// >
-//   <p>All surveys</p>
-// </Menu.Item>

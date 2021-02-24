@@ -14,8 +14,10 @@ class EditProtocolForm extends Component {
     info: this.props.consent?.info || [
       { name: 'regularAdults' },
       { name: 'regularMinors' },
+      { name: 'regularMinorsKids' },
       { name: 'sonaAdults' },
       { name: 'sonaMinors' },
+      { name: 'sonaMinorsKids' },
     ],
     settings: this.props.consent?.settings || {},
     collaborators: (this.props.consent.collaborators &&
@@ -58,6 +60,16 @@ class EditProtocolForm extends Component {
     this.setState({
       collaborators,
     });
+  };
+
+  handleAddNewParameter = e => {
+    e.preventDefault();
+    const name = document.querySelector('#newParameterName').value;
+    if (name) {
+      this.setState({
+        info: [...this.state.info, { name }],
+      });
+    }
   };
 
   render() {

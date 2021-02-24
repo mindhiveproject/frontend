@@ -206,6 +206,40 @@ export const StyledDevelopDasboard = styled.div`
   }
 `;
 
+export const StyledClassesDasboard = styled.div`
+  width: 100%;
+  display: grid;
+  padding: 20px;
+
+  .navigationHeader {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 20px;
+    justify-self: end;
+    button {
+      height: 56px;
+      padding: 10px 24px 10px 24px;
+      background: #007c70;
+      border: 2px solid #007c70;
+      box-sizing: border-box;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-family: 'Lato';
+    }
+  }
+
+  .classes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-column-gap: 26px;
+    grid-row-gap: 26px;
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
+  }
+`;
+
 export const StyledMessage = styled.div`
   display: grid;
   max-width: 560px;

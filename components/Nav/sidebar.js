@@ -117,7 +117,23 @@ const SidebarNav = ({ user }) => (
       )}
     </div>
 
-    <div className="navBottonLinks">
+    <div className="navBottomLinks">
+      {user?.permissions.includes('TEACHER') && (
+        <>
+          <Link href="/dashboard/myclasses">
+            <div className="navLink">
+              <div>
+                <img
+                  src="/static/assets/dashboard-myclasses.svg"
+                  alt="icon"
+                  height="20"
+                />
+              </div>
+              <div>My Classes</div>
+            </div>
+          </Link>
+        </>
+      )}
       <Link href="/dashboard/settings">
         <div className="navLink">
           <div>

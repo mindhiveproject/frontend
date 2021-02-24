@@ -66,6 +66,16 @@ class StudyConsent extends Component {
         .filter(info => info.name === 'sonaMinors')
         .map(info => info.text) || '';
 
+    const regularMinorsKidsConsent =
+      consent?.info
+        .filter(info => info.name === 'regularMinorsKids')
+        .map(info => info.text) || null;
+
+    const sonaMinorsKidsConsent =
+      consent?.info
+        .filter(info => info.name === 'sonaMinorsKids')
+        .map(info => info.text) || null;
+
     return (
       <div>
         <OnboardingHeader>
@@ -127,6 +137,38 @@ class StudyConsent extends Component {
               </div>
             </>
           )}
+
+          {under18 &&
+            ((regularMinorsKidsConsent.length && regularMinorsKidsConsent[0]) ||
+              (sonaMinorsKidsConsent.length && sonaMinorsKidsConsent[0])) && (
+              <>
+                <h1>Your consent required</h1>
+                <h3>
+                  Because you are under the age of 18, we need to get consent
+                  from you as well. Please enter your name below if you consent.
+                </h3>
+                {(this.state.sona === 'no' ||
+                  typeof this.state.sona === 'undefined') && (
+                  <div>{ReactHtmlParser(regularMinorsKidsConsent)}</div>
+                )}
+
+                {this.state.sona === 'yes' && (
+                  <div>{ReactHtmlParser(sonaMinorsKidsConsent)}</div>
+                )}
+
+                <div>
+                  <label htmlFor="kidname">
+                    <p>Your name</p>
+                    <input
+                      type="text"
+                      id="kidname"
+                      name="kidname"
+                      onChange={this.updateState}
+                    />
+                  </label>
+                </div>
+              </>
+            )}
 
           {!under18 && (
             <>
