@@ -30,7 +30,7 @@ class Classes extends Component {
     return (
       <StyledDasboard>
         <StyledClassesDasboard>
-          <h1>My classes (in development ... 🚧🚧🚧🚧🚧)</h1>
+          <h1>My classes (in development...)</h1>
 
           <Query query={MY_CLASSES_QUERY}>
             {({ data, error, loading }) => {
