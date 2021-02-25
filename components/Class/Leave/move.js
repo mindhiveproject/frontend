@@ -86,3 +86,4 @@ class MoveToClass extends Component {
 }
 
 export default MoveToClass;
+export { MOVE_TO_CLASS_MUTATION };

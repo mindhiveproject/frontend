@@ -115,10 +115,7 @@ class ClassPage extends Component {
                     </div>
 
                     {this.state.tab === 'students' && (
-                      <ClassStudents
-                        students={schoolclass.students}
-                        code={schoolclass.code}
-                      />
+                      <ClassStudents schoolclass={schoolclass} />
                     )}
 
                     {this.state.tab === 'studies' && <ClassStudies />}
@@ -136,3 +133,4 @@ class ClassPage extends Component {
 }
 
 export default ClassPage;
+export { REVIEW_CLASS_QUERY };
