@@ -7,7 +7,7 @@ import gql from 'graphql-tag';
 
 const StyledClassHeader = styled.div`
   display: grid;
-  margin-bottom: 70px;
+  margin-bottom: 20px;
   padding: 10px;
   input,
   textarea,
@@ -111,7 +111,7 @@ class ClassHeader extends Component {
                       name="description"
                       value={this.state.description}
                       onChange={this.handleChange}
-                      rows="7"
+                      rows="5"
                       className="description"
                     />
                   </label>
