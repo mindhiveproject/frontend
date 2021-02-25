@@ -78,3 +78,4 @@ class Classes extends Component {
 }
 
 export default Classes;
+export { MY_CLASSES_QUERY };

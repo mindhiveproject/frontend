@@ -8,6 +8,7 @@ const StyledClassRow = styled.div`
   padding: 20px;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   background: white;
+  cursor: pointer;
 `;
 
 class ClassRow extends Component {
