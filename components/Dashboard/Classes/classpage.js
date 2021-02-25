@@ -7,6 +7,7 @@ import moment from 'moment';
 import { Menu } from 'semantic-ui-react';
 import Error from '../../ErrorMessage/index';
 
+import ClassHeader from './ClassPage/classHeader';
 import ClassStudents from './ClassPage/students';
 import ClassStudies from './ClassPage/studies';
 import ClassResults from './ClassPage/results';
@@ -67,8 +68,7 @@ class ClassPage extends Component {
               const schoolclass = data.class;
               return (
                 <div>
-                  <h2>{schoolclass.title}</h2>
-                  <p>{schoolclass.description}</p>
+                  <ClassHeader schoolclass={schoolclass} />
 
                   <div>
                     <div>

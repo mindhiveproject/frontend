@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import styled from 'styled-components';
 import ClassRow from './ClassList/index';
-
 import { StyledDasboard, StyledClassesDasboard } from '../styles';
+
+const StyledClassHeader = styled.div`
+  display: grid;
+  margin: 5px;
+  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  cursor: pointer;
+  font-weight: bold;
+`;
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const MY_CLASSES_QUERY = gql`
@@ -59,6 +68,12 @@ class Classes extends Component {
                     </div>
                   </div>
                   <div>
+                    <StyledClassHeader>
+                      <div>Class name</div>
+                      <div>Number of students</div>
+                      <div>Date created</div>
+                    </StyledClassHeader>
+
                     {myClasses.map(myclass => (
                       <ClassRow
                         myclass={myclass}

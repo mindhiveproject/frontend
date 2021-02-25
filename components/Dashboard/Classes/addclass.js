@@ -19,7 +19,7 @@ const StyledSelectionScreen = styled.div`
   display: grid;
   height: 100vh;
   background: #f7f9f8;
-  grid-template-rows: 50px auto;
+  grid-template-rows: 0px auto;
   .header {
     display: grid;
     grid-template-columns: 1fr auto;

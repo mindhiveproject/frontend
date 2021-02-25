@@ -371,7 +371,7 @@ export const StyledSubmitForm = styled.form`
   justify-self: center;
   justify-content: center;
   align-content: center;
-  grid-row-gap: 10px;
+  grid-row-gap: 5px;
   font-family: Lato;
   label {
     display: block;
@@ -429,7 +429,7 @@ export const StyledSubmitForm = styled.form`
   fieldset {
     display: grid;
     justify-self: center;
-    grid-gap: 10px;
+    grid-gap: 5px;
     width: 310px;
     border: 0;
     padding: 0;
