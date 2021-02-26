@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 
 import { MY_CLASSES_QUERY } from '../Board/my';
 import { ALL_CLASSES_QUERY } from '../Board/all';
@@ -14,20 +15,6 @@ const DELETE_CLASS_MUTATION = gql`
 `;
 
 class DeleteClass extends Component {
-  // update = (cache, payload) => {
-  //   // manually update the cache on the client so it matches the server
-  //   // 1. read the cache
-  //   const data = cache.readQuery({ query: ALL_CLASSES_QUERY });
-  //   console.log('data', data);
-  //   console.log('payload', payload);
-  //   // 2. Filter the deleted items out of the page
-  //   data.classes = data.classes.filter(
-  //     exp => exp.id !== payload.data.deleteClass.id
-  //   );
-  //   // 3. Put the items back
-  //   cache.writeQuery({ query: ALL_CLASSES_QUERY, data });
-  // };
-
   render() {
     return (
       <Mutation
@@ -45,6 +32,10 @@ class DeleteClass extends Component {
                 deleteClass().catch(err => {
                   alert(err.message);
                 });
+                // redirect back
+                if (this.props.redirect) {
+                  this.props.redirectFunction();
+                }
               }
             }}
           >

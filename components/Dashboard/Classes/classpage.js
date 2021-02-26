@@ -10,7 +10,6 @@ import Error from '../../ErrorMessage/index';
 import ClassHeader from './ClassPage/classHeader';
 import ClassStudents from './ClassPage/students';
 import ClassStudies from './ClassPage/studies';
-import ClassResults from './ClassPage/results';
 import ClassSettings from './ClassPage/settings';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
@@ -57,7 +56,9 @@ class ClassPage extends Component {
           </Head>
           <>
             <div className="goBackBtn">
-              <span onClick={this.props.goBack}>← Back</span>
+              <span style={{ cursor: 'pointer' }} onClick={this.props.goBack}>
+                ← Back
+              </span>
             </div>
           </>
           <Query query={REVIEW_CLASS_QUERY} variables={{ id: classId }}>
@@ -118,9 +119,16 @@ class ClassPage extends Component {
                       <ClassStudents schoolclass={schoolclass} />
                     )}
 
-                    {this.state.tab === 'studies' && <ClassStudies />}
+                    {this.state.tab === 'studies' && (
+                      <ClassStudies schoolclass={schoolclass} />
+                    )}
 
-                    {this.state.tab === 'settings' && <ClassSettings />}
+                    {this.state.tab === 'settings' && (
+                      <ClassSettings
+                        schoolclass={schoolclass}
+                        onClose={this.props.goBack}
+                      />
+                    )}
                   </div>
                 </div>
               );
