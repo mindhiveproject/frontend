@@ -130,9 +130,6 @@ class Nav extends Component {
 
               <ContainerOnlyForTeachers>
                 <NavRightContainer>
-                  <Link href="/classes/my">
-                    <NavButton>Classes</NavButton>
-                  </Link>
                   {me && (
                     <Link href="/dashboard">
                       <NavButton>Dashboard</NavButton>

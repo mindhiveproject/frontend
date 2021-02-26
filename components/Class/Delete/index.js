@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import Router from 'next/router';
 
-import { MY_CLASSES_QUERY } from '../Board/my';
-import { ALL_CLASSES_QUERY } from '../Board/all';
+import { MY_CLASSES_QUERY } from '../../Dashboard/Classes/classes';
 
 const DELETE_CLASS_MUTATION = gql`
   mutation DELETE_CLASS_MUTATION($id: ID!) {
@@ -20,10 +18,7 @@ class DeleteClass extends Component {
       <Mutation
         mutation={DELETE_CLASS_MUTATION}
         variables={{ id: this.props.id }}
-        refetchQueries={[
-          { query: MY_CLASSES_QUERY },
-          { query: ALL_CLASSES_QUERY },
-        ]}
+        refetchQueries={[{ query: MY_CLASSES_QUERY }]}
       >
         {(deleteClass, { error }) => (
           <button
