@@ -75,8 +75,6 @@ const StyledSelectionScreen = styled.div`
 class EditPost extends Component {
   state = {
     id: this.props.postId,
-    title: null,
-    content: null,
     journal: this.props.journalId,
   };
 
