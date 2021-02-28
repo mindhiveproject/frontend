@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import Error from '../../ErrorMessage/index';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 
-import DashboardClasses from './personalized';
+import DashboardJournal from './personalized';
 
 class PersonalDashboard extends Component {
   render() {
@@ -17,7 +17,7 @@ class PersonalDashboard extends Component {
           if (userPayloadError) return <Error error={userPayloadError} />;
           if (userPayloadLoading) return <p>Loading</p>;
 
-          return <DashboardClasses user={userPayloadData} />;
+          return <DashboardJournal user={userPayloadData} />;
         }}
       </Query>
     );

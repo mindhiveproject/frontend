@@ -85,16 +85,31 @@ const SidebarNav = ({ user }) => (
         </div>
       </Link>
 
-      <Link href="/dashboard/follow">
+      {false && (
+        <Link href="/dashboard/follow">
+          <div className="navLink">
+            <div>
+              <img
+                src="/static/assets/dashboard-follow.png"
+                alt="icon"
+                height="20"
+              />
+            </div>
+            <div>Follow</div>
+          </div>
+        </Link>
+      )}
+
+      <Link href="/dashboard/journal">
         <div className="navLink">
           <div>
             <img
-              src="/static/assets/dashboard-follow.png"
+              src="/static/assets/dashboard-journal.svg"
               alt="icon"
               height="20"
             />
           </div>
-          <div>Follow</div>
+          <div>Journal</div>
         </div>
       </Link>
 
