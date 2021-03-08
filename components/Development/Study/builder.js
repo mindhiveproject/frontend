@@ -359,6 +359,7 @@ class StudyBuilder extends Component {
               <div className="goBackBtn" onClick={this.props.onLeave}>
                 ← Leave Study Builder
               </div>
+              <div></div>
               <div>
                 <p>{this.state.study.title}</p>
               </div>

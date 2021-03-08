@@ -9,7 +9,6 @@ export const StyledBuilderPage = styled.div`
     font-weight: 400;
     line-height: 24px;
     letter-spacing: 0em;
-    /* text-align: left; */
     color: #666666;
     margin-bottom: 4px;
   }
@@ -20,8 +19,6 @@ export const StyledBuilderPage = styled.div`
     font-weight: 400;
     line-height: 16px;
     letter-spacing: 0em;
-    /* text-align: left; */
-    /* color: #999999; */
   }
   label {
     font-family: Lato;
@@ -77,7 +74,7 @@ export const StyledBuilder = styled.div`
 
 export const BuilderNav = styled.div`
   display: grid;
-  grid-template-columns: 180px 150px auto auto;
+  grid-template-columns: 180px auto 1fr auto;
   grid-gap: 30px;
   justify-content: stretch;
   align-items: center;
@@ -100,7 +97,7 @@ export const BuilderNav = styled.div`
     border: 1px solid #e5e5e5;
     box-sizing: border-box;
     border-radius: 4px;
-    padding: 5px 0px;
+    padding: 5px 10px;
     background: #e5e5e5;
     font-family: Lato;
     font-size: 18px;
