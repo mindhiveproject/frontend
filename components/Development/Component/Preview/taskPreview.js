@@ -19,11 +19,14 @@ class TaskPreview extends Component {
     const { task } = this.props;
     return (
       <>
-        <div>
-          <button onClick={this.togglePreview}>
-            {this.state.showPreview ? 'Stop preview' : 'Start preview'}
-          </button>
-        </div>
+        {task?.template?.script && (
+          <div>
+            <button onClick={this.togglePreview}>
+              {this.state.showPreview ? 'Stop preview' : 'Start preview'}
+            </button>
+          </div>
+        )}
+
         <ContainerPreview
           user={this.props.user.id}
           parameters={this.props.task.parameters}

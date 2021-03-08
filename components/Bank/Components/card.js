@@ -5,6 +5,9 @@ import moment from 'moment';
 import { StyledTaskCard } from '../styles';
 import DeleteComponent from './delete';
 
+import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
+import PublishTaskToggle from '../../Task/Customize/publish';
+
 class TaskCard extends Component {
   render() {
     const { component, user } = this.props;
@@ -49,7 +52,19 @@ class TaskCard extends Component {
               </div>
             )}
             {this.props.developingMode && isAuthor && (
-              <div>
+              <div
+                style={{
+                  display: 'grid',
+                  'grid-template-columns': '1fr 70px',
+                  'grid-gap': '10px',
+                }}
+              >
+                <ContainerOnlyForScientists>
+                  <PublishTaskToggle
+                    id={component.id}
+                    isPublic={component.public}
+                  />
+                </ContainerOnlyForScientists>
                 <DeleteComponent
                   id={component.id}
                   taskType={component.taskType}

@@ -58,7 +58,6 @@ const StyledStudyCard = styled.div`
     display: grid;
     align-self: end;
     button {
-      padding: 10px 25px 10px 25px;
       background: #ffffff;
       color: #007c70;
       max-width: 150px;

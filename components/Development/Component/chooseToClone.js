@@ -4,21 +4,22 @@ import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Card from './Card/index';
 
-import { StyledSelectionScreen } from '../selectScreen';
+import { StyledSelectionScreen } from '../styles';
 
 const StyledBankToClone = styled.div`
   display: grid;
   justify-content: center;
   margn: 0 auto;
-  grid-template-columns: repeat(auto-fill, minmax(315px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 20px;
-  margin: 20px;
+  margin: 10px;
   width: 100vh;
+  justify-self: center;
 `;
 
-const ALL_PUBLIC_TASKS_TO_CLONE_QUERY = gql`
-  query ALL_PUBLIC_TASKS_TO_CLONE_QUERY {
-    tasks(where: { taskType: TASK }) {
+const MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY = gql`
+  query MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY {
+    myAndAllTasks(where: { taskType: TASK }) {
       id
       title
       slug
@@ -46,9 +47,9 @@ const ALL_PUBLIC_TASKS_TO_CLONE_QUERY = gql`
   }
 `;
 
-const ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
-  query ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY {
-    tasks(where: { taskType: SURVEY }) {
+const MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
+  query MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY {
+    myAndAllTasks(where: { taskType: SURVEY }) {
       id
       title
       slug
@@ -75,6 +76,66 @@ const ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
     }
   }
 `;
+
+// const ALL_PUBLIC_TASKS_TO_CLONE_QUERY = gql`
+//   query ALL_PUBLIC_TASKS_TO_CLONE_QUERY {
+//     tasks(where: { taskType: TASK }) {
+//       id
+//       title
+//       slug
+//       author {
+//         id
+//       }
+//       collaborators {
+//         id
+//         username
+//       }
+//       public
+//       description
+//       taskType
+//       parameters
+//       template {
+//         id
+//         title
+//         description
+//         parameters
+//         script
+//         style
+//       }
+//       link
+//     }
+//   }
+// `;
+
+// const ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
+//   query ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY {
+//     tasks(where: { taskType: SURVEY }) {
+//       id
+//       title
+//       slug
+//       author {
+//         id
+//       }
+//       collaborators {
+//         id
+//         username
+//       }
+//       public
+//       description
+//       taskType
+//       parameters
+//       template {
+//         id
+//         title
+//         description
+//         parameters
+//         script
+//         style
+//       }
+//       link
+//     }
+//   }
+// `;
 
 class ChooseComponentToClone extends Component {
   onSelectComponent = component => {
@@ -106,17 +167,17 @@ class ChooseComponentToClone extends Component {
           <Query
             query={
               componentType === 'SURVEY'
-                ? ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY
-                : ALL_PUBLIC_TASKS_TO_CLONE_QUERY
+                ? MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY
+                : MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY
             }
           >
             {({ data, error, loading }) => {
               if (loading) return <p>Loading ...</p>;
               if (error) return <p>Error: {error.message}</p>;
-              const { tasks } = data;
+              const { myAndAllTasks } = data;
               return (
                 <StyledBankToClone>
-                  {tasks.map(component => (
+                  {myAndAllTasks.map(component => (
                     <Card
                       key={component.id}
                       component={component}

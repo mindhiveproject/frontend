@@ -24,10 +24,13 @@ class StudyCard extends Component {
 
         <div className="cardInfo">
           <h2>{study.title}</h2>
-          {ReactHtmlParser(study.description)}
-          {this.props.developingMode && (
-            <div>{ReactHtmlParser(study.shortDescription)}</div>
-          )}
+
+          <div>
+            {ReactHtmlParser(study.description)}
+            {this.props.developingMode && (
+              <div>{ReactHtmlParser(study.shortDescription)}</div>
+            )}
+          </div>
 
           <div className="studyLink">
             <div>

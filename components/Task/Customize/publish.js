@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import styled from 'styled-components';
 
 const PUBLISH_TOGGLE_TASK = gql`
   mutation PUBLISH_TOGGLE_TASK($id: ID!) {
@@ -12,15 +13,24 @@ const PUBLISH_TOGGLE_TASK = gql`
   }
 `;
 
+const StyledPublishBtn = styled.button`
+  padding: 10px 5px 10px 5px;
+  background: white;
+  border: 2px solid green;
+  box-sizing: border-box;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
 class PublishTaskToggle extends Component {
   render() {
     const { id, isPublic } = this.props;
     return (
       <Mutation mutation={PUBLISH_TOGGLE_TASK} variables={{ id }}>
         {(publishToggleTask, { loading, error }) => (
-          <button onClick={() => publishToggleTask()}>
+          <StyledPublishBtn onClick={() => publishToggleTask()}>
             {isPublic ? `Make private` : `Publish`}
-          </button>
+          </StyledPublishBtn>
         )}
       </Mutation>
     );

@@ -83,7 +83,7 @@ class RunExperiment extends Component {
                       study: this.props.study.id,
                       script: task.template.script,
                       style: task.template.style,
-                      params: task.parameters.reduce((obj, item) => {
+                      params: task.parameters?.reduce((obj, item) => {
                         obj[item.name] = item.value;
                         return obj;
                       }, {}),

@@ -32,7 +32,6 @@ class DashboardDevelop extends Component {
   };
 
   openComponentEditor = component => {
-    console.log('component', component);
     this.setState({
       page: 'componentBuilder',
       devInfo: {

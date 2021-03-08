@@ -46,6 +46,11 @@ const COMPONENT_TO_CLONE_QUERY = gql`
         parameters
         script
         style
+        author {
+          id
+        }
+        createdAt
+        updatedAt
       }
       collaborators {
         id
@@ -58,6 +63,7 @@ const COMPONENT_TO_CLONE_QUERY = gql`
       taskType
       public
       submitForPublishing
+      isOriginal
     }
   }
 `;
@@ -78,6 +84,9 @@ class ComponentBuilderWrapper extends Component {
           const isAuthor =
             user.id === data.task?.author?.id ||
             data.task?.collaborators.map(c => c.id).includes(user.id);
+
+          // check whether the current user is the author of the original task
+          const isTemplateAuthor = user.id === data.task?.template?.author?.id;
 
           let task;
           if (needToClone) {
@@ -113,6 +122,9 @@ class ComponentBuilderWrapper extends Component {
               task={task}
               user={this.props.user}
               needToClone={needToClone}
+              templateEditor={
+                isAuthor && isTemplateAuthor && !needToClone && task.isOriginal
+              }
             />
           );
         }}

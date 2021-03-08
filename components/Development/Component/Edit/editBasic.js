@@ -3,8 +3,8 @@ import { Query } from 'react-apollo';
 import slugify from 'slugify';
 import styled from 'styled-components';
 import { Select } from 'semantic-ui-react';
+import moment from 'moment';
 import SettingsBlock from './settingBlock';
-
 import { CONSENTS_QUERY } from '../../../Task/Customize/taskForm';
 
 const StyledSettingBlock = styled.div`
@@ -73,6 +73,66 @@ class EditBasic extends Component {
           This is visible to researchers, teachers, and students when choosing
           tasks or surveys in the Develop mode.
         </span>
+
+        {this.props.templateEditor && (
+          <div>
+            <label htmlFor="shortDescription">
+              Template description (for other researchers or students who will
+              clone your task)
+              <textarea
+                id="shortDescription"
+                name="shortDescription"
+                value={task.shortDescription}
+                onChange={this.props.handleTaskChange}
+                rows="5"
+              />
+            </label>
+          </div>
+        )}
+
+        {this.props.templateEditor && (
+          <div>
+            <label htmlFor="title">
+              lab.js script (JSON file)
+              {task?.template?.script ? (
+                <div>
+                  {task?.template?.createdAt && (
+                    <div>
+                      Created on{' '}
+                      {moment(task?.template?.createdAt).format(
+                        'MMMM D, YYYY, h:mm'
+                      )}
+                    </div>
+                  )}
+
+                  {task?.template?.updatedAt && (
+                    <div>
+                      Last updated on{' '}
+                      {moment(task?.template?.updatedAt).format(
+                        'MMMM D, YYYY, h:mm'
+                      )}
+                    </div>
+                  )}
+
+                  <div>
+                    <button onClick={this.props.deleteTemplateLocally}>
+                      Delete and reupload
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <input
+                  type="file"
+                  id="script"
+                  name="script"
+                  onChange={this.props.handleScriptUpload}
+                  accept=".json"
+                  required
+                />
+              )}
+            </label>
+          </div>
+        )}
 
         {hasIRBAccess && (
           <Query query={CONSENTS_QUERY}>

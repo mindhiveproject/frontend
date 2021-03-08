@@ -9,116 +9,8 @@ import ChooseComponentToClone from './Component/chooseToClone';
 import ComponentBuilderWrapper from './Component/builderWrapper';
 import ComponentBuilder from './Component/builder';
 
-const StyledSelectionScreen = styled.div`
-  display: grid;
-  grid-template-rows: minmax(1px, auto) 1fr;
-  height: 100%;
-  background: #f7f9f8;
-
-  .selectionHeader {
-    display: grid;
-    grid-template-columns: 1fr auto;
-  }
-
-  .goBackBtn {
-    cursor: pointer;
-    margin: 1rem;
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #007c70;
-  }
-  .closeBtn {
-    width: 3.3rem;
-    line-height: 3rem;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 2.25rem;
-    color: #5f6871;
-    padding-bottom: 5px;
-    font-size: 2rem;
-    :hover {
-      transform: scale(1.1);
-      transition: transform 0.5s;
-    }
-  }
-
-  .selectionBody {
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-  }
-
-  h1 {
-    font-family: Lato;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 56px;
-    letter-spacing: 0em;
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  h3 {
-    font-family: Lato;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.05em;
-    text-align: center;
-  }
-  p {
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.05em;
-  }
-  .options {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 80px;
-  }
-  .studyOptions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 80px;
-  }
-  .option {
-    max-width: 355px;
-  }
-  .iconSelect {
-    height: 90px;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .option {
-    cursor: pointer;
-    padding: 60px 29px 60px 29px;
-    :hover {
-      background: #ffffff;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.09),
-        0px 5px 6px rgba(0, 0, 0, 0.08);
-      border-radius: 4px;
-      transform: scale(1.05);
-      transition: transform 0.5s;
-    }
-  }
-  .selectHeader {
-    p {
-      text-align: center;
-    }
-  }
-`;
+import { StyledSelectionScreen } from './styles';
+import ActionSelector from './actionSelector';
 
 class DevelopmentSelectScreen extends Component {
   state = {
@@ -224,132 +116,94 @@ class DevelopmentSelectScreen extends Component {
     if (this.state.stage === 'selection-second-question') {
       if (this.state.choice === 'study') {
         return (
-          <StyledSelectionScreen>
-            <div className="selectionHeader">
-              <div className="goBackBtn">
-                <span
-                  onClick={() => this.returnToStage('selection-first-question')}
-                >
-                  ← Go back to previous step
-                </span>
-              </div>
-              <div className="closeBtn">
-                <span onClick={this.props.onClose}>&times;</span>
-              </div>
-            </div>
-
-            <div className="selectionBody">
-              <div>
-                <h1>Develop a study</h1>
-              </div>
-
-              <div className="studyOptions">
-                <div
-                  className="option"
-                  onClick={() => this.handleActionChoice('clone')}
-                >
-                  <div className="iconSelect">
-                    <img
-                      src="/static/assets/develop-clone-study.svg"
-                      alt="icon"
-                      width="50"
-                    />
-                  </div>
-                  <h3>Clone & modify a study</h3>
-                  <p>Build a study based on a pre-existing MindHive study.</p>
-                </div>
-                <div
-                  className="option"
-                  onClick={() => this.handleActionChoice('create')}
-                >
-                  <div className="iconSelect">
-                    <img
-                      src="/static/assets/develop-study-from-scratch.svg"
-                      alt="icon"
-                      width="50"
-                    />
-                  </div>
-                  <h3>Start a study from scratch</h3>
-                  <p>
-                    Select this option if you would prefer to build a study from
-                    the ground up.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </StyledSelectionScreen>
+          <ActionSelector
+            returnToStage={this.returnToStage}
+            onClose={this.props.onClose}
+            handleActionChoice={this.handleActionChoice}
+            title="Develop a study"
+            options={[
+              {
+                header: 'Clone & modify a study',
+                description:
+                  'Build a study based on a pre-existing MindHive study.',
+                icon: '/static/assets/develop-clone-study.svg',
+                action: 'clone',
+              },
+              {
+                header: 'Start a study from scratch',
+                description:
+                  'Select this option if you would prefer to build a study from the ground up.',
+                icon: '/static/assets/develop-study-from-scratch.svg',
+                action: 'create',
+              },
+            ]}
+          />
         );
       }
       if (this.state.choice === 'task') {
         return (
-          <ChooseComponentToClone
-            componentType="TASK"
-            onReturn={() => this.returnToStage('selection-first-question')}
+          <ActionSelector
+            returnToStage={this.returnToStage}
             onClose={this.props.onClose}
-            onChoiceToClone={this.chooseComponentToClone}
-            user={this.props.user}
+            handleActionChoice={this.handleActionChoice}
+            title="Develop a task"
+            options={[
+              {
+                header: 'Clone & modify a task',
+                description:
+                  'Build a task based on a pre-existing MindHive task.',
+                icon: '/static/assets/develop-clone-study.svg',
+                action: 'clone',
+              },
+              {
+                header: 'Upload a task from lab.js',
+                description:
+                  'Select this option if you would prefer to upload your own task script from lab.js.',
+                icon: '/static/assets/develop-study-from-scratch.svg',
+                action: 'upload',
+              },
+              // {
+              //   header: 'Add an external task with a web link',
+              //   description:
+              //     'Select this option if you would prefer to add an external link',
+              //   icon: '/static/assets/develop-study-from-scratch.svg',
+              //   action: 'link',
+              // },
+            ]}
           />
         );
       }
       if (this.state.choice === 'survey') {
         return (
-          <StyledSelectionScreen>
-            <div className="selectionHeader">
-              <div className="goBackBtn">
-                <span
-                  onClick={() => this.returnToStage('selection-first-question')}
-                >
-                  ← Go back to previous step
-                </span>
-              </div>
-              <div className="closeBtn">
-                <span onClick={this.props.onClose}>&times;</span>
-              </div>
-            </div>
-
-            <div className="selectionBody">
-              <div>
-                <h1>Develop a survey</h1>
-              </div>
-
-              <div className="studyOptions">
-                <div
-                  className="option"
-                  onClick={() => this.handleActionChoice('clone')}
-                >
-                  <div className="iconSelect">
-                    <img
-                      src="/static/assets/develop-clone-survey.svg"
-                      alt="icon"
-                      width="50"
-                    />
-                  </div>
-                  <h3>Clone & modify a survey</h3>
-                  <p>
-                    Duplicate and edit a pre-existing MindHive survey and its
-                    parameters.
-                  </p>
-                </div>
-                <div
-                  className="option"
-                  onClick={() => this.handleActionChoice('create')}
-                >
-                  <div className="iconSelect">
-                    <img
-                      src="/static/assets/develop-survey-builder.svg"
-                      alt="icon"
-                      width="50"
-                    />
-                  </div>
-                  <h3>Use the Survey Builder</h3>
-                  <p>
-                    Select this option if you would prefer to build a survey
-                    entirely from scratch.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </StyledSelectionScreen>
+          <ActionSelector
+            returnToStage={this.returnToStage}
+            onClose={this.props.onClose}
+            handleActionChoice={this.handleActionChoice}
+            title="Develop a survey"
+            options={[
+              {
+                header: 'Clone & modify a survey',
+                description:
+                  'Duplicate and edit a pre-existing MindHive survey and its parameters.',
+                icon: '/static/assets/develop-clone-survey.svg',
+                action: 'clone',
+              },
+              {
+                header: 'Use the Survey Builder',
+                description:
+                  'Select this option if you would prefer to build a survey entirely from scratch.',
+                icon: '/static/assets/develop-survey-builder.svg',
+                action: 'create',
+              },
+              {
+                header: 'Upload a survey from lab.js',
+                description:
+                  'Select this option if you would prefer to upload your own survey script from lab.js.',
+                icon: '/static/assets/develop-study-from-scratch.svg',
+                action: 'upload',
+              },
+            ]}
+          />
         );
       }
       return <div>To do</div>;
@@ -417,29 +271,58 @@ class DevelopmentSelectScreen extends Component {
           );
         }
       }
+
       if (this.state.choice === 'task') {
-        if (this.state.componentId) {
+        if (this.state.action === 'clone') {
           return (
-            <ComponentBuilderWrapper
-              onLeave={this.props.onClose}
-              componentId={this.state.componentId}
+            <ChooseComponentToClone
+              componentType="TASK"
+              onReturn={() => this.returnToStage('selection-second-question')}
+              onClose={this.props.onClose}
+              onChoiceToClone={this.chooseComponentToClone}
               user={this.props.user}
-              needToClone
             />
           );
         }
-        return (
-          <ComponentBuilder
-            onLeave={this.props.onClose}
-            task={{
-              title: 'A task - 12942',
-              description: 'Provide some description',
-              shortDescription: 'Provide some description for researchers',
-            }}
-            user={this.props.user}
-          />
-        );
+
+        if (this.state.action === 'create') {
+          if (this.state.componentId) {
+            return (
+              <ComponentBuilderWrapper
+                onLeave={this.props.onClose}
+                componentId={this.state.componentId}
+                user={this.props.user}
+                needToClone
+              />
+            );
+          }
+          return <div>No task to clone</div>;
+        }
+
+        if (this.state.action === 'upload') {
+          return (
+            <ComponentBuilder
+              onLeave={this.props.onClose}
+              task={{
+                title: `Untitled task - ${Math.floor(Math.random() * 10000)}`,
+                description:
+                  'Add in a description here to explain your includes Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                shortDescription:
+                  'Add in a description for researchers (short description)',
+                taskType: 'TASK',
+                isOriginal: true,
+              }}
+              user={this.props.user}
+              templateEditor
+            />
+          );
+        }
+
+        if (this.state.action === 'link') {
+          return <div>Placeholder for external link</div>;
+        }
       }
+
       if (this.state.choice === 'survey') {
         if (this.state.action === 'clone') {
           return (
@@ -461,6 +344,24 @@ class DevelopmentSelectScreen extends Component {
               }
               user={this.props.user}
               needToClone
+            />
+          );
+        }
+        if (this.state.action === 'upload') {
+          return (
+            <ComponentBuilder
+              onLeave={this.props.onClose}
+              task={{
+                title: `Untitled survey - ${Math.floor(Math.random() * 10000)}`,
+                description:
+                  'Add in a description here to explain your includes Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                shortDescription:
+                  'Add in a description for researchers (short description)',
+                taskType: 'SURVEY',
+                isOriginal: true,
+              }}
+              user={this.props.user}
+              templateEditor
             />
           );
         }

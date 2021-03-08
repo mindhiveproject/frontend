@@ -26,8 +26,8 @@ export const StyledStudyCard = styled.div`
     align-items: start;
     align-content: start;
     padding: 16px;
-    min-height: 314px;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: 100px 150px 50px;
+    grid-gap: 20px;
   }
   a {
     letter-spacing: 0.04em;

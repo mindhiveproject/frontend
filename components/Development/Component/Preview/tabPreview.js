@@ -99,17 +99,17 @@ class TabPreview extends Component {
             <div className="actionLinks">
               <div>
                 <button onClick={() => console.log('Take')}>
-                  <p>
-                    {state === 'before' ? 'Take' : 'Retake'}{' '}
-                    {task.taskType && task.taskType.toLowerCase()}
-                  </p>
+                  {state === 'before' ? 'Take' : 'Retake'}{' '}
+                  {task.taskType && task.taskType.toLowerCase()}
                 </button>
               </div>
-              <div>
-                <a onClick={() => console.log('Preview')}>
-                  <p>Preview</p>
-                </a>
-              </div>
+              {false && (
+                <div>
+                  <a onClick={() => console.log('Preview')}>
+                    <p>Preview</p>
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </StyledTaskCard>

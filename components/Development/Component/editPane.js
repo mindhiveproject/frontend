@@ -69,6 +69,9 @@ class EditPane extends Component {
                 this.props.handleSetMultipleValuesInState
               }
               user={this.props.user}
+              templateEditor={this.props.templateEditor}
+              handleScriptUpload={this.props.handleScriptUpload}
+              deleteTemplateLocally={this.props.deleteTemplateLocally}
             />
           )}
 

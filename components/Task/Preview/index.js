@@ -12,7 +12,7 @@ class ExperimentPreview extends Component {
             settings={{
               script: this.props.template.script,
               style: this.props.template.style,
-              params: this.props.parameters.reduce((obj, item) => {
+              params: this.props.parameters?.reduce((obj, item) => {
                 obj[item.name] = item.value;
                 return obj;
               }, {}),
