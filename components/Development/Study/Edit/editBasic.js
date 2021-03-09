@@ -150,6 +150,21 @@ class EditBasic extends Component {
             </a>
           </Link>
         )}
+
+        {isAuthor && (
+          <Link
+            href={{
+              pathname: '/data/study',
+              query: { id: study.id },
+            }}
+          >
+            <a target="_blank">
+              <h2>
+                <button>Data Viz (beta)</button>
+              </h2>
+            </a>
+          </Link>
+        )}
       </StyledBasicPane>
     );
   }
