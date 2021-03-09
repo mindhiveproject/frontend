@@ -1,20 +1,20 @@
 import { useRouter } from 'next/router';
-import ParticipantSignup from '../../../components/Sign/Student/index';
+import ParticipantSignupDirectLink from '../../../components/Sign/Student/directLink';
 import Page from '../../../components/Page/index';
 
-const ParticipantSignupPage = () => {
+const ParticipantSignupDirectLinkPage = () => {
   const router = useRouter();
   if (!router.query.code)
     return (
       <Page>
-        <ParticipantSignup />
+        <ParticipantSignupDirectLink />
       </Page>
     );
   return (
     <Page>
-      <ParticipantSignup classCode={router.query.code} />
+      <ParticipantSignupDirectLink classCode={router.query.code} />
     </Page>
   );
 };
 
-export default ParticipantSignupPage;
+export default ParticipantSignupDirectLinkPage;
