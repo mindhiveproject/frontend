@@ -10,6 +10,25 @@ const StyledStudiesTop = styled.div`
   margin-bottom: 20px;
   padding: 20px;
   grid-template-columns: auto 1fr;
+  button {
+    display: grid;
+    align-content: center;
+    max-width: 300px;
+    width: 100%;
+    background: none;
+    color: #007c70;
+    padding: 12px 15px;
+    border: 2px solid #007c70;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
 `;
 
 const StyledStudiesHeader = styled.div`
@@ -67,7 +86,7 @@ class ClassStudies extends Component {
       <div>
         <StyledStudiesTop>
           <button onClick={() => this.randomizeStudiesOrder(true)}>
-            Randomize the order
+            Randomize Order
           </button>
           <div></div>
         </StyledStudiesTop>

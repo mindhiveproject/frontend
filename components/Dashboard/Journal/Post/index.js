@@ -40,9 +40,11 @@ class Post extends Component {
           <div className="headerInfo">
             <span>{moment(post.createdAt).format('MMMM D, YYYY')}</span>
             <span onClick={() => this.props.editPost(post.id)}>Edit</span>
-            <DeletePost postId={post.id} journalId={journalId}>
-              Delete
-            </DeletePost>
+            {!this.props.teacherMode && (
+              <DeletePost postId={post.id} journalId={journalId}>
+                Delete
+              </DeletePost>
+            )}
           </div>
         </div>
 

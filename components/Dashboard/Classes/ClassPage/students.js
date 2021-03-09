@@ -14,8 +14,27 @@ const StyledStudentsTop = styled.div`
   display: grid;
   margin-bottom: 20px;
   padding: 20px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 20px;
   background: white;
+  .copyArea {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 20px;
+    justify-items: baseline;
+  }
+  .link {
+    padding: 12px 16px 12px 17px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+  }
+  .copyButton {
+    padding: 12px 25px 12px 25px;
+    cursor: pointer;
+    color: #007c70;
+    border: 2px solid #007c70;
+    border-radius: 4px;
+  }
 `;
 
 const StyledStudentHeader = styled.div`
@@ -52,6 +71,16 @@ class ClassStudents extends Component {
     });
     const { message } = res.data.moveToClass;
     alert(message);
+  };
+
+  copyLink = () => {
+    const copyLink = `https://mindhive.science/signup/student/${this.props.schoolclass.code}`;
+    const temp = document.createElement('input');
+    document.body.append(temp);
+    temp.value = copyLink;
+    temp.select();
+    document.execCommand('copy');
+    temp.remove();
   };
 
   render() {
@@ -101,7 +130,18 @@ class ClassStudents extends Component {
                             Share the link below with your students to invite
                             them to join your class
                           </p>
-                          <p>In development... 🚧👷🏻‍♂️</p>
+                          <div className="copyArea">
+                            <div className="link">
+                              mindhive.science/signup/student/
+                              {this.props.schoolclass.code}
+                            </div>
+                            <div
+                              className="copyButton"
+                              onClick={() => this.copyLink()}
+                            >
+                              Copy
+                            </div>
+                          </div>
                         </div>
                         <div>
                           <p>Class access code</p>
@@ -122,7 +162,14 @@ class ClassStudents extends Component {
                           '';
                         return (
                           <StyledStudentRow key={i}>
-                            <div>{student.username}</div>
+                            <div
+                              style={{ cursor: 'pointer' }}
+                              onClick={() =>
+                                this.props.openStudentPage(student.id)
+                              }
+                            >
+                              {student.username}
+                            </div>
                             <div>{email}</div>
                             <Dropdown text="...">
                               <Dropdown.Menu>

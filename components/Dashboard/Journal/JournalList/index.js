@@ -28,9 +28,11 @@ class JournalRow extends Component {
           <div>{myjournal.posts.length}</div>
           <div>{moment(myjournal.createdAt).format('MMMM D, YYYY')}</div>
         </StyledClassRow>
-        <div className="deleteBtn">
-          <DeleteJournal journalId={myjournal.id}>Delete</DeleteJournal>
-        </div>
+        {!this.props.teacherMode && (
+          <div className="deleteBtn">
+            <DeleteJournal journalId={myjournal.id}>Delete</DeleteJournal>
+          </div>
+        )}
       </StyledRow>
     );
   }

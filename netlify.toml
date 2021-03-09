@@ -25,3 +25,9 @@
   to = "/data/study.html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/signup/student/*"
+  to = "/signup/student/[code].html"
+  status = 200
+  force = true

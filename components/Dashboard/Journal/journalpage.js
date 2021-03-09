@@ -113,6 +113,7 @@ class JournalPage extends Component {
                         post={post}
                         journalId={journal.id}
                         editPost={this.editPost}
+                        teacherMode={this.props.teacherMode}
                       />
                     ))}
                   </StyledPosts>
