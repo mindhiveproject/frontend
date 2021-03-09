@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import { Menu } from 'semantic-ui-react';
 
-import Journal from './journal';
 import Participated from './participated';
+import Created from './created';
+import Reviewed from './reviewed';
+import Journal from './journal';
 
 class StudentPage extends Component {
   state = {
@@ -86,9 +88,9 @@ class StudentPage extends Component {
             <Participated student={student} />
           )}
 
-          {this.state.tab === 'created' && <div> 🚧🏗🚜🗜👷 In development</div>}
+          {this.state.tab === 'created' && <Created student={student} />}
 
-          {this.state.tab === 'reviewed' && <div>In development 🚧🏗👷</div>}
+          {this.state.tab === 'reviewed' && <Reviewed student={student} />}
 
           {this.state.tab === 'journal' && <Journal studentId={student.id} />}
         </div>

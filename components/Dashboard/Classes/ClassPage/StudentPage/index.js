@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
-import StudentPage from './Page';
+import StudentPage from './page';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../../../styles';
 
@@ -46,7 +46,6 @@ class FetchStudentPage extends Component {
               {({ error, loading, data }) => {
                 if (error) return <Error error={error} />;
                 if (loading) return <p>Loading</p>;
-                console.log('data', data);
                 if (!data.student)
                   return <p>No student found for {this.props.studentId}</p>;
                 const { student } = data;
