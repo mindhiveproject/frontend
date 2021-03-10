@@ -13,7 +13,7 @@ import AddPost from './Post/addpost';
 import EditPost from './Post/editpost';
 
 import { ContainerOnlyForAdmin } from '../../Permissions/Admin/index';
-import AddSketch from './Post/addsketch';
+import AddSketch from './Post/addSketch';
 
 const StyledPosts = styled.div`
   display: grid;
