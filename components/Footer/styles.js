@@ -32,6 +32,7 @@ export const StyledFooter = styled.div`
   .linksPanel {
     display: grid;
     justify-content: center;
+    align-content: space-between;
     @media (max-width: 600px) {
       justify-content: start;
       margin: 10px;

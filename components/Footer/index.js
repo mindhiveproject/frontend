@@ -19,19 +19,26 @@ const Footer = () => (
     </div>
 
     <div className="linksPanel">
-      <Link href="/docs/about">
-        <p className="link">About</p>
-      </Link>
-
-      <Link href="/docs/privacy">
-        <p className="link">Privacy Policy</p>
-      </Link>
-
-      <Link href="/docs/terms">
-        <p className="link">Terms & Conditions</p>
-      </Link>
-
-      <a href="mailto: info@mindhive.science">info@mindhive.science</a>
+      <div>
+        <Link href="/docs/about">
+          <p className="link">About</p>
+        </Link>
+      </div>
+      <div>
+        <Link href="/docs/privacy">
+          <p className="link">Privacy Policy</p>
+        </Link>
+      </div>
+      <div>
+        <Link href="/docs/terms">
+          <p className="link">Terms & Conditions</p>
+        </Link>
+      </div>
+      <div>
+        <p>
+          <a href="mailto: info@mindhive.science">info@mindhive.science</a>
+        </p>
+      </div>
     </div>
   </StyledFooter>
 );

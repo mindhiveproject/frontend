@@ -12,6 +12,9 @@ import Post from './Post/index';
 import AddPost from './Post/addpost';
 import EditPost from './Post/editpost';
 
+import { ContainerOnlyForAdmin } from '../../Permissions/Admin/index';
+import AddSketch from './Post/addsketch';
+
 const StyledPosts = styled.div`
   display: grid;
   grid-gap: 20px;
@@ -44,6 +47,12 @@ class JournalPage extends Component {
     });
   };
 
+  addSketch = () => {
+    this.setState({
+      page: 'addsketch',
+    });
+  };
+
   editPost = postId => {
     console.log('postId', postId);
     this.setState({
@@ -65,6 +74,10 @@ class JournalPage extends Component {
 
     if (page === 'addpost') {
       return <AddPost goBack={this.goBack} journalId={journal.id} />;
+    }
+
+    if (page === 'addsketch') {
+      return <AddSketch goBack={this.goBack} journalId={journal.id} />;
     }
 
     if (page === 'editpost') {
@@ -93,8 +106,17 @@ class JournalPage extends Component {
                 <h1>{journal.title}</h1>
                 <p>{journal.description}</p>
               </div>
-              <div>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gridGap: '10px',
+                }}
+              >
                 <button onClick={this.addPost}>Add note</button>
+                <ContainerOnlyForAdmin>
+                  <button onClick={this.addSketch}>Add sketch</button>
+                </ContainerOnlyForAdmin>
               </div>
             </div>
 
