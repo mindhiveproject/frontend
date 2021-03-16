@@ -23,7 +23,7 @@ const theme = {
 const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
-    font-size: 12px;
+    font-size: 10px;
     height: 100%;
     font-family: 'Lato';
   }
