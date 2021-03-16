@@ -64,6 +64,8 @@ const COMPONENT_TO_CLONE_QUERY = gql`
       public
       submitForPublishing
       isOriginal
+      isExternal
+      link
     }
   }
 `;
@@ -100,7 +102,7 @@ class ComponentBuilderWrapper extends Component {
           } else if (isAuthor) {
             task = {
               ...data.task,
-              templateId: data.task.template.id,
+              templateId: data.task.template?.id,
               consent: data.task.consent?.id,
               collaborators: (data.task.collaborators &&
                 data.task.collaborators.map(c => c.username).length &&

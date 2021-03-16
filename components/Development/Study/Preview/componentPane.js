@@ -94,6 +94,7 @@ const COMPONENT_QUERY = gql`
         style
       }
       taskType
+      isExternal
     }
   }
 `;

@@ -143,7 +143,7 @@ const CREATE_COMPONENT = gql`
   mutation CREATE_COMPONENT(
     $title: String!
     $slug: String
-    $templateId: ID!
+    $templateId: ID
     $description: String
     $parameters: Json
     $settings: Json
@@ -151,6 +151,9 @@ const CREATE_COMPONENT = gql`
     $consent: ID
     $taskType: TaskType
     $submitForPublishing: Boolean
+    $link: String
+    $isExternal: Boolean
+    $isOriginal: Boolean
   ) {
     createTask(
       title: $title
@@ -163,6 +166,9 @@ const CREATE_COMPONENT = gql`
       consent: $consent
       taskType: $taskType
       submitForPublishing: $submitForPublishing
+      link: $link
+      isExternal: $isExternal
+      isOriginal: $isOriginal
     ) {
       id
       title
@@ -194,6 +200,8 @@ const CREATE_COMPONENT = gql`
       public
       submitForPublishing
       isOriginal
+      isExternal
+      link
     }
   }
 `;
@@ -210,6 +218,7 @@ const UPDATE_COMPONENT = gql`
     $consent: ID
     $taskType: TaskType
     $submitForPublishing: Boolean
+    $link: String
   ) {
     updateTask(
       id: $id
@@ -222,6 +231,7 @@ const UPDATE_COMPONENT = gql`
       consent: $consent
       taskType: $taskType
       submitForPublishing: $submitForPublishing
+      link: $link
     ) {
       id
       title
@@ -246,6 +256,7 @@ class ComponentBuilder extends Component {
 
   handleComponentChange = e => {
     const { name, type, value } = e.target;
+    console.log('name, value', name, value);
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
       task: {
@@ -417,6 +428,7 @@ class ComponentBuilder extends Component {
               <div className="taskLabel">
                 <p>
                   {this.state.task?.isOriginal ? 'Original' : 'Cloned'}{' '}
+                  {this.state.task?.isExternal ? 'external ' : ''}
                   {taskType.toLowerCase()}
                 </p>
               </div>

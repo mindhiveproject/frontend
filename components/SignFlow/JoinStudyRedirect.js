@@ -10,17 +10,21 @@ const joinStudyRedirect = (study, profile) => {
         block => block.blockId === userBlock
       );
       if (studyBlock && studyBlock.length && studyBlock[0].tests) {
-        const components = studyBlock[0].tests;
-        const taskId = components[0].id;
-
-        Router.push({
-          pathname: `/studies/${study.slug}`,
-        });
-
-        // open the test on a new page
-        const url = `/dt/r?t=${taskId}&s=${study.id}`;
-        const win = window.open(url, '_blank');
-        win.focus();
+        const [component] = studyBlock[0].tests;
+        if (component) {
+          const { id } = component;
+          // open the test on a new page
+          const url = `/dt/r?t=${id}&s=${study.id}`;
+          const win = window.open(url, '_blank');
+          win.focus();
+          Router.push({
+            pathname: `/studies/${study.slug}`,
+          });
+        } else {
+          Router.push({
+            pathname: `/studies/${study.slug}`,
+          });
+        }
       } else {
         Router.push({
           pathname: `/studies/${study.slug}`,

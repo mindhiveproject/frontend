@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -8,29 +8,7 @@ import { MY_JOURNALS_QUERY } from '../journals';
 
 import { StyledPost } from '../../../Styles/Forms';
 
-import { Sketch } from './sketch';
-
-const StyledSketch = styled.div`
-  input,
-  textarea,
-  select {
-    width: 100%;
-    &:focus {
-      outline: 0;
-      background: white;
-      border-color: mintcream;
-    }
-  }
-  button {
-    background: transparent;
-    margin: 1px;
-    border: 0px solid #e6e6e6;
-    cursor: pointer;
-  }
-  border: 1px solid lightgrey;
-  background: white;
-  border-radius: 4px;
-`;
+import Sketch from './sketch';
 
 const CREATE_NEW_POST = gql`
   mutation CREATE_NEW_POST($title: String, $content: String, $journal: ID!) {
@@ -128,9 +106,7 @@ class AddPost extends Component {
                       required
                     />
                   </label>
-                  <StyledSketch>
-                    <Sketch />
-                  </StyledSketch>
+                  <Sketch />
                   <button type="submit">Create</button>
                 </fieldset>
               </StyledPost>

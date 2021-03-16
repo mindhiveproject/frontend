@@ -103,7 +103,7 @@ export const StyledTaskCard = styled.div`
     button {
       background: #ffffff;
       color: #007c70;
-      max-width: 150px;
+      max-width: 200px;
     }
     p {
       font-family: Lato;

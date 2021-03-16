@@ -48,6 +48,22 @@ class EditBasic extends Component {
           />
         </label>
 
+        {task?.isExternal && (
+          <div style={{ paddingTop: '10px' }}>
+            <label htmlFor="link">
+              Task link
+              <input
+                type="text"
+                id="link"
+                name="link"
+                value={task.link || ''}
+                onChange={this.props.handleTaskChange}
+              />
+            </label>
+            <span>The data will not be saved to the MH database</span>
+          </div>
+        )}
+
         <StyledSettingBlock>
           {Object.keys(settings).map((name, i) => (
             <SettingsBlock

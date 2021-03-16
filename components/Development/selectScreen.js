@@ -162,13 +162,13 @@ class DevelopmentSelectScreen extends Component {
                 icon: '/static/assets/develop-study-from-scratch.svg',
                 action: 'upload',
               },
-              // {
-              //   header: 'Add an external task with a web link',
-              //   description:
-              //     'Select this option if you would prefer to add an external link',
-              //   icon: '/static/assets/develop-study-from-scratch.svg',
-              //   action: 'link',
-              // },
+              {
+                header: 'Add an external task with a web link',
+                description:
+                  'Select this option if you would prefer to add an external link',
+                icon: '/static/assets/develop-task.svg',
+                action: 'link',
+              },
             ]}
           />
         );
@@ -202,6 +202,13 @@ class DevelopmentSelectScreen extends Component {
                 icon: '/static/assets/develop-study-from-scratch.svg',
                 action: 'upload',
               },
+              {
+                header: 'Add an external survey with a web link',
+                description:
+                  'Select this option if you would prefer to add an external link',
+                icon: '/static/assets/develop-task.svg',
+                action: 'link',
+              },
             ]}
           />
         );
@@ -222,7 +229,7 @@ class DevelopmentSelectScreen extends Component {
         }
         if (this.state.action === 'create') {
           if (this.state.studyIdToClone) {
-            console.log('this.state', this.state);
+            // console.log('this.state', this.state);
             return (
               <StudyBuilderWrapper
                 onLeave={this.props.onClose}
@@ -319,7 +326,22 @@ class DevelopmentSelectScreen extends Component {
         }
 
         if (this.state.action === 'link') {
-          return <div>Placeholder for external link</div>;
+          return (
+            <ComponentBuilder
+              onLeave={this.props.onClose}
+              task={{
+                title: `Untitled task - ${Math.floor(Math.random() * 10000)}`,
+                description:
+                  'Add in a description here to explain your includes Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                shortDescription:
+                  'Add in a description for researchers (short description)',
+                taskType: 'TASK',
+                isOriginal: true,
+                isExternal: true,
+              }}
+              user={this.props.user}
+            />
+          );
         }
       }
 
@@ -362,6 +384,24 @@ class DevelopmentSelectScreen extends Component {
               }}
               user={this.props.user}
               templateEditor
+            />
+          );
+        }
+        if (this.state.action === 'link') {
+          return (
+            <ComponentBuilder
+              onLeave={this.props.onClose}
+              task={{
+                title: `Untitled survey - ${Math.floor(Math.random() * 10000)}`,
+                description:
+                  'Add in a description here to explain your includes Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                shortDescription:
+                  'Add in a description for researchers (short description)',
+                taskType: 'SURVEY',
+                isOriginal: true,
+                isExternal: true,
+              }}
+              user={this.props.user}
             />
           );
         }
