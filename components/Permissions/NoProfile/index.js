@@ -4,10 +4,9 @@ import { CURRENT_USER_QUERY } from '../../User/index';
 export const ContainerOnlyForNoProfile = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
-      if (loading) return <p></p>;
-      // console.log('data', data);
+      if (loading) return null;
       if (data.me) {
-        return false;
+        return null;
       }
       return props.children;
     }}
@@ -15,10 +14,9 @@ export const ContainerOnlyForNoProfile = props => (
 );
 
 export const PageOnlyForNoProfile = props => (
-  <Query query={CURRENT_USER_QUERY}>
+  <Query query={CURRENT_USER_EMAIL_QUERY}>
     {({ data, loading }) => {
-      if (loading) return <p></p>;
-      // console.log('data', data);
+      if (loading) return null;
       if (data.me) {
         return (
           <div>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import { SignupForm, Dialog, SignupButton } from '../styles';
-import StudentSignup from './emailSignup';
-import GoogleSignup from '../Google/index';
+import { SignupForm, Dialog } from '../styles';
+
+import JoinClass from './joinClass';
 
 const CLASS_QUERY = gql`
   query CLASS_QUERY($code: String!) {
@@ -83,6 +83,7 @@ class SignUp extends Component {
                           this.setState({
                             activePage: 'choose',
                             classCode: schoolclass.code,
+                            classId: schoolclass.id,
                           })
                         }
                       >
@@ -130,38 +131,10 @@ class SignUp extends Component {
           )}
 
           {this.state.activePage === 'choose' && (
-            <>
-              <h1>How would you like to join MindHive?</h1>
-              <div className="studentSignupOptions">
-                <SignupButton
-                  onClick={() => {
-                    this.setState({ activePage: 'createAccount' });
-                  }}
-                >
-                  <div>
-                    <img
-                      src="/static/assets/signup-email.png"
-                      alt="icon"
-                      height="20"
-                    />
-                  </div>
-                  <div>Sign up with email/username</div>
-                </SignupButton>
-
-                <GoogleSignup
-                  class={{ code: this.state.classCode.toLowerCase() }}
-                  permissions={['STUDENT']}
-                />
-              </div>
-            </>
-          )}
-
-          {this.state.activePage === 'createAccount' && (
-            <>
-              <StudentSignup
-                class={{ code: this.state.classCode.toLowerCase() }}
-              />
-            </>
+            <JoinClass
+              classCode={this.state.classCode.toLowerCase()}
+              classId={this.state.classId}
+            />
           )}
         </Dialog>
       </SignupForm>

@@ -177,6 +177,19 @@ const CURRENT_USER_QUERY = gql`
   }
 `;
 
+const CURRENT_USER_EMAIL_QUERY = gql`
+  query CURRENT_USER_EMAIL_QUERY {
+    me {
+      id
+      username
+      permissions
+      authEmail {
+        email
+      }
+    }
+  }
+`;
+
 const User = props => (
   <Query {...props} query={CURRENT_USER_RESULTS_QUERY}>
     {payload => props.children(payload)}
@@ -193,4 +206,5 @@ export {
   CURRENT_USER_RESULTS_QUERY,
   CURRENT_USER_STUDIES_QUERY,
   USER_DASHBOARD_QUERY,
+  CURRENT_USER_EMAIL_QUERY,
 };

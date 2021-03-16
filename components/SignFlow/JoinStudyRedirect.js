@@ -16,7 +16,9 @@ const joinStudyRedirect = (study, profile) => {
           // open the test on a new page
           const url = `/dt/r?t=${id}&s=${study.id}`;
           const win = window.open(url, '_blank');
-          win.focus();
+          if (win) {
+            win.focus();
+          }
           Router.push({
             pathname: `/studies/${study.slug}`,
           });
