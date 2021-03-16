@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import ReactHtmlParser from 'react-html-parser';
-import ExperimentPreview from '../../../Task/Preview/index';
+import ExperimentPreview from '../../../../Task/Preview/index';
 import Card from './card';
 // import Card from '../../Component/Card/index';
 

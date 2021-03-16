@@ -3,9 +3,9 @@ import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import styled from 'styled-components';
-import ExperimentPreview from '../../../Task/Preview/index';
+import ExperimentPreview from '../../../../Task/Preview/index';
 
-import { ContainerOnlyForAuthorsOrCollaborators } from '../../../Permissions/Author/index';
+import { ContainerOnlyForAuthorsOrCollaborators } from '../../../../Permissions/Author/index';
 
 class Card extends Component {
   state = {

@@ -72,6 +72,107 @@ export const StyledBuilder = styled.div`
   grid-gap: 20px;
 `;
 
+export const StudyBuilderNav = styled.div`
+  display: grid;
+  grid-template-columns: 130px minmax(50px, 300px) 1fr auto;
+  grid-gap: 30px;
+  justify-content: stretch;
+  align-items: center;
+  margin: 20px 22.5px 10px 42px;
+  p {
+    margin: 0;
+  }
+  .goBackBtn {
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #007c70;
+    cursor: pointer;
+  }
+  .taskLabel {
+    border: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background: #e5e5e5;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    p {
+      color: #00000099;
+    }
+  }
+  .taskTitle {
+    p {
+      font-family: Lato;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #1a1a1a;
+    }
+  }
+  .saveBtn {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    justify-self: end;
+    margin: 0px 0px 0px 0px;
+  }
+  .secondaryBtn {
+    background: #007c70;
+    color: #ffffff;
+  }
+  button {
+    border: 2px solid #007c70;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 14px 24px;
+    height: 46px;
+    color: #007c70;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+  .discoverMenu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-gap: 5px;
+    /* margin: 20px 6px 29px 6px !important; */
+    cursor: pointer;
+
+    .discoverMenuTitle {
+      padding-bottom: 10px !important;
+      display: grid;
+      justify-content: center;
+      border-bottom: 2px solid #e6e6e6;
+      p {
+        font-size: 18px;
+      }
+    }
+    .selectedMenuTitle {
+      border-bottom: 4px solid #ffc107 !important;
+      p {
+        color: #1a1a1a;
+      }
+    }
+  }
+`;
+
 export const BuilderNav = styled.div`
   display: grid;
   grid-template-columns: 180px auto 1fr auto;

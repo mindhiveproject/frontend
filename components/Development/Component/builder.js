@@ -9,10 +9,10 @@ import PreviewPane from './previewPane';
 
 import PreviewInBuilder from '../../Task/PreviewInBuilder/index';
 
-import { MY_SURVEYS_QUERY } from '../Study/Selector/mySurveys';
-import { MY_TASKS_QUERY } from '../Study/Selector/myTasks';
+import { MY_SURVEYS_QUERY } from '../Study/StudyBuilder/Selector/mySurveys';
+import { MY_TASKS_QUERY } from '../Study/StudyBuilder/Selector/myTasks';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
-import { COMPONENT_QUERY } from '../Study/Preview/componentPane';
+import { COMPONENT_QUERY } from '../Study/StudyBuilder/Preview/componentPane';
 import { COMPONENT_TO_CLONE_QUERY } from './builderWrapper';
 
 // lab.js script template functions

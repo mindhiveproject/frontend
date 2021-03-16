@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import styled from 'styled-components';
 
-import FindCollaborator from '../../Study/Edit/findCollaborator';
+import FindCollaborator from '../../Study/StudyBuilder/Edit/findCollaborator';
 
 const StyledSharingPane = styled.div`
   display: grid;

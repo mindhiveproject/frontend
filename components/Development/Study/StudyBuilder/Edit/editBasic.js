@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 import { Select } from 'semantic-ui-react';
-import { CONSENTS_QUERY } from '../../../Task/Customize/taskForm';
+import { CONSENTS_QUERY } from '../../../../Task/Customize/taskForm';
 
 const StyledBasicPane = styled.div`
   display: grid;

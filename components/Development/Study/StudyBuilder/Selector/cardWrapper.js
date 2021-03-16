@@ -4,8 +4,8 @@ import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { StyledTaskCard } from './styles';
 
-import ExperimentPreview from '../../../Task/Preview/index';
-import Card from '../../Component/Card/index';
+import ExperimentPreview from '../../../../Task/Preview/index';
+import Card from '../../../Component/Card/index';
 
 class CardWrapper extends Component {
   addToStudy = component => {

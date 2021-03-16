@@ -77,66 +77,6 @@ const MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
   }
 `;
 
-// const ALL_PUBLIC_TASKS_TO_CLONE_QUERY = gql`
-//   query ALL_PUBLIC_TASKS_TO_CLONE_QUERY {
-//     tasks(where: { taskType: TASK }) {
-//       id
-//       title
-//       slug
-//       author {
-//         id
-//       }
-//       collaborators {
-//         id
-//         username
-//       }
-//       public
-//       description
-//       taskType
-//       parameters
-//       template {
-//         id
-//         title
-//         description
-//         parameters
-//         script
-//         style
-//       }
-//       link
-//     }
-//   }
-// `;
-
-// const ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
-//   query ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY {
-//     tasks(where: { taskType: SURVEY }) {
-//       id
-//       title
-//       slug
-//       author {
-//         id
-//       }
-//       collaborators {
-//         id
-//         username
-//       }
-//       public
-//       description
-//       taskType
-//       parameters
-//       template {
-//         id
-//         title
-//         description
-//         parameters
-//         script
-//         style
-//       }
-//       link
-//     }
-//   }
-// `;
-
 class ChooseComponentToClone extends Component {
   onSelectComponent = component => {
     this.props.onChoiceToClone(component);

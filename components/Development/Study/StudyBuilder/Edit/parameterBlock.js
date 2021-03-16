@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyledParameterBlock } from '../../../Study/styles';
+import { StyledParameterBlock } from '../../../../Study/styles';
 
 class ParameterBlock extends Component {
   render() {

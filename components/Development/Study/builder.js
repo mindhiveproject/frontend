@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
 import slugify from 'slugify';
-
 import uniqid from 'uniqid';
-import EditPane from './editPane';
-import PreviewPane from './previewPane';
-import SelectorPane from './componentSelector';
+
 import TaskBuilderWrapper from '../Component/builderWrapper';
 
-import { USER_DASHBOARD_QUERY } from '../../User/index';
-import { MY_DEVELOPED_STUDIES_QUERY } from '../../Bank/Studies/developed';
-import { STUDY_QUERY } from './builderWrapper';
+import Navigation from './navigation';
+import StudyBuilderSection from './StudyBuilder/index';
+import AnalyzeSection from './Analyze/index';
 
+import InDev from './inDev';
 import {
   StyledBuilder,
   BuilderNav,
@@ -20,105 +16,6 @@ import {
   StyledPreviewPane,
   StyledBuilderPage,
 } from '../styles';
-
-const CREATE_NEW_STUDY = gql`
-  mutation CREATE_NEW_STUDY(
-    $title: String!
-    $description: String!
-    $shortDescription: String
-    $settings: Json
-    $info: Json
-    $image: String
-    $largeImage: String
-    $consent: ID
-    $components: Json
-    $submitForPublishing: Boolean
-  ) {
-    createStudy(
-      title: $title
-      shortDescription: $shortDescription
-      description: $description
-      settings: $settings
-      info: $info
-      image: $image
-      largeImage: $largeImage
-      consent: $consent
-      components: $components
-      submitForPublishing: $submitForPublishing
-    ) {
-      id
-      slug
-      title
-      shortDescription
-      description
-      settings
-      info
-      image
-      largeImage
-      consent {
-        id
-      }
-      components
-      author {
-        id
-      }
-      collaborators {
-        id
-        username
-      }
-      public
-      submitForPublishing
-    }
-  }
-`;
-
-const UPDATE_STUDY = gql`
-  mutation UPDATE_STUDY(
-    $id: ID!
-    $title: String
-    $slug: String
-    $shortDescription: String
-    $description: String
-    $settings: Json
-    $info: Json
-    $image: String
-    $largeImage: String
-    $collaborators: [String]
-    $consent: ID
-    $components: Json
-    $submitForPublishing: Boolean
-  ) {
-    updateStudy(
-      id: $id
-      title: $title
-      slug: $slug
-      shortDescription: $shortDescription
-      description: $description
-      settings: $settings
-      info: $info
-      image: $image
-      largeImage: $largeImage
-      collaborators: $collaborators
-      consent: $consent
-      components: $components
-      submitForPublishing: $submitForPublishing
-    ) {
-      id
-      slug
-      title
-      shortDescription
-      description
-      settings
-      image
-      largeImage
-      consent {
-        id
-      }
-      public
-      submitForPublishing
-    }
-  }
-`;
 
 const makeSlug = title => {
   const slug = slugify(title, {
@@ -136,7 +33,10 @@ class StudyBuilder extends Component {
     isTaskBuilderOpen: false,
     needToClone: this.props.needToClone,
     readOnlyMode: this.props.readOnlyMode,
+    section: 'studyBuilder',
   };
+
+  handleSectionChange = (e, { name }) => this.setState({ section: name });
 
   handleStudyChange = e => {
     const { name, type, value } = e.target;
@@ -267,12 +167,10 @@ class StudyBuilder extends Component {
         blocks: [],
       };
     }
-
     // if there are no blocks, create blocks
     if (!updatedComponents.blocks) {
       updatedComponents.blocks = [];
     }
-
     // if the blocks are empty, create first block
     if (updatedComponents.blocks.length === 0) {
       updatedComponents.blocks.push({
@@ -355,116 +253,53 @@ class StudyBuilder extends Component {
           />
         ) : (
           <StyledBuilderPage>
-            <BuilderNav>
-              <div className="goBackBtn" onClick={this.props.onLeave}>
-                ← Leave Study Builder
-              </div>
-              <div></div>
-              <div>
-                <p>{this.state.study.title}</p>
-              </div>
+            <Navigation
+              onLeave={this.props.onLeave}
+              study={this.state.study}
+              readOnlyMode={readOnlyMode}
+              isAuthor={isAuthor}
+              needToClone={needToClone}
+              createNewStudy={this.createNewStudy}
+              updateMyStudy={this.updateMyStudy}
+              handleSectionChange={this.handleSectionChange}
+              section={this.state.section}
+            />
 
-              {!readOnlyMode && (
-                <>
-                  {isAuthor && !needToClone ? (
-                    <div className="saveBtn">
-                      <Mutation
-                        mutation={UPDATE_STUDY}
-                        refetchQueries={[
-                          {
-                            query: STUDY_QUERY,
-                            variables: { id: this.state.study.id },
-                          },
-                        ]}
-                      >
-                        {(updateStudy, { loading, error }) => {
-                          if (error) {
-                            alert(
-                              'Oops! this link has already be taken: please pick another.'
-                            );
-                          }
-                          return (
-                            <div>
-                              <button
-                                className="secondaryBtn"
-                                onClick={() => {
-                                  this.updateMyStudy(updateStudy);
-                                }}
-                              >
-                                {loading ? 'Saving' : 'Save'}
-                              </button>
-                            </div>
-                          );
-                        }}
-                      </Mutation>
-                    </div>
-                  ) : (
-                    <div className="saveBtn">
-                      <Mutation
-                        mutation={CREATE_NEW_STUDY}
-                        refetchQueries={[
-                          { query: MY_DEVELOPED_STUDIES_QUERY },
-                          { query: USER_DASHBOARD_QUERY },
-                        ]}
-                      >
-                        {(createStudy, { loading, error }) => (
-                          <div>
-                            <button
-                              className="secondaryBtn"
-                              onClick={() => {
-                                this.createNewStudy(createStudy);
-                              }}
-                            >
-                              {loading ? 'Saving' : 'Save your study'}
-                            </button>
-                          </div>
-                        )}
-                      </Mutation>
-                    </div>
-                  )}
-                </>
-              )}
-            </BuilderNav>
+            {this.state.section === 'proposal' && <InDev />}
 
-            <StyledBuilder>
-              {!this.state.isTaskSelectorOpen && (
-                <EditPane
-                  handleStudyChange={this.handleStudyChange}
-                  handleParameterChange={this.handleParameterChange}
-                  handleSettingsChange={this.handleSettingsChange}
-                  handleCollaboratorsChange={this.handleCollaboratorsChange}
-                  handleSetState={this.handleSetState}
-                  study={this.state.study}
-                  user={this.props.user}
-                  needToClone={needToClone}
-                />
-              )}
-              {this.state.isTaskSelectorOpen && (
-                <SelectorPane
-                  onAddComponent={this.addComponent}
-                  toggleTaskSelector={this.toggleTaskSelector}
-                  user={this.props.user}
-                  openTaskEditor={this.openTaskEditor}
-                />
-              )}
+            {this.state.section === 'studyBuilder' && (
+              <StudyBuilderSection
+                isTaskSelectorOpen={this.state.isTaskSelectorOpen}
+                handleStudyChange={this.handleStudyChange}
+                handleParameterChange={this.handleParameterChange}
+                handleSettingsChange={this.handleSettingsChange}
+                handleCollaboratorsChange={this.handleCollaboratorsChange}
+                handleSetState={this.handleSetState}
+                study={this.state.study}
+                user={this.props.user}
+                needToClone={needToClone}
+                onAddComponent={this.addComponent}
+                toggleTaskSelector={this.toggleTaskSelector}
+                user={this.props.user}
+                openTaskEditor={this.openTaskEditor}
+                handleSetMultipleValuesInState={
+                  this.handleSetMultipleValuesInState
+                }
+                uploadImage={this.uploadImage}
+                deleteParameter={this.deleteParameter}
+                toggleTaskSelector={this.toggleTaskSelector}
+                openTaskEditor={this.openTaskEditor}
+                needToClone={needToClone}
+                updateComponents={this.updateComponents}
+              />
+            )}
+            {this.state.section === 'review' && <InDev />}
 
-              <StyledPreviewPane>
-                <PreviewPane
-                  study={this.state.study}
-                  handleStudyChange={this.handleStudyChange}
-                  handleSetMultipleValuesInState={
-                    this.handleSetMultipleValuesInState
-                  }
-                  uploadImage={this.uploadImage}
-                  handleParameterChange={this.handleParameterChange}
-                  deleteParameter={this.deleteParameter}
-                  toggleTaskSelector={this.toggleTaskSelector}
-                  openTaskEditor={this.openTaskEditor}
-                  needToClone={needToClone}
-                  updateComponents={this.updateComponents}
-                />
-              </StyledPreviewPane>
-            </StyledBuilder>
+            {this.state.section === 'collect' && <InDev />}
+
+            {this.state.section === 'analyze' && (
+              <AnalyzeSection studyId={this.state.study.id} />
+            )}
           </StyledBuilderPage>
         )}
       </>

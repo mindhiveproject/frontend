@@ -4,7 +4,7 @@ import { Container, Draggable } from 'react-smooth-dnd';
 import uniqid from 'uniqid';
 import Block from './Preview/block';
 import InfoTabs from './Preview/infoTabs';
-import { UploadImageContainer } from './styles';
+import { UploadImageContainer } from '../styles';
 import Board from './Board/index';
 
 class PreviewPane extends Component {
