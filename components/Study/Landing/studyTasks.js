@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import TaskCard from '../TaskCard/index';
 
-import { COMPONENT_QUERY } from '../../Development/Study/Preview/componentPane';
+import { COMPONENT_QUERY } from '../../Development/Study/StudyBuilder/Preview/componentPane';
 
 const StyledTaskList = styled.div`
   display: grid;
