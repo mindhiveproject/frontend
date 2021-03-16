@@ -24,7 +24,7 @@ class StudyBuilderSection extends Component {
         )}
         {this.props.isTaskSelectorOpen && (
           <SelectorPane
-            onAddComponent={this.props.addComponent}
+            onAddComponent={this.props.onAddComponent}
             toggleTaskSelector={this.props.toggleTaskSelector}
             user={this.props.user}
             openTaskEditor={this.props.openTaskEditor}

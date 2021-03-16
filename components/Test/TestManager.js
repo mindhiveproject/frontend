@@ -29,13 +29,13 @@ class TestManager extends Component {
           <StyledBox>
             <ExperimentWindow
               settings={{
-                user: user.id,
-                template: test.template.id,
-                task: test.id,
-                study: study.id,
-                script: test.template.script,
-                style: test.template.style,
-                params: test.parameters.reduce((obj, item) => {
+                user: user?.id,
+                template: test?.template?.id,
+                task: test?.id,
+                study: study?.id,
+                script: test?.template?.script,
+                style: test?.template?.style,
+                params: test?.parameters?.reduce((obj, item) => {
                   obj[item.name] = item.value;
                   return obj;
                 }, {}),
