@@ -35,7 +35,7 @@ class PreviewPane extends Component {
   };
 
   onDrop = e => {
-    console.log('e', e);
+    // console.log('e', e);
     // if (e.removedIndex !== e.addedIndex) {
     //   this.props.onMoveComponent(e.removedIndex, e.addedIndex, e.payload);
     // }

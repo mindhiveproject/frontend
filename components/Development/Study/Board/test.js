@@ -33,6 +33,7 @@ const StyledTaskCard = styled.div`
     display: grid;
     align-items: center;
     justify-items: start;
+    justify-content: start;
     grid-template-columns: repeat(auto-fit, minmax(100px, auto));
     grid-gap: 10px;
     button {
@@ -51,7 +52,7 @@ const StyledTaskCard = styled.div`
     }
     a {
       cursor: pointer;
-      text-decoration-line: underline;
+      text-decoration-line: none;
       font-family: Roboto;
       font-size: 16px;
       font-style: normal;
@@ -85,6 +86,12 @@ const COMPONENT_QUERY = gql`
         style
       }
       taskType
+      author {
+        id
+      }
+      collaborators {
+        id
+      }
     }
   }
 `;

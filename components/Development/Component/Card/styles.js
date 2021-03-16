@@ -30,7 +30,8 @@ export const StyledTaskCard = styled.div`
     display: grid;
     align-items: center;
     justify-items: start;
-    grid-template-columns: auto 1fr;
+    justify-content: start;
+    grid-template-columns: repeat(auto-fit, minmax(100px, auto));
     grid-gap: 10px;
     button {
       padding: 10px 25px 10px 25px;
@@ -48,7 +49,7 @@ export const StyledTaskCard = styled.div`
     }
     a {
       cursor: pointer;
-      text-decoration-line: underline;
+      text-decoration-line: none;
       font-family: Roboto;
       font-size: 16px;
       font-style: normal;

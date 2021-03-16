@@ -26,8 +26,9 @@ const theme = {
 const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 12px;
     height: 100%;
+    font-family: 'Lato';
   }
   *, *:before, *:after {
     box-sizing: inherit;

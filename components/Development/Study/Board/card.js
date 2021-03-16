@@ -5,6 +5,8 @@ import moment from 'moment';
 import styled from 'styled-components';
 import ExperimentPreview from '../../../Task/Preview/index';
 
+import { ContainerOnlyForAuthorsOrCollaborators } from '../../../Permissions/Author/index';
+
 class Card extends Component {
   state = {
     showPreview: false,
@@ -20,6 +22,12 @@ class Card extends Component {
 
   render() {
     const { component, viewing, testId } = this.props;
+
+    // get the author and collaborators ids
+    const authIds = [
+      component?.author?.id,
+      ...component?.collaborators.map(c => c.id),
+    ];
 
     return (
       <>
@@ -63,43 +71,25 @@ class Card extends Component {
             </div>
 
             <div className="cardButtons">
-              {this.props.openTaskEditor && !component.link && (
-                <button onClick={() => this.props.openTaskEditor(component.id)}>
-                  Open Editor
-                </button>
-              )}
-              {this.props.onSelectComponent && !component.link && (
-                <button
-                  onClick={() => {
-                    this.props.onSelectComponent(component);
-                  }}
-                >
-                  Select
-                </button>
-              )}
-
               {!component.link && (
-                <a onClick={this.togglePreview}>
-                  <p>Preview</p>
-                </a>
+                <button onClick={this.togglePreview}>Preview</button>
               )}
 
               {component.link && (
                 <a target="_blank" href={component.link}>
-                  <p>Preview</p>
+                  <button>Preview</button>
                 </a>
               )}
 
-              {this.props.inStudyBuilder && (
-                <Link
-                  href={{
-                    pathname: '/task/results',
-                    query: { id: component.id },
-                  }}
-                >
-                  <button>Task results</button>
-                </Link>
-              )}
+              <ContainerOnlyForAuthorsOrCollaborators ids={authIds}>
+                {this.props.openTaskEditor && (
+                  <button
+                    onClick={() => this.props.openTaskEditor(component.id)}
+                  >
+                    Open Editor
+                  </button>
+                )}
+              </ContainerOnlyForAuthorsOrCollaborators>
             </div>
           </div>
         </div>
@@ -117,3 +107,24 @@ class Card extends Component {
 }
 
 export default Card;
+
+// {false && this.props.inStudyBuilder && (
+//   <Link
+//     href={{
+//       pathname: '/task/results',
+//       query: { id: component.id },
+//     }}
+//   >
+//     <button>Task results</button>
+//   </Link>
+// )}
+
+// {this.props.onSelectComponent && !component.link && (
+//   <button
+//     onClick={() => {
+//       this.props.onSelectComponent(component);
+//     }}
+//   >
+//     Select
+//   </button>
+// )}
