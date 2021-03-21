@@ -5,7 +5,7 @@ export const ContainerOnlyForAuthorsOrCollaborators = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
       if (loading) return null;
-      if (props.ids.includes(data.me.id)) {
+      if (props.ids.includes(data?.me?.id)) {
         return props.children;
       }
       return false;

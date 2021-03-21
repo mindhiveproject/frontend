@@ -45,7 +45,7 @@ class WithProfile extends Component {
         {({ data, loading }) => {
           if (loading) return null;
 
-          if (data.me) {
+          if (data?.me) {
             const { me } = data;
             const [authEmail] = me.authEmail;
             const email = authEmail?.email;

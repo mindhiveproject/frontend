@@ -7,7 +7,10 @@ export const PageOnlyFor = props => {
     <Query query={CURRENT_USER_QUERY}>
       {({ data, loading }) => {
         if (loading) return <p></p>;
-        if (data.me && roles.some(role => data.me.permissions.includes(role))) {
+        if (
+          data?.me &&
+          roles.some(role => data?.me?.permissions.includes(role))
+        ) {
           return props.children;
         }
         return false;

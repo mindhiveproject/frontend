@@ -5,8 +5,7 @@ export const ContainerOnlyForTeachers = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
       if (loading) return <p></p>;
-      // console.log('data', data);
-      if (!data.me || !data.me.permissions.includes('TEACHER')) {
+      if (!data?.me || !data?.me.permissions.includes('TEACHER')) {
         return false;
       }
       return props.children;
@@ -18,16 +17,10 @@ export const ContainerOnlyForTeachersOwners = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
       if (loading) return <p></p>;
-      // console.log(
-      //   'data teachers',
-      //   !data.me,
-      //   !data.me.permissions.includes('TEACHER'),
-      //   data.me.id !== props.creator
-      // );
       if (
-        !data.me ||
-        !data.me.permissions.includes('TEACHER') ||
-        data.me.id !== props.creator
+        !data?.me ||
+        !data?.me.permissions.includes('TEACHER') ||
+        data?.me.id !== props.creator
       ) {
         return <div></div>;
       }
@@ -40,8 +33,7 @@ export const PageOnlyForTeachers = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
       if (loading) return <p></p>;
-      // console.log('data', data);
-      if (!data.me || !data.me.permissions.includes('TEACHER')) {
+      if (!data?.me || !data?.me.permissions.includes('TEACHER')) {
         return (
           <div>
             <p>Please sign in as a teacher in order to do that</p>

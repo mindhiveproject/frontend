@@ -45,8 +45,8 @@ class UpdateStudyConsent extends Component {
       <Query query={STUDY_CONSENT_QUERY}>
         {({ data, loading }) => {
           if (loading) return <p>Loading ... </p>;
-          if (!data || !data.me) return <p>No information found</p>;
-          const studyConsent = data.me?.info[this.props.id];
+          if (!data || !data?.me) return <p>No information found</p>;
+          const studyConsent = data?.me?.info[this.props.id];
           return (
             <Mutation
               mutation={UPDATE_STUDY_CONSENT_MUTATION}

@@ -11,12 +11,10 @@ class ResultReviewer extends Component {
     return (
       <Query query={CURRENT_USER_RESULTS_QUERY}>
         {({ data, loading, error }) => {
-          console.log('data', data);
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
-          if (!data.me.results) return <p>No results found</p>;
-          const { results } = data.me;
-          console.log('results', results);
+          if (!data?.me?.results) return <p>No results found</p>;
+          const { results } = data?.me;
           return (
             <ul>
               {results.map(result => (

@@ -6,11 +6,11 @@ export const ContainerOnlyForAuthorizedCollaborators = props => (
     {({ data, loading }) => {
       if (loading) return <p></p>;
       if (
-        data.me &&
-        (props.ids.includes(data.me.id) ||
-          ((data.me.permissions.includes('SCIENTIST') ||
-            data.me.permissions.includes('TEACHER')) &&
-            data.me.id === props.id))
+        data?.me &&
+        (props.ids.includes(data?.me.id) ||
+          ((data?.me.permissions.includes('SCIENTIST') ||
+            data?.me.permissions.includes('TEACHER')) &&
+            data?.me.id === props.id))
       ) {
         return props.children;
       }

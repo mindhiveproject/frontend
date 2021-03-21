@@ -5,7 +5,7 @@ export const ContainerOnlyForProfile = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
       if (loading) return null;
-      if (!data.me) {
+      if (!data?.me) {
         return null;
       }
       return props.children;
@@ -17,7 +17,7 @@ export const PageOnlyForProfile = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
       if (loading) return null;
-      if (!data.me) {
+      if (!data?.me) {
         return (
           <div>
             <p>Please sign out in order to do that</p>

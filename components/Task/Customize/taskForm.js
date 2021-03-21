@@ -242,12 +242,12 @@ class TaskForm extends Component {
                 <Query query={CURRENT_USER_QUERY}>
                   {({ data, loading }) => {
                     if (loading) return <p>Loading ... </p>;
-                    if (!data.me) {
+                    if (!data?.me) {
                       return false;
                     }
                     return (
                       <ExperimentPreview
-                        user={data.me.id}
+                        user={data?.me?.id}
                         parameters={this.props.parameters}
                         template={this.props.template}
                         handleFinish={() =>

@@ -17,14 +17,14 @@ class DashboardStatic extends Component {
         {({ data, loading, error }) => {
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
-          if (!data.me) return <p>No user found. Please sign up or login.</p>;
+          if (!data?.me) return <p>No user found. Please sign up or login.</p>;
 
           return (
             <StyledDasboard>
               <HomeDashboard
-                studies={data.me.participantIn}
-                username={data.me.username}
-                publicId={data.me.publicId}
+                studies={data?.me.participantIn}
+                username={data?.me.username}
+                publicId={data?.me.publicId}
               />
             </StyledDasboard>
           );

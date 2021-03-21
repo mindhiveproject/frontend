@@ -6,10 +6,10 @@ export const ContainerOnlyForScientists = props => (
     {({ data, loading }) => {
       if (loading) return <p></p>;
       if (
-        !data.me ||
+        !data?.me ||
         !(
-          data.me.permissions.includes('SCIENTIST') ||
-          data.me.permissions.includes('TEACHER')
+          data?.me.permissions.includes('SCIENTIST') ||
+          data?.me.permissions.includes('TEACHER')
         )
       ) {
         return false;
@@ -22,16 +22,14 @@ export const ContainerOnlyForScientists = props => (
 export const ContainerOnlyForAuthorizedScientists = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading }) => {
-      console.log('props', props);
-      console.log('data.me', data.me);
       if (loading) return <p></p>;
       if (
-        !data.me ||
+        !data?.me ||
         !(
-          data.me.permissions.includes('SCIENTIST') ||
-          data.me.permissions.includes('TEACHER')
+          data?.me.permissions.includes('SCIENTIST') ||
+          data?.me.permissions.includes('TEACHER')
         ) ||
-        data.me.id !== props.id
+        data?.me.id !== props.id
       ) {
         return false;
       }
@@ -45,10 +43,10 @@ export const PageOnlyForScientists = props => (
     {({ data, loading }) => {
       if (loading) return <p></p>;
       if (
-        !data.me ||
+        !data?.me ||
         !(
-          data.me.permissions.includes('SCIENTIST') ||
-          data.me.permissions.includes('TEACHER')
+          data?.me.permissions.includes('SCIENTIST') ||
+          data?.me.permissions.includes('TEACHER')
         )
       ) {
         return (
