@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import lz from 'lzutf8';
 import { SignForm } from '../Styles/Forms';

@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import { Dropdown } from 'semantic-ui-react';
 

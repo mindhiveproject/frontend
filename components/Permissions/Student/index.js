@@ -1,4 +1,4 @@
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import {
   CURRENT_USER_QUERY,
   CURRENT_USER_RESULTS_QUERY,

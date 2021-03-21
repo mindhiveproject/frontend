@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import styled from 'styled-components';
 import { TASK_QUERY } from '../../Task/Run/index';
 import TestManager from '../TestManager';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import ReactHtmlParser from 'react-html-parser';
 import ExperimentPreview from '../../../../Task/Preview/index';

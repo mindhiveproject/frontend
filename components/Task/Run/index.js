@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import { ExperimentWindow } from '../../Labjs/index';
 import { StyledBox } from './styles';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import VasBuilder from './Builder/vasBuilder';
 import SelectOne from './Builder/selectOne';

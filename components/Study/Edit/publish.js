@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
 const PUBLISH_TOGGLE_STUDY = gql`

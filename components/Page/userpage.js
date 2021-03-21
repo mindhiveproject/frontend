@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 import Meta from '../Meta/index';
@@ -50,11 +50,12 @@ class AuthorizedPage extends Component {
           {({ data, loading, error }) => {
             if (error) return <Error error={error} />;
             if (loading) return <p>Loading</p>;
-            if (!data.me) return <p>No user found. Please sign up or login.</p>;
+            if (!data?.me)
+              return <p>No user found. Please sign up or login.</p>;
             return (
               <UserPage>
                 <UserNav>
-                  <SidebarNav user={data.me} />
+                  <SidebarNav user={data?.me} />
                 </UserNav>
                 <UserInner>{this.props.children}</UserInner>
               </UserPage>

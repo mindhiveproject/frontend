@@ -1,6 +1,7 @@
 // own render prop component
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
+import { graphql } from '@apollo/client/react/hoc';
 import PropTypes from 'prop-types';
 
 const USER_DASHBOARD_QUERY = gql`

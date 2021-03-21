@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import Head from 'next/head';
 import styled from 'styled-components';
 import { saveAs } from 'file-saver';

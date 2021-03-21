@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import Link from 'next/link';
 // import { Center, StudiesList, StyledLink } from '../styles';
@@ -27,7 +27,7 @@ const MY_STUDIES_QUERY = gql`
 `;
 
 // using render props inside with query
-// https://www.prisma.io/blog/tutorial-render-props-in-react-apollo-2-1-199e9e2bd01e
+// https://www.prisma.io/blog/tutorial-render-props-in-@apollo/client/react/components-2-1-199e9e2bd01e
 class MyStudies extends Component {
   render() {
     return (

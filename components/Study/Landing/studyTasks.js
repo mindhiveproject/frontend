@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import Link from 'next/link';
 import Router from 'next/router';
 import TaskCard from '../TaskCard/index';

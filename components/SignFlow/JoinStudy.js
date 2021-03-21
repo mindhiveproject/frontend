@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 

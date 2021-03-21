@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import { Dropdown, Menu } from 'semantic-ui-react';
-import { Mutation, Query } from 'react-apollo';
+import { Mutation, Query } from '@apollo/client/react/components';
 import Error from '../../../ErrorMessage/index';
 
 import { EXPEL_CLASS_MUTATION } from '../../../Class/Leave/remove';

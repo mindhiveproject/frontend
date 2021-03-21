@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import slugify from 'slugify';
 import styled from 'styled-components';
 import { Select } from 'semantic-ui-react';

@@ -54,7 +54,7 @@ const StyledStudiesBoard = styled.div`
 `;
 
 // using render props inside with query
-// https://www.prisma.io/blog/tutorial-render-props-in-react-apollo-2-1-199e9e2bd01e
+// https://www.prisma.io/blog/tutorial-render-props-in-@apollo/client/react/components-2-1-199e9e2bd01e
 class AllStudies extends Component {
   goToStudy = study => {
     Router.push('/studies/[slug]', `/studies/${study.slug}`);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';

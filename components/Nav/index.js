@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/client/react/components';
 import styled from 'styled-components';
 import {
   NavStyles,
@@ -96,7 +96,7 @@ class Nav extends Component {
     if (this.state.activePage === 'main') {
       return (
         <User>
-          {({ data: { me } }) => (
+          {data => (
             <NavStyles>
               <ContainerOnlyForNoProfile>
                 <NavRightContainer>
@@ -125,7 +125,7 @@ class Nav extends Component {
 
               <ContainerOnlyForProfile>
                 <NavRightContainer>
-                  {me && (
+                  {data?.data?.me && (
                     <Link href="/dashboard">
                       <NavButton>Dashboard</NavButton>
                     </Link>

@@ -1,5 +1,5 @@
 import App from 'next/app';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData';
 import 'normalize.css';
 

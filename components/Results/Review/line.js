@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import moment from 'moment';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import { saveAs } from 'file-saver';
 import { jsonToCSV } from 'react-papaparse';
 import DeleteResultBtn from '../Delete/index';

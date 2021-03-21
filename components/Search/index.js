@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Downshift, { resetIdCounter } from 'downshift';
 import Router from 'next/router';
-import { ApolloConsumer } from 'react-apollo';
+import { ApolloConsumer } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import debounce from 'lodash.debounce';
 import { DropDown, DropDownItem, SearchStyles } from './styles';

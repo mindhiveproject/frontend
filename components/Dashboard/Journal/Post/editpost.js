@@ -1,6 +1,6 @@
 import React, { Component, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { Mutation, Query } from 'react-apollo';
+import { Mutation, Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
 import { JOURNAL_POSTS } from '../journalpage';

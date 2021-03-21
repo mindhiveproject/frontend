@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { adopt } from 'react-adopt';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation } from '@apollo/client/react/components';
 import Link from 'next/link';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import ResultPane from '../../Results/Pane/index';

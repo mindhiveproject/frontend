@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import Error from '../../ErrorMessage/index';
 
 const DISPLAY_RESULT_QUERY = gql`

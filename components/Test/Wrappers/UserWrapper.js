@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import StudyWrapper from './StudyWrapper';
 import Error from '../../ErrorMessage/index';

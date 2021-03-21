@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation } from '@apollo/client/react/components';
 
 import MessageSender from './message';
 
