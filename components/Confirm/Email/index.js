@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { compose, graphql, Mutation } from '@apollo/client/react/components';
+// import { Mutation } from '@apollo/client/react/components';
+import { graphql } from '@apollo/client/react/hoc';
+import { flowRight as compose } from 'lodash';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
