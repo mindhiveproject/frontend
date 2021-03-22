@@ -365,6 +365,7 @@ const Section = ({
                 key={card.id}
                 card={card}
                 onDeleteCard={deleteCardMutation}
+                boardId={boardId}
               />
             ))
           ) : (

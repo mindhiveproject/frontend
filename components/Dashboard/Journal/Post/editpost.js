@@ -6,28 +6,7 @@ import gql from 'graphql-tag';
 import { JOURNAL_POSTS } from '../journalpage';
 import { MY_JOURNALS_QUERY } from '../journals';
 
-import { StyledPost } from '../../../Styles/Forms';
-
-import { Jodit } from './jodit';
-
-const StyledJodit = styled.div`
-  input,
-  textarea,
-  select {
-    width: 100%;
-    &:focus {
-      outline: 0;
-      background: white;
-      border-color: mintcream;
-    }
-  }
-  button {
-    background: transparent;
-    margin: 1px;
-    border: 0px solid #e6e6e6;
-    cursor: pointer;
-  }
-`;
+import Post from '../../Jodit/post';
 
 const GET_POST = gql`
   query GET_POST($id: ID!) {
@@ -78,7 +57,7 @@ class EditPost extends Component {
     journal: this.props.journalId,
   };
 
-  handleChange = e => {
+  handleTitleChange = e => {
     const { name, type, value } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
@@ -86,7 +65,7 @@ class EditPost extends Component {
     });
   };
 
-  updateContent = content => {
+  handleContentChange = content => {
     if (content) {
       this.setState({
         content,
@@ -124,34 +103,19 @@ class EditPost extends Component {
                       </div>
                     </div>
 
-                    <StyledPost
+                    <Post
                       onSubmit={async e => {
                         e.preventDefault();
                         const res = await updatePost();
                         this.props.goBack();
                       }}
-                    >
-                      <fieldset disabled={loading} aria-busy={loading}>
-                        <label htmlFor="title">
-                          <p>Title</p>
-                          <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            defaultValue={post.title}
-                            onChange={this.handleChange}
-                            required
-                          />
-                        </label>
-                        <StyledJodit>
-                          <Jodit
-                            updateContent={this.updateContent}
-                            externalContent={this.state.content || post.content}
-                          />
-                        </StyledJodit>
-                        <button type="submit">Save</button>
-                      </fieldset>
-                    </StyledPost>
+                      loading={loading}
+                      title={this.state.title || post.title}
+                      onTitleChange={this.handleTitleChange}
+                      content={this.state.content || post.content}
+                      onContentChange={this.handleContentChange}
+                      btnName="Save"
+                    />
                   </>
                 )}
               </Mutation>

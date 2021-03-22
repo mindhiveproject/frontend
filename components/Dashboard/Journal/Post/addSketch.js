@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 import { JOURNAL_POSTS } from '../journalpage';
 import { MY_JOURNALS_QUERY } from '../journals';
 
-import { StyledPost } from '../../../Styles/Forms';
+import { StyledPost } from '../../Jodit/styles';
 
 import Sketch from './sketch';
 
