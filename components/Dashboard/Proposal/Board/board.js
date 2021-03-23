@@ -91,7 +91,7 @@ const DELETE_SECTION = gql`
   }
 `;
 
-const Board = ({ id }) => {
+const Board = ({ id, openCard }) => {
   const { loading, error, data } = useQuery(BOARD_QUERY, {
     variables: { id },
   });
@@ -129,6 +129,7 @@ const Board = ({ id }) => {
       onUpdateSection={updateSection}
       onSetSections={setSections}
       onDeleteSection={deleteSection}
+      openCard={openCard}
     />
   );
 };

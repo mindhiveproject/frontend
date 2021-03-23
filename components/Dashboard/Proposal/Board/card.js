@@ -15,19 +15,19 @@ class Card extends Component {
     cardId: null,
   };
 
-  openCard = id => {
-    this.setState({
-      open: true,
-      cardId: id,
-    });
-  };
-
-  closeCardContainer = () => {
-    this.setState({
-      open: false,
-      cardId: null,
-    });
-  };
+  // openCard = id => {
+  //   this.setState({
+  //     open: true,
+  //     cardId: id,
+  //   });
+  // };
+  //
+  // closeCardContainer = () => {
+  //   this.setState({
+  //     open: false,
+  //     cardId: null,
+  //   });
+  // };
 
   render() {
     const { card } = this.props;
@@ -47,7 +47,7 @@ class Card extends Component {
           <div>
             <button
               onClick={() => {
-                this.openCard(card.id);
+                this.props.openCard(card.id);
               }}
             >
               Open

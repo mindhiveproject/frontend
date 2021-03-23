@@ -107,6 +107,7 @@ class Inner extends Component {
             onSetSections={this.props.onSetSections}
             deleteSection={this.deleteSection}
             onUpdateSection={this.props.onUpdateSection}
+            openCard={this.props.openCard}
           />
 
           <div>

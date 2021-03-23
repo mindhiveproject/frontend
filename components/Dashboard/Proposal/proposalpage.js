@@ -8,7 +8,7 @@ import { Menu } from 'semantic-ui-react';
 import Error from '../../ErrorMessage/index';
 
 import ProposalHeader from './ProposalPage/proposalHeader';
-import ProposalBoard from './Board/board';
+import ProposalContainer from './Board/index';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
 
@@ -66,7 +66,7 @@ class ProposalPage extends Component {
                     <title>mindHIVE | {proposal.title}</title>
                   </Head>
                   <ProposalHeader proposal={proposal} />
-                  <ProposalBoard id={proposal.id} />
+                  <ProposalContainer id={proposal.id} />
                 </div>
               );
             }}

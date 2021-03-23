@@ -79,6 +79,7 @@ const Section = ({
   boardId,
   deleteSection,
   onCardChange,
+  openCard,
 }) => {
   const { cards } = section;
   const sortedCards = sortBy(cards, item => item.position);
@@ -366,6 +367,7 @@ const Section = ({
                 card={card}
                 onDeleteCard={deleteCardMutation}
                 boardId={boardId}
+                openCard={openCard}
               />
             ))
           ) : (

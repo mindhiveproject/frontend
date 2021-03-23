@@ -125,6 +125,7 @@ class Sections extends Component {
                 section={section}
                 deleteSection={this.props.deleteSection}
                 onCardChange={this.onCardChange}
+                openCard={this.props.openCard}
               />
             </Draggable>
           ))}
