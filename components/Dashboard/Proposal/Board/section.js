@@ -335,7 +335,17 @@ const Section = ({
       </div>
       <button
         onClick={() => {
-          deleteSection(section.id);
+          if (section?.cards?.length === 0) {
+            deleteSection(section.id);
+            return;
+          }
+          if (
+            confirm(
+              'Are you sure you want to delete this proposal section? All cards in this section will be deleted as well.'
+            )
+          ) {
+            deleteSection(section.id);
+          }
         }}
       >
         Delete section

@@ -114,9 +114,11 @@ class JournalPage extends Component {
                 }}
               >
                 <button onClick={this.addPost}>Add note</button>
-                <ContainerOnlyForAdmin>
-                  <button onClick={this.addSketch}>Add sketch</button>
-                </ContainerOnlyForAdmin>
+                {false && (
+                  <ContainerOnlyForAdmin>
+                    <button onClick={this.addSketch}>Add sketch</button>
+                  </ContainerOnlyForAdmin>
+                )}
               </div>
             </div>
 

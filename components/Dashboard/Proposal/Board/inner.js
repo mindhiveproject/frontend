@@ -116,7 +116,7 @@ class Inner extends Component {
                 type="text"
                 id="title"
                 name="title"
-                placeholder="..."
+                placeholder=""
                 value={this.state.title}
                 onChange={this.handleChange}
                 required

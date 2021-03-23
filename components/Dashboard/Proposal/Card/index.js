@@ -113,7 +113,19 @@ class CardContainer extends Component {
         {({ data, loading }) => {
           if (loading) return <p>Loading ... </p>;
           if (!data || !data.proposalCard)
-            return <p>No proposal card found for id {this.props.cardId}</p>;
+            return (
+              <div>
+                <div className="goBackBtn">
+                  <span
+                    style={{ cursor: 'pointer' }}
+                    onClick={this.props.close}
+                  >
+                    ← Back
+                  </span>
+                </div>
+                <h3>No proposal card found for id {this.props.cardId}</h3>
+              </div>
+            );
           const { proposalCard } = data;
           return (
             <Mutation mutation={UPDATE_CARD_MUTATION}>
@@ -139,7 +151,11 @@ class CardContainer extends Component {
                             this.props.close();
                           }}
                           loading={loading}
-                          title={this.state.title || proposalCard.title}
+                          title={
+                            typeof this.state.title === 'undefined'
+                              ? proposalCard.title
+                              : this.state.title
+                          }
                           onTitleChange={this.handleTitleChange}
                           content={this.state.content || proposalCard.content}
                           onContentChange={this.handleContentChange}
@@ -159,10 +175,3 @@ class CardContainer extends Component {
 }
 
 export default CardContainer;
-
-// loading={loading}
-// title={this.state.title}
-// onTitleChange={this.handleTitleChange}
-// content={this.state.content}
-// onContentChange={this.handleContentChange}
-// btnName="Save"
