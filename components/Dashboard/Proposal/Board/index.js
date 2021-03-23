@@ -27,13 +27,19 @@ class ProposalContainer extends Component {
     if (this.state.page === 'board') {
       return (
         <div>
-          <>
-            <div className="goBackBtn">
-              <span style={{ cursor: 'pointer' }} onClick={this.props.onClose}>
-                ← Back
-              </span>
-            </div>
-          </>
+          {!this.props.hideBackBtn && (
+            <>
+              <div className="goBackBtn">
+                <span
+                  style={{ cursor: 'pointer' }}
+                  onClick={this.props.onClose}
+                >
+                  ← Back
+                </span>
+              </div>
+            </>
+          )}
+
           <ProposalHeader proposal={this.props.proposal} />
           <Board id={this.props.proposal.id} openCard={this.openCard} />
         </div>

@@ -7,6 +7,7 @@ import TaskBuilderWrapper from '../Component/builderWrapper';
 import Navigation from './navigation';
 import StudyBuilderSection from './StudyBuilder/index';
 import AnalyzeSection from './Analyze/index';
+import ProposalSection from './Proposal/index';
 
 import InDev from './inDev';
 import {
@@ -265,7 +266,12 @@ class StudyBuilder extends Component {
               section={this.state.section}
             />
 
-            {this.state.section === 'proposal' && <InDev />}
+            {this.state.section === 'proposal' && (
+              <ProposalSection
+                study={this.state.study}
+                user={this.props.user}
+              />
+            )}
 
             {this.state.section === 'studyBuilder' && (
               <StudyBuilderSection
@@ -280,7 +286,6 @@ class StudyBuilder extends Component {
                 needToClone={needToClone}
                 onAddComponent={this.addComponent}
                 toggleTaskSelector={this.toggleTaskSelector}
-                user={this.props.user}
                 openTaskEditor={this.openTaskEditor}
                 handleSetMultipleValuesInState={
                   this.handleSetMultipleValuesInState

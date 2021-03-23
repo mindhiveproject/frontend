@@ -32,6 +32,9 @@ const STUDY_QUERY = gql`
         title
         description
       }
+      proposal {
+        id
+      }
       components
       public
       submitForPublishing
