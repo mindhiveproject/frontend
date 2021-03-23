@@ -7,7 +7,6 @@ import moment from 'moment';
 import { Menu } from 'semantic-ui-react';
 import Error from '../../ErrorMessage/index';
 
-import ProposalHeader from './ProposalPage/proposalHeader';
 import ProposalContainer from './Board/index';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
@@ -46,13 +45,6 @@ class ProposalPage extends Component {
     return (
       <StyledDasboard>
         <StyledDevelopDasboard>
-          <>
-            <div className="goBackBtn">
-              <span style={{ cursor: 'pointer' }} onClick={this.props.goBack}>
-                ← Back
-              </span>
-            </div>
-          </>
           <Query query={PROPOSAL_BOARD_QUERY} variables={{ id: proposalId }}>
             {({ error, loading, data }) => {
               if (error) return <Error error={error} />;
@@ -65,8 +57,10 @@ class ProposalPage extends Component {
                   <Head>
                     <title>mindHIVE | {proposal.title}</title>
                   </Head>
-                  <ProposalHeader proposal={proposal} />
-                  <ProposalContainer id={proposal.id} />
+                  <ProposalContainer
+                    proposal={proposal}
+                    onClose={this.props.goBack}
+                  />
                 </div>
               );
             }}

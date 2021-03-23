@@ -34,17 +34,17 @@ const UPDATE_CARD_MUTATION = gql`
 `;
 
 const StyledCardContainer = styled.div`
-  position: fixed;
+  /* position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  z-index: 10; */
 `;
 
 const StyledInner = styled.div`
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -52,7 +52,7 @@ const StyledInner = styled.div`
   width: 90%;
   height: 90%;
   overflow-y: auto;
-  padding: 20px;
+  padding: 20px; */
 `;
 
 const StyledCloseButton = styled.span`
@@ -121,9 +121,16 @@ class CardContainer extends Component {
                 <>
                   <StyledCardContainer>
                     <StyledInner>
-                      <StyledCloseButton onClick={this.props.close}>
-                        &times;
-                      </StyledCloseButton>
+                      <>
+                        <div className="goBackBtn">
+                          <span
+                            style={{ cursor: 'pointer' }}
+                            onClick={this.props.close}
+                          >
+                            ← Back
+                          </span>
+                        </div>
+                      </>
                       <div>
                         <Post
                           onSubmit={async e => {

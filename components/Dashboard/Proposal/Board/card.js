@@ -10,25 +10,6 @@ const StyledCard = styled.div`
 `;
 
 class Card extends Component {
-  state = {
-    open: false,
-    cardId: null,
-  };
-
-  // openCard = id => {
-  //   this.setState({
-  //     open: true,
-  //     cardId: id,
-  //   });
-  // };
-  //
-  // closeCardContainer = () => {
-  //   this.setState({
-  //     open: false,
-  //     cardId: null,
-  //   });
-  // };
-
   render() {
     const { card } = this.props;
     return (
@@ -53,13 +34,6 @@ class Card extends Component {
               Open
             </button>
           </div>
-          {this.state.open && (
-            <CardContainer
-              cardId={this.state.cardId}
-              boardId={this.props.boardId}
-              close={this.closeCardContainer}
-            />
-          )}
         </StyledCard>
       </Draggable>
     );
