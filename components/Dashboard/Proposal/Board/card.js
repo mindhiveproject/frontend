@@ -1,43 +1,45 @@
 import React, { Component } from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
 
-import styled from 'styled-components';
-import CardContainer from '../Card/index';
-
-const StyledCard = styled.div`
-  border: 1px brown solid;
-  background: #ffffea;
-`;
+import { StyledCard } from './styles';
 
 class Card extends Component {
   render() {
-    const { card } = this.props;
+    const { card, proposalBuildMode } = this.props;
     return (
       <Draggable key={card.id}>
-        <StyledCard>
-          <div className="card-drag-handle">{card.title}</div>
-          <div>
-            <button
-              onClick={() => {
-                this.props.onDeleteCard(card.id);
-              }}
-            >
-              X
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => {
-                this.props.openCard(card.id);
-              }}
-            >
-              Open
-            </button>
+        <StyledCard
+          onClick={() => {
+            this.props.openCard(card.id);
+          }}
+        >
+          <div className="card-drag-handle">
+            <h4>{card.title}</h4>
           </div>
         </StyledCard>
+        {proposalBuildMode && (
+          <div
+            className="deleteBtn"
+            onClick={() => {
+              this.props.onDeleteCard(card.id);
+            }}
+          >
+            Delete card
+          </div>
+        )}
       </Draggable>
     );
   }
 }
 
 export default Card;
+
+// <div>
+//   <button
+//     onClick={() => {
+//       this.props.openCard(card.id);
+//     }}
+//   >
+//     Open
+//   </button>
+// </div>

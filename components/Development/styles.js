@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const StyledBuilderPage = styled.div`
   display: grid;
+  height: 100vh;
+  grid-template-rows: minmax(100px, auto) 1fr;
   p {
     font-family: Lato;
     font-size: 16px;

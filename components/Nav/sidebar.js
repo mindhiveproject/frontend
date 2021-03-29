@@ -140,6 +140,18 @@ const SidebarNav = ({ user }) => (
               <div>Proposal</div>
             </div>
           </Link>
+          <Link href="/dashboard/review">
+            <div className="navLink">
+              <div>
+                <img
+                  src="/static/assets/dashboard-create.png"
+                  alt="icon"
+                  height="20"
+                />
+              </div>
+              <div>Review</div>
+            </div>
+          </Link>
         </>
       )}
     </div>

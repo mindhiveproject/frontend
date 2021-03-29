@@ -5,34 +5,53 @@ import { Jodit } from './index';
 class Post extends Component {
   render() {
     const {
-      onSubmit,
       loading,
       title,
       onTitleChange,
       content,
       onContentChange,
-      btnName,
+      readonly,
+      proposalBuildMode,
     } = this.props;
 
     return (
-      <StyledPost onSubmit={onSubmit}>
-        <fieldset disabled={loading} aria-busy={loading}>
-          <label htmlFor="title">
-            <p>Title</p>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={title}
-              onChange={onTitleChange}
-              required
-            />
-          </label>
-          <StyledJodit>
-            <Jodit externalContent={content} updateContent={onContentChange} />
-          </StyledJodit>
-          <button type="submit">{btnName}</button>
-        </fieldset>
+      <StyledPost>
+        <div className="textBoard">
+          <fieldset disabled={loading} aria-busy={loading}>
+            {proposalBuildMode && (
+              <label htmlFor="title">
+                <p>Title</p>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  value={title}
+                  onChange={onTitleChange}
+                />
+              </label>
+            )}
+            {!proposalBuildMode && <div className="cardHeader">{title}</div>}
+            <StyledJodit>
+              <Jodit
+                externalContent={content}
+                updateContent={onContentChange}
+                readonly={readonly}
+              />
+            </StyledJodit>
+          </fieldset>
+        </div>
+        <div className="infoBoard">
+          {false && (
+            <>
+              <div>
+                <p>Assigned to</p>
+              </div>
+              <div>
+                <p>Status</p>
+              </div>
+            </>
+          )}
+        </div>
       </StyledPost>
     );
   }

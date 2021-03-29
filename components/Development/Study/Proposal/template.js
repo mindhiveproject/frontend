@@ -63,15 +63,7 @@ class ProposalTemplate extends Component {
 
   render() {
     if (this.state.isProposal) {
-      return (
-        <>
-          <ProposalPage
-            proposal={this.state.proposal}
-            goBack={this.goBack}
-            hideBackBtn
-          />
-        </>
-      );
+      return <ProposalPage proposal={this.state.proposal} />;
     }
     return (
       <Mutation

@@ -5,6 +5,8 @@ import { v1 as uuidv1 } from 'uuid';
 import Section from './section';
 import { BOARD_QUERY } from './board';
 
+import { StyledSections } from './styles';
+
 class Sections extends Component {
   calculatePosition = (removedIndex, addedIndex, arr) => {
     let position;
@@ -104,7 +106,7 @@ class Sections extends Component {
   render() {
     const { sections } = this.props;
     return (
-      <div>
+      <StyledSections>
         <Container
           onDrop={this.onColumnDrop}
           orientation="horizontal"
@@ -126,11 +128,12 @@ class Sections extends Component {
                 deleteSection={this.props.deleteSection}
                 onCardChange={this.onCardChange}
                 openCard={this.props.openCard}
+                proposalBuildMode={this.props.proposalBuildMode}
               />
             </Draggable>
           ))}
         </Container>
-      </div>
+      </StyledSections>
     );
   }
 }

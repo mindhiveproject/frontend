@@ -4,6 +4,8 @@ import { v1 as uuidv1 } from 'uuid';
 import Sections from './sections';
 import { BOARD_QUERY } from './board';
 
+import { StyledNewInput } from './styles';
+
 const StyledGrid = styled.div`
   display: grid;
 `;
@@ -96,7 +98,7 @@ class Inner extends Component {
   }
 
   render() {
-    const { board, sections } = this.props;
+    const { board, sections, proposalBuildMode } = this.props;
 
     return (
       <div>
@@ -108,24 +110,33 @@ class Inner extends Component {
             deleteSection={this.deleteSection}
             onUpdateSection={this.props.onUpdateSection}
             openCard={this.props.openCard}
+            proposalBuildMode={proposalBuildMode}
           />
 
-          <div>
-            <label htmlFor="title">
-              <input
-                type="text"
-                id="title"
-                name="title"
-                placeholder=""
-                value={this.state.title}
-                onChange={this.handleChange}
-                required
-              />
-            </label>
-            <button onClick={() => this.createSection(board.id)}>
-              + Add section
-            </button>
-          </div>
+          {proposalBuildMode && (
+            <StyledNewInput>
+              <label htmlFor="sectionTitle">
+                <div>
+                  <span>New section</span>
+                </div>
+                <input
+                  type="text"
+                  id="sectionTitle"
+                  name="title"
+                  placeholder=""
+                  value={this.state.title}
+                  onChange={this.handleChange}
+                  required
+                />
+              </label>
+              <div
+                className="addBtn"
+                onClick={() => this.createSection(board.id)}
+              >
+                Add section
+              </div>
+            </StyledNewInput>
+          )}
         </div>
       </div>
     );

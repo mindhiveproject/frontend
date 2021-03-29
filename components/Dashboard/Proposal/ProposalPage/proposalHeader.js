@@ -57,11 +57,21 @@ const UPDATE_PROPOSAL_BOARD = gql`
     $id: ID!
     $title: String
     $description: String
+    $isSubmitted: Boolean
+    $checklist: Json
   ) {
-    updateProposalBoard(id: $id, title: $title, description: $description) {
+    updateProposalBoard(
+      id: $id
+      title: $title
+      description: $description
+      isSubmitted: $isSubmitted
+      checklist: $checklist
+    ) {
       id
       title
       description
+      isSubmitted
+      checklist
     }
   }
 `;
@@ -144,3 +154,4 @@ class ProposalHeader extends Component {
 }
 
 export default ProposalHeader;
+export { UPDATE_PROPOSAL_BOARD };

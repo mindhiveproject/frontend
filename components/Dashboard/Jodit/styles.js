@@ -2,11 +2,14 @@ import styled from 'styled-components';
 
 export const StyledPost = styled.form`
   display: grid;
-  /* justify-self: center;
-  justify-content: center;
-  align-content: center; */
+  grid-template-columns: 7fr 3fr;
   grid-row-gap: 10px;
   font-family: Lato;
+
+  .jodit-container {
+    border: none !important;
+  }
+
   label {
     display: block;
     font-style: normal;
@@ -70,6 +73,24 @@ export const StyledPost = styled.form`
     &[disabled] {
       opacity: 0.5;
     }
+  }
+  .cardHeader {
+    margin-bottom: 15px;
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+  .textBoard {
+    margin: 53px 30px 30px 96px;
+  }
+  .infoBoard {
+    background: #f7f9f8;
+    border-radius: 0px 4px 4px 0px;
+    padding: 53px 30px 30px 37px;
   }
 `;
 

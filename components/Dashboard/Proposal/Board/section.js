@@ -3,7 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import sortBy from 'lodash/sortBy';
 import { Container, Draggable } from 'react-smooth-dnd';
 import { v1 as uuidv1 } from 'uuid';
-import { StyledSection } from './styles';
+import { StyledSection, StyledNewInput } from './styles';
 
 import Card from './card';
 import { BOARD_QUERY } from './board';
@@ -80,8 +80,10 @@ const Section = ({
   deleteSection,
   onCardChange,
   openCard,
+  proposalBuildMode,
 }) => {
   const { cards } = section;
+  const numOfCards = cards.length;
   const sortedCards = sortBy(cards, item => item.position);
 
   const [cardName, setCardName] = useState('');
@@ -331,25 +333,31 @@ const Section = ({
   return (
     <StyledSection>
       <div className="column-drag-handle">
-        <h4>{section.title}</h4>
+        <h3>{section.title}</h3>
+        <span>
+          {numOfCards} card{numOfCards <= 1 ? '' : 's'}
+        </span>
       </div>
-      <button
-        onClick={() => {
-          if (section?.cards?.length === 0) {
-            deleteSection(section.id);
-            return;
-          }
-          if (
-            confirm(
-              'Are you sure you want to delete this proposal section? All cards in this section will be deleted as well.'
-            )
-          ) {
-            deleteSection(section.id);
-          }
-        }}
-      >
-        Delete section
-      </button>
+      {proposalBuildMode && (
+        <div
+          className="deleteBtn"
+          onClick={() => {
+            if (section?.cards?.length === 0) {
+              deleteSection(section.id);
+              return;
+            }
+            if (
+              confirm(
+                'Are you sure you want to delete this proposal section? All cards in this section will be deleted as well.'
+              )
+            ) {
+              deleteSection(section.id);
+            }
+          }}
+        >
+          Delete section
+        </div>
+      )}
 
       <div>
         <Container
@@ -378,6 +386,7 @@ const Section = ({
                 onDeleteCard={deleteCardMutation}
                 boardId={boardId}
                 openCard={openCard}
+                proposalBuildMode={proposalBuildMode}
               />
             ))
           ) : (
@@ -385,24 +394,29 @@ const Section = ({
           )}
         </Container>
       </div>
+      {proposalBuildMode && (
+        <StyledNewInput>
+          <label htmlFor={`input-${section.id}`}>
+            <span>New card</span>
+            <input
+              id={`input-${section.id}`}
+              type="text"
+              name={`input-${section.id}`}
+              value={cardName}
+              onChange={e => setCardName(e.target.value)}
+            />
+          </label>
 
-      <div>
-        <label>
-          Card name:
-          <input
-            type="text"
-            value={cardName}
-            onChange={e => setCardName(e.target.value)}
-          />
-        </label>
-        <button
-          onClick={() => {
-            addCardMutation(section.id, cardName);
-          }}
-        >
-          + Card
-        </button>
-      </div>
+          <div
+            className="addBtn"
+            onClick={() => {
+              addCardMutation(section.id, cardName);
+            }}
+          >
+            Add card
+          </div>
+        </StyledNewInput>
+      )}
     </StyledSection>
   );
 };

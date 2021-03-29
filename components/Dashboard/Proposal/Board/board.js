@@ -91,7 +91,7 @@ const DELETE_SECTION = gql`
   }
 `;
 
-const Board = ({ id, openCard }) => {
+const Board = ({ id, openCard, proposalBuildMode }) => {
   const { loading, error, data } = useQuery(BOARD_QUERY, {
     variables: { id },
   });
@@ -130,6 +130,7 @@ const Board = ({ id, openCard }) => {
       onSetSections={setSections}
       onDeleteSection={deleteSection}
       openCard={openCard}
+      proposalBuildMode={proposalBuildMode}
     />
   );
 };

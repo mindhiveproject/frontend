@@ -49,7 +49,11 @@ class DashboardProposal extends Component {
     if (page === 'proposalpage') {
       return (
         <AuthorizedPage>
-          <ProposalPage proposal={this.state.proposal} goBack={this.goBack} />
+          <ProposalPage
+            proposal={this.state.proposal}
+            goBack={this.goBack}
+            proposalBuildMode
+          />
         </AuthorizedPage>
       );
     }

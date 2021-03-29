@@ -60,7 +60,7 @@ class ProposalPage extends Component {
                   <ProposalContainer
                     proposal={proposal}
                     onClose={this.props.goBack}
-                    hideBackBtn={this.props.hideBackBtn}
+                    proposalBuildMode={this.props.proposalBuildMode}
                   />
                 </div>
               );

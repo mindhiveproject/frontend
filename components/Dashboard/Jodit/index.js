@@ -7,17 +7,46 @@ const JoditEditor = dynamic(importJodit, {
   ssr: false,
 });
 
-export const Jodit = ({ externalContent, updateContent }) => {
+export const Jodit = ({ externalContent, updateContent, readonly }) => {
   const editor = useRef(null);
   const [content, setContent] = useState(externalContent);
 
-  const config = {
-    readonly: false, // all options from https://xdsoft.net/jodit/doc/
-    allowTabNavigation: true,
-    minHeight: 500,
-    askBeforePasteFromWord: false,
-    askBeforePasteHTML: false,
-  };
+  let config;
+  if (readonly) {
+    config = {
+      // readonly, // all options from https://xdsoft.net/jodit/doc/
+      minHeight: 500,
+      askBeforePasteFromWord: false,
+      askBeforePasteHTML: false,
+      activeButtonsInReadOnly: ['custom'], // active only two buttons
+      toolbarButtonSize: 'large',
+      buttons: [
+        {
+          name: 'custom',
+          icon: 'print',
+          exec(editor) {
+            // if (editor.selection.isCollapsed()) {
+            //   editor.execCommand('selectall');
+            // }
+            // print();
+            // console.log('custom button');
+            const printFun = async () => {
+              await editor.execCommand('print');
+            };
+            printFun();
+          },
+        },
+      ],
+    };
+  } else {
+    config = {
+      allowTabNavigation: true,
+      minHeight: 500,
+      askBeforePasteFromWord: false,
+      askBeforePasteHTML: false,
+      // theme: 'dark',
+    };
+  }
 
   return (
     <JoditEditor
@@ -32,6 +61,7 @@ export const Jodit = ({ externalContent, updateContent }) => {
         }
       }}
       onChange={newContent => {}}
+      theme="dark"
     />
   );
 };

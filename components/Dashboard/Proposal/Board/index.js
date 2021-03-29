@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Board from './board';
-import CardContainer from '../Card/index';
+import CardModal from '../Card/modal';
 import ProposalHeader from '../ProposalPage/proposalHeader';
 
 class ProposalContainer extends Component {
@@ -27,7 +27,7 @@ class ProposalContainer extends Component {
     if (this.state.page === 'board') {
       return (
         <div>
-          {!this.props.hideBackBtn && (
+          {this.props.proposalBuildMode && (
             <>
               <div className="goBackBtn">
                 <span
@@ -41,20 +41,24 @@ class ProposalContainer extends Component {
           )}
 
           <ProposalHeader proposal={this.props.proposal} />
-          <Board id={this.props.proposal.id} openCard={this.openCard} />
+          <Board
+            id={this.props.proposal.id}
+            openCard={this.openCard}
+            proposalBuildMode={this.props.proposalBuildMode}
+          />
         </div>
       );
     }
 
     if (this.state.page === 'card') {
       return (
-        <div>
-          <CardContainer
-            cardId={this.state.cardId}
-            boardId={this.props.proposal.id}
-            close={this.closeCard}
-          />
-        </div>
+        <CardModal
+          cardId={this.state.cardId}
+          boardId={this.props.proposal.id}
+          open={this.state.page === 'card'}
+          onClose={() => this.closeCard()}
+          proposalBuildMode={this.props.proposalBuildMode}
+        />
       );
     }
   }

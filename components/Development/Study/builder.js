@@ -8,6 +8,7 @@ import Navigation from './navigation';
 import StudyBuilderSection from './StudyBuilder/index';
 import AnalyzeSection from './Analyze/index';
 import ProposalSection from './Proposal/index';
+import ReviewSection from './Review/index';
 
 import InDev from './inDev';
 import {
@@ -298,7 +299,9 @@ class StudyBuilder extends Component {
                 updateComponents={this.updateComponents}
               />
             )}
-            {this.state.section === 'review' && <InDev />}
+            {this.state.section === 'review' && (
+              <ReviewSection study={this.state.study} user={this.props.user} />
+            )}
 
             {this.state.section === 'collect' && <InDev />}
 
