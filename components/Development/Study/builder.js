@@ -299,9 +299,7 @@ class StudyBuilder extends Component {
                 updateComponents={this.updateComponents}
               />
             )}
-            {this.state.section === 'review' && (
-              <ReviewSection study={this.state.study} user={this.props.user} />
-            )}
+            {this.state.section === 'review' && <InDev />}
 
             {this.state.section === 'collect' && <InDev />}
 
@@ -316,3 +314,5 @@ class StudyBuilder extends Component {
 }
 
 export default StudyBuilder;
+
+// <ReviewSection study={this.state.study} user={this.props.user} />
