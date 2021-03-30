@@ -2,9 +2,14 @@ import styled from 'styled-components';
 
 export const StyledPost = styled.form`
   display: grid;
-  grid-template-columns: 7fr 3fr;
+
   grid-row-gap: 10px;
   font-family: Lato;
+
+  .proposalCardBoard {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+  }
 
   .jodit-container {
     border: none !important;

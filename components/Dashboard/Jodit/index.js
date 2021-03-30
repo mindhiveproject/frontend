@@ -61,7 +61,6 @@ export const Jodit = ({ externalContent, updateContent, readonly }) => {
         }
       }}
       onChange={newContent => {}}
-      theme="dark"
     />
   );
 };

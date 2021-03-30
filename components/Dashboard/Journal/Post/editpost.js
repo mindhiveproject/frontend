@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 import { JOURNAL_POSTS } from '../journalpage';
 import { MY_JOURNALS_QUERY } from '../journals';
 
-import Post from '../../Jodit/post';
+import Note from '../../Jodit/note';
 
 const GET_POST = gql`
   query GET_POST($id: ID!) {
@@ -103,7 +103,7 @@ class EditPost extends Component {
                       </div>
                     </div>
 
-                    <Post
+                    <Note
                       onSubmit={async e => {
                         e.preventDefault();
                         const res = await updatePost();

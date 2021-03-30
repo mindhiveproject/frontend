@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 import { JOURNAL_POSTS } from '../journalpage';
 import { MY_JOURNALS_QUERY } from '../journals';
 
-import Post from '../../Jodit/post';
+import Note from '../../Jodit/note';
 
 const CREATE_NEW_POST = gql`
   mutation CREATE_NEW_POST($title: String, $content: String, $journal: ID!) {
@@ -84,7 +84,7 @@ class AddPost extends Component {
                   <span onClick={this.props.goBack}>&times;</span>
                 </div>
               </div>
-              <Post
+              <Note
                 onSubmit={async e => {
                   e.preventDefault();
                   const res = await createPost();
