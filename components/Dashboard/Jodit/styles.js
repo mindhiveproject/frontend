@@ -15,6 +15,10 @@ export const StyledPost = styled.form`
     border: none !important;
   }
 
+  /* .ui.modal > .content {
+    padding: 0rem 0rem 0rem 0rem !important;
+  } */
+
   label {
     display: block;
     font-style: normal;
@@ -89,13 +93,36 @@ export const StyledPost = styled.form`
     letter-spacing: 0em;
     text-align: left;
   }
+  .cardDescription {
+    color: #666666;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    padding-bottom: 40px;
+    margin-bottom: 44px;
+    border-bottom: 2px solid #e6e6e6;
+  }
   .textBoard {
     margin: 53px 30px 30px 96px;
   }
   .infoBoard {
+    display: grid;
+    grid-gap: 50px;
+    align-content: baseline;
     background: #f7f9f8;
     border-radius: 0px 4px 4px 0px;
     padding: 53px 30px 30px 37px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
   }
 `;
 

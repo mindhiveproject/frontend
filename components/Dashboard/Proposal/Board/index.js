@@ -58,6 +58,7 @@ class ProposalContainer extends Component {
           open={this.state.page === 'card'}
           onClose={() => this.closeCard()}
           proposalBuildMode={this.props.proposalBuildMode}
+          proposal={this.props.proposal}
         />
       );
     }

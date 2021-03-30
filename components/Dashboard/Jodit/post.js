@@ -1,18 +1,46 @@
 import React, { Component } from 'react';
 import { StyledPost, StyledJodit } from './styles';
 import { Jodit } from './index';
+import AssignmentForm from './Forms/assignmentForm';
+import StatusForm from './Forms/statusForm';
 
 class Post extends Component {
   render() {
     const {
       loading,
       title,
-      onTitleChange,
+      onChange,
+      description,
       content,
       onContentChange,
+      assignedTo,
+      onAssignedToChange,
+      settings,
+      onSettingsChange,
+      card,
+      proposal,
       readonly,
       proposalBuildMode,
     } = this.props;
+
+    // collaborators
+    const { study } = proposal;
+    // extract author and collaborators of the study
+    const authorUsername = {
+      key: study?.author?.username,
+      text: study?.author?.username,
+      value: study?.author?.username,
+    };
+    const usernames =
+      study?.collaborators.map(user => ({
+        key: user.username,
+        text: user.username,
+        value: user.username,
+      })) || [];
+    const allUsernames = [authorUsername, ...usernames];
+
+    // card settings
+    const status = card?.settings?.status;
 
     return (
       <StyledPost>
@@ -27,11 +55,26 @@ class Post extends Component {
                     id="title"
                     name="title"
                     value={title}
-                    onChange={onTitleChange}
+                    onChange={onChange}
+                  />
+                </label>
+              )}
+              {proposalBuildMode && (
+                <label htmlFor="description">
+                  <p>Description</p>
+                  <textarea
+                    type="text"
+                    id="description"
+                    name="description"
+                    value={description}
+                    onChange={onChange}
                   />
                 </label>
               )}
               {!proposalBuildMode && <div className="cardHeader">{title}</div>}
+              {!proposalBuildMode && (
+                <div className="cardDescription">{description}</div>
+              )}
               <StyledJodit>
                 <Jodit
                   externalContent={content}
@@ -41,14 +84,24 @@ class Post extends Component {
               </StyledJodit>
             </fieldset>
           </div>
+
           <div className="infoBoard">
-            {false && (
+            {!proposalBuildMode && (
               <>
                 <div>
-                  <p>Assigned to</p>
+                  <h4>Assigned to</h4>
+                  <AssignmentForm
+                    usernames={allUsernames}
+                    assignedTo={assignedTo}
+                    onAssignedToChange={onAssignedToChange}
+                  />
                 </div>
                 <div>
-                  <p>Status</p>
+                  <h4>Status</h4>
+                  <StatusForm
+                    settings={settings}
+                    onSettingsChange={onSettingsChange}
+                  />
                 </div>
               </>
             )}

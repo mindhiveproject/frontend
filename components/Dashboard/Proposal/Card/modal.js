@@ -10,7 +10,13 @@ const GET_CARD_CONTENT = gql`
     proposalCard(where: { id: $id }) {
       id
       title
+      description
       content
+      settings
+      assignedTo {
+        id
+        username
+      }
     }
   }
 `;
@@ -20,13 +26,19 @@ const UPDATE_CARD_MUTATION = gql`
     $id: ID!
     $boardId: ID!
     $title: String
+    $description: String
     $content: String
+    $settings: Json
+    $assignedTo: [String]
   ) {
     updateProposalCard(
       id: $id
       boardId: $boardId
       title: $title
+      description: $description
       content: $content
+      settings: $settings
+      assignedTo: $assignedTo
     ) {
       id
     }
@@ -36,7 +48,8 @@ const UPDATE_CARD_MUTATION = gql`
 class CardModal extends Component {
   state = {};
 
-  handleTitleChange = e => {
+  // update title in the local state
+  handleChange = e => {
     const { name, type, value } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
@@ -44,6 +57,7 @@ class CardModal extends Component {
     });
   };
 
+  // update card content in the local state
   handleContentChange = content => {
     if (content) {
       this.setState({
@@ -52,15 +66,33 @@ class CardModal extends Component {
     }
   };
 
+  // update the assignedTo in the local state
+  handleAssignedToChange = assignedTo => {
+    this.setState({
+      assignedTo,
+    });
+  };
+
+  // update the settings in the local state
+  handleSettingsChange = (name, value) => {
+    this.setState({
+      settings: { ...this.state.settings, [name]: value },
+    });
+  };
+
+  // update card on the server
   onUpdateCard = async updateCardMutation => {
-    const { content, title } = this.state;
+    const { title, description, content, settings, assignedTo } = this.state;
     const { cardId, boardId, onClose } = this.props;
     await updateCardMutation({
       variables: {
         id: cardId,
         boardId,
-        content,
         title,
+        description,
+        content,
+        settings,
+        assignedTo,
       },
       refetchQueries: [{ query: GET_CARD_CONTENT, variables: { id: cardId } }],
     });
@@ -68,7 +100,7 @@ class CardModal extends Component {
 
   render() {
     const { cardId, boardId, open, onClose, proposalBuildMode } = this.props;
-    const { title, content } = this.state;
+    const { title, content, description, assignedTo } = this.state;
     return (
       <Modal
         open={open}
@@ -82,27 +114,31 @@ class CardModal extends Component {
               {({ data, loading: queryLoading }) => {
                 if (queryLoading) return <p>Loading ... </p>;
                 const { proposalCard } = data;
-                const cardContent = proposalCard.content;
-
                 return (
-                  <Mutation mutation={UPDATE_CARD_MUTATION}>
-                    {(updateCard, { loading, error }) => (
-                      <div>
-                        <Post
-                          loading={loading}
-                          title={
-                            typeof title === 'undefined'
-                              ? proposalCard.title
-                              : title
-                          }
-                          onTitleChange={this.handleTitleChange}
-                          content={content || cardContent}
-                          onContentChange={this.handleContentChange}
-                          proposalBuildMode={this.props.proposalBuildMode}
-                        />
-                      </div>
-                    )}
-                  </Mutation>
+                  <Post
+                    proposalBuildMode={this.props.proposalBuildMode}
+                    title={
+                      typeof title === 'undefined' ? proposalCard.title : title
+                    }
+                    onChange={this.handleChange}
+                    content={content || proposalCard.content}
+                    onContentChange={this.handleContentChange}
+                    description={description || proposalCard.description}
+                    assignedTo={
+                      typeof assignedTo === 'undefined'
+                        ? proposalCard.assignedTo.map(c => c.username)
+                        : assignedTo
+                    }
+                    onAssignedToChange={this.handleAssignedToChange}
+                    settings={
+                      typeof settings === 'undefined'
+                        ? proposalCard.settings
+                        : settings
+                    }
+                    onSettingsChange={this.handleSettingsChange}
+                    proposal={this.props.proposal}
+                    card={proposalCard}
+                  />
                 );
               }}
             </Query>

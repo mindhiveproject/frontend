@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query, Mutation } from '@apollo/client/react/components';
-
+import { Dropdown } from 'semantic-ui-react';
+import styled from 'styled-components';
 import { STUDY_QUERY } from '../builderWrapper';
-
 import ProposalPage from '../../../Dashboard/Proposal/proposalpage';
 import { StyledSubmitForm } from '../../../Styles/Forms';
+
+const StyledDropdown = styled.div`
+  height: 50px;
+`;
 
 const COPY_PROPOSAL_MUTATION = gql`
   mutation COPY_PROPOSAL_MUTATION($id: ID!, $study: ID) {
@@ -61,7 +65,19 @@ class ProposalTemplate extends Component {
     });
   };
 
+  onTemplateChange = (event, data) => {
+    this.setState({
+      id: data.value,
+    });
+  };
+
   render() {
+    const templates = this.props.templates.map(template => ({
+      key: template.id,
+      text: template.title,
+      value: template.id,
+    }));
+
     if (this.state.isProposal) {
       return <ProposalPage proposal={this.state.proposal} />;
     }
@@ -93,7 +109,6 @@ class ProposalTemplate extends Component {
               onSubmit={async e => {
                 e.preventDefault();
                 const res = await copyProposal();
-                console.log('res', res);
                 if (res?.data?.copyProposalBoard) {
                   this.setState({
                     proposal: res.data.copyProposalBoard,
@@ -103,45 +118,18 @@ class ProposalTemplate extends Component {
               }}
             >
               <h1>Create a new study proposal</h1>
-              <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="title">
-                  <p>Template ID</p>
-                  <input
-                    type="text"
-                    id="id"
-                    name="id"
-                    value={this.state.id}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </label>
-                {false && (
-                  <>
-                    <label htmlFor="title">
-                      <p>Proposal title</p>
-                      <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value={this.state.title}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </label>
-                    <label htmlFor="description">
-                      <p>Description</p>
-                      <input
-                        type="text"
-                        id="description"
-                        name="description"
-                        value={this.state.description}
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </label>
-                  </>
-                )}
 
+              <fieldset disabled={loading} aria-busy={loading}>
+                <StyledDropdown>
+                  <Dropdown
+                    placeholder="Select template"
+                    fluid
+                    selection
+                    options={templates}
+                    onChange={this.onTemplateChange}
+                    value={this.state.id}
+                  />
+                </StyledDropdown>
                 <button type="submit">Create</button>
               </fieldset>
             </StyledSubmitForm>

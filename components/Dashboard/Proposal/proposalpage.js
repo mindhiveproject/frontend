@@ -32,6 +32,17 @@ const PROPOSAL_BOARD_QUERY = gql`
           }
         }
       }
+      study {
+        author {
+          id
+          username
+        }
+        collaborators {
+          id
+          username
+          username
+        }
+      }
     }
   }
 `;
