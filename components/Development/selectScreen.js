@@ -244,8 +244,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               study={{
                 title: `Untitled study - ${Math.floor(Math.random() * 10000)}`,
-                description:
-                  'Add in a description here to explain your includes Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                description: 'Add in a description here',
                 settings: {
                   consentObtained: false,
                   guestParticipation: true,
@@ -312,8 +311,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled task - ${Math.floor(Math.random() * 10000)}`,
-                description:
-                  'Add in a description here to explain your includes Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                description: 'Add in a description here',
                 shortDescription:
                   'Add in a description for researchers (short description)',
                 taskType: 'TASK',
@@ -331,8 +329,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled task - ${Math.floor(Math.random() * 10000)}`,
-                description:
-                  'Add in a description here to explain your includes Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                description: 'Add in a description here',
                 shortDescription:
                   'Add in a description for researchers (short description)',
                 taskType: 'TASK',
@@ -375,8 +372,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled survey - ${Math.floor(Math.random() * 10000)}`,
-                description:
-                  'Add in a description here to explain your includes Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                description: 'Add in a description here',
                 shortDescription:
                   'Add in a description for researchers (short description)',
                 taskType: 'SURVEY',
@@ -393,8 +389,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled survey - ${Math.floor(Math.random() * 10000)}`,
-                description:
-                  'Add in a description here to explain your includes Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                description: 'Add in a description here',
                 shortDescription:
                   'Add in a description for researchers (short description)',
                 taskType: 'SURVEY',

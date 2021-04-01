@@ -1,9 +1,42 @@
 import React, { Component } from 'react';
-import { Button, Header, Modal } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 
 import { Mutation, Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
+import styled from 'styled-components';
 import Post from '../../Jodit/post';
+
+const StyledButtons = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-items: end;
+  grid-gap: 10px;
+  .primary {
+    background: #007c70;
+    color: #ffffff;
+    border: 2px solid #007c70;
+  }
+  .secondary {
+    background: #ffffff;
+    color: #666666;
+    border: 2px solid #b3b3b3;
+  }
+`;
+
+const StyledButton = styled.button`
+  cursor: pointer;
+  border-radius: 4px;
+  align-items: center;
+  padding: 14px 24px;
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.05em;
+  text-align: center;
+`;
 
 const GET_CARD_CONTENT = gql`
   query GET_CARD_CONTENT($id: ID!) {
@@ -96,6 +129,7 @@ class CardModal extends Component {
       },
       refetchQueries: [{ query: GET_CARD_CONTENT, variables: { id: cardId } }],
     });
+    onClose();
   };
 
   render() {
@@ -145,18 +179,28 @@ class CardModal extends Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button color="orange" onClick={() => onClose()}>
-            <Mutation mutation={UPDATE_CARD_MUTATION}>
-              {(updateCard, { loading, error }) => (
-                <div onClick={() => this.onUpdateCard(updateCard)}>
-                  Save & Close
-                </div>
-              )}
-            </Mutation>
-          </Button>
-          <Button color="black" onClick={() => onClose()}>
-            Close without saving
-          </Button>
+          <Mutation mutation={UPDATE_CARD_MUTATION}>
+            {(updateCard, { loading, error }) => (
+              <StyledButtons>
+                {!loading && (
+                  <StyledButton
+                    disabled={loading}
+                    className="secondary"
+                    onClick={() => onClose()}
+                  >
+                    Close without saving
+                  </StyledButton>
+                )}
+                <StyledButton
+                  className="primary"
+                  onClick={() => this.onUpdateCard(updateCard)}
+                  disabled={loading}
+                >
+                  {loading ? 'Saving ...' : 'Save & close'}
+                </StyledButton>
+              </StyledButtons>
+            )}
+          </Mutation>
         </Modal.Actions>
       </Modal>
     );
