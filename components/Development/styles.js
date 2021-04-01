@@ -76,8 +76,8 @@ export const StyledBuilder = styled.div`
 
 export const StudyBuilderNav = styled.div`
   display: grid;
-  grid-template-columns: 130px minmax(50px, 300px) 1fr auto;
-  grid-gap: 30px;
+  grid-template-columns: 130px minmax(50px, 300px) 1fr auto auto;
+  grid-gap: 20px;
   justify-content: stretch;
   align-items: center;
   margin: 20px 22.5px 10px 42px;
@@ -153,7 +153,7 @@ export const StudyBuilderNav = styled.div`
   .discoverMenu {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    grid-gap: 5px;
+    grid-gap: 40px;
     /* margin: 20px 6px 29px 6px !important; */
     cursor: pointer;
 
@@ -161,7 +161,7 @@ export const StudyBuilderNav = styled.div`
       padding-bottom: 10px !important;
       display: grid;
       justify-content: center;
-      border-bottom: 2px solid #e6e6e6;
+      border-bottom: 2px solid transparent;
       p {
         font-size: 18px;
       }
@@ -172,6 +172,9 @@ export const StudyBuilderNav = styled.div`
         color: #1a1a1a;
       }
     }
+  }
+  .addCollaboratorsButton {
+    border: 2px solid #b3b3b3;
   }
 `;
 

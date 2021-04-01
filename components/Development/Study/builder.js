@@ -10,6 +10,8 @@ import AnalyzeSection from './Analyze/index';
 import ProposalSection from './Proposal/index';
 import ReviewSection from './Review/index';
 
+import CollaboratorsModal from './Collaborators/modal';
+
 import InDev from './inDev';
 import {
   StyledBuilder,
@@ -30,6 +32,7 @@ const makeSlug = title => {
 
 class StudyBuilder extends Component {
   state = {
+    page: 'builder',
     study: { ...this.props.study },
     isTaskSelectorOpen: false,
     isTaskBuilderOpen: false,
@@ -238,6 +241,18 @@ class StudyBuilder extends Component {
     });
   };
 
+  openAddCollaboratorsModal = () => {
+    this.setState({
+      page: 'collaborators',
+    });
+  };
+
+  onModalClose = () => {
+    this.setState({
+      page: 'builder',
+    });
+  };
+
   render() {
     const { user } = this.props;
     const { study, needToClone, readOnlyMode } = this.state;
@@ -265,6 +280,7 @@ class StudyBuilder extends Component {
               updateMyStudy={this.updateMyStudy}
               handleSectionChange={this.handleSectionChange}
               section={this.state.section}
+              openAddCollaboratorsModal={this.openAddCollaboratorsModal}
             />
 
             {this.state.section === 'proposal' && (
@@ -307,6 +323,14 @@ class StudyBuilder extends Component {
               <AnalyzeSection studyId={this.state.study.id} />
             )}
           </StyledBuilderPage>
+        )}
+        {this.state.page === 'collaborators' && (
+          <CollaboratorsModal
+            onModalClose={this.onModalClose}
+            study={this.state.study}
+            handleCollaboratorsChange={this.handleCollaboratorsChange}
+            handleSetState={this.handleSetState}
+          />
         )}
       </>
     );

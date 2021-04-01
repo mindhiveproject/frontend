@@ -21,7 +21,6 @@ export const BOARD_QUERY = gql`
           id
           title
           position
-          content
           section {
             id
           }

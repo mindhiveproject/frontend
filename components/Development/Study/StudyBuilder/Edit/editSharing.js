@@ -29,11 +29,13 @@ class EditSharing extends Component {
 
     return (
       <StyledSharingPane>
-        <FindCollaborator
-          study={study}
-          handleCollaboratorsChange={this.props.handleCollaboratorsChange}
-          handleSetState={this.props.handleSetState}
-        />
+        {false && (
+          <FindCollaborator
+            study={study}
+            handleCollaboratorsChange={this.props.handleCollaboratorsChange}
+            handleSetState={this.props.handleSetState}
+          />
+        )}
 
         <div>
           <label>Publish study on MindHive?</label>

@@ -1,7 +1,7 @@
 import React, { useState, Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown, Icon } from 'semantic-ui-react';
 
 const ALL_USERNAMES = gql`
   query ALL_USERNAMES {
@@ -27,7 +27,6 @@ class FindCollaborator extends Component {
           }));
           return (
             <div>
-              <label>Add a collaborator</label>
               <DropdownExampleMultipleSelection
                 usernames={usernames}
                 collaborators={study.collaborators}

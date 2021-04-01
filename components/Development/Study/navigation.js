@@ -188,6 +188,17 @@ class Navigation extends Component {
           </Menu.Item>
         </Menu>
 
+        <div>
+          <button
+            onClick={() => {
+              this.props.openAddCollaboratorsModal();
+            }}
+            className="addCollaboratorsButton"
+          >
+            Add collaborators
+          </button>
+        </div>
+
         {!this.props.readOnlyMode && (
           <>
             {this.props.isAuthor && !this.props.needToClone ? (

@@ -324,7 +324,7 @@ export const StyledPreviewPane = styled.div`
   }
 
   .discoverMenu {
-    display: grid;
+    display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
     margin: 20px 6px 29px 6px !important;
     cursor: pointer;
