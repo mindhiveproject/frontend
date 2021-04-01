@@ -100,7 +100,7 @@ class CardModal extends Component {
 
   render() {
     const { cardId, boardId, open, onClose, proposalBuildMode } = this.props;
-    const { title, content, description, assignedTo } = this.state;
+    const { title, content, description, assignedTo, settings } = this.state;
     return (
       <Modal
         open={open}

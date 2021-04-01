@@ -23,7 +23,9 @@ class Card extends Component {
                 <div className="info-assigned-container">
                   {assignedTo.length
                     ? assignedTo.map(user => (
-                        <div className="info-assigned">{user}</div>
+                        <div key={user} className="info-assigned">
+                          {user}
+                        </div>
                       ))
                     : ''}
                 </div>
