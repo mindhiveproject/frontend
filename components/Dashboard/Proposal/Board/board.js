@@ -25,6 +25,10 @@ export const BOARD_QUERY = gql`
           section {
             id
           }
+          settings
+          assignedTo {
+            username
+          }
         }
       }
     }

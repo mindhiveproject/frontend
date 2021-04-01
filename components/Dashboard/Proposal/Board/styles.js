@@ -41,7 +41,7 @@ export const StyledSection = styled.div`
   border: 1px solid #e6e6e6;
   border-radius: 4px;
   max-width: 300px;
-  min-width: 200px;
+  min-width: 250px;
   margin: 10px;
   .column-drag-handle {
     cursor: pointer;
@@ -100,5 +100,47 @@ export const StyledCard = styled.div`
     font-weight: 700;
     line-height: 24px;
     letter-spacing: 0em;
+  }
+  .card-information {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, auto));
+    grid-gap: 10px;
+    align-items: baseline;
+    .info-assigned-container {
+      display: grid;
+      justify-items: baseline;
+      grid-gap: 5px;
+    }
+    .info-assigned {
+      display: grid;
+      align-items: center;
+      color: #666666;
+      background: #ffffff;
+      border: 1px solid #e6e6e6;
+      box-sizing: border-box;
+      border-radius: 60px;
+      font-family: Lato;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      padding: 1px 7px 1px 7px;
+    }
+    .info-status {
+      width: fit-content;
+      display: grid;
+      align-items: center;
+      color: #d53533;
+      box-sizing: border-box;
+      background: rgba(224, 103, 102, 0.2);
+      border: 1px solid transparent;
+      border-radius: 60px;
+      font-family: Lato;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      padding: 1px 7px 1px 7px;
+    }
   }
 `;
