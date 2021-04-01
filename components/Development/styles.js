@@ -153,8 +153,8 @@ export const StudyBuilderNav = styled.div`
   .discoverMenu {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    grid-gap: 40px;
-    /* margin: 20px 6px 29px 6px !important; */
+    grid-column-gap: 5px;
+    justify-content: space-around;
     cursor: pointer;
 
     .discoverMenuTitle {
