@@ -10,6 +10,8 @@ import { STUDY_QUERY } from './builderWrapper';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 import { MY_DEVELOPED_STUDIES_QUERY } from '../../Bank/Studies/developed';
 
+import { PROPOSAL_BOARD_QUERY } from '../../Dashboard/Proposal/proposalpage';
+
 const CREATE_NEW_STUDY = gql`
   mutation CREATE_NEW_STUDY(
     $title: String!
@@ -112,6 +114,30 @@ const UPDATE_STUDY = gql`
 class Navigation extends Component {
   render() {
     const { section } = this.props;
+    const [proposal] = this.props?.study?.proposal;
+    const proposalId = proposal ? proposal.id : undefined;
+    let refetchQueries = {};
+    // refetch proposal query if there is one
+    if (proposalId) {
+      refetchQueries = [
+        {
+          query: STUDY_QUERY,
+          variables: { id: this.props.study.id },
+        },
+        {
+          query: PROPOSAL_BOARD_QUERY,
+          variables: { id: proposalId },
+        },
+      ];
+    } else {
+      refetchQueries = [
+        {
+          query: STUDY_QUERY,
+          variables: { id: this.props.study.id },
+        },
+      ];
+    }
+
     return (
       <StudyBuilderNav>
         <div className="goBackBtn" onClick={this.props.onLeave}>
@@ -205,12 +231,7 @@ class Navigation extends Component {
               <div className="saveBtn">
                 <Mutation
                   mutation={UPDATE_STUDY}
-                  refetchQueries={[
-                    {
-                      query: STUDY_QUERY,
-                      variables: { id: this.props.study.id },
-                    },
-                  ]}
+                  refetchQueries={refetchQueries}
                 >
                   {(updateStudy, { loading, error }) => {
                     if (error) {
