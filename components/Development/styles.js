@@ -302,6 +302,7 @@ export const StyledEditPane = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     margin: 20px 6px 29px 6px !important;
     cursor: pointer;
+    /* grid-column-gap: 5px; */
 
     .discoverMenuTitle {
       padding-bottom: 10px !important;

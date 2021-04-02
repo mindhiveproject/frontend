@@ -114,7 +114,8 @@ const UPDATE_STUDY = gql`
 class Navigation extends Component {
   render() {
     const { section } = this.props;
-    const [proposal] = this.props?.study?.proposal;
+    console.log('this.props', this.props);
+    const [proposal] = this.props?.study?.proposal || [];
     const proposalId = proposal ? proposal.id : undefined;
     let refetchQueries = {};
     // refetch proposal query if there is one
