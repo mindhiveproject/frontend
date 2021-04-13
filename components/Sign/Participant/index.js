@@ -37,7 +37,8 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
 
 class ParticipantSignup extends Component {
   state = {
-    username: generate().dashed,
+    // username: generate().dashed,
+    username: '',
     email: '',
     password: '',
     info: { ...this.props.info, updates: true }, // all information that is coming from the registration forms
@@ -101,9 +102,11 @@ class ParticipantSignup extends Component {
                     value={this.state.username}
                     onChange={this.saveToState}
                   />
-                  <div className="helpText">
-                    Proceed with the name we suggest or choose your own.
-                  </div>
+                  {false && (
+                    <div className="helpText">
+                      Proceed with the name we suggest or choose your own.
+                    </div>
+                  )}
                 </label>
                 <label htmlFor="email">
                   <p>Email address</p>

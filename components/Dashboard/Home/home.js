@@ -11,7 +11,7 @@ const StyledStudyParticipantCards = styled.div`
 
 class HomeDashboard extends Component {
   render() {
-    const { studies, username, publicId } = this.props;
+    const { studies, username, publicId, publicReadableId } = this.props;
     const messages = studies
       .map(study =>
         study.messages.map(message => {
@@ -31,7 +31,34 @@ class HomeDashboard extends Component {
     return (
       <StyledHomeDasboard>
         <h1>Welcome{username && `, ${username}`}!</h1>
-        {publicId && <div>Your participant ID is {publicId}</div>}
+        {publicId && (
+          <div>
+            Your participant ID is{' '}
+            <code
+              style={{
+                background: 'white',
+                padding: '3px',
+                borderRadius: '5px',
+              }}
+            >
+              {publicId}
+            </code>
+          </div>
+        )}
+        {publicReadableId && (
+          <div>
+            Your public readable ID is{' '}
+            <code
+              style={{
+                background: 'white',
+                padding: '3px',
+                borderRadius: '5px',
+              }}
+            >
+              {publicReadableId}
+            </code>
+          </div>
+        )}
         <div>
           <h2>Your studies</h2>
           <StyledStudyParticipantCards>

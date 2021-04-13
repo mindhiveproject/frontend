@@ -37,7 +37,8 @@ const STUDENT_SIGNUP_MUTATION = gql`
 
 class StudentSignup extends Component {
   state = {
-    username: generate().dashed,
+    // username: generate().dashed,
+    username: '',
     password: '',
     email: '',
     user: this.props.user,
@@ -104,14 +105,13 @@ class StudentSignup extends Component {
                   <input
                     type="text"
                     name="username"
-                    placeholder="Username"
+                    placeholder="Enter your username"
                     value={this.state.username}
                     onChange={this.saveToState}
                   />
                   <div className="helpText">
                     Your username <strong>will be visible to scientists</strong>
-                    , so don’t use your real name. Proceed with the name we
-                    suggest or choose your own.
+                    , so don’t use your real name.
                   </div>
                 </label>
 
@@ -195,24 +195,6 @@ class StudentSignup extends Component {
                   </label>
                 )}
 
-                <div>
-                  <label htmlFor="confirmUsername">
-                    <div className="checkboxField">
-                      <input
-                        type="checkbox"
-                        id="confirmUsername"
-                        name="confirmUsername"
-                        value="checked"
-                        required
-                      />
-                      <span>
-                        I confirm my username does not have any personally
-                        identifable information (first, last name).
-                      </span>
-                    </div>
-                  </label>
-                </div>
-
                 <button type="submit">Create account</button>
                 <p>
                   By clicking on “Create account” you agree to MindHive’s{' '}
@@ -239,3 +221,21 @@ class StudentSignup extends Component {
 
 export default StudentSignup;
 export { STUDENT_SIGNUP_MUTATION };
+
+// <div>
+//   <label htmlFor="confirmUsername">
+//     <div className="checkboxField">
+//       <input
+//         type="checkbox"
+//         id="confirmUsername"
+//         name="confirmUsername"
+//         value="checked"
+//         required
+//       />
+//       <span>
+//         I confirm my username does not have any personally
+//         identifable information (first, last name).
+//       </span>
+//     </div>
+//   </label>
+// </div>

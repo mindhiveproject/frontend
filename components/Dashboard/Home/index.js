@@ -25,6 +25,7 @@ class DashboardStatic extends Component {
                 studies={data?.me.participantIn}
                 username={data?.me.username}
                 publicId={data?.me.publicId}
+                publicReadableId={data?.me.publicReadableId}
               />
             </StyledDasboard>
           );

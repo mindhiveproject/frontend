@@ -79,6 +79,7 @@ const USER_DASHBOARD_QUERY = gql`
       image
       info
       publicId
+      publicReadableId
     }
   }
 `;

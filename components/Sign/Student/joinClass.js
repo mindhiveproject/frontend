@@ -35,6 +35,11 @@ class JoinClass extends Component {
             <>
               <h1>How would you like to join MindHive?</h1>
               <div className="studentSignupOptions">
+                <GoogleSignup
+                  class={{ code: this.state.classCode }}
+                  permissions={['STUDENT']}
+                />
+
                 <SignupButton
                   onClick={() => {
                     this.setState({ activePage: 'createAccount' });
@@ -49,11 +54,6 @@ class JoinClass extends Component {
                   </div>
                   <div>Sign up with email/username</div>
                 </SignupButton>
-
-                <GoogleSignup
-                  class={{ code: this.state.classCode }}
-                  permissions={['STUDENT']}
-                />
               </div>
             </>
           )}
