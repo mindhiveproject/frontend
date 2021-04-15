@@ -7,8 +7,6 @@ import { matomoUrl, matomoSideId } from '../config';
 
 const MATOMO_URL = matomoUrl;
 const MATOMO_SITE_ID = matomoSideId;
-console.log({ MATOMO_URL });
-console.log({ MATOMO_SITE_ID });
 
 class MyApp extends App {
   // get initial props of pages and resolve queries and mutation before rendering the page

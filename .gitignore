@@ -1,3 +1,6 @@
+# Ignore the changes in the app file
+pages/_app.js
+
 # Logs
 logs
 *.log
