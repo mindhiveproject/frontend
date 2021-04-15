@@ -2,6 +2,13 @@ import App from 'next/app';
 import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData';
 import 'normalize.css';
+import { init } from '@socialgouv/matomo-next';
+import { matomoUrl, matomoSideId } from '../config';
+
+const MATOMO_URL = matomoUrl;
+const MATOMO_SITE_ID = matomoSideId;
+console.log({ MATOMO_URL });
+console.log({ MATOMO_SITE_ID });
 
 class MyApp extends App {
   // get initial props of pages and resolve queries and mutation before rendering the page
@@ -20,6 +27,7 @@ class MyApp extends App {
   };
 
   componentDidMount() {
+    init({ url: MATOMO_URL, siteId: MATOMO_SITE_ID });
     const { asPath } = this.props.router;
     // lets add initial route to `history`
     this.setState(prevState => ({ history: [...prevState.history, asPath] }));

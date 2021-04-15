@@ -26,6 +26,7 @@
     "@nivo/scatterplot": "^0.67.0",
     "@react-pdf/renderer": "^2.0.0-beta.6",
     "@react-pdf/styled-components": "^1.4.0",
+    "@socialgouv/matomo-next": "^1.2.1",
     "apollo-boost": "^0.1.16",
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",

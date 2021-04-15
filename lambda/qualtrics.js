@@ -90,7 +90,7 @@
 /*!********************!*\
   !*** ../config.js ***!
   \********************/
-/*! exports provided: endpoint, prodEndpoint, perPage */
+/*! exports provided: endpoint, prodEndpoint, perPage, matomoUrl, matomoSideId */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98,11 +98,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "endpoint", function() { return endpoint; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "prodEndpoint", function() { return prodEndpoint; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "perPage", function() { return perPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "matomoUrl", function() { return matomoUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "matomoSideId", function() { return matomoSideId; });
 // This is client side config only - don't put anything in here that shouldn't be public!
 var endpoint = "http://localhost:4444"; // export const prodEndpoint = `https://mindhive-yoga-prod.herokuapp.com/`;
 
 var prodEndpoint = "https://server.mindhive.science/";
 var perPage = 4;
+var matomoUrl = 'https://idatascience.uni-konstanz.de/';
+var matomoSideId = 1;
 
 /***/ }),
 

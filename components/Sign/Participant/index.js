@@ -98,7 +98,7 @@ class ParticipantSignup extends Component {
                   <input
                     type="text"
                     name="username"
-                    placeholder="Username"
+                    placeholder="Enter your username"
                     value={this.state.username}
                     onChange={this.saveToState}
                   />
