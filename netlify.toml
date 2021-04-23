@@ -31,3 +31,9 @@
   to = "/signup/student/[code].html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/proposals/*"
+  to = "/proposals/[slug].html"
+  status = 200
+  force = true
