@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Mutation } from '@apollo/client/react/components';
 
+import { Icon } from 'semantic-ui-react';
 import ChecklistItem from './checklist/index';
-
-// import { PDFDownloadLink } from '@react-pdf/renderer';
-// import { MyProposal } from './export/proposal';
+import { checklistItems } from './checklist/checkTemplate';
 import { PROPOSAL_BOARD_QUERY } from '../../../Dashboard/Proposal/proposalpage';
-
-// to do import mutation that updates the proposal and refetches the PROPOSAL_BOARD_QUERY
 import { UPDATE_PROPOSAL_BOARD } from '../../../Dashboard/Proposal/ProposalPage/proposalHeader';
 
 const StyledReviewSection = styled.div`
@@ -40,7 +37,6 @@ const StyledReviewBoard = styled.div`
       display: grid;
       justify-content: end;
       align-content: baseline;
-      margin-top: 16px;
       button {
         border: 2px solid #b3b3b3;
       }
@@ -51,49 +47,105 @@ const StyledReviewBoard = styled.div`
     .checklistItems {
       display: grid;
       grid-gap: 10px;
+      margin-top: 18px;
     }
   }
   .reviews {
     grid-area: reviews;
+    .reviewsPlaceholder {
+      border: 1px solid #e6e6e6;
+      box-sizing: border-box;
+      border-radius: 4px;
+      padding: 40px;
+      p {
+        text-align: center;
+      }
+    }
   }
 `;
 
 const StyledReviewCard = styled.div`
   background: white;
   border-radius: 4px;
-  padding: 21px 50px 21px 50px;
+  padding: 41px 50px 21px 50px;
+  h2 {
+    font-family: Lato;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1a1a1a;
+  }
+  p {
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
 `;
 
 class ProposalWrapper extends Component {
   state = {
     id: this.props.proposal.id,
+    checklist: this.props.proposal.checklist || [],
   };
 
-  onBtnClick = params => {
-    console.log('clicked', params);
-    this.exportProposal();
+  takeAction = action => {
+    if (action === 'export') {
+      this.exportProposal();
+    }
   };
 
   exportProposal = () => {
-    // to do - open a new page with the whole proposal
+    const url = `/proposals/${this.props.proposal?.slug}`;
+    const win = window.open(url, '_blank');
   };
 
   submitProposal = async updateProposalMutation => {
     const res = await updateProposalMutation({
       variables: { isSubmitted: true },
     });
-    console.log('res', res);
+  };
+
+  toggleCheckTo = async (name, newState, updateProposalMutation) => {
+    let checklist;
+    if (newState) {
+      checklist = [...this.state.checklist, name];
+    } else {
+      checklist = [...this.state.checklist.filter(item => item !== name)];
+    }
+    this.setState({
+      checklist,
+    });
+    const res = await updateProposalMutation({
+      variables: {
+        checklist,
+      },
+    });
   };
 
   render() {
+    const { proposal } = this.props;
+
     return (
-      <Mutation mutation={UPDATE_PROPOSAL_BOARD} variables={this.state}>
+      <Mutation
+        mutation={UPDATE_PROPOSAL_BOARD}
+        variables={this.state}
+        refetchQueries={[
+          {
+            query: PROPOSAL_BOARD_QUERY,
+            variables: { id: this.props.proposal.id },
+          },
+        ]}
+      >
         {(updateProposal, { loading, error }) => {
           if (error) {
             alert(`We have an error ${error}`);
-          }
-          if (loading) {
-            return <h3>Updating</h3>;
           }
           return (
             <StyledReviewSection>
@@ -111,10 +163,19 @@ class ProposalWrapper extends Component {
                         type="button"
                         style={{
                           display: 'grid',
-                          gridGap: '10px',
-                          gridTemplateColumns: '30px 1fr',
+                          gridGap: '15px',
+                          gridTemplateColumns: '20px 1fr',
                           padding: '15px 20px 10px 20px',
+                          background: `${
+                            proposal?.isSubmitted ? '#FFF3CD' : '#FFFFFF'
+                          }`,
+                          border: `${
+                            proposal?.isSubmitted
+                              ? '2px solid #FFC107'
+                              : '2px solid #B3B3B3'
+                          }`,
                         }}
+                        disabled={proposal?.isSubmitted}
                         onClick={() => {
                           if (
                             confirm(
@@ -125,11 +186,23 @@ class ProposalWrapper extends Component {
                           }
                         }}
                       >
-                        <img
-                          src="/static/assets/submit-review.svg"
-                          alt="icon"
-                        />
-                        Submit for review
+                        {proposal?.isSubmitted ? (
+                          <Icon
+                            name="check"
+                            style={{
+                              color: '#FFC107',
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src="/static/assets/submit-review.svg"
+                            alt="icon"
+                          />
+                        )}
+
+                        {proposal?.isSubmitted
+                          ? 'Submitted for review'
+                          : 'Submit for review'}
                       </button>
                     </div>
                   </div>
@@ -141,11 +214,14 @@ class ProposalWrapper extends Component {
                   <p>Before you submit for review, make sure to:</p>
 
                   <div className="checklistItems">
-                    {['item 1', 'item 2'].map((item, i) => (
+                    {checklistItems.map((item, i) => (
                       <ChecklistItem
                         item={item}
                         key={i}
-                        onBtnClick={this.onBtnClick}
+                        isComplete={this.state.checklist.includes(item.name)}
+                        toggleCheckTo={this.toggleCheckTo}
+                        updateProposalMutation={updateProposal}
+                        takeAction={this.takeAction}
                       />
                     ))}
                   </div>
@@ -153,12 +229,16 @@ class ProposalWrapper extends Component {
 
                 <StyledReviewCard className="reviews">
                   <h2>Reviews</h2>
-                  <p>You don’t have any reviews yet</p>
-                  <p>
-                    Once you mark your study as ready for review and your peers
-                    have reviewed and synthesized their comments, you will see
-                    your reviews here.
-                  </p>
+                  <div className="reviewsPlaceholder">
+                    <p>
+                      <strong>You don’t have any reviews yet</strong>
+                    </p>
+                    <p>
+                      Once you mark your study as ready for review and your
+                      peers have reviewed and synthesized their comments, you
+                      will see your reviews here.
+                    </p>
+                  </div>
                 </StyledReviewCard>
               </StyledReviewBoard>
             </StyledReviewSection>

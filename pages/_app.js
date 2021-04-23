@@ -25,7 +25,7 @@ class MyApp extends App {
   };
 
   componentDidMount() {
-    init({ url: MATOMO_URL, siteId: MATOMO_SITE_ID });
+    // init({ url: MATOMO_URL, siteId: MATOMO_SITE_ID });
     const { asPath } = this.props.router;
     // lets add initial route to `history`
     this.setState(prevState => ({ history: [...prevState.history, asPath] }));

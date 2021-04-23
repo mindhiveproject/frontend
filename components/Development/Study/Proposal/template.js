@@ -47,11 +47,11 @@ class ProposalTemplate extends Component {
   };
 
   initProposal = () => {
-    console.log('init proposal', this.props.study.proposal);
+    // console.log('init proposal', this.props.study.proposal);
   };
 
   goBack = () => {
-    console.log('go back');
+    // console.log('go back');
     // create a proposal with a custom mutation
     // send an id of template
     // the id of proposal should return

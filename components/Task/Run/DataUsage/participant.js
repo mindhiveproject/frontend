@@ -42,6 +42,19 @@ class DataUsageForParticipant extends Component {
           <div className="checkboxField">
             <input
               type="radio"
+              id="justTesting"
+              name="data"
+              value="testing"
+              onChange={this.props.updateState}
+              checked={this.props.data === 'testing'}
+            />
+            <label htmlFor="justTesting">I am just testing</label>
+          </div>
+        </div>
+        <div>
+          <div className="checkboxField">
+            <input
+              type="radio"
               id="doNotRecord"
               name="data"
               value="no"

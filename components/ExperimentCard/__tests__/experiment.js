@@ -16,6 +16,5 @@ describe('<ExperimentCard />', () => {
     const wrapper = shallow(<ExperimentCard experiment={fakeExperiment} />);
     // get the tag
     const deleteExperiment = wrapper.find('DeleteExperiment');
-    console.log(deleteExperiment.text());
   });
 });

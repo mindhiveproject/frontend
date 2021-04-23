@@ -55,7 +55,6 @@ class AllTemplates extends Component {
         </NavigationButtons>
         <Query query={ALL_TEMPLATES_QUERY}>
           {({ data, error, loading }) => {
-            console.log('data', data);
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
             return (

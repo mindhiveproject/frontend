@@ -1,50 +1,90 @@
 import React, { Component } from 'react';
-
+import { Query } from '@apollo/client/react/components';
 import Reviews from './reviews';
-import ReviewPage from './reviewpage';
-
+import Review from './ReviewBoard/review';
+import Synthesize from './ReviewBoard/synthesize';
 import AuthorizedPage from '../../Page/userpage';
+import EmptyPage from '../../Page/empty';
+
+import { USER_CLASSES_QUERY } from '../../User/index';
 
 class DashboardReview extends Component {
   state = {
-    page: this.props.page || 'reviews',
-    review: null,
+    page: this.props.page || 'proposalsPage',
+    proposalId: null,
   };
 
-  addReview = () => {
+  openReview = proposalId => {
     this.setState({
-      page: 'addreview',
+      page: 'reviewPage',
+      proposalId,
     });
   };
 
-  openReview = review => {
+  openSynthesize = proposalId => {
     this.setState({
-      page: 'reviewpage',
-      review,
+      page: 'synthesizePage',
+      proposalId,
     });
   };
 
   goBack = () => {
     this.setState({
-      page: 'reviews',
-      review: null,
+      page: 'proposalsPage',
+      proposalId: null,
     });
   };
 
   render() {
     const { page } = this.state;
 
-    if (page === 'reviews') {
-      return (
-        <AuthorizedPage>
-          <Reviews addReview={this.addReview} openReview={this.openReview} />
-        </AuthorizedPage>
-      );
-    }
+    return (
+      <Query query={USER_CLASSES_QUERY}>
+        {userPayload => {
+          const userPayloadError = userPayload.error;
+          const userPayloadLoading = userPayload.loading;
+          const userPayloadData = userPayload.data && userPayload.data.me;
+          if (userPayloadError) return <Error error={userPayloadError} />;
+          if (userPayloadLoading) return <p>Loading</p>;
+          const myClasses = userPayloadData?.studentIn || [];
+          const networkClassIds = myClasses
+            .map(myClass =>
+              myClass?.network?.classes.map(theClass => theClass?.id)
+            )
+            .flat();
+          return (
+            <>
+              {page === 'proposalsPage' && (
+                <AuthorizedPage>
+                  <Reviews
+                    openReview={this.openReview}
+                    openSynthesize={this.openSynthesize}
+                    networkClassIds={networkClassIds}
+                  />
+                </AuthorizedPage>
+              )}
 
-    if (page === 'reviewpage') {
-      return <ReviewPage review={this.state.review} goBack={this.goBack} />;
-    }
+              {page === 'reviewPage' && (
+                <EmptyPage>
+                  <Review
+                    proposalId={this.state.proposalId}
+                    goBack={this.goBack}
+                    networkClassIds={networkClassIds}
+                  />
+                </EmptyPage>
+              )}
+
+              {page === 'synthesizePage' && (
+                <Synthesize
+                  proposalId={this.state.proposalId}
+                  goBack={this.goBack}
+                />
+              )}
+            </>
+          );
+        }}
+      </Query>
+    );
   }
 }
 

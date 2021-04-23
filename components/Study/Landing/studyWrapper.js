@@ -60,6 +60,7 @@ class StudyWrapper extends Component {
           onStartTheTask={this.startTheTask}
           onEndTask={this.endTask}
           isExternalTaskRunning={this.state.isExternalTaskRunning}
+          inReview={this.props.inReview}
         />
       );
     }
@@ -70,6 +71,7 @@ class StudyWrapper extends Component {
           user={user}
           onStartTheTask={this.startTheTask}
           onStartExternalTask={this.startExternalTask}
+          inReview={this.props.inReview}
         />
       );
     }

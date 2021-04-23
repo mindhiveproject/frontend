@@ -24,7 +24,7 @@ class ExperimentWindow extends Component {
     this.study.options.events.keydown = async e => {
       if (e.code === 'Escape') {
         if (this.study) {
-          await this.study.internals.controller.audioContext.close();
+          // await this.study.internals.controller.audioContext.close();
           this.study = undefined;
           props.settings.on_finish();
         }

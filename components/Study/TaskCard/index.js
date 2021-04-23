@@ -36,7 +36,7 @@ class TaskCard extends Component {
               </div>
             )}
 
-            {this.props.joinedTheStudy && (
+            {(this.props.joinedTheStudy || this.props.inReview) && (
               <>
                 <div>
                   {!this.props.completed &&
@@ -92,7 +92,7 @@ class TaskCard extends Component {
             </div>
           )}
 
-          {this.props.joinedTheStudy && (
+          {(this.props.joinedTheStudy || this.props.inReview) && (
             <>
               <div>
                 {!this.props.completed &&

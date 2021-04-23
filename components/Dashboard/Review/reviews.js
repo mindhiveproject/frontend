@@ -3,7 +3,7 @@ import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
 import styled from 'styled-components';
-import ReviewRow from './ReviewList/index';
+import ReviewLine from './ReviewBoard/line';
 import { StyledDasboard, StyledClassesDasboard } from '../styles';
 
 const StyledRow = styled.div`
@@ -16,26 +16,26 @@ const StyledReviewHeader = styled.div`
   display: grid;
   margin: 5px;
   padding: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: 4fr 1fr 1fr;
   cursor: pointer;
   font-weight: bold;
 `;
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
-const MY_PROPOSALS_QUERY = gql`
-  query MY_PROPOSALS_QUERY {
-    proposalBoards {
+const PROPOSALS_FOR_REVIEW_QUERY = gql`
+  query PROPOSALS_FOR_REVIEW_QUERY($classes: [ID!]) {
+    proposalsForReview(where: { id_in: $classes }) {
       id
+      slug
       title
-      description
-      creator {
-        id
-        username
-      }
-      sections {
-        id
-      }
       createdAt
+      isSubmitted
+      reviews {
+        id
+      }
+      study {
+        title
+      }
     }
   }
 `;
@@ -45,66 +45,46 @@ class Reviews extends Component {
     return (
       <StyledDasboard>
         <StyledClassesDasboard>
-          <h1>My proposals</h1>
+          <h1>Review your peers' studies</h1>
 
-          <Query query={MY_PROPOSALS_QUERY}>
+          <Query
+            query={PROPOSALS_FOR_REVIEW_QUERY}
+            variables={{ classes: this.props.networkClassIds }}
+          >
             {({ data, error, loading }) => {
               if (loading) return <p>Loading ...</p>;
               if (error) return <p>Error: {error.message}</p>;
-              const { proposalBoards } = data;
-              if (proposalBoards.length === 0) {
+              const { proposalsForReview } = data;
+              if (proposalsForReview.length === 0) {
                 return (
                   <>
-                    <h3>You haven’t created any proposals yet.</h3>
-                    <p>Once you create a proposal, it will appear here.</p>
-                    <div className="navigationHeader">
-                      <div></div>
-                      <div>
-                        <button onClick={this.props.addReview}>
-                          Add proposal
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <p>
-                        Use the proposal builder to create proposal templates.
-                      </p>
-                    </div>
+                    <h3>There are no studies to review yet.</h3>
+                    <p>
+                      Once there will be a study to review, it will appear here.
+                    </p>
+                    <div className="navigationHeader"></div>
                   </>
                 );
               }
               return (
                 <>
-                  <div className="navigationHeader">
-                    <div></div>
-                    <div>
-                      <button onClick={this.props.addReview}>
-                        Add proposal
-                      </button>
-                    </div>
-                  </div>
-                  <div>
-                    <div>
-                      <p>
-                        Use the proposal builder to create proposal templates.
-                      </p>
-                    </div>
-                  </div>
+                  <div className="navigationHeader"></div>
                   <div>
                     <StyledRow>
                       <StyledReviewHeader>
-                        <div>Review name</div>
-                        <div>Number of sections</div>
-                        <div>Date created</div>
+                        <div>Study title</div>
+                        <div>Reviews</div>
+                        <div>Actions</div>
                       </StyledReviewHeader>
                       <div></div>
                     </StyledRow>
 
-                    {proposalBoards.map(myproposal => (
-                      <ReviewRow
-                        myproposal={myproposal}
-                        key={myproposal.id}
+                    {proposalsForReview.map(proposal => (
+                      <ReviewLine
+                        proposal={proposal}
+                        key={proposal.id}
                         openReview={this.props.openReview}
+                        openSynthesize={this.props.openSynthesize}
                       />
                     ))}
                   </div>
@@ -119,4 +99,4 @@ class Reviews extends Component {
 }
 
 export default Reviews;
-export { MY_PROPOSALS_QUERY };
+export { PROPOSALS_FOR_REVIEW_QUERY };

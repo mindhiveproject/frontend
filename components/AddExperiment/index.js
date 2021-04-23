@@ -60,7 +60,6 @@ class AddExperiment extends Component {
     fileReader.onload = async fileLoadedEvent => {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
-      console.log('result', result);
       const script = result.files['script.js'].content;
       this.setState({
         script,

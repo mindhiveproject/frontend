@@ -66,7 +66,7 @@ const assemble = async (
             value.files.map(e => {
               if (e.poolPath == item[0]) {
                 e.poolPath = url;
-                console.log('e.poolPath', e.poolPath);
+                // console.log('e.poolPath', e.poolPath);
               }
             });
           }

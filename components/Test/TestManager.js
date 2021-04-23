@@ -41,7 +41,7 @@ class TestManager extends Component {
                 }, {}),
                 policy,
                 eventCallback: e => {
-                  console.log('Event callback', e);
+                  // console.log('Event callback', e);
                 },
                 on_finish: token => {
                   if (policy === 'preview' || !token) {

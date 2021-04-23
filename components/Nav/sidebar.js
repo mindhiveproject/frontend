@@ -85,6 +85,19 @@ const SidebarNav = ({ user }) => (
         </div>
       </Link>
 
+      <Link href="/dashboard/review">
+        <div className="navLink">
+          <div>
+            <img
+              src="/static/assets/submit-review.svg"
+              alt="icon"
+              height="20"
+            />
+          </div>
+          <div>Review</div>
+        </div>
+      </Link>
+
       {false && (
         <Link href="/dashboard/follow">
           <div className="navLink">
@@ -140,7 +153,7 @@ const SidebarNav = ({ user }) => (
               <div>Proposal</div>
             </div>
           </Link>
-          <Link href="/dashboard/review">
+          <Link href="/dashboard/management">
             <div className="navLink">
               <div>
                 <img
@@ -149,7 +162,7 @@ const SidebarNav = ({ user }) => (
                   height="20"
                 />
               </div>
-              <div>Review</div>
+              <div>Management</div>
             </div>
           </Link>
         </>

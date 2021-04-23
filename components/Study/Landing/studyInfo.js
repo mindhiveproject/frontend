@@ -98,7 +98,7 @@ class StudyInformation extends Component {
           </div>
 
           <div className="controlBtns">
-            {showParticipateBtn && (
+            {showParticipateBtn && !this.props.inReview && (
               <>
                 <ContainerOnlyForNoProfile>
                   <Link
@@ -126,30 +126,36 @@ class StudyInformation extends Component {
               </>
             )}
 
-            <ContainerOnlyForScientists>
-              <Link
-                href={{
-                  pathname: '/study/preview',
-                  query: { id: study.id },
-                }}
-              >
-                <button>Preview</button>
-              </Link>
-            </ContainerOnlyForScientists>
+            {false && (
+              <>
+                <ContainerOnlyForScientists>
+                  <Link
+                    href={{
+                      pathname: '/study/preview',
+                      query: { id: study.id },
+                    }}
+                  >
+                    <button>Preview</button>
+                  </Link>
+                </ContainerOnlyForScientists>
 
-            <ContainerOnlyForAuthorizedCollaborators
-              ids={study.collaborators && study.collaborators.map(c => c.id)}
-              id={study.author && study.author.id}
-            >
-              <Link
-                href={{
-                  pathname: '/study/edit',
-                  query: { id: study.id },
-                }}
-              >
-                <button className="secondaryBtn">Edit</button>
-              </Link>
-            </ContainerOnlyForAuthorizedCollaborators>
+                <ContainerOnlyForAuthorizedCollaborators
+                  ids={
+                    study.collaborators && study.collaborators.map(c => c.id)
+                  }
+                  id={study.author && study.author.id}
+                >
+                  <Link
+                    href={{
+                      pathname: '/study/edit',
+                      query: { id: study.id },
+                    }}
+                  >
+                    <button className="secondaryBtn">Edit</button>
+                  </Link>
+                </ContainerOnlyForAuthorizedCollaborators>
+              </>
+            )}
           </div>
 
           {joinedTheStudy && (
@@ -169,6 +175,7 @@ class StudyInformation extends Component {
               user={this.props.user}
               onStartTheTask={this.props.onStartTheTask}
               onStartExternalTask={this.props.onStartExternalTask}
+              inReview={this.props.inReview}
             />
           )}
         </div>

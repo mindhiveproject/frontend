@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledPost = styled.form`
   display: grid;
-
+  height: 100%;
   grid-row-gap: 10px;
   font-family: Lato;
 
@@ -127,6 +127,7 @@ export const StyledPost = styled.form`
 `;
 
 export const StyledJodit = styled.div`
+  height: 100%;
   input,
   textarea,
   select {

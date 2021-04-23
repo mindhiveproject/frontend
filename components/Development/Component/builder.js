@@ -256,7 +256,6 @@ class ComponentBuilder extends Component {
 
   handleComponentChange = e => {
     const { name, type, value } = e.target;
-    console.log('name, value', name, value);
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
       task: {

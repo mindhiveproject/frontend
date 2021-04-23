@@ -19,6 +19,7 @@ class StudyPage extends Component {
           user={this.props.user}
           onStartTheTask={this.props.onStartTheTask}
           onStartExternalTask={this.props.onStartExternalTask}
+          inReview={this.props.inReview}
         />
       </StyledStudyPage>
     );

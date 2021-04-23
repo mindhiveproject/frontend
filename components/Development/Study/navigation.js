@@ -114,7 +114,6 @@ const UPDATE_STUDY = gql`
 class Navigation extends Component {
   render() {
     const { section } = this.props;
-    console.log('this.props', this.props);
     const [proposal] = this.props?.study?.proposal || [];
     const proposalId = proposal ? proposal.id : undefined;
     let refetchQueries = {};
@@ -185,7 +184,7 @@ class Navigation extends Component {
                 : 'discoverMenuTitle'
             }
           >
-            <p>Review</p>
+            <p>Reviews</p>
           </Menu.Item>
 
           <Menu.Item

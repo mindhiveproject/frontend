@@ -67,7 +67,7 @@ class RunExperiment extends Component {
                     }, {}),
                     policy: 'preview',
                     eventCallback: e => {
-                      console.log('Event callback', e);
+                      // console.log('Event callback', e);
                     },
                     on_finish: token => {
                       Router.push({

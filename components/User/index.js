@@ -192,6 +192,32 @@ const CURRENT_USER_EMAIL_QUERY = gql`
   }
 `;
 
+const CURRENT_USER_ID_QUERY = gql`
+  query CURRENT_USER_EMAIL_QUERY {
+    me {
+      id
+    }
+  }
+`;
+
+const USER_CLASSES_QUERY = gql`
+  query USER_CLASSES_QUERY {
+    me {
+      id
+      studentIn {
+        id
+        title
+        network {
+          classes {
+            id
+            title
+          }
+        }
+      }
+    }
+  }
+`;
+
 const User = props => (
   <Query {...props} query={CURRENT_USER_RESULTS_QUERY}>
     {payload => props.children(payload)}
@@ -209,4 +235,6 @@ export {
   CURRENT_USER_STUDIES_QUERY,
   USER_DASHBOARD_QUERY,
   CURRENT_USER_EMAIL_QUERY,
+  CURRENT_USER_ID_QUERY,
+  USER_CLASSES_QUERY,
 };

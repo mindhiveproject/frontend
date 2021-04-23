@@ -11,32 +11,14 @@ export const Jodit = ({ externalContent, updateContent, readonly }) => {
   const editor = useRef(null);
   const [content, setContent] = useState(externalContent);
 
-  let config;
+  let config; // all options from https://xdsoft.net/jodit/doc/
   if (readonly) {
     config = {
-      // readonly, // all options from https://xdsoft.net/jodit/doc/
-      minHeight: 500,
-      askBeforePasteFromWord: false,
-      askBeforePasteHTML: false,
-      activeButtonsInReadOnly: ['custom'], // active only two buttons
+      readonly,
+      activeButtonsInReadOnly: ['print'], // active only two buttons
       toolbarButtonSize: 'large',
-      buttons: [
-        {
-          name: 'custom',
-          icon: 'print',
-          exec(editor) {
-            // if (editor.selection.isCollapsed()) {
-            //   editor.execCommand('selectall');
-            // }
-            // print();
-            // console.log('custom button');
-            const printFun = async () => {
-              await editor.execCommand('print');
-            };
-            printFun();
-          },
-        },
-      ],
+      buttons: ['print'],
+      height: '100%',
     };
   } else {
     config = {
@@ -44,6 +26,7 @@ export const Jodit = ({ externalContent, updateContent, readonly }) => {
       minHeight: 500,
       askBeforePasteFromWord: false,
       askBeforePasteHTML: false,
+
       // theme: 'dark',
     };
   }

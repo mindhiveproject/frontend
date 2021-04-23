@@ -44,7 +44,6 @@ class AddClass extends Component {
 
   // method for uploading images
   uploadImage = async e => {
-    console.log('uploading image');
     const { files } = e.target;
     const data = new FormData();
     data.append('file', files[0]);
@@ -57,7 +56,6 @@ class AddClass extends Component {
       }
     );
     const file = await res.json();
-    console.log('file', file);
     this.setState({
       image: file.secure_url,
       largeImage: file.eager[0].secure_url,

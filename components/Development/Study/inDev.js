@@ -15,12 +15,15 @@ const StyledInDev = styled.div`
 
 class InDev extends Component {
   render() {
+    const header =
+      this.props.header ||
+      `This part of the platform is currently in development 🚧👷🏻‍♂️🚜👷⚙️`;
+    const message =
+      this.props.message || `Please come back later to check it out.`;
     return (
       <StyledInDev>
-        <h1>
-          This part of the platform is currently in development 🚧👷🏻‍♂️🚜👷⚙️
-        </h1>
-        <p>Please come back later to check it out.</p>
+        <h1>{header}</h1>
+        <p>{message}</p>
       </StyledInDev>
     );
   }

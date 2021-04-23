@@ -128,7 +128,7 @@ class PreviewPane extends Component {
         <div>
           <button
             onClick={() => {
-              console.log('participate');
+              // console.log('participate');
             }}
           >
             Participate

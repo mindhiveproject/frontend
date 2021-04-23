@@ -39,7 +39,6 @@ class TaskPage extends Component {
 
   render() {
     const { task } = this.props;
-    console.log('task', task);
 
     return (
       <div>

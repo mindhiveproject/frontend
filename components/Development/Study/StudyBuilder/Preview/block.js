@@ -58,7 +58,7 @@ class Block extends Component {
 
   addWithinBlock = betweenNumber => {
     const { block, blockNumber } = this.props;
-    console.log('block', betweenNumber, block);
+    // console.log('block', betweenNumber, block);
     let newBlock;
     if (block.between) {
       newBlock = { ...block };

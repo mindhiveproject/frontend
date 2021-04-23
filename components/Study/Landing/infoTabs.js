@@ -4,16 +4,18 @@ import ReactHtmlParser from 'react-html-parser';
 
 class InfoTabs extends Component {
   state = {
-    tab: this.props.tab || 'what',
+    tab: 'what',
   };
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
 
   render() {
+    const { study, infoBlocks } = this.props;
     const { tab } = this.state;
-    const { infoBlocks } = this.props;
+
     const additionalTabs =
-      this.props.study?.info.filter(p => p.name.startsWith('tab')) || [];
+      study?.info.filter(p => p.name.startsWith('tab')) || [];
+
     const tabs = [
       {
         name: 'what',
@@ -29,6 +31,7 @@ class InfoTabs extends Component {
       },
       ...additionalTabs,
     ];
+
     return (
       <div className="studyWhatWhoHow">
         <div className="descriptionMenu">
@@ -49,7 +52,7 @@ class InfoTabs extends Component {
         {tabs.map((atab, num) => (
           <div key={num}>
             {this.state.tab === atab.name && (
-              <div>{ReactHtmlParser(infoBlocks[atab.name])}</div>
+              <div>{infoBlocks && ReactHtmlParser(infoBlocks[atab.name])}</div>
             )}
           </div>
         ))}

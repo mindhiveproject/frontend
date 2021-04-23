@@ -92,6 +92,7 @@ class StudyTasks extends Component {
                   onStartTheTask={this.props.onStartTheTask}
                   onStartExternalTask={this.props.onStartExternalTask}
                   joinedTheStudy={studyIds.includes(study.id)}
+                  inReview={this.props.inReview}
                 />
               );
             }}

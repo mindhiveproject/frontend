@@ -62,7 +62,7 @@ class StudyLanding extends Component {
           const userPayloadError = userPayload.error;
           const userPayloadLoading = userPayload.loading;
           const userPayloadData = userPayload.data && userPayload.data.me;
-          if (userPayloadError) return <Error error={error} />;
+          if (userPayloadError) return <Error error={userPayloadError} />;
           if (userPayloadLoading) return <p>Loading</p>;
 
           return (
@@ -72,7 +72,8 @@ class StudyLanding extends Component {
                 const studyPayloadLoading = studyPayload.loading;
                 const studyPayloadData =
                   studyPayload.data && studyPayload.data.study;
-                if (studyPayloadError) return <Error error={error} />;
+                if (studyPayloadError)
+                  return <Error error={studyPayloadError} />;
                 if (studyPayloadLoading) return <p>Loading</p>;
                 if (!studyPayloadData)
                   return (
@@ -98,6 +99,7 @@ class StudyLanding extends Component {
                     withoutHeader={this.props.withoutHeader}
                     openedFromDashboard={this.props.openedFromDashboard}
                     task={this.props.c}
+                    inReview={this.props.inReview}
                   />
                 );
               }}
