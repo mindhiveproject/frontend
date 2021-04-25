@@ -5,7 +5,7 @@ import { Mutation } from '@apollo/client/react/components';
 import { Icon } from 'semantic-ui-react';
 import ChecklistItem from './checklist/index';
 import { checklistItems } from './checklist/checkTemplate';
-import { PROPOSAL_BOARD_QUERY } from '../../../Dashboard/Proposal/proposalpage';
+import { PROPOSAL_REVIEWS_QUERY } from './index';
 import { UPDATE_PROPOSAL_BOARD } from '../../../Dashboard/Proposal/ProposalPage/proposalHeader';
 
 const StyledReviewSection = styled.div`
@@ -138,7 +138,7 @@ class ProposalWrapper extends Component {
         variables={this.state}
         refetchQueries={[
           {
-            query: PROPOSAL_BOARD_QUERY,
+            query: PROPOSAL_REVIEWS_QUERY,
             variables: { id: this.props.proposal.id },
           },
         ]}

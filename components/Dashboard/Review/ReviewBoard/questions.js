@@ -79,7 +79,7 @@ const GET_REVIEW_QUERY = gql`
       }
     ) {
       id
-      type
+      stage
       settings
       content
     }
@@ -91,14 +91,14 @@ const CREATE_NEW_REVIEW = gql`
   mutation CREATE_NEW_REVIEW(
     $studyId: ID!
     $proposalId: ID!
-    $type: String
+    $stage: ReviewStage
     $settings: Json
     $content: Json
   ) {
     createReview(
       studyId: $studyId
       proposalId: $proposalId
-      type: $type
+      stage: $stage
       settings: $settings
       content: $content
     ) {
@@ -111,11 +111,16 @@ const CREATE_NEW_REVIEW = gql`
 const UPDATE_REVIEW = gql`
   mutation UPDATE_REVIEW(
     $id: ID!
-    $type: String
+    $stage: ReviewStage
     $settings: Json
     $content: Json
   ) {
-    updateReview(id: $id, type: $type, settings: $settings, content: $content) {
+    updateReview(
+      id: $id
+      stage: $stage
+      settings: $settings
+      content: $content
+    ) {
       id
     }
   }
@@ -162,6 +167,7 @@ class ReviewQuestions extends Component {
     studyId: this.props.studyId,
     proposalId: this.props.proposalId,
     id: this.props.reviewId,
+    stage: 'INDIVIDUAL',
   };
 
   handleChange = e => {

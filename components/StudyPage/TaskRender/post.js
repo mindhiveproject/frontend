@@ -41,7 +41,7 @@ class Post extends Component {
       variables: {
         id: this.state.token,
         info: {
-          // data: this.state.data,
+          data: this.state.data,
           task: {
             id: this.props.task.id,
             data: this.state.data,

@@ -42,7 +42,7 @@ exports.handler = async (event, context) => {
           payload: metadata.payload,
         },
         dataPolicy: policy,
-        type: type === 'undefined' ? null : type,
+        resultType: type === 'undefined' ? null : type,
       },
     }),
   });

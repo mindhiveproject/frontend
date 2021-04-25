@@ -2,9 +2,23 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import ProposalWrapper from './proposalWrapper';
-import { PROPOSAL_BOARD_QUERY } from '../../../Dashboard/Proposal/proposalpage';
 
 import InDev from '../inDev';
+
+export const PROPOSAL_REVIEWS_QUERY = gql`
+  query PROPOSAL_REVIEWS_QUERY($id: ID!) {
+    proposalBoard(where: { id: $id }) {
+      id
+      title
+      slug
+      isSubmitted
+      checklist
+      reviews {
+        id
+      }
+    }
+  }
+`;
 
 class ReviewSection extends Component {
   render() {
@@ -22,10 +36,11 @@ class ReviewSection extends Component {
     const proposalId = proposal?.id;
 
     return (
-      <Query query={PROPOSAL_BOARD_QUERY} variables={{ id: proposalId }}>
+      <Query query={PROPOSAL_REVIEWS_QUERY} variables={{ id: proposalId }}>
         {({ error, loading, data }) => {
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
+          console.log('data', data);
 
           if (!data?.proposalBoard)
             return (

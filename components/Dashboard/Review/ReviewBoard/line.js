@@ -12,7 +12,7 @@ const StyledClassRow = styled.div`
   display: grid;
   margin: 5px;
   padding: 10px;
-  grid-template-columns: 4fr 1fr 1fr;
+  grid-template-columns: 4fr 2fr 1fr 1fr;
   background: white;
   .buttons {
     display: grid;
@@ -25,10 +25,20 @@ const StyledClassRow = styled.div`
 class ReviewRow extends Component {
   render() {
     const { proposal } = this.props;
+    let theClass;
+    if (
+      proposal?.author?.studentIn &&
+      proposal?.author?.studentIn.length &&
+      proposal?.author?.studentIn[0].title
+    ) {
+      theClass = proposal?.author?.studentIn[0].title;
+    }
+
     return (
       <StyledRow>
         <StyledClassRow>
           <div>{proposal?.study?.title}</div>
+          <div>{theClass}</div>
           <div>{proposal?.reviews?.length}</div>
           <div className="buttons">
             <div onClick={() => this.props.openReview(proposal.id)}>Review</div>
