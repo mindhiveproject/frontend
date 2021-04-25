@@ -8,6 +8,8 @@ import { checklistItems } from './checklist/checkTemplate';
 import { PROPOSAL_REVIEWS_QUERY } from './index';
 import { UPDATE_PROPOSAL_BOARD } from '../../../Dashboard/Proposal/ProposalPage/proposalHeader';
 
+import ReviewRow from './reviews/row';
+
 const StyledReviewSection = styled.div`
   background: #e5e5e5;
   display: grid;
@@ -229,16 +231,24 @@ class ProposalWrapper extends Component {
 
                 <StyledReviewCard className="reviews">
                   <h2>Reviews</h2>
-                  <div className="reviewsPlaceholder">
-                    <p>
-                      <strong>You don’t have any reviews yet</strong>
-                    </p>
-                    <p>
-                      Once you mark your study as ready for review and your
-                      peers have reviewed and synthesized their comments, you
-                      will see your reviews here.
-                    </p>
-                  </div>
+                  {proposal?.reviews && proposal?.reviews.length ? (
+                    <>
+                      {proposal.reviews.map((review, num) => (
+                        <ReviewRow key={num} number={num + 1} />
+                      ))}
+                    </>
+                  ) : (
+                    <div className="reviewsPlaceholder">
+                      <p>
+                        <strong>You don’t have any reviews yet</strong>
+                      </p>
+                      <p>
+                        Once you mark your study as ready for review and your
+                        peers have reviewed and synthesized their comments, you
+                        will see your reviews here.
+                      </p>
+                    </div>
+                  )}
                 </StyledReviewCard>
               </StyledReviewBoard>
             </StyledReviewSection>
