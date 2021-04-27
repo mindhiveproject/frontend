@@ -29,7 +29,7 @@ export const individualQuestions = [
   {
     name: '7',
     question:
-      'Evaluate the study page from a participant perspective: Does the study seem interesting? Would you choose to participate in this study? Why (not)? Did you enjoy taking the study? Was it too long?',
+      'Evaluate the study page from a participant perspective: Does the study seem interesting? Would you choose to participate in this study? Recommend it to others? Why (not)? What was it like to participate? (e.g., was it the right duration? was it interesting/fun?)',
   },
 ];
 
