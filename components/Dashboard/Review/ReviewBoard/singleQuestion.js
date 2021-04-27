@@ -9,31 +9,35 @@ const StyledReviewItem = styled.div`
 
 class SingleQuestion extends Component {
   render() {
-    const { item } = this.props;
+    const { item, stage } = this.props;
     return (
       <StyledReviewItem>
         <div>
           <p>{item.question}</p>
         </div>
-        <div>
-          <ReactStars
-            count={5}
-            onChange={value =>
-              this.props.handleChange({
-                target: {
-                  id: item.name,
-                  value,
-                  className: 'rating',
-                  name: item.name,
-                },
-              })
-            }
-            size={24}
-            activeColor="#ffd700"
-            isHalf
-            value={item.rating}
-          />
-        </div>
+
+        {stage === 'INDIVIDUAL' && (
+          <div>
+            <ReactStars
+              count={5}
+              onChange={value =>
+                this.props.handleChange({
+                  target: {
+                    id: item.name,
+                    value,
+                    className: 'rating',
+                    name: item.name,
+                  },
+                })
+              }
+              size={24}
+              activeColor="#ffd700"
+              isHalf
+              value={item.rating}
+            />
+          </div>
+        )}
+
         <div>
           <textarea
             type="text"

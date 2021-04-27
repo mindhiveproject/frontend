@@ -1,4 +1,4 @@
-export const reviewQuestions = [
+export const individualQuestions = [
   {
     name: '1',
     question: 'Is the research question important? Why or why not?',
@@ -25,5 +25,24 @@ export const reviewQuestions = [
   {
     name: '6',
     question: 'What further question could you address in a follow-up study?',
+  },
+];
+
+export const synthesisQuestions = [
+  {
+    name: '1',
+    question: 'We learned',
+  },
+  {
+    name: '2',
+    question: 'We liked',
+  },
+  {
+    name: '3',
+    question: 'We wished',
+  },
+  {
+    name: '4',
+    question: 'We wondered',
   },
 ];

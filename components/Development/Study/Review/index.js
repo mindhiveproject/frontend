@@ -15,6 +15,11 @@ export const PROPOSAL_REVIEWS_QUERY = gql`
       checklist
       reviews {
         id
+        stage
+        content
+        author {
+          id
+        }
       }
     }
   }
@@ -40,7 +45,7 @@ class ReviewSection extends Component {
         {({ error, loading, data }) => {
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
-          console.log('data', data);
+          // console.log('data', data);
 
           if (!data?.proposalBoard)
             return (

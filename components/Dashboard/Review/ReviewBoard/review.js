@@ -4,7 +4,7 @@ import { Query } from '@apollo/client/react/components';
 
 import Head from 'next/head';
 import moment from 'moment';
-import { Menu, Icon } from 'semantic-ui-react';
+import { Menu, Icon, Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
 import Error from '../../../ErrorMessage/index';
 
@@ -14,6 +14,8 @@ import { CURRENT_USER_ID_QUERY } from '../../../User/index';
 
 import StudyPage from '../../../StudyPage/index';
 import TaskPage from '../../../Task/Run/index';
+
+import IndividualReviews from './individual/wrapper';
 
 const StyledFullReviewContainer = styled.div`
   display: grid;
@@ -28,7 +30,7 @@ const StyledFullReviewContainer = styled.div`
     grid-area: header;
     padding: 0rem 2rem;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr auto;
     grid-gap: 3rem;
     justify-content: flex-start;
     align-items: baseline;
@@ -47,7 +49,7 @@ const StyledFullReviewContainer = styled.div`
     .discoverMenu {
       font-size: 18px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       cursor: pointer;
       .discoverMenuTitle {
         width: 150px;
@@ -62,12 +64,32 @@ const StyledFullReviewContainer = styled.div`
         }
       }
     }
+
+    .headerLeft {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      justify-content: flex-start;
+      align-items: baseline;
+      grid-gap: 3rem;
+    }
+    .headerRight {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: 9px;
+      background: #ffffff;
+      border: 1px solid #cccccc;
+      box-sizing: border-box;
+      border-radius: 4px;
+      padding: 15px;
+      align-items: center;
+    }
   }
   .content {
     grid-area: content;
     background: #f7f9f8;
     padding: 1rem 2rem;
     overflow-y: scroll;
+    overflow-x: scroll;
   }
   .review {
     grid-area: review;
@@ -84,6 +106,14 @@ const FULL_PROPOSAL_QUERY = gql`
       title
       slug
       description
+      reviews {
+        id
+        stage
+        author {
+          id
+        }
+        content
+      }
       study {
         id
         title
@@ -113,6 +143,7 @@ class ReviewPage extends Component {
   state = {
     tab: this.props.tab || 'proposal',
     isTaskRunning: false,
+    view: 'byQuestion',
   };
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
@@ -133,7 +164,7 @@ class ReviewPage extends Component {
   };
 
   render() {
-    const { proposalId } = this.props;
+    const { proposalId, stage } = this.props;
     const { tab } = this.state;
 
     return (
@@ -175,40 +206,102 @@ class ReviewPage extends Component {
                 return (
                   <StyledFullReviewContainer>
                     <div className="header">
-                      <div className="backBtn" onClick={this.props.goBack}>
-                        ← Exit review
-                      </div>
-                      <div>{proposal?.study?.title}</div>
+                      <div className="headerLeft">
+                        <div className="backBtn" onClick={this.props.goBack}>
+                          ← Exit{' '}
+                          {stage === 'INDIVIDUAL' ? 'review' : 'synthesis'}
+                        </div>
+                        <div>{proposal?.study?.title}</div>
 
-                      <div>
-                        <Menu text stackable className="discoverMenu">
-                          <Menu.Item
-                            name="proposal"
-                            active={tab === 'proposal'}
-                            onClick={this.handleItemClick}
-                            className={
-                              tab === 'proposal'
-                                ? 'discoverMenuTitle selectedMenuTitle'
-                                : 'discoverMenuTitle'
-                            }
-                          >
-                            <p>Proposal</p>
-                          </Menu.Item>
+                        <div>
+                          <Menu text stackable className="discoverMenu">
+                            <Menu.Item
+                              name="proposal"
+                              active={tab === 'proposal'}
+                              onClick={this.handleItemClick}
+                              className={
+                                tab === 'proposal'
+                                  ? 'discoverMenuTitle selectedMenuTitle'
+                                  : 'discoverMenuTitle'
+                              }
+                            >
+                              <p>Proposal</p>
+                            </Menu.Item>
 
-                          <Menu.Item
-                            name="study"
-                            active={tab === 'study'}
-                            onClick={this.handleItemClick}
-                            className={
-                              tab === 'study'
-                                ? 'discoverMenuTitle selectedMenuTitle'
-                                : 'discoverMenuTitle'
-                            }
-                          >
-                            <p>Study Page</p>
-                          </Menu.Item>
-                        </Menu>
+                            <Menu.Item
+                              name="study"
+                              active={tab === 'study'}
+                              onClick={this.handleItemClick}
+                              className={
+                                tab === 'study'
+                                  ? 'discoverMenuTitle selectedMenuTitle'
+                                  : 'discoverMenuTitle'
+                              }
+                            >
+                              <p>Study Page</p>
+                            </Menu.Item>
+                            {this.props.stage === 'SYNTHESIS' && (
+                              <Menu.Item
+                                name="reviews"
+                                active={tab === 'reviews'}
+                                onClick={this.handleItemClick}
+                                className={
+                                  tab === 'reviews'
+                                    ? 'discoverMenuTitle selectedMenuTitle'
+                                    : 'discoverMenuTitle'
+                                }
+                              >
+                                <p>Reviews</p>
+                              </Menu.Item>
+                            )}
+                          </Menu>
+                        </div>
                       </div>
+                      {this.props.stage === 'SYNTHESIS' &&
+                        this.state.tab === 'reviews' && (
+                          <div className="headerRight">
+                            {this.state.view === 'byQuestion' && (
+                              <img
+                                width="20px"
+                                src="/static/assets/view-question.png"
+                              />
+                            )}
+                            {this.state.view === 'byReviewer' && (
+                              <img
+                                width="20px"
+                                src="/static/assets/view-reviewer.png"
+                              />
+                            )}
+
+                            <Dropdown
+                              fluid
+                              defaultValue={this.state.view}
+                              options={[
+                                {
+                                  key: '1',
+                                  text: 'Question view',
+                                  value: 'byQuestion',
+                                  image: {
+                                    src: '/static/assets/view-question.png',
+                                  },
+                                },
+                                {
+                                  key: '2',
+                                  text: 'Reviewer view',
+                                  value: 'byReviewer',
+                                  image: {
+                                    src: '/static/assets/view-reviewer.png',
+                                  },
+                                },
+                              ]}
+                              onChange={(event, data) => {
+                                this.setState({
+                                  view: data.value,
+                                });
+                              }}
+                            />
+                          </div>
+                        )}
                     </div>
                     <div className="content">
                       {this.state.tab === 'proposal' && (
@@ -233,6 +326,15 @@ class ReviewPage extends Component {
                       {this.state.tab === 'study' && (
                         <StudyPage id={proposal?.study?.id} />
                       )}
+                      {this.props.stage === 'SYNTHESIS' &&
+                        this.state.tab === 'reviews' && (
+                          <IndividualReviews
+                            reviews={proposal.reviews.filter(
+                              review => review.stage === 'INDIVIDUAL'
+                            )}
+                            view={this.state.view}
+                          />
+                        )}
                     </div>
 
                     <div className="review">
@@ -243,6 +345,7 @@ class ReviewPage extends Component {
                         goBack={this.props.goBack}
                         tab={this.state.tab}
                         networkClassIds={this.props.networkClassIds}
+                        stage={this.props.stage}
                       />
                     </div>
                   </StyledFullReviewContainer>

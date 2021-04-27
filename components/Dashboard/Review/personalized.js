@@ -70,15 +70,21 @@ class DashboardReview extends Component {
                     proposalId={this.state.proposalId}
                     goBack={this.goBack}
                     networkClassIds={networkClassIds}
+                    stage="INDIVIDUAL"
                   />
                 </EmptyPage>
               )}
 
               {page === 'synthesizePage' && (
-                <Synthesize
-                  proposalId={this.state.proposalId}
-                  goBack={this.goBack}
-                />
+                <EmptyPage>
+                  <Review
+                    proposalId={this.state.proposalId}
+                    goBack={this.goBack}
+                    networkClassIds={networkClassIds}
+                    stage="SYNTHESIS"
+                    tab="reviews"
+                  />
+                </EmptyPage>
               )}
             </>
           );

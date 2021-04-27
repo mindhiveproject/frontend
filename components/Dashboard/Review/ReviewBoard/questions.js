@@ -5,11 +5,10 @@ import { Query, Mutation } from '@apollo/client/react/components';
 import SingleQuestion from './singleQuestion';
 import { PROPOSALS_FOR_REVIEW_QUERY } from '../reviews';
 
-import { reviewQuestions } from './reviewQuestions';
+import { individualQuestions, synthesisQuestions } from './reviewQuestions';
 
 const StyledReviewQuestions = styled.div`
   display: grid;
-
   .reviewItems {
     display: grid;
     grid-gap: 20px;
@@ -70,12 +69,18 @@ const StyledReviewQuestions = styled.div`
 
 // TODO write query to get a review (if there is any)
 const GET_REVIEW_QUERY = gql`
-  query GET_REVIEW_QUERY($studyId: ID, $proposalId: ID, $authorId: ID) {
+  query GET_REVIEW_QUERY(
+    $studyId: ID
+    $proposalId: ID
+    $authorId: ID
+    $stage: ReviewStage
+  ) {
     reviews(
       where: {
         study: { id: $studyId }
         proposal: { id: $proposalId }
         author: { id: $authorId }
+        stage: $stage
       }
     ) {
       id
@@ -135,6 +140,7 @@ class ReviewQuestionsWrapper extends Component {
           studyId: this.props.studyId,
           proposalId: this.props.proposalId,
           authorId: this.props.authorId,
+          stage: this.props.stage,
         }}
       >
         {({ data, loading }) => {
@@ -143,13 +149,19 @@ class ReviewQuestionsWrapper extends Component {
           return (
             <>
               <ReviewQuestions
-                content={review?.content || reviewQuestions}
+                content={
+                  review?.content ||
+                  (this.props.stage === 'INDIVIDUAL'
+                    ? individualQuestions
+                    : synthesisQuestions)
+                }
                 studyId={this.props.studyId}
                 proposalId={this.props.proposalId}
                 authorId={this.props.authorId}
                 goBack={this.props.goBack}
                 reviewId={review?.id}
                 tab={this.props.tab}
+                stage={this.props.stage}
               />
             </>
           );
@@ -167,7 +179,7 @@ class ReviewQuestions extends Component {
     studyId: this.props.studyId,
     proposalId: this.props.proposalId,
     id: this.props.reviewId,
-    stage: 'INDIVIDUAL',
+    stage: this.props.stage,
   };
 
   handleChange = e => {
@@ -204,6 +216,7 @@ class ReviewQuestions extends Component {
                 item={item}
                 handleChange={this.handleChange}
                 handleRatingChange={this.handleRatingChange}
+                stage={this.state.stage}
               />
             ))}
           </div>
@@ -219,6 +232,7 @@ class ReviewQuestions extends Component {
                     studyId: this.state.studyId,
                     proposalId: this.state.proposalId,
                     authorId: this.state.authorId,
+                    stage: this.state.stage,
                   },
                 },
               ]}
@@ -250,6 +264,7 @@ class ReviewQuestions extends Component {
                     studyId: this.props.studyId,
                     proposalId: this.props.proposalId,
                     authorId: this.props.authorId,
+                    stage: this.props.stage,
                   },
                 },
                 {

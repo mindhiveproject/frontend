@@ -12,7 +12,7 @@ const StyledClassRow = styled.div`
   display: grid;
   margin: 5px;
   padding: 10px;
-  grid-template-columns: 4fr 2fr 1fr 1fr;
+  grid-template-columns: 4fr 2fr 1fr 2fr;
   background: white;
   .buttons {
     display: grid;
@@ -39,14 +39,17 @@ class ReviewRow extends Component {
         <StyledClassRow>
           <div>{proposal?.study?.title}</div>
           <div>{theClass}</div>
-          <div>{proposal?.reviews?.length}</div>
+          <div>
+            {
+              proposal?.reviews?.filter(review => review.stage === 'INDIVIDUAL')
+                .length
+            }
+          </div>
           <div className="buttons">
             <div onClick={() => this.props.openReview(proposal.id)}>Review</div>
-            {false && (
-              <div onClick={() => this.props.openSynthesize(proposal.id)}>
-                Synthesize
-              </div>
-            )}
+            <div onClick={() => this.props.openSynthesize(proposal.id)}>
+              Synthesize
+            </div>
           </div>
         </StyledClassRow>
       </StyledRow>

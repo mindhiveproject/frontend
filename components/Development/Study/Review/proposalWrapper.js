@@ -54,6 +54,22 @@ const StyledReviewBoard = styled.div`
   }
   .reviews {
     grid-area: reviews;
+    .reviewsCards {
+      display: grid;
+      grid-gap: 10px;
+      .allReviewsToggle {
+        cursor: pointer;
+        color: #007c70;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0em;
+        text-align: left;
+        text-decoration-line: underline;
+      }
+    }
     .reviewsPlaceholder {
       border: 1px solid #e6e6e6;
       box-sizing: border-box;
@@ -95,6 +111,7 @@ class ProposalWrapper extends Component {
   state = {
     id: this.props.proposal.id,
     checklist: this.props.proposal.checklist || [],
+    showAllReviews: false,
   };
 
   takeAction = action => {
@@ -232,11 +249,48 @@ class ProposalWrapper extends Component {
                 <StyledReviewCard className="reviews">
                   <h2>Reviews</h2>
                   {proposal?.reviews && proposal?.reviews.length ? (
-                    <>
-                      {proposal.reviews.map((review, num) => (
-                        <ReviewRow key={num} number={num + 1} />
-                      ))}
-                    </>
+                    <div className="reviewsCards">
+                      <p>
+                        All individual reviews and syntheses are available here:
+                      </p>
+                      {proposal.reviews
+                        .filter(review => review.stage === 'SYNTHESIS')
+                        .map((review, num) => (
+                          <ReviewRow
+                            key={num}
+                            number={num + 1}
+                            review={review}
+                            stage="SYNTHESIS"
+                          />
+                        ))}
+
+                      <a
+                        className="allReviewsToggle"
+                        onClick={() =>
+                          this.setState({
+                            showAllReviews: !this.state.showAllReviews,
+                          })
+                        }
+                      >
+                        {this.state.showAllReviews ? 'Hide' : 'Show'} all
+                        reviews
+                      </a>
+
+                      {this.state.showAllReviews && (
+                        <>
+                          {proposal.reviews
+                            .filter(review => review.stage === 'INDIVIDUAL')
+                            .map((review, num) => (
+                              <ReviewRow
+                                key={num}
+                                number={num + 1}
+                                review={review}
+                                stage="INDIVIDUAL"
+                              />
+                            ))}
+                        </>
+                      )}
+                    </div>
                   ) : (
                     <div className="reviewsPlaceholder">
                       <p>

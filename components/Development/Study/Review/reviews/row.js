@@ -20,10 +20,12 @@ const StyledRow = styled.div`
 
 class ReviewRow extends Component {
   render() {
-    const { number } = this.props;
+    const { number, review, stage } = this.props;
     return (
       <StyledRow>
-        <div>Review {number}</div>
+        <div>
+          {stage === 'INDIVIDUAL' ? 'Review' : 'Synthesis'} {number}
+        </div>
       </StyledRow>
     );
   }

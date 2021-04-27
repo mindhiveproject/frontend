@@ -16,7 +16,7 @@ const StyledReviewHeader = styled.div`
   display: grid;
   margin: 5px;
   padding: 10px;
-  grid-template-columns: 4fr 2fr 1fr 1fr;
+  grid-template-columns: 4fr 2fr 1fr 2fr;
   cursor: pointer;
   font-weight: bold;
 `;
@@ -32,6 +32,7 @@ const PROPOSALS_FOR_REVIEW_QUERY = gql`
       isSubmitted
       reviews {
         id
+        stage
       }
       study {
         title
