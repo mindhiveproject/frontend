@@ -15,7 +15,7 @@ export const individualQuestions = [
   {
     name: '4',
     question:
-      'Do the researchers consider possible alternative explanataions for the study findings? Which might they be?',
+      'Do the researchers consider possible alternative explanations for the study findings? Which might they be?',
   },
   {
     name: '5',
@@ -25,6 +25,11 @@ export const individualQuestions = [
   {
     name: '6',
     question: 'What further question could you address in a follow-up study?',
+  },
+  {
+    name: '7',
+    question:
+      'Evaluate the study page from a participant perspective: Does the study seem interesting? Would you choose to participate in this study? Why (not)? Did you enjoy taking the study? Was it too long?',
   },
 ];
 
