@@ -27,6 +27,13 @@ class ReviewRow extends Component {
     const { proposal } = this.props;
     let theClass;
     if (
+      proposal?.author?.teacherIn &&
+      proposal?.author?.teacherIn.length &&
+      proposal?.author?.teacherIn[0].title
+    ) {
+      theClass = proposal?.author?.teacherIn[0].title;
+    }
+    if (
       proposal?.author?.studentIn &&
       proposal?.author?.studentIn.length &&
       proposal?.author?.studentIn[0].title

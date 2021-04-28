@@ -43,6 +43,10 @@ const PROPOSALS_FOR_REVIEW_QUERY = gql`
           id
           title
         }
+        teacherIn {
+          id
+          title
+        }
       }
     }
   }
