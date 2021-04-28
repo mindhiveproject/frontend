@@ -29,7 +29,7 @@ export const individualQuestions = [
   {
     name: '7',
     question:
-      'What was it like to participate? e.g., Did the length seem right? Did any of the questions or tasks make you feel uncomfortable or cause distress?',
+      'What was it like to participate? Was it the right duration? Was the task clear? Were you motivated to put effort into your responses? Explain your answer.',
   },
   {
     name: '8',
