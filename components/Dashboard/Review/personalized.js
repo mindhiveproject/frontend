@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import Reviews from './reviews';
 import Review from './ReviewBoard/review';
-import Synthesize from './ReviewBoard/synthesize';
 import AuthorizedPage from '../../Page/userpage';
 import EmptyPage from '../../Page/empty';
+import Error from '../../ErrorMessage/index';
 
 import { USER_CLASSES_QUERY } from '../../User/index';
 
@@ -46,7 +46,9 @@ class DashboardReview extends Component {
           const userPayloadData = userPayload.data && userPayload.data.me;
           if (userPayloadError) return <Error error={userPayloadError} />;
           if (userPayloadLoading) return <p>Loading</p>;
-          const myClasses = userPayloadData?.studentIn || [];
+          const myClasses =
+            [...userPayloadData?.studentIn, ...userPayloadData?.teacherIn] ||
+            [];
           const networkClassIds = myClasses
             .map(myClass =>
               myClass?.network?.classes.map(theClass => theClass?.id)

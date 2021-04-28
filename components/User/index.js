@@ -204,6 +204,16 @@ const USER_CLASSES_QUERY = gql`
   query USER_CLASSES_QUERY {
     me {
       id
+      teacherIn {
+        id
+        title
+        network {
+          classes {
+            id
+            title
+          }
+        }
+      }
       studentIn {
         id
         title
