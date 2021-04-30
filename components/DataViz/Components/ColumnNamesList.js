@@ -24,7 +24,7 @@ const StyledDatasetHeader = styled.div`
 
 const StyledSwitch = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
   align-items: center;
   justify-items: center;
@@ -66,6 +66,13 @@ const ColumnNamesList = ({
           onClick={() => onDatasetTypeChange('aggregated')}
         >
           Aggregated
+        </StyledOperationThumb>
+        <StyledOperationThumb
+          className="selectionBtns"
+          active={datasetType === 'participant'}
+          onClick={() => onDatasetTypeChange('participant')}
+        >
+          By participant
         </StyledOperationThumb>
         <StyledOperationThumb
           className="selectionBtns"

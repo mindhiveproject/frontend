@@ -6,13 +6,25 @@ import Runner from './runner';
 class Manager extends Component {
   // main state
   state = {
+    // data:
+    //   this.props.datasetTypeDefault === 'raw'
+    //     ? this.props.dataRaw
+    //     : this.props.dataAggregated,
+    // transformedData:
+    //   this.props.datasetTypeDefault === 'raw'
+    //     ? this.props.dataRaw
+    //     : this.props.dataAggregated,
     data:
       this.props.datasetTypeDefault === 'raw'
         ? this.props.dataRaw
+        : this.props.datasetTypeDefault === 'participant'
+        ? this.props.dataParticipant
         : this.props.dataAggregated,
     transformedData:
       this.props.datasetTypeDefault === 'raw'
         ? this.props.dataRaw
+        : this.props.datasetTypeDefault === 'participant'
+        ? this.props.dataParticipant
         : this.props.dataAggregated,
     columnsToFilter: this.props.columnsToFilterDefault,
     spec: this.props.specDefault,
@@ -42,9 +54,17 @@ class Manager extends Component {
     this.setState({
       datasetType,
       data:
-        datasetType === 'raw' ? this.props.dataRaw : this.props.dataAggregated,
+        datasetType === 'raw'
+          ? this.props.dataRaw
+          : datasetType === 'participant'
+          ? this.props.dataParticipant
+          : this.props.dataAggregated,
       transformedData:
-        datasetType === 'raw' ? this.props.dataRaw : this.props.dataAggregated,
+        datasetType === 'raw'
+          ? this.props.dataRaw
+          : datasetType === 'participant'
+          ? this.props.dataParticipant
+          : this.props.dataAggregated,
       columnsToFilter: this.props.columnsToFilterDefault,
       spec: this.props.specDefault,
       activeTransformationPosition: this.props

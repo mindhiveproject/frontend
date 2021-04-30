@@ -39,17 +39,40 @@ class Router extends Component {
         participantId: f.participantId,
         ...f.aggregated,
       }));
-    console.log('aggregated.length', aggregated.length);
     return aggregated;
+  };
+
+  perParticipant = aggregated => {
+    const allParticipants = aggregated.map(row => row?.participantId);
+    const participants = [...new Set(allParticipants)];
+    const dataByParticipant = participants.map(participant => {
+      const data = {};
+      const participantData = aggregated.filter(
+        row => row?.participantId === participant
+      );
+      participantData.map(row => {
+        Object.keys(row).map(key => {
+          const newKey = `${row?.task}-${key}`;
+          data[newKey] = row[key];
+        });
+      });
+      return {
+        participantId: participant,
+        ...data,
+      };
+    });
+    return dataByParticipant;
   };
 
   render() {
     const dataAggregated = this.aggregate(this.props.data);
+    const dataParticipant = this.perParticipant(dataAggregated);
 
     return (
       <Manager
         dataRaw={this.props.data}
         dataAggregated={dataAggregated}
+        dataParticipant={dataParticipant}
         datasetTypeDefault={this.state.datasetTypeDefault}
         specDefault={this.state.specDefault}
         columnsToFilterDefault={this.state.columnsToFilterDefault}
