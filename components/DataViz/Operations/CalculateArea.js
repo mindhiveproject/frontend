@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import OperationFunctions from '../Functions/operations';
+
+const StyledCalculateArea = styled.div`
+  display: grid;
+  grid-gap: 1rem;
+`;
 
 // selects and edit filters (its parameters) and change it in the pipeline
 const CalculateArea = ({
@@ -23,15 +29,18 @@ const CalculateArea = ({
   const header = `${activeTransformationPosition + 1}) Calculate`;
 
   return (
-    <div>
+    <StyledCalculateArea>
       <h3>{header}</h3>
       <div>
         <p>
           <label>
-            Enter the formula (use "datum." in front of the name of variables)
-            <input
-              type="text"
+            Enter the formula (use{' '}
+            <code>datum["the name of the variable"]</code> for a variable)
+            <br />
+            <textarea
+              style={{ width: '100%', padding: '10px' }}
               value={calculate}
+              rows="6"
               onChange={e => setCalculate(e.target.value)}
             />
           </label>
@@ -39,8 +48,10 @@ const CalculateArea = ({
 
         <p>
           <label>
-            Enter the new variable name
+            Enter the name for the new variable
+            <br />
             <input
+              style={{ width: '100%', padding: '10px' }}
               type="text"
               value={as}
               onChange={e => setAs(e.target.value)}
@@ -63,7 +74,7 @@ const CalculateArea = ({
       >
         Update
       </button>
-    </div>
+    </StyledCalculateArea>
   );
 };
 

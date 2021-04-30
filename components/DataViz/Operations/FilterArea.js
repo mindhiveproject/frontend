@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import OperationFunctions from '../Functions/operations';
+
+const StyledFilterArea = styled.div`
+  display: grid;
+  grid-gap: 1rem;
+  input,
+  select {
+    padding: 5px;
+  }
+`;
 
 // selects and edit filters (its parameters) and change it in the pipeline
 const FilterArea = ({
@@ -40,54 +50,56 @@ const FilterArea = ({
   const header = `${activeTransformationPosition + 1}) Filter`;
 
   return (
-    <div>
+    <StyledFilterArea>
       <h3>{header}</h3>
+
       <div>
-        <p>
-          <label>
-            Select column
-            <select value={field} onChange={e => setField(e.target.value)}>
-              {['', ...helper.getColumnNames(transformedData)].map(
+        <label>
+          <p>Select column</p>
+          <select value={field} onChange={e => setField(e.target.value)}>
+            {['', ...helper.getColumnNames(transformedData)].map(
+              (value, num) => (
+                <option key={num} value={value}>
+                  {value}
+                </option>
+              )
+            )}
+          </select>
+        </label>
+      </div>
+
+      <div>
+        <label>
+          <p>Select operator</p>
+          <select
+            value={predicate}
+            onChange={e => setPredicate(e.target.value)}
+          >
+            {operators.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      <div>
+        <label>
+          <p>Select value</p>
+          <select value={value} onChange={e => setValue(e.target.value)}>
+            {field &&
+              ['', ...helper.getColumnValues(transformedData, field)].map(
                 (value, num) => (
                   <option key={num} value={value}>
-                    {value}
+                    {JSON.stringify(value)}
                   </option>
                 )
               )}
-            </select>
-          </label>
-        </p>
-        <p>
-          <label>
-            Select operator
-            <select
-              value={predicate}
-              onChange={e => setPredicate(e.target.value)}
-            >
-              {operators.map(({ value, label }) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
-          </label>
-        </p>
-        <p>
-          <label>
-            Select value
-            <select value={value} onChange={e => setValue(e.target.value)}>
-              {field &&
-                ['', ...helper.getColumnValues(transformedData, field)].map(
-                  (value, num) => (
-                    <option key={num} value={value}>
-                      {JSON.stringify(value)}
-                    </option>
-                  )
-                )}
-            </select>
-          </label>
-        </p>
+          </select>
+        </label>
       </div>
+
       <button
         onClick={() =>
           OperationFunctions.addFilterOperation(
@@ -104,7 +116,7 @@ const FilterArea = ({
       >
         Update
       </button>
-    </div>
+    </StyledFilterArea>
   );
 };
 
