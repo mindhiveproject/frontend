@@ -16,13 +16,18 @@ const StyledRow = styled.div`
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
+  cursor: pointer;
 `;
 
 class ReviewRow extends Component {
   render() {
     const { number, review, stage } = this.props;
     return (
-      <StyledRow>
+      <StyledRow
+        onClick={() => {
+          this.props.selectReview(review, number);
+        }}
+      >
         <div>
           {stage === 'INDIVIDUAL' ? 'Review' : 'Synthesis'} {number}
         </div>

@@ -261,6 +261,7 @@ class ProposalWrapper extends Component {
                             number={num + 1}
                             review={review}
                             stage="SYNTHESIS"
+                            selectReview={this.props.selectReview}
                           />
                         ))}
 
@@ -286,6 +287,7 @@ class ProposalWrapper extends Component {
                                 number={num + 1}
                                 review={review}
                                 stage="INDIVIDUAL"
+                                selectReview={this.props.selectReview}
                               />
                             ))}
                         </>

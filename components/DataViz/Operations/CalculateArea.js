@@ -41,7 +41,10 @@ const CalculateArea = ({
               style={{ width: '100%', padding: '10px' }}
               value={calculate}
               rows="6"
-              onChange={e => setCalculate(e.target.value)}
+              onChange={e => {
+                console.log('e.target.value', e.target.value);
+                setCalculate(e.target.value);
+              }}
             />
           </label>
         </p>

@@ -54,7 +54,7 @@ const Displayer = ({
   onDatasetTypeChange,
   datasetType,
 }) => {
-  const header = 'Data Viz (version 0.0.1)';
+  const header = 'Data Viz (version 0.0.2)';
   return (
     <StyledContainer>
       <h2>{header}</h2>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
-import ProposalWrapper from './proposalWrapper';
+import ReviewsContainer from './container';
 
 import InDev from '../inDev';
 
@@ -57,7 +57,7 @@ class ReviewSection extends Component {
           const { proposalBoard } = data;
 
           return (
-            <ProposalWrapper
+            <ReviewsContainer
               proposal={proposalBoard}
               study={study}
               user={this.props.user}
