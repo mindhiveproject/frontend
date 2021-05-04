@@ -89,7 +89,7 @@ class DashboardOverview extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>Teacher notes</p>
+                    <p>All users</p>
                   </Menu.Item>
                 </Menu>
               </div>
