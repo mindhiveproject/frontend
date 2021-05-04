@@ -12,6 +12,7 @@ import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
 import ComponentBuilderWrapper from '../../Development/Component/builderWrapper';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
+import OverviewNotes from './Notes/index';
 
 class DashboardOverview extends Component {
   state = {
@@ -77,6 +78,19 @@ class DashboardOverview extends Component {
                   >
                     <p>All studies</p>
                   </Menu.Item>
+
+                  <Menu.Item
+                    name="notes"
+                    active={tab === 'notes'}
+                    onClick={this.handleItemClick}
+                    className={
+                      tab === 'notes'
+                        ? 'discoverMenuTitle selectedMenuTitle'
+                        : 'discoverMenuTitle'
+                    }
+                  >
+                    <p>Teacher notes</p>
+                  </Menu.Item>
                 </Menu>
               </div>
 
@@ -87,6 +101,8 @@ class DashboardOverview extends Component {
                   readOnlyMode={this.state.readOnlyMode}
                 />
               )}
+
+              {this.state.tab === 'notes' && <OverviewNotes />}
 
               {this.state.tab === 'tasks' && (
                 <DevelopedComponentsBank

@@ -14,7 +14,7 @@ class PersonalDashboard extends Component {
           const userPayloadError = userPayload.error;
           const userPayloadLoading = userPayload.loading;
           const userPayloadData = userPayload.data && userPayload.data.me;
-          if (userPayloadError) return <Error error={error} />;
+          if (userPayloadError) return <Error error={userPayloadError} />;
           if (userPayloadLoading) return <p>Loading</p>;
 
           return (
