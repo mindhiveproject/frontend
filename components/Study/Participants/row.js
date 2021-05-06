@@ -11,7 +11,8 @@ class ParticipantRow extends Component {
     ) {
       email = participant?.authEmail[0]?.email;
     }
-    const studyInfo = participant?.studiesInfo[studyId];
+    const studyInfo =
+      (participant?.studiesInfo && participant?.studiesInfo[studyId]) || {};
     // console.log('studyInfo', studyInfo);
 
     return (
@@ -21,7 +22,7 @@ class ParticipantRow extends Component {
       >
         <div>{participant.publicReadableId}</div>
         <div>{email}</div>
-        <div>{studyInfo.blockName}</div>
+        <div>{studyInfo?.blockName}</div>
       </div>
     );
   }

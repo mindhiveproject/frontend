@@ -13,7 +13,8 @@ class ParticipantDisplay extends Component {
     ) {
       email = participant?.authEmail[0]?.email;
     }
-    const studyInfo = participant?.studiesInfo[studyId];
+    const studyInfo =
+      (participant?.studiesInfo && participant?.studiesInfo[studyId]) || {};
     // console.log('participant', participant);
     // console.log('studyInfo', studyInfo);
     // console.log(participant.generalInfo);
