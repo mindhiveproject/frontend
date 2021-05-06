@@ -13,6 +13,7 @@ const PARTICIPANT_QUERY = gql`
   query PARTICIPANT_QUERY($participantId: ID!, $studyId: ID!) {
     participant(participantId: $participantId, studyId: $studyId) {
       id
+      username
       authEmail {
         email
       }

@@ -13,6 +13,7 @@ const MY_STUDY_PARTICIPANTS_QUERY = gql`
       id
       participants {
         id
+        username
         authEmail {
           email
         }

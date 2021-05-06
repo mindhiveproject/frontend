@@ -20,6 +20,7 @@ class ParticipantRow extends Component {
         className="tableRow"
         onClick={() => this.props.openParticipant(participant.id)}
       >
+        <div>{participant.username}</div>
         <div>{participant.publicReadableId}</div>
         <div>{email}</div>
         <div>{studyInfo?.blockName}</div>

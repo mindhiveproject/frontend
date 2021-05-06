@@ -21,9 +21,11 @@ class ParticipantDisplay extends Component {
     return (
       <StyledCollectSection>
         <StyledParticipantPage>
-          <h2>{participant.publicReadableId}</h2>
+          Username:
+          <h2>{participant.username}</h2>
+          Participant ID:
+          <p>{participant.publicReadableId}</p>
           <p>Email {email || 'is missing'}</p>
-
           {false && (
             <>
               <h3>General information</h3>
@@ -35,7 +37,6 @@ class ParticipantDisplay extends Component {
               ))}
             </>
           )}
-
           <div>
             <h3>Study-related information</h3>
             {Object.keys(studyInfo).map(key => (
@@ -45,14 +46,12 @@ class ParticipantDisplay extends Component {
               </div>
             ))}
           </div>
-
           {false && (
             <>
               <h3>Consent-related information</h3>
               <h3>Task-related information</h3>
             </>
           )}
-
           <ParticipantResults participantId={participant.id} />
         </StyledParticipantPage>
       </StyledCollectSection>

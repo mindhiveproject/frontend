@@ -12,6 +12,7 @@ class ParticipantsOverview extends Component {
             <h2>Responses</h2>
           </div>
           <div className="tableHeader">
+            <div>Username</div>
             <div>Participant ID</div>
             <div>Email</div>
             <div>Condition</div>
