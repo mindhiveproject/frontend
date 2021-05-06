@@ -9,6 +9,7 @@ import StudyBuilderSection from './StudyBuilder/index';
 import AnalyzeSection from './Analyze/index';
 import ProposalSection from './Proposal/index';
 import ReviewSection from './Review/index';
+import CollectSection from './Collect/index';
 
 import CollaboratorsModal from './Collaborators/modal';
 
@@ -319,7 +320,9 @@ class StudyBuilder extends Component {
               <ReviewSection study={this.state.study} user={this.props.user} />
             )}
 
-            {this.state.section === 'collect' && <InDev />}
+            {this.state.section === 'collect' && (
+              <CollectSection study={this.state.study} user={this.props.user} />
+            )}
 
             {this.state.section === 'analyze' && (
               <AnalyzeSection studyId={this.state.study.id} />
