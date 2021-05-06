@@ -62,7 +62,7 @@ export const StyledPost = styled.form`
     font-weight: 400;
     line-height: 56px;
     letter-spacing: 0em;
-    text-align: center;
+    /* text-align: center; */
     margin-bottom: 40px;
   }
   p {

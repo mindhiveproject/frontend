@@ -176,7 +176,7 @@ class ReviewPage extends Component {
             return <p>No proposal found for {proposalId}</p>;
           const proposal = data.proposalBoard;
 
-          const { title, sections } = proposal;
+          const { title, description, sections } = proposal;
           const orderedSections = [...sections].sort(
             (a, b) => a.position - b.position
           );
@@ -192,7 +192,13 @@ class ReviewPage extends Component {
                   .join('')
               );
           });
-          const content = allCardsContent.flat().join('');
+
+          const cardsContent = allCardsContent.flat().join('');
+          let studyURL = '';
+          if (proposal?.study?.slug) {
+            studyURL = `<h3>Study URL: https://mindhive.science/studies/${proposal?.study?.slug}</h3>`;
+          }
+          const content = `<h1>${title}</h1><h2>${description}</h2>${studyURL}${cardsContent}`;
 
           return (
             <Query query={CURRENT_USER_ID_QUERY}>

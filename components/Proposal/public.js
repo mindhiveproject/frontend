@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import Link from 'next/link';
+import styled from 'styled-components';
 import Error from '../ErrorMessage/index';
 import Proposal from '../Dashboard/Jodit/proposal';
+
+const StyledFullProposal = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+`;
 
 const PROPOSAL_QUERY = gql`
   query PROPOSAL_QUERY($slug: String!) {
@@ -65,7 +72,7 @@ class ProposalPublic extends Component {
               </div>
             );
 
-          const { title, sections } = proposalPayloadData;
+          const { title, description, sections } = proposalPayloadData;
           const orderedSections = [...sections].sort(
             (a, b) => a.position - b.position
           );
@@ -81,10 +88,15 @@ class ProposalPublic extends Component {
                   .join('')
               );
           });
-          const content = allCardsContent.flat().join('');
+          const cardsContent = allCardsContent.flat().join('');
+          let studyURL = '';
+          if (proposalPayloadData?.study?.slug) {
+            studyURL = `<h3>Study URL: https://mindhive.science/studies/${proposalPayloadData?.study?.slug}</h3>`;
+          }
+          const content = `<h1>${title}</h1><h2>${description}</h2>${studyURL}${cardsContent}`;
 
           return (
-            <>
+            <StyledFullProposal>
               <Proposal
                 onSubmit={async e => {
                   e.preventDefault();
@@ -102,7 +114,7 @@ class ProposalPublic extends Component {
                 readonly
                 proposal
               />
-            </>
+            </StyledFullProposal>
           );
         }}
       </Query>
