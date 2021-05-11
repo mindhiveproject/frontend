@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import Link from 'next/link';
 import styled from 'styled-components';
+import Head from 'next/head';
+import moment from 'moment';
 import Error from '../ErrorMessage/index';
 import Proposal from '../Dashboard/Jodit/proposal';
 
@@ -95,26 +97,37 @@ class ProposalPublic extends Component {
           }
           const content = `<h1>${title}</h1><h2>${description}</h2>${studyURL}${cardsContent}`;
 
+          // extracting the study title is problematic as there are several classes
+          const studyTitle = proposalPayloadData?.study?.title;
+          const date = moment().format('MM-D-YYYY');
+
           return (
-            <StyledFullProposal>
-              <Proposal
-                onSubmit={async e => {
-                  e.preventDefault();
-                }}
-                loading={proposalPayloadLoading}
-                title={title}
-                onTitleChange={() => {
-                  console.log('title change');
-                }}
-                content={content}
-                onContentChange={() => {
-                  console.log('content change');
-                }}
-                btnName="Save"
-                readonly
-                proposal
-              />
-            </StyledFullProposal>
+            <>
+              <Head>
+                <title>
+                  {studyTitle}-{date}
+                </title>
+              </Head>
+              <StyledFullProposal>
+                <Proposal
+                  onSubmit={async e => {
+                    e.preventDefault();
+                  }}
+                  loading={proposalPayloadLoading}
+                  title={title}
+                  onTitleChange={() => {
+                    console.log('title change');
+                  }}
+                  content={content}
+                  onContentChange={() => {
+                    console.log('content change');
+                  }}
+                  btnName="Save"
+                  readonly
+                  proposal
+                />
+              </StyledFullProposal>
+            </>
           );
         }}
       </Query>

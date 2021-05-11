@@ -200,6 +200,10 @@ class ReviewPage extends Component {
           }
           const content = `<h1>${title}</h1><h2>${description}</h2>${studyURL}${cardsContent}`;
 
+          // extracting the study title is problematic as there are several classes
+          const studyTitle = proposal?.study?.title;
+          const date = moment().format('MM-D-YYYY');
+
           return (
             <Query query={CURRENT_USER_ID_QUERY}>
               {userPayload => {
@@ -211,6 +215,11 @@ class ReviewPage extends Component {
 
                 return (
                   <StyledFullReviewContainer>
+                    <Head>
+                      <title>
+                        {studyTitle}-{date}
+                      </title>
+                    </Head>
                     <div className="header">
                       <div className="headerLeft">
                         <div className="backBtn" onClick={this.props.goBack}>

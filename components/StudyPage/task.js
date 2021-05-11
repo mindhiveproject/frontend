@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
+
 import TaskReview from './TaskRender/wrapper';
+import ExternalTask from './TaskRender/external';
 
 const GET_TASK_QUERY = gql`
   query GET_TASK_QUERY($id: ID!) {
@@ -50,6 +52,12 @@ class TaskPage extends Component {
           if (!data.task) return <p>No template found for {id}</p>;
           const { task } = data;
           const { parameters, template } = task;
+
+          if (task.isExternal) {
+            return (
+              <ExternalTask task={task} onEndTask={this.props.onEndTask} />
+            );
+          }
 
           return (
             <TaskReview

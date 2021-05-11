@@ -15,7 +15,7 @@ export const individualQuestions = [
   {
     name: '4',
     question:
-      'Do the researchers consider possible alternative explanations for the study findings? Which might they be?',
+      'Do the researchers consider possible alternative explanations for their predicted study outcomes? Are there any confounding variables (e.g., unintended order effects)? Which might they be?',
   },
   {
     name: '5',
