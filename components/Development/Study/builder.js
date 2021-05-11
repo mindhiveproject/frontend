@@ -10,10 +10,10 @@ import AnalyzeSection from './Analyze/index';
 import ProposalSection from './Proposal/index';
 import ReviewSection from './Review/index';
 import CollectSection from './Collect/index';
+import InDev from './inDev';
 
 import CollaboratorsModal from './Collaborators/modal';
 
-import InDev from './inDev';
 import {
   StyledBuilder,
   BuilderNav,
@@ -320,7 +320,9 @@ class StudyBuilder extends Component {
               <ReviewSection study={this.state.study} user={this.props.user} />
             )}
 
-            {this.state.section === 'collect' && (
+            {this.state.section === 'collect' && <InDev />}
+
+            {false && (
               <CollectSection study={this.state.study} user={this.props.user} />
             )}
 
