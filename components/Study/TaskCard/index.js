@@ -13,10 +13,12 @@ class TaskCard extends Component {
   };
 
   render() {
-    const { task, study } = this.props;
+    const { task, study, version } = this.props;
     const taskType = task.taskType === 'SURVEY' ? 'survey' : 'task';
 
     const allowRetake = !study.settings?.forbidRetake;
+
+    console.log('version', version);
 
     if (task.isExternal && task.link) {
       return (
@@ -110,7 +112,7 @@ class TaskCard extends Component {
                   <button>
                     <a
                       target="_blank"
-                      href={`/dt/r?t=${task.id}&s=${this.props.study.id}`}
+                      href={`/dt/r?t=${task.id}&s=${this.props.study.id}&v=${version}`}
                     >
                       <p>Take {taskType}</p>
                     </a>
@@ -123,7 +125,7 @@ class TaskCard extends Component {
                   <button>
                     <a
                       target="_blank"
-                      href={`/dt/r?t=${task.id}&s=${this.props.study.id}`}
+                      href={`/dt/r?t=${task.id}&s=${this.props.study.id}&v=${version}`}
                     >
                       <p>Retake {taskType}</p>
                     </a>

@@ -40,6 +40,7 @@ class RunExperiment extends Component {
           template={this.props.template}
           policy={this.props.policy}
           handleFinish={this.setToken}
+          version={this.props.version}
         />
       );
     }

@@ -13,6 +13,7 @@ class ParticipantsOverview extends Component {
           </div>
           <div className="tableHeader">
             <div>Username</div>
+            <div>Readable participant ID</div>
             <div>Participant ID</div>
             <div>Email</div>
             <div>Condition</div>

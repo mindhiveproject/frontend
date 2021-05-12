@@ -66,6 +66,16 @@ class StudyTasks extends Component {
         )
         .map(result => result.task.id) || [];
 
+    const completeResultsInStudyByVersion =
+      user?.results
+        ?.filter(
+          result =>
+            result.study &&
+            result.study.id === study.id &&
+            result.payload === 'full'
+        )
+        .map(result => result.testVersion) || [];
+
     return (
       <StyledTaskList>
         {components.map((task, num) => (
@@ -88,11 +98,14 @@ class StudyTasks extends Component {
                   studySlug={study.slug}
                   user={user}
                   study={study}
-                  completed={fullResultsInThisStudy.includes(task.id)}
+                  completed={completeResultsInStudyByVersion.includes(
+                    task.testId
+                  )}
                   onStartTheTask={this.props.onStartTheTask}
                   onStartExternalTask={this.props.onStartExternalTask}
                   joinedTheStudy={studyIds.includes(study.id)}
                   inReview={this.props.inReview}
+                  version={task.testId}
                 />
               );
             }}

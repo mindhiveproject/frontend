@@ -4,6 +4,7 @@ export const StyledCollectSection = styled.div`
   background: #e5e5e5;
   display: grid;
   justify-content: stretch;
+  width: 100%;
   /* height: 90vh; */
 
   h1 {

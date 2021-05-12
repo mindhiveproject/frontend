@@ -14,7 +14,7 @@ class Task extends Component {
   };
 
   render() {
-    const { user, study, template, parameters, policy } = this.props;
+    const { user, study, template, parameters, policy, version } = this.props;
 
     return (
       <PreviewContainer>
@@ -37,6 +37,7 @@ class Task extends Component {
               on_finish: token => {
                 this.props.handleFinish(token);
               },
+              version,
             }}
           />
         </Preview>

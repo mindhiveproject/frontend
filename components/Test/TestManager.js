@@ -19,7 +19,7 @@ class TestManager extends Component {
   };
 
   render() {
-    const { user, study, test } = this.props;
+    const { user, study, test, version } = this.props;
     const policy = 'science';
 
     if (this.state.page === 'test') {
@@ -52,6 +52,7 @@ class TestManager extends Component {
                     page: 'post',
                   });
                 },
+                version,
               }}
             />
           </StyledBox>

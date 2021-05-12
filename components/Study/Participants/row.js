@@ -13,7 +13,6 @@ class ParticipantRow extends Component {
     }
     const studyInfo =
       (participant?.studiesInfo && participant?.studiesInfo[studyId]) || {};
-    // console.log('studyInfo', studyInfo);
 
     return (
       <div
@@ -22,6 +21,7 @@ class ParticipantRow extends Component {
       >
         <div>{participant.username}</div>
         <div>{participant.publicReadableId}</div>
+        <div>{participant.publicId}</div>
         <div>{email}</div>
         <div>{studyInfo?.blockName}</div>
       </div>

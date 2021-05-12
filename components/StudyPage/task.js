@@ -43,7 +43,7 @@ const GET_TASK_QUERY = gql`
 
 class TaskPage extends Component {
   render() {
-    const { study, user, id } = this.props;
+    const { study, user, id, version } = this.props;
     return (
       <Query query={GET_TASK_QUERY} variables={{ id }}>
         {({ error, loading, data }) => {
@@ -68,6 +68,7 @@ class TaskPage extends Component {
               template={template}
               onEndTask={this.props.onEndTask}
               policy={this.props.policy}
+              version={version}
             />
           );
         }}

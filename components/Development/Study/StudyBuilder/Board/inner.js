@@ -58,11 +58,11 @@ class Inner extends Component {
 
         <StyledInput>
           <div>
-            <label htmlFor="title">
+            <label htmlFor="condition_title">
               New between-subjects condition
               <input
                 type="text"
-                id="title"
+                id="condition_title"
                 name="title"
                 value={this.state.title}
                 onChange={this.handleChange}

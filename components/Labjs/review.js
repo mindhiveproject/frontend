@@ -18,6 +18,7 @@ class ExperimentWindow extends Component {
       policy, // the data policy chosen by the user
       params, // the test parameters
       style, // the css style
+      version, // the task version
     } = this.props.settings;
 
     const script = convert(this.props.settings.script);
@@ -27,7 +28,7 @@ class ExperimentWindow extends Component {
         ...script.plugins,
         {
           type: 'lab.plugins.Transmit',
-          url: `/.netlify/functions/internal/?user=${user}&template=${template}&task=${task}&study=${study}&policy=${policy}&type=REVIEW`,
+          url: `/.netlify/functions/internal/?user=${user}&template=${template}&task=${task}&study=${study}&policy=${policy}&type=REVIEW&version=${version}`,
           callbacks: {},
         },
       ];

@@ -36,6 +36,7 @@ class Router extends Component {
       .map(f => ({
         study: f.study,
         task: f.task,
+        testVersion: f.testVersion,
         participantId: f.participantId,
         ...f.aggregated,
       }));
@@ -52,7 +53,7 @@ class Router extends Component {
       );
       participantData.map(row => {
         Object.keys(row).map(key => {
-          const newKey = `${row?.task}-${key}`;
+          const newKey = `${row?.task}-${row?.testVersion}-${key}`;
           data[newKey] = row[key];
         });
       });

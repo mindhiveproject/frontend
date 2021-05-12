@@ -164,39 +164,37 @@ class StudyBuilder extends Component {
   };
 
   addComponent = component => {
-    let updatedComponents;
-    // if there is no components,
-    if (this.state.study.components) {
-      updatedComponents = { ...this.state.study.components };
+    let updatedBlocks;
+
+    if (this.state.study?.components?.blocks) {
+      updatedBlocks = [...this.state.study?.components?.blocks];
     } else {
-      updatedComponents = {
-        blocks: [],
-      };
+      updatedBlocks = [];
     }
-    // if there are no blocks, create blocks
-    if (!updatedComponents.blocks) {
-      updatedComponents.blocks = [];
-    }
-    // if the blocks are empty, create first block
-    if (updatedComponents.blocks.length === 0) {
-      updatedComponents.blocks.push({
+
+    if (updatedBlocks.length === 0) {
+      updatedBlocks.push({
         blockId: uniqid.time(),
         title: 'Main experiment sequence',
         tests: [],
       });
     }
 
-    // add new component to the first block
-    updatedComponents.blocks[0].tests.push({
+    const newData = {
       ...component,
       testId: uniqid.time(),
-    });
+    };
+
+    updatedBlocks[0] = {
+      ...updatedBlocks[0],
+      tests: updatedBlocks[0].tests.concat({ ...newData }),
+    };
 
     // update the state
     this.setState({
       study: {
         ...this.state.study,
-        components: updatedComponents,
+        components: { blocks: updatedBlocks },
       },
     });
   };

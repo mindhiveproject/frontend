@@ -41,6 +41,9 @@ class Card extends Component {
             <div className="cardHeader">
               <div>
                 <h2>{component.title}</h2>
+                <span>
+                  {component.taskType} ID: {testId}
+                </span>
               </div>
 
               <div

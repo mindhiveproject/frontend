@@ -20,6 +20,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
       study {
         id
         title
+        components
       }
       task {
         id
@@ -42,6 +43,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
         id
         content
       }
+      testVersion
     }
   }
 `;
@@ -74,9 +76,13 @@ class StudyResults extends Component {
             .reduce((total, amount) => total.concat(amount), []);
         }
 
+        console.log('result', result);
+
         const resultData = data.map(line => {
           line.participantId = result.user && result.user.publicId;
           line.task = result.task && result.task.title;
+          // put unique test id (probably should be saved in the results)
+          line.testVersion = result.testVersion && result.testVersion;
           line.study = result.study && result.study.title;
           line.dataType = fullContent ? 'complete' : 'incremental';
           return line;

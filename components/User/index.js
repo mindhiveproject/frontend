@@ -139,6 +139,7 @@ const CURRENT_USER_RESULTS_QUERY = gql`
         updatedAt
         payload
         info
+        testVersion
       }
       studentIn {
         id

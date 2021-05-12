@@ -38,7 +38,9 @@ class TaskCard extends Component {
           </div>
 
           <div className="actionLinks">
-            <button onClick={() => this.props.onStartTask(task.id)}>
+            <button
+              onClick={() => this.props.onStartTask(task.id, task.testId)}
+            >
               Take {taskType}
             </button>
           </div>

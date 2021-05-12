@@ -14,6 +14,7 @@ exports.handler = async (event, context) => {
     study,
     policy,
     type,
+    version,
   } = event.queryStringParameters;
   const { metadata, url, data } = JSON.parse(event.body);
   const dataRawString = JSON.stringify(data);
@@ -43,6 +44,7 @@ exports.handler = async (event, context) => {
         },
         dataPolicy: policy,
         resultType: type === 'undefined' ? null : type,
+        version: version === 'undefined' ? null : version,
       },
     }),
   });

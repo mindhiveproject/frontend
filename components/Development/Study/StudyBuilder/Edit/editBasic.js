@@ -57,7 +57,7 @@ class EditBasic extends Component {
               <textarea
                 id="shortDescription"
                 name="shortDescription"
-                value={study.shortDescription}
+                value={study.shortDescription || ''}
                 onChange={this.props.handleStudyChange}
                 rows="10"
               />

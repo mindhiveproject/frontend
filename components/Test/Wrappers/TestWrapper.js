@@ -47,6 +47,7 @@ class TestWrapper extends Component {
               user={this.props.user}
               study={this.props.study}
               test={testPayloadData}
+              version={this.props.v}
             />
           );
         }}

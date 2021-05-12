@@ -8196,7 +8196,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 
 
-var SUBMIT_RESULTS_FROM_API_MUTATION = graphql_tag__WEBPACK_IMPORTED_MODULE_1___default()(_templateObject || (_templateObject = Object(_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitResultFromAPI(\n    $userId: ID!\n    $templateId: ID\n    $taskId: ID\n    $studyId: ID\n    $data: Json\n    $dataString: String\n    $metadata: Json\n    $dataPolicy: String\n    $resultType: ResultType\n  ) {\n    submitResultFromAPI(\n      userId: $userId\n      templateId: $templateId\n      taskId: $taskId\n      studyId: $studyId\n      data: $data\n      dataString: $dataString\n      metadata: $metadata\n      dataPolicy: $dataPolicy\n      resultType: $resultType\n    ) {\n      message\n    }\n  }\n"])));
+var SUBMIT_RESULTS_FROM_API_MUTATION = graphql_tag__WEBPACK_IMPORTED_MODULE_1___default()(_templateObject || (_templateObject = Object(_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitResultFromAPI(\n    $userId: ID!\n    $templateId: ID\n    $taskId: ID\n    $studyId: ID\n    $data: Json\n    $dataString: String\n    $metadata: Json\n    $dataPolicy: String\n    $resultType: ResultType\n    $version: String\n  ) {\n    submitResultFromAPI(\n      userId: $userId\n      templateId: $templateId\n      taskId: $taskId\n      studyId: $studyId\n      data: $data\n      dataString: $dataString\n      metadata: $metadata\n      dataPolicy: $dataPolicy\n      resultType: $resultType\n      version: $version\n    ) {\n      message\n    }\n  }\n"])));
 
 
 /***/ }),

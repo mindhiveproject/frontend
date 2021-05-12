@@ -7,11 +7,13 @@ class StudyContainer extends Component {
   state = {
     page: 'study',
     taskId: null,
+    version: null,
   };
 
-  startTask = taskId => {
+  startTask = (taskId, version) => {
     this.setState({
       taskId,
+      version,
       page: 'task',
     });
   };
@@ -19,6 +21,7 @@ class StudyContainer extends Component {
   endTask = () => {
     this.setState({
       taskId: null,
+      version: null,
       page: 'study',
     });
   };
@@ -39,6 +42,7 @@ class StudyContainer extends Component {
           id={this.state.taskId}
           onEndTask={this.endTask}
           policy="review"
+          version={this.state.version}
         />
       );
     }
