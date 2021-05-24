@@ -90,9 +90,9 @@ class ParticipantRow extends Component {
             result => result.resultType
           );
           const isTypesPresent = !!resultTypes.length;
-          const isTest = !(
-            resultTypes.includes('MAIN') || resultTypes.includes('REVIEW')
-          );
+          const isTest =
+            !(resultTypes.includes('MAIN') || resultTypes.includes('REVIEW')) &&
+            resultTypes.includes('TEST');
 
           return (
             <div

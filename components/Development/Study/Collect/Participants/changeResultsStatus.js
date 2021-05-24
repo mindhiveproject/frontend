@@ -46,7 +46,8 @@ class ChangeResultsStatus extends Component {
             }}
           >
             <a>
-              Mark{loading ? 'ing' : ''} as {status.toLowerCase()} data
+              Mark{loading ? 'ing' : ''} as{' '}
+              {status === 'TEST' ? 'test' : 'real'} data
             </a>
           </p>
         )}
