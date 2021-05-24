@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import StudyParticipants from '../../../Study/Participants/index';
+import StudyParticipants from './Participants/index';
 
 class CollectSection extends Component {
   render() {
     const { study } = this.props;
-    // console.log('study', study);
     return (
       <div>
         <StudyParticipants id={study?.id} studySlug={study?.slug} />

@@ -318,9 +318,7 @@ class StudyBuilder extends Component {
               <ReviewSection study={this.state.study} user={this.props.user} />
             )}
 
-            {this.state.section === 'collect' && <InDev />}
-
-            {false && (
+            {this.state.section === 'collect' && (
               <CollectSection study={this.state.study} user={this.props.user} />
             )}
 

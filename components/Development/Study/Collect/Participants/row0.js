@@ -1,0 +1,32 @@
+import React, { Component } from 'react';
+
+class ParticipantRow extends Component {
+  render() {
+    const { participant, num, studyId } = this.props;
+    console.log('participant', participant);
+    let email = '';
+    if (
+      participant?.authEmail &&
+      participant?.authEmail.length &&
+      participant?.authEmail[0]?.email
+    ) {
+      email = participant?.authEmail[0]?.email;
+    }
+    const studyInfo =
+      (participant?.studiesInfo && participant?.studiesInfo[studyId]) || {};
+
+    return (
+      <div
+        className="tableRow"
+        // onClick={() => this.props.openParticipant(participant.id)}
+      >
+        <div>{participant.username}</div>
+        <div>{participant.publicReadableId}</div>
+        <div>duration</div>
+        <div>{studyInfo?.blockName}</div>
+      </div>
+    );
+  }
+}
+
+export default ParticipantRow;

@@ -354,12 +354,16 @@ class DevelopmentSelectScreen extends Component {
             />
           );
         }
+        // there are different ids of the survey builder for the development and production
         if (this.state.action === 'create') {
           return (
             <ComponentBuilderWrapper
               onLeave={this.props.onClose}
               componentId={
-                this.state.componentId || 'ckdps2aw300i60743ge85gtb1'
+                this.state.componentId ||
+                (process.env.NODE_ENV === 'production'
+                  ? 'ckdps2aw300i60743ge85gtb1'
+                  : 'ckou7bgyprcry0a32yhw3wqh0')
               }
               user={this.props.user}
               needToClone
