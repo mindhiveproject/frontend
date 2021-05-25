@@ -39,7 +39,11 @@ class DeleteStudy extends Component {
         {(deleteStudy, { error }) => (
           <button
             onClick={() => {
-              if (confirm('Are you sure you want to delete this study?')) {
+              if (
+                confirm(
+                  'Are you sure you want to delete this study? This will delete the entire study from the platform for everyone. This action cannot be undone. Please proceed with caution.'
+                )
+              ) {
                 deleteStudy().catch(err => {
                   alert(err.message);
                 });

@@ -4,8 +4,9 @@ import { Query, Mutation } from '@apollo/client/react/components';
 import { Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { STUDY_QUERY } from '../builderWrapper';
-import ProposalPage from '../../../Dashboard/Proposal/proposalpage';
 import { StyledSubmitForm } from '../../../Styles/Forms';
+
+import ProposalPage from './proposalpage';
 
 const StyledDropdown = styled.div`
   height: 50px;
