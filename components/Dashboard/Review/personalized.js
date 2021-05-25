@@ -49,11 +49,12 @@ class DashboardReview extends Component {
           const myClasses =
             [...userPayloadData?.studentIn, ...userPayloadData?.teacherIn] ||
             [];
-          const networkClassIds = myClasses
-            .map(myClass =>
-              myClass?.network?.classes.map(theClass => theClass?.id)
-            )
-            .flat();
+          const networkClassIds =
+            myClasses
+              .map(myClass =>
+                myClass?.network?.classes.map(theClass => theClass?.id)
+              )
+              .flat() || [];
           return (
             <>
               {page === 'proposalsPage' && (
