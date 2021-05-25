@@ -66,6 +66,11 @@ class SettingBlock extends Component {
               Hide "Participate" button
             </label>
           )}
+          {name === 'skipBetweenTasksEmailPage' && (
+            <label className="name" htmlFor={name}>
+              Skip the email page between tasks
+            </label>
+          )}
         </div>
       </StyledSettingsBlock>
     );
