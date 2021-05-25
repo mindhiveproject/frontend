@@ -76,7 +76,7 @@ class StudyBuilder extends Component {
   handleParameterChange = (e, classType) => {
     const { name, type, value, className } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
-    const currentInfo = this.state.study.info;
+    const currentInfo = [...this.state.study.info];
     if (currentInfo.filter(el => el.name === name).length === 0) {
       currentInfo.push({ name });
     }

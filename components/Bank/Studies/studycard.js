@@ -12,6 +12,19 @@ class StudyCard extends Component {
       user?.id === study?.author?.id ||
       study?.collaborators.map(c => c.id).includes(user?.id);
 
+    const { shortDescription } = study;
+    let cardDescription;
+    if (shortDescription) {
+      if (shortDescription.split(' ').length > 20) {
+        cardDescription = `${shortDescription
+          .split(' ')
+          .slice(0, 20)
+          .join(' ')} ...`;
+      } else {
+        cardDescription = shortDescription;
+      }
+    }
+
     return (
       <StyledStudyCard>
         <div className="studyImage">
@@ -28,7 +41,7 @@ class StudyCard extends Component {
           <div>
             {ReactHtmlParser(study.description)}
             {this.props.developingMode && (
-              <div>{ReactHtmlParser(study.shortDescription)}</div>
+              <div>{ReactHtmlParser(cardDescription)}</div>
             )}
           </div>
 

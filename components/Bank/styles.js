@@ -26,7 +26,7 @@ export const StyledStudyCard = styled.div`
     align-items: start;
     align-content: start;
     padding: 16px;
-    grid-template-rows: 100px 150px 50px;
+    grid-template-rows: 70px 150px 50px;
     grid-gap: 20px;
   }
   a {

@@ -125,15 +125,17 @@ class PreviewPane extends Component {
           </label>
         </div>
 
-        <div>
-          <button
-            onClick={() => {
-              // console.log('participate');
-            }}
-          >
-            Participate
-          </button>
-        </div>
+        {false && (
+          <div>
+            <button
+              onClick={() => {
+                // console.log('participate');
+              }}
+            >
+              Participate
+            </button>
+          </div>
+        )}
 
         <div className="timeInformationBlock">
           <div>
