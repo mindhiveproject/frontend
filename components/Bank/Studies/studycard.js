@@ -25,6 +25,19 @@ class StudyCard extends Component {
       }
     }
 
+    const { description } = study;
+    let publicCardDescription;
+    if (description) {
+      if (description.split(' ').length > 20) {
+        publicCardDescription = `${description
+          .split(' ')
+          .slice(0, 20)
+          .join(' ')} ...`;
+      } else {
+        publicCardDescription = description;
+      }
+    }
+
     return (
       <StyledStudyCard>
         <div className="studyImage">
@@ -39,7 +52,7 @@ class StudyCard extends Component {
           <h2>{study.title}</h2>
 
           <div>
-            {ReactHtmlParser(study.description)}
+            {ReactHtmlParser(publicCardDescription)}
             {this.props.developingMode && (
               <div>{ReactHtmlParser(cardDescription)}</div>
             )}
