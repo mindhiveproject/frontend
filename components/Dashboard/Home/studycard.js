@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
-import { StyledStudyCard } from '../styles';
+import { StyledStudyCard } from '../../Bank/styles';
 
 class StudyCard extends Component {
   render() {

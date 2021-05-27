@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const StyledStudyParticipantCard = styled.div`
+const StyledStudyCard = styled.div`
   display: grid;
   background: white;
 `;
 
-class StudyParticipantCard extends Component {
+class StudyCard extends Component {
   render() {
     const { study } = this.props;
     return (
-      <StyledStudyParticipantCard>
+      <StyledStudyCard>
         <h3>{study.title}</h3>
-      </StyledStudyParticipantCard>
+      </StyledStudyCard>
     );
   }
 }
 
-export default StudyParticipantCard;
+export default StudyCard;

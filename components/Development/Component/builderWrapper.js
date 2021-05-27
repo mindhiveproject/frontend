@@ -73,6 +73,7 @@ const COMPONENT_TO_CLONE_QUERY = gql`
 class ComponentBuilderWrapper extends Component {
   render() {
     const { user, needToClone } = this.props;
+
     return (
       <Query
         query={COMPONENT_TO_CLONE_QUERY}
@@ -98,6 +99,7 @@ class ComponentBuilderWrapper extends Component {
               consent: null,
               collaborators: [''],
               ...makeCloneNames(data.task.title),
+              isOriginal: false, // switch to false as it should be cloned
             };
           } else if (isAuthor) {
             task = {

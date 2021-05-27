@@ -8,6 +8,7 @@ import {
   CURRENT_USER_STUDIES_QUERY,
   USER_DASHBOARD_QUERY,
 } from '../User/index';
+import { MY_DEVELOPED_STUDIES_QUERY } from '../Bank/Studies/developed';
 
 import { SignoutButton } from '../Nav/styles';
 
@@ -32,10 +33,10 @@ const Signout = props => (
     {signout => (
       <SignoutButton
         onClick={() => {
-          signout();
           Router.push({
             pathname: `/`,
           });
+          signout();
         }}
       >
         Log off

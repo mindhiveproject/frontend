@@ -48,7 +48,24 @@ export const StyledDasboard = styled.div`
 export const StyledHomeDasboard = styled.div`
   width: 100%;
   display: grid;
+  grid-gap: 1rem;
   padding: 20px;
+
+  .header {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    .idInfo {
+      display: grid;
+      grid-gap: 1rem;
+    }
+  }
+
+  .code {
+    background: white;
+    padding: 1rem;
+    border-radius: 5px;
+  }
 
   .updatesBoard {
     display: grid;

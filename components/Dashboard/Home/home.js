@@ -3,15 +3,12 @@ import sortBy from 'lodash/sortBy';
 import styled from 'styled-components';
 import { StyledHomeDasboard } from '../styles';
 import MessageCard from './messagecard';
-import StudyParticipantCard from './StudyParticipantCard';
-
-const StyledStudyParticipantCards = styled.div`
-  display: grid;
-`;
+import StudyCard from './StudyCard';
 
 class HomeDashboard extends Component {
   render() {
-    const { studies, username, publicId, publicReadableId } = this.props;
+    const { me, studies, username, publicId, publicReadableId } = this.props;
+
     const messages = studies
       .map(study =>
         study.messages.map(message => {
@@ -31,42 +28,52 @@ class HomeDashboard extends Component {
     return (
       <StyledHomeDasboard>
         <h1>Welcome{username && `, ${username}`}!</h1>
-        {publicId && (
-          <div>
-            Your participant ID is{' '}
-            <code
-              style={{
-                background: 'white',
-                padding: '3px',
-                borderRadius: '5px',
-              }}
-            >
-              {publicId}
-            </code>
+
+        <div className="header">
+          <div className="idInfo">
+            <div>
+              {publicId && (
+                <div>
+                  Participant ID <div className="code">{publicId}</div>
+                </div>
+              )}
+            </div>
+
+            <div>
+              {publicReadableId && (
+                <div>
+                  Public readable ID{' '}
+                  <div className="code">{publicReadableId}</div>
+                </div>
+              )}
+            </div>
           </div>
-        )}
-        {publicReadableId && (
+
           <div>
-            Your public readable ID is{' '}
-            <code
-              style={{
-                background: 'white',
-                padding: '3px',
-                borderRadius: '5px',
-              }}
-            >
-              {publicReadableId}
-            </code>
-          </div>
-        )}
-        <div>
-          <h2>Your studies</h2>
-          <StyledStudyParticipantCards>
-            {studies.map((study, num) => (
-              <StudyParticipantCard key={num} study={study} />
+            Permissions
+            {me?.permissions.map((permission, num) => (
+              <div key={num} className="code">
+                {permission}
+              </div>
             ))}
-          </StyledStudyParticipantCards>
+          </div>
         </div>
+
+        {false && (
+          <>
+            <div>
+              {me?.participantIn.length && (
+                <div>
+                  <h2>Studies you participated in</h2>
+                  {studies.map((study, num) => (
+                    <StudyCard key={num} study={study} />
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
         <div className="updatesBoard">
           <h2>Latest updates</h2>
           <div className="updates">

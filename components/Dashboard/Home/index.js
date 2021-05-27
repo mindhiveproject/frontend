@@ -22,6 +22,7 @@ class DashboardStatic extends Component {
           return (
             <StyledDasboard>
               <HomeDashboard
+                me={data?.me}
                 studies={data?.me.participantIn}
                 username={data?.me.username}
                 publicId={data?.me.publicId}

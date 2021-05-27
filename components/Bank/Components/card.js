@@ -6,6 +6,8 @@ import { StyledTaskCard } from '../styles';
 import DeleteComponent from './delete';
 
 import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
+import { ContainerOnlyForAdmin } from '../../Permissions/Admin/index';
+
 import PublishTaskToggle from '../../Task/Customize/publish';
 
 class TaskCard extends Component {
@@ -55,16 +57,16 @@ class TaskCard extends Component {
               <div
                 style={{
                   display: 'grid',
-                  'grid-template-columns': '1fr 70px',
+                  'grid-template-columns': '1fr auto',
                   'grid-gap': '10px',
                 }}
               >
-                <ContainerOnlyForScientists>
+                <ContainerOnlyForAdmin>
                   <PublishTaskToggle
                     id={component.id}
                     isPublic={component.public}
                   />
-                </ContainerOnlyForScientists>
+                </ContainerOnlyForAdmin>
                 <DeleteComponent
                   id={component.id}
                   taskType={component.taskType}

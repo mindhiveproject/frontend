@@ -11,6 +11,11 @@ import {
   CURRENT_USER_STUDIES_QUERY,
   USER_DASHBOARD_QUERY,
 } from '../User/index';
+import { MY_DEVELOPED_STUDIES_QUERY } from '../Bank/Studies/developed';
+import {
+  MY_DEVELOPED_TASKS_QUERY,
+  MY_DEVELOPED_SURVEYS_QUERY,
+} from '../Bank/Components/developed';
 
 import GoogleLogin from './Google/index';
 
@@ -47,6 +52,9 @@ class Login extends Component {
             { query: CURRENT_USER_RESULTS_QUERY },
             { query: CURRENT_USER_STUDIES_QUERY },
             { query: USER_DASHBOARD_QUERY },
+            { query: MY_DEVELOPED_STUDIES_QUERY },
+            { query: MY_DEVELOPED_TASKS_QUERY },
+            { query: MY_DEVELOPED_SURVEYS_QUERY },
           ]}
         >
           {(login, { error, loading }) => (
