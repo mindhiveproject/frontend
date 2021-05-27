@@ -3,7 +3,6 @@ import sortBy from 'lodash/sortBy';
 import styled from 'styled-components';
 import { StyledHomeDasboard } from '../styles';
 import MessageCard from './messagecard';
-import StudyCard from './StudyCard';
 
 class HomeDashboard extends Component {
   render() {
@@ -73,18 +72,3 @@ class HomeDashboard extends Component {
 }
 
 export default HomeDashboard;
-
-// {false && (
-//   <>
-//     <div>
-//       {me?.participantIn.length && (
-//         <div>
-//           <h2>Studies you participated in</h2>
-//           {studies.map((study, num) => (
-//             <StudyCard key={num} study={study} />
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   </>
-// )}
