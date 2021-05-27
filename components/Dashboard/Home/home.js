@@ -59,21 +59,6 @@ class HomeDashboard extends Component {
           </div>
         </div>
 
-        {false && (
-          <>
-            <div>
-              {me?.participantIn.length && (
-                <div>
-                  <h2>Studies you participated in</h2>
-                  {studies.map((study, num) => (
-                    <StudyCard key={num} study={study} />
-                  ))}
-                </div>
-              )}
-            </div>
-          </>
-        )}
-
         <div className="updatesBoard">
           <h2>Latest updates</h2>
           <div className="updates">
@@ -88,3 +73,18 @@ class HomeDashboard extends Component {
 }
 
 export default HomeDashboard;
+
+// {false && (
+//   <>
+//     <div>
+//       {me?.participantIn.length && (
+//         <div>
+//           <h2>Studies you participated in</h2>
+//           {studies.map((study, num) => (
+//             <StudyCard key={num} study={study} />
+//           ))}
+//         </div>
+//       )}
+//     </div>
+//   </>
+// )}
