@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-
 import { Menu } from 'semantic-ui-react';
-import OverviewStudiesBank from '../../Bank/Studies/overview';
-import DevelopedComponentsBank from '../../Bank/Components/developed';
 
 import AuthorizedPage from '../../Page/userpage';
 import EmptyPage from '../../Page/empty';
 
-import DevelopmentSelectScreen from '../../Development/selectScreen';
+import OverviewStudiesBank from '../../Bank/Studies/overview';
+import OverviewComponentsBank from '../../Bank/Components/overview';
+import OverviewUsers from './Users/index';
+
 import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
 import ComponentBuilderWrapper from '../../Development/Component/builderWrapper';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
-import OverviewNotes from './Notes/index';
 
 class DashboardOverview extends Component {
   state = {
@@ -60,7 +59,7 @@ class DashboardOverview extends Component {
               <h1>Overview</h1>
               <div className="navigationHeader">
                 <div>
-                  <p>All studies on the platform MindHive.</p>
+                  <p>Admin overview of the platform MindHive.</p>
                 </div>
               </div>
 
@@ -80,11 +79,37 @@ class DashboardOverview extends Component {
                   </Menu.Item>
 
                   <Menu.Item
-                    name="notes"
-                    active={tab === 'notes'}
+                    name="tasks"
+                    active={tab === 'tasks'}
                     onClick={this.handleItemClick}
                     className={
-                      tab === 'notes'
+                      tab === 'tasks'
+                        ? 'discoverMenuTitle selectedMenuTitle'
+                        : 'discoverMenuTitle'
+                    }
+                  >
+                    <p>All tasks</p>
+                  </Menu.Item>
+
+                  <Menu.Item
+                    name="surveys"
+                    active={tab === 'surveys'}
+                    onClick={this.handleItemClick}
+                    className={
+                      tab === 'surveys'
+                        ? 'discoverMenuTitle selectedMenuTitle'
+                        : 'discoverMenuTitle'
+                    }
+                  >
+                    <p>All surveys</p>
+                  </Menu.Item>
+
+                  <Menu.Item
+                    name="users"
+                    active={tab === 'users'}
+                    onClick={this.handleItemClick}
+                    className={
+                      tab === 'users'
                         ? 'discoverMenuTitle selectedMenuTitle'
                         : 'discoverMenuTitle'
                     }
@@ -98,14 +123,13 @@ class DashboardOverview extends Component {
                 <OverviewStudiesBank
                   onSelectStudy={this.goToStudy}
                   user={this.props.user}
-                  readOnlyMode={this.state.readOnlyMode}
                 />
               )}
 
-              {this.state.tab === 'notes' && <OverviewNotes />}
+              {this.state.tab === 'users' && <OverviewUsers />}
 
               {this.state.tab === 'tasks' && (
-                <DevelopedComponentsBank
+                <OverviewComponentsBank
                   componentType="TASK"
                   onSelectComponent={this.openComponentEditor}
                   user={this.props.user}
@@ -113,7 +137,7 @@ class DashboardOverview extends Component {
               )}
 
               {this.state.tab === 'surveys' && (
-                <DevelopedComponentsBank
+                <OverviewComponentsBank
                   componentType="SURVEY"
                   onSelectComponent={this.openComponentEditor}
                   user={this.props.user}
@@ -124,17 +148,7 @@ class DashboardOverview extends Component {
         </AuthorizedPage>
       );
     }
-    if (page === 'develop') {
-      return (
-        <EmptyPage>
-          <DevelopmentSelectScreen
-            onClose={this.switchToBank}
-            user={this.props.user}
-            devInfo={this.state.devInfo}
-          />
-        </EmptyPage>
-      );
-    }
+
     if (page === 'studyBuilder') {
       return (
         <EmptyPage>
@@ -156,6 +170,7 @@ class DashboardOverview extends Component {
             componentId={this.state.devInfo.componentId}
             user={this.props.user}
             needToClone={false}
+            readOnlyMode={this.state.readOnlyMode}
           />
         </EmptyPage>
       );

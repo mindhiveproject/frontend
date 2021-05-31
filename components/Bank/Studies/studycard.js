@@ -3,11 +3,16 @@ import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 import { StyledStudyCard } from '../styles';
+
 import DeleteStudy from './delete';
+import PublishStudy from './publish';
 
 class StudyCard extends Component {
   render() {
     const { study, user } = this.props;
+
+    console.log('study', study.submitForPublishing);
+
     const isAuthor =
       user?.id === study?.author?.id ||
       study?.collaborators.map(c => c.id).includes(user?.id);
@@ -68,12 +73,21 @@ class StudyCard extends Component {
                 Go to study
               </a>
             </div>
-            {this.props.developingMode && !this.props.readOnlyMode && isAuthor && (
+            {this.props.developingMode && isAuthor && (
               <div>
                 <DeleteStudy id={study.id}>Delete</DeleteStudy>
               </div>
             )}
+            {this.props.overviewMode && (
+              <PublishStudy id={study.id} isPublic={study.public} />
+            )}
           </div>
+
+          {this.props.overviewMode && study?.submitForPublishing && (
+            <div>
+              <p>The study was submitted for publishing</p>
+            </div>
+          )}
         </div>
       </StyledStudyCard>
     );

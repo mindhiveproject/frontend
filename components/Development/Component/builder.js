@@ -244,6 +244,7 @@ class ComponentBuilder extends Component {
     task: { ...this.props.task },
     needToClone: this.props.needToClone,
     showPreview: false,
+    readOnlyMode: this.props.readOnlyMode,
   };
 
   togglePreview = e => {
@@ -410,7 +411,7 @@ class ComponentBuilder extends Component {
 
   render() {
     const { user } = this.props;
-    const { task, needToClone } = this.state;
+    const { task, needToClone, readOnlyMode } = this.state;
     const isAuthor =
       user.id === task?.author?.id ||
       task?.collaborators?.includes(user.username);
@@ -442,150 +443,154 @@ class ComponentBuilder extends Component {
                   </button>
                 )}
 
-                {this.props.templateEditor && !needToClone ? (
+                {!readOnlyMode && (
                   <>
-                    {isAuthor ? (
-                      <div>
-                        <Mutation
-                          mutation={UPDATE_COMPONENT_WITH_TEMPLATE}
-                          refetchQueries={[
-                            {
-                              query: COMPONENT_QUERY,
-                              variables: {
-                                id: this.state.task.id,
-                              },
-                            },
-                            {
-                              query: COMPONENT_TO_CLONE_QUERY,
-                              variables: {
-                                id: this.state.task.id,
-                              },
-                            },
-                          ]}
-                        >
-                          {(updateTask, { loading, error }) => (
-                            <div>
-                              <button
-                                className="secondaryBtn"
-                                onClick={() => {
-                                  this.updateMyComponent(
-                                    updateTask,
-                                    'updateTaskWithTemplate'
-                                  );
-                                }}
-                              >
-                                {loading
-                                  ? 'Saving'
-                                  : `Save original ${taskType.toLowerCase()}`}
-                              </button>
-                            </div>
-                          )}
-                        </Mutation>
-                      </div>
+                    {this.props.templateEditor && !needToClone ? (
+                      <>
+                        {isAuthor ? (
+                          <div>
+                            <Mutation
+                              mutation={UPDATE_COMPONENT_WITH_TEMPLATE}
+                              refetchQueries={[
+                                {
+                                  query: COMPONENT_QUERY,
+                                  variables: {
+                                    id: this.state.task.id,
+                                  },
+                                },
+                                {
+                                  query: COMPONENT_TO_CLONE_QUERY,
+                                  variables: {
+                                    id: this.state.task.id,
+                                  },
+                                },
+                              ]}
+                            >
+                              {(updateTask, { loading, error }) => (
+                                <div>
+                                  <button
+                                    className="secondaryBtn"
+                                    onClick={() => {
+                                      this.updateMyComponent(
+                                        updateTask,
+                                        'updateTaskWithTemplate'
+                                      );
+                                    }}
+                                  >
+                                    {loading
+                                      ? 'Saving'
+                                      : `Save original ${taskType.toLowerCase()}`}
+                                  </button>
+                                </div>
+                              )}
+                            </Mutation>
+                          </div>
+                        ) : (
+                          <div>
+                            <Mutation
+                              mutation={CREATE_COMPONENT_WITH_TEMPLATE}
+                              refetchQueries={[
+                                { query: MY_SURVEYS_QUERY },
+                                { query: MY_TASKS_QUERY },
+                                { query: USER_DASHBOARD_QUERY },
+                                { query: MY_DEVELOPED_TASKS_QUERY },
+                                { query: MY_DEVELOPED_SURVEYS_QUERY },
+                              ]}
+                            >
+                              {(createTask, { loading, error }) => (
+                                <div>
+                                  <button
+                                    className="secondaryBtn"
+                                    onClick={() => {
+                                      this.createNewComponent(
+                                        createTask,
+                                        'createTaskWithTemplate'
+                                      );
+                                    }}
+                                  >
+                                    {loading
+                                      ? 'Saving'
+                                      : `Save your original ${taskType.toLowerCase()}`}
+                                  </button>
+                                </div>
+                              )}
+                            </Mutation>
+                          </div>
+                        )}
+                      </>
                     ) : (
-                      <div>
-                        <Mutation
-                          mutation={CREATE_COMPONENT_WITH_TEMPLATE}
-                          refetchQueries={[
-                            { query: MY_SURVEYS_QUERY },
-                            { query: MY_TASKS_QUERY },
-                            { query: USER_DASHBOARD_QUERY },
-                            { query: MY_DEVELOPED_TASKS_QUERY },
-                            { query: MY_DEVELOPED_SURVEYS_QUERY },
-                          ]}
-                        >
-                          {(createTask, { loading, error }) => (
-                            <div>
-                              <button
-                                className="secondaryBtn"
-                                onClick={() => {
-                                  this.createNewComponent(
-                                    createTask,
-                                    'createTaskWithTemplate'
-                                  );
-                                }}
-                              >
-                                {loading
-                                  ? 'Saving'
-                                  : `Save your original ${taskType.toLowerCase()}`}
-                              </button>
-                            </div>
-                          )}
-                        </Mutation>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {isAuthor && !needToClone ? (
-                      <div>
-                        <Mutation
-                          mutation={UPDATE_COMPONENT}
-                          refetchQueries={[
-                            {
-                              query: COMPONENT_QUERY,
-                              variables: {
-                                id: this.state.task.id,
-                              },
-                            },
-                            {
-                              query: COMPONENT_TO_CLONE_QUERY,
-                              variables: {
-                                id: this.state.task.id,
-                              },
-                            },
-                          ]}
-                        >
-                          {(updateTask, { loading, error }) => (
-                            <div>
-                              <button
-                                className="secondaryBtn"
-                                onClick={() => {
-                                  this.updateMyComponent(
-                                    updateTask,
-                                    'updateTask'
-                                  );
-                                }}
-                              >
-                                {loading
-                                  ? 'Saving'
-                                  : `Save ${taskType.toLowerCase()}`}
-                              </button>
-                            </div>
-                          )}
-                        </Mutation>
-                      </div>
-                    ) : (
-                      <div>
-                        <Mutation
-                          mutation={CREATE_COMPONENT}
-                          refetchQueries={[
-                            { query: MY_SURVEYS_QUERY },
-                            { query: MY_TASKS_QUERY },
-                            { query: USER_DASHBOARD_QUERY },
-                            { query: MY_DEVELOPED_TASKS_QUERY },
-                            { query: MY_DEVELOPED_SURVEYS_QUERY },
-                          ]}
-                        >
-                          {(createTask, { loading, error }) => (
-                            <div>
-                              <button
-                                className="secondaryBtn"
-                                onClick={() => {
-                                  this.createNewComponent(
-                                    createTask,
-                                    'createTask'
-                                  );
-                                }}
-                              >
-                                {loading
-                                  ? 'Saving'
-                                  : `Save your ${taskType.toLowerCase()}`}
-                              </button>
-                            </div>
-                          )}
-                        </Mutation>
-                      </div>
+                      <>
+                        {isAuthor && !needToClone ? (
+                          <div>
+                            <Mutation
+                              mutation={UPDATE_COMPONENT}
+                              refetchQueries={[
+                                {
+                                  query: COMPONENT_QUERY,
+                                  variables: {
+                                    id: this.state.task.id,
+                                  },
+                                },
+                                {
+                                  query: COMPONENT_TO_CLONE_QUERY,
+                                  variables: {
+                                    id: this.state.task.id,
+                                  },
+                                },
+                              ]}
+                            >
+                              {(updateTask, { loading, error }) => (
+                                <div>
+                                  <button
+                                    className="secondaryBtn"
+                                    onClick={() => {
+                                      this.updateMyComponent(
+                                        updateTask,
+                                        'updateTask'
+                                      );
+                                    }}
+                                  >
+                                    {loading
+                                      ? 'Saving'
+                                      : `Save ${taskType.toLowerCase()}`}
+                                  </button>
+                                </div>
+                              )}
+                            </Mutation>
+                          </div>
+                        ) : (
+                          <div>
+                            <Mutation
+                              mutation={CREATE_COMPONENT}
+                              refetchQueries={[
+                                { query: MY_SURVEYS_QUERY },
+                                { query: MY_TASKS_QUERY },
+                                { query: USER_DASHBOARD_QUERY },
+                                { query: MY_DEVELOPED_TASKS_QUERY },
+                                { query: MY_DEVELOPED_SURVEYS_QUERY },
+                              ]}
+                            >
+                              {(createTask, { loading, error }) => (
+                                <div>
+                                  <button
+                                    className="secondaryBtn"
+                                    onClick={() => {
+                                      this.createNewComponent(
+                                        createTask,
+                                        'createTask'
+                                      );
+                                    }}
+                                  >
+                                    {loading
+                                      ? 'Saving'
+                                      : `Save your ${taskType.toLowerCase()}`}
+                                  </button>
+                                </div>
+                              )}
+                            </Mutation>
+                          </div>
+                        )}
+                      </>
                     )}
                   </>
                 )}

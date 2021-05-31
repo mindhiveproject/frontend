@@ -72,7 +72,7 @@ const COMPONENT_TO_CLONE_QUERY = gql`
 
 class ComponentBuilderWrapper extends Component {
   render() {
-    const { user, needToClone } = this.props;
+    const { user, needToClone, readOnlyMode } = this.props;
 
     return (
       <Query
@@ -129,6 +129,7 @@ class ComponentBuilderWrapper extends Component {
               templateEditor={
                 isAuthor && isTemplateAuthor && !needToClone && task.isOriginal
               }
+              readOnlyMode={readOnlyMode}
             />
           );
         }}

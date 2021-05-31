@@ -12,6 +12,7 @@ const StyledDeleteBtn = styled.button`
   border: 2px solid red;
   box-sizing: border-box;
   border-radius: 4px;
+  cursor: pointer;
 `;
 
 const DELETE_STUDY_MUTATION = gql`

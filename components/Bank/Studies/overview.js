@@ -23,6 +23,7 @@ const OVERVIEW_STUDIES_QUERY = gql`
       }
       public
       shortDescription
+      submitForPublishing
     }
   }
 `;
@@ -55,8 +56,7 @@ class OverviewStudiesBank extends Component {
                       study={study}
                       onSelectStudy={this.props.onSelectStudy}
                       user={this.props.user}
-                      developingMode
-                      readOnlyMode={this.props.readOnlyMode}
+                      overviewMode
                     />
                   ))}
                 </div>

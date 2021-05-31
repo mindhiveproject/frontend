@@ -8,7 +8,7 @@ import DeleteComponent from './delete';
 import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
 import { ContainerOnlyForAdmin } from '../../Permissions/Admin/index';
 
-import PublishTaskToggle from '../../Task/Customize/publish';
+import PublishTaskToggle from './publish';
 
 class TaskCard extends Component {
   render() {
@@ -53,29 +53,42 @@ class TaskCard extends Component {
                 </a>
               </div>
             )}
-            {this.props.developingMode && isAuthor && (
-              <div
-                style={{
-                  display: 'grid',
-                  'grid-template-columns': '1fr auto',
-                  'grid-gap': '10px',
-                }}
-              >
+
+            <div
+              style={{
+                display: 'grid',
+                'grid-template-columns': '1fr auto',
+                'grid-gap': '10px',
+              }}
+            >
+              {this.props.overviewMode && (
                 <ContainerOnlyForAdmin>
                   <PublishTaskToggle
                     id={component.id}
                     isPublic={component.public}
                   />
                 </ContainerOnlyForAdmin>
+              )}
+
+              {this.props.developingMode && isAuthor && (
                 <DeleteComponent
                   id={component.id}
                   taskType={component.taskType}
                 >
                   Delete
                 </DeleteComponent>
-              </div>
-            )}
+              )}
+            </div>
           </div>
+
+          {this.props.overviewMode && component?.submitForPublishing && (
+            <div>
+              <p>
+                The {component.taskType.toLowerCase()} was submitted for
+                publishing
+              </p>
+            </div>
+          )}
         </div>
       </StyledTaskCard>
     );

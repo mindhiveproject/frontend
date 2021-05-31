@@ -32,7 +32,7 @@ const StyledRow = styled.div`
   background: white;
 `;
 
-class OverviewNotes extends Component {
+class OverviewUsers extends Component {
   state = {
     page: this.props.page || 'list',
     id: null,
@@ -103,4 +103,4 @@ class OverviewNotes extends Component {
   }
 }
 
-export default OverviewNotes;
+export default OverviewUsers;
