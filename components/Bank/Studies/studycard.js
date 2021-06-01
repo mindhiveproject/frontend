@@ -11,7 +11,7 @@ class StudyCard extends Component {
   render() {
     const { study, user } = this.props;
 
-    console.log('study', study.submitForPublishing);
+    // console.log('study', study.submitForPublishing);
 
     const isAuthor =
       user?.id === study?.author?.id ||

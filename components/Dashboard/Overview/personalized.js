@@ -157,7 +157,6 @@ class DashboardOverview extends Component {
             studyId={this.state.devInfo.studyIdToClone}
             user={this.props.user}
             needToClone={false}
-            readOnlyMode={this.state.readOnlyMode}
           />
         </EmptyPage>
       );
@@ -170,7 +169,6 @@ class DashboardOverview extends Component {
             componentId={this.state.devInfo.componentId}
             user={this.props.user}
             needToClone={false}
-            readOnlyMode={this.state.readOnlyMode}
           />
         </EmptyPage>
       );
