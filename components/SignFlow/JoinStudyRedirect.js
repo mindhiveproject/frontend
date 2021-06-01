@@ -1,6 +1,6 @@
 import Router from 'next/router';
 
-const joinStudyRedirect = (study, profile) => {
+const joinStudyRedirect = async (study, profile) => {
   // check if study wants to redirect the participant to the first task
   if (study?.settings?.proceedToFirstTask) {
     const userStudyInfo = profile?.studiesInfo[study.id];
@@ -14,13 +14,20 @@ const joinStudyRedirect = (study, profile) => {
         if (component) {
           const { testId } = component;
           // open the test on a new page
-          const url = `/do/task?s=${study.id}&v=${testId}`;
-          const win = window.open(url, '_blank');
-          if (win) {
-            win.focus();
-          }
+          // const url = `/do/task?s=${study.id}&v=${testId}`;
+          // const win = window.open(url, '_blank');
+          // if (win) {
+          //   win.focus();
+          // }
+          await Router.push({
+            pathname: `/studies/${study.slug}`,
+          });
           Router.push({
-            pathname: `/dashboard`,
+            pathname: `/do/task`,
+            query: {
+              s: study.id,
+              v: testId,
+            },
           });
         } else {
           Router.push({
