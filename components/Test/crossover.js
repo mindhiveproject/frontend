@@ -17,52 +17,57 @@ class Crossover extends Component {
       this.props.user?.authEmail[0].email;
     const agreeReceiveUpdates = this.props.user?.generalInfo
       ?.agreeReceiveUpdates;
+
+    const showEmailNotificationPropmt =
+      this.props.study?.settings?.showEmailNotificationPropmt || false;
+
     // check whether there is a next task
     const isNextTask = this.props.nextTaskId;
     return (
       <div>
         <OnboardingForm>
-          {(!agreeReceiveUpdates || !isEmailAvailable) && (
-            <div>
+          {showEmailNotificationPropmt &&
+            (!agreeReceiveUpdates || !isEmailAvailable) && (
               <div>
-                <label htmlFor="agreeReceiveTaskUpdates">
-                  <div className="checkboxField">
-                    <input
-                      type="checkbox"
-                      id="agreeReceiveTaskUpdates"
-                      name="agreeReceiveTaskUpdates"
-                      checked={this.props.agreeReceiveTaskUpdates}
-                      onChange={this.props.onToggleState}
-                    />
-                    <span>
-                      I agree to be sent notifications related to this task (you
-                      can opt out at any time!)
-                    </span>
-                  </div>
-                </label>
-              </div>
-              {this.props.agreeReceiveTaskUpdates && !isEmailAvailable && (
                 <div>
-                  <label htmlFor="email">
-                    <p>Please enter your email address here: </p>
-                    <input
-                      className="emailInput"
-                      type="email"
-                      name="email"
-                      placeholder="Enter your email"
-                      value={this.props.email}
-                      onChange={this.props.onUpdateState}
-                    />
+                  <label htmlFor="agreeReceiveTaskUpdates">
+                    <div className="checkboxField">
+                      <input
+                        type="checkbox"
+                        id="agreeReceiveTaskUpdates"
+                        name="agreeReceiveTaskUpdates"
+                        checked={this.props.agreeReceiveTaskUpdates}
+                        onChange={this.props.onToggleState}
+                      />
+                      <span>
+                        I agree to be sent notifications related to this task
+                        (you can opt out at any time!)
+                      </span>
+                    </div>
                   </label>
-                  <p>
-                    Your email address or any other personal information will
-                    not be shared with researchers without your explicit
-                    consent.
-                  </p>
                 </div>
-              )}
-            </div>
-          )}
+                {this.props.agreeReceiveTaskUpdates && !isEmailAvailable && (
+                  <div>
+                    <label htmlFor="email">
+                      <p>Please enter your email address here: </p>
+                      <input
+                        className="emailInput"
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        value={this.props.email}
+                        onChange={this.props.onUpdateState}
+                      />
+                    </label>
+                    <p>
+                      Your email address or any other personal information will
+                      not be shared with researchers without your explicit
+                      consent.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
 
           {thankYouMessage}
 

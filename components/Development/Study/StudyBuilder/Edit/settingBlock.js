@@ -66,9 +66,9 @@ class SettingBlock extends Component {
               Hide "Participate" button
             </label>
           )}
-          {name === 'skipBetweenTasksEmailPage' && (
+          {name === 'showEmailNotificationPropmt' && (
             <label className="name" htmlFor={name}>
-              Skip the email page between tasks
+              Show the email notifications prompt after each task/survey
             </label>
           )}
         </div>

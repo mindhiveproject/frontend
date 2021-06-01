@@ -15,6 +15,7 @@ class EditParameters extends Component {
     const settings = {
       forbidRetake: false,
       hideParticipateButton: false,
+      showEmailNotificationPropmt: false,
       ...study.settings,
     };
 

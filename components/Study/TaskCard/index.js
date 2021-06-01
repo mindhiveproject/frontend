@@ -112,7 +112,7 @@ class TaskCard extends Component {
                   <button>
                     <a
                       target="_blank"
-                      href={`/dt/r?t=${task.id}&s=${this.props.study.id}&v=${version}`}
+                      href={`/do/task?s=${this.props.study.id}&v=${version}`}
                     >
                       <p>Take {taskType}</p>
                     </a>
@@ -125,7 +125,7 @@ class TaskCard extends Component {
                   <button>
                     <a
                       target="_blank"
-                      href={`/dt/r?t=${task.id}&s=${this.props.study.id}&v=${version}`}
+                      href={`/do/task?s=${this.props.study.id}&v=${version}`}
                     >
                       <p>Retake {taskType}</p>
                     </a>

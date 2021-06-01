@@ -254,6 +254,7 @@ class DevelopmentSelectScreen extends Component {
                   minorsBlocked: false,
                   forbidRetake: false,
                   hideParticipateButton: false,
+                  showEmailNotificationPropmt: false,
                 },
                 collaborators: [],
                 info: [

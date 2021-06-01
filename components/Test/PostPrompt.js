@@ -39,7 +39,7 @@ class PostPrompt extends Component {
   };
 
   checkNextTaskId = () => {
-    const { study, user } = this.props;
+    const { study, user, version } = this.props;
     let components = [];
     if (
       study.components &&
@@ -67,13 +67,20 @@ class PostPrompt extends Component {
             result.study.id === this.props.study.id &&
             result.payload === 'full'
         )
-        .map(result => result.task.id) || [];
+        .map(result => result?.testVersion) || [];
+    // .map(result => result.task.id) || [];
     const notCompletedTasks = components.filter(
-      task => !fullResultsInThisStudy.includes(task.id)
+      task =>
+        !fullResultsInThisStudy.includes(task?.testId) &&
+        task?.testId !== version
     );
+    // const notCompletedTasks = components.filter(
+    //   task => !fullResultsInThisStudy.includes(task.id)
+    // );
     let nextTaskId;
-    if (notCompletedTasks && notCompletedTasks.length > 1) {
-      nextTaskId = notCompletedTasks[1].id;
+    if (notCompletedTasks && notCompletedTasks.length > 0) {
+      nextTaskId = notCompletedTasks[0].testId;
+      // nextTaskId = notCompletedTasks[1].id;
     }
     return nextTaskId;
   };
@@ -120,7 +127,7 @@ class PostPrompt extends Component {
 
   onSubmit = async (e, updateResultsMutation, redirect) => {
     e.preventDefault();
-    const res = await updateResultsMutation({
+    updateResultsMutation({
       variables: {
         id: this.props.token,
         info: {
@@ -144,27 +151,29 @@ class PostPrompt extends Component {
     });
 
     // return back to the study page or continue to the next task
-    let url;
+    // let url;
     if (redirect === 'studyPage') {
-      url = `/studies/${this.props.study.slug}`;
+      Router.replace({
+        pathname: `/studies/${this.props.study.slug}`,
+      });
+      // url = `/studies/${this.props.study.slug}`;
     } else if (redirect === 'nextTask' && this.state.nextTaskId) {
-      url = `/dt/r?t=${this.state.nextTaskId}&s=${this.props.study.id}`;
+      await Router.replace({
+        pathname: `/do/task`,
+        query: {
+          s: this.props.study.id,
+          v: this.state.nextTaskId,
+        },
+      });
+      Router.reload();
+      // const url = `/do/task?s=${this.props.study.id}&v=${this.state.nextTaskId}`;
+      // window.open(url, '_blank');
+      // window.setTimeout(function() {
+      //   this.close();
+      // }, 1000);
     }
     // const win = window.open(url, '_blank');
     // win.focus();
-    window.open(url, '_blank');
-    window.setTimeout(function() {
-      this.close();
-    }, 1000);
-
-    // if (this.props.slug) {
-    //   if (redirect === 'studyPage') {
-    //     this.props.onEndTask();
-    //   } else if (redirect === 'nextTask' && this.state.nextTaskId) {
-    //     this.props.onStartTheTask(this.state.nextTaskId);
-    //   }
-    //   this.props.onClosePrompt();
-    // }
   };
 
   render() {

@@ -71,6 +71,7 @@ class TestManager extends Component {
           onClosePrompt={this.closePostPrompt}
           onStartTheTask={this.props.onStartTheTask} // missing
           onEndTask={this.props.onEndTask} // missing
+          version={version}
         />
       );
     }

@@ -46,7 +46,7 @@ class Signup extends Component {
             onSubmit={async e => {
               e.preventDefault();
               const res = await emailSignUp();
-              console.log('res', res);
+              // console.log('res', res);
               this.setState({ username: '', password: '', email: '' });
               Router.push({
                 pathname: `/dashboard`,

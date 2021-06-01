@@ -12,15 +12,15 @@ const joinStudyRedirect = (study, profile) => {
       if (studyBlock && studyBlock.length && studyBlock[0].tests) {
         const [component] = studyBlock[0].tests;
         if (component) {
-          const { id } = component;
+          const { testId } = component;
           // open the test on a new page
-          const url = `/dt/r?t=${id}&s=${study.id}`;
+          const url = `/do/task?s=${study.id}&v=${testId}`;
           const win = window.open(url, '_blank');
           if (win) {
             win.focus();
           }
           Router.push({
-            pathname: `/studies/${study.slug}`,
+            pathname: `/dashboard`,
           });
         } else {
           Router.push({

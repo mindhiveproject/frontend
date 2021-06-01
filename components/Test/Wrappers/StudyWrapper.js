@@ -63,8 +63,23 @@ class StudyWrapper extends Component {
           const studyPayloadData = studyPayload.data && studyPayload.data.study;
           if (studyPayloadError) return <Error error={studyPayloadError} />;
           if (studyPayloadLoading) return <p>Loading</p>;
+          let t;
 
-          return <TestWrapper study={studyPayloadData} {...this.props} />;
+          // find task id using the version number
+          if (!this.props.t) {
+            const { user } = this.props;
+            const userStudyInfo = user?.studiesInfo[studyPayloadData.id];
+            const userBlock = userStudyInfo?.blockId;
+            const studyBlock = studyPayloadData?.components?.blocks.filter(
+              block => block?.blockId === userBlock
+            );
+            const components = studyBlock[0].tests;
+            t = components
+              .filter(component => component.testId === this.props.v)
+              .map(component => component?.id)[0];
+          }
+
+          return <TestWrapper study={studyPayloadData} t={t} {...this.props} />;
         }}
       </Query>
     );

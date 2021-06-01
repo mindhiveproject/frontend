@@ -27,6 +27,7 @@ class StudyTasks extends Component {
       study.components.blocks[0].tests
     ) {
       if (user) {
+        console.log('user', user);
         // select the blocks for the specific user
         const userStudyInfo = user.studiesInfo && user.studiesInfo[study.id];
         if (userStudyInfo) {
