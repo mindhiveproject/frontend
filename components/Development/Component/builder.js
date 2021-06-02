@@ -244,7 +244,7 @@ class ComponentBuilder extends Component {
     task: { ...this.props.task },
     needToClone: this.props.needToClone,
     showPreview: false,
-    readOnlyMode: this.props.readOnlyMode,
+    adminMode: this.props.adminMode,
   };
 
   togglePreview = e => {
@@ -411,7 +411,7 @@ class ComponentBuilder extends Component {
 
   render() {
     const { user } = this.props;
-    const { task, needToClone, readOnlyMode } = this.state;
+    const { task, needToClone, adminMode } = this.state;
     const isAuthor =
       user.id === task?.author?.id ||
       task?.collaborators?.includes(user.username);
@@ -443,11 +443,11 @@ class ComponentBuilder extends Component {
                   </button>
                 )}
 
-                {!readOnlyMode && (
+                {true && (
                   <>
                     {this.props.templateEditor && !needToClone ? (
                       <>
-                        {isAuthor ? (
+                        {isAuthor || adminMode ? (
                           <div>
                             <Mutation
                               mutation={UPDATE_COMPONENT_WITH_TEMPLATE}
@@ -520,7 +520,7 @@ class ComponentBuilder extends Component {
                       </>
                     ) : (
                       <>
-                        {isAuthor && !needToClone ? (
+                        {(isAuthor || adminMode) && !needToClone ? (
                           <div>
                             <Mutation
                               mutation={UPDATE_COMPONENT}

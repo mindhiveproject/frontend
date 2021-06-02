@@ -72,7 +72,7 @@ const COMPONENT_TO_CLONE_QUERY = gql`
 
 class ComponentBuilderWrapper extends Component {
   render() {
-    const { user, needToClone, readOnlyMode } = this.props;
+    const { user, needToClone, adminMode } = this.props;
 
     return (
       <Query
@@ -92,7 +92,7 @@ class ComponentBuilderWrapper extends Component {
           const isTemplateAuthor = user.id === data.task?.template?.author?.id;
 
           let task;
-          if (needToClone) {
+          if (needToClone && !adminMode) {
             task = {
               ...data.task,
               templateId: data.task.template.id,
@@ -101,7 +101,7 @@ class ComponentBuilderWrapper extends Component {
               ...makeCloneNames(data.task.title),
               isOriginal: false, // switch to false as it should be cloned
             };
-          } else if (isAuthor) {
+          } else if (isAuthor || adminMode) {
             task = {
               ...data.task,
               templateId: data.task.template?.id,
@@ -129,7 +129,7 @@ class ComponentBuilderWrapper extends Component {
               templateEditor={
                 isAuthor && isTemplateAuthor && !needToClone && task.isOriginal
               }
-              readOnlyMode={readOnlyMode}
+              adminMode={adminMode}
             />
           );
         }}

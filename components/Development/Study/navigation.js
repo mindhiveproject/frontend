@@ -225,9 +225,10 @@ class Navigation extends Component {
           </button>
         </div>
 
-        {!this.props.readOnlyMode && (
+        {true && (
           <>
-            {this.props.isAuthor && !this.props.needToClone ? (
+            {(this.props.isAuthor || this.props.adminMode) &&
+            !this.props.needToClone ? (
               <div className="saveBtn">
                 <Mutation
                   mutation={UPDATE_STUDY}

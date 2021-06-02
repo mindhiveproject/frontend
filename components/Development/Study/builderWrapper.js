@@ -55,7 +55,7 @@ const makeCloneNames = title => {
 
 class StudyBuilderWrapper extends Component {
   render() {
-    const { user, needToClone, readOnlyMode } = this.props;
+    const { user, needToClone, adminMode } = this.props;
     return (
       <Query query={STUDY_QUERY} variables={{ id: this.props.studyId }}>
         {({ data, loading }) => {
@@ -68,14 +68,14 @@ class StudyBuilderWrapper extends Component {
             data.study?.collaborators.map(c => c.id).includes(user.id);
 
           let study;
-          if (needToClone && !readOnlyMode) {
+          if (needToClone && !adminMode) {
             study = {
               ...data.study,
               consent: null,
               collaborators: [''],
               ...makeCloneNames(data.study.title),
             };
-          } else if (isAuthor || readOnlyMode) {
+          } else if (isAuthor || adminMode) {
             study = {
               ...data.study,
               consent: data.study.consent?.id,
@@ -99,7 +99,7 @@ class StudyBuilderWrapper extends Component {
                 study={study}
                 user={this.props.user}
                 needToClone={needToClone}
-                readOnlyMode={readOnlyMode}
+                adminMode={adminMode}
               />
             </EmptyPage>
           );

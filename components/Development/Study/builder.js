@@ -38,7 +38,7 @@ class StudyBuilder extends Component {
     isTaskSelectorOpen: false,
     isTaskBuilderOpen: false,
     needToClone: this.props.needToClone,
-    readOnlyMode: this.props.readOnlyMode,
+    adminMode: this.props.adminMode,
     section: 'studyBuilder',
   };
 
@@ -254,7 +254,7 @@ class StudyBuilder extends Component {
 
   render() {
     const { user } = this.props;
-    const { study, needToClone, readOnlyMode } = this.state;
+    const { study, needToClone, adminMode } = this.state;
     const isAuthor =
       user.id === study?.author?.id ||
       study?.collaborators.includes(user.username);
@@ -272,7 +272,7 @@ class StudyBuilder extends Component {
             <Navigation
               onLeave={this.props.onLeave}
               study={this.state.study}
-              readOnlyMode={readOnlyMode}
+              adminMode={adminMode}
               isAuthor={isAuthor}
               needToClone={needToClone}
               createNewStudy={this.createNewStudy}
