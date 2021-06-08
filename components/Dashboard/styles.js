@@ -153,7 +153,7 @@ export const StyledDevelopDasboard = styled.div`
     grid-column-gap: 20px;
     justify-items: end;
     button {
-      height: 56px;
+      min-height: 56px;
       padding: 10px 24px 10px 24px;
       background: #007c70;
       border: 2px solid #007c70;

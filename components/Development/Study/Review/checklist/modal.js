@@ -2,12 +2,37 @@ import React from 'react';
 import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 
+const StyledModal = styled.div`
+  display: grid;
+  margin: 50px 50px 50px 50px;
+  .title {
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1a1a1a;
+  }
+  .content {
+    margin: 15px 0px 40px 0px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+`;
+
 const StyledButtons = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   justify-items: start;
-  grid-gap: 10px;
+  grid-gap: 30px;
   .incomplete {
     background: #ffffff;
     border: 2px solid #b3b3b3;
@@ -65,9 +90,11 @@ function CheckModal({
         </div>
       }
     >
-      <Modal.Header>{title}</Modal.Header>
-      <Modal.Content>{description}</Modal.Content>
-      <Modal.Actions>
+      <StyledModal>
+        <div className="title">{title}</div>
+
+        <div className="content">{description}</div>
+
         <StyledButtons>
           {action && (
             <StyledButton
@@ -86,7 +113,7 @@ function CheckModal({
             Mark as complete
           </StyledButton>
         </StyledButtons>
-      </Modal.Actions>
+      </StyledModal>
     </Modal>
   );
 }

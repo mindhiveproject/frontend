@@ -5,8 +5,8 @@ import slugify from 'slugify';
 import StudyBuilder from './builder';
 import EmptyPage from '../../Page/empty';
 
-const STUDY_QUERY = gql`
-  query STUDY_QUERY($id: ID!) {
+const PROJECT_QUERY = gql`
+  query PROJECT_QUERY($id: ID!) {
     study(where: { id: $id }) {
       id
       title
@@ -57,7 +57,7 @@ class StudyBuilderWrapper extends Component {
   render() {
     const { user, needToClone, adminMode } = this.props;
     return (
-      <Query query={STUDY_QUERY} variables={{ id: this.props.studyId }}>
+      <Query query={PROJECT_QUERY} variables={{ id: this.props.studyId }}>
         {({ data, loading }) => {
           if (loading) return <p>Loading ... </p>;
           if (!data || !data.study)
@@ -110,4 +110,4 @@ class StudyBuilderWrapper extends Component {
 }
 
 export default StudyBuilderWrapper;
-export { STUDY_QUERY };
+export { PROJECT_QUERY };

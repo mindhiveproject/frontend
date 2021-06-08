@@ -6,7 +6,7 @@ import { Menu } from 'semantic-ui-react';
 
 import { StudyBuilderNav } from '../styles';
 
-import { STUDY_QUERY } from './builderWrapper';
+import { PROJECT_QUERY } from './builderWrapper';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 import { MY_DEVELOPED_STUDIES_QUERY } from '../../Bank/Studies/developed';
 
@@ -121,7 +121,7 @@ class Navigation extends Component {
     if (proposalId) {
       refetchQueries = [
         {
-          query: STUDY_QUERY,
+          query: PROJECT_QUERY,
           variables: { id: this.props.study.id },
         },
         {
@@ -132,7 +132,7 @@ class Navigation extends Component {
     } else {
       refetchQueries = [
         {
-          query: STUDY_QUERY,
+          query: PROJECT_QUERY,
           variables: { id: this.props.study.id },
         },
       ];

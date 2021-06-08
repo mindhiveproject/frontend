@@ -6,7 +6,7 @@ const StyledInDev = styled.div`
   background: #e5e5e5;
   display: grid;
   width: 100%;
-  height: 80vh;
+  // height: 80vh;
   justify-content: center;
   align-content: center;
   font-family: Roboto;

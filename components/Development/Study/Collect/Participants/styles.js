@@ -5,7 +5,7 @@ export const StyledCollectSection = styled.div`
   display: grid;
   justify-content: stretch;
   width: 100%;
-  /* height: 90vh; */
+  min-height: 93vh;
 
   h1 {
     font-family: Lato;
@@ -68,6 +68,8 @@ export const StyledCollectBoard = styled.div`
   }
   .participants {
     grid-area: participants;
+  }
+  .noresponses {
   }
 `;
 

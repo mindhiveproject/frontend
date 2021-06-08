@@ -28,8 +28,9 @@ export const PROPOSAL_REVIEWS_QUERY = gql`
 class ReviewSection extends Component {
   render() {
     const { study } = this.props;
+    console.log('study', study);
 
-    if (study?.proposal.length === 0) {
+    if (!study?.proposal || study?.proposal?.length === 0) {
       return (
         <InDev
           header="No proposal found"

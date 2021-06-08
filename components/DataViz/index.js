@@ -8,6 +8,8 @@ import { jsonToCSV } from 'react-papaparse';
 import Error from '../ErrorMessage/index';
 import Router from './router';
 
+import InDev from '../Development/Study/inDev';
+
 const LZUTF8 = require('lzutf8');
 
 // this component takes in the raw data and merge it together
@@ -107,9 +109,10 @@ class StudyResults extends Component {
 
             if (myStudyResults.length === 0) {
               return (
-                <div>
-                  <h1>No results yet</h1>
-                </div>
+                <InDev
+                  header="No data to analyze yet"
+                  message="Share the study link with participants or test yourself to generate data"
+                />
               );
             }
 

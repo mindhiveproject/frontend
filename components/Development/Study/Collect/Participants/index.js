@@ -4,6 +4,8 @@ import { Query, Mutation } from '@apollo/client/react/components';
 import ParticipantsOverview from './overview';
 import MessageSender from './message';
 
+import InDev from '../../inDev';
+
 import SinglePage from './Single/index';
 import { StyledCollectSection, StyledCollectBoard } from './styles';
 
@@ -77,8 +79,6 @@ class StudyParticipants extends Component {
             const {
               myStudyParticipants: { participants },
             } = data;
-            if (!participants.length)
-              return <h2>No responses at the moment.</h2>;
 
             return (
               <StyledCollectSection>

@@ -3,8 +3,9 @@ import gql from 'graphql-tag';
 import { Query, Mutation } from '@apollo/client/react/components';
 import { Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { STUDY_QUERY } from '../builderWrapper';
+import { PROJECT_QUERY } from '../builderWrapper';
 import { StyledSubmitForm } from '../../../Styles/Forms';
+import InDev from '../inDev';
 
 import ProposalPage from './proposalpage';
 
@@ -73,6 +74,16 @@ class ProposalTemplate extends Component {
   };
 
   render() {
+    const { study } = this.props;
+    if (!study?.id) {
+      return (
+        <InDev
+          header="No study found"
+          message="Please save your study first."
+        />
+      );
+    }
+
     const templates = this.props.templates.map(template => ({
       key: template.id,
       text: template.title,
@@ -85,12 +96,11 @@ class ProposalTemplate extends Component {
     return (
       <Mutation
         mutation={COPY_PROPOSAL_MUTATION}
-        variables={this.state}
         refetchQueries={[
           {
-            query: STUDY_QUERY,
+            query: PROJECT_QUERY,
             variables: {
-              id: this.props.study.id,
+              id: this.props.study?.id,
             },
           },
         ]}
@@ -109,7 +119,13 @@ class ProposalTemplate extends Component {
             <StyledSubmitForm
               onSubmit={async e => {
                 e.preventDefault();
-                const res = await copyProposal();
+                console.log('this.props.study.id', this.props?.study?.id);
+                const res = await copyProposal({
+                  variables: {
+                    id: this.state?.id,
+                    study: this.props?.study?.id,
+                  },
+                });
                 if (res?.data?.copyProposalBoard) {
                   this.setState({
                     proposal: res.data.copyProposalBoard,

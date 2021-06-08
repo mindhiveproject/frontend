@@ -5,7 +5,7 @@ import { Query } from '@apollo/client/react/components';
 import ProposalTemplate from './template';
 
 // query to get all public templates (proposal boards with isTemplate is true)
-const PROPOSAL_TEMPLATES_QUERY = gql`
+export const PROPOSAL_TEMPLATES_QUERY = gql`
   query PROPOSAL_TEMPLATES_QUERY {
     proposalBoards(where: { isTemplate: true }) {
       id
