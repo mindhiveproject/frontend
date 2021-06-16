@@ -4,7 +4,7 @@ import Processor from './Functions/processor';
 import Helper from './Functions/helper';
 import Displayer from './displayer';
 
-// suppose to run things and put together everything with which users can interact
+// run things and put together everything for users to interact
 
 const Runner = ({
   data,

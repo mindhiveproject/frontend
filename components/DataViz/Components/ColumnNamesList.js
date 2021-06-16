@@ -123,23 +123,3 @@ const ColumnNamesList = ({
 };
 
 export default ColumnNamesList;
-
-// <input
-//   type="checkbox"
-//   name={name}
-//   id={name}
-//   checked={!isFiltered}
-//   onChange={() =>
-//     helper.filterColumn(
-//       columnsToFilter,
-//       name,
-//       !isFiltered,
-//       updateState
-//     )
-//   }
-// />
-
-// <p>
-//   Original dataset size is {helper.computeSize(data, []).columns}x
-//   {helper.computeSize(data, []).rows}
-// </p>

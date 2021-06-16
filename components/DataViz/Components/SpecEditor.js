@@ -43,10 +43,3 @@ const SpecEditor = ({ spec, updateState }) => {
 };
 
 export default SpecEditor;
-
-// <textarea
-//   cols="100"
-//   rows="10"
-//   value={specString}
-//   onChange={e => setSpecString(e.target.value)}
-// />

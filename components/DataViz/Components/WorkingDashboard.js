@@ -21,7 +21,6 @@ const StyledDashboard = styled.div`
 const StyledPreprocessingArea = styled.div`
   display: grid;
   align-content: flex-start;
-  /* min-height: 300px; */
   .operationBoard {
     margin-top: 5px;
     border: 1px solid #ffffef;
@@ -107,33 +106,3 @@ const WorkingDashboard = ({
 };
 
 export default WorkingDashboard;
-
-// {operationType === 'AGGREGATE' && (
-//   <AggregateArea
-//     transformedData={transformedData}
-
-//     updateSpec={updateSpec}
-//     operation={operation}
-//     helper={helper}
-//     spec={spec}
-//     activeTransformationPosition={activeTransformationPosition}
-//   />
-// )}
-
-// <div className="debuggerInfo">
-//   <div>
-//     Active transformation position is {activeTransformationPosition}
-//   </div>
-//   <div>Operation type: {operationType}</div>
-//   <div>{JSON.stringify(operation)}</div>
-// </div>
-
-// <div>
-//   <button
-//     onClick={() =>
-//       PipelineFunctions.addDisplayOperation(spec, updateState)
-//     }
-//   >
-//     Initialize display
-//   </button>
-// </div>

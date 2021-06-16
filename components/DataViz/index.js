@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
-import Head from 'next/head';
-import styled from 'styled-components';
-import { saveAs } from 'file-saver';
-import { jsonToCSV } from 'react-papaparse';
+
 import Error from '../ErrorMessage/index';
 import Router from './router';
-
 import InDev from '../Development/Study/inDev';
 
 const LZUTF8 = require('lzutf8');
-
-// this component takes in the raw data and merge it together
-// it can extract either incremental or full data (dependent on what is available)
 
 const MY_STUDY_RESULTS_QUERY = gql`
   query MY_STUDY_RESULTS_QUERY($id: ID!) {
@@ -51,6 +44,8 @@ const MY_STUDY_RESULTS_QUERY = gql`
 `;
 
 class StudyResults extends Component {
+  // takes in the raw data and merge it together
+  // it can extract either incremental or full data (dependent on what is available)
   processRawData = results => {
     const allData = results
       .map(result => {
@@ -77,13 +72,10 @@ class StudyResults extends Component {
             )
             .reduce((total, amount) => total.concat(amount), []);
         }
-
-        console.log('result', result);
-
+        // augment the raw data with participant information
         const resultData = data.map(line => {
           line.participantId = result.user && result.user.publicId;
           line.task = result.task && result.task.title;
-          // put unique test id (probably should be saved in the results)
           line.testVersion = result.testVersion && result.testVersion;
           line.study = result.study && result.study.title;
           line.dataType = fullContent ? 'complete' : 'incremental';
@@ -97,32 +89,30 @@ class StudyResults extends Component {
   };
 
   render() {
+    const { id } = this.props;
     return (
-      <>
-        <Query query={MY_STUDY_RESULTS_QUERY} variables={{ id: this.props.id }}>
-          {({ error, loading, data }) => {
-            if (error) return <Error error={error} />;
-            if (loading) return <p>Loading ... </p>;
-            if (!data.myStudyResults)
-              return <p>No study found for the id {this.props.id}</p>;
-            const { myStudyResults } = data;
+      <Query query={MY_STUDY_RESULTS_QUERY} variables={{ id }}>
+        {({ error, loading, data }) => {
+          if (error) return <Error error={error} />;
+          if (loading) return <p>Loading ... </p>;
+          if (!data.myStudyResults)
+            return <p>No study found for the id {this.props.id}</p>;
+          const { myStudyResults } = data;
 
-            if (myStudyResults.length === 0) {
-              return (
-                <InDev
-                  header="No data to analyze yet"
-                  message="Share the study link with participants or test yourself to generate data"
-                />
-              );
-            }
+          if (myStudyResults.length === 0) {
+            return (
+              <InDev
+                header="No data to analyze yet"
+                message="Share the study link with participants or test yourself to generate data"
+              />
+            );
+          }
 
-            const processedData = this.processRawData(myStudyResults);
-            // console.log('processedData length', processedData.length);
+          const processedData = this.processRawData(myStudyResults);
 
-            return <Router data={processedData} />;
-          }}
-        </Query>
-      </>
+          return <Router data={processedData} />;
+        }}
+      </Query>
     );
   }
 }

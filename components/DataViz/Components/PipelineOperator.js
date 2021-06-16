@@ -127,26 +127,3 @@ const PipelineOperator = ({
 };
 
 export default PipelineOperator;
-
-// <div>
-//   <button
-//     onClick={() =>
-//       PipelineFunctions.addTransformOperation(
-//         spec,
-//         aggregationTemplate,
-//         updateSpec
-//       )
-//     }
-//   >
-//     + AGGREGATION
-//   </button>
-// </div>
-// TO do - make display separate
-
-// <div className="debuggerInfo">
-//   <div>Transform pipeline length {transformPipe.length}</div>
-//   <div>
-//     Active transformation operation's position is{' '}
-//     {activeTransformationPosition}
-//   </div>
-// </div>

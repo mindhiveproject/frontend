@@ -7,11 +7,11 @@ class Router extends Component {
     specDefault: {
       width: '500',
       height: '400',
-      mark: 'bar',
+      mark: 'point',
       transform: [],
       encoding: {
         x: { field: 'task', type: 'nominal' },
-        y: { field: 'meanReactionTime', type: 'quantitative', aggregate: '' },
+        y: { field: 'participantId', type: 'nominal', aggregate: '' },
       },
       data: { name: 'values' },
     },

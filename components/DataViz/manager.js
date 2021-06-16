@@ -6,14 +6,6 @@ import Runner from './runner';
 class Manager extends Component {
   // main state
   state = {
-    // data:
-    //   this.props.datasetTypeDefault === 'raw'
-    //     ? this.props.dataRaw
-    //     : this.props.dataAggregated,
-    // transformedData:
-    //   this.props.datasetTypeDefault === 'raw'
-    //     ? this.props.dataRaw
-    //     : this.props.dataAggregated,
     data:
       this.props.datasetTypeDefault === 'raw'
         ? this.props.dataRaw
