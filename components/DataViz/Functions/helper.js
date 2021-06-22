@@ -1,4 +1,5 @@
 import { jsonToCSV } from 'react-papaparse';
+import { saveAs } from 'file-saver';
 
 // download the current state of the data as a csv file
 const download = data => {
