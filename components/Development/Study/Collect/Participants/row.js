@@ -95,11 +95,10 @@ class ParticipantRow extends Component {
             resultTypes.includes('TEST');
 
           return (
-            <div
-              className="tableRow"
-              // onClick={() => this.props.openParticipant(participant.id)}
-            >
-              <p>{participant.username}</p>
+            <div className="tableRow">
+              <div onClick={() => this.props.openParticipant(participant.id)}>
+                <a>{participant.username}</a>
+              </div>
               <p>{participant.publicReadableId}</p>
               <p>{duration}</p>
               <p>{numberFull}</p>

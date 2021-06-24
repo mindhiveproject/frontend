@@ -61,6 +61,7 @@ class ParticipantsOverview extends Component {
             studyId={this.props.studyId}
             participants={participants}
             sortBy={this.state.sortBy}
+            openParticipant={this.props.openParticipant}
           />
         </StyledParticipantsBoard>
       </div>

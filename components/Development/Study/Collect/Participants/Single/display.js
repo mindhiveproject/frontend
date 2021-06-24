@@ -15,43 +15,41 @@ class ParticipantDisplay extends Component {
     }
     const studyInfo =
       (participant?.studiesInfo && participant?.studiesInfo[studyId]) || {};
-    // console.log('participant', participant);
-    // console.log('studyInfo', studyInfo);
-    // console.log(participant.generalInfo);
+
     return (
       <StyledCollectSection>
         <StyledParticipantPage>
-          Username:
-          <h2>{participant.username}</h2>
-          Participant ID:
-          <p>{participant.publicReadableId}</p>
-          <p>Email {email || 'is missing'}</p>
-          {false && (
-            <>
-              <h3>General information</h3>
-              {Object.keys(participant.generalInfo).map(key => (
-                <div className="infoItem" key={key}>
-                  <p>{key}</p>
-                  <p>{participant.generalInfo[key]}</p>
-                </div>
-              ))}
-            </>
-          )}
+          <p>
+            <span>Username </span> <strong>{participant.username}</strong>
+          </p>
+
+          <p>
+            <span>Readable ID </span>
+            <strong>{participant.publicReadableId}</strong>
+          </p>
           <div>
             <h3>Study-related information</h3>
-            {Object.keys(studyInfo).map(key => (
-              <div className="infoItem" key={key}>
-                <p>{key}</p>
-                <p>{studyInfo[key]}</p>
-              </div>
-            ))}
+            {Object.keys(studyInfo).map(key => {
+              if (key === 'eng') {
+                return (
+                  <div className="infoItem" key={key}>
+                    <p>
+                      Do you understand basic instruction written in English?
+                    </p>
+                    <p>{studyInfo[key]}</p>
+                  </div>
+                );
+              }
+              if (key === 'blockName') {
+                return (
+                  <div className="infoItem" key={key}>
+                    <p>Between-subject condition</p>
+                    <p>{studyInfo[key]}</p>
+                  </div>
+                );
+              }
+            })}
           </div>
-          {false && (
-            <>
-              <h3>Consent-related information</h3>
-              <h3>Task-related information</h3>
-            </>
-          )}
           <ParticipantResults participantId={participant.id} />
         </StyledParticipantPage>
       </StyledCollectSection>
