@@ -9,9 +9,6 @@ const PARTICIPANT_RESULTS_QUERY = gql`
   query PARTICIPANT_RESULTS_QUERY($participantId: ID!) {
     participantResults(participantId: $participantId) {
       id
-      task {
-        title
-      }
       quantity
       data
       dataPolicy
@@ -20,14 +17,26 @@ const PARTICIPANT_RESULTS_QUERY = gql`
       updatedAt
       payload
       study {
+        id
         title
+      }
+      task {
+        id
+        title
+      }
+      user {
+        id
+        publicId
+        publicReadableId
       }
       info
       incrementalData {
         id
+        content
       }
       fullData {
         id
+        content
       }
       resultType
     }
@@ -52,17 +61,28 @@ class ParticipantResults extends Component {
                 <div className="resultItem">
                   <div>Study</div>
                   <div>Task</div>
-                  <div>File created</div>
-                  <div>File updated</div>
+                  <div>Created</div>
+                  <div>Updated</div>
                   <div>Data policy</div>
                   <div>Payload type</div>
                   <div>Is full data?</div>
                   <div># Files</div>
                   <div># Incremental uploads</div>
                   <div>Type</div>
+                  <div></div>
+                  <div></div>
                 </div>
                 {participantResults.map(result => (
-                  <Result key={result.id} result={result} />
+                  <Result
+                    key={result.id}
+                    result={result}
+                    refetchQueries={[
+                      {
+                        query: PARTICIPANT_RESULTS_QUERY,
+                        variables: { participantId },
+                      },
+                    ]}
+                  />
                 ))}
               </>
             );

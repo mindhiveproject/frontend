@@ -20,8 +20,7 @@ class DeleteResult extends Component {
         refetchQueries={this.props.refetchQueries}
       >
         {(deleteResult, { error }) => (
-          <button
-            type="button"
+          <div
             onClick={() => {
               if (confirm('Are you sure you want to delete this result?')) {
                 deleteResult().catch(err => {
@@ -31,7 +30,7 @@ class DeleteResult extends Component {
             }}
           >
             {this.props.children}
-          </button>
+          </div>
         )}
       </Mutation>
     );
