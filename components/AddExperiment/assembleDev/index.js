@@ -24,7 +24,6 @@ const assemble = async (
     .filter(el => el.id == main_sequence_number)
     .filter(e => e.parameters)
     .map(e => e.parameters)
-    .map(r => r.rows)
     .reduce((flat, next) => flat.concat(next), [])
     .reduce((flat, next) => flat.concat(next), [])
     .filter(p => typeof p !== 'undefined' && p.name != '');

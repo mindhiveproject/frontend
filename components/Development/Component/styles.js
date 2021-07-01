@@ -1,15 +1,9 @@
 import styled, { keyframes } from 'styled-components';
 
 export const StyledParameterBlock = styled.div`
-  /* font-size: 1.5rem; */
   display: grid;
-  /* grid-gap: 10px; */
-  /* grid-template-columns: 1fr; */
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
-  /* border: 1px solid #eceaea; */
-  /* border-radius: 5px; */
-  /* padding: 10px; */
+  grid-gap: 0.5rem;
+
   margin-top: 10px;
   .help {
     font-weight: 500;
@@ -21,15 +15,17 @@ export const StyledParameterBlock = styled.div`
     font-weight: 500;
   }
   .name {
+    font-size: 1.5rem;
     color: lightslategrey;
-    font-weight: 500;
-    justify-self: end;
+    font-weight: 900;
+    justify-self: start;
+    margin: 2rem 0rem 1rem 0rem;
   }
   .input {
   }
-  /* textarea {
-    height: 100px;
-  } */
+  textarea {
+    height: 120px;
+  }
   button {
     background: white;
     color: #aa4747;
@@ -41,9 +37,6 @@ export const StyledParameterBlock = styled.div`
 export const StyledTaskPreviewPane = styled.div`
   display: grid;
   align-content: baseline;
-  /* padding: 30px; */
-  /* border: 1px solid grey; */
-  /* background: #ffffff; */
 
   .discoverMenu {
     display: grid;
@@ -73,108 +66,6 @@ export const StyledTaskPreviewPane = styled.div`
     }
   }
 `;
-
-// export const StudyBuilderNav = styled.div`
-//   display: grid;
-//   grid-template-columns: auto auto auto;
-//   justify-content: space-between;
-//   margin: 1rem;
-// `;
-//
-// export const StyledPreviewPane = styled.div`
-//   background: #e5e5e5;
-//   display: grid;
-//   border: 1px solid grey;
-//   padding: 30px;
-// `;
-
-// export const StyledStudyBuilderPage = styled.div`
-//   display: grid;
-//   margin: 1rem;
-// `;
-
-// export const StyledStudyBuilder = styled.div`
-//   display: grid;
-//   width: 100%;
-//   grid-template-columns: 4fr 6fr;
-//   grid-gap: 20px;
-//   margin: 10px;
-//
-//   h1 {
-//     font-family: Lato;
-//     font-size: 48px;
-//     font-style: normal;
-//     font-weight: 400;
-//     line-height: 56px;
-//     letter-spacing: 0em;
-//     text-align: left;
-//     color: #1a1a1a;
-//   }
-//
-//   h2 {
-//     font-family: Roboto;
-//     font-size: 24px;
-//     font-style: normal;
-//     font-weight: 400;
-//     line-height: 23px;
-//     letter-spacing: 0em;
-//     text-align: left;
-//     color: #1a1a1a;
-//   }
-//
-//   a {
-//     cursor: pointer;
-//     font-family: Lato;
-//     font-size: 18px;
-//     font-style: normal;
-//     font-weight: 400;
-//     line-height: 22px;
-//     letter-spacing: 0em;
-//     text-align: left;
-//     color: #007c70;
-//   }
-//
-//   .backButton {
-//     margin-bottom: 21px;
-//     padding-left: 10px;
-//   }
-// `;
-
-// export const StyledEditPane = styled.div`
-//   display: grid;
-//   align-content: baseline;
-//   padding: 30px;
-//   border: 1px solid grey;
-//   background: #ffffff;
-//
-//   .discoverMenu {
-//     display: grid;
-//     grid-template-columns: 1fr 1fr 1fr;
-//     margin-bottom: 24px !important;
-//
-//     .discoverMenuTitle {
-//       padding-bottom: 10px !important;
-//       display: grid;
-//       justify-content: center;
-//       border-bottom: 2px solid #e6e6e6;
-//       p {
-//         font-family: Lato;
-//         font-size: 18px;
-//         font-style: normal;
-//         font-weight: 400;
-//         line-height: 23px;
-//         letter-spacing: 0em;
-//         color: #666666;
-//       }
-//     }
-//     .selectedMenuTitle {
-//       border-bottom: 4px solid #ffc107 !important;
-//       p {
-//         color: #1a1a1a;
-//       }
-//     }
-//   }
-// `;
 
 export const Center = styled.div`
   text-align: center;
@@ -214,7 +105,6 @@ export const StyledTaskForm = styled.form`
   font-weight: 600;
   label {
     display: block;
-    /* margin-bottom: 1rem; */
   }
   input,
   textarea,

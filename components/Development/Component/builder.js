@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
-import styled from 'styled-components';
 import lz from 'lzutf8';
 import EditPane from './editPane';
 import PreviewPane from './previewPane';
@@ -279,6 +278,33 @@ class ComponentBuilder extends Component {
     });
   };
 
+  handleTemplateParamChange = (e, classType) => {
+    const { name, type, value, className } = e.target;
+    let val = type === 'number' ? parseFloat(value) : value;
+    if (classType === 'array') {
+      val = JSON.stringify(val.split('\n'));
+    }
+    this.setState({
+      task: {
+        ...this.state.task,
+        parameters: this.state.task.parameters.map(el =>
+          el.name === name ? { ...el, [className]: val } : el
+        ),
+      },
+    });
+  };
+
+  deleteTemplateParameter = (e, name) => {
+    console.log('name', name);
+    e.preventDefault();
+    this.setState({
+      task: {
+        ...this.state.task,
+        parameters: this.state.task.parameters.filter(el => el.name !== name),
+      },
+    });
+  };
+
   handleSettingsChange = e => {
     const { name } = e.target;
     const { value } = e.target;
@@ -379,8 +405,10 @@ class ComponentBuilder extends Component {
     fileReader.onload = async fileLoadedEvent => {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
+      console.log('result.files.parameters', result.files.parameters);
       const script = result.files['script.js'].content;
       const compressedString = lz.encodeBase64(lz.compress(script));
+      // extract parameters from the task
       this.setState({
         task: {
           ...this.state.task,
@@ -389,6 +417,19 @@ class ComponentBuilder extends Component {
             script: compressedString,
             style: result.files['style.css'].content,
           },
+          parameters: [
+            // {
+            //   name: 'instruction',
+            //   type: 'textarea',
+            //   value:
+            //     'When asked how you feel, move the slider to the right when you feel happy and to the left when you feel unhappy.',
+            //   help:
+            //     'These are the instructions for how to answer the question that participants will be asked in-between the trials. The text should correspond to the question content. Make sure the instructions are written in a way that is easy to understand and that leaves no ambiguity.',
+            //   example:
+            //     'The original study asked about participants’ happiness. The corresponding instructions talk explain how participants should answer the question when they feel happy versus unhappy.',
+            // },
+            ...result.files.parameters,
+          ],
         },
       });
     };
@@ -601,6 +642,8 @@ class ComponentBuilder extends Component {
               <EditPane
                 handleTaskChange={this.handleComponentChange}
                 handleParameterChange={this.handleParamChange}
+                handleTemplateParamChange={this.handleTemplateParamChange}
+                deleteTemplateParameter={this.deleteTemplateParameter}
                 handleSettingsChange={this.handleSettingsChange}
                 handleCollaboratorsChange={this.handleCollaboratorsChange}
                 handleSetState={this.handleSetState}

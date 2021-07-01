@@ -5,6 +5,8 @@ import SelectOne from './Builder/selectOne';
 import SurveyBuilder from './Builder/surveyBuilder';
 import ArrayBuilder from './Builder/arrayBuilder';
 
+import EditTemplateParameters from './editTemplateParameters';
+
 import { StyledTaskBlock } from '../styles';
 
 class EditParameters extends Component {
@@ -68,8 +70,24 @@ class EditParameters extends Component {
   }
 
   render() {
-    const { task } = this.props;
+    const { task, templateEditor } = this.props;
     const parameters = task.parameters || [];
+    if (templateEditor) {
+      return (
+        <div>
+          <p>
+            You can use parameters to modify the task on the MindHive platform.
+            Only parameters from the parent main component in the lab.js builder
+            are imported.
+          </p>
+          <EditTemplateParameters
+            parameters={parameters}
+            handleTemplateParamChange={this.props.handleTemplateParamChange}
+            deleteTemplateParameter={this.props.deleteTemplateParameter}
+          />
+        </div>
+      );
+    }
 
     return (
       <div>

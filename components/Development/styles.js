@@ -262,6 +262,8 @@ export const StyledEditPane = styled.div`
   background: #ffffff;
   margin-top: 10px;
   padding: 10px 48px 0px 42px;
+  max-height: 100vh;
+  overflow: auto;
 
   label {
     display: block;
