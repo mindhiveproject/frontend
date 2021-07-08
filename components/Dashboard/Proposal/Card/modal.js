@@ -49,6 +49,7 @@ const GET_CARD_CONTENT = gql`
       assignedTo {
         id
         username
+        publicReadableId
       }
     }
   }
@@ -133,7 +134,14 @@ class CardModal extends Component {
   };
 
   render() {
-    const { cardId, boardId, open, onClose, proposalBuildMode } = this.props;
+    const {
+      cardId,
+      boardId,
+      open,
+      onClose,
+      proposalBuildMode,
+      adminMode,
+    } = this.props;
     const { title, content, description, assignedTo, settings } = this.state;
     return (
       <Modal
@@ -172,6 +180,7 @@ class CardModal extends Component {
                     onSettingsChange={this.handleSettingsChange}
                     proposal={this.props.proposal}
                     card={proposalCard}
+                    readonly={adminMode}
                   />
                 );
               }}
@@ -191,13 +200,15 @@ class CardModal extends Component {
                     Close without saving
                   </StyledButton>
                 )}
-                <StyledButton
-                  className="primary"
-                  onClick={() => this.onUpdateCard(updateCard)}
-                  disabled={loading}
-                >
-                  {loading ? 'Saving ...' : 'Save & close'}
-                </StyledButton>
+                {!adminMode && (
+                  <StyledButton
+                    className="primary"
+                    onClick={() => this.onUpdateCard(updateCard)}
+                    disabled={loading}
+                  >
+                    {loading ? 'Saving ...' : 'Save & close'}
+                  </StyledButton>
+                )}
               </StyledButtons>
             )}
           </Mutation>

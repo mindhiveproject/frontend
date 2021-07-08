@@ -286,6 +286,7 @@ class StudyBuilder extends Component {
               <ProposalSection
                 study={this.state.study}
                 user={this.props.user}
+                adminMode={this.props.adminMode}
               />
             )}
 

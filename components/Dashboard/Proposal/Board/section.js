@@ -81,6 +81,7 @@ const Section = ({
   onCardChange,
   openCard,
   proposalBuildMode,
+  adminMode,
 }) => {
   const { cards } = section;
   const numOfCards = cards.length;
@@ -387,6 +388,7 @@ const Section = ({
                 boardId={boardId}
                 openCard={openCard}
                 proposalBuildMode={proposalBuildMode}
+                adminMode={adminMode}
               />
             ))
           ) : (

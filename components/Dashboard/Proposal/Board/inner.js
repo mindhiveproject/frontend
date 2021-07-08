@@ -111,6 +111,7 @@ class Inner extends Component {
             onUpdateSection={this.props.onUpdateSection}
             openCard={this.props.openCard}
             proposalBuildMode={proposalBuildMode}
+            adminMode={this.props.adminMode}
           />
 
           {proposalBuildMode && (

@@ -5,9 +5,9 @@ import { StyledCard } from './styles';
 
 class Card extends Component {
   render() {
-    const { card, proposalBuildMode } = this.props;
+    const { card, proposalBuildMode, adminMode } = this.props;
     const status = card?.settings?.status;
-    const assignedTo = card?.assignedTo.map(user => user.username) || [];
+    // const assignedTo = card?.assignedTo.map(user => user.username) || [];
 
     return (
       <Draggable key={card.id}>
@@ -21,10 +21,13 @@ class Card extends Component {
             {!proposalBuildMode && (
               <div className="card-information">
                 <div className="info-assigned-container">
-                  {assignedTo.length
-                    ? assignedTo.map(user => (
-                        <div key={user} className="info-assigned">
-                          {user}
+                  {card?.assignedTo.length
+                    ? card?.assignedTo.map((user, i) => (
+                        <div key={i} className="info-assigned">
+                           
+                          {adminMode
+                            ? user?.publicReadableId || 'John Doe'
+                            : user?.username}
                         </div>
                       ))
                     : ''}

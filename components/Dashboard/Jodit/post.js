@@ -86,7 +86,7 @@ class Post extends Component {
           </div>
 
           <div className="infoBoard">
-            {!proposalBuildMode && (
+            {!proposalBuildMode && !readonly && (
               <>
                 <div>
                   <h4>Assigned to</h4>
@@ -102,6 +102,22 @@ class Post extends Component {
                     settings={settings}
                     onSettingsChange={onSettingsChange}
                   />
+                </div>
+              </>
+            )}
+            {!proposalBuildMode && readonly && (
+              <>
+                <div>
+                  <h4>Assigned to</h4>
+                  <div>
+                    {card?.assignedTo.map(
+                      c => c.publicReadableId || 'John Doe'
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <h4>Status</h4>
+                  <div>{settings?.status}</div>
                 </div>
               </>
             )}

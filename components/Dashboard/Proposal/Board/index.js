@@ -45,6 +45,7 @@ class ProposalContainer extends Component {
             id={this.props.proposal.id}
             openCard={this.openCard}
             proposalBuildMode={this.props.proposalBuildMode}
+            adminMode={this.props.adminMode}
           />
         </div>
       );
@@ -59,6 +60,7 @@ class ProposalContainer extends Component {
           onClose={() => this.closeCard()}
           proposalBuildMode={this.props.proposalBuildMode}
           proposal={this.props.proposal}
+          adminMode={this.props.adminMode}
         />
       );
     }

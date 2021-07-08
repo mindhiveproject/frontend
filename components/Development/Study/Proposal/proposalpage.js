@@ -118,6 +118,7 @@ class ProposalPage extends Component {
                         <title>{proposal.title}</title>
                       </Head>
                       <ProposalContainer
+                        {...this.props}
                         proposal={proposal}
                         onClose={this.props.goBack}
                         proposalBuildMode={this.props.proposalBuildMode}

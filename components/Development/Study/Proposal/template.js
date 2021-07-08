@@ -91,7 +91,7 @@ class ProposalTemplate extends Component {
     }));
 
     if (this.state.isProposal) {
-      return <ProposalPage proposal={this.state.proposal} />;
+      return <ProposalPage proposal={this.state.proposal} {...this.props} />;
     }
     return (
       <Mutation
