@@ -40,6 +40,8 @@ class ParticipantRow extends Component {
   render() {
     const { participant, num, studyId } = this.props;
 
+    console.log('participant', participant);
+
     return (
       <Query
         query={PARTICIPANT_STUDY_RESULTS_QUERY}
@@ -97,9 +99,14 @@ class ParticipantRow extends Component {
           return (
             <div className="tableRow">
               <div onClick={() => this.props.openParticipant(participant.id)}>
-                <a>{participant.username}</a>
+                <a>
+                  {participant.publicReadableId ||
+                    participant.publicId ||
+                    participant.id ||
+                    'John Doe'}
+                </a>
               </div>
-              <p>{participant.publicReadableId}</p>
+
               <p>{duration}</p>
               <p>{numberFull}</p>
               <p>{started}</p>

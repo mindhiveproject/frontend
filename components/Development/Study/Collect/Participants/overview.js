@@ -28,14 +28,6 @@ class ParticipantsOverview extends Component {
             <h2>Responses</h2>
           </div>
           <div className="tableHeader">
-            <p onClick={() => this.sortBy('username')}>
-              Username{' '}
-              {this.state.sortBy === 'username' ? (
-                <Icon name="arrow up" />
-              ) : (
-                <Icon name="arrow down" />
-              )}
-            </p>
             <p onClick={() => this.sortBy('publicReadableId')}>
               Readable ID{' '}
               {this.state.sortBy === 'publicReadableId' ? (
@@ -70,3 +62,12 @@ class ParticipantsOverview extends Component {
 }
 
 export default ParticipantsOverview;
+
+// <p onClick={() => this.sortBy('username')}>
+//   Username{' '}
+//   {this.state.sortBy === 'username' ? (
+//     <Icon name="arrow up" />
+//   ) : (
+//     <Icon name="arrow down" />
+//   )}
+// </p>

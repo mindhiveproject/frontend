@@ -9,10 +9,8 @@ const ALL_USERS_QUERY = gql`
   query ALL_USERS_QUERY {
     users {
       id
-      username
-      authEmail {
-        email
-      }
+      publicReadableId
+      publicId
     }
   }
 `;
@@ -59,6 +57,7 @@ class OverviewUsers extends Component {
         <FetchStudentPage
           studentId={this.state.id}
           goBackToList={this.goBackToList}
+          adminMode
         />
       );
     }
@@ -75,8 +74,7 @@ class OverviewUsers extends Component {
           return (
             <div>
               <StyledHeader>
-                <div>Username</div>
-                <div>Email address</div>
+                <div>Readable ID</div>
               </StyledHeader>
 
               {users.map((person, i) => {
@@ -89,9 +87,11 @@ class OverviewUsers extends Component {
                       style={{ cursor: 'pointer' }}
                       onClick={() => this.openJournal(person.id)}
                     >
-                      {person.username}
+                      {person.publicReadableId ||
+                        person.publicId ||
+                        person.id ||
+                        'John Doe'}
                     </div>
-                    <div>{email}</div>
                   </StyledRow>
                 );
               })}

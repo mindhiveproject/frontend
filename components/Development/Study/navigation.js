@@ -113,7 +113,7 @@ const UPDATE_STUDY = gql`
 
 class Navigation extends Component {
   render() {
-    const { section } = this.props;
+    const { section, adminMode } = this.props;
     const [proposal] = this.props?.study?.proposal || [];
     const proposalId = proposal ? proposal.id : undefined;
     let refetchQueries = {};
@@ -214,16 +214,18 @@ class Navigation extends Component {
           </Menu.Item>
         </Menu>
 
-        <div>
-          <button
-            onClick={() => {
-              this.props.openAddCollaboratorsModal();
-            }}
-            className="addCollaboratorsButton"
-          >
-            Add collaborators
-          </button>
-        </div>
+        {!adminMode && (
+          <div>
+            <button
+              onClick={() => {
+                this.props.openAddCollaboratorsModal();
+              }}
+              className="addCollaboratorsButton"
+            >
+              Add collaborators
+            </button>
+          </div>
+        )}
 
         {true && (
           <>

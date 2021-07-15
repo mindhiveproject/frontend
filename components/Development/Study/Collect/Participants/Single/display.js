@@ -20,10 +20,6 @@ class ParticipantDisplay extends Component {
       <StyledCollectSection>
         <StyledParticipantPage>
           <p>
-            <span>Username </span> <strong>{participant.username}</strong>
-          </p>
-
-          <p>
             <span>Readable ID </span>
             <strong>{participant.publicReadableId}</strong>
           </p>
@@ -58,3 +54,7 @@ class ParticipantDisplay extends Component {
 }
 
 export default ParticipantDisplay;
+
+// <p>
+//   <span>Username </span> <strong>{participant.username}</strong>
+// </p>

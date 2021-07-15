@@ -10,6 +10,8 @@ const STUDENT_QUERY = gql`
   query STUDENT_QUERY($id: ID!) {
     student(id: $id) {
       id
+      publicReadableId
+      publicId
       username
       authEmail {
         email
@@ -26,35 +28,34 @@ const STUDENT_QUERY = gql`
 class FetchStudentPage extends Component {
   render() {
     return (
-      <>
-        <StyledDasboard>
-          <StyledDevelopDasboard>
-            <>
-              <div className="goBackBtn">
-                <span
-                  style={{ cursor: 'pointer' }}
-                  onClick={this.props.goBackToList}
-                >
-                  ← Back
-                </span>
-              </div>
-            </>
-            <Query
-              query={STUDENT_QUERY}
-              variables={{ id: this.props.studentId }}
+      <StyledDasboard>
+        <StyledDevelopDasboard>
+          <div className="goBackBtn">
+            <span
+              style={{ cursor: 'pointer' }}
+              onClick={this.props.goBackToList}
             >
-              {({ error, loading, data }) => {
-                if (error) return <Error error={error} />;
-                if (loading) return <p>Loading</p>;
-                if (!data.student)
-                  return <p>No student found for {this.props.studentId}</p>;
-                const { student } = data;
-                return <StudentPage student={student} />;
-              }}
-            </Query>
-          </StyledDevelopDasboard>
-        </StyledDasboard>
-      </>
+              ← Back
+            </span>
+          </div>
+
+          <Query query={STUDENT_QUERY} variables={{ id: this.props.studentId }}>
+            {({ error, loading, data }) => {
+              if (error) return <Error error={error} />;
+              if (loading) return <p>Loading</p>;
+              if (!data.student)
+                return <p>No student found for {this.props.studentId}</p>;
+              const { student } = data;
+              return (
+                <StudentPage
+                  student={student}
+                  adminMode={this.props.adminMode}
+                />
+              );
+            }}
+          </Query>
+        </StyledDevelopDasboard>
+      </StyledDasboard>
     );
   }
 }

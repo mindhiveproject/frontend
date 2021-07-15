@@ -16,16 +16,27 @@ class StudentPage extends Component {
 
   render() {
     const { tab } = this.state;
-    const { student } = this.props;
+    const { student, adminMode } = this.props;
     return (
       <>
         <Head>
           <title>Student | {student.username}</title>
         </Head>
-        <div>
-          <p>{student.username}</p>
-          <p>{student.authEmail.length && student.authEmail[0].email}</p>
-        </div>
+        {adminMode ? (
+          <div>
+            <p>
+              {student.publicReadableId ||
+                student.publicId ||
+                student.id ||
+                'John Doe'}
+            </p>
+          </div>
+        ) : (
+          <div>
+            <p>{student.username}</p>
+            <p>{student.authEmail.length && student.authEmail[0].email}</p>
+          </div>
+        )}
 
         <div>
           <div>
