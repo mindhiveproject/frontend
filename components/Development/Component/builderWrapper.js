@@ -88,8 +88,10 @@ class ComponentBuilderWrapper extends Component {
             user.id === data.task?.author?.id ||
             data.task?.collaborators.map(c => c.id).includes(user.id);
 
-          // check whether the current user is the author of the original task
-          const isTemplateAuthor = user.id === data.task?.template?.author?.id;
+          // check whether the current user is the author of the original task or the collaborator on the task
+          const isTemplateAuthor =
+            user.id === data.task?.template?.author?.id ||
+            data.task?.collaborators.map(c => c.id).includes(user.id);
 
           let task;
           if (needToClone && !adminMode) {
