@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 
 import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
-import ProposalTemplate from './template';
+import Error from '../../../ErrorMessage/index';
+
+import ProposalWrapper from './wrapper';
 
 // query to get all public templates (proposal boards with isTemplate is true)
 export const PROPOSAL_TEMPLATES_QUERY = gql`
@@ -25,7 +27,7 @@ class ProposalSection extends Component {
             if (!data?.proposalBoards) return <p>No proposals found</p>;
             const { proposalBoards } = data;
             return (
-              <ProposalTemplate templates={proposalBoards} {...this.props} />
+              <ProposalWrapper templates={proposalBoards} {...this.props} />
             );
           }}
         </Query>

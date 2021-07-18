@@ -295,7 +295,6 @@ class ComponentBuilder extends Component {
   };
 
   deleteTemplateParameter = (e, name) => {
-    console.log('name', name);
     e.preventDefault();
     this.setState({
       task: {
@@ -365,7 +364,6 @@ class ComponentBuilder extends Component {
       },
     });
     const myTask = res.data[name];
-    // console.log('myTask', myTask);
     this.setState({
       needToClone: false,
       task: {
@@ -405,7 +403,6 @@ class ComponentBuilder extends Component {
     fileReader.onload = async fileLoadedEvent => {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
-      console.log('result.files.parameters', result.files.parameters);
       const script = result.files['script.js'].content;
       const compressedString = lz.encodeBase64(lz.compress(script));
       // extract parameters from the task

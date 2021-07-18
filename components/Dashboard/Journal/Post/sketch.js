@@ -35,7 +35,6 @@ const StyledSketch = styled.div`
 
 class Sketch extends Component {
   convertToJson = () => {
-    console.log('to JSON');
     this.toJSON();
   };
 

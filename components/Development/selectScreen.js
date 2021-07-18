@@ -229,7 +229,6 @@ class DevelopmentSelectScreen extends Component {
         }
         if (this.state.action === 'create') {
           if (this.state.studyIdToClone) {
-            // console.log('this.state', this.state);
             return (
               <StudyBuilderWrapper
                 onLeave={this.props.onClose}

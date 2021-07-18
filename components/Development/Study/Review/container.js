@@ -28,14 +28,12 @@ class ReviewsContainer extends Component {
   render() {
     if (this.state.page === 'proposal') {
       return (
-        <div>
-          <ProposalWrapper
-            proposal={this.props.proposal}
-            study={this.props.study}
-            user={this.props.user}
-            selectReview={this.selectReview}
-          />
-        </div>
+        <ProposalWrapper
+          proposal={this.props.proposal}
+          study={this.props.study}
+          user={this.props.user}
+          selectReview={this.selectReview}
+        />
       );
     }
 

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ParticipantRow extends Component {
   render() {
     const { participant, num, studyId } = this.props;
-    console.log('participant', participant);
+
     let email = '';
     if (
       participant?.authEmail &&

@@ -110,7 +110,7 @@ const StyledReviewCard = styled.div`
 class ProposalWrapper extends Component {
   state = {
     id: this.props.proposal.id,
-    checklist: this.props.proposal.checklist || [],
+    checklist: this.props.proposal?.checklist || [],
     showAllReviews: false,
   };
 
@@ -170,7 +170,9 @@ class ProposalWrapper extends Component {
             <StyledReviewSection>
               <StyledReviewBoard>
                 <StyledReviewCard className="submit">
-                  <h2>Ready to send for review?</h2>
+                  <h2>
+                    Ready to send for review <em>{proposal?.title}</em>?
+                  </h2>
                   <div className="submitPanel">
                     <p>
                       When you submit your study as “ready for review,” your
@@ -237,7 +239,9 @@ class ProposalWrapper extends Component {
                       <ChecklistItem
                         item={item}
                         key={i}
-                        isComplete={this.state.checklist.includes(item.name)}
+                        isComplete={this.props?.proposal?.checklist?.includes(
+                          item.name
+                        )}
                         toggleCheckTo={this.toggleCheckTo}
                         updateProposalMutation={updateProposal}
                         takeAction={this.takeAction}

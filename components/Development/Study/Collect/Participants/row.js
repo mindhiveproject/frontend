@@ -40,8 +40,6 @@ class ParticipantRow extends Component {
   render() {
     const { participant, num, studyId } = this.props;
 
-    console.log('participant', participant);
-
     return (
       <Query
         query={PARTICIPANT_STUDY_RESULTS_QUERY}

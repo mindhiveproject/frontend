@@ -17,7 +17,6 @@ class PersonalDashboard extends Component {
           if (userPayloadError) return <Error error={error} />;
           if (userPayloadLoading) return <p>Loading</p>;
 
-          console.log('userPayloadData', userPayloadData);
           // calculate stats
           const stats = {
             studies: userPayloadData?.participantIn.length,

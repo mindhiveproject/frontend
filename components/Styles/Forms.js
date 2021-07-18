@@ -437,4 +437,16 @@ export const StyledSubmitForm = styled.form`
       opacity: 0.5;
     }
   }
+  .closeBtn {
+    display: grid;
+    justify-self: end;
+    cursor: pointer;
+    color: #5f6871;
+    margin: 0px -35px 0px 0px;
+    font-size: 2.5rem;
+    :hover {
+      transform: scale(2);
+      transition: transform 0.5s;
+    }
+  }
 `;

@@ -34,6 +34,9 @@ const PROJECT_QUERY = gql`
       }
       proposal {
         id
+        title
+        createdAt
+        isSubmitted
       }
       components
       public

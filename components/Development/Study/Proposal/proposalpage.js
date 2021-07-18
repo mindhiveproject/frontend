@@ -22,7 +22,7 @@ const StyledProposalBoard = styled.div`
 
 const StyledPreviewToggle = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto 1fr;
   grid-gap: 1rem;
   margin: 1rem 0rem;
   align-items: center;
@@ -33,6 +33,9 @@ const StyledPreviewToggle = styled.div`
     font-weight: 400;
     line-height: 16px;
     letter-spacing: 0.05em;
+  }
+  .goBackButton {
+    cursor: pointer;
   }
 `;
 
@@ -101,6 +104,12 @@ class ProposalPage extends Component {
               return (
                 <StyledProposalBoard>
                   <StyledPreviewToggle>
+                    <div
+                      className="goBackButton"
+                      onClick={this.props.goToOverview}
+                    >
+                      <p>← Go back</p>
+                    </div>
                     <Radio
                       toggle
                       checked={this.state.isPDF}
@@ -120,7 +129,7 @@ class ProposalPage extends Component {
                       <ProposalContainer
                         {...this.props}
                         proposal={proposal}
-                        onClose={this.props.goBack}
+                        onClose={this.props.goToOverview}
                         proposalBuildMode={this.props.proposalBuildMode}
                       />
                     </>

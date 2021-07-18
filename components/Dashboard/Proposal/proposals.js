@@ -61,7 +61,7 @@ class Proposals extends Component {
                       <div></div>
                       <div>
                         <button onClick={this.props.addProposal}>
-                          Add proposal
+                          Create Proposal Board
                         </button>
                       </div>
                     </div>
@@ -79,7 +79,7 @@ class Proposals extends Component {
                     <div></div>
                     <div>
                       <button onClick={this.props.addProposal}>
-                        Add proposal
+                        Create Proposal Board
                       </button>
                     </div>
                   </div>

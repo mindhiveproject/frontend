@@ -54,7 +54,6 @@ class JournalPage extends Component {
   };
 
   editPost = postId => {
-    console.log('postId', postId);
     this.setState({
       page: 'editpost',
       postId,

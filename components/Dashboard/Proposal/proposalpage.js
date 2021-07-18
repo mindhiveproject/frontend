@@ -65,7 +65,7 @@ class ProposalPage extends Component {
               if (!data?.proposalBoard)
                 return <p>No proposal found for {proposalId}</p>;
               const proposal = data.proposalBoard;
-              console.log('proposal', proposal);
+
               return (
                 <div>
                   <Head>

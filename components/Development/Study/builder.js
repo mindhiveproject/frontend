@@ -284,7 +284,7 @@ class StudyBuilder extends Component {
 
             {this.state.section === 'proposal' && (
               <ProposalSection
-                study={this.state.study}
+                study={this.props.study}
                 user={this.props.user}
                 adminMode={this.props.adminMode}
               />
@@ -316,7 +316,7 @@ class StudyBuilder extends Component {
               />
             )}
             {this.state.section === 'review' && (
-              <ReviewSection study={this.state.study} user={this.props.user} />
+              <ReviewSection study={this.props.study} user={this.props.user} />
             )}
 
             {this.state.section === 'collect' && (

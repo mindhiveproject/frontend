@@ -4,7 +4,6 @@ import Board from './board';
 class IndividualReviewsWrapper extends Component {
   render() {
     const { reviews, view } = this.props;
-    console.log('view', view);
 
     const byReviewers = reviews.map((review, num) => ({
       content: review.content.map(content => ({
