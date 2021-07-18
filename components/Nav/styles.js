@@ -24,20 +24,6 @@ export const StyledSidebar = styled.div`
     grid-row-gap: 31px;
   }
 
-  .navLink {
-    display: grid;
-    grid-template-columns: 20px auto;
-    grid-column-gap: 12px;
-    cursor: pointer;
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-  }
-
   .workspaceHeader {
     font-family: Lato;
     font-size: 12px;
@@ -49,6 +35,22 @@ export const StyledSidebar = styled.div`
     color: #b3b3b3;
     margin-top: 7px;
   }
+`;
+
+export const NavLink = styled.div`
+  display: grid;
+  grid-template-columns: 20px auto;
+  grid-column-gap: 12px;
+  cursor: pointer;
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding-right: 1rem;
+  ${props => props.selected && `border-right: 3px solid #ffc107`};
 `;
 
 export const NavStyles = styled.ul`
