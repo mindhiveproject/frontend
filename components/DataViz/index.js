@@ -24,6 +24,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
       user {
         id
         publicId
+        publicReadableId
         generalInfo
       }
       quantity
@@ -74,7 +75,11 @@ class StudyResults extends Component {
         }
         // augment the raw data with participant information
         const resultData = data.map(line => {
-          line.participantId = result.user && result.user.publicId;
+          line.participantId =
+            result.user &&
+            (result.user.publicReadableId ||
+              result.user.publicId ||
+              result.user.id);
           line.task = result.task && result.task.title;
           line.testVersion = result.testVersion && result.testVersion;
           line.study = result.study && result.study.title;
