@@ -49,7 +49,7 @@ class ParticipantRow extends Component {
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
           if (!data.participantStudyResults)
-            return <p>No participant found for id:{participantId}</p>;
+            return <p>No participant found for id: {participantId}</p>;
           const { participantStudyResults } = data;
 
           // calculate the statistics for the participant

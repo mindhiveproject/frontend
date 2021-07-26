@@ -20,8 +20,13 @@ class ParticipantDisplay extends Component {
       <StyledCollectSection>
         <StyledParticipantPage>
           <p>
-            <span>Readable ID </span>
-            <strong>{participant.publicReadableId}</strong>
+            <span>Participant ID </span>
+            <strong>
+              {participant.publicReadableId ||
+                participant.publicId ||
+                participant.id ||
+                'John Doe'}
+            </strong>
           </p>
           <div>
             <h3>Study-related information</h3>

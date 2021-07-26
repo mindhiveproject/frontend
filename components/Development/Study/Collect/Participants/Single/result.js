@@ -43,6 +43,9 @@ class Result extends Component {
       return line;
     });
 
+    const userID =
+      user.publicReadableId || user.publicId || user.id || 'john-doe';
+
     const studyTitle =
       (study &&
         study.title
@@ -57,7 +60,7 @@ class Result extends Component {
           .split(' ')
           .join('-')) ||
       '';
-    const publicId = user.publicReadableId
+    const publicId = userID
       .toLowerCase()
       .split(' ')
       .join('-');
