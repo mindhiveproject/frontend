@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { Query, Mutation } from '@apollo/client/react/components';
 
 import { PARTICIPANT_STUDY_RESULTS_QUERY } from './row';
+import { MY_STUDY_RESULTS_QUERY } from '../../../../DataViz/index';
 
 const CHANGE_STATUS_OF_DATA_MUTATION = gql`
   mutation CHANGE_STATUS_OF_DATA_MUTATION(
@@ -35,6 +36,12 @@ class ChangeResultsStatus extends Component {
             variables: {
               participantId,
               studyId,
+            },
+          },
+          {
+            query: MY_STUDY_RESULTS_QUERY,
+            variables: {
+              id: studyId,
             },
           },
         ]}

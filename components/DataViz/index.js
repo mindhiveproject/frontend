@@ -40,6 +40,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
         content
       }
       testVersion
+      resultType
     }
   }
 `;
@@ -103,6 +104,7 @@ class StudyResults extends Component {
           if (!data.myStudyResults)
             return <p>No study found for the id {this.props.id}</p>;
           const { myStudyResults } = data;
+          console.log('myStudyResults', myStudyResults);
 
           if (myStudyResults.length === 0) {
             return (
