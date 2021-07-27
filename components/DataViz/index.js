@@ -50,6 +50,9 @@ class StudyResults extends Component {
   // it can extract either incremental or full data (dependent on what is available)
   processRawData = results => {
     const allData = results
+      .filter(
+        result => result.resultType === null || result.resultType !== 'TEST'
+      )
       .map(result => {
         let { data } = result;
         const fullContent = result.fullData?.content;
