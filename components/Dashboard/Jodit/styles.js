@@ -123,6 +123,10 @@ export const StyledPost = styled.form`
     line-height: 30px;
     letter-spacing: 0em;
     text-align: left;
+    height: 100%;
+  }
+  .proposalCardComments {
+    display: grid;
   }
 `;
 

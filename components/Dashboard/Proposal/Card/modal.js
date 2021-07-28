@@ -45,6 +45,7 @@ const GET_CARD_CONTENT = gql`
       title
       description
       content
+      comment
       settings
       assignedTo {
         id
@@ -62,6 +63,7 @@ const UPDATE_CARD_MUTATION = gql`
     $title: String
     $description: String
     $content: String
+    $comment: String
     $settings: Json
     $assignedTo: [String]
   ) {
@@ -71,6 +73,7 @@ const UPDATE_CARD_MUTATION = gql`
       title: $title
       description: $description
       content: $content
+      comment: $comment
       settings: $settings
       assignedTo: $assignedTo
     ) {
@@ -116,7 +119,14 @@ class CardModal extends Component {
 
   // update card on the server
   onUpdateCard = async updateCardMutation => {
-    const { title, description, content, settings, assignedTo } = this.state;
+    const {
+      title,
+      description,
+      content,
+      comment,
+      settings,
+      assignedTo,
+    } = this.state;
     const { cardId, boardId, onClose } = this.props;
     await updateCardMutation({
       variables: {
@@ -125,6 +135,7 @@ class CardModal extends Component {
         title,
         description,
         content,
+        comment,
         settings,
         assignedTo,
       },
@@ -142,7 +153,14 @@ class CardModal extends Component {
       proposalBuildMode,
       adminMode,
     } = this.props;
-    const { title, content, description, assignedTo, settings } = this.state;
+    const {
+      title,
+      content,
+      comment,
+      description,
+      assignedTo,
+      settings,
+    } = this.state;
     return (
       <Modal
         open={open}
@@ -164,6 +182,7 @@ class CardModal extends Component {
                     }
                     onChange={this.handleChange}
                     content={content || proposalCard.content}
+                    comment={comment || proposalCard.comment}
                     onContentChange={this.handleContentChange}
                     description={description || proposalCard.description}
                     assignedTo={

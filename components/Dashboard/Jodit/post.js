@@ -12,6 +12,7 @@ class Post extends Component {
       onChange,
       description,
       content,
+      comment,
       onContentChange,
       assignedTo,
       onAssignedToChange,
@@ -121,6 +122,18 @@ class Post extends Component {
                 </div>
               </>
             )}
+
+            <div className="proposalCardComments">
+              <h4>Comments</h4>
+              <textarea
+                rows="13"
+                type="text"
+                id="comment"
+                name="comment"
+                value={comment}
+                onChange={onChange}
+              />
+            </div>
           </div>
         </div>
       </StyledPost>
