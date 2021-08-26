@@ -25,6 +25,9 @@ class InformationBlock extends Component {
         {name === 'sonaMinorsKids' && (
           <div>The consent form for SONA participants under 18</div>
         )}
+        {name === 'studentsNYC' && (
+          <div>The consent form for students in a public school in NYC</div>
+        )}
 
         <textarea
           name={name}

@@ -39,6 +39,7 @@ class GetStarted extends Component {
     const { study, user } = this.props;
     // calculate whether the user already provided the demographics data and agreed to share it
     let zipDataAvailable;
+    let studentsNYCAvailable;
     let sonaidDataAvailable;
     let engDataAvailable;
     let birthdayDataAvailable;
@@ -48,6 +49,7 @@ class GetStarted extends Component {
       sonaidDataAvailable = info.sonaid && true;
       engDataAvailable = info.eng && true;
       birthdayDataAvailable = info.bd && true;
+      studentsNYCAvailable = info.studentNYC && true;
     }
 
     return (
@@ -156,6 +158,34 @@ class GetStarted extends Component {
                   onClick={() => this.setStateToValue('eng', 'no')}
                   className={
                     this.state.eng === 'no' ? 'selectedBtn' : undefined
+                  }
+                >
+                  No
+                </button>
+              </ResponseButtons>
+            </label>
+          </div>
+        )}
+
+        {study?.settings?.askStudentsNYC && !studentsNYCAvailable && (
+          <div>
+            <label htmlFor="sonaid">
+              <p className="questionTitle">
+                Are you a student of a public school in NYC?
+              </p>
+              <ResponseButtons>
+                <button
+                  onClick={() => this.setStateToValue('studentNYC', 'yes')}
+                  className={
+                    this.state.studentNYC === 'yes' ? 'selectedBtn' : undefined
+                  }
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={() => this.setStateToValue('studentNYC', 'no')}
+                  className={
+                    this.state.studentNYC === 'no' ? 'selectedBtn' : undefined
                   }
                 >
                   No

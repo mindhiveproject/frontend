@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 
 import ReactHtmlParser from 'react-html-parser';
@@ -74,6 +73,11 @@ class StudyConsent extends Component {
     const sonaMinorsKidsConsent =
       consent?.info
         .filter(info => info.name === 'sonaMinorsKids')
+        .map(info => info.text) || null;
+
+    const studentsNYCConsent =
+      consent?.info
+        .filter(info => info.name === 'studentsNYC')
         .map(info => info.text) || null;
 
     return (
@@ -182,6 +186,10 @@ class StudyConsent extends Component {
                 <div>{ReactHtmlParser(sonaAdultsConsent)}</div>
               )}
             </>
+          )}
+
+          {this.state?.studentNYC === 'yes' && (
+            <div>{ReactHtmlParser(studentsNYCConsent)}</div>
           )}
 
           {consent && (

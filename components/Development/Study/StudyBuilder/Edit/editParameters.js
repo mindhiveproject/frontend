@@ -16,6 +16,7 @@ class EditParameters extends Component {
       forbidRetake: false,
       hideParticipateButton: false,
       showEmailNotificationPropmt: false,
+      askStudentsNYC: false,
       ...study.settings,
     };
 

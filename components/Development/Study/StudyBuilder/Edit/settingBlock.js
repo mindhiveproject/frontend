@@ -71,6 +71,12 @@ class SettingBlock extends Component {
               Show the email notifications prompt after each task/survey
             </label>
           )}
+          {name === 'askStudentsNYC' && (
+            <label className="name" htmlFor={name}>
+              Ask participants whether they are students of a public school in
+              NYC
+            </label>
+          )}
         </div>
       </StyledSettingsBlock>
     );

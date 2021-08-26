@@ -60,7 +60,7 @@ const UPDATE_PROTOCOL = gql`
 class UpdateProtocol extends Component {
   update = async (e, state, updateConsentMutation) => {
     e.preventDefault();
-    const res = await updateConsentMutation({
+    await updateConsentMutation({
       variables: {
         id: this.props.id,
         ...state,

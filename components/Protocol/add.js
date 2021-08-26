@@ -33,7 +33,7 @@ const CREATE_NEW_PROTOCOL = gql`
 class AddProtocol extends Component {
   save = async (e, state, createProtocolMutation) => {
     e.preventDefault();
-    const res = await createProtocolMutation({
+    await createProtocolMutation({
       variables: {
         ...state,
       },

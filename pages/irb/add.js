@@ -1,5 +1,4 @@
-import AddProtocol from '../../components/Protocol/create';
-import { PageOnlyForScientists } from '../../components/Permissions/Scientist/index';
+import AddProtocol from '../../components/Protocol/add';
 import Page from '../../components/Page/index';
 
 const AddProtocolPage = () => (

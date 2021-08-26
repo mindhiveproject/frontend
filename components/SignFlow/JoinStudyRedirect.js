@@ -13,12 +13,6 @@ const joinStudyRedirect = async (study, profile) => {
         const [component] = studyBlock[0].tests;
         if (component) {
           const { testId } = component;
-          // open the test on a new page
-          // const url = `/do/task?s=${study.id}&v=${testId}`;
-          // const win = window.open(url, '_blank');
-          // if (win) {
-          //   win.focus();
-          // }
           await Router.push({
             pathname: `/studies/${study.slug}`,
           });
@@ -44,9 +38,13 @@ const joinStudyRedirect = async (study, profile) => {
         pathname: `/studies/${study.slug}`,
       });
     }
-  } else {
+  } else if (study?.slug) {
     Router.push({
       pathname: `/studies/${study.slug}`,
+    });
+  } else {
+    Router.push({
+      pathname: `/dashboard`,
     });
   }
 };
