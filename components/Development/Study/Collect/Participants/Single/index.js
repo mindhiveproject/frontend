@@ -23,6 +23,12 @@ const PARTICIPANT_QUERY = gql`
       tasksInfo
       consentsInfo
       generalInfo
+      consentGivenFor {
+        id
+        title
+        description
+        organization
+      }
     }
   }
 `;

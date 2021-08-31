@@ -51,6 +51,35 @@ class ParticipantDisplay extends Component {
               }
             })}
           </div>
+
+          <div>
+            <h3>Consents</h3>
+            {!participant.consentGivenFor.length ? (
+              <p>No consents</p>
+            ) : (
+              <>
+                <div className="resultItem">
+                  <div>Title</div>
+                  <div>Organization</div>
+                  <div>Description</div>
+                  <div>Save my consent for all covered studies/tasks</div>
+                </div>
+                {participant.consentGivenFor.map((consent, num) => (
+                  <div className="infoItem" key={num}>
+                    <p>{consent.title}</p>
+                    <p>{consent.organization}</p>
+                    <p>{consent.description}</p>
+                    <p>
+                      {participant?.consentsInfo[consent.id] &&
+                        participant?.consentsInfo[consent.id]
+                          .saveCoveredConsent}
+                    </p>
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
+
           <ParticipantResults participantId={participant.id} />
         </StyledParticipantPage>
       </StyledCollectSection>
