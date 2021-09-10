@@ -40,7 +40,10 @@ class ParticipantRow extends Component {
   render() {
     const { participant, num, studyId, consentId } = this.props;
 
-    const thisStudyConsentInfo = participant?.consentsInfo[consentId];
+    let thisStudyConsentInfo;
+    if (consentId) {
+      thisStudyConsentInfo = participant?.consentsInfo[consentId];
+    }
     // const thisStudyDataUseInfo = participant?.studiesInfo[studyId];
 
     return (
