@@ -48,12 +48,14 @@ class ParticipantsOverview extends Component {
               )}
             </p>
             <p>Actions</p>
+            <p>Consent</p>
           </div>
           <ParticipantTable
             studyId={this.props.studyId}
             participants={participants}
             sortBy={this.state.sortBy}
             openParticipant={this.props.openParticipant}
+            consentId={this.props.consentId}
           />
         </StyledParticipantsBoard>
       </div>
@@ -62,12 +64,3 @@ class ParticipantsOverview extends Component {
 }
 
 export default ParticipantsOverview;
-
-// <p onClick={() => this.sortBy('username')}>
-//   Username{' '}
-//   {this.state.sortBy === 'username' ? (
-//     <Icon name="arrow up" />
-//   ) : (
-//     <Icon name="arrow down" />
-//   )}
-// </p>

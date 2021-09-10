@@ -38,7 +38,10 @@ export const PARTICIPANT_STUDY_RESULTS_QUERY = gql`
 
 class ParticipantRow extends Component {
   render() {
-    const { participant, num, studyId } = this.props;
+    const { participant, num, studyId, consentId } = this.props;
+
+    const thisStudyConsentInfo = participant?.consentsInfo[consentId];
+    // const thisStudyDataUseInfo = participant?.studiesInfo[studyId];
 
     return (
       <Query
@@ -126,6 +129,13 @@ class ParticipantRow extends Component {
               ) : (
                 <div></div>
               )}
+              <p>
+                {thisStudyConsentInfo
+                  ? thisStudyConsentInfo.saveCoveredConsent == 'true'
+                    ? 'All studies'
+                    : 'This study'
+                  : 'Skipped'}
+              </p>
             </div>
           );
         }}

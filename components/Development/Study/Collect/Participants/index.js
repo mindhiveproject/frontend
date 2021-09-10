@@ -13,6 +13,9 @@ const MY_STUDY_PARTICIPANTS_QUERY = gql`
   query MY_STUDY_PARTICIPANTS_QUERY($id: ID!) {
     myStudyParticipants(where: { id: $id }) {
       id
+      consent {
+        id
+      }
       participants {
         id
         username
@@ -25,6 +28,12 @@ const MY_STUDY_PARTICIPANTS_QUERY = gql`
         tasksInfo
         consentsInfo
         generalInfo
+        consentGivenFor {
+          id
+          title
+          description
+          organization
+        }
       }
     }
   }
@@ -79,6 +88,8 @@ class StudyParticipants extends Component {
             const {
               myStudyParticipants: { participants },
             } = data;
+            const consentId = data?.myStudyParticipants?.consent?.id;
+            console.log('consentId', consentId);
 
             return (
               <StyledCollectSection>
@@ -116,6 +127,7 @@ class StudyParticipants extends Component {
                     participants={participants}
                     studyId={this.props.id}
                     openParticipant={this.openParticipant}
+                    consentId={consentId}
                   />
                 </StyledCollectBoard>
               </StyledCollectSection>
