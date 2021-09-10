@@ -41,7 +41,7 @@ class ParticipantRow extends Component {
     const { participant, num, studyId, consentId } = this.props;
 
     let thisStudyConsentInfo;
-    if (consentId) {
+    if (consentId && typeof consentId === 'string') {
       thisStudyConsentInfo = participant?.consentsInfo[consentId];
     }
     // const thisStudyDataUseInfo = participant?.studiesInfo[studyId];
