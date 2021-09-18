@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import { Icon } from 'semantic-ui-react';
 
 const StyledStudiesHeader = styled.div`
   display: grid;
@@ -16,6 +17,12 @@ const StyledClassRow = styled.div`
   grid-template-columns: 3fr 1fr 250px;
   background: white;
   grid-gap: 1rem;
+  .title {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 1rem;
+    align-items: center;
+  }
 `;
 
 const EmptyRow = styled.div`
@@ -62,7 +69,15 @@ class Created extends Component {
 
         {studies.map((study, id) => (
           <StyledClassRow key={id}>
-            <div>{study.title}</div>
+            <div className="title">
+              {study.title}
+              <a
+                href={`https://mindhive.science/studies/${study.slug}`}
+                target="_blank"
+              >
+                <Icon name="external alternate" />
+              </a>
+            </div>
             <div>{study.role}</div>
             <div>{moment(study.createdAt).format('MMMM D, YYYY, h:mma')}</div>
           </StyledClassRow>

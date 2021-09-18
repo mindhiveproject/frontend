@@ -20,17 +20,21 @@ const STUDENT_QUERY = gql`
       studiesInfo
       participantIn {
         title
+        slug
       }
       researcherIn {
         title
+        slug
         createdAt
       }
       collaboratorInStudy {
         title
+        slug
         createdAt
       }
       reviews {
         study {
+          slug
           title
         }
       }
