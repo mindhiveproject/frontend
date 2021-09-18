@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 import { Menu } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import Participated from './participated';
 import Created from './created';
 import Reviewed from './reviewed';
 import Journal from './journal';
+
+const StudentHeader = styled.div`
+  display: grid;
+  margin: 1rem 0rem;
+  padding: 10px;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  align-content: center;
+  height: 100%;
+  font-size: 2rem;
+`;
 
 class StudentPage extends Component {
   state = {
@@ -17,26 +29,24 @@ class StudentPage extends Component {
   render() {
     const { tab } = this.state;
     const { student, adminMode } = this.props;
+    const id =
+      student.publicReadableId || student.publicId || student.id || 'John Doe';
     return (
       <>
         <Head>
-          <title>Student | {student.username}</title>
+          <title>Student | {id}</title>
         </Head>
-        {adminMode ? (
-          <div>
-            <p>
-              {student.publicReadableId ||
-                student.publicId ||
-                student.id ||
-                'John Doe'}
-            </p>
-          </div>
-        ) : (
-          <div>
-            <p>{student.username}</p>
-            <p>{student.authEmail.length && student.authEmail[0].email}</p>
-          </div>
-        )}
+
+        <StudentHeader>
+          {adminMode ? (
+            <div>{id}</div>
+          ) : (
+            <div>
+              <p>{student.username}</p>
+              <p>{student.authEmail.length && student.authEmail[0].email}</p>
+            </div>
+          )}
+        </StudentHeader>
 
         <div>
           <div>

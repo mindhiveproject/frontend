@@ -22,6 +22,17 @@ const StyledJournalHeader = styled.div`
   font-weight: bold;
 `;
 
+const EmptyRow = styled.div`
+  display: grid;
+  padding: 10px;
+  grid-template-columns: 1fr;
+  background: white;
+  grid-gap: 1rem;
+  text-align: center;
+  align-content: center;
+  height: 100%;
+`;
+
 const JOURNALS_QUERY = gql`
   query JOURNALS_QUERY($id: ID!) {
     journals(where: { creator: { id: $id } }) {
@@ -75,9 +86,9 @@ class StudentJournal extends Component {
               const { journals } = data;
               if (journals.length === 0) {
                 return (
-                  <>
-                    <h3>The student hasn’t created any journals yet.</h3>
-                  </>
+                  <EmptyRow>
+                    <div>The student hasn’t created any journals yet.</div>
+                  </EmptyRow>
                 );
               }
               return (

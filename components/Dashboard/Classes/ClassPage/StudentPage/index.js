@@ -21,6 +21,19 @@ const STUDENT_QUERY = gql`
       participantIn {
         title
       }
+      researcherIn {
+        title
+        createdAt
+      }
+      collaboratorInStudy {
+        title
+        createdAt
+      }
+      reviews {
+        study {
+          title
+        }
+      }
     }
   }
 `;
@@ -42,7 +55,7 @@ class FetchStudentPage extends Component {
           <Query query={STUDENT_QUERY} variables={{ id: this.props.studentId }}>
             {({ error, loading, data }) => {
               if (error) return <Error error={error} />;
-              if (loading) return <p>Loading</p>;
+              if (loading) return <div>Loading ...</div>;
               if (!data.student)
                 return <p>No student found for {this.props.studentId}</p>;
               const { student } = data;

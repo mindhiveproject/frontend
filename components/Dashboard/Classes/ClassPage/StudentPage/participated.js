@@ -17,9 +17,31 @@ const StyledClassRow = styled.div`
   background: white;
 `;
 
+const EmptyRow = styled.div`
+  display: grid;
+  padding: 10px;
+  grid-template-columns: 1fr;
+  background: white;
+  grid-gap: 1rem;
+  text-align: center;
+  align-content: center;
+  height: 100%;
+`;
+
 class Participated extends Component {
   render() {
     const { student } = this.props;
+
+    const studies = [...student.participantIn];
+
+    if (studies.length === 0) {
+      return (
+        <EmptyRow>
+          <div>The student hasn’t participated in any studies yet.</div>
+        </EmptyRow>
+      );
+    }
+
     return (
       <>
         <StyledStudiesHeader>
@@ -29,8 +51,8 @@ class Participated extends Component {
           <div>Date participated</div>
         </StyledStudiesHeader>
 
-        {student.participantIn.map(study => (
-          <StyledClassRow>
+        {studies.map((study, id) => (
+          <StyledClassRow key={id}>
             <div>{study.title}</div>
             <div>In development 🚧🏗👷</div>
           </StyledClassRow>
