@@ -155,14 +155,23 @@ export const ResponseButtons = styled.div`
 
 export const StyledConsentForm = styled.div`
   display: grid;
+  grid-gap: 1rem;
+
   .coveredStudiesAndTasks {
     margin-top: 20px;
     margin-bottom: 20px;
   }
+  .consentInfo {
+    display: grid;
+    margin: 1rem 0rem;
+  }
   .buttonsHolder {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-column-gap: 20px;
+    a {
+      cursor: pointer;
+    }
   }
   .headerTitle {
     display: grid;

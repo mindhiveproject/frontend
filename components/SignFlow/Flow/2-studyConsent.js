@@ -1,17 +1,37 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 
-import ReactHtmlParser from 'react-html-parser';
-import { OnboardingHeader, StyledConsentForm } from '../styles';
+import { Mutation } from '@apollo/client/react/components';
+import gql from 'graphql-tag';
+import Router from 'next/router';
+import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+
+import { OnboardingHeader } from '../styles';
 import { Logo } from '../../Header/styles';
 
 import JoinStudy from '../JoinStudy';
+
+import ConsentScreen from './consentScreen';
+import joinStudyRedirect from '../JoinStudyRedirect';
+
+const JOIN_STUDY = gql`
+  mutation JOIN_STUDY($id: ID!, $info: Json, $study: Json) {
+    joinStudy(id: $id, info: $info, study: $study) {
+      id
+      username
+      permissions
+      studiesInfo
+    }
+  }
+`;
 
 class StudyConsent extends Component {
   state = {
     covered: false, // default of the page for saving of covered consent
     ...this.props.query, // put everything coming from query
     ...this.props.user?.generalInfo, // populate with user information
+    numberOfConsents: this.props.study?.consent.length,
+    activeConsent: 0,
   };
 
   updateState = e => {
@@ -26,6 +46,34 @@ class StudyConsent extends Component {
     });
   };
 
+  recordMyConsent = async (consentId, decision, join) => {
+    if (this.state.activeConsent + 1 < this.state.numberOfConsents) {
+      this.setState({
+        [`consent-${consentId}`]: decision,
+        activeConsent: this.state.activeConsent + 1,
+      });
+    } else if (this.props.user) {
+      const res = await join({
+        variables: {
+          id: this.props.study.id,
+          info: this.state,
+          study: this.props.study,
+        },
+      });
+      const { joinStudy } = res.data;
+      joinStudyRedirect(this.props.study, joinStudy);
+    } else {
+      Router.push({
+        pathname: `/join/howtojoin`,
+        query: {
+          ...this.state,
+          [`consent-${consentId}`]: decision,
+          id: this.props.study.id,
+        },
+      });
+    }
+  };
+
   componentDidMount() {
     if (document.querySelector('#OnboardingModal')) {
       document.querySelector('#OnboardingModal').scrollTo(0, 0);
@@ -35,7 +83,6 @@ class StudyConsent extends Component {
   render() {
     const { study, user } = this.props;
     const { consent } = study;
-    const publicStudies = consent?.studies.filter(study => study.public) || [];
 
     // compute whether the person is under 18
     let under18;
@@ -44,41 +91,6 @@ class StudyConsent extends Component {
       const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.2425;
       under18 = diff / millisecondsInYear < 18;
     }
-
-    const regularAdultsConsent =
-      consent?.info
-        .filter(info => info.name === 'regularAdults')
-        .map(info => info.text) || '';
-
-    const sonaAdultsConsent =
-      consent?.info
-        .filter(info => info.name === 'sonaAdults')
-        .map(info => info.text) || '';
-
-    const regularMinorsConsent =
-      consent?.info
-        .filter(info => info.name === 'regularMinors')
-        .map(info => info.text) || '';
-
-    const sonaMinorsConsent =
-      consent?.info
-        .filter(info => info.name === 'sonaMinors')
-        .map(info => info.text) || '';
-
-    const regularMinorsKidsConsent =
-      consent?.info
-        .filter(info => info.name === 'regularMinorsKids')
-        .map(info => info.text) || null;
-
-    const sonaMinorsKidsConsent =
-      consent?.info
-        .filter(info => info.name === 'sonaMinorsKids')
-        .map(info => info.text) || null;
-
-    const studentsNYCConsent =
-      consent?.info
-        .filter(info => info.name === 'studentsNYC')
-        .map(info => info.text) || null;
 
     return (
       <div>
@@ -98,194 +110,113 @@ class StudyConsent extends Component {
           </Link>
         </OnboardingHeader>
 
-        <StyledConsentForm>
-          {under18 && (
-            <>
-              <h1>Parental consent required</h1>
-              <h3>
-                Because you are under the age of 18, we need to get consent from
-                your parent to proceed. Please ask your parent to complete this
-                page.
-              </h3>
-              {(this.state.sona === 'no' ||
-                typeof this.state.sona === 'undefined') && (
-                <div>{ReactHtmlParser(regularMinorsConsent)}</div>
-              )}
+        {under18 && (
+          <>
+            <h1>Parental consent required</h1>
+            <h3>
+              Because you are under the age of 18, we need to get consent from
+              your parent to proceed. Please ask your parent to complete this
+              page.
+            </h3>
 
-              {this.state.sona === 'yes' && (
-                <div>{ReactHtmlParser(sonaMinorsConsent)}</div>
-              )}
+            <div>
+              <label htmlFor="parentname">
+                <p>Parent name</p>
+                <input
+                  type="text"
+                  id="parentname"
+                  name="parentname"
+                  onChange={this.updateState}
+                />
+              </label>
+            </div>
 
-              <div>
-                <label htmlFor="parentname">
-                  <p>Parent name</p>
-                  <input
-                    type="text"
-                    id="parentname"
-                    name="parentname"
-                    onChange={this.updateState}
-                  />
-                </label>
-              </div>
+            <div>
+              <label htmlFor="parentemail">
+                <p>Parent email address</p>
+                <input
+                  type="email"
+                  id="parentemail"
+                  name="parentemail"
+                  onChange={this.updateState}
+                />
+              </label>
+            </div>
 
-              <div>
-                <label htmlFor="parentemail">
-                  <p>Parent email address</p>
-                  <input
-                    type="email"
-                    id="parentemail"
-                    name="parentemail"
-                    onChange={this.updateState}
-                  />
-                </label>
-              </div>
-            </>
+            <h1>Your consent required</h1>
+            <h3>
+              Because you are under the age of 18, we need to get consent from
+              you as well. Please enter your name below if you consent.
+            </h3>
+
+            <div>
+              <label htmlFor="kidname">
+                <p>Your name</p>
+                <input
+                  type="text"
+                  id="kidname"
+                  name="kidname"
+                  onChange={this.updateState}
+                />
+              </label>
+            </div>
+          </>
+        )}
+
+        <Mutation
+          mutation={JOIN_STUDY}
+          refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+        >
+          {(joinStudy, { loading, error }) => (
+            <ConsentScreen
+              under18={under18}
+              consent={consent[this.state.activeConsent]}
+              sona={this.state.sona}
+              studentNYC={this.state.studentNYC}
+              covered={this.state.covered}
+              updateState={this.updateState}
+              consentNumber={this.state.activeConsent}
+              numberOfConsents={this.state.numberOfConsents}
+              recordMyConsent={this.recordMyConsent}
+              joinStudy={joinStudy}
+            />
           )}
-
-          {under18 &&
-            ((regularMinorsKidsConsent.length && regularMinorsKidsConsent[0]) ||
-              (sonaMinorsKidsConsent.length && sonaMinorsKidsConsent[0])) && (
-              <>
-                <h1>Your consent required</h1>
-                <h3>
-                  Because you are under the age of 18, we need to get consent
-                  from you as well. Please enter your name below if you consent.
-                </h3>
-                {(this.state.sona === 'no' ||
-                  typeof this.state.sona === 'undefined') && (
-                  <div>{ReactHtmlParser(regularMinorsKidsConsent)}</div>
-                )}
-
-                {this.state.sona === 'yes' && (
-                  <div>{ReactHtmlParser(sonaMinorsKidsConsent)}</div>
-                )}
-
-                <div>
-                  <label htmlFor="kidname">
-                    <p>Your name</p>
-                    <input
-                      type="text"
-                      id="kidname"
-                      name="kidname"
-                      onChange={this.updateState}
-                    />
-                  </label>
-                </div>
-              </>
-            )}
-
-          {!under18 && (
-            <>
-              <h1>Study consent</h1>
-              {(this.state.sona === 'no' ||
-                typeof this.state.sona === 'undefined') && (
-                <div>{ReactHtmlParser(regularAdultsConsent)}</div>
-              )}
-
-              {this.state.sona === 'yes' && (
-                <div>{ReactHtmlParser(sonaAdultsConsent)}</div>
-              )}
-            </>
-          )}
-
-          {this.state?.studentNYC === 'yes' && (
-            <div>{ReactHtmlParser(studentsNYCConsent)}</div>
-          )}
-
-          {consent && (
-            <>
-              <div>
-                <p>
-                  This study is part of the{' '}
-                  <strong>{consent?.organization}</strong> research protocol{' '}
-                  <strong>{consent?.title}</strong>.
-                </p>
-
-                {publicStudies.length ? (
-                  <div>
-                    <p>
-                      Tasks and surveys associated with the following studies
-                      are covered under this protocol
-                    </p>
-
-                    <div className="coveredStudiesAndTasks">
-                      {publicStudies.map(study => (
-                        <li key={study.id}>{study.title}</li>
-                      ))}
-                    </div>
-
-                    {false && (
-                      <div className="coveredStudiesAndTasks">
-                        {consent.tasks.length ? (
-                          <div>
-                            <p>Tasks</p>
-                            {consent.tasks.map(task => (
-                              <li key={task.id}>{task.title}</li>
-                            ))}
-                          </div>
-                        ) : (
-                          <div></div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div></div>
-                )}
-
-                <div>
-                  <label htmlFor="covered">
-                    <div className="checkboxField">
-                      <input
-                        type="checkbox"
-                        id="covered"
-                        name="covered"
-                        checked={this.state.covered}
-                        onChange={this.toggleState}
-                      />
-                      <span>
-                        Save my consent for all covered studies/tasks (if you
-                        uncheck this box, you will be prompted with this consent
-                        page each time).
-                      </span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </>
-          )}
-
-          {user && <JoinStudy study={study} info={this.state} />}
-
-          {!user && (
-            <>
-              <Link
-                href={{
-                  pathname: `/join/howtojoin`,
-                  query: { ...this.state, consent: true, id: study.id },
-                }}
-              >
-                <div className="buttonsHolder">
-                  <button>I agree, next</button>
-                </div>
-              </Link>
-
-              <Link
-                href={{
-                  pathname: `/join/howtojoin`,
-                  query: { ...this.state, consent: false, id: study.id },
-                }}
-              >
-                <a>
-                  <p>Skip consent</p>
-                </a>
-              </Link>
-            </>
-          )}
-        </StyledConsentForm>
+        </Mutation>
       </div>
     );
   }
 }
 
 export default StudyConsent;
+
+// {false && (
+//   <>
+//     {user && <JoinStudy study={study} info={this.state} />}
+//
+//     {!user && (
+//       <>
+//         <Link
+//           href={{
+//             pathname: `/join/howtojoin`,
+//             query: { ...this.state, consent: true, id: study.id },
+//           }}
+//         >
+//           <div className="buttonsHolder">
+//             <button>I agree, next</button>
+//           </div>
+//         </Link>
+//
+//         <Link
+//           href={{
+//             pathname: `/join/howtojoin`,
+//             query: { ...this.state, consent: false, id: study.id },
+//           }}
+//         >
+//           <a>
+//             <p>Skip consent</p>
+//           </a>
+//         </Link>
+//       </>
+//     )}
+//   </>
+// )}

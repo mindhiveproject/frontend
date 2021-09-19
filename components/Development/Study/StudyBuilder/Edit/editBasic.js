@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { Select } from 'semantic-ui-react';
 import { CONSENTS_QUERY } from '../../../../Task/Customize/taskForm';
 
+import ConsentsSelector from './consentsSelector';
+
 const StyledBasicPane = styled.div`
   display: grid;
   grid-gap: 20px;
@@ -76,21 +78,12 @@ class EditBasic extends Component {
               const { consents } = data;
               return (
                 <div className="consentSelector">
-                  <p>IRB consent</p>
-                  <select
-                    type="text"
-                    id="consent"
-                    name="consent"
-                    value={study.consent}
-                    onChange={this.props.handleStudyChange}
-                  >
-                    <option value="no">Choose the consent form</option>
-                    {consents.map(consent => (
-                      <option key={consent.id} value={consent.id}>
-                        {consent.title}
-                      </option>
-                    ))}
-                  </select>
+                  <p>IRB consent(s)</p>
+                  <ConsentsSelector
+                    consents={consents}
+                    study={study}
+                    handleSetState={this.props.handleSetState}
+                  />
                 </div>
               );
             }}
@@ -171,3 +164,31 @@ class EditBasic extends Component {
 }
 
 export default EditBasic;
+
+// {hasIRBAccess && (
+//   <Query query={CONSENTS_QUERY}>
+//     {({ data, loading, error }) => {
+//       if (loading) return <p>Loading ... </p>;
+//       const { consents } = data;
+//       return (
+//         <div className="consentSelector">
+//           <p>IRB consent</p>
+//           <select
+//             type="text"
+//             id="consent"
+//             name="consent"
+//             value={study.consent}
+//             onChange={this.props.handleStudyChange}
+//           >
+//             <option value="no">Choose the consent form</option>
+//             {consents.map(consent => (
+//               <option key={consent.id} value={consent.id}>
+//                 {consent.title}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+//       );
+//     }}
+//   </Query>
+// )}

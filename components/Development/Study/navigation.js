@@ -21,7 +21,7 @@ const CREATE_NEW_STUDY = gql`
     $info: Json
     $image: String
     $largeImage: String
-    $consent: ID
+    $consent: [ID]
     $components: Json
     $submitForPublishing: Boolean
   ) {
@@ -75,7 +75,7 @@ const UPDATE_STUDY = gql`
     $image: String
     $largeImage: String
     $collaborators: [String]
-    $consent: ID
+    $consent: [ID]
     $components: Json
     $submitForPublishing: Boolean
   ) {

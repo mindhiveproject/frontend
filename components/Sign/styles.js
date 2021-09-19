@@ -189,7 +189,7 @@ export const SignupForm = styled.div`
 export const SignupButton = styled.div`
   display: grid;
   grid-template-columns: 20px auto;
-  grid-gap: 30px;
+  grid-gap: 20px;
   align-items: center;
   text-align: left;
   margin: 0 auto;

@@ -81,7 +81,7 @@ class StudyBuilderWrapper extends Component {
           } else if (isAuthor || adminMode) {
             study = {
               ...data.study,
-              consent: data.study.consent?.id,
+              consent: data.study.consent.map(consent => consent?.id),
               collaborators: (data.study.collaborators &&
                 data.study.collaborators.map(c => c.username).length &&
                 data.study.collaborators.map(c => c.username)) || [''],
