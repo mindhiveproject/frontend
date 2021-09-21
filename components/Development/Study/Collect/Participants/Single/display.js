@@ -71,12 +71,12 @@ class ParticipantDisplay extends Component {
                     <p>{consent.organization}</p>
                     <p>{consent.description}</p>
                     <p>
-                      {participant?.consentsInfo[consent.id] &&
-                        participant?.consentsInfo[consent.id].decision}
+                      {participant?.consentsInfo[consent?.id] &&
+                        participant?.consentsInfo[consent?.id].decision}
                     </p>
                     <p>
-                      {participant?.consentsInfo[consent.id] &&
-                        participant?.consentsInfo[consent.id]
+                      {participant?.consentsInfo[consent?.id] &&
+                        participant?.consentsInfo[consent?.id]
                           .saveCoveredConsent}
                     </p>
                   </div>
