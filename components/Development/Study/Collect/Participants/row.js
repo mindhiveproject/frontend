@@ -40,12 +40,6 @@ class ParticipantRow extends Component {
   render() {
     const { participant, num, studyId, consents } = this.props;
 
-    // let thisStudyConsentInfo;
-    // if (consents && consents.length && participant?.consentsInfo) {
-    //   thisStudyConsentInfo = consents.map()
-    // }
-    // const thisStudyDataUseInfo = participant?.studiesInfo[studyId];
-
     return (
       <Query
         query={PARTICIPANT_STUDY_RESULTS_QUERY}
@@ -138,13 +132,16 @@ class ParticipantRow extends Component {
                     <span>{consent.title}</span>
                     {' - '}
                     <span>
-                      {participant?.consentsInfo[consent.id]?.decision ||
+                      {(participant?.consentsInfo[consent.id] &&
+                        participant?.consentsInfo[consent.id]?.decision) ||
                         'No info'}
                     </span>
                     {' - '}
                     <span>
-                      {participant?.consentsInfo[consent.id]
-                        ?.saveCoveredConsent || 'No info'}
+                      {(participant?.consentsInfo[consent.id] &&
+                        participant?.consentsInfo[consent.id]
+                          ?.saveCoveredConsent) ||
+                        'No info'}
                     </span>
                   </div>
                 ))}

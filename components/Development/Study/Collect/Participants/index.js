@@ -89,7 +89,7 @@ class StudyParticipants extends Component {
             const {
               myStudyParticipants: { participants },
             } = data;
-            const consents = data?.myStudyParticipants?.consent;
+            const consents = data?.myStudyParticipants?.consent || [];
 
             return (
               <StyledCollectSection>
