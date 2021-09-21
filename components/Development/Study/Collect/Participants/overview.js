@@ -55,7 +55,7 @@ class ParticipantsOverview extends Component {
             participants={participants}
             sortBy={this.state.sortBy}
             openParticipant={this.props.openParticipant}
-            consentId={this.props.consentId}
+            consents={this.props.consents}
           />
         </StyledParticipantsBoard>
       </div>

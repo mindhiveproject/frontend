@@ -62,6 +62,7 @@ class ParticipantDisplay extends Component {
                   <div>Title</div>
                   <div>Organization</div>
                   <div>Description</div>
+                  <div>Decision</div>
                   <div>Save my consent for all covered studies/tasks</div>
                 </div>
                 {participant.consentGivenFor.map((consent, num) => (
@@ -69,6 +70,10 @@ class ParticipantDisplay extends Component {
                     <p>{consent.title}</p>
                     <p>{consent.organization}</p>
                     <p>{consent.description}</p>
+                    <p>
+                      {participant?.consentsInfo[consent.id] &&
+                        participant?.consentsInfo[consent.id].decision}
+                    </p>
                     <p>
                       {participant?.consentsInfo[consent.id] &&
                         participant?.consentsInfo[consent.id]

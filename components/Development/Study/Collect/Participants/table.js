@@ -31,7 +31,7 @@ class ParticipantsTable extends Component {
             participant={participant}
             studyId={this.props.studyId}
             openParticipant={this.props.openParticipant}
-            consentId={this.props.consentId}
+            consents={this.props.consents}
           />
         ))}
       </div>

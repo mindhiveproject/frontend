@@ -38,16 +38,12 @@ export const PARTICIPANT_STUDY_RESULTS_QUERY = gql`
 
 class ParticipantRow extends Component {
   render() {
-    const { participant, num, studyId, consentId } = this.props;
+    const { participant, num, studyId, consents } = this.props;
 
-    let thisStudyConsentInfo;
-    if (
-      consentId &&
-      typeof consentId === 'string' &&
-      participant?.consentsInfo
-    ) {
-      thisStudyConsentInfo = participant?.consentsInfo[consentId];
-    }
+    // let thisStudyConsentInfo;
+    // if (consents && consents.length && participant?.consentsInfo) {
+    //   thisStudyConsentInfo = consents.map()
+    // }
     // const thisStudyDataUseInfo = participant?.studiesInfo[studyId];
 
     return (
@@ -137,11 +133,21 @@ class ParticipantRow extends Component {
                 <div></div>
               )}
               <p>
-                {thisStudyConsentInfo
-                  ? thisStudyConsentInfo.saveCoveredConsent == 'true'
-                    ? 'All studies'
-                    : 'This study'
-                  : 'Skipped'}
+                {consents.map(consent => (
+                  <div>
+                    <span>{consent.title}</span>
+                    {' - '}
+                    <span>
+                      {participant?.consentsInfo[consent.id]?.decision ||
+                        'No info'}
+                    </span>
+                    {' - '}
+                    <span>
+                      {participant?.consentsInfo[consent.id]
+                        ?.saveCoveredConsent || 'No info'}
+                    </span>
+                  </div>
+                ))}
               </p>
             </div>
           );
@@ -152,3 +158,9 @@ class ParticipantRow extends Component {
 }
 
 export default ParticipantRow;
+
+// {thisStudyConsentInfo
+//   ? thisStudyConsentInfo.saveCoveredConsent == 'true'
+//     ? 'All studies'
+//     : 'This study'
+//   : 'Skipped'}
