@@ -70,7 +70,7 @@ class TaskCard extends Component {
                 </ContainerOnlyForAdmin>
               )}
 
-              {this.props.developingMode && isAuthor && (
+              {false && this.props.developingMode && isAuthor && (
                 <DeleteComponent
                   id={component.id}
                   taskType={component.taskType}

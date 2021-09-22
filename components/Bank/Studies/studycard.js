@@ -11,8 +11,6 @@ class StudyCard extends Component {
   render() {
     const { study, user } = this.props;
 
-    // console.log('study', study.submitForPublishing);
-
     const isAuthor =
       user?.id === study?.author?.id ||
       study?.collaborators.map(c => c.id).includes(user?.id);
@@ -73,7 +71,7 @@ class StudyCard extends Component {
                 Go to study
               </a>
             </div>
-            {this.props.developingMode && isAuthor && (
+            {false && this.props.developingMode && isAuthor && (
               <div>
                 <DeleteStudy id={study.id}>Delete</DeleteStudy>
               </div>
