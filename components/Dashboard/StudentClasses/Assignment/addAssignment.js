@@ -1,16 +1,25 @@
-import React, { Component, useState, useRef } from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
-import { JOURNAL_POSTS } from '../journalpage';
-import { MY_JOURNALS_QUERY } from '../journals';
-
+import styled from 'styled-components';
 import Note from '../../Jodit/note';
 
-const CREATE_NEW_POST = gql`
-  mutation CREATE_NEW_POST($title: String, $content: String, $journal: ID!) {
-    createPost(title: $title, content: $content, journal: $journal) {
+import { CLASS_ASSIGNMENTS } from './wrapper';
+
+const CREATE_NEW_ASSIGNMENT = gql`
+  mutation CREATE_NEW_ASSIGNMENT(
+    $title: String
+    $content: String
+    $settings: Json
+    $classId: ID
+  ) {
+    createAssignment(
+      title: $title
+      content: $content
+      settings: $settings
+      classId: $classId
+    ) {
       id
     }
   }
@@ -41,11 +50,11 @@ const StyledSelectionScreen = styled.div`
   }
 `;
 
-class AddPost extends Component {
+class AddAssignment extends Component {
   state = {
     title: '',
     content: '',
-    journal: this.props.journalId,
+    classId: this.props.classId,
   };
 
   handleTitleChange = e => {
@@ -68,14 +77,13 @@ class AddPost extends Component {
     return (
       <StyledSelectionScreen>
         <Mutation
-          mutation={CREATE_NEW_POST}
+          mutation={CREATE_NEW_ASSIGNMENT}
           variables={this.state}
           refetchQueries={[
-            { query: JOURNAL_POSTS, variables: { id: this.props.journalId } },
-            { query: MY_JOURNALS_QUERY },
+            { query: CLASS_ASSIGNMENTS, variables: { id: this.props.classId } },
           ]}
         >
-          {(createPost, { loading, error }) => (
+          {(createAssignment, { loading, error }) => (
             <>
               <div className="header">
                 <div></div>
@@ -86,7 +94,7 @@ class AddPost extends Component {
               <Note
                 onSubmit={async e => {
                   e.preventDefault();
-                  const res = await createPost();
+                  const res = await createAssignment();
                   this.props.goBack();
                 }}
                 loading={loading}
@@ -104,4 +112,4 @@ class AddPost extends Component {
   }
 }
 
-export default AddPost;
+export default AddAssignment;

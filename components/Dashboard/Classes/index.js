@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
+
 import { Query } from '@apollo/client/react/components';
 import Error from '../../ErrorMessage/index';
+
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 
 import DashboardClasses from './personalized';
+import DashboardStudentClasses from '../StudentClasses/personalized';
 
 class PersonalDashboard extends Component {
   render() {
@@ -16,8 +18,13 @@ class PersonalDashboard extends Component {
           const userPayloadData = userPayload.data && userPayload.data.me;
           if (userPayloadError) return <Error error={userPayloadError} />;
           if (userPayloadLoading) return <p>Loading</p>;
-
-          return <DashboardClasses user={userPayloadData} />;
+          console.log('userPayloadData', userPayloadData);
+          // show classes with admin functions for teachers
+          if (userPayloadData?.permissions.includes('TEACHER')) {
+            return <DashboardClasses user={userPayloadData} />;
+          }
+          // show classes for students
+          return <DashboardStudentClasses user={userPayloadData} />;
         }}
       </Query>
     );

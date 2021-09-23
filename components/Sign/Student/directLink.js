@@ -45,6 +45,7 @@ class SignUp extends Component {
               {({ error, loading, data }) => {
                 if (error) return <Error error={error} />;
                 if (loading) return <p>Loading</p>;
+
                 if (!data.class)
                   return (
                     <div className="classFoundScreen">
@@ -62,6 +63,7 @@ class SignUp extends Component {
                   );
 
                 const schoolclass = data.class;
+
                 return (
                   <div className="classFoundScreen">
                     <h1>Do you want to join the following class?</h1>

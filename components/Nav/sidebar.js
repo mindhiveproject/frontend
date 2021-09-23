@@ -295,7 +295,8 @@ const SidebarNav = ({ user }) => {
       </div>
 
       <div className="navBottomLinks">
-        {user?.permissions.includes('TEACHER') && (
+        {(user?.permissions.includes('TEACHER') ||
+          user?.permissions.includes('STUDENT')) && (
           <>
             <Link href="/dashboard/myclasses">
               <NavLink selected={router.pathname === '/dashboard/myclasses'}>

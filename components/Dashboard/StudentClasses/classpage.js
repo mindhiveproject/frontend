@@ -45,7 +45,7 @@ class ClassPage extends Component {
   state = {
     classPage: this.props.classPage || 'list',
     studentId: null,
-    tab: this.props.tab || 'students',
+    tab: this.props.tab || 'assignments',
   };
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
@@ -96,6 +96,18 @@ class ClassPage extends Component {
                       <div>
                         <Menu text stackable className="discoverMenu">
                           <Menu.Item
+                            name="assignments"
+                            active={tab === 'assignments'}
+                            onClick={this.handleItemClick}
+                            className={
+                              tab === 'assignments'
+                                ? 'discoverMenuTitle selectedMenuTitle'
+                                : 'discoverMenuTitle'
+                            }
+                          >
+                            <p>Assignments</p>
+                          </Menu.Item>
+                          <Menu.Item
                             name="students"
                             active={tab === 'students'}
                             onClick={this.handleItemClick}
@@ -120,34 +132,12 @@ class ClassPage extends Component {
                           >
                             <p>Studies</p>
                           </Menu.Item>
-
-                          <Menu.Item
-                            name="assignments"
-                            active={tab === 'assignments'}
-                            onClick={this.handleItemClick}
-                            className={
-                              tab === 'assignments'
-                                ? 'discoverMenuTitle selectedMenuTitle'
-                                : 'discoverMenuTitle'
-                            }
-                          >
-                            <p>Assignments</p>
-                          </Menu.Item>
-
-                          <Menu.Item
-                            name="settings"
-                            active={tab === 'settings'}
-                            onClick={this.handleItemClick}
-                            className={
-                              tab === 'settings'
-                                ? 'discoverMenuTitle selectedMenuTitle'
-                                : 'discoverMenuTitle'
-                            }
-                          >
-                            <p>Settings</p>
-                          </Menu.Item>
                         </Menu>
                       </div>
+
+                      {this.state.tab === 'assignments' && (
+                        <ClassAssignments schoolclass={schoolclass} />
+                      )}
 
                       {this.state.tab === 'students' && (
                         <ClassStudents
@@ -158,17 +148,6 @@ class ClassPage extends Component {
 
                       {this.state.tab === 'studies' && (
                         <ClassStudies schoolclass={schoolclass} />
-                      )}
-
-                      {this.state.tab === 'assignments' && (
-                        <ClassAssignments schoolclass={schoolclass} />
-                      )}
-
-                      {this.state.tab === 'settings' && (
-                        <ClassSettings
-                          schoolclass={schoolclass}
-                          onClose={this.props.goBack}
-                        />
                       )}
                     </div>
                   </div>

@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import styled from 'styled-components';
 import Head from 'next/head';
-import moment from 'moment';
 
 import Error from '../../ErrorMessage/index';
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';

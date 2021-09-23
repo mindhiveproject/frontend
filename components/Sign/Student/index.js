@@ -131,7 +131,10 @@ class SignUp extends Component {
           )}
 
           {this.state.activePage === 'choose' && (
-            <JoinClass classCode={this.state.classCode.toLowerCase()} />
+            <JoinClass
+              classCode={this.state.classCode.toLowerCase()}
+              classId={this.state.classId}
+            />
           )}
         </Dialog>
       </SignupForm>
