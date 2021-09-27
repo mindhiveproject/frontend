@@ -4,7 +4,7 @@ import { StyledConsentForm } from '../styles';
 
 class ConsentScreen extends Component {
   render() {
-    const { consent } = this.props;
+    const { consent, children } = this.props;
 
     const publicStudies = consent?.studies.filter(study => study.public) || [];
 
@@ -117,6 +117,8 @@ class ConsentScreen extends Component {
             </div>
           </div>
         )}
+
+        {children}
 
         <div className="buttonsHolder">
           <div>

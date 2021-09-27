@@ -110,59 +110,6 @@ class StudyConsent extends Component {
           </Link>
         </OnboardingHeader>
 
-        {under18 && (
-          <>
-            <h1>Parental consent required</h1>
-            <h3>
-              Because you are under the age of 18, we need to get consent from
-              your parent to proceed. Please ask your parent to complete this
-              page.
-            </h3>
-
-            <div>
-              <label htmlFor="parentname">
-                <p>Parent name</p>
-                <input
-                  type="text"
-                  id="parentname"
-                  name="parentname"
-                  onChange={this.updateState}
-                />
-              </label>
-            </div>
-
-            <div>
-              <label htmlFor="parentemail">
-                <p>Parent email address</p>
-                <input
-                  type="email"
-                  id="parentemail"
-                  name="parentemail"
-                  onChange={this.updateState}
-                />
-              </label>
-            </div>
-
-            <h1>Your consent required</h1>
-            <h3>
-              Because you are under the age of 18, we need to get consent from
-              you as well. Please enter your name below if you consent.
-            </h3>
-
-            <div>
-              <label htmlFor="kidname">
-                <p>Your name</p>
-                <input
-                  type="text"
-                  id="kidname"
-                  name="kidname"
-                  onChange={this.updateState}
-                />
-              </label>
-            </div>
-          </>
-        )}
-
         <Mutation
           mutation={JOIN_STUDY}
           refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
@@ -179,7 +126,49 @@ class StudyConsent extends Component {
               numberOfConsents={this.state.numberOfConsents}
               recordMyConsent={this.recordMyConsent}
               joinStudy={joinStudy}
-            />
+            >
+              <>
+                {under18 && (
+                  <>
+                    <div>
+                      <label htmlFor="parentname">
+                        <p>Parent name</p>
+                        <input
+                          type="text"
+                          id="parentname"
+                          name="parentname"
+                          onChange={this.updateState}
+                        />
+                      </label>
+                    </div>
+
+                    <div>
+                      <label htmlFor="parentemail">
+                        <p>Parent email address</p>
+                        <input
+                          type="email"
+                          id="parentemail"
+                          name="parentemail"
+                          onChange={this.updateState}
+                        />
+                      </label>
+                    </div>
+
+                    <div>
+                      <label htmlFor="kidname">
+                        <p>Your name</p>
+                        <input
+                          type="text"
+                          id="kidname"
+                          name="kidname"
+                          onChange={this.updateState}
+                        />
+                      </label>
+                    </div>
+                  </>
+                )}
+              </>
+            </ConsentScreen>
           )}
         </Mutation>
       </div>
