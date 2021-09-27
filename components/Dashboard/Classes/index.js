@@ -18,7 +18,6 @@ class PersonalDashboard extends Component {
           const userPayloadData = userPayload.data && userPayload.data.me;
           if (userPayloadError) return <Error error={userPayloadError} />;
           if (userPayloadLoading) return <p>Loading</p>;
-          console.log('userPayloadData', userPayloadData);
           // show classes with admin functions for teachers
           if (userPayloadData?.permissions.includes('TEACHER')) {
             return <DashboardClasses user={userPayloadData} />;

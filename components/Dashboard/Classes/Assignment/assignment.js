@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
 import ReactHtmlParser from 'react-html-parser';
+
+import Homework from '../Homework/homework';
 
 const GET_ASSIGNMENT_HOMEWORKS = gql`
   query GET_ASSIGNMENT_HOMEWORKS($id: ID!) {
@@ -15,12 +18,32 @@ const GET_ASSIGNMENT_HOMEWORKS = gql`
       homework {
         id
         title
-        content
         author {
           username
         }
         createdAt
       }
+    }
+  }
+`;
+
+const StyledEditor = styled.div`
+  .header {
+    display: grid;
+    justify-content: end;
+  }
+  .closeBtn {
+    line-height: 3rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 2.25rem;
+    color: #5f6871;
+    font-size: 2rem;
+    cursor: pointer;
+    :hover {
+      transform: scale(1.5);
+      transition: transform 0.5s;
+      color: red;
     }
   }
 `;
@@ -47,11 +70,49 @@ const StyledPost = styled.div`
   }
 `;
 
+const StyledHomeworkList = styled.div`
+  display: grid;
+  .homeworkTab {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+`;
+
+const StyledAssignment = styled.div`
+  display: grid;
+  grid-gap: 2rem;
+`;
+
 class Assignment extends Component {
+  state = {
+    page: this.props.page || 'assignment',
+    assignmentId: null,
+  };
+
+  openHomework = homeworkId => {
+    this.setState({
+      page: 'homework',
+      homeworkId,
+    });
+  };
+
+  goBack = () => {
+    this.setState({
+      page: 'assignment',
+      homeworkId: null,
+    });
+  };
+
   render() {
     const { assignmentId } = this.props;
+    const { page, homeworkId } = this.state;
+
     return (
-      <>
+      <StyledEditor>
         <div className="header">
           <div className="closeBtn">
             <div onClick={this.props.goBack}>&times;</div>
@@ -68,19 +129,44 @@ class Assignment extends Component {
                 <p>No assignment found for id {this.props.assignmentId}</p>
               );
             const { assignment } = data;
+            const { homework } = assignment;
             return (
-              <StyledPost>
-                <div className="header">
-                  <h2>{assignment.title}</h2>
-                </div>
-                <div className="content">
-                  {ReactHtmlParser(assignment.content)}
-                </div>
-              </StyledPost>
+              <StyledAssignment>
+                <StyledPost>
+                  <div className="header">
+                    <h2>{assignment.title}</h2>
+                  </div>
+                  <div className="content">
+                    {ReactHtmlParser(assignment.content)}
+                  </div>
+                </StyledPost>
+                <StyledHomeworkList>
+                  <h2>Submitted homework</h2>
+                  {page === 'homework' && (
+                    <Homework goBack={this.goBack} homeworkId={homeworkId} />
+                  )}
+                  {page === 'assignment' && (
+                    <div>
+                      {homework.map(work => (
+                        <div
+                          className="homeworkTab"
+                          onClick={() => this.openHomework(work?.id)}
+                        >
+                          <div>{work?.title}</div>
+                          <div>
+                            {moment(work?.createdAt).format('MMM D, YYYY')}
+                          </div>
+                          <div>{work?.author?.username}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </StyledHomeworkList>
+              </StyledAssignment>
             );
           }}
         </Query>
-      </>
+      </StyledEditor>
     );
   }
 }

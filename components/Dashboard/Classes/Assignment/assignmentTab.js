@@ -21,7 +21,7 @@ const StyledPost = styled.div`
   .headerInfo {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto auto auto;
   }
   .content {
     padding: 15px 20px 20px 20px;
@@ -41,7 +41,10 @@ class AssignmentTab extends Component {
             <h2>{assignment.title}</h2>
           </div>
           <div className="headerInfo">
-            <span>{moment(assignment.createdAt).format('MMMM D, YYYY')}</span>
+            <span>{moment(assignment.createdAt).format('MMM D, YYYY')}</span>
+            <span onClick={() => this.props.openAssignment(assignment.id)}>
+              Homework
+            </span>
             <span onClick={() => this.props.editAssignment(assignment.id)}>
               Edit
             </span>

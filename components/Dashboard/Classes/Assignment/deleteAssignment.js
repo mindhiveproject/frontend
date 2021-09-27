@@ -29,7 +29,7 @@ class DeleteAssignment extends Component {
           <div
             style={{ cursor: 'pointer' }}
             onClick={() => {
-              if (confirm('Are you sure you want to delete this post?')) {
+              if (confirm('Are you sure you want to delete this assignment?')) {
                 deleteAssignment().catch(err => {
                   alert(err.message);
                 });

@@ -48,7 +48,6 @@ class ClassAssignments extends Component {
   };
 
   goBack = () => {
-    console.log('go back');
     this.setState({
       page: 'assignments',
       assignmentId: null,
