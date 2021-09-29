@@ -18,8 +18,6 @@ class TaskCard extends Component {
 
     const allowRetake = !study.settings?.forbidRetake;
 
-    console.log('version', version);
-
     if (task.isExternal && task.link) {
       return (
         <StyledTaskCard taskType={task.taskType}>

@@ -3,45 +3,33 @@ import ReactHtmlParser from 'react-html-parser';
 import { StyledConsentForm } from '../styles';
 
 class ConsentScreen extends Component {
+  getConsent = (consent, name) =>
+    consent?.info.filter(info => info.name === name).map(info => info.text) ||
+    '';
+
   render() {
     const { consent, children } = this.props;
 
     const publicStudies = consent?.studies.filter(study => study.public) || [];
 
-    const regularAdultsConsent =
-      consent?.info
-        .filter(info => info.name === 'regularAdults')
-        .map(info => info.text) || '';
-
-    const sonaAdultsConsent =
-      consent?.info
-        .filter(info => info.name === 'sonaAdults')
-        .map(info => info.text) || '';
-
-    const regularMinorsConsent =
-      consent?.info
-        .filter(info => info.name === 'regularMinors')
-        .map(info => info.text) || '';
-
-    const sonaMinorsConsent =
-      consent?.info
-        .filter(info => info.name === 'sonaMinors')
-        .map(info => info.text) || '';
-
-    const regularMinorsKidsConsent =
-      consent?.info
-        .filter(info => info.name === 'regularMinorsKids')
-        .map(info => info.text) || null;
-
-    const sonaMinorsKidsConsent =
-      consent?.info
-        .filter(info => info.name === 'sonaMinorsKids')
-        .map(info => info.text) || null;
-
-    const studentsNYCConsent =
-      consent?.info
-        .filter(info => info.name === 'studentsNYC')
-        .map(info => info.text) || null;
+    const regularAdultsConsent = this.getConsent(consent, 'regularAdults');
+    const sonaAdultsConsent = this.getConsent(consent, 'sonaAdults');
+    const regularMinorsConsent = this.getConsent(consent, 'regularMinors');
+    const sonaMinorsConsent = this.getConsent(consent, 'sonaMinors');
+    const regularMinorsKidsConsent = this.getConsent(
+      consent,
+      'regularMinorsKids'
+    );
+    const sonaMinorsKidsConsent = this.getConsent(consent, 'sonaMinorsKids');
+    const studentsNYCConsent = this.getConsent(consent, 'studentsNYC');
+    const studentsMinorsNYCConsent = this.getConsent(
+      consent,
+      'studentsMinorsNYC'
+    );
+    const studentsParentsNYCConsent = this.getConsent(
+      consent,
+      'studentsParentsNYC'
+    );
 
     return (
       <StyledConsentForm>
@@ -53,40 +41,58 @@ class ConsentScreen extends Component {
         {this.props.under18 && (
           <>
             {(this.props.sona === 'no' ||
-              typeof this.props.sona === 'undefined') && (
-              <div>{ReactHtmlParser(regularMinorsConsent)}</div>
-            )}
+              typeof this.props.sona === 'undefined' ||
+              !sonaMinorsConsent.length ||
+              !sonaMinorsKidsConsent.length) &&
+              (this.props.studentNYC === 'no' ||
+                typeof this.props.studentNYC === 'undefined' ||
+                !studentsParentsNYCConsent.length ||
+                !studentsMinorsNYCConsent.length) && (
+                <>
+                  <div>{ReactHtmlParser(regularMinorsConsent)}</div>
+                  <div>{ReactHtmlParser(regularMinorsKidsConsent)}</div>
+                </>
+              )}
 
-            {this.props.sona === 'yes' && (
-              <div>{ReactHtmlParser(sonaMinorsConsent)}</div>
-            )}
+            {this.props.sona === 'yes' &&
+              sonaMinorsConsent &&
+              sonaMinorsKidsConsent && (
+                <>
+                  <div>{ReactHtmlParser(sonaMinorsConsent)}</div>
+                  <div>{ReactHtmlParser(sonaMinorsKidsConsent)}</div>
+                </>
+              )}
 
-            {(this.props.sona === 'no' ||
-              typeof this.props.sona === 'undefined') && (
-              <div>{ReactHtmlParser(regularMinorsKidsConsent)}</div>
-            )}
-
-            {this.props.sona === 'yes' && (
-              <div>{ReactHtmlParser(sonaMinorsKidsConsent)}</div>
-            )}
+            {this.props?.studentNYC === 'yes' &&
+              studentsParentsNYCConsent &&
+              studentsMinorsNYCConsent && (
+                <>
+                  <div>{ReactHtmlParser(studentsParentsNYCConsent)}</div>
+                  <div>{ReactHtmlParser(studentsMinorsNYCConsent)}</div>
+                </>
+              )}
           </>
         )}
 
         {!this.props.under18 && (
           <>
             {(this.props.sona === 'no' ||
-              typeof this.props.sona === 'undefined') && (
-              <div>{ReactHtmlParser(regularAdultsConsent)}</div>
-            )}
+              typeof this.props.sona === 'undefined' ||
+              !sonaAdultsConsent.length) &&
+              (this.props.studentNYC === 'no' ||
+                typeof this.props.studentNYC === 'undefined' ||
+                !studentsNYCConsent.length) && (
+                <div>{ReactHtmlParser(regularAdultsConsent)}</div>
+              )}
 
-            {this.props.sona === 'yes' && (
+            {this.props.sona === 'yes' && sonaAdultsConsent && (
               <div>{ReactHtmlParser(sonaAdultsConsent)}</div>
             )}
-          </>
-        )}
 
-        {this.props?.studentNYC === 'yes' && (
-          <div>{ReactHtmlParser(studentsNYCConsent)}</div>
+            {this.props?.studentNYC === 'yes' && studentsNYCConsent && (
+              <div>{ReactHtmlParser(studentsNYCConsent)}</div>
+            )}
+          </>
         )}
 
         {consent && (

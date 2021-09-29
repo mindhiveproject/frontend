@@ -19,6 +19,8 @@ class EditProtocolForm extends Component {
       { name: 'sonaMinors' },
       { name: 'sonaMinorsKids' },
       { name: 'studentsNYC' },
+      { name: 'studentsMinorsNYC' },
+      { name: 'studentsParentsNYC' },
     ],
     settings: this.props.consent?.settings || {},
     collaborators: (this.props.consent.collaborators &&
