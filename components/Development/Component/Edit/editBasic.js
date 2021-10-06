@@ -34,7 +34,11 @@ class EditBasic extends Component {
       (user.permissions.includes('TEACHER') ||
         user.permissions.includes('SCIENTIST') ||
         user.permissions.includes('ADMIN'));
-    const settings = task.settings || {};
+    const settings = {
+      descriptionBefore: '',
+      descriptionAfter: '',
+      ...task.settings,
+    };
     return (
       <div>
         <label htmlFor="title">
@@ -75,22 +79,26 @@ class EditBasic extends Component {
           ))}
         </StyledSettingBlock>
 
-        <label htmlFor="description">
-          Task card description (for Develop mode)
-          <textarea
-            id="description"
-            name="description"
-            value={task.description}
-            onChange={this.props.handleTaskChange}
-            rows="5"
-          />
-        </label>
-        <span>
-          This is visible to researchers, teachers, and students when choosing
-          tasks or surveys in the Develop mode.
-        </span>
-
         {this.props.templateEditor && (
+          <>
+            <label htmlFor="description">
+              Task card description (for Develop mode)
+              <textarea
+                id="description"
+                name="description"
+                value={task.description}
+                onChange={this.props.handleTaskChange}
+                rows="5"
+              />
+            </label>
+            <span>
+              This is visible to researchers, teachers, and students when
+              choosing tasks or surveys in the Develop mode.
+            </span>
+          </>
+        )}
+
+        {false && this.props.templateEditor && (
           <div>
             <label htmlFor="shortDescription">
               Template description (for other researchers or students who will
