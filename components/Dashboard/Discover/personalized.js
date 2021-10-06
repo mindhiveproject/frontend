@@ -95,6 +95,15 @@ class DashboardDiscover extends Component {
               studies or browse and preview tasks and surveys.
             </p>
 
+            <p>
+              <a
+                target="_blank"
+                href="https://docs.google.com/document/d/1PjobN7C3LUDuiFUanZd7BuTGYRf5zq9t_CUGGKQjLyM/edit?usp=sharing"
+              >
+                Tasks and Surveys descriptions
+              </a>
+            </p>
+
             <div>
               <Menu text stackable className="discoverMenu">
                 <Menu.Item
