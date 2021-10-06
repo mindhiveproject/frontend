@@ -100,6 +100,7 @@ const UPDATE_COMPONENT_WITH_TEMPLATE = gql`
     $title: String
     $slug: String
     $description: String
+    $descriptionForParticipants: String
     $parameters: Json
     $settings: Json
     $collaborators: [String]
@@ -113,6 +114,7 @@ const UPDATE_COMPONENT_WITH_TEMPLATE = gql`
       title: $title
       slug: $slug
       description: $description
+      descriptionForParticipants: $descriptionForParticipants
       parameters: $parameters
       settings: $settings
       collaborators: $collaborators

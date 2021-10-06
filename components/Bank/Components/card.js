@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
+import { Icon, Popup } from 'semantic-ui-react';
 import { StyledTaskCard } from '../styles';
 import DeleteComponent from './delete';
 
@@ -25,8 +26,15 @@ class TaskCard extends Component {
           </div>
         )}
         <div className="cardInfo">
-          <h2>{component.title}</h2>
-          {this.props.developingMode && ReactHtmlParser(component.description)}
+          <div className="title">
+            <div>{component.title}</div>
+            {component.descriptionForParticipants && (
+              <Popup
+                content={ReactHtmlParser(component.descriptionForParticipants)}
+                trigger={<Icon name="info circle" size="large" />}
+              />
+            )}
+          </div>
 
           {this.props.participateMode && (
             <Link

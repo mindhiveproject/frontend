@@ -74,6 +74,17 @@ export const StyledTaskCard = styled.div`
   }
   .cardInfo {
     padding: 16px;
+    .title {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-gap: 1rem;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 30px;
+      margin-bottom: 20px;
+    }
   }
   a {
     letter-spacing: 0.04em;

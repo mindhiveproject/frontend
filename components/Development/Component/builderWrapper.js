@@ -32,6 +32,7 @@ const COMPONENT_TO_CLONE_QUERY = gql`
       title
       slug
       description
+      descriptionForParticipants
       parameters
       settings
       updatedAt

@@ -20,7 +20,7 @@ const ALL_PUBLIC_TASKS_QUERY = gql`
         username
       }
       public
-      description
+      descriptionForParticipants
       taskType
     }
   }
@@ -40,7 +40,7 @@ const ALL_PUBLIC_SURVEYS_QUERY = gql`
         username
       }
       public
-      description
+      descriptionForParticipants
       taskType
     }
   }

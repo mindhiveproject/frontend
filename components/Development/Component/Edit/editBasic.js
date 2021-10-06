@@ -7,6 +7,11 @@ import moment from 'moment';
 import SettingsBlock from './settingBlock';
 import { CONSENTS_QUERY } from '../../../Task/Customize/taskForm';
 
+const StyledBasicPane = styled.div`
+  display: grid;
+  grid-gap: 1rem;
+`;
+
 const StyledSettingBlock = styled.div`
   display: grid;
   grid-gap: 15px;
@@ -40,7 +45,7 @@ class EditBasic extends Component {
       ...task.settings,
     };
     return (
-      <div>
+      <StyledBasicPane>
         <label htmlFor="title">
           Task title
           <input
@@ -80,7 +85,7 @@ class EditBasic extends Component {
         </StyledSettingBlock>
 
         {this.props.templateEditor && (
-          <>
+          <div>
             <label htmlFor="description">
               Task card description (for Develop mode)
               <textarea
@@ -95,22 +100,25 @@ class EditBasic extends Component {
               This is visible to researchers, teachers, and students when
               choosing tasks or surveys in the Develop mode.
             </span>
-          </>
+          </div>
         )}
 
-        {false && this.props.templateEditor && (
+        {this.props.templateEditor && (
           <div>
-            <label htmlFor="shortDescription">
-              Template description (for other researchers or students who will
-              clone your task)
+            <label htmlFor="descriptionForParticipants">
+              Task card description (for Discover mode)
               <textarea
-                id="shortDescription"
-                name="shortDescription"
-                value={task.shortDescription}
+                id="descriptionForParticipants"
+                name="descriptionForParticipants"
+                value={task.descriptionForParticipants}
                 onChange={this.props.handleTaskChange}
                 rows="5"
               />
             </label>
+            <span>
+              This is visible to all platform users when choosing tasks or
+              surveys in the Discover mode.
+            </span>
           </div>
         )}
 
@@ -185,7 +193,7 @@ class EditBasic extends Component {
             }}
           </Query>
         )}
-      </div>
+      </StyledBasicPane>
     );
   }
 }
