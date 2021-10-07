@@ -48,8 +48,10 @@ const ALL_PUBLIC_SURVEYS_QUERY = gql`
 
 class TasksBank extends Component {
   render() {
-    const { componentType } = this.props;
+    const { componentType, user } = this.props;
     const component = componentType === 'SURVEY' ? 'survey' : 'task';
+
+    console.log('user', user);
 
     return (
       <>
@@ -73,6 +75,9 @@ class TasksBank extends Component {
                       component={component}
                       redirect="d"
                       participateMode
+                      isFavorite={user?.favoriteTasks
+                        ?.map(task => task?.id)
+                        .includes(component?.id)}
                     />
                   ))}
                 </div>

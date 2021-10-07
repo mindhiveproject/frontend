@@ -152,11 +152,11 @@ class DashboardDiscover extends Component {
             )}
 
             {this.state.tab === 'tasks' && (
-              <ComponentsBank componentType="TASK" />
+              <ComponentsBank componentType="TASK" user={this.props.user} />
             )}
 
             {this.state.tab === 'surveys' && (
-              <ComponentsBank componentType="SURVEY" />
+              <ComponentsBank componentType="SURVEY" user={this.props.user} />
             )}
           </StyledDiscoverDasboard>
         </StyledDasboard>

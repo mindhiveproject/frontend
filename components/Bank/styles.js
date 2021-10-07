@@ -84,6 +84,13 @@ export const StyledTaskCard = styled.div`
       font-size: 24px;
       line-height: 30px;
       margin-bottom: 20px;
+      .rightSide {
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        justify-items: center;
+      }
     }
   }
   a {

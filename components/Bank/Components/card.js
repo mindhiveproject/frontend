@@ -10,10 +10,11 @@ import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
 import { ContainerOnlyForAdmin } from '../../Permissions/Admin/index';
 
 import PublishTaskToggle from './publish';
+import ManageFavorites from './manageFavorites';
 
 class TaskCard extends Component {
   render() {
-    const { component, user } = this.props;
+    const { component, user, isFavorite } = this.props;
     const isAuthor =
       user?.id === component?.author?.id ||
       component?.collaborators.map(c => c.id).includes(user?.id);
@@ -28,12 +29,23 @@ class TaskCard extends Component {
         <div className="cardInfo">
           <div className="title">
             <div>{component.title}</div>
-            {component.descriptionForParticipants && (
-              <Popup
-                content={ReactHtmlParser(component.descriptionForParticipants)}
-                trigger={<Icon name="info circle" size="large" />}
-              />
-            )}
+            <div className="rightSide">
+              <ManageFavorites id={component?.id} isFavorite={isFavorite}>
+                {isFavorite ? (
+                  <Icon name="favorite" color="yellow" />
+                ) : (
+                  <Icon name="favorite" color="grey" />
+                )}
+              </ManageFavorites>
+              {component.descriptionForParticipants && (
+                <Popup
+                  content={ReactHtmlParser(
+                    component.descriptionForParticipants
+                  )}
+                  trigger={<Icon name="info circle" size="large" />}
+                />
+              )}
+            </div>
           </div>
 
           {this.props.participateMode && (
@@ -43,9 +55,7 @@ class TaskCard extends Component {
                 query: { id: component.id, r: this.props.redirect },
               }}
             >
-              <a>
-                <p>Preview</p>
-              </a>
+              <a>Preview</a>
             </Link>
           )}
 
