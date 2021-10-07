@@ -30,13 +30,15 @@ class TaskCard extends Component {
           <div className="title">
             <div>{component.title}</div>
             <div className="rightSide">
-              <ManageFavorites id={component?.id} isFavorite={isFavorite}>
-                {isFavorite ? (
-                  <Icon name="favorite" color="yellow" />
-                ) : (
-                  <Icon name="favorite" color="grey" />
-                )}
-              </ManageFavorites>
+              {this.props.participateMode && (
+                <ManageFavorites id={component?.id} isFavorite={isFavorite}>
+                  {isFavorite ? (
+                    <Icon name="favorite" color="yellow" />
+                  ) : (
+                    <Icon name="favorite" color="grey" />
+                  )}
+                </ManageFavorites>
+              )}
               {component.descriptionForParticipants && (
                 <Popup
                   content={ReactHtmlParser(

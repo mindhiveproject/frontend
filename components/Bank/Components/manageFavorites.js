@@ -3,6 +3,7 @@ import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { MY_FAVORITE_TASKS_QUERY } from '../../Development/Study/StudyBuilder/Selector/favorite';
 
 const MANAGE_TASK_FAVORITES = gql`
   mutation MANAGE_TASK_FAVORITES($id: ID!, $action: String!) {
@@ -23,7 +24,11 @@ class ManageFavorites extends Component {
       <Mutation
         mutation={MANAGE_TASK_FAVORITES}
         variables={{ id, action: isFavorite ? 'disconnect' : 'connect' }}
-        refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+        refetchQueries={[
+          { query: CURRENT_USER_RESULTS_QUERY },
+          { query: MY_FAVORITE_TASKS_QUERY, variables: { selector: 'anyone' } },
+          { query: MY_FAVORITE_TASKS_QUERY, variables: { selector: 'me' } },
+        ]}
       >
         {(manageTask, { error }) => (
           <StyledBtn

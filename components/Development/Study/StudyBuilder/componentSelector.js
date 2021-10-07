@@ -7,6 +7,7 @@ import Surveys from './Selector/surveys';
 import MySurveys from './Selector/mySurveys';
 import Tasks from './Selector/tasks';
 import MyTasks from './Selector/myTasks';
+import Favorite from './Selector/favorite';
 
 const createdByOptions = [
   {
@@ -23,7 +24,7 @@ const createdByOptions = [
 
 class componentSelector extends Component {
   state = {
-    tab: this.props.tab || 'surveys',
+    tab: this.props.tab || 'favorite',
     createdBy: this.props.createdBy || 'anyone',
   };
 
@@ -48,6 +49,19 @@ class componentSelector extends Component {
           </div>
 
           <Menu text stackable className="discoverMenu">
+            <Menu.Item
+              name="favorite"
+              active={tab === 'favorite'}
+              onClick={this.handleItemClick}
+              className={
+                tab === 'favorite'
+                  ? 'discoverMenuTitle selectedMenuTitle'
+                  : 'discoverMenuTitle'
+              }
+            >
+              <p>Favorite</p>
+            </Menu.Item>
+
             <Menu.Item
               name="surveys"
               active={tab === 'surveys'}
@@ -95,6 +109,14 @@ class componentSelector extends Component {
               value={this.state.createdBy}
             />
           </div>
+
+          {this.state.tab === 'favorite' && (
+            <Favorite
+              onAddComponent={this.props.onAddComponent}
+              openTaskEditor={this.props.openTaskEditor}
+              selector={this.state.createdBy}
+            />
+          )}
 
           {this.state.tab === 'surveys' &&
             this.state.createdBy === 'anyone' && (
