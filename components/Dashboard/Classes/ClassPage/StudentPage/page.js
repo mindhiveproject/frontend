@@ -7,6 +7,7 @@ import Participated from './participated';
 import Created from './created';
 import Reviewed from './reviewed';
 import Journal from './journal';
+import Homework from './homework';
 
 const StudentHeader = styled.div`
   display: grid;
@@ -102,6 +103,19 @@ class StudentPage extends Component {
               >
                 <p>Journal</p>
               </Menu.Item>
+
+              <Menu.Item
+                name="homework"
+                active={tab === 'homework'}
+                onClick={this.handleItemClick}
+                className={
+                  tab === 'homework'
+                    ? 'discoverMenuTitle selectedMenuTitle'
+                    : 'discoverMenuTitle'
+                }
+              >
+                <p>Homework</p>
+              </Menu.Item>
             </Menu>
           </div>
 
@@ -114,6 +128,8 @@ class StudentPage extends Component {
           {this.state.tab === 'reviewed' && <Reviewed student={student} />}
 
           {this.state.tab === 'journal' && <Journal studentId={student.id} />}
+
+          {this.state.tab === 'homework' && <Homework student={student} />}
         </div>
       </>
     );

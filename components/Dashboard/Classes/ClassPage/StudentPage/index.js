@@ -38,6 +38,10 @@ const STUDENT_QUERY = gql`
           title
         }
       }
+      authorOfHomework {
+        id
+        title
+      }
     }
   }
 `;
@@ -66,6 +70,7 @@ class FetchStudentPage extends Component {
               return (
                 <StudentPage
                   student={student}
+                  classId={this.props.classId}
                   adminMode={this.props.adminMode}
                 />
               );

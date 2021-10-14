@@ -17,11 +17,22 @@ const StyledPost = styled.div`
     grid-gap: 20px;
     grid-template-columns: 1fr;
     align-items: center;
+    button {
+      min-height: 56px;
+      padding: 10px 24px 10px 24px;
+      background: #007c70;
+      border: 2px solid #007c70;
+      box-sizing: border-box;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-family: 'Lato';
+    }
   }
   .headerInfo {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 1fr auto auto auto;
+    grid-template-columns: 1fr 1fr auto;
   }
   .content {
     padding: 15px 20px 20px 20px;
@@ -40,16 +51,16 @@ class AssignmentTab extends Component {
           <div onClick={() => this.props.openAssignment(assignment.id)}>
             <h2>{assignment.title}</h2>
           </div>
+          <span>{moment(assignment.createdAt).format('MMM D, YYYY')}</span>
           <div className="headerInfo">
-            <span>{moment(assignment.createdAt).format('MMM D, YYYY')}</span>
             <span onClick={() => this.props.openAssignment(assignment.id)}>
-              Homework
+              <button>Homework</button>
             </span>
             <span onClick={() => this.props.editAssignment(assignment.id)}>
-              Edit
+              <button>Edit</button>
             </span>
             <DeleteAssignment assignmentId={assignment?.id} classId={classId}>
-              Delete
+              <button>Delete</button>
             </DeleteAssignment>
           </div>
         </div>

@@ -184,6 +184,7 @@ class ClassPage extends Component {
       return (
         <FetchStudentPage
           studentId={this.state.studentId}
+          classId={classId}
           goBackToList={this.goBackToList}
         />
       );

@@ -76,9 +76,11 @@ class Homework extends Component {
     return (
       <StyledEditor>
         <div className="header">
-          <div className="closeBtn">
-            <div onClick={this.props.goBack}>&times;</div>
-          </div>
+          {this.props.goBack && (
+            <div className="closeBtn">
+              <div onClick={this.props.goBack}>&times;</div>
+            </div>
+          )}
         </div>
         <Query query={GET_HOMEWORK} variables={{ id: this.props.homeworkId }}>
           {({ data, loading }) => {
@@ -91,7 +93,9 @@ class Homework extends Component {
                 <div className="header">
                   <div>{homework.title}</div>
                   <div>{homework?.author?.username}</div>
-                  <div>{moment(homework?.createdAt).format('MMM D, YYYY')}</div>
+                  <div>
+                    {moment(homework?.createdAt).format('MMM D, YYYY, h:mm a')}
+                  </div>
                 </div>
                 <div className="content">
                   {ReactHtmlParser(homework.content)}

@@ -11,7 +11,6 @@ class HomeDashboard extends Component {
   };
 
   addTalk = () => {
-    console.log('adding a talk');
     this.setState({
       page: 'addtalk',
     });

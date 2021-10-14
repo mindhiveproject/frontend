@@ -34,10 +34,14 @@ const TOGGLE_DASHBOARD_MUTATION = gql`
 /* eslint-disable */
 // compose all components together
 const Composed = adopt({
-  user: ({ render }) => <Query query={ CURRENT_USER_STUDIES_QUERY }>{render}</Query>,
-  toggleDashboard: ({ render }) => <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>{render}</Mutation>,
+  user: ({ render }) => (
+    <Query query={CURRENT_USER_STUDIES_QUERY}>{render}</Query>
+  ),
+  toggleDashboard: ({ render }) => (
+    <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>{render}</Mutation>
+  ),
   localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
-})
+});
 /* eslint-enable */
 
 class Dashboard extends Component {
@@ -47,7 +51,6 @@ class Dashboard extends Component {
         {({ user, toggleDashboard, localState }) => {
           if (!user.data) return null;
           const { me } = user.data;
-          // console.log('me', me);
           if (!me) return null;
           return (
             <CartStyles open={localState.data.dashboardOpen}>
