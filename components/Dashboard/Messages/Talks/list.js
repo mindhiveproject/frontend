@@ -8,9 +8,9 @@ import { StyledDasboard, StyledClassesDasboard } from '../../styles';
 
 const StyledTalkHeader = styled.div`
   display: grid;
-  margin: 5px;
-  padding: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  margin: 1rem 0rem;
+  padding: 1rem;
+  grid-template-columns: 1fr 2fr 1fr;
   cursor: pointer;
   font-weight: bold;
 `;
@@ -26,6 +26,7 @@ const MY_TALKS_QUERY = gql`
       }
       members {
         id
+        username
       }
       settings
       createdAt
@@ -38,7 +39,7 @@ class TalksList extends Component {
     return (
       <StyledDasboard>
         <StyledClassesDasboard>
-          <h1>My talks</h1>
+          <h1>My group chats</h1>
 
           <Query query={MY_TALKS_QUERY}>
             {({ data, error, loading }) => {
@@ -52,7 +53,9 @@ class TalksList extends Component {
                     <p>Once you create a talk, it will appear here.</p>
                     <div className="navigationHeader">
                       <div>
-                        <button onClick={this.props.addTalk}>Add talk</button>
+                        <button onClick={this.props.addTalk}>
+                          New group chat
+                        </button>
                       </div>
                     </div>
                   </>
@@ -62,13 +65,15 @@ class TalksList extends Component {
                 <>
                   <div className="navigationHeader">
                     <div>
-                      <button onClick={this.props.addTalk}>Add talk</button>
+                      <button onClick={this.props.addTalk}>
+                        New group chat
+                      </button>
                     </div>
                   </div>
                   <div>
                     <StyledTalkHeader>
-                      <div>Creator</div>
-                      <div>Number of members</div>
+                      <div>Name</div>
+                      <div>Members</div>
                       <div>Date created</div>
                     </StyledTalkHeader>
 

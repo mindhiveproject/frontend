@@ -6,13 +6,31 @@ import ReactHtmlParser from 'react-html-parser';
 const StyledMessage = styled.div`
   display: grid;
   background: white;
-  margin: 5px;
-  padding: 10px;
+  margin: 15px 5px;
+  padding: 1.5rem;
 
   .header {
     display: grid;
+    align-items: center;
     grid-template-columns: 1fr auto;
-    font-weight: bold;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid lightgrey;
+    .title {
+      font-size: 2rem;
+    }
+    .nameDate {
+      display: grid;
+      grid-gap: 0.5rem;
+      grid-template-columns: 1fr;
+      text-align: end;
+      font-weight: bold;
+      .date {
+        font-size: 1rem;
+        font-weight: 500;
+        color: grey;
+        font-style: italic;
+      }
+    }
   }
   .content {
     display: grid;
@@ -26,8 +44,13 @@ class Message extends Component {
     return (
       <StyledMessage>
         <div className="header">
-          <div>{message?.author?.publicReadableId}</div>
-          <div>{moment(message?.createdAt).format('MMMM D, YYYY HH:MM')}</div>
+          <div className="title">{message?.settings?.title}</div>
+          <div className="nameDate">
+            <div>{message?.author?.username}</div>
+            <div className="date">
+              {moment(message?.createdAt).format('MMMM D, YYYY HH:MM')}
+            </div>
+          </div>
         </div>
         <div className="content">{ReactHtmlParser(message?.message)}</div>
       </StyledMessage>

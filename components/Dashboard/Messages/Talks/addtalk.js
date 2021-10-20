@@ -97,10 +97,10 @@ class AddTalk extends Component {
                   this.props.goBack();
                 }}
               >
-                <h1>Create a new talk</h1>
+                <h1>Create a new group chat</h1>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <label htmlFor="title">
-                    <p>Talk title</p>
+                    <p>Title</p>
                     <input
                       type="text"
                       id="title"
@@ -110,21 +110,27 @@ class AddTalk extends Component {
                       required
                     />
                   </label>
-                  <label htmlFor="description">
-                    <p>Description</p>
-                    <input
-                      type="text"
-                      id="description"
-                      name="description"
-                      value={this.state.description}
-                      onChange={this.handleSettingsChange}
-                      required
+                  {false && (
+                    <label htmlFor="description">
+                      <p>Description</p>
+                      <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        value={this.state.description}
+                        onChange={this.handleSettingsChange}
+                        required
+                      />
+                    </label>
+                  )}
+
+                  <div className="membersBlock">
+                    <p>Members</p>
+                    <FindMember
+                      members={this.state.members}
+                      handleSetState={this.handleSetState}
                     />
-                  </label>
-                  <FindMember
-                    members={this.state.members}
-                    handleSetState={this.handleSetState}
-                  />
+                  </div>
                   <button type="submit">Create</button>
                 </fieldset>
               </StyledSubmitForm>

@@ -97,7 +97,7 @@ function ModalExampleModal({
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button>New post</Button>}
+      trigger={<button>New post</button>}
     >
       <StyledModalWrapper>
         <Note

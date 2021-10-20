@@ -385,7 +385,7 @@ export const StyledSubmitForm = styled.form`
   select {
     border: 1px solid #cccccc;
     border-radius: 4px;
-    width: 92%;
+    width: -webkit-fill-available;
     font-size: 16px;
     line-height: 24px;
     padding: 12px;
@@ -430,7 +430,8 @@ export const StyledSubmitForm = styled.form`
     display: grid;
     justify-self: center;
     grid-gap: 5px;
-    width: 310px;
+    width: 100%;
+    max-width: 500px;
     border: 0;
     padding: 0;
     &[disabled] {
@@ -448,5 +449,8 @@ export const StyledSubmitForm = styled.form`
       transform: scale(2);
       transition: transform 0.5s;
     }
+  }
+  .membersBlock  {
+    margin: 2rem 0rem;
   }
 `;
