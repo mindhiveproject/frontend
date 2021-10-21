@@ -64,7 +64,6 @@ class StudyResults extends Component {
             );
           }
 
-          // const processedData = this.processRawData(myStudyResults);
           return <FunctionalWrapper myStudyResults={myStudyResults} />;
         }}
       </Query>

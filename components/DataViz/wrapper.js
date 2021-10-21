@@ -55,10 +55,59 @@ const processRawData = results => {
   return allData;
 };
 
+const aggregate = data => {
+  const aggregated = data
+    .filter(row => row.aggregated)
+    .map(f => ({
+      study: f.study,
+      task: f.task,
+      testVersion: f.testVersion,
+      participantId: f.participantId,
+      ...f.aggregated,
+    }));
+  return aggregated;
+};
+
+const perParticipant = aggregated => {
+  const allParticipants = aggregated.map(row => row?.participantId);
+  const participants = [...new Set(allParticipants)];
+  const dataByParticipant = participants.map(participant => {
+    const data = {};
+    const participantData = aggregated.filter(
+      row => row?.participantId === participant
+    );
+    participantData.map(row => {
+      Object.keys(row).map(key => {
+        const newKey = `${row?.task}-${row?.testVersion}-${key}`;
+        data[newKey] = row[key];
+      });
+    });
+    return {
+      participantId: participant,
+      ...data,
+    };
+  });
+  return dataByParticipant;
+};
+
 export default function FunctionalWrapper({ myStudyResults }) {
   const processedData = useMemo(() => processRawData(myStudyResults), [
     myStudyResults,
   ]);
 
-  return <Router data={processedData} />;
+  const dataAggregated = useMemo(() => aggregate(processedData), [
+    processedData,
+  ]);
+
+  const dataParticipant = useMemo(() => perParticipant(dataAggregated), [
+    dataAggregated,
+  ]);
+
+  return (
+    <Router
+      data={processedData}
+      dataAggregated={dataAggregated}
+      dataParticipant={dataParticipant}
+    />
+  );
 }

@@ -1,6 +1,7 @@
-import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
+import { Button } from 'semantic-ui-react';
 import SpecEditor from './Components/SpecEditor';
 import ColumnNamesList from './Components/ColumnNamesList';
 import WorkingDashboard from './Components/WorkingDashboard';
@@ -55,6 +56,9 @@ const Displayer = ({
   datasetType,
 }) => {
   const header = 'Data Viz (version 0.0.2)';
+
+  const [isDisplay, setIsDisplay] = useState(false);
+
   return (
     <StyledContainer>
       <h2>{header}</h2>
@@ -71,15 +75,26 @@ const Displayer = ({
           />
           <SpecEditor spec={spec} updateState={updateState} />
         </div>
-        <WorkingDashboard
-          data={data}
-          transformedData={transformedData}
-          updateState={updateState}
-          updateSpec={updateSpec}
-          helper={helper}
-          activeTransformationPosition={activeTransformationPosition}
-          spec={spec}
-        />
+        <div>
+          <Button
+            toggle
+            active={isDisplay}
+            onClick={() => setIsDisplay(!isDisplay)}
+          >
+            Data Viz
+          </Button>
+          {isDisplay && (
+            <WorkingDashboard
+              data={data}
+              transformedData={transformedData}
+              updateState={updateState}
+              updateSpec={updateSpec}
+              helper={helper}
+              activeTransformationPosition={activeTransformationPosition}
+              spec={spec}
+            />
+          )}
+        </div>
       </StyledDisplayer>
     </StyledContainer>
   );
