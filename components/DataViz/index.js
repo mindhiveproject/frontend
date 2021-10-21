@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useMemo } from 'react';
 import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 
@@ -107,7 +107,6 @@ class StudyResults extends Component {
           if (!data.myStudyResults)
             return <p>No study found for the id {this.props.id}</p>;
           const { myStudyResults } = data;
-          console.log('myStudyResults', myStudyResults);
 
           if (myStudyResults.length === 0) {
             return (
@@ -118,7 +117,11 @@ class StudyResults extends Component {
             );
           }
 
-          const processedData = this.processRawData(myStudyResults);
+          // const processedData = this.processRawData(myStudyResults);
+          const processedData = useMemo(
+            () => this.processRawData(myStudyResults),
+            [myStudyResults]
+          );
 
           return <Router data={processedData} />;
         }}
