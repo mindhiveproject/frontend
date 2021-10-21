@@ -73,7 +73,7 @@ const Displayer = ({
             onDatasetTypeChange={onDatasetTypeChange}
             datasetType={datasetType}
           />
-          <SpecEditor spec={spec} updateState={updateState} />
+          {isDisplay && <SpecEditor spec={spec} updateState={updateState} />}
         </div>
         <div>
           <Button
