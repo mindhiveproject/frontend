@@ -7,7 +7,7 @@ const StudyLandingPage = () => {
   if (!router.query.slug)
     return (
       <Page>
-        <h1>Loading ...</h1>
+        <h1>Loading...</h1>
       </Page>
     );
   return <StudyLanding {...router.query} />;

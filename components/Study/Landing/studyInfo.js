@@ -4,8 +4,6 @@ import Link from 'next/link';
 
 import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
 import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
-import { ContainerOnlyForStudents } from '../../Permissions/Student/index';
-import { ContainerOnlyForParticipants } from '../../Permissions/Participant/index';
 import { ContainerOnlyForScientists } from '../../Permissions/Scientist/index';
 import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
 
@@ -24,6 +22,8 @@ class StudyInformation extends Component {
     // whether the user joined the study
     const studyIds = user?.participantIn?.map(study => study.id) || [];
     const joinedTheStudy = studyIds.includes(study.id);
+
+    console.log('joinedTheStudy', joinedTheStudy);
 
     // whether to show Participate button
     const showParticipateBtn = !study.settings?.hideParticipateButton;
@@ -169,7 +169,7 @@ class StudyInformation extends Component {
 
           <InfoTabs infoBlocks={infoBlocks} study={study} />
 
-          {!joinedTheStudy && (
+          {false && !joinedTheStudy && (
             <StudyTasks
               study={study}
               user={this.props.user}

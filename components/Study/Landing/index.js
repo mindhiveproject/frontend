@@ -1,58 +1,12 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import Link from 'next/link';
 import Error from '../../ErrorMessage/index';
 import StudyWrapper from './studyWrapper';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import Page from '../../Page/index';
 
-const STUDY_QUERY = gql`
-  query STUDY_QUERY($slug: String!) {
-    study(where: { slug: $slug }) {
-      id
-      title
-      slug
-      description
-      settings
-      tasks {
-        id
-        title
-        description
-        link
-        settings
-        taskType
-      }
-      image
-      largeImage
-      info
-      collaborators {
-        id
-        username
-      }
-      author {
-        id
-      }
-      consent {
-        id
-        title
-        organization
-        info
-        settings
-        studies {
-          id
-          title
-          public
-        }
-        tasks {
-          id
-          title
-        }
-      }
-      components
-    }
-  }
-`;
+import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { STUDY_QUERY } from '../../Queries/Study';
 
 class StudyLanding extends Component {
   render() {
@@ -112,4 +66,3 @@ class StudyLanding extends Component {
 }
 
 export default StudyLanding;
-export { STUDY_QUERY };

@@ -6,7 +6,6 @@ import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { StyledParameterBlock } from '../styles';
 import EditStudyForm from './form';
-import { STUDY_QUERY } from '../Landing/index';
 import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Collaborator/index';
 
 const SINGLE_STUDY_QUERY = gql`
