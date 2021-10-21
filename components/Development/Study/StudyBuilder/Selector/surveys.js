@@ -24,6 +24,7 @@ const ALL_PUBLIC_SURVEYS_QUERY = gql`
       }
       public
       description
+      descriptionForParticipants
       taskType
       parameters
       template {

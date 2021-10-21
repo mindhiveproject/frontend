@@ -14,6 +14,7 @@ const MY_SURVEYS_QUERY = gql`
     myTasks(where: { taskType: SURVEY }) {
       id
       title
+      descriptionForParticipants
       slug
       author {
         id

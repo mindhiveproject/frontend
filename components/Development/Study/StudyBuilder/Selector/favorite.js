@@ -7,6 +7,13 @@ import CardWrapper from './cardWrapper';
 
 const StyledBank = styled.div`
   display: grid;
+  .zeroState {
+    display: grid;
+    width: 100%;
+    text-align: center;
+    padding: 2rem 2rem;
+    margin: 2rem 0rem;
+  }
 `;
 
 export const MY_FAVORITE_TASKS_QUERY = gql`
@@ -24,6 +31,7 @@ export const MY_FAVORITE_TASKS_QUERY = gql`
       }
       public
       description
+      descriptionForParticipants
       taskType
       parameters
       template {
@@ -49,6 +57,15 @@ class Tasks extends Component {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
             const { favoriteTasks } = data;
+            if (!favoriteTasks.length) {
+              return (
+                <StyledBank>
+                  <div className="zeroState">
+                    <h3>Explore the surveys and tasks above</h3>
+                  </div>
+                </StyledBank>
+              );
+            }
             return (
               <StyledBank>
                 <div className="tasks">

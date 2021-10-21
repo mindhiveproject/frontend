@@ -20,6 +20,14 @@ export const StyledTaskCard = styled.div`
       text-align: center;
       border-radius: 20px;
     }
+    .rightHeader {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(auto-fit, minmax(30px, auto));
+      align-items: center;
+      justify-content: end;
+      justify-items: center;
+    }
   }
   .cardInfo {
     display: grid;

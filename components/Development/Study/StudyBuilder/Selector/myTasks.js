@@ -14,6 +14,7 @@ const MY_TASKS_QUERY = gql`
     myTasks(where: { taskType: TASK }) {
       id
       title
+      descriptionForParticipants
       slug
       author {
         id

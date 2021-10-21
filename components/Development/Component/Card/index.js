@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
+import { Icon, Popup } from 'semantic-ui-react';
 import { StyledTaskCard } from './styles';
 
 import ExperimentPreview from '../../../Task/Preview/index';
 import { ContainerOnlyForAuthorsOrCollaborators } from '../../../Permissions/Author/index';
+
+import ManageFavoriteComponents from '../../../Favorite/ManageComponents';
 
 class Card extends Component {
   state = {
@@ -42,24 +44,37 @@ class Card extends Component {
               <div>
                 <h2>{component.title}</h2>
               </div>
-              {this.props.onAddComponent && (
-                <div>
-                  <button onClick={() => this.props.onAddComponent(component)}>
-                    +
-                  </button>
-                </div>
-              )}
-              {this.props.onRemoveComponent && (
-                <div>
-                  <button
-                    onClick={() =>
-                      this.props.onRemoveComponent(component, number)
-                    }
-                  >
-                    &times;
-                  </button>
-                </div>
-              )}
+              <div className="rightHeader">
+                {component.descriptionForParticipants && (
+                  <Popup
+                    content={ReactHtmlParser(
+                      component.descriptionForParticipants
+                    )}
+                    trigger={<Icon name="info circle" size="large" />}
+                  />
+                )}
+                <ManageFavoriteComponents id={component?.id} />
+                {this.props.onAddComponent && (
+                  <div>
+                    <button
+                      onClick={() => this.props.onAddComponent(component)}
+                    >
+                      +
+                    </button>
+                  </div>
+                )}
+                {this.props.onRemoveComponent && (
+                  <div>
+                    <button
+                      onClick={() =>
+                        this.props.onRemoveComponent(component, number)
+                      }
+                    >
+                      &times;
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div>
