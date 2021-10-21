@@ -4,6 +4,7 @@ export const StyledBuilderPage = styled.div`
   display: grid;
   height: 100vh;
   grid-template-rows: minmax(100px, auto) 1fr;
+  overflow: hidden;
   p {
     font-family: Lato;
     font-size: 16px;
@@ -72,6 +73,19 @@ export const StyledBuilder = styled.div`
   width: 100%;
   grid-template-columns: 4fr 7fr;
   grid-gap: 20px;
+  .leftCompartment {
+    background: #ffffff;
+    overflow-y: auto;
+    height: 100%;
+    max-height: 90vh;
+    padding-bottom: 5rem;
+  }
+  .rightCompartment {
+    overflow-y: auto;
+    height: 100%;
+    max-height: 90vh;
+    padding-bottom: 5rem;
+  }
 `;
 
 export const StudyBuilderNav = styled.div`
@@ -262,9 +276,6 @@ export const StyledEditPane = styled.div`
   background: #ffffff;
   margin-top: 10px;
   padding: 10px 48px 0px 42px;
-  max-height: 100vh;
-  overflow: auto;
-
   label {
     display: block;
   }
