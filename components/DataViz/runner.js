@@ -7,6 +7,7 @@ import Displayer from './displayer';
 // run things and put together everything for users to interact
 
 const Runner = ({
+  dataRaw,
   data,
   transformedData,
   columnsToFilter,
@@ -24,6 +25,7 @@ const Runner = ({
 
   return (
     <Displayer
+      dataRaw={dataRaw}
       data={currentStateData} // put the pre-processed data
       transformedData={transformedData}
       updateState={updateState}

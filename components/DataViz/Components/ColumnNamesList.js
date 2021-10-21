@@ -24,7 +24,7 @@ const StyledDatasetHeader = styled.div`
 
 const StyledSwitch = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
   align-items: center;
   justify-items: center;
@@ -32,6 +32,8 @@ const StyledSwitch = styled.div`
 
 const StyledOperationThumb = styled.div`
   padding: 10px;
+  width: 100%;
+  text-align: center;
   margin: 5px;
   border: 1px solid grey;
   align-items: center;
@@ -42,6 +44,7 @@ const StyledOperationThumb = styled.div`
 
 // display the processed data in currentStateData
 const ColumnNamesList = ({
+  dataRaw,
   data,
   transformedData,
   updateState,
@@ -62,13 +65,6 @@ const ColumnNamesList = ({
       <StyledSwitch>
         <StyledOperationThumb
           className="selectionBtns"
-          active={datasetType === 'aggregated'}
-          onClick={() => onDatasetTypeChange('aggregated')}
-        >
-          Aggregated
-        </StyledOperationThumb>
-        <StyledOperationThumb
-          className="selectionBtns"
           active={datasetType === 'participant'}
           onClick={() => onDatasetTypeChange('participant')}
         >
@@ -76,11 +72,20 @@ const ColumnNamesList = ({
         </StyledOperationThumb>
         <StyledOperationThumb
           className="selectionBtns"
-          active={datasetType === 'raw'}
-          onClick={() => onDatasetTypeChange('raw')}
+          active={datasetType === 'aggregated'}
+          onClick={() => onDatasetTypeChange('aggregated')}
         >
-          Raw data
+          By task
         </StyledOperationThumb>
+        {false && (
+          <StyledOperationThumb
+            className="selectionBtns"
+            active={datasetType === 'raw'}
+            onClick={() => onDatasetTypeChange('raw')}
+          >
+            Raw data
+          </StyledOperationThumb>
+        )}
       </StyledSwitch>
       <StyledDatasetHeader>
         <h4>{header}</h4>
@@ -118,6 +123,12 @@ const ColumnNamesList = ({
           </StyledColumnNamesList>
         );
       })}
+
+      <div>
+        <button onClick={() => helper.download(dataRaw)}>
+          Download raw data
+        </button>
+      </div>
     </div>
   );
 };

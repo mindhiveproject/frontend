@@ -44,6 +44,7 @@ const StyledDisplayer = styled.div`
 // SpecEditor specification editor
 
 const Displayer = ({
+  dataRaw,
   data,
   transformedData,
   columnsToFilter,
@@ -66,6 +67,7 @@ const Displayer = ({
       <StyledDisplayer>
         <div>
           <ColumnNamesList
+            dataRaw={dataRaw}
             data={data}
             transformedData={transformedData}
             updateState={updateState}

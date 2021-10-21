@@ -3,7 +3,7 @@ import Manager from './manager';
 
 class Router extends Component {
   state = {
-    datasetTypeDefault: 'aggregated',
+    datasetTypeDefault: 'participant',
     specDefault: {
       width: '500',
       height: '400',
@@ -31,9 +31,6 @@ class Router extends Component {
   };
 
   render() {
-    // const dataAggregated = this.aggregate(this.props.data);
-    // const dataParticipant = this.perParticipant(dataAggregated);
-
     return (
       <Manager
         dataRaw={this.props.data}

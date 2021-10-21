@@ -67,6 +67,7 @@ class Manager extends Component {
   render() {
     return (
       <Runner
+        dataRaw={this.props.dataRaw}
         data={this.state.data}
         transformedData={this.state.transformedData}
         columnsToFilter={this.state.columnsToFilter}
