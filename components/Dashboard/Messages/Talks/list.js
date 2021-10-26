@@ -49,8 +49,8 @@ class TalksList extends Component {
               if (myTalks.length === 0) {
                 return (
                   <>
-                    <h3>You haven’t created any talks yet.</h3>
-                    <p>Once you create a talk, it will appear here.</p>
+                    <h3>You haven’t created any group chats yet.</h3>
+                    <p>Once you create a group chat, it will appear here.</p>
                     <div className="navigationHeader">
                       <div>
                         <button onClick={this.props.addTalk}>
@@ -82,6 +82,7 @@ class TalksList extends Component {
                         mytalk={mytalk}
                         key={mytalk.id}
                         openTalk={this.props.openTalk}
+                        openAddMembers={this.props.openAddMembers}
                       />
                     ))}
                   </div>

@@ -17,6 +17,23 @@ const StyledGroupChat = styled.div`
   display: grid;
   grid-gap: 2rem;
   margin: 2rem 0rem;
+  .members {
+    font-size: 1.2rem;
+    display: grid;
+    grid-gap: 1rem;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(50px, auto));
+    justify-content: end;
+    .member {
+      display: grid;
+      background: white;
+      border: 2px solid #007c70;
+      width: max-content;
+      padding: 0.7rem;
+      border-radius: 2rem;
+      justify-content: center;
+    }
+  }
 `;
 
 const VIEW_TALK_QUERY = gql`
@@ -29,6 +46,7 @@ const VIEW_TALK_QUERY = gql`
       }
       members {
         id
+        username
       }
       settings
       createdAt
@@ -74,6 +92,13 @@ class TalkPage extends Component {
               if (loading) return <p>Loading</p>;
               if (!data.talk) return <p>No talk found for {talkId}</p>;
               const { talk } = data;
+              const messages = [...talk?.words].sort((a, b) =>
+                a.createdAt > b.createdAt
+                  ? -1
+                  : b.createdAt > a.createdAt
+                  ? 1
+                  : 0
+              );
               return (
                 <StyledGroupChat>
                   <Head>
@@ -87,8 +112,13 @@ class TalkPage extends Component {
                       <CreateMessage talkId={talkId} />
                     </div>
                   </div>
+                  <div className="members">
+                    {talk?.members?.map(member => (
+                      <div className="member">{member?.username}</div>
+                    ))}
+                  </div>
                   <div>
-                    {talk?.words.map(message => (
+                    {messages.map(message => (
                       <Message key={message.id} message={message} />
                     ))}
                   </div>
