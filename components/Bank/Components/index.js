@@ -46,22 +46,47 @@ const ALL_PUBLIC_SURVEYS_QUERY = gql`
   }
 `;
 
+const ALL_PUBLIC_COMPONENTS_QUERY = gql`
+  query ALL_PUBLIC_COMPONENTS_QUERY {
+    tasks {
+      id
+      title
+      slug
+      author {
+        id
+      }
+      collaborators {
+        id
+        username
+      }
+      public
+      descriptionForParticipants
+      taskType
+    }
+  }
+`;
+
 class TasksBank extends Component {
   render() {
     const { componentType, user } = this.props;
-    const component = componentType === 'SURVEY' ? 'survey' : 'task';
-
-    console.log('user', user);
+    let bankQuery;
+    switch (componentType) {
+      case 'COMPONENTS':
+        bankQuery = ALL_PUBLIC_COMPONENTS_QUERY;
+        break;
+      case 'SURVEY':
+        bankQuery = ALL_PUBLIC_SURVEYS_QUERY;
+        break;
+      case 'TASK':
+        bankQuery = ALL_PUBLIC_TASKS_QUERY;
+        break;
+      default:
+        console.error('No query specified');
+    }
 
     return (
       <>
-        <Query
-          query={
-            componentType === 'SURVEY'
-              ? ALL_PUBLIC_SURVEYS_QUERY
-              : ALL_PUBLIC_TASKS_QUERY
-          }
-        >
+        <Query query={bankQuery}>
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;

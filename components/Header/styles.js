@@ -2,22 +2,31 @@ import styled from 'styled-components';
 
 export const StyledHeader = styled.header`
   display: grid;
+  width: 100%;
+  max-width: 1200px;
+  justify-self: center;
   grid-area: nav;
   .bar {
-    margin-top: 33px;
     display: grid;
-    grid-template-columns: auto 1fr;
-    justify-content: space-between;
-    align-items: start;
+    grid-template-columns: 200px auto 1fr;
+    grid-gap: 1rem 4rem;
+    align-items: center;
+    width: 100%;
+    margin-top: 33px;
     @media (max-width: 700px) {
-      /* grid-template-columns: 1fr;
-      justify-content: center; */
+      grid-template-columns: 1fr;
+      justify-items: center;
     }
   }
   .sub-bar {
     display: grid;
     grid-template-columns: 1fr auto;
     border-bottom: 1px solid ${props => props.theme.lightgrey};
+  }
+  .links {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
@@ -26,14 +35,14 @@ export const Logo = styled.a`
   display: grid;
   justify-items: start;
   cursor: pointer;
-  @media (max-width: 700px) {
-    text-align: center;
-    justify-items: center;
-  }
   .logo {
-    margin-left: 20px;
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    margin-left: 20px;
+    grid-template-columns: 1fr;
+    @media (max-width: 700px) {
+      display: grid;
+      justify-items: center;
+    }
   }
   span {
     color: #28619e;
@@ -46,4 +55,19 @@ export const Logo = styled.a`
   img {
     margin-right: 10px;
   }
+`;
+
+export const MainNavLink = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  cursor: pointer;
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: center;
+  padding: 0rem 0rem 0.5rem 0rem;
+  ${props => props.selected && `border-bottom: 3px solid #ffc107`};
 `;

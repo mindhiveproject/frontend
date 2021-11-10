@@ -14,8 +14,13 @@ const ALL_PARTICIPATED_STUDIES_QUERY = gql`
       slug
       author {
         id
+        permissions
       }
       collaborators {
+        id
+        permissions
+      }
+      participants {
         id
       }
       public

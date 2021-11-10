@@ -16,10 +16,15 @@ const MY_DEVELOPED_STUDIES_QUERY = gql`
       image
       author {
         id
+        permissions
       }
       collaborators {
         id
         username
+        permissions
+      }
+      participants {
+        id
       }
       public
       shortDescription

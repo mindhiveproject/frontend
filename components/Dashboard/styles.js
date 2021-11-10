@@ -82,7 +82,15 @@ export const StyledHomeDasboard = styled.div`
 export const StyledDiscoverDasboard = styled.div`
   width: 100%;
   display: grid;
+  grid-gap: 1rem;
   padding: 20px;
+
+  .featuredContainer {
+    background: white;
+    .featuredStudyCard {
+      padding: 3rem;
+    }
+  }
 
   .studies {
     display: grid;

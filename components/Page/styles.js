@@ -57,7 +57,7 @@ export const Inner = styled.div`
   display: grid;
   grid-area: main;
   justify-items: center;
-  padding: 2rem;
+  padding: 2rem 0rem;
   margin-bottom: 93px;
   min-height: calc(100vh - 100px);
 `;

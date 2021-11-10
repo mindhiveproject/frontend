@@ -9,6 +9,11 @@ export const StyledStudyCard = styled.div`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.09), 0px 5px 6px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   overflow: hidden;
+
+  .clickableWrapper {
+    cursor: pointer;
+  }
+
   .studyImage {
     height: 166px;
   }
@@ -23,19 +28,78 @@ export const StyledStudyCard = styled.div`
   }
   .cardInfo {
     display: grid;
-    align-items: start;
-    align-content: start;
+    align-content: baseline;
     padding: 16px;
-    grid-template-rows: 70px 150px 50px;
-    grid-gap: 20px;
+    grid-gap: 2rem;
+
+    .studyMain {
+      display: grid;
+      grid-gap: 2rem;
+      min-height: 260px;
+      align-content: baseline;
+      .studyParticipants {
+        padding: 0.5rem 1rem;
+        background: #e6f2f1;
+        color: #007c70;
+        border-radius: 2rem;
+        width: fit-content;
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+
+    .studyCreatedBy {
+      display: grid;
+      grid-gap: 1rem;
+      .studyCreatedByHeader {
+        display: grid;
+        font-family: Lato;
+        font-weight: bold;
+        font-size: 10px;
+        line-height: 0px;
+        color: #666666;
+        letter-spacing: 0.2rem;
+        text-transform: uppercase;
+      }
+      .studyCreatedByPanel {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 1rem;
+        padding: 2rem;
+        background: #f7f9f8;
+        border-radius: 10px;
+        .studyCreatedBySection {
+          display: grid;
+          grid-gap: 1rem;
+          justify-items: center;
+          .studyCreatedByNumber {
+            font-family: Lato;
+            font-weight: bold;
+            font-size: 14px;
+            color: #000000;
+          }
+        }
+      }
+    }
   }
+
+  .studyAdmin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    padding: 16px;
+    align-items: end;
+    font-size: 1rem;
+    border-top: 1px solid lightgrey;
+  }
+
   a {
     letter-spacing: 0.04em;
     text-decoration-line: underline;
     color: #007c70;
   }
   h2 {
-    font-family: Roboto;
+    font-family: Lato;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
@@ -170,5 +234,90 @@ export const StyledZeroState = styled.div`
     line-height: 24px;
     letter-spacing: 0.05em;
     text-align: center !important;
+  }
+`;
+
+export const StyledFeaturedStudyCard = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3rem;
+  width: 100%;
+  height: 100%;
+
+  .cardInfo {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-gap: 1rem;
+    align-content: baseline;
+    grid-gap: 2rem;
+    height: 100%;
+
+    .cardMain {
+      display: grid;
+      grid-gap: 2rem;
+      align-content: baseline;
+      .studyFeatured {
+        display: grid;
+        font-family: Lato;
+        font-weight: bold;
+        font-size: 10px;
+        line-height: 0px;
+        color: #666666;
+        letter-spacing: 0.2rem;
+        text-transform: uppercase;
+      }
+    }
+
+    .studyLink {
+      display: grid;
+      width: fit-content;
+      button {
+        min-height: 56px;
+        padding: 10px 24px 10px 24px;
+        background: white;
+        border: 2px solid #007c70;
+        box-sizing: border-box;
+        border-radius: 4px;
+        color: #007c70;
+        cursor: pointer;
+        font-family: 'Lato';
+      }
+    }
+  }
+
+  .studyImage {
+    .noImage {
+      width: 100%;
+      height: 100%;
+      background: lightgrey;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  a {
+    letter-spacing: 0.04em;
+    text-decoration-line: underline;
+    color: #007c70;
+  }
+  h2 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 30px;
+    color: #1a1a1a;
+  }
+  p {
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: left;
   }
 `;

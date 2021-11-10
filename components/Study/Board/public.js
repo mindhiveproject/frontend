@@ -1,15 +1,45 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
+
+import Featured from '../../Dashboard/Discover/featured';
 import StudiesBank from '../../Bank/Studies/index';
 
 const StyledStudiesBoard = styled.div`
-  /* width: 100vh; */
   display: grid;
-  padding: 20px;
+  width: 100%;
+  justify-self: center;
+  grid-gap: 3rem;
+  padding: 1rem;
+  margin: 5rem 0rem;
+
+  .featuredHeader {
+    display: grid;
+    width: 100%;
+    max-width: 1200px;
+    justify-self: center;
+  }
+
+  .featuredContainerWrapper {
+    background: #f6f9f8;
+    width: 100%;
+    padding: 7rem 0rem 2rem 0rem;
+  }
+
+  .featuredContainer {
+    display: grid;
+    width: 100%;
+    max-width: 1200px;
+    justify-self: center;
+    min-height: 400px;
+    background: #f6f9f8;
+  }
 
   .studies {
     display: grid;
+    width: 100%;
+    max-width: 1200px;
+    justify-self: center;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-column-gap: 26px;
     grid-row-gap: 26px;
@@ -63,6 +93,7 @@ class AllStudies extends Component {
   render() {
     return (
       <StyledStudiesBoard>
+        <Featured onSelectStudy={this.goToStudy} />
         <StudiesBank onSelectStudy={this.goToStudy} />
       </StyledStudiesBoard>
     );

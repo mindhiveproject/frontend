@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
-import { Menu } from 'semantic-ui-react';
-import StudiesBank from '../../Bank/Studies/index';
-import ComponentsBank from '../../Bank/Components/index';
-
 import AuthorizedPage from '../../Page/userpage';
 
-import { StyledDasboard, StyledDiscoverDasboard } from '../styles';
+import { StyledDasboard } from '../styles';
 
 import ReviewStudyForParticipants from '../../Study/Landing/index';
 import TaskPage from '../../Task/Run/index';
+
+import Main from './main';
 
 class DashboardDiscover extends Component {
   state = {
@@ -87,79 +85,12 @@ class DashboardDiscover extends Component {
     }
     return (
       <AuthorizedPage>
-        <StyledDasboard>
-          <StyledDiscoverDasboard>
-            <h1>Discover</h1>
-            <p>
-              Explore all public studies, tasks and surveys. Participate in
-              studies or browse and preview tasks and surveys.
-            </p>
-
-            <p>
-              <a
-                target="_blank"
-                href="https://docs.google.com/document/d/1PjobN7C3LUDuiFUanZd7BuTGYRf5zq9t_CUGGKQjLyM/edit?usp=sharing"
-              >
-                Tasks and Surveys descriptions
-              </a>
-            </p>
-
-            <div>
-              <Menu text stackable className="discoverMenu">
-                <Menu.Item
-                  name="studies"
-                  active={tab === 'studies'}
-                  onClick={this.handleItemClick}
-                  className={
-                    tab === 'studies'
-                      ? 'discoverMenuTitle selectedMenuTitle'
-                      : 'discoverMenuTitle'
-                  }
-                >
-                  <p>Studies</p>
-                </Menu.Item>
-
-                <Menu.Item
-                  name="tasks"
-                  active={tab === 'tasks'}
-                  onClick={this.handleItemClick}
-                  className={
-                    tab === 'tasks'
-                      ? 'discoverMenuTitle selectedMenuTitle'
-                      : 'discoverMenuTitle'
-                  }
-                >
-                  <p>Tasks</p>
-                </Menu.Item>
-
-                <Menu.Item
-                  name="surveys"
-                  active={tab === 'surveys'}
-                  onClick={this.handleItemClick}
-                  className={
-                    tab === 'surveys'
-                      ? 'discoverMenuTitle selectedMenuTitle'
-                      : 'discoverMenuTitle'
-                  }
-                >
-                  <p>Surveys</p>
-                </Menu.Item>
-              </Menu>
-            </div>
-
-            {this.state.tab === 'studies' && (
-              <StudiesBank onSelectStudy={this.goToStudy} />
-            )}
-
-            {this.state.tab === 'tasks' && (
-              <ComponentsBank componentType="TASK" user={this.props.user} />
-            )}
-
-            {this.state.tab === 'surveys' && (
-              <ComponentsBank componentType="SURVEY" user={this.props.user} />
-            )}
-          </StyledDiscoverDasboard>
-        </StyledDasboard>
+        <Main
+          user={user}
+          tab={tab}
+          handleItemClick={this.handleItemClick}
+          goToStudy={this.goToStudy}
+        />
       </AuthorizedPage>
     );
   }

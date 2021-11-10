@@ -81,10 +81,10 @@ class Nav extends Component {
               </div>
               <div className="menuLinks">
                 <Link href="/login">
-                  <NavButton>Login</NavButton>
+                  <NavButton>Log in</NavButton>
                 </Link>
                 <Link href="/signup">
-                  <NavButtonSecondary>Signup</NavButtonSecondary>
+                  <NavButtonSecondary>Sign up</NavButtonSecondary>
                 </Link>
               </div>
             </div>
@@ -100,8 +100,18 @@ class Nav extends Component {
             <NavStyles>
               <ContainerOnlyForNoProfile>
                 <NavRightContainer>
-                  <div className="openMenuBtn" onClick={this.onOpenMenu}>
-                    Menu
+                  {false && (
+                    <div className="openMenuBtn" onClick={this.onOpenMenu}>
+                      Menu
+                    </div>
+                  )}
+                  <div className="menuLinks">
+                    <Link href="/login">
+                      <NavButton>Log in</NavButton>
+                    </Link>
+                    <Link href="/signup">
+                      <NavButtonSecondary>Sign up</NavButtonSecondary>
+                    </Link>
                   </div>
                 </NavRightContainer>
               </ContainerOnlyForNoProfile>
