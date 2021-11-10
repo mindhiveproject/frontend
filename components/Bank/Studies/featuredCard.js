@@ -10,10 +10,10 @@ class FeaturedStudyCard extends Component {
     const { description } = study;
     let publicCardDescription;
     if (description) {
-      if (description.split(' ').length > 20) {
+      if (description.split(' ').length > 50) {
         publicCardDescription = `${description
           .split(' ')
-          .slice(0, 20)
+          .slice(0, 50)
           .join(' ')} ...`;
       } else {
         publicCardDescription = description;
