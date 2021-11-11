@@ -30,7 +30,7 @@ class TaskCard extends Component {
           <div className="title">
             <div>{component.title}</div>
             <div className="rightSide">
-              {this.props.participateMode && (
+              {user && this.props.participateMode && (
                 <ManageFavorites id={component?.id} isFavorite={isFavorite}>
                   {isFavorite ? (
                     <Icon name="favorite" color="yellow" />
@@ -51,14 +51,16 @@ class TaskCard extends Component {
           </div>
 
           {this.props.participateMode && (
-            <Link
-              href={{
-                pathname: '/task/preview',
-                query: { id: component.id, r: this.props.redirect },
-              }}
+            <a
+              target="_blank"
+              // href={{
+              //   pathname: '/task/preview',
+              //   query: { id: component.id, r: this.props.redirect },
+              // }}
+              href={`/task/preview?id=${component.id}&r=${this.props.redirect}`}
             >
               <a>Preview</a>
-            </Link>
+            </a>
           )}
 
           <div className="studyLink">

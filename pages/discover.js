@@ -1,7 +1,7 @@
 import AllStudies from '../components/Study/Board/public';
 import Page from '../components/Page/index';
 
-const AllStudiesPage = props => (
+const AllStudiesPage = () => (
   <Page>
     <AllStudies />
   </Page>

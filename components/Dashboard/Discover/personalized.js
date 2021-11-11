@@ -12,11 +12,8 @@ import Main from './main';
 class DashboardDiscover extends Component {
   state = {
     page: this.props.page || 'bank',
-    tab: this.props.tab || 'studies',
     isTaskRunning: false,
   };
-
-  handleItemClick = (e, { name }) => this.setState({ tab: name });
 
   goToStudy = study => {
     this.setState({
@@ -85,12 +82,7 @@ class DashboardDiscover extends Component {
     }
     return (
       <AuthorizedPage>
-        <Main
-          user={user}
-          tab={tab}
-          handleItemClick={this.handleItemClick}
-          goToStudy={this.goToStudy}
-        />
+        <Main user={user} goToStudy={this.goToStudy} />
       </AuthorizedPage>
     );
   }

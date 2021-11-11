@@ -1,9 +1,7 @@
-import { Menu } from 'semantic-ui-react';
 import React, { Component } from 'react';
 
 import Featured from './featured';
-import StudiesBank from '../../Bank/Studies/index';
-import ComponentsBank from '../../Bank/Components/index';
+import Library from './library';
 
 import { StyledDasboard, StyledDiscoverDasboard } from '../styles';
 
@@ -14,54 +12,14 @@ class Main extends Component {
     return (
       <StyledDasboard>
         <StyledDiscoverDasboard>
-          {false && (
-            <p>
-              <a
-                target="_blank"
-                href="https://docs.google.com/document/d/1PjobN7C3LUDuiFUanZd7BuTGYRf5zq9t_CUGGKQjLyM/edit?usp=sharing"
-              >
-                Tasks and Surveys descriptions
-              </a>
-            </p>
-          )}
-
           <Featured onSelectStudy={goToStudy} />
-
-          <div>
-            <Menu text stackable className="discoverMenu">
-              <Menu.Item
-                name="studies"
-                active={tab === 'studies'}
-                onClick={handleItemClick}
-                className={
-                  tab === 'studies'
-                    ? 'discoverMenuTitle selectedMenuTitle'
-                    : 'discoverMenuTitle'
-                }
-              >
-                <p>Studies</p>
-              </Menu.Item>
-
-              <Menu.Item
-                name="components"
-                active={tab === 'components'}
-                onClick={handleItemClick}
-                className={
-                  tab === 'components'
-                    ? 'discoverMenuTitle selectedMenuTitle'
-                    : 'discoverMenuTitle'
-                }
-              >
-                <p>Tasks & Surveys</p>
-              </Menu.Item>
-            </Menu>
-          </div>
-
-          {tab === 'studies' && <StudiesBank onSelectStudy={goToStudy} />}
-
-          {tab === 'components' && (
-            <ComponentsBank componentType="COMPONENTS" user={user} />
-          )}
+          <Library
+            tab={tab}
+            user={user}
+            handleItemClick={handleItemClick}
+            goToStudy={goToStudy}
+            redirect="d"
+          />
         </StyledDiscoverDasboard>
       </StyledDasboard>
     );

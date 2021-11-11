@@ -3,17 +3,28 @@ import Router from 'next/router';
 import styled from 'styled-components';
 
 import Featured from '../../Dashboard/Discover/featured';
-import StudiesBank from '../../Bank/Studies/index';
+import Library from '../../Dashboard/Discover/library';
+import { StyledDasboard, StyledDiscoverDasboard } from '../../Dashboard/styles';
 
 const StyledStudiesBoard = styled.div`
   display: grid;
   width: 100%;
   justify-self: center;
   grid-gap: 3rem;
-  padding: 1rem;
   margin: 5rem 0rem;
 
+  @media (max-width: 1200px) {
+    padding: 0rem 2rem;
+  }
+
   .featuredHeader {
+    display: grid;
+    width: 100%;
+    max-width: 1200px;
+    justify-self: center;
+  }
+
+  .centered {
     display: grid;
     width: 100%;
     max-width: 1200px;
@@ -24,6 +35,9 @@ const StyledStudiesBoard = styled.div`
     background: #f6f9f8;
     width: 100%;
     padding: 7rem 0rem 2rem 0rem;
+    @media (max-width: 1200px) {
+      padding: 2rem 2rem;
+    }
   }
 
   .featuredContainer {
@@ -94,7 +108,13 @@ class AllStudies extends Component {
     return (
       <StyledStudiesBoard>
         <Featured onSelectStudy={this.goToStudy} />
-        <StudiesBank onSelectStudy={this.goToStudy} />
+        <div className="centered">
+          <StyledDasboard>
+            <StyledDiscoverDasboard>
+              <Library goToStudy={this.goToStudy} redirect="m" />
+            </StyledDiscoverDasboard>
+          </StyledDasboard>
+        </div>
       </StyledStudiesBoard>
     );
   }

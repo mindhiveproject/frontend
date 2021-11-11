@@ -68,7 +68,7 @@ const ALL_PUBLIC_COMPONENTS_QUERY = gql`
 
 class TasksBank extends Component {
   render() {
-    const { componentType, user } = this.props;
+    const { componentType, user, redirect } = this.props;
     let bankQuery;
     switch (componentType) {
       case 'COMPONENTS':
@@ -96,9 +96,10 @@ class TasksBank extends Component {
                 <div className="tasks">
                   {tasks.map(component => (
                     <Card
+                      user={user}
                       key={component.id}
                       component={component}
-                      redirect="d"
+                      redirect={redirect}
                       participateMode
                       isFavorite={user?.favoriteTasks
                         ?.map(task => task?.id)

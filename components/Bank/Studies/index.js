@@ -38,7 +38,7 @@ class StudiesBank extends Component {
     return (
       <Query query={ALL_PUBLIC_STUDIES_QUERY}>
         {({ data, error, loading }) => {
-          if (loading) return <p>Loading ...</p>;
+          if (loading) return <></>;
           if (error) return <p>Error: {error.message}</p>;
           const { studies } = data;
           return (

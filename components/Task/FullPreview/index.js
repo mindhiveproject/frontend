@@ -69,14 +69,18 @@ class RunExperiment extends Component {
                     eventCallback: e => {
                       // console.log('Event callback', e);
                     },
-                    on_finish: token => {
-                      Router.push({
-                        pathname: `/dashboard/${redirect}`,
-                        query: {
-                          tab: task.taskType === 'SURVEY' ? 'surveys' : 'tasks',
-                        },
-                      });
-                      // Router.push('/dashboard/discover');
+                    on_finish: () => {
+                      if (this.props.redirect === 'm') {
+                        window.location.href = '/';
+                      } else {
+                        Router.push({
+                          pathname: `/dashboard/${redirect}`,
+                          query: {
+                            tab:
+                              task.taskType === 'SURVEY' ? 'surveys' : 'tasks',
+                          },
+                        });
+                      }
                     },
                   }}
                 />
