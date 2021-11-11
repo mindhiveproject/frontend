@@ -51,16 +51,14 @@ class TaskCard extends Component {
           </div>
 
           {this.props.participateMode && (
-            <a
-              target="_blank"
-              // href={{
-              //   pathname: '/task/preview',
-              //   query: { id: component.id, r: this.props.redirect },
-              // }}
-              href={`/task/preview?id=${component.id}&r=${this.props.redirect}`}
+            <Link
+              href={{
+                pathname: '/task/preview',
+                query: { id: component.id, r: this.props.redirect },
+              }}
             >
               <a>Preview</a>
-            </a>
+            </Link>
           )}
 
           <div className="studyLink">
