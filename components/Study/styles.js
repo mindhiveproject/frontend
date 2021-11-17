@@ -10,8 +10,7 @@ export const StyledStudyPage = styled.div`
     'tasks tags'
     'info tags';
   grid-gap: 15px;
-  max-width: 1500px;
-  /* margin: 2rem auto; */
+  max-width: 1200px;
   min-height: 800px;
 
   @media (max-width: 700px) {
@@ -73,13 +72,10 @@ export const StyledStudyPage = styled.div`
   }
   img {
     max-width: 100%;
-    /* max-height: 160px; */
     object-fit: cover;
   }
 
   .studyImage {
-    /* display: grid; */
-    /* justify-content: center; */
   }
 
   .studyImage,

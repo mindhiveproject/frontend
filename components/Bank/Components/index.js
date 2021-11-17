@@ -93,6 +93,14 @@ class TasksBank extends Component {
             const { tasks } = data;
             return (
               <StyledBank>
+                <p>
+                  <a
+                    target="_blank"
+                    href="https://docs.google.com/document/d/1PjobN7C3LUDuiFUanZd7BuTGYRf5zq9t_CUGGKQjLyM/edit?usp=sharing"
+                  >
+                    Tasks and Surveys descriptions
+                  </a>
+                </p>
                 <div className="tasks">
                   {tasks.map(component => (
                     <Card

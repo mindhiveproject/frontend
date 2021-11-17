@@ -27,37 +27,3 @@ class Main extends Component {
 }
 
 export default Main;
-
-// <Menu.Item
-//   name="tasks"
-//   active={tab === 'tasks'}
-//   onClick={handleItemClick}
-//   className={
-//     tab === 'tasks'
-//       ? 'discoverMenuTitle selectedMenuTitle'
-//       : 'discoverMenuTitle'
-//   }
-// >
-//   <p>Tasks</p>
-// </Menu.Item>
-//
-// <Menu.Item
-//   name="surveys"
-//   active={tab === 'surveys'}
-//   onClick={handleItemClick}
-//   className={
-//     tab === 'surveys'
-//       ? 'discoverMenuTitle selectedMenuTitle'
-//       : 'discoverMenuTitle'
-//   }
-// >
-//   <p>Surveys</p>
-// </Menu.Item>
-//
-// {tab === 'tasks' && (
-//   <ComponentsBank componentType="TASK" user={user} />
-// )}
-//
-// {tab === 'surveys' && (
-//   <ComponentsBank componentType="SURVEY" user={user} />
-// )}

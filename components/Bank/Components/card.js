@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
 import { Icon, Popup } from 'semantic-ui-react';
 import { StyledTaskCard } from '../styles';
 import DeleteComponent from './delete';

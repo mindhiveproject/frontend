@@ -6,9 +6,14 @@ export const StyledBank = styled.div`
 
 export const StyledStudyCard = styled.div`
   background: #ffffff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.09), 0px 5px 6px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0px 2px 4px 0px #00000026;
+  transition: box-shadow 300ms ease-out;
+
+  :hover {
+    box-shadow: 0px 2px 24px 0px #0000001a;
+  }
 
   .clickableWrapper {
     cursor: pointer;
@@ -126,11 +131,17 @@ export const StyledStudyCard = styled.div`
 
 export const StyledTaskCard = styled.div`
   background: #ffffff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.09), 0px 5px 6px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   border-top: 14px solid;
   border-top-color: ${props =>
     props.taskType === 'TASK' ? '#64c9e2' : '#28619e'};
+
+  box-shadow: 0px 2px 4px 0px #00000026;
+  transition: box-shadow 300ms ease-out;
+  :hover {
+    box-shadow: 0px 2px 24px 0px #0000001a;
+  }
+
   img {
     width: 100%;
     height: 166px;

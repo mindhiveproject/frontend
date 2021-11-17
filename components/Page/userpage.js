@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 import Meta from '../Meta/index';
 import SidebarNav from '../Nav/sidebar';
+import Login from '../Login/index';
+import Page from './index';
 
 import Error from '../ErrorMessage/index';
 import { CURRENT_USER_QUERY } from '../User/index';
@@ -51,7 +53,11 @@ class AuthorizedPage extends Component {
             if (error) return <Error error={error} />;
             if (loading) return <p>Loading</p>;
             if (!data?.me)
-              return <p>No user found. Please sign up or login.</p>;
+              return (
+                <Page>
+                  <Login />
+                </Page>
+              );
             return (
               <UserPage>
                 <UserNav>

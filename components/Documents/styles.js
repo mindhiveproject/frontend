@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledDocumentPage = styled.div`
   display: grid;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 2rem auto;
   padding: 3rem;
   min-height: 800px;
