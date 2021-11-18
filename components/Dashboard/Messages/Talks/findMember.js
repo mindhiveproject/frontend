@@ -45,7 +45,7 @@ export default FindMember;
 
 const DropdownExampleMultipleSelection = ({
   usernames,
-  collaborators,
+  members,
   handleSetState,
 }) => {
   const onChange = (event, data) => {
@@ -61,7 +61,7 @@ const DropdownExampleMultipleSelection = ({
       selection
       options={usernames}
       onChange={onChange}
-      value={collaborators}
+      value={members}
     />
   );
 };

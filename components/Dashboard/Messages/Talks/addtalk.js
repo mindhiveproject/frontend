@@ -7,6 +7,7 @@ import { MY_TALKS_QUERY } from './list';
 
 import { StyledSubmitForm } from '../../../Styles/Forms';
 import FindMember from './findMember';
+import FindClassMembers from './findClassMembers';
 
 const CREATE_NEW_TALK = gql`
   mutation CREATE_NEW_TALK($members: [ID]!, $settings: Json) {
@@ -44,6 +45,7 @@ const StyledSelectionScreen = styled.div`
 class AddTalk extends Component {
   state = {
     members: [],
+    classes: [],
     settings: {},
   };
 
@@ -58,6 +60,13 @@ class AddTalk extends Component {
   handleSetState = (name, value) => {
     this.setState({
       [name]: value,
+    });
+  };
+
+  handleClassChange = (name, value, members) => {
+    this.setState({
+      classes: value,
+      members,
     });
   };
 
@@ -98,22 +107,17 @@ class AddTalk extends Component {
                       required
                     />
                   </label>
-                  {false && (
-                    <label htmlFor="description">
-                      <p>Description</p>
-                      <input
-                        type="text"
-                        id="description"
-                        name="description"
-                        value={this.state.description}
-                        onChange={this.handleSettingsChange}
-                        required
-                      />
-                    </label>
-                  )}
 
                   <div className="membersBlock">
-                    <p>Members</p>
+                    <p>Invite classes</p>
+                    <FindClassMembers
+                      classes={this.state.classes}
+                      handleClassChange={this.handleClassChange}
+                    />
+                  </div>
+
+                  <div className="membersBlock">
+                    <p>Invite members</p>
                     <FindMember
                       members={this.state.members}
                       handleSetState={this.handleSetState}
