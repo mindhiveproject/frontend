@@ -40,7 +40,6 @@ class ForkTaskForm extends Component {
 
   createTask = async (e, createTaskMutation) => {
     e.preventDefault();
-    console.log('updating parameters', this.state, this.props.id);
     const res = await createTaskMutation({
       variables: {
         id: this.props.id,

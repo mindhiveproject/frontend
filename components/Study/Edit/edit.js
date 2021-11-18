@@ -95,7 +95,6 @@ class UpdateStudy extends Component {
           if (loading) return <p>Loading ... </p>;
           if (!data || !data.study)
             return <p>No study found for id {this.props.id}</p>;
-          console.log('data.study', data.study);
           return (
             <ContainerOnlyForAuthorizedCollaborators
               ids={

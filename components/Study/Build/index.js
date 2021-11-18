@@ -59,9 +59,6 @@ class BuildStudy extends Component {
                   const studyTasks = tasks.filter(task =>
                     study.tasks.map(task => task.id).includes(task.id)
                   );
-                  console.log('study', study);
-                  console.log('availableTasks', availableTasks);
-                  console.log('studyTasks', studyTasks);
                   return (
                     <StudyBuildPage
                       study={study}

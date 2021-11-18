@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-// import { Center, TasksList, StyledLink } from '../styles';
 import { StyledBoard, List, StyledLink } from '../../Styles/Boards';
 
 import TaskCard from './card';
@@ -34,7 +33,6 @@ class MyTasks extends Component {
         <h1>Public tasks</h1>
         <Query query={ALL_TASKS_QUERY}>
           {({ data, error, loading }) => {
-            console.log('data', data);
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
             return (

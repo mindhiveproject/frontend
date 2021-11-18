@@ -17,8 +17,6 @@ class DeleteTask extends Component {
     // manually update the cache on the client so it matches the server
     // 1. read the cache
     const data = cache.readQuery({ query: MY_TASKS_QUERY });
-    console.log('data', data);
-    console.log('payload', payload);
     // 2. Filter the deleted items out of the page
     data.myTasks = data.myTasks.filter(
       task => task.id !== payload.data.deleteTask.id

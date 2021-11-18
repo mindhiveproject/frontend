@@ -245,9 +245,6 @@ study.run()`;
 export const makeScript = state => {
   // Process study tree
   const componentTree = makeComponentTree(state.components, 'root');
-  // console.log('componentTree', componentTree);
   const studyTreeJSON = serialize(componentTree, { space: 2 });
-  // console.log('studyTreeJSON', studyTreeJSON);
   return studyTreeJSON;
-  // return makeStudyScript(studyTreeJSON);
 };

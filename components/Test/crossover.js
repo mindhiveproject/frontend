@@ -23,11 +23,14 @@ class Crossover extends Component {
 
     // check whether there is a next task
     const isNextTask = this.props.nextTaskId;
+    const { task } = this.props;
+
     return (
       <div>
         <OnboardingForm>
           {showEmailNotificationPropmt &&
-            (!agreeReceiveUpdates || !isEmailAvailable) && (
+            (!agreeReceiveUpdates || !isEmailAvailable) &&
+            task?.taskType !== 'BLOCK' && (
               <div>
                 <div>
                   <label htmlFor="agreeReceiveTaskUpdates">

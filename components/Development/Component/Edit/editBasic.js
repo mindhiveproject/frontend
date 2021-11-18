@@ -33,6 +33,14 @@ class EditBasic extends Component {
 
   render() {
     const { task, user } = this.props;
+
+    const taskType =
+      task?.taskType === 'TASK'
+        ? 'Task'
+        : task?.taskType === 'BLOCK'
+        ? 'Block'
+        : 'Survey';
+
     const hasIRBAccess =
       user &&
       user?.permissions &&
@@ -47,7 +55,7 @@ class EditBasic extends Component {
     return (
       <StyledBasicPane>
         <label htmlFor="title">
-          Task title
+          {taskType} title
           <input
             type="text"
             id="title"
@@ -60,7 +68,7 @@ class EditBasic extends Component {
         {task?.isExternal && (
           <div style={{ paddingTop: '10px' }}>
             <label htmlFor="link">
-              Task link
+              {taskType} link
               <input
                 type="text"
                 id="link"
@@ -80,6 +88,7 @@ class EditBasic extends Component {
               name={name}
               value={settings[name]}
               onChange={this.props.handleSettingsChange}
+              taskType={taskType}
             />
           ))}
         </StyledSettingBlock>
@@ -87,7 +96,7 @@ class EditBasic extends Component {
         {this.props.templateEditor && (
           <div>
             <label htmlFor="description">
-              Task card description (for Develop mode)
+              {taskType} card description (for Develop mode)
               <textarea
                 id="description"
                 name="description"
@@ -106,7 +115,7 @@ class EditBasic extends Component {
         {this.props.templateEditor && (
           <div>
             <label htmlFor="descriptionForParticipants">
-              Task card description (for Discover mode)
+              {taskType} card description (for Discover mode)
               <textarea
                 id="descriptionForParticipants"
                 name="descriptionForParticipants"

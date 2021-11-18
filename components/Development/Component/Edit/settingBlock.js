@@ -3,12 +3,12 @@ import { StyledParameterBlock } from '../styles';
 
 class SettingBlock extends Component {
   render() {
-    const { name } = this.props;
+    const { name, taskType } = this.props;
     if (name === 'duration') {
       return (
         <StyledParameterBlock key={name} htmlFor={name}>
           <div className="input">
-            <label>Task duration</label>
+            <label>{taskType} duration</label>
             <input
               type="text"
               id={name}
@@ -23,10 +23,10 @@ class SettingBlock extends Component {
     return (
       <StyledParameterBlock key={name} htmlFor={name}>
         {name === 'descriptionBefore' && (
-          <p>Task card description (pre-participation)</p>
+          <p>{taskType} card description (pre-participation)</p>
         )}
         {name === 'descriptionAfter' && (
-          <p>Task card description (post-participation)</p>
+          <p>{taskType} card description (post-participation)</p>
         )}
         <div className="input">
           <textarea

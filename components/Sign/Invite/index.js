@@ -42,7 +42,6 @@ class InviteSignup extends Component {
             onSubmit={async e => {
               e.preventDefault();
               const res = await inviteSignUp();
-              console.log('res', res);
               this.setState({ username: '', invitedIn: '' });
               Router.push({
                 pathname: '/class',

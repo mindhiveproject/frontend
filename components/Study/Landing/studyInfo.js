@@ -23,8 +23,6 @@ class StudyInformation extends Component {
     const studyIds = user?.participantIn?.map(study => study.id) || [];
     const joinedTheStudy = studyIds.includes(study.id);
 
-    console.log('joinedTheStudy', joinedTheStudy);
-
     // whether to show Participate button
     const showParticipateBtn = !study.settings?.hideParticipateButton;
 

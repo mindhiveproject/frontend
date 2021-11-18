@@ -17,7 +17,6 @@ class ExperimentPreview extends Component {
             }, {}),
             policy: 'preview',
             on_finish: () => {
-              console.log('Not saving any data in preview mode');
               this.props.handleFinish();
             },
           }}

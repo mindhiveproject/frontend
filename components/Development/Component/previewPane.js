@@ -43,7 +43,7 @@ class PreviewPane extends Component {
                 : 'discoverMenuTitle'
             }
           >
-            <p>task preview</p>
+            <p>{task?.taskType.toLowerCase()} preview</p>
           </Menu.Item>
 
           <Menu.Item

@@ -42,7 +42,6 @@ class EditParameter extends Component {
     return (
       <Query query={TASK_QUERY} variables={{ id: this.props.id }}>
         {({ data, loading }) => {
-          console.log('data', data);
           if (loading) return <p>Loading ... </p>;
           if (!data || !data.task)
             return <p>No task found for id {this.props.id}</p>;
@@ -69,8 +68,6 @@ class EditParameter extends Component {
           ) {
             parameters = data.task.template.parameters;
           }
-          // console.log('data.task.parameters', parameters);
-          // console.log('data', data.parameter);
           return (
             <EditTaskForm
               id={data.task.id}

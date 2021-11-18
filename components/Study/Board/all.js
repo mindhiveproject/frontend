@@ -33,7 +33,6 @@ class AllStudies extends Component {
         <h1>Studies</h1>
         <Query query={ALL_STUDIES_QUERY}>
           {({ data, error, loading }) => {
-            console.log('data', data);
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
             return (

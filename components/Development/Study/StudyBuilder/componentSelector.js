@@ -3,11 +3,13 @@ import { Menu, Dropdown } from 'semantic-ui-react';
 
 import { StyledEditPane } from '../styles';
 
+import Favorite from './Selector/favorite';
 import Surveys from './Selector/surveys';
 import MySurveys from './Selector/mySurveys';
 import Tasks from './Selector/tasks';
 import MyTasks from './Selector/myTasks';
-import Favorite from './Selector/favorite';
+import Blocks from './Selector/blocks';
+import MyBlocks from './Selector/myBlocks';
 
 const createdByOptions = [
   {
@@ -87,6 +89,19 @@ class componentSelector extends Component {
             >
               <p>Tasks</p>
             </Menu.Item>
+
+            <Menu.Item
+              name="blocks"
+              active={tab === 'blocks'}
+              onClick={this.handleItemClick}
+              className={
+                tab === 'blocks'
+                  ? 'discoverMenuTitle selectedMenuTitle'
+                  : 'discoverMenuTitle'
+              }
+            >
+              <p>Blocks</p>
+            </Menu.Item>
           </Menu>
 
           <div className="createdByDropdown">
@@ -140,6 +155,19 @@ class componentSelector extends Component {
           )}
           {this.state.tab === 'tasks' && this.state.createdBy === 'me' && (
             <MyTasks
+              onAddComponent={this.props.onAddComponent}
+              openTaskEditor={this.props.openTaskEditor}
+            />
+          )}
+
+          {this.state.tab === 'blocks' && this.state.createdBy === 'anyone' && (
+            <Blocks
+              onAddComponent={this.props.onAddComponent}
+              openTaskEditor={this.props.openTaskEditor}
+            />
+          )}
+          {this.state.tab === 'blocks' && this.state.createdBy === 'me' && (
+            <MyBlocks
               onAddComponent={this.props.onAddComponent}
               openTaskEditor={this.props.openTaskEditor}
             />

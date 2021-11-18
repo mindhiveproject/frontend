@@ -48,7 +48,6 @@ class TokenSignup extends Component {
             onSubmit={async e => {
               e.preventDefault();
               const res = await tokenSignUp();
-              console.log('res', res);
               this.setState({ username: '', token: '', email: '' });
               if (this.props.redirect) {
                 Router.push({

@@ -43,7 +43,6 @@ class TokenLogin extends Component {
               onSubmit={async e => {
                 e.preventDefault();
                 const res = await tokenLogin();
-                console.log('res', res);
                 this.setState({ username: '' });
                 Router.push({
                   pathname: '/dashboard',

@@ -108,6 +108,20 @@ class DevelopmentSelectScreen extends Component {
                   themselves, about how they behave, or about how they feel.
                 </p>
               </div>
+              <div
+                className="option"
+                onClick={() => this.handleTypeChoice('block')}
+              >
+                <div className="iconSelect">
+                  <img
+                    src="/static/assets/develop-study-from-scratch.svg"
+                    alt="icon"
+                    width="50"
+                  />
+                </div>
+                <h3>Block</h3>
+                <p>In a block, participants are presented with information.</p>
+              </div>
             </div>
           </div>
         </StyledSelectionScreen>
@@ -210,6 +224,17 @@ class DevelopmentSelectScreen extends Component {
                 action: 'link',
               },
             ]}
+          />
+        );
+      }
+      if (this.state.choice === 'block') {
+        return (
+          <ChooseComponentToClone
+            componentType="BLOCK"
+            onReturn={() => this.returnToStage('selection-first-question')}
+            onClose={this.props.onClose}
+            onChoiceToClone={this.chooseComponentToClone}
+            user={this.props.user}
           />
         );
       }
@@ -403,6 +428,20 @@ class DevelopmentSelectScreen extends Component {
               user={this.props.user}
             />
           );
+        }
+      }
+      if (this.state.choice === 'block') {
+        if (this.state.action === 'create') {
+          if (this.state.componentId) {
+            return (
+              <ComponentBuilderWrapper
+                onLeave={this.props.onClose}
+                componentId={this.state.componentId}
+                user={this.props.user}
+                needToClone
+              />
+            );
+          }
         }
       }
       return <div>Development started ... </div>;

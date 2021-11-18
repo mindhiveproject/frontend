@@ -20,7 +20,6 @@ const SEARCH_EXPERIMENTS_QUERY = gql`
 `;
 
 function routeToExperiment(experiment) {
-  console.log('experiment', experiment);
   Router.push({
     pathname: '/exp',
     query: { id: experiment.id },
@@ -34,7 +33,6 @@ class AutoComplete extends Component {
   };
 
   onChange = debounce(async (e, client) => {
-    console.log('Running search...');
     // turn loading on
     this.setState({ loading: true });
     // manually query apollo client

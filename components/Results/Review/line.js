@@ -59,7 +59,6 @@ class ResultLine extends Component {
     return (
       <Query query={DISPLAY_RESULT_QUERY} variables={{ id: result.id }}>
         {({ error, loading, data }) => {
-          console.log('data', data);
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
           if (!data.result)

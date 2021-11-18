@@ -43,7 +43,6 @@ class Login extends Component {
               onSubmit={async e => {
                 e.preventDefault();
                 const res = await emailLogin();
-                console.log('res', res);
                 this.setState({ password: '', email: '' });
                 Router.push({
                   pathname: '/dashboard',

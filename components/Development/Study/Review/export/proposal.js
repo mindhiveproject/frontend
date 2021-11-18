@@ -23,15 +23,7 @@ const Heading = styled.Text`
 
 // Create Document Component
 const MyProposal = ({ proposal }) => {
-  console.log('proposal', proposal);
   const { title, description, sections } = proposal;
-
-  // let text;
-  // sections.map(section => {
-  //   const sectionHeader = section.title;
-  //   text = text.concat(`<Text>${sectionHeader}</Text>`);
-  //   //
-  // });
 
   return (
     <Document>
@@ -44,7 +36,6 @@ const MyProposal = ({ proposal }) => {
             return section.cards.map(card => (
               <Text>{ReactHtmlParser(card.content)}</Text>
             ));
-            // return <Heading>{sectionHeader}</Heading>;
           })}
         </View>
       </Page>

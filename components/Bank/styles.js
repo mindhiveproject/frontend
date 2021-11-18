@@ -134,7 +134,11 @@ export const StyledTaskCard = styled.div`
   border-radius: 4px;
   border-top: 14px solid;
   border-top-color: ${props =>
-    props.taskType === 'TASK' ? '#64c9e2' : '#28619e'};
+    props.taskType === 'TASK'
+      ? '#64c9e2'
+      : props.taskType === 'SURVEY'
+      ? '#28619e'
+      : '#ffc7c3'};
 
   box-shadow: 0px 2px 4px 0px #00000026;
   transition: box-shadow 300ms ease-out;

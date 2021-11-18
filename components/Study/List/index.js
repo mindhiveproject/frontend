@@ -63,7 +63,6 @@ class AllStudies extends Component {
           {({ error, loading, data }) => {
             if (error) return <Error error={error} />;
             if (loading) return <p>Loading</p>;
-            console.log('data', data);
             if (!data.allStudies) return <p>No studies found</p>;
 
             const { allStudies } = data;

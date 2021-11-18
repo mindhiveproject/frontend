@@ -77,6 +77,36 @@ const MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
   }
 `;
 
+const MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY = gql`
+  query MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY {
+    myAndAllTasks(where: { taskType: BLOCK }) {
+      id
+      title
+      slug
+      author {
+        id
+      }
+      collaborators {
+        id
+        username
+      }
+      public
+      description
+      taskType
+      parameters
+      template {
+        id
+        title
+        description
+        parameters
+        script
+        style
+      }
+      link
+    }
+  }
+`;
+
 class ChooseComponentToClone extends Component {
   onSelectComponent = component => {
     this.props.onChoiceToClone(component);
@@ -84,7 +114,37 @@ class ChooseComponentToClone extends Component {
 
   render() {
     const { componentType } = this.props;
-    const component = componentType === 'SURVEY' ? 'survey' : 'task';
+
+    let component;
+    switch (componentType) {
+      case 'BLOCK':
+        component = 'block';
+        break;
+      case 'SURVEY':
+        component = 'survey';
+        break;
+      case 'TASK':
+        component = 'task';
+        break;
+      default:
+        console.error('No data specified');
+    }
+
+    let bankQuery;
+    switch (componentType) {
+      case 'BLOCK':
+        bankQuery = MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY;
+        break;
+      case 'SURVEY':
+        bankQuery = MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY;
+        break;
+      case 'TASK':
+        bankQuery = MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY;
+        break;
+      default:
+        console.error('No query specified');
+    }
+
     return (
       <StyledSelectionScreen>
         <div className="selectionHeader">
@@ -104,13 +164,7 @@ class ChooseComponentToClone extends Component {
             <p>Select which {component} you would like to clone below.</p>
           </div>
 
-          <Query
-            query={
-              componentType === 'SURVEY'
-                ? MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY
-                : MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY
-            }
-          >
+          <Query query={bankQuery}>
             {({ data, error, loading }) => {
               if (loading) return <p>Loading ...</p>;
               if (error) return <p>Error: {error.message}</p>;

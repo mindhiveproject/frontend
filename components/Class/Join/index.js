@@ -26,7 +26,6 @@ class JoinClass extends Component {
             type="button"
             onClick={async () => {
               const res = await joinClass();
-              // console.log('res', res);
               Router.push({
                 pathname: '/class',
                 query: { id: this.props.id },

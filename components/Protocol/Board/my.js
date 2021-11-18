@@ -67,7 +67,6 @@ class MyProtocols extends Component {
         </NavigationButtons>
         <Query query={MY_PROTOCOLS_QUERY}>
           {({ data, error, loading }) => {
-            console.log('data', data);
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
             return (

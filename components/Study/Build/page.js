@@ -75,7 +75,6 @@ class StudyBuildPage extends Component {
 
   moveUp = (e, number) => {
     e.preventDefault();
-    console.log('number', number);
     const { studyTasks } = this.state;
     if (number > 0) {
       const currentItem = studyTasks[number];

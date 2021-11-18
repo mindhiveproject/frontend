@@ -102,7 +102,6 @@ class TaskForm extends Component {
         {({ data, loading, error }) => {
           if (loading) return <p>Loading ... </p>;
           const { consents } = data;
-          console.log('consents', consents);
           return (
             <>
               <StyledTaskForm onSubmit={this.props.onHandleSubmit}>

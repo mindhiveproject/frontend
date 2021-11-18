@@ -83,7 +83,6 @@ class StudentSignup extends Component {
                 const res = await studentSignUp({
                   variables: { permissions: ['STUDENT'] },
                 });
-                console.log('res', res);
                 this.setState({ username: '', password: '', email: '' });
                 if (this.props.redirect) {
                   Router.push(

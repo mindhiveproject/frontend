@@ -13,8 +13,7 @@ class TaskCard extends Component {
 
   render() {
     const { task } = this.props;
-    console.log('task', task);
-    const taskType = task.taskType === 'SURVEY' ? 'survey' : 'task';
+    const taskType = task?.taskType?.toLowerCase();
 
     return (
       <StyledTaskCard taskType={task.taskType}>

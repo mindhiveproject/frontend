@@ -15,9 +15,6 @@ class ParticipantDisplay extends Component {
     }
     const studyInfo =
       (participant?.studiesInfo && participant?.studiesInfo[studyId]) || {};
-    // console.log('participant', participant);
-    // console.log('studyInfo', studyInfo);
-    // console.log(participant.generalInfo);
     return (
       <StyledCollectSection>
         <StyledParticipantPage>

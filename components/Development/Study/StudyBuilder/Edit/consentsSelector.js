@@ -6,8 +6,6 @@ import { Dropdown, Icon } from 'semantic-ui-react';
 class ConsentsSelector extends Component {
   render() {
     const { study, handleSetState } = this.props;
-    console.log('study', study);
-
     const consents = this.props.consents.map(consent => ({
       key: consent.id,
       text: consent.title,

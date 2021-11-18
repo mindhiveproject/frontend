@@ -12,7 +12,11 @@ const StyledTaskCard = styled.div`
   border-radius: 4px;
   border-top: 14px solid;
   border-top-color: ${props =>
-    props.taskType === 'TASK' ? '#64c9e2' : '#28619e'};
+    props.taskType === 'TASK'
+      ? '#64c9e2'
+      : props.taskType === 'SURVEY'
+      ? '#28619e'
+      : '#ffc7c3'};
   padding: 16px;
   width: 100%;
   .cardHeader {

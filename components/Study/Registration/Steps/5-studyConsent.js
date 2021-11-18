@@ -16,7 +16,6 @@ class StudyConsentForm extends Component {
     const { consent } = this.props;
     const publicStudies = consent?.studies.filter(study => study.public) || [];
 
-    console.log('consent', consent);
     return (
       <StyledConsentForm>
         {this.props.showCloseButton && (

@@ -56,7 +56,6 @@ class EditTaskForm extends Component {
 
   handleChange = e => {
     const { name, type, value } = e.target;
-    console.log('name, type, value', name, type, value);
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
       [name]: value,
@@ -75,7 +74,6 @@ class EditTaskForm extends Component {
 
   updateTask = async (e, updateTaskMutation) => {
     e.preventDefault();
-    console.log('updating parameters', this.state, this.props.id);
     const res = await updateTaskMutation({
       variables: {
         id: this.props.id,
@@ -123,7 +121,6 @@ class EditTaskForm extends Component {
       >
         {(updateTask, { loading, error }) => {
           const { parameters, title } = this.props;
-          // console.log('ready parameters', title, parameters);
           return (
             <TaskForm
               onHandleSubmit={e => this.updateTask(e, updateTask)}

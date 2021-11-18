@@ -12,7 +12,6 @@ const assemble = async (
   stateModifier = state => state,
   { additionalFiles = {}, headerOptions = {} } = {}
 ) => {
-  console.log('folder', folder);
   // Apply modification function to copy of current state
   let updatedState = stateModifier(cloneDeep(state));
 
@@ -29,7 +28,6 @@ const assemble = async (
     .reduce((flat, next) => flat.concat(next), [])
     .reduce((flat, next) => flat.concat(next), [])
     .filter(p => typeof p !== 'undefined' && p.name != '');
-  // console.log('parameters', parameters);
 
   // Filter files that are not embedded in components
   const filesInUse = embeddedFiles(updatedState.components);
@@ -108,8 +106,6 @@ const assemble = async (
       name: item.src,
       url: item.src,
     }));
-
-  // console.log('plugins', pluginFiles, pluginHeaders, pluginPaths);
 
   // Inject plugin headers
   const updatedHeaderOptions = {

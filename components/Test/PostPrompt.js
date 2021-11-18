@@ -276,6 +276,7 @@ class PostPrompt extends Component {
             <Crossover
               user={this.props.user}
               study={this.props.study}
+              task={this.props.task}
               onUpdateState={this.updateState}
               onToggleState={this.toggleState}
               agreeReceiveTaskUpdates={this.state.agreeReceiveTaskUpdates}

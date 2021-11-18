@@ -41,7 +41,6 @@ class DisplayIndividualResult extends Component {
         variables={{ id: this.props.resultId }}
       >
         {({ error, loading, data }) => {
-          console.log('data', data);
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
           if (!data.result)

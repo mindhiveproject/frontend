@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 
 import { StyledTaskCard } from '../../Bank/styles';
@@ -14,7 +13,7 @@ class TaskCard extends Component {
 
   render() {
     const { task, study, version } = this.props;
-    const taskType = task.taskType === 'SURVEY' ? 'survey' : 'task';
+    const taskType = task?.taskType?.toLowerCase();
 
     const allowRetake = !study.settings?.forbidRetake;
 

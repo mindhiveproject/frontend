@@ -126,9 +126,7 @@ class EditStudyForm extends Component {
 
   handleCollaboratorsChange = e => {
     const { name, value } = e.target;
-    console.log('name value', name, value);
     const collaborators = [...this.state.collaborators];
-    console.log('collaborators', collaborators);
     collaborators[name] = value;
     if (name == collaborators.length - 1) {
       collaborators.push('');
@@ -144,7 +142,6 @@ class EditStudyForm extends Component {
         {({ data, loading, error }) => {
           if (loading) return <p>Loading ... </p>;
           const { consents } = data;
-          console.log('consents', consents);
           return (
             <StyledTaskForm
               onSubmit={e =>

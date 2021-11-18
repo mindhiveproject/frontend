@@ -50,7 +50,6 @@ class InviteLogin extends Component {
                     onSubmit={async e => {
                       e.preventDefault();
                       const res = await tokenLogin();
-                      console.log('res', res);
                       this.setState({ token: '' });
                       Router.push({
                         pathname: '/dashboard',

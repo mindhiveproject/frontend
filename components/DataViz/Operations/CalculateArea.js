@@ -42,7 +42,6 @@ const CalculateArea = ({
               value={calculate}
               rows="6"
               onChange={e => {
-                console.log('e.target.value', e.target.value);
                 setCalculate(e.target.value);
               }}
             />

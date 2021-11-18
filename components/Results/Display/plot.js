@@ -6,13 +6,7 @@ class CustomPlot extends Component {
     const { data } = this.props;
     const x = data.filter(d => d.sender === 'Rating 2').map(e => e.sender_id);
     const y = data.filter(d => d.sender === 'Rating 2').map(e => e.rating_post);
-    // const x = data
-    //   .filter(d => d.sender === 'Awaiting decision')
-    //   .map(e => e.sender_id);
-    // const y = data
-    //   .filter(d => d.sender === 'Awaiting decision')
-    //   .map(e => e.score);
-    console.log('y', y);
+
     return (
       <Plot
         data={[

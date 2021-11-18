@@ -455,7 +455,12 @@ class ComponentBuilder extends Component {
     const isAuthor =
       user.id === task?.author?.id ||
       task?.collaborators?.includes(user.username);
-    const taskType = task?.taskType === 'TASK' ? 'Task' : 'Survey';
+    const taskType =
+      task?.taskType === 'TASK'
+        ? 'Task'
+        : task?.taskType === 'BLOCK'
+        ? 'Block'
+        : 'Survey';
 
     return (
       <>
@@ -469,7 +474,7 @@ class ComponentBuilder extends Component {
                 <p>
                   {this.state.task?.isOriginal ? 'Original' : 'Cloned'}{' '}
                   {this.state.task?.isExternal ? 'external ' : ''}
-                  {taskType.toLowerCase()}
+                  {task?.taskType.toLowerCase()}
                 </p>
               </div>
               <div className="taskTitle">
@@ -519,7 +524,7 @@ class ComponentBuilder extends Component {
                                   >
                                     {loading
                                       ? 'Saving'
-                                      : `Save original ${taskType.toLowerCase()}`}
+                                      : `Save original ${task?.taskType.toLowerCase()}`}
                                   </button>
                                 </div>
                               )}
@@ -550,7 +555,7 @@ class ComponentBuilder extends Component {
                                   >
                                     {loading
                                       ? 'Saving'
-                                      : `Save your original ${taskType.toLowerCase()}`}
+                                      : `Save your original ${task?.taskType.toLowerCase()}`}
                                   </button>
                                 </div>
                               )}
@@ -592,7 +597,7 @@ class ComponentBuilder extends Component {
                                   >
                                     {loading
                                       ? 'Saving'
-                                      : `Save ${taskType.toLowerCase()}`}
+                                      : `Save ${task?.taskType.toLowerCase()}`}
                                   </button>
                                 </div>
                               )}
@@ -623,7 +628,7 @@ class ComponentBuilder extends Component {
                                   >
                                     {loading
                                       ? 'Saving'
-                                      : `Save your ${taskType.toLowerCase()}`}
+                                      : `Save your ${task?.taskType.toLowerCase()}`}
                                   </button>
                                 </div>
                               )}
