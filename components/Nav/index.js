@@ -121,15 +121,6 @@ class Nav extends Component {
                   <Link href="/irb/my">
                     <NavButton>IRB protocols</NavButton>
                   </Link>
-                  <Link href="/templates/my">
-                    <NavButton>Templates</NavButton>
-                  </Link>
-                  <Link href="/task/my">
-                    <NavButton>Tasks</NavButton>
-                  </Link>
-                  <Link href="/study/my">
-                    <NavButton>Studies</NavButton>
-                  </Link>
                 </NavRightContainerForAdmin>
               </ContainerOnlyForScientists>
 
@@ -174,3 +165,13 @@ export default Nav;
 //     )}
 //   </NavRightContainer>
 // </ContainerOnlyForStudents>
+
+// <Link href="/templates/my">
+//   <NavButton>Templates</NavButton>
+// </Link>
+// <Link href="/task/my">
+//   <NavButton>Tasks</NavButton>
+// </Link>
+// <Link href="/study/my">
+//   <NavButton>Studies</NavButton>
+// </Link>
