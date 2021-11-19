@@ -7,6 +7,7 @@ import EmptyPage from '../../Page/empty';
 import OverviewStudiesBank from '../../Bank/Studies/overview';
 import OverviewComponentsBank from '../../Bank/Components/overview';
 import OverviewUsers from './Users/index';
+import OverviewClasses from './Classes/index';
 
 import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
 import ComponentBuilderWrapper from '../../Development/Component/builderWrapper';
@@ -116,6 +117,19 @@ class DashboardOverview extends Component {
                   >
                     <p>All users</p>
                   </Menu.Item>
+
+                  <Menu.Item
+                    name="classes"
+                    active={tab === 'classes'}
+                    onClick={this.handleItemClick}
+                    className={
+                      tab === 'classes'
+                        ? 'discoverMenuTitle selectedMenuTitle'
+                        : 'discoverMenuTitle'
+                    }
+                  >
+                    <p>All classes</p>
+                  </Menu.Item>
                 </Menu>
               </div>
 
@@ -143,6 +157,8 @@ class DashboardOverview extends Component {
                   user={this.props.user}
                 />
               )}
+
+              {this.state.tab === 'classes' && <OverviewClasses />}
             </StyledDevelopDasboard>
           </StyledDasboard>
         </AuthorizedPage>

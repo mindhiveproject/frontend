@@ -33,6 +33,8 @@ const STUDENT_QUERY = gql`
         createdAt
       }
       reviews {
+        id
+        createdAt
         study {
           slug
           title

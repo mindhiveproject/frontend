@@ -43,6 +43,7 @@ class Reviewed extends Component {
 
     const reviewedStudies = [
       ...student.reviews.map(review => ({
+        id: review?.id,
         title: review?.study?.title,
         reviewedAt: review?.createdAt,
         slug: review?.study?.slug,
@@ -75,14 +76,12 @@ class Reviewed extends Component {
                 <Icon name="external alternate" />
               </a>
             </div>
-            <div>In development 🚧🏗👷</div>
+            <div>{moment(study.reviewedAt).format('MMMM D, YYYY, h:mma')}</div>
           </StyledClassRow>
         ))}
       </>
     );
   }
 }
-
-// <div>{moment(study.reviewedAt).format('MMMM D, YYYY, h:mma')}</div>
 
 export default Reviewed;
