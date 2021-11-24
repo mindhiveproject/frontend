@@ -49,6 +49,13 @@ const Header = () => {
               About
             </MainNavLink>
           </Link>
+          {false && (
+            <Link href="/teachers">
+              <MainNavLink selected={router.pathname === '/teachers'}>
+                Teachers
+              </MainNavLink>
+            </Link>
+          )}
         </div>
         <Nav />
       </div>
