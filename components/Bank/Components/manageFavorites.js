@@ -32,7 +32,8 @@ class ManageFavorites extends Component {
       >
         {(manageTask, { error }) => (
           <StyledBtn
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               manageTask().catch(err => {
                 alert(err.message);
               });

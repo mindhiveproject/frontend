@@ -19,97 +19,104 @@ class TaskCard extends Component {
       component?.collaborators.map(c => c.id).includes(user?.id);
 
     return (
-      <StyledTaskCard taskType={component.taskType}>
-        {component.image && (
-          <div className="taskImage">
-            <img src={component.image} alt={component.title} />
-          </div>
-        )}
-        <div className="cardInfo">
-          <div className="title">
-            <div>{component.title}</div>
-            <div className="rightSide">
-              {user && this.props.participateMode && (
-                <ManageFavorites id={component?.id} isFavorite={isFavorite}>
-                  {isFavorite ? (
-                    <Icon name="favorite" color="yellow" />
-                  ) : (
-                    <Icon name="favorite" color="grey" />
-                  )}
-                </ManageFavorites>
-              )}
-              {component.descriptionForParticipants && (
-                <Popup
-                  content={ReactHtmlParser(
-                    component.descriptionForParticipants
-                  )}
-                  trigger={<Icon name="info circle" size="large" />}
-                />
-              )}
+      <Link
+        href={{
+          pathname: `/${component?.taskType?.toLowerCase()}s/${component.slug}`,
+        }}
+      >
+        <StyledTaskCard taskType={component.taskType}>
+          {component.image && (
+            <div className="taskImage">
+              <img src={component.image} alt={component.title} />
             </div>
-          </div>
-
-          {this.props.participateMode && (
-            <Link
-              href={{
-                pathname: '/task/preview',
-                query: { id: component.id, r: this.props.redirect },
-              }}
-            >
-              <a>Preview</a>
-            </Link>
           )}
+          <div className="cardInfo">
+            <div className="title">
+              <div>{component.title}</div>
 
-          <div className="studyLink">
-            {this.props.onSelectComponent && (
-              <div>
-                <a
-                  onClick={() => {
-                    this.props.onSelectComponent(component);
-                  }}
-                >
-                  Open Editor
-                </a>
+              <div className="rightSide">
+                {user && this.props.participateMode && (
+                  <ManageFavorites id={component?.id} isFavorite={isFavorite}>
+                    {isFavorite ? (
+                      <Icon name="favorite" color="yellow" />
+                    ) : (
+                      <Icon name="favorite" color="grey" />
+                    )}
+                  </ManageFavorites>
+                )}
+                {component.descriptionForParticipants && (
+                  <Popup
+                    content={ReactHtmlParser(
+                      component.descriptionForParticipants
+                    )}
+                    trigger={<Icon name="info circle" size="large" />}
+                  />
+                )}
               </div>
+            </div>
+
+            {this.props.participateMode && (
+              <Link
+                href={{
+                  pathname: '/task/preview',
+                  query: { id: component.id, r: this.props.redirect },
+                }}
+              >
+                <a>Preview</a>
+              </Link>
             )}
 
-            <div
-              style={{
-                display: 'grid',
-                'grid-template-columns': '1fr auto',
-                'grid-gap': '10px',
-              }}
-            >
-              {this.props.overviewMode && (
-                <ContainerOnlyForAdmin>
-                  <PublishTaskToggle
+            <div className="studyLink">
+              {this.props.onSelectComponent && (
+                <div>
+                  <a
+                    onClick={() => {
+                      this.props.onSelectComponent(component);
+                    }}
+                  >
+                    Open Editor
+                  </a>
+                </div>
+              )}
+
+              <div
+                style={{
+                  display: 'grid',
+                  'grid-template-columns': '1fr auto',
+                  'grid-gap': '10px',
+                }}
+              >
+                {this.props.overviewMode && (
+                  <ContainerOnlyForAdmin>
+                    <PublishTaskToggle
+                      id={component.id}
+                      isPublic={component.public}
+                    />
+                  </ContainerOnlyForAdmin>
+                )}
+
+                {false && this.props.developingMode && isAuthor && (
+                  <DeleteComponent
                     id={component.id}
-                    isPublic={component.public}
-                  />
-                </ContainerOnlyForAdmin>
-              )}
-
-              {false && this.props.developingMode && isAuthor && (
-                <DeleteComponent
-                  id={component.id}
-                  taskType={component.taskType}
-                >
-                  Delete
-                </DeleteComponent>
-              )}
+                    taskType={component.taskType}
+                  >
+                    Delete
+                  </DeleteComponent>
+                )}
+              </div>
             </div>
+
+            {this.props.overviewMode && component?.submitForPublishing && (
+              <div>
+                <p>
+                  The {component.taskType.toLowerCase()} was submitted for
+                  publishing
+                </p>
+              </div>
+            )}
           </div>
-
-          {this.props.overviewMode && component?.submitForPublishing && (
-            <div>
-              <p>
-                The {component.taskType.toLowerCase()} was submitted for
-                publishing
-              </p>
-            </div>
-          )}
-        </div>
-      </StyledTaskCard>
+        </StyledTaskCard>
+      </Link>
     );
   }
 }

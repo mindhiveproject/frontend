@@ -114,6 +114,7 @@ class FeaturedStudies extends Component {
             <div className="buttons">
               {this.props.studies.map(study => (
                 <input
+                  key={study.id}
                   type="radio"
                   name="featuredStudy"
                   value={study.id}

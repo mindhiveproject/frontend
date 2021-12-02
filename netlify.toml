@@ -15,6 +15,12 @@
   force = true
 
 [[redirects]]
+  from = "/surveys/*"
+  to = "/surveys/[slug].html"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/join/*"
   to = "/join/[step].html"
   status = 200

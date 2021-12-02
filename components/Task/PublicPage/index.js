@@ -11,6 +11,20 @@ const REVIEW_TASK_QUERY = gql`
       title
       slug
       description
+      descriptionForParticipants
+      taskType
+      public
+      isOriginal
+      isExternal
+      author {
+        username
+      }
+      collaborators {
+        username
+      }
+      createdAt
+      updatedAt
+      settings
       parameters
     }
   }
