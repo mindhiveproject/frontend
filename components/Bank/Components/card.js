@@ -49,6 +49,7 @@ class TaskCard extends Component {
                     content={ReactHtmlParser(
                       component.descriptionForParticipants
                     )}
+                    size="huge"
                     trigger={<Icon name="info circle" size="large" />}
                   />
                 )}

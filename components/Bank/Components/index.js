@@ -52,16 +52,13 @@ const ALL_PUBLIC_COMPONENTS_QUERY = gql`
       id
       title
       slug
+      taskType
       author {
         id
       }
       collaborators {
         id
-        username
       }
-      public
-      descriptionForParticipants
-      taskType
     }
   }
 `;

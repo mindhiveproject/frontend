@@ -5,7 +5,7 @@ import { StyledFeaturedStudyCard } from '../styles';
 
 class FeaturedStudyCard extends Component {
   render() {
-    const { study, user } = this.props;
+    const { study } = this.props;
 
     const { description } = study;
     let publicCardDescription;
@@ -47,7 +47,9 @@ class FeaturedStudyCard extends Component {
 
         <div className="studyImage">
           {study.image ? (
-            <img src={study.image} alt={study.title} />
+            <div>
+              <img src={study.image} alt={study.title} />
+            </div>
           ) : (
             <div className="noImage"></div>
           )}

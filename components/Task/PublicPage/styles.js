@@ -7,6 +7,7 @@ export const StyledTask = styled.div`
   grid-gap: 15px;
   max-width: 1200px;
   width: 100%;
+  margin: 5rem 0rem;
 
   @media (max-width: 700px) {
     grid-template-columns: 1fr;

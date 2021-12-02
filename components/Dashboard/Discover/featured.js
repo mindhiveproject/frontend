@@ -3,7 +3,8 @@ import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
 import styled from 'styled-components';
-import FeaturedStudyCard from '../../Bank/Studies/featuredCard';
+
+import StudyTab from './studyTab';
 
 const ALL_FEATURED_STUDIES_QUERY = gql`
   query ALL_FEATURED_STUDIES_QUERY {
@@ -11,24 +12,8 @@ const ALL_FEATURED_STUDIES_QUERY = gql`
       id
       title
       slug
-      author {
-        id
-        permissions
-      }
-      collaborators {
-        id
-        permissions
-      }
-      participants {
-        id
-      }
-      public
       image
       description
-      tasks {
-        id
-      }
-      components
     }
   }
 `;
@@ -81,7 +66,7 @@ const StyledFeatured = styled.div`
 
 class FeaturedStudies extends Component {
   state = {
-    value: this.props.studies[0].id,
+    study: this.props.studies[0].id,
   };
 
   render() {
@@ -98,16 +83,11 @@ class FeaturedStudies extends Component {
 
         <div className="featuredContainerWrapper">
           <div className="featuredContainer">
-            {this.props.studies
-              .filter(s => s.id === this.state.value)
-              .map(study => (
-                <div className="featuredStudyCard" key={study.id}>
-                  <FeaturedStudyCard
-                    study={study}
-                    onSelectStudy={this.props.onSelectStudy}
-                  />
-                </div>
-              ))}
+            <StudyTab
+              study={this.state.study}
+              studies={this.props.studies}
+              onSelectStudy={this.props.onSelectStudy}
+            />
           </div>
 
           <div className="buttonsWrapper">
@@ -118,9 +98,11 @@ class FeaturedStudies extends Component {
                   type="radio"
                   name="featuredStudy"
                   value={study.id}
-                  checked={this.state.value === study.id}
-                  onChange={() => this.setState({ value: study.id })}
-                  autoFocus={this.state.value === study.id}
+                  checked={this.state.study === study.id}
+                  onChange={() => {
+                    this.setState({ study: study.id });
+                  }}
+                  autoFocus={this.state.study === study.id}
                 />
               ))}
             </div>
