@@ -109,6 +109,7 @@ class TasksBank extends Component {
                       isFavorite={user?.favoriteTasks
                         ?.map(task => task?.id)
                         .includes(component?.id)}
+                      onSelectTask={this.props.onSelectTask}
                     />
                   ))}
                 </div>

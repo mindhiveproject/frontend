@@ -87,6 +87,7 @@ export const StyledDiscoverDasboard = styled.div`
 
   .featuredContainer {
     background: white;
+    padding: 3rem 3rem;
     .featuredStudyCard {
       padding: 3rem;
     }

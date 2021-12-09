@@ -35,8 +35,8 @@ const StyledStudiesBoard = styled.div`
     background: #f6f9f8;
     width: 100%;
     padding: 7rem 0rem 2rem 0rem;
-    @media (max-width: 1200px) {
-      padding: 2rem 2rem;
+    @media (max-width: 1300px) {
+      padding: 7rem 2rem;
     }
   }
 
@@ -104,6 +104,13 @@ class AllStudies extends Component {
     Router.push('/studies/[slug]', `/studies/${study.slug}`);
   };
 
+  goToTask = component => {
+    Router.push(
+      `/${component?.taskType?.toLowerCase()}s/[slug]`,
+      `/${component?.taskType?.toLowerCase()}s/${component.slug}`
+    );
+  };
+
   render() {
     return (
       <StyledStudiesBoard>
@@ -111,7 +118,11 @@ class AllStudies extends Component {
         <div className="centered">
           <StyledDasboard>
             <StyledDiscoverDasboard>
-              <Library goToStudy={this.goToStudy} redirect="m" />
+              <Library
+                goToStudy={this.goToStudy}
+                goToTask={this.goToTask}
+                redirect="m"
+              />
             </StyledDiscoverDasboard>
           </StyledDasboard>
         </div>

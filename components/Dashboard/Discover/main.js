@@ -7,7 +7,7 @@ import { StyledDasboard, StyledDiscoverDasboard } from '../styles';
 
 class Main extends Component {
   render() {
-    const { tab, user, handleItemClick, goToStudy } = this.props;
+    const { tab, user, handleItemClick, goToStudy, goToTask } = this.props;
 
     return (
       <StyledDasboard>
@@ -18,6 +18,7 @@ class Main extends Component {
             user={user}
             handleItemClick={handleItemClick}
             goToStudy={goToStudy}
+            goToTask={goToTask}
             redirect="d"
           />
         </StyledDiscoverDasboard>

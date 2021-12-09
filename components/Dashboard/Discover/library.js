@@ -13,7 +13,7 @@ class Library extends Component {
   handleItemClick = (e, { name }) => this.setState({ tab: name });
 
   render() {
-    const { user, goToStudy, redirect } = this.props;
+    const { user, goToStudy, goToTask, redirect } = this.props;
     const { tab } = this.state;
 
     return (
@@ -55,6 +55,7 @@ class Library extends Component {
             componentType="COMPONENTS"
             user={user}
             redirect={redirect}
+            onSelectTask={goToTask}
           />
         )}
       </>

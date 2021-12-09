@@ -13,15 +13,30 @@ import ManageFavorites from './manageFavorites';
 
 class TaskCard extends Component {
   render() {
-    const { component, user, isFavorite } = this.props;
+    const {
+      component,
+      user,
+      isFavorite,
+      onSelectTask,
+      developingMode,
+      onSelectComponent,
+    } = this.props;
     const isAuthor =
       user?.id === component?.author?.id ||
       component?.collaborators.map(c => c.id).includes(user?.id);
 
     return (
-      <Link
-        href={{
-          pathname: `/${component?.taskType?.toLowerCase()}s/${component.slug}`,
+      <div
+        onClick={e => {
+          if (e.target && e.target.id === 'favoriteButton') {
+            return;
+          }
+          if (developingMode && onSelectComponent) {
+            onSelectComponent(component);
+          } else if (onSelectTask) {
+            onSelectTask(component);
+            window.scrollTo(0, 0);
+          }
         }}
       >
         <StyledTaskCard taskType={component.taskType}>
@@ -38,9 +53,13 @@ class TaskCard extends Component {
                 {user && this.props.participateMode && (
                   <ManageFavorites id={component?.id} isFavorite={isFavorite}>
                     {isFavorite ? (
-                      <Icon name="favorite" color="yellow" />
+                      <Icon
+                        id="favoriteButton"
+                        name="favorite"
+                        color="yellow"
+                      />
                     ) : (
-                      <Icon name="favorite" color="grey" />
+                      <Icon id="favoriteButton" name="favorite" color="grey" />
                     )}
                   </ManageFavorites>
                 )}
@@ -68,18 +87,6 @@ class TaskCard extends Component {
             )}
 
             <div className="studyLink">
-              {this.props.onSelectComponent && (
-                <div>
-                  <a
-                    onClick={() => {
-                      this.props.onSelectComponent(component);
-                    }}
-                  >
-                    Open Editor
-                  </a>
-                </div>
-              )}
-
               <div
                 style={{
                   display: 'grid',
@@ -95,15 +102,6 @@ class TaskCard extends Component {
                     />
                   </ContainerOnlyForAdmin>
                 )}
-
-                {false && this.props.developingMode && isAuthor && (
-                  <DeleteComponent
-                    id={component.id}
-                    taskType={component.taskType}
-                  >
-                    Delete
-                  </DeleteComponent>
-                )}
               </div>
             </div>
 
@@ -117,9 +115,30 @@ class TaskCard extends Component {
             )}
           </div>
         </StyledTaskCard>
-      </Link>
+      </div>
     );
   }
 }
 
 export default TaskCard;
+
+// {false && this.props.onSelectComponent && (
+//   <div>
+//     <a
+//       onClick={() => {
+//         this.props.onSelectComponent(component);
+//       }}
+//     >
+//       Open Editor
+//     </a>
+//   </div>
+// )}
+//
+// {false && developingMode && isAuthor && (
+//   <DeleteComponent
+//     id={component.id}
+//     taskType={component.taskType}
+//   >
+//     Delete
+//   </DeleteComponent>
+// )}

@@ -4,7 +4,7 @@ export const StyledTask = styled.div`
   display: grid;
   grid-template-columns: 8fr 4fr;
   grid-template-areas: 'description info';
-  grid-gap: 15px;
+  grid-gap: 10rem;
   max-width: 1200px;
   width: 100%;
   margin: 5rem 0rem;

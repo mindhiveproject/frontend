@@ -5,6 +5,7 @@ import AuthorizedPage from '../../Page/userpage';
 import { StyledDasboard } from '../styles';
 
 import ReviewStudyForParticipants from '../../Study/Landing/index';
+import TaskParticipantPage from '../../Task/PublicPage/index';
 import TaskPage from '../../Task/Run/index';
 
 import Main from './main';
@@ -19,6 +20,15 @@ class DashboardDiscover extends Component {
     this.setState({
       page: 'study',
       study,
+      tab: 'studies',
+    });
+  };
+
+  goToTask = task => {
+    this.setState({
+      page: 'task',
+      task,
+      tab: 'components',
     });
   };
 
@@ -80,9 +90,34 @@ class DashboardDiscover extends Component {
         </AuthorizedPage>
       );
     }
+    if (page === 'task') {
+      return (
+        <AuthorizedPage>
+          <StyledDasboard>
+            <div className="backButton">
+              <a
+                onClick={() =>
+                  this.setState({
+                    page: 'bank',
+                  })
+                }
+              >
+                ← Back
+              </a>
+            </div>
+            <TaskParticipantPage slug={this.state.task.slug} />
+          </StyledDasboard>
+        </AuthorizedPage>
+      );
+    }
     return (
       <AuthorizedPage>
-        <Main user={user} goToStudy={this.goToStudy} />
+        <Main
+          user={user}
+          tab={this.state.tab || 'studies'}
+          goToStudy={this.goToStudy}
+          goToTask={this.goToTask}
+        />
       </AuthorizedPage>
     );
   }
