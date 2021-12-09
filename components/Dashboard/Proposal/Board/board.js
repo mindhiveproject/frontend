@@ -128,7 +128,7 @@ const Board = ({ id, openCard, proposalBuildMode, adminMode }) => {
 
   return (
     <Inner
-      board={data.proposalBoard}
+      board={data?.proposalBoard}
       sections={sections}
       onCreateSection={createSection}
       onUpdateSection={updateSection}

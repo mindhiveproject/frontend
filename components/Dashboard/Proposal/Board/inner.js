@@ -104,7 +104,7 @@ class Inner extends Component {
       <div>
         <div>
           <Sections
-            boardId={board.id}
+            boardId={board?.id}
             sections={sections}
             onSetSections={this.props.onSetSections}
             deleteSection={this.deleteSection}
@@ -114,7 +114,7 @@ class Inner extends Component {
             adminMode={this.props.adminMode}
           />
 
-          {proposalBuildMode && (
+          {(true || proposalBuildMode) && (
             <StyledNewInput>
               <label htmlFor="sectionTitle">
                 <div>

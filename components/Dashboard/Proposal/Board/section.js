@@ -339,7 +339,7 @@ const Section = ({
           {numOfCards} card{numOfCards <= 1 ? '' : 's'}
         </span>
       </div>
-      {proposalBuildMode && (
+      {(true || proposalBuildMode) && (
         <div
           className="deleteBtn"
           onClick={() => {
@@ -349,7 +349,7 @@ const Section = ({
             }
             if (
               confirm(
-                'Are you sure you want to delete this proposal section? All cards in this section will be deleted as well.'
+                'Are you sure you want to delete this proposal section? All cards in this section will be deleted as well. This action cannot be undone.'
               )
             ) {
               deleteSection(section.id);
@@ -396,7 +396,7 @@ const Section = ({
           )}
         </Container>
       </div>
-      {proposalBuildMode && (
+      {(true || proposalBuildMode) && (
         <StyledNewInput>
           <label htmlFor={`input-${section.id}`}>
             <span>New card</span>

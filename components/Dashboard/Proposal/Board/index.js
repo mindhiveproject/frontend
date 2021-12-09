@@ -42,7 +42,7 @@ class ProposalContainer extends Component {
 
           <ProposalHeader proposal={this.props.proposal} />
           <Board
-            id={this.props.proposal.id}
+            id={this.props.proposal?.id}
             openCard={this.openCard}
             proposalBuildMode={this.props.proposalBuildMode}
             adminMode={this.props.adminMode}

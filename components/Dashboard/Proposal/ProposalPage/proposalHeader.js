@@ -130,9 +130,9 @@ class ProposalHeader extends Component {
                   </label>
                 </div>
 
-                {(this.state.title !== this.props.proposal.title ||
+                {(this.state.title !== this.props.proposal?.title ||
                   this.state.description !==
-                    this.props.proposal.description) && (
+                    this.props.proposal?.description) && (
                   <div>
                     <button
                       className="secondaryBtn"

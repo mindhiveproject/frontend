@@ -97,9 +97,8 @@ class ProposalPage extends Component {
             {({ error, loading, data }) => {
               if (error) return <Error error={error} />;
               if (loading) return <p>Loading</p>;
-              if (!data?.proposalBoard)
-                return <p>No proposal found for {proposalId}</p>;
-              const proposal = data.proposalBoard;
+              if (!data?.proposalBoard) return <></>;
+              const proposal = data?.proposalBoard;
 
               return (
                 <StyledProposalBoard>
@@ -124,7 +123,7 @@ class ProposalPage extends Component {
                   {!this.state.isPDF ? (
                     <>
                       <Head>
-                        <title>{proposal.title}</title>
+                        <title>{proposal?.title}</title>
                       </Head>
                       <ProposalContainer
                         {...this.props}

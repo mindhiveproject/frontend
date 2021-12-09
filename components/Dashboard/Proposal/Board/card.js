@@ -37,11 +37,17 @@ class Card extends Component {
             )}
           </div>
         </StyledCard>
-        {proposalBuildMode && (
+        {(true || proposalBuildMode) && (
           <div
             className="deleteBtn"
             onClick={() => {
-              this.props.onDeleteCard(card.id);
+              if (
+                confirm(
+                  'Are you sure you want to delete this card? This action cannot be undone.'
+                )
+              ) {
+                this.props.onDeleteCard(card.id);
+              }
             }}
           >
             Delete card
