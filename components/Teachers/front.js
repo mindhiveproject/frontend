@@ -30,9 +30,12 @@ class Front extends Component {
             may help you in your teaching goals.
           </p>
           <div className="centered">
-            <Link href="/">
+            <a
+              target="_blank"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfeaomKF-CrgKPAWF--Dy-IQpxjX1ginylqRJQ11SSnRjXKmQ/viewform?usp=sf_link"
+            >
               <button>Interested? Fill out our contact form</button>
-            </Link>
+            </a>
           </div>
           <p className="centered">
             Or email us directly to{' '}
@@ -76,8 +79,16 @@ class Front extends Component {
                 .
               </p>
             </div>
-            <div>
-              <img src="/content/teachers/student-driven-citizen-science.png" />
+            <div className="videoWrapper">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/VRxvufd5aBc"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
             </div>
           </div>
         </div>
@@ -102,7 +113,7 @@ class Front extends Component {
                   </p>
                 </div>
                 <div>
-                  <Link href="/">
+                  <Link href="/teachers#curriculum">
                     <button className="secondary">See sample curriculum</button>
                   </Link>
                 </div>
@@ -126,7 +137,7 @@ class Front extends Component {
                   </p>
                 </div>
                 <div>
-                  <Link href="/">
+                  <Link href="/discover">
                     <button className="secondary">View our studies</button>
                   </Link>
                 </div>
@@ -150,7 +161,7 @@ class Front extends Component {
                   </p>
                 </div>
                 <div>
-                  <Link href="/">
+                  <Link href="/teachers#tools">
                     <button className="secondary">Explore our tools</button>
                   </Link>
                 </div>
@@ -159,14 +170,14 @@ class Front extends Component {
           </div>
         </div>
 
-        <div className="white">
+        <div className="white" id="tools">
           <h2 className="centered">
             Our tools for collaborative science inquiry
           </h2>
           <Tools />
         </div>
 
-        <div className="white">
+        <div className="white" id="curriculum">
           <h2 className="centered">
             The MindHive program & curriculum materials
           </h2>
@@ -202,9 +213,15 @@ class Front extends Component {
                 </p>
               </div>
               <div>
-                <button className="secondary">
-                  Read more about our pilot at Grace Church School
-                </button>
+                <a
+                  target="_blank"
+                  href="https://inside.gcschool.org/teaching/2020/04/20/the-adaptability-of-scientific-collaboration-in-times-of-crisis/
+"
+                >
+                  <button className="secondary">
+                    Read more about our pilot at Grace Church School
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -213,8 +230,14 @@ class Front extends Component {
         <div className="white centered">
           <h2>Interested in bringing MindHive to your classroom?</h2>
           <div>
-            <button>Get in touch!</button>
+            <a
+              target="_blank"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfeaomKF-CrgKPAWF--Dy-IQpxjX1ginylqRJQ11SSnRjXKmQ/viewform?usp=sf_link"
+            >
+              <button>Get in touch!</button>
+            </a>
           </div>
+
           <p>
             Or email us directly to{' '}
             <a href="mailto:info@mindhive.science">info@mindhive.science</a>

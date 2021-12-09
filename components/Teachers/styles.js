@@ -27,6 +27,10 @@ export const StyledFront = styled.div`
     justify-self: center;
     margin: 5rem 0rem;
   }
+  .videoWrapper {
+    display: grid;
+    align-content: center;
+  }
   .doubled {
     display: grid;
     grid-template-columns: 1fr 1fr;

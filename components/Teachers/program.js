@@ -42,20 +42,23 @@ export default class Program extends Component {
                 {lesson.classes.map(theclass => (
                   <div className="theclass">
                     <h3>{theclass.title}</h3>
-                    <div className="classBlock">
-                      <img
-                        src="/content/teachers/icons/lesson.svg"
-                        alt="Lesson"
-                      />
+                    {theclass.lesson && (
+                      <div className="classBlock">
+                        <img
+                          src="/content/teachers/icons/lesson.svg"
+                          alt="Lesson"
+                        />
 
-                      <div>
-                        <h4>LESSON</h4>
+                        <div>
+                          <h4>LESSON</h4>
+                        </div>
+                        <div />
+                        <div>
+                          <p>{theclass.lesson}</p>
+                        </div>
                       </div>
-                      <div />
-                      <div>
-                        <p>{theclass.lesson}</p>
-                      </div>
-                    </div>
+                    )}
+
                     {theclass.activity && (
                       <div className="classBlock">
                         <img
