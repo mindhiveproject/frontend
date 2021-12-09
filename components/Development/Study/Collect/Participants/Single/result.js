@@ -39,6 +39,7 @@ class Result extends Component {
       line.participantId = user?.publicId;
       line.publicReadableId = user?.publicReadableId;
       line.task = task?.title;
+      line.taskSubtitle = task?.subtitle;
       line.study = study?.title;
       return line;
     });
@@ -81,6 +82,7 @@ class Result extends Component {
       <div className="resultItem">
         <div>{result?.study?.title}</div>
         <div>{result?.task?.title}</div>
+        <div>{result?.task?.subtitle}</div>
         <div>{moment(result?.createdAt).format('MMMM D, YY, h:mm:ss')}</div>
         <div>{moment(result?.updatedAt).format('MMMM D, YY, h:mm:ss')}</div>
         <div>{result.dataPolicy}</div>

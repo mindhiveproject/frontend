@@ -43,6 +43,7 @@ const processRawData = results => {
             result.user.publicId ||
             result.user.id);
         line.task = result.task && result.task.title;
+        line.taskTitle = result.task && result.task.subtitle;
         line.testVersion = result.testVersion && result.testVersion;
         line.study = result.study && result.study.title;
         line.dataType = fullContent ? 'complete' : 'incremental';
@@ -61,6 +62,7 @@ const aggregate = data => {
     .map(f => ({
       study: f.study,
       task: f.task,
+      taskSubtitle: f.taskSubtitle,
       testVersion: f.testVersion,
       participantId: f.participantId,
       ...f.aggregated,

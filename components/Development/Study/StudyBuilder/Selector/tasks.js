@@ -14,6 +14,7 @@ const ALL_PUBLIC_TASKS_QUERY = gql`
     tasks(where: { taskType: TASK }) {
       id
       title
+      subtitle
       slug
       author {
         id

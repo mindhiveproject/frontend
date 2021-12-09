@@ -336,6 +336,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled task - ${Math.floor(Math.random() * 10000)}`,
+                subtitle: '',
                 description: 'Add in a description here',
                 shortDescription:
                   'Add in a description for researchers (short description)',
@@ -354,6 +355,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled task - ${Math.floor(Math.random() * 10000)}`,
+                subtitle: '',
                 description: 'Add in a description here',
                 shortDescription:
                   'Add in a description for researchers (short description)',
@@ -401,6 +403,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled survey - ${Math.floor(Math.random() * 10000)}`,
+                subtitle: '',
                 description: 'Add in a description here',
                 shortDescription:
                   'Add in a description for researchers (short description)',
@@ -418,6 +421,7 @@ class DevelopmentSelectScreen extends Component {
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled survey - ${Math.floor(Math.random() * 10000)}`,
+                subtitle: '',
                 description: 'Add in a description here',
                 shortDescription:
                   'Add in a description for researchers (short description)',

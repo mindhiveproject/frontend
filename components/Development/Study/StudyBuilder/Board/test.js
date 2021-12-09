@@ -75,6 +75,7 @@ const COMPONENT_QUERY = gql`
     task(where: { id: $id }) {
       id
       title
+      subtitle
       slug
       description
       parameters

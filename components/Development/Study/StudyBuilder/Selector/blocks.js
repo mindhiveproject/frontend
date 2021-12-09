@@ -14,6 +14,7 @@ const ALL_PUBLIC_BLOCKS_QUERY = gql`
     tasks(where: { taskType: BLOCK }) {
       id
       title
+      subtitle
       slug
       author {
         id

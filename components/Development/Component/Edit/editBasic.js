@@ -65,6 +65,17 @@ class EditBasic extends Component {
           />
         </label>
 
+        <label htmlFor="title">
+          {taskType} subtitle (to distinguish tasks with the same title)
+          <input
+            type="text"
+            id="subtitle"
+            name="subtitle"
+            value={task.subtitle}
+            onChange={this.props.handleTaskChange}
+          />
+        </label>
+
         {task?.isExternal && (
           <div style={{ paddingTop: '10px' }}>
             <label htmlFor="link">

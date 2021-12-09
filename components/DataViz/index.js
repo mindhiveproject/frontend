@@ -18,6 +18,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
       task {
         id
         title
+        subtitle
       }
       user {
         id

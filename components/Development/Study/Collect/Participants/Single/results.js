@@ -23,6 +23,7 @@ const PARTICIPANT_RESULTS_QUERY = gql`
       task {
         id
         title
+        subtitle
       }
       user {
         id
@@ -60,7 +61,8 @@ class ParticipantResults extends Component {
               <>
                 <div className="resultItem">
                   <div>Study</div>
-                  <div>Task</div>
+                  <div>Task title</div>
+                  <div>Task subtitle</div>
                   <div>Created</div>
                   <div>Updated</div>
                   <div>Data policy</div>

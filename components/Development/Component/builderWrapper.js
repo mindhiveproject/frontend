@@ -30,6 +30,7 @@ const COMPONENT_TO_CLONE_QUERY = gql`
     task(where: { id: $id }) {
       id
       title
+      subtitle
       slug
       description
       descriptionForParticipants

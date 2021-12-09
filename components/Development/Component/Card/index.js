@@ -43,7 +43,11 @@ class Card extends Component {
             <div className="cardHeader">
               <div>
                 <h2>{component.title}</h2>
+                <ContainerOnlyForAuthorsOrCollaborators ids={authIds}>
+                  <p>{component.subtitle}</p>
+                </ContainerOnlyForAuthorsOrCollaborators>
               </div>
+
               <div className="rightHeader">
                 {component.descriptionForParticipants && (
                   <Popup

@@ -21,6 +21,7 @@ export const MY_FAVORITE_TASKS_QUERY = gql`
     favoriteTasks(selector: $selector) {
       id
       title
+      subtitle
       slug
       author {
         id

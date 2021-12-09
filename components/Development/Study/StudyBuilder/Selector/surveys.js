@@ -14,6 +14,7 @@ const ALL_PUBLIC_SURVEYS_QUERY = gql`
     tasks(where: { taskType: SURVEY }) {
       id
       title
+      subtitle
       slug
       author {
         id

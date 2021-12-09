@@ -39,6 +39,7 @@ class Card extends Component {
             <div className="cardHeader">
               <div>
                 <h2>{component.title}</h2>
+                <p>{component.subtitle}</p>
               </div>
               {this.props.onAddComponent && (
                 <div>

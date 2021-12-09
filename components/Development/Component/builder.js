@@ -34,6 +34,7 @@ import {
 const CREATE_COMPONENT_WITH_TEMPLATE = gql`
   mutation CREATE_COMPONENT_WITH_TEMPLATE(
     $title: String!
+    $subtitle: String
     $slug: String
     $description: String
     $parameters: Json
@@ -47,6 +48,7 @@ const CREATE_COMPONENT_WITH_TEMPLATE = gql`
   ) {
     createTaskWithTemplate(
       title: $title
+      subtitle: $subtitle
       slug: $slug
       description: $description
       parameters: $parameters
@@ -98,6 +100,7 @@ const UPDATE_COMPONENT_WITH_TEMPLATE = gql`
   mutation UPDATE_COMPONENT_WITH_TEMPLATE(
     $id: ID!
     $title: String
+    $subtitle: String
     $slug: String
     $description: String
     $descriptionForParticipants: String
@@ -112,6 +115,7 @@ const UPDATE_COMPONENT_WITH_TEMPLATE = gql`
     updateTaskWithTemplate(
       id: $id
       title: $title
+      subtitle: $subtitle
       slug: $slug
       description: $description
       descriptionForParticipants: $descriptionForParticipants
@@ -143,6 +147,7 @@ const UPDATE_COMPONENT_WITH_TEMPLATE = gql`
 const CREATE_COMPONENT = gql`
   mutation CREATE_COMPONENT(
     $title: String!
+    $subtitle: String
     $slug: String
     $templateId: ID
     $description: String
@@ -158,6 +163,7 @@ const CREATE_COMPONENT = gql`
   ) {
     createTask(
       title: $title
+      subtitle: $subtitle
       slug: $slug
       templateId: $templateId
       description: $description
@@ -211,6 +217,7 @@ const UPDATE_COMPONENT = gql`
   mutation UPDATE_COMPONENT(
     $id: ID!
     $title: String
+    $subtitle: String
     $slug: String
     $description: String
     $parameters: Json
@@ -224,6 +231,7 @@ const UPDATE_COMPONENT = gql`
     updateTask(
       id: $id
       title: $title
+      subtitle: $subtitle
       slug: $slug
       description: $description
       parameters: $parameters

@@ -14,6 +14,7 @@ const MY_BLOCKS_QUERY = gql`
     myTasks(where: { taskType: BLOCK }) {
       id
       title
+      subtitle
       descriptionForParticipants
       slug
       author {
