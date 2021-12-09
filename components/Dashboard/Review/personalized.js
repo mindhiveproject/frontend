@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
+
 import Reviews from './reviews';
 import Review from './ReviewBoard/review';
 import AuthorizedPage from '../../Page/userpage';
@@ -51,9 +52,14 @@ class DashboardReview extends Component {
             [];
           const networkClassIds =
             myClasses
-              .map(myClass =>
-                myClass?.network?.classes.map(theClass => theClass?.id)
-              )
+              .map(myClass => {
+                if (myClass?.network) {
+                  return myClass?.network?.classes.map(
+                    theClass => theClass?.id
+                  );
+                }
+                return [];
+              })
               .flat() || [];
           return (
             <>
