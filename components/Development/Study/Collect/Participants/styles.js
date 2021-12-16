@@ -79,6 +79,7 @@ export const StyledParticipantsBoard = styled.div`
     display: grid;
     padding: 10px;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-gap: 1rem;
     cursor: pointer;
     p {
       font-weight: bold;
@@ -89,6 +90,7 @@ export const StyledParticipantsBoard = styled.div`
     margin: 5px 0px;
     padding: 15px 10px;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-gap: 1rem;
     background: white;
     /* cursor: pointer; */
   }

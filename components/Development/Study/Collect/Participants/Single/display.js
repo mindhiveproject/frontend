@@ -87,7 +87,10 @@ class ParticipantDisplay extends Component {
             )}
           </div>
 
-          <ParticipantResults participantId={participant.id} />
+          <ParticipantResults
+            participantId={participant.id}
+            studyId={studyId}
+          />
         </StyledParticipantPage>
       </StyledCollectSection>
     );
@@ -95,7 +98,3 @@ class ParticipantDisplay extends Component {
 }
 
 export default ParticipantDisplay;
-
-// <p>
-//   <span>Username </span> <strong>{participant.username}</strong>
-// </p>

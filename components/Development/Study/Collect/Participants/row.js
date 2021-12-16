@@ -157,9 +157,3 @@ class ParticipantRow extends Component {
 }
 
 export default ParticipantRow;
-
-// {thisStudyConsentInfo
-//   ? thisStudyConsentInfo.saveCoveredConsent == 'true'
-//     ? 'All studies'
-//     : 'This study'
-//   : 'Skipped'}

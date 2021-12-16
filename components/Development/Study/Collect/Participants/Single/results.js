@@ -6,8 +6,8 @@ import Error from '../../../../../ErrorMessage/index';
 import Result from './result';
 
 const PARTICIPANT_RESULTS_QUERY = gql`
-  query PARTICIPANT_RESULTS_QUERY($participantId: ID!) {
-    participantResults(participantId: $participantId) {
+  query PARTICIPANT_RESULTS_QUERY($participantId: ID!, $studyId: ID) {
+    participantResults(participantId: $participantId, studyId: $studyId) {
       id
       quantity
       data
@@ -46,11 +46,14 @@ const PARTICIPANT_RESULTS_QUERY = gql`
 
 class ParticipantResults extends Component {
   render() {
-    const { participantId } = this.props;
+    const { participantId, studyId } = this.props;
     return (
       <div>
         <h3>Results</h3>
-        <Query query={PARTICIPANT_RESULTS_QUERY} variables={{ participantId }}>
+        <Query
+          query={PARTICIPANT_RESULTS_QUERY}
+          variables={{ participantId, studyId }}
+        >
           {({ error, loading, data }) => {
             if (error) return <Error error={error} />;
             if (loading) return <p>Loading</p>;
@@ -69,8 +72,8 @@ class ParticipantResults extends Component {
                   <div>Payload type</div>
                   <div>Is full data?</div>
                   <div># Files</div>
-                  <div># Incremental uploads</div>
-                  <div>Type</div>
+                  <div># Partial uploads</div>
+                  <div>Data analysis</div>
                   <div></div>
                   <div></div>
                 </div>

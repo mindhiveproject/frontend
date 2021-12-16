@@ -7,7 +7,10 @@ import { BOARD_QUERY } from './board';
 import { StyledNewInput } from './styles';
 
 const StyledGrid = styled.div`
-  display: grid;
+  width: 90vw;
+  .scrollable {
+    overflow-x: auto;
+  }
 `;
 
 class Inner extends Component {
@@ -101,8 +104,8 @@ class Inner extends Component {
     const { board, sections, proposalBuildMode } = this.props;
 
     return (
-      <div>
-        <div>
+      <StyledGrid>
+        <div className="scrollable">
           <Sections
             boardId={board?.id}
             sections={sections}
@@ -139,7 +142,7 @@ class Inner extends Component {
             </StyledNewInput>
           )}
         </div>
-      </div>
+      </StyledGrid>
     );
   }
 }

@@ -12,7 +12,7 @@ const StyledClassRow = styled.div`
   display: grid;
   margin: 5px;
   padding: 10px;
-  grid-template-columns: 4fr 2fr 1fr 2fr;
+  grid-template-columns: 4fr 2fr 1fr 1fr 2fr;
   background: white;
   .buttons {
     display: grid;
@@ -46,6 +46,7 @@ class ReviewRow extends Component {
         <StyledClassRow>
           <div>{proposal?.study?.title}</div>
           <div>{theClass}</div>
+          <div>{proposal?.isSubmitted ? '✔︎' : '𐄂'}</div>
           <div>
             {
               proposal?.reviews?.filter(review => review.stage === 'INDIVIDUAL')

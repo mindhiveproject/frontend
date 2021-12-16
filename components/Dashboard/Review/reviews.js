@@ -16,7 +16,7 @@ const StyledReviewHeader = styled.div`
   display: grid;
   margin: 5px;
   padding: 10px;
-  grid-template-columns: 4fr 2fr 1fr 2fr;
+  grid-template-columns: 4fr 2fr 1fr 1fr 2fr;
   cursor: pointer;
   font-weight: bold;
 `;
@@ -67,6 +67,7 @@ class Reviews extends Component {
               if (loading) return <p>Loading ...</p>;
               if (error) return <p>Error: {error.message}</p>;
               const { proposalsForReview } = data;
+              console.log('data', data);
               if (proposalsForReview.length === 0) {
                 return (
                   <>
@@ -86,6 +87,7 @@ class Reviews extends Component {
                       <StyledReviewHeader>
                         <div>Study title</div>
                         <div>Class</div>
+                        <div>Submitted</div>
                         <div>Reviews</div>
                         <div>Actions</div>
                       </StyledReviewHeader>

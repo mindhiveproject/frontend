@@ -86,11 +86,11 @@ class Result extends Component {
         <div>{moment(result?.createdAt).format('MMMM D, YY, h:mm:ss')}</div>
         <div>{moment(result?.updatedAt).format('MMMM D, YY, h:mm:ss')}</div>
         <div>{result.dataPolicy}</div>
-        <div>{result.payload}</div>
+        <div>{result.payload === 'incremental' ? 'partial' : 'full'}</div>
         <div>{result?.fullData?.id ? 'yes' : 'no'}</div>
         <div>{result.quantity}</div>
         <div>{result?.incrementalData?.length}</div>
-        <div>{result?.resultType}</div>
+        <div>{result?.resultType === 'TEST' ? 'Excluded' : 'Included'}</div>
         <a onClick={() => this.download(result)}>Download</a>
         <DeleteResult id={result.id} refetchQueries={this.props.refetchQueries}>
           <a>Delete</a>

@@ -53,8 +53,9 @@ class ChangeResultsStatus extends Component {
             }}
           >
             <a>
-              Mark{loading ? 'ing' : ''} as{' '}
-              {status === 'TEST' ? 'test' : 'real'} data
+              {status === 'TEST' ? 'Exclud' : 'Includ'}
+              {loading ? 'ing' : 'e'} {status === 'TEST' ? 'from' : 'in'}{' '}
+              analysis
             </a>
           </p>
         )}

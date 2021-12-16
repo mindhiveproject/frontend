@@ -18,8 +18,9 @@ const StyledColumnNamesList = styled.div`
 const StyledDatasetHeader = styled.div`
   display: grid;
   grid-template-columns: 1fr auto auto;
-  grid-gap: 10px;
+  grid-gap: 2rem;
   align-items: center;
+  margin: 2rem 0rem;
 `;
 
 const StyledSwitch = styled.div`
@@ -53,6 +54,7 @@ const ColumnNamesList = ({
   onDatasetTypeChange,
 }) => {
   const header = 'Dataset';
+  const rawDataHeader = 'Raw data';
   const originalColumns = helper.getColumnNames(data);
   const transformeColumns = helper.getColumnNames(transformedData);
   const newColumns = transformeColumns.filter(
@@ -124,11 +126,18 @@ const ColumnNamesList = ({
         );
       })}
 
-      <div>
-        <button onClick={() => helper.download(dataRaw)}>
-          Download raw data
-        </button>
-      </div>
+      <StyledDatasetHeader>
+        <h4>{rawDataHeader}</h4>
+        <span>
+          {helper.computeSize(dataRaw, []).columns} columns x{` `}
+          {helper.computeSize(dataRaw, []).rows} rows
+        </span>
+        <div>
+          <button onClick={() => helper.download(dataRaw)}>
+            Download raw data
+          </button>
+        </div>
+      </StyledDatasetHeader>
     </div>
   );
 };
