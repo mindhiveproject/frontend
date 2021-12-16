@@ -56,18 +56,6 @@ class ReviewSection extends Component {
 
     return (
       <div>
-        <Dropdown
-          placeholder="Select proposal"
-          fluid
-          selection
-          options={this.props.study.proposal.map(p => ({
-            key: p.id,
-            value: p.id,
-            text: p.title,
-          }))}
-          onChange={this.onProposalChange}
-          value={this.state.proposalId}
-        />
         <Query
           query={PROPOSAL_REVIEWS_QUERY}
           variables={{ id: this.state.proposalId }}
@@ -87,6 +75,8 @@ class ReviewSection extends Component {
 
             return (
               <ReviewsContainer
+                proposals={this.props.study.proposal}
+                onProposalChange={this.onProposalChange}
                 proposal={proposalBoard}
                 study={study}
                 user={this.props.user}

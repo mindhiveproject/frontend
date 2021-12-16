@@ -29,6 +29,8 @@ class ReviewsContainer extends Component {
     if (this.state.page === 'proposal') {
       return (
         <ProposalWrapper
+          proposals={this.props.proposals}
+          onProposalChange={this.props.onProposalChange}
           proposal={this.props.proposal}
           study={this.props.study}
           user={this.props.user}

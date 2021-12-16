@@ -10,9 +10,16 @@ import ManageStudy from './manage';
 const computeNumber = ({ study, role }) => {
   const collaborators =
     study?.collaborators
+      .filter(person => person?.id !== study?.author?.id) // not the study author
       .map(person => person?.permissions)
+      .filter(permissions => !permissions?.includes('ADMIN')) // not an admin
       .filter(permissions => permissions?.includes(role)).length || 0;
-  const author = study?.author?.permissions?.includes(role) ? 1 : 0;
+  console.log('collaborators', collaborators);
+  const author =
+    !study?.author?.permissions?.includes('ADMIN') &&
+    study?.author?.permissions?.includes(role)
+      ? 1
+      : 0;
   return collaborators + author;
 };
 

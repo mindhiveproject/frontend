@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Mutation } from '@apollo/client/react/components';
 
-import { Icon } from 'semantic-ui-react';
+import { Icon, Dropdown } from 'semantic-ui-react';
 import ChecklistItem from './checklist/index';
 import { checklistItems } from './checklist/checkTemplate';
 import { PROPOSAL_REVIEWS_QUERY } from './index';
@@ -105,6 +105,11 @@ const StyledReviewCard = styled.div`
     letter-spacing: 0em;
     text-align: left;
   }
+  .dropdown {
+    background: #fff9e6;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border-radius: 1rem;
+  }
 `;
 
 class ProposalWrapper extends Component {
@@ -149,7 +154,7 @@ class ProposalWrapper extends Component {
   };
 
   render() {
-    const { proposal } = this.props;
+    const { proposal, proposals } = this.props;
 
     return (
       <Mutation
@@ -171,8 +176,22 @@ class ProposalWrapper extends Component {
               <StyledReviewBoard>
                 <StyledReviewCard className="submit">
                   <h2>
-                    Ready to send for review <em>{proposal?.title}</em>?
+                    Ready to send for review{' '}
+                    <Dropdown
+                      inline
+                      placeholder="Select proposal"
+                      options={proposals.map(p => ({
+                        key: p.id,
+                        value: p.id,
+                        text: p.title,
+                      }))}
+                      onChange={this.props.onProposalChange}
+                      value={proposal?.id}
+                      className="dropdown"
+                    />
+                    ?
                   </h2>
+
                   <div className="submitPanel">
                     <p>
                       When you submit your study as “ready for review,” your

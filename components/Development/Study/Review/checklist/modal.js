@@ -85,7 +85,7 @@ function CheckModal({
       open={open}
       dimmer="blurring"
       trigger={
-        <div className="triggerArea" style={{ cursor: 'pointer' }}>
+        <div className="triggerArea">
           <strong>{title}</strong>
         </div>
       }

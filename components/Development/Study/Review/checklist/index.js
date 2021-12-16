@@ -5,20 +5,30 @@ import CheckModal from './modal';
 const StyledItem = styled.div`
   display: grid;
   grid-template-columns: 40px auto;
-  align-items: center;
   height: 88px;
   background: #ffffff;
   border: 1px solid #e6e6e6;
   box-sizing: border-box;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  padding: 20px 29px 20px 29px;
+
+  input[type='checkbox'] {
+    transform: scale(2);
+    cursor: pointer;
+  }
+  box-shadow: 0px 2px 4px 0px #00000026;
+  transition: box-shadow 300ms ease-out;
+  :hover {
+    box-shadow: 0px 2px 24px 0px #0000001a;
+  }
   .checkboxHolder {
     display: grid;
     align-items: center;
+    justify-content: end;
   }
-  input[type='checkbox'] {
-    transform: scale(2);
+  .triggerArea {
+    display: grid;
+    align-items: center;
+    padding: 20px 29px 20px 29px;
     cursor: pointer;
   }
 `;
