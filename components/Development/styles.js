@@ -72,7 +72,8 @@ export const StyledBuilder = styled.div`
   background: #e5e5e5;
   display: grid;
   width: 100%;
-  grid-template-columns: 4fr 7fr;
+  grid-template-columns: ${props => (props.isWide ? '1fr 1fr' : '4fr 7fr')};
+
   /* grid-template-columns: auto auto; */
   grid-gap: 20px;
   .leftCompartment {
@@ -81,12 +82,15 @@ export const StyledBuilder = styled.div`
     height: 100%;
     max-height: 90vh;
     padding-bottom: 5rem;
+    resize: horizontal;
+    overflow: auto;
   }
   .rightCompartment {
     overflow-y: auto;
     height: 100%;
     max-height: 90vh;
     padding-bottom: 5rem;
+    overflow: auto;
   }
 `;
 

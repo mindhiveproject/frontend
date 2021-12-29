@@ -645,7 +645,7 @@ class ComponentBuilder extends Component {
               </div>
             </BuilderNav>
 
-            <StyledBuilder>
+            <StyledBuilder isWide>
               <EditPane
                 handleTaskChange={this.handleComponentChange}
                 handleParameterChange={this.handleParamChange}
