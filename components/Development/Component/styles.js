@@ -349,6 +349,13 @@ export const StyledPageButtons = styled.div`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   margin: 20px 0px 20px 0px;
+  .activePageButton {
+    background-color: #007c70;
+    border-color: #007c70;
+    color: white;
+  }
+  .notActivePageButton {
+  }
 `;
 
 export const StyledPageHeader = styled.div`

@@ -16,7 +16,6 @@ import CollaboratorsModal from './Collaborators/modal';
 
 import {
   StyledBuilder,
-  BuilderNav,
   StyledEditPane,
   StyledPreviewPane,
   StyledBuilderPage,

@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const StyledBuilderPage = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-rows: minmax(100px, auto) 1fr;
+  /* grid-template-rows: minmax(100px, auto) 1fr; */
+  grid-template-rows: auto 1fr;
   overflow: auto;
   p {
     font-family: Lato;
@@ -72,6 +73,7 @@ export const StyledBuilder = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: 4fr 7fr;
+  /* grid-template-columns: auto auto; */
   grid-gap: 20px;
   .leftCompartment {
     background: #ffffff;
@@ -88,194 +90,16 @@ export const StyledBuilder = styled.div`
   }
 `;
 
-export const StudyBuilderNav = styled.div`
-  display: grid;
-  grid-template-columns: 130px minmax(50px, 300px) 1fr auto auto;
-  grid-gap: 20px;
-  justify-content: stretch;
-  align-items: center;
-  margin: 20px 22.5px 10px 42px;
-  p {
-    margin: 0;
-  }
-  .goBackBtn {
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #007c70;
-    cursor: pointer;
-  }
-  .taskLabel {
-    border: 1px solid #e5e5e5;
-    box-sizing: border-box;
-    border-radius: 4px;
-    padding: 5px 10px;
-    background: #e5e5e5;
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: 0.05em;
-    text-align: center;
-    p {
-      color: #00000099;
-    }
-  }
-  .taskTitle {
-    p {
-      font-family: Lato;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 19px;
-      letter-spacing: 0em;
-      text-align: left;
-      color: #1a1a1a;
-    }
-  }
-  .saveBtn {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 10px;
-    justify-self: end;
-    margin: 0px 0px 0px 0px;
-  }
-  .secondaryBtn {
-    background: #007c70;
-    color: #ffffff;
-  }
-  button {
-    border: 2px solid #007c70;
-    box-sizing: border-box;
-    border-radius: 4px;
-    padding: 14px 24px;
-    height: 46px;
-    color: #007c70;
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: 0.05em;
-    text-align: center;
-  }
-  .discoverMenu {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    grid-column-gap: 5px;
-    justify-content: space-around;
-    cursor: pointer;
-
-    .discoverMenuTitle {
-      padding-bottom: 10px !important;
-      display: grid;
-      justify-content: center;
-      border-bottom: 2px solid transparent;
-      p {
-        font-size: 18px;
-      }
-    }
-    .selectedMenuTitle {
-      border-bottom: 4px solid #ffc107 !important;
-      p {
-        color: #1a1a1a;
-      }
-    }
-  }
-  .addCollaboratorsButton {
-    border: 2px solid #b3b3b3;
-  }
-`;
-
-export const BuilderNav = styled.div`
-  display: grid;
-  grid-template-columns: 180px auto 1fr auto;
-  grid-gap: 30px;
-  justify-content: stretch;
-  align-items: center;
-  margin: 20px 22.5px 10px 42px;
-  p {
-    margin: 0;
-  }
-  .goBackBtn {
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #007c70;
-    cursor: pointer;
-  }
-  .taskLabel {
-    border: 1px solid #e5e5e5;
-    box-sizing: border-box;
-    border-radius: 4px;
-    padding: 5px 10px;
-    background: #e5e5e5;
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: 0.05em;
-    text-align: center;
-    p {
-      color: #00000099;
-    }
-  }
-  .taskTitle {
-    p {
-      font-family: Lato;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 19px;
-      letter-spacing: 0em;
-      text-align: left;
-      color: #1a1a1a;
-    }
-  }
-  .saveBtn {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 10px;
-    justify-self: end;
-    margin: 0px 0px 0px 0px;
-  }
-  .secondaryBtn {
-    background: #007c70;
-    color: #ffffff;
-  }
-  button {
-    border: 2px solid #007c70;
-    box-sizing: border-box;
-    border-radius: 4px;
-    padding: 14px 24px;
-    height: 46px;
-    color: #007c70;
-    font-family: Lato;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: 0.05em;
-    text-align: center;
-  }
-`;
-
 export const StyledEditPane = styled.div`
   display: grid;
   align-content: baseline;
   background: #ffffff;
   margin-top: 10px;
   padding: 10px 48px 0px 42px;
+
+  resize: horizontal;
+  overflow: auto;
+
   label {
     display: block;
   }
@@ -363,7 +187,10 @@ export const StyledEditPane = styled.div`
 
 export const StyledPreviewPane = styled.div`
   display: grid;
-  margin: 40px 70px 40px 70px;
+  /* margin: 40px 70px 40px 70px; */
+  margin: 1rem;
+  /* resize: horizontal; */
+  overflow: auto;
 
   input,
   textarea,
@@ -521,6 +348,207 @@ export const StyledPreviewPane = styled.div`
       p {
         color: #1a1a1a;
       }
+    }
+  }
+`;
+
+export const StudyBuilderNav = styled.div`
+  display: grid;
+  grid-template-columns: auto auto 1fr auto auto;
+  grid-gap: 3rem;
+  justify-content: stretch;
+  align-items: center;
+  margin: 20px 22.5px 10px 42px;
+
+  p {
+    margin: 0;
+  }
+  .goBackBtn {
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #007c70;
+    cursor: pointer;
+  }
+  .taskLabel {
+    border: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background: #e5e5e5;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    p {
+      color: #00000099;
+    }
+  }
+  .taskTitle {
+    p {
+      font-family: Lato;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #1a1a1a;
+    }
+  }
+  .saveBtn {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    justify-self: end;
+    margin: 0px 0px 0px 0px;
+  }
+  .secondaryBtn {
+    background: #007c70;
+    color: #ffffff;
+  }
+  button {
+    border: 2px solid #007c70;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 14px 24px;
+    height: 46px;
+    color: #007c70;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+  .discoverMenu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-column-gap: 5px;
+    justify-content: space-around;
+    cursor: pointer;
+
+    .discoverMenuTitle {
+      padding-bottom: 10px !important;
+      display: grid;
+      justify-content: center;
+      border-bottom: 2px solid transparent;
+      p {
+        font-size: 18px;
+      }
+    }
+    .selectedMenuTitle {
+      border-bottom: 4px solid #ffc107 !important;
+      p {
+        color: #1a1a1a;
+      }
+    }
+  }
+  .addCollaboratorsButton {
+    border: 2px solid #b3b3b3;
+  }
+  .rightButtons {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 1rem;
+    @media only screen and (max-width: 1000px) {
+      grid-template-columns: 1fr;
+    }
+  }
+`;
+
+export const BuilderNav = styled.div`
+  display: grid;
+  /* grid-template-columns: 180px auto 1fr auto; */
+  grid-template-columns: auto auto 1fr auto;
+  grid-gap: 30px;
+  justify-content: stretch;
+  align-items: center;
+  margin: 20px 22.5px 10px 42px;
+
+  p {
+    margin: 0;
+  }
+  .goBackBtn {
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #007c70;
+    cursor: pointer;
+  }
+  .taskLabel {
+    border: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background: #e5e5e5;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    p {
+      color: #00000099;
+    }
+  }
+  .taskTitle {
+    p {
+      font-family: Lato;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 19px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #1a1a1a;
+    }
+  }
+  .saveBtn {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    justify-self: end;
+    margin: 0px 0px 0px 0px;
+  }
+  .secondaryBtn {
+    background: #007c70;
+    color: #ffffff;
+  }
+  button {
+    border: 2px solid #007c70;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 14px 24px;
+    height: 46px;
+    color: #007c70;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+  .rightButtons {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 1rem;
+    @media only screen and (max-width: 900px) {
+      grid-template-columns: 1fr;
     }
   }
 `;

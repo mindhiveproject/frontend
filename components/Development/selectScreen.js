@@ -390,7 +390,7 @@ class DevelopmentSelectScreen extends Component {
                 this.state.componentId ||
                 (process.env.NODE_ENV === 'production'
                   ? 'ckdps2aw300i60743ge85gtb1'
-                  : 'ckpnqxnnrs67p0913xt74kdun')
+                  : 'ckxrd9zjawfg30913rkc74e4w')
               }
               user={this.props.user}
               needToClone

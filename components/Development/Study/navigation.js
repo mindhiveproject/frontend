@@ -214,75 +214,62 @@ class Navigation extends Component {
           </Menu.Item>
         </Menu>
 
-        {!adminMode && (
-          <div>
-            <button
-              onClick={() => {
-                this.props.openAddCollaboratorsModal();
-              }}
-              className="addCollaboratorsButton"
-            >
-              Add collaborators
-            </button>
-          </div>
-        )}
+        <div className="rightButtons">
+          {!adminMode && (
+            <div>
+              <button
+                onClick={() => {
+                  this.props.openAddCollaboratorsModal();
+                }}
+                className="addCollaboratorsButton"
+              >
+                Add collaborators
+              </button>
+            </div>
+          )}
 
-        {true && (
-          <>
-            {(this.props.isAuthor || this.props.adminMode) &&
-            !this.props.needToClone ? (
-              <div className="saveBtn">
-                <Mutation
-                  mutation={UPDATE_STUDY}
-                  refetchQueries={refetchQueries}
-                >
-                  {(updateStudy, { loading, error }) => {
-                    if (error) {
-                      alert(
-                        'Oops! this link has already be taken: please pick another.'
-                      );
-                    }
-                    return (
-                      <div>
-                        <button
-                          className="secondaryBtn"
-                          onClick={() => {
-                            this.props.updateMyStudy(updateStudy);
-                          }}
-                        >
-                          {loading ? 'Saving' : 'Save'}
-                        </button>
-                      </div>
-                    );
+          {(this.props.isAuthor || this.props.adminMode) &&
+          !this.props.needToClone ? (
+            <Mutation mutation={UPDATE_STUDY} refetchQueries={refetchQueries}>
+              {(updateStudy, { loading, error }) => {
+                if (error) {
+                  alert(
+                    'Oops! this link has already be taken: please pick another.'
+                  );
+                }
+                return (
+                  <button
+                    className="secondaryBtn"
+                    onClick={() => {
+                      this.props.updateMyStudy(updateStudy);
+                    }}
+                  >
+                    {loading ? 'Saving' : 'Save'}
+                  </button>
+                );
+              }}
+            </Mutation>
+          ) : (
+            <Mutation
+              mutation={CREATE_NEW_STUDY}
+              refetchQueries={[
+                { query: MY_DEVELOPED_STUDIES_QUERY },
+                { query: USER_DASHBOARD_QUERY },
+              ]}
+            >
+              {(createStudy, { loading, error }) => (
+                <button
+                  className="secondaryBtn"
+                  onClick={() => {
+                    this.props.createNewStudy(createStudy);
                   }}
-                </Mutation>
-              </div>
-            ) : (
-              <div className="saveBtn">
-                <Mutation
-                  mutation={CREATE_NEW_STUDY}
-                  refetchQueries={[
-                    { query: MY_DEVELOPED_STUDIES_QUERY },
-                    { query: USER_DASHBOARD_QUERY },
-                  ]}
                 >
-                  {(createStudy, { loading, error }) => (
-                    <div>
-                      <button
-                        className="secondaryBtn"
-                        onClick={() => {
-                          this.props.createNewStudy(createStudy);
-                        }}
-                      >
-                        {loading ? 'Saving' : 'Save your study'}
-                      </button>
-                    </div>
-                  )}
-                </Mutation>
-              </div>
-            )}
-          </>
-        )}
+                  {loading ? 'Saving' : 'Save your study'}
+                </button>
+              )}
+            </Mutation>
+          )}
+        </div>
       </StudyBuilderNav>
     );
   }

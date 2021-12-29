@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  StyledSurveyBuilderItemLine,
-  StyledPageButtons,
-  StyledPageHeader,
-} from '../../styles';
+import { StyledPageButtons, StyledPageHeader } from '../../styles';
 import SurveyPageBuilder from './surveyPageBuilder';
 
 class SurveyBuilder extends Component {
