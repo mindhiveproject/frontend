@@ -57,7 +57,6 @@ const getColumnValues = (data, columnName, isAlert) => {
   const set = Array.from(new Set(values)).sort();
   // if the user needs to be alerted of values
   if (isAlert) {
-    console.log('Unique values', set);
     alert(JSON.stringify(set));
   }
   return set;

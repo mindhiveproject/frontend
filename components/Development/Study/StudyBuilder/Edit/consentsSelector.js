@@ -32,7 +32,6 @@ const DropdownExampleMultipleSelection = ({
   const onChange = (event, data) => {
     handleSetState('consent', data.value);
   };
-  console.log('consents', consents);
 
   return (
     <Dropdown

@@ -17,6 +17,10 @@ const ALL_CLASSES_QUERY = gql`
       students {
         id
       }
+      mentors {
+        id
+        username
+      }
     }
   }
 `;
@@ -24,7 +28,7 @@ const ALL_CLASSES_QUERY = gql`
 const StyledHeader = styled.div`
   display: grid;
   padding: 10px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   font-weight: bold;
 `;
 
@@ -32,8 +36,14 @@ const StyledRow = styled.div`
   display: grid;
   padding: 10px;
   margin-bottom: 2px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   background: white;
+  span {
+    padding: 0.2rem 0.5rem;
+    margin: 0rem 0.2rem;
+    border-radius: 2rem;
+    border: 1px solid lightgrey;
+  }
 `;
 
 class OverviewUsers extends Component {
@@ -83,6 +93,7 @@ class OverviewUsers extends Component {
                 <div>Class ID</div>
                 <div>Students</div>
                 <div>Teacher</div>
+                <div>Mentors</div>
               </StyledHeader>
 
               {classes.map((theclass, i) => (
@@ -90,6 +101,11 @@ class OverviewUsers extends Component {
                   <div>{theclass.title}</div>
                   <div>{theclass.students.length} students</div>
                   <div>{theclass.creator.username}</div>
+                  <div>
+                    {theclass.mentors.map(mentor => (
+                      <span>{mentor.username}</span>
+                    ))}
+                  </div>
                 </StyledRow>
               ))}
             </div>

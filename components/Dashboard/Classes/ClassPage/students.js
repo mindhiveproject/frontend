@@ -81,6 +81,7 @@ class ClassStudents extends Component {
     temp.select();
     document.execCommand('copy');
     temp.remove();
+    alert('The link is copied');
   };
 
   render() {
@@ -132,7 +133,7 @@ class ClassStudents extends Component {
                           </p>
                           <div className="copyArea">
                             <div className="link">
-                              mindhive.science/signup/student/
+                              https://mindhive.science/signup/student/
                               {this.props.schoolclass.code}
                             </div>
                             <div

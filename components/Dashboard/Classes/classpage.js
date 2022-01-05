@@ -9,6 +9,7 @@ import Error from '../../ErrorMessage/index';
 
 import ClassHeader from './ClassPage/classHeader';
 import ClassStudents from './ClassPage/students';
+import ClassMentors from './ClassPage/mentors';
 import ClassStudies from './ClassPage/studies';
 import ClassAssignments from './Assignment/wrapper';
 import ClassSettings from './ClassPage/settings';
@@ -37,6 +38,14 @@ const REVIEW_CLASS_QUERY = gql`
           email
         }
       }
+      mentors {
+        id
+        username
+        authEmail {
+          email
+        }
+      }
+      settings
     }
   }
 `;
@@ -85,6 +94,7 @@ class ClassPage extends Component {
                 if (loading) return <p>Loading</p>;
                 if (!data.class) return <p>No class found for {classId}</p>;
                 const schoolclass = data.class;
+
                 return (
                   <div>
                     <Head>
@@ -106,6 +116,19 @@ class ClassPage extends Component {
                             }
                           >
                             <p>Students</p>
+                          </Menu.Item>
+
+                          <Menu.Item
+                            name="mentors"
+                            active={tab === 'mentors'}
+                            onClick={this.handleItemClick}
+                            className={
+                              tab === 'mentors'
+                                ? 'discoverMenuTitle selectedMenuTitle'
+                                : 'discoverMenuTitle'
+                            }
+                          >
+                            <p>Mentors</p>
                           </Menu.Item>
 
                           <Menu.Item
@@ -151,6 +174,13 @@ class ClassPage extends Component {
 
                       {this.state.tab === 'students' && (
                         <ClassStudents
+                          schoolclass={schoolclass}
+                          openStudentPage={this.openStudentPage}
+                        />
+                      )}
+
+                      {this.state.tab === 'mentors' && (
+                        <ClassMentors
                           schoolclass={schoolclass}
                           openStudentPage={this.openStudentPage}
                         />

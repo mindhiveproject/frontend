@@ -67,7 +67,7 @@ class Reviews extends Component {
               if (loading) return <p>Loading ...</p>;
               if (error) return <p>Error: {error.message}</p>;
               const { proposalsForReview } = data;
-              console.log('data', data);
+
               if (proposalsForReview.length === 0) {
                 return (
                   <>
