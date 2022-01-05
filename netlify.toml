@@ -43,3 +43,9 @@
   to = "/proposals/[slug].html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/signup/mentor/*"
+  to = "/signup/mentor/[code]/[invite].html"
+  status = 200
+  force = true
