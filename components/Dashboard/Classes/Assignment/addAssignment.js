@@ -51,8 +51,8 @@ const StyledSelectionScreen = styled.div`
 
 class AddAssignment extends Component {
   state = {
-    title: '',
-    content: '',
+    title: this.props.template?.title || '',
+    content: this.props.template?.content || '',
     classId: this.props.classId,
   };
 

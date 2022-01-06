@@ -46,10 +46,17 @@ const StyledStudentHeader = styled.div`
 
 const StyledStudentRow = styled.div`
   display: grid;
-  padding: 10px;
+  /* padding: 10px; */
+  padding: 1.5rem 1rem;
   margin-bottom: 2px;
   grid-template-columns: 1fr 1fr 50px;
   background: white;
+  box-shadow: 0px 2px 4px 0px #00000026;
+  transition: box-shadow 300ms ease-out;
+  :hover {
+    box-shadow: 0px 2px 24px 0px #0000001a;
+  }
+  border-radius: 4px;
 `;
 
 class ClassStudents extends Component {

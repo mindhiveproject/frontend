@@ -4,6 +4,7 @@ import { Query } from '@apollo/client/react/components';
 import Error from '../../../ErrorMessage/index';
 
 import Assignment from './assignment';
+import SelectAssignment from './selectAssignment';
 import AddAssignment from './addAssignment';
 import AssignmentTab from './assignmentTab';
 import EditAssignment from './editAssignment';
@@ -25,11 +26,22 @@ class ClassAssignments extends Component {
   state = {
     page: this.props.page || 'assignments',
     assignmentId: null,
+    template: null,
   };
 
-  addAssignment = () => {
+  // selecting an assignment template from the list or creating a new one
+  selectAssignment = () => {
+    this.setState({
+      page: 'selectassignment',
+    });
+  };
+
+  // adding a new assignment (based on the template or a new one)
+  addAssignment = assignment => {
+    console.log('assignment', assignment);
     this.setState({
       page: 'addassignment',
+      template: assignment,
     });
   };
 
@@ -51,12 +63,33 @@ class ClassAssignments extends Component {
     this.setState({
       page: 'assignments',
       assignmentId: null,
+      template: null,
     });
   };
 
   render() {
     const { schoolclass } = this.props;
     const { page, assignmentId } = this.state;
+
+    if (page === 'selectassignment') {
+      return (
+        <SelectAssignment
+          goBack={this.goBack}
+          classId={schoolclass?.id}
+          addAssignment={this.addAssignment}
+        />
+      );
+    }
+
+    if (page === 'addassignment') {
+      return (
+        <AddAssignment
+          goBack={this.goBack}
+          classId={schoolclass?.id}
+          template={this.state.template}
+        />
+      );
+    }
 
     if (page === 'assignment') {
       return (
@@ -66,10 +99,6 @@ class ClassAssignments extends Component {
           assignmentId={assignmentId}
         />
       );
-    }
-
-    if (page === 'addassignment') {
-      return <AddAssignment goBack={this.goBack} classId={schoolclass?.id} />;
     }
 
     if (page === 'editassignment') {
@@ -94,7 +123,7 @@ class ClassAssignments extends Component {
                 gridGap: '10px',
               }}
             >
-              <button onClick={this.addAssignment}>Add assignment</button>
+              <button onClick={this.selectAssignment}>Add assignment</button>
             </div>
           </div>
           <Query query={CLASS_ASSIGNMENTS} variables={{ id: schoolclass?.id }}>
