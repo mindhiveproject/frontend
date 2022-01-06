@@ -60,9 +60,11 @@ class Classes extends Component {
               return (
                 <>
                   <div className="navigationHeader">
-                    <div>
-                      <p>Show archived</p>
-                    </div>
+                    {false && (
+                      <div>
+                        <p>Show archived</p>
+                      </div>
+                    )}
                     <div>
                       <button onClick={this.props.addClass}>Add class</button>
                     </div>

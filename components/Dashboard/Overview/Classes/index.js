@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import FetchStudentPage from '../../Classes/ClassPage/StudentPage/index';
+import moment from 'moment';
+import ClassPage from '../../Classes/classpage';
 
 // query to get all users
 const ALL_CLASSES_QUERY = gql`
@@ -21,6 +22,7 @@ const ALL_CLASSES_QUERY = gql`
         id
         username
       }
+      createdAt
     }
   }
 `;
@@ -28,7 +30,7 @@ const ALL_CLASSES_QUERY = gql`
 const StyledHeader = styled.div`
   display: grid;
   padding: 10px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   font-weight: bold;
 `;
 
@@ -36,43 +38,45 @@ const StyledRow = styled.div`
   display: grid;
   padding: 10px;
   margin-bottom: 2px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   background: white;
+  cursor: pointer;
+  /* font-size: 1.2rem; */
   span {
-    padding: 0.2rem 0.5rem;
-    margin: 0rem 0.2rem;
-    border-radius: 2rem;
-    border: 1px solid lightgrey;
+    /* padding: 0.2rem 0.5rem; */
+    margin: 0rem 0.5rem 0rem 0rem;
+    /* border-radius: 2rem; */
+    /* border: 1px solid lightgrey; */
   }
 `;
 
-class OverviewUsers extends Component {
+class OverviewClasses extends Component {
   state = {
-    page: this.props.page || 'list',
-    id: null,
+    page: this.props.page || 'classes',
+    classId: null,
   };
 
-  openJournal = id => {
+  openClass = classId => {
     this.setState({
-      page: 'person',
-      id,
+      page: 'classpage',
+      classId,
     });
   };
 
-  goBackToList = () => {
+  goBack = () => {
     this.setState({
-      page: 'list',
-      id: null,
+      page: 'classes',
+      classId: null,
     });
   };
 
   render() {
     const { page } = this.state;
-    if (page === 'person') {
+    if (page === 'classpage') {
       return (
-        <FetchStudentPage
-          studentId={this.state.id}
-          goBackToList={this.goBackToList}
+        <ClassPage
+          classId={this.state.classId}
+          goBack={this.goBack}
           adminMode
         />
       );
@@ -90,16 +94,18 @@ class OverviewUsers extends Component {
           return (
             <div>
               <StyledHeader>
-                <div>Class ID</div>
-                <div>Students</div>
+                <div>Class name</div>
+                <div>Number of students</div>
+                <div>Date created</div>
                 <div>Teacher</div>
                 <div>Mentors</div>
               </StyledHeader>
 
               {classes.map((theclass, i) => (
-                <StyledRow key={i}>
+                <StyledRow key={i} onClick={() => this.openClass(theclass.id)}>
                   <div>{theclass.title}</div>
                   <div>{theclass.students.length} students</div>
+                  <div>{moment(theclass.createdAt).format('MMMM D, YYYY')}</div>
                   <div>{theclass.creator.username}</div>
                   <div>
                     {theclass.mentors.map(mentor => (
@@ -116,4 +122,4 @@ class OverviewUsers extends Component {
   }
 }
 
-export default OverviewUsers;
+export default OverviewClasses;
