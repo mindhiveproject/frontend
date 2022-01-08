@@ -172,6 +172,10 @@ export const StyledConsentForm = styled.div`
     a {
       cursor: pointer;
     }
+    .secondary {
+      background: white;
+      color: #007c70;
+    }
   }
   .headerTitle {
     display: grid;

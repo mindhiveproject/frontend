@@ -47,6 +47,7 @@ const StyledRow = styled.div`
   align-items: center;
   cursor: pointer;
   padding: 1.5rem 1rem;
+  background: white;
   box-shadow: 0px 2px 4px 0px #00000026;
   transition: box-shadow 300ms ease-out;
   :hover {

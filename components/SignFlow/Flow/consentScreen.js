@@ -129,6 +129,7 @@ class ConsentScreen extends Component {
         <div className="buttonsHolder">
           <div>
             <button
+              className="secondary"
               onClick={() =>
                 this.props.recordMyConsent(
                   consent?.id,
