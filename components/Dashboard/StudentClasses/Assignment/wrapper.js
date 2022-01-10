@@ -12,7 +12,7 @@ import EditHomework from '../Homework/editHomework';
 
 export const CLASS_ASSIGNMENTS = gql`
   query CLASS_ASSIGNMENTS($id: ID!) {
-    assignments(where: { classes_some: { id: $id } }) {
+    assignments(where: { classes_some: { id: $id }, public: true }) {
       id
       title
       settings

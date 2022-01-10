@@ -130,6 +130,7 @@ class ClassAssignments extends Component {
                   </p>
                 );
               const { assignments } = data;
+              console.log('assignments', assignments);
               return (
                 <>
                   {assignments.map(assignment => (

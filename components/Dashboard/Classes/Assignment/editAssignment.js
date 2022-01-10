@@ -7,7 +7,7 @@ import Note from '../../Jodit/note';
 
 import { CLASS_ASSIGNMENTS } from './wrapper';
 
-const GET_ASSIGNMENT = gql`
+export const GET_ASSIGNMENT = gql`
   query GET_ASSIGNMENT($id: ID!) {
     assignment(where: { id: $id }) {
       id
@@ -18,7 +18,7 @@ const GET_ASSIGNMENT = gql`
   }
 `;
 
-const UPDATE_ASSIGNMENT = gql`
+export const UPDATE_ASSIGNMENT = gql`
   mutation UPDATE_ASSIGNMENT(
     $id: ID!
     $title: String

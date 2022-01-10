@@ -2,14 +2,20 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 
+import { Mutation } from '@apollo/client/react/components';
+
 import ReactHtmlParser from 'react-html-parser';
 import DeleteAssignment from './deleteAssignment';
+
+import { GET_ASSIGNMENT, UPDATE_ASSIGNMENT } from './editAssignment';
+import { CLASS_ASSIGNMENTS } from './wrapper';
 
 const StyledPost = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   background: white;
   border-radius: 1rem;
+  margin: 0.5rem 0rem;
   .header {
     padding: 25px 20px 10px 20px;
     display: grid;
@@ -56,6 +62,11 @@ const StyledPost = styled.div`
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 1fr auto;
+    .buttons {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: 1rem;
+    }
   }
   .content {
     padding: 15px 20px 20px 20px;
@@ -66,6 +77,11 @@ const StyledPost = styled.div`
 `;
 
 class AssignmentTab extends Component {
+  state = {
+    id: this.props.assignment.id,
+    public: true,
+  };
+
   render() {
     const { assignment, classId } = this.props;
     return (
@@ -73,7 +89,7 @@ class AssignmentTab extends Component {
         <div className="header">
           <div className="firstLine">
             <div>
-              <div onClick={() => this.props.openAssignment(assignment.id)}>
+              <div>
                 <h2>{assignment.title}</h2>
               </div>
               <em>{moment(assignment.createdAt).format('MMM D, YYYY')}</em>
@@ -84,15 +100,53 @@ class AssignmentTab extends Component {
           </div>
 
           <div className="headerInfo">
-            <button onClick={() => this.props.openAssignment(assignment.id)}>
-              Homework
-            </button>
-            <button
-              className="secondary"
-              onClick={() => this.props.editAssignment(assignment.id)}
-            >
-              Edit
-            </button>
+            {assignment.public ? (
+              <button onClick={() => this.props.openAssignment(assignment.id)}>
+                Homework
+              </button>
+            ) : (
+              <div className="buttons">
+                <button
+                  className="secondary"
+                  onClick={() => this.props.editAssignment(assignment.id)}
+                >
+                  Edit
+                </button>
+
+                <Mutation
+                  mutation={UPDATE_ASSIGNMENT}
+                  variables={this.state}
+                  refetchQueries={[
+                    {
+                      query: CLASS_ASSIGNMENTS,
+                      variables: { id: this.props.classId },
+                    },
+                    {
+                      query: GET_ASSIGNMENT,
+                      variables: { id: this.props.assignment.id },
+                    },
+                  ]}
+                >
+                  {(submitAssignment, { loading, error }) => (
+                    <button
+                      onClick={() => {
+                        if (
+                          confirm(
+                            'Are you sure you want to submit this assignment? The assignment can no longer be edited after it has been submitted.'
+                          )
+                        ) {
+                          submitAssignment().catch(err => {
+                            alert(err.message);
+                          });
+                        }
+                      }}
+                    >
+                      Submit
+                    </button>
+                  )}
+                </Mutation>
+              </div>
+            )}
           </div>
         </div>
 
