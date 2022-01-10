@@ -11,7 +11,7 @@ const StyledPost = styled.div`
   background: white;
   border-radius: 1rem;
   .header {
-    padding: 25px 20px 20px 20px;
+    padding: 25px 20px 10px 20px;
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr;
@@ -47,15 +47,15 @@ const StyledPost = styled.div`
         color: red;
       }
     }
+    .secondary {
+      background: white;
+      color: #007c70;
+    }
   }
   .headerInfo {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 1fr auto;
-    .secondary {
-      background: white;
-      color: #007c70;
-    }
   }
   .content {
     padding: 15px 20px 20px 20px;
@@ -79,9 +79,7 @@ class AssignmentTab extends Component {
               <em>{moment(assignment.createdAt).format('MMM D, YYYY')}</em>
             </div>
             <DeleteAssignment assignmentId={assignment?.id} classId={classId}>
-              <div className="closeBtn">
-                <div onClick={this.props.goBack}>&times;</div>
-              </div>
+              <button className="secondary">Delete</button>
             </DeleteAssignment>
           </div>
 

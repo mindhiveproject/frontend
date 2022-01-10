@@ -116,15 +116,7 @@ class ClassAssignments extends Component {
         <>
           <div className="navigationHeader">
             <div></div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gridGap: '10px',
-              }}
-            >
-              <button onClick={this.selectAssignment}>Add assignment</button>
-            </div>
+            <button onClick={this.selectAssignment}>Add assignment</button>
           </div>
           <Query query={CLASS_ASSIGNMENTS} variables={{ id: schoolclass?.id }}>
             {({ error, loading, data }) => {

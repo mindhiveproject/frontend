@@ -26,9 +26,7 @@ class HomeworkTab extends Component {
           Edit
         </button>
         <DeleteHomework homeworkId={homework.id} assignmentId={assignmentId}>
-          <div className="closeBtn">
-            <div onClick={this.props.goBack}>&times;</div>
-          </div>
+          <button className="secondary">Delete</button>
         </DeleteHomework>
       </StyledHomeworkTab>
     );
