@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import { Icon, Popup } from 'semantic-ui-react';
 
 import { Mutation } from '@apollo/client/react/components';
 
@@ -26,6 +27,12 @@ const StyledPost = styled.div`
       display: grid;
       grid-gap: 2rem;
       grid-template-columns: 1fr auto;
+      .title {
+        display: grid;
+        grid-gap: 2rem;
+        grid-template-columns: auto 1fr;
+        align-items: baseline;
+      }
     }
     button {
       min-height: 56px;
@@ -89,8 +96,20 @@ class AssignmentTab extends Component {
         <div className="header">
           <div className="firstLine">
             <div>
-              <div>
+              <div className="title">
                 <h2>{assignment.title}</h2>
+
+                {assignment.public ? (
+                  <Popup
+                    content="The assignment is visible for students"
+                    trigger={<Icon name="eye" />}
+                  />
+                ) : (
+                  <Popup
+                    content="The assignment is NOT visible for students"
+                    trigger={<Icon name="eye slash" />}
+                  />
+                )}
               </div>
               <em>{moment(assignment.createdAt).format('MMM D, YYYY')}</em>
             </div>
