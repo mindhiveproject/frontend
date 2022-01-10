@@ -5,9 +5,10 @@ import DeleteHomework from './deleteHomework';
 
 const StyledHomeworkTab = styled.div`
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-columns: 3fr 1fr auto;
+  grid-gap: 1rem;
   background: white;
-  span  {
+  span {
     cursor: pointer;
   }
 `;
@@ -18,9 +19,16 @@ class HomeworkTab extends Component {
     return (
       <StyledHomeworkTab>
         <div>{homework.title}</div>
-        <span onClick={() => this.props.openHomework(homework.id)}>Edit</span>
+        <button
+          className="secondary"
+          onClick={() => this.props.openHomework(homework.id)}
+        >
+          Edit
+        </button>
         <DeleteHomework homeworkId={homework.id} assignmentId={assignmentId}>
-          Delete
+          <div className="closeBtn">
+            <div onClick={this.props.goBack}>&times;</div>
+          </div>
         </DeleteHomework>
       </StyledHomeworkTab>
     );

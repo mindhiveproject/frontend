@@ -54,7 +54,7 @@ const StyledPost = styled.div`
   background: white;
   border-radius: 1rem;
   .header {
-    padding: 15px 20px 20px 20px;
+    padding: 25px 20px 20px 20px;
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr;
@@ -77,8 +77,14 @@ const StyledHomeworkList = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     background: white;
     padding: 1rem;
+    margin: 0.2rem 0rem;
     border-radius: 1rem;
     cursor: pointer;
+    box-shadow: 0px 2px 4px 0px #00000026;
+    transition: box-shadow 300ms ease-out;
+    :hover {
+      box-shadow: 0px 2px 24px 0px #0000001a;
+    }
   }
 `;
 

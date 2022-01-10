@@ -10,13 +10,17 @@ const StyledPost = styled.div`
   grid-template-rows: auto 1fr;
   background: white;
   border-radius: 1rem;
-  max-width: 450px;
   .header {
-    padding: 15px 20px 20px 20px;
+    padding: 25px 20px 20px 20px;
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr;
     align-items: center;
+    .firstLine {
+      display: grid;
+      grid-gap: 2rem;
+      grid-template-columns: 1fr auto;
+    }
     button {
       min-height: 56px;
       padding: 10px 24px 10px 24px;
@@ -27,12 +31,31 @@ const StyledPost = styled.div`
       color: white;
       cursor: pointer;
       font-family: 'Lato';
+      max-width: 300px;
+    }
+    .closeBtn {
+      line-height: 3rem;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 2.25rem;
+      color: #5f6871;
+      font-size: 2rem;
+      cursor: pointer;
+      :hover {
+        transform: scale(1.5);
+        transition: transform 0.5s;
+        color: red;
+      }
     }
   }
   .headerInfo {
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 1fr 1fr auto;
+    grid-template-columns: 1fr auto;
+    .secondary {
+      background: white;
+      color: #007c70;
+    }
   }
   .content {
     padding: 15px 20px 20px 20px;
@@ -48,20 +71,30 @@ class AssignmentTab extends Component {
     return (
       <StyledPost>
         <div className="header">
-          <div onClick={() => this.props.openAssignment(assignment.id)}>
-            <h2>{assignment.title}</h2>
-          </div>
-          <span>{moment(assignment.createdAt).format('MMM D, YYYY')}</span>
-          <div className="headerInfo">
-            <span onClick={() => this.props.openAssignment(assignment.id)}>
-              <button>Homework</button>
-            </span>
-            <span onClick={() => this.props.editAssignment(assignment.id)}>
-              <button>Edit</button>
-            </span>
+          <div className="firstLine">
+            <div>
+              <div onClick={() => this.props.openAssignment(assignment.id)}>
+                <h2>{assignment.title}</h2>
+              </div>
+              <em>{moment(assignment.createdAt).format('MMM D, YYYY')}</em>
+            </div>
             <DeleteAssignment assignmentId={assignment?.id} classId={classId}>
-              <button>Delete</button>
+              <div className="closeBtn">
+                <div onClick={this.props.goBack}>&times;</div>
+              </div>
             </DeleteAssignment>
+          </div>
+
+          <div className="headerInfo">
+            <button onClick={() => this.props.openAssignment(assignment.id)}>
+              Homework
+            </button>
+            <button
+              className="secondary"
+              onClick={() => this.props.editAssignment(assignment.id)}
+            >
+              Edit
+            </button>
           </div>
         </div>
 

@@ -4,11 +4,8 @@ import styled from 'styled-components';
 
 const StyledClassRow = styled.div`
   display: grid;
-  /* margin: 1px 5px; */
-  /* padding: 10px; */
   padding: 1.5rem 1rem;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  /* background: white; */
   cursor: pointer;
   box-shadow: 0px 2px 4px 0px #00000026;
   transition: box-shadow 300ms ease-out;

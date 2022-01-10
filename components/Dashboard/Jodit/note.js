@@ -12,22 +12,26 @@ class Note extends Component {
       content,
       onContentChange,
       btnName,
+      hideTitle,
     } = this.props;
 
     return (
       <StyledPost onSubmit={onSubmit}>
         <fieldset disabled={loading} aria-busy={loading}>
-          <label htmlFor="title">
-            <p>Title</p>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={title}
-              onChange={onTitleChange}
-              required
-            />
-          </label>
+          {!hideTitle && (
+            <label htmlFor="title">
+              <p>Title</p>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={title}
+                onChange={onTitleChange}
+                required
+              />
+            </label>
+          )}
+
           <StyledJodit>
             <Jodit externalContent={content} updateContent={onContentChange} />
           </StyledJodit>

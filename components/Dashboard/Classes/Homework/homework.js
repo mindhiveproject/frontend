@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import { Query, Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import moment from 'moment';
 
-import ReactHtmlParser from 'react-html-parser';
+import Note from '../../Jodit/note';
 
 const GET_HOMEWORK = gql`
   query GET_HOMEWORK($id: ID!) {
@@ -18,6 +18,14 @@ const GET_HOMEWORK = gql`
         username
       }
       createdAt
+    }
+  }
+`;
+
+const UPDATE_HOMEWORK = gql`
+  mutation UPDATE_HOMEWORK($id: ID!, $content: String) {
+    updateHomework(id: $id, content: $content) {
+      id
     }
   }
 `;
@@ -51,16 +59,16 @@ const StyledSelectionScreen = styled.div`
 const StyledPost = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
-  background: white;
   border-radius: 1rem;
   .header {
-    padding: 15px 20px 20px 20px;
+    padding: 25px 20px 20px 20px;
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr auto auto;
     align-content: center;
     background: #007c70;
     color: white;
+    margin: 0rem 0rem 2rem 0rem;
   }
   .content {
     padding: 15px 20px 20px 20px;
@@ -70,6 +78,22 @@ const StyledPost = styled.div`
 class Homework extends Component {
   state = {
     id: this.props.homeworkId,
+  };
+
+  handleTitleChange = e => {
+    const { name, type, value } = e.target;
+    const val = type === 'number' ? parseFloat(value) : value;
+    this.setState({
+      [name]: val,
+    });
+  };
+
+  handleContentChange = content => {
+    if (content) {
+      this.setState({
+        content,
+      });
+    }
   };
 
   render() {
@@ -97,9 +121,35 @@ class Homework extends Component {
                     {moment(homework?.createdAt).format('MMM D, YYYY, h:mm a')}
                   </div>
                 </div>
-                <div className="content">
-                  {ReactHtmlParser(homework.content)}
-                </div>
+                <Mutation
+                  mutation={UPDATE_HOMEWORK}
+                  variables={this.state}
+                  refetchQueries={[
+                    {
+                      query: GET_HOMEWORK,
+                      variables: { id: this.props.homeworkId },
+                    },
+                  ]}
+                >
+                  {(updateHomework, { loading, error }) => (
+                    <>
+                      <Note
+                        onSubmit={async e => {
+                          e.preventDefault();
+                          const res = await updateHomework();
+                          this.props.goBack();
+                        }}
+                        loading={loading}
+                        title={this.state.title || homework.title}
+                        onTitleChange={this.handleTitleChange}
+                        content={this.state.content || homework.content}
+                        onContentChange={this.handleContentChange}
+                        btnName="Save"
+                        hideTitle
+                      />
+                    </>
+                  )}
+                </Mutation>
               </StyledPost>
             );
           }}
