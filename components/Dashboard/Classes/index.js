@@ -23,10 +23,22 @@ class PersonalDashboard extends Component {
             userPayloadData?.permissions.includes('TEACHER') ||
             userPayloadData?.permissions.includes('MENTOR')
           ) {
-            return <DashboardClasses user={userPayloadData} />;
+            return (
+              <DashboardClasses
+                {...this.props}
+                page={this.props.assignmentId && 'assignment'}
+                user={userPayloadData}
+              />
+            );
           }
           // show classes for students
-          return <DashboardStudentClasses user={userPayloadData} />;
+          return (
+            <DashboardStudentClasses
+              {...this.props}
+              page={this.props.assignmentId && 'assignment'}
+              user={userPayloadData}
+            />
+          );
         }}
       </Query>
     );

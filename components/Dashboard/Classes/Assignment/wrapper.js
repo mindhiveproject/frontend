@@ -27,6 +27,7 @@ class ClassAssignments extends Component {
     page: this.props.page || 'assignments',
     assignmentId: null,
     template: null,
+    featuredAssignmentId: this.props.featuredAssignmentId || null,
   };
 
   // selecting an assignment template from the list or creating a new one
@@ -38,7 +39,6 @@ class ClassAssignments extends Component {
 
   // adding a new assignment (based on the template or a new one)
   addAssignment = assignment => {
-    console.log('assignment', assignment);
     this.setState({
       page: 'addassignment',
       template: assignment,
@@ -69,7 +69,7 @@ class ClassAssignments extends Component {
 
   render() {
     const { schoolclass } = this.props;
-    const { page, assignmentId } = this.state;
+    const { page, assignmentId, featuredAssignmentId } = this.state;
 
     if (page === 'selectassignment') {
       return (
@@ -114,10 +114,12 @@ class ClassAssignments extends Component {
     if (page === 'assignments') {
       return (
         <>
-          <div className="navigationHeader">
-            <div></div>
-            <button onClick={this.selectAssignment}>Add assignment</button>
-          </div>
+          {!this.props.featuredAssignmentId && (
+            <div className="navigationHeader">
+              <div></div>
+              <button onClick={this.selectAssignment}>Add assignment</button>
+            </div>
+          )}
           <Query query={CLASS_ASSIGNMENTS} variables={{ id: schoolclass?.id }}>
             {({ error, loading, data }) => {
               if (error) return <Error error={error} />;
@@ -130,18 +132,24 @@ class ClassAssignments extends Component {
                   </p>
                 );
               const { assignments } = data;
-              console.log('assignments', assignments);
               return (
                 <>
-                  {assignments.map(assignment => (
-                    <AssignmentTab
-                      key={assignment.id}
-                      assignment={assignment}
-                      classId={schoolclass.id}
-                      editAssignment={this.editAssignment}
-                      openAssignment={this.openAssignment}
-                    />
-                  ))}
+                  {assignments
+                    .filter(assignment =>
+                      featuredAssignmentId
+                        ? assignment.id === featuredAssignmentId
+                        : true
+                    )
+                    .map(assignment => (
+                      <AssignmentTab
+                        key={assignment.id}
+                        assignment={assignment}
+                        classId={schoolclass.id}
+                        editAssignment={this.editAssignment}
+                        openAssignment={this.openAssignment}
+                        featuredAssignmentId={this.props.featuredAssignmentId}
+                      />
+                    ))}
                 </>
               );
             }}

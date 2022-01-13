@@ -113,9 +113,21 @@ class AssignmentTab extends Component {
               </div>
               <em>{moment(assignment.createdAt).format('MMM D, YYYY')}</em>
             </div>
-            <DeleteAssignment assignmentId={assignment?.id} classId={classId}>
-              <button className="secondary">Delete</button>
-            </DeleteAssignment>
+
+            <div className="title">
+              {!this.props.featuredAssignmentId && (
+                <a
+                  target="_blank"
+                  href={`/dashboard/myclasses/assignments/${assignment.id}`}
+                >
+                  <button className="secondary">Open in new tab</button>
+                </a>
+              )}
+
+              <DeleteAssignment assignmentId={assignment?.id} classId={classId}>
+                <button className="secondary">Delete</button>
+              </DeleteAssignment>
+            </div>
           </div>
 
           <div className="headerInfo">

@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 
 import Head from 'next/head';
-import moment from 'moment';
 import { Menu } from 'semantic-ui-react';
 import Error from '../../ErrorMessage/index';
 
@@ -75,7 +74,7 @@ class ClassPage extends Component {
             <>
               <div className="goBackBtn">
                 <span style={{ cursor: 'pointer' }} onClick={this.props.goBack}>
-                  ← Back
+                  {this.props.backButtonText || '← Back'}
                 </span>
               </div>
             </>
@@ -90,53 +89,61 @@ class ClassPage extends Component {
                     <Head>
                       <title>mindHIVE | {schoolclass.title}</title>
                     </Head>
-                    <ClassHeader schoolclass={schoolclass} />
+
+                    {!this.props.featuredAssignmentId && (
+                      <ClassHeader schoolclass={schoolclass} />
+                    )}
 
                     <div>
-                      <div>
-                        <Menu text stackable className="discoverMenu">
-                          <Menu.Item
-                            name="assignments"
-                            active={tab === 'assignments'}
-                            onClick={this.handleItemClick}
-                            className={
-                              tab === 'assignments'
-                                ? 'discoverMenuTitle selectedMenuTitle'
-                                : 'discoverMenuTitle'
-                            }
-                          >
-                            <p>Assignments</p>
-                          </Menu.Item>
-                          <Menu.Item
-                            name="students"
-                            active={tab === 'students'}
-                            onClick={this.handleItemClick}
-                            className={
-                              tab === 'students'
-                                ? 'discoverMenuTitle selectedMenuTitle'
-                                : 'discoverMenuTitle'
-                            }
-                          >
-                            <p>Students</p>
-                          </Menu.Item>
+                      {!this.props.featuredAssignmentId && (
+                        <div>
+                          <Menu text stackable className="discoverMenu">
+                            <Menu.Item
+                              name="assignments"
+                              active={tab === 'assignments'}
+                              onClick={this.handleItemClick}
+                              className={
+                                tab === 'assignments'
+                                  ? 'discoverMenuTitle selectedMenuTitle'
+                                  : 'discoverMenuTitle'
+                              }
+                            >
+                              <p>Assignments</p>
+                            </Menu.Item>
+                            <Menu.Item
+                              name="students"
+                              active={tab === 'students'}
+                              onClick={this.handleItemClick}
+                              className={
+                                tab === 'students'
+                                  ? 'discoverMenuTitle selectedMenuTitle'
+                                  : 'discoverMenuTitle'
+                              }
+                            >
+                              <p>Students</p>
+                            </Menu.Item>
 
-                          <Menu.Item
-                            name="studies"
-                            active={tab === 'studies'}
-                            onClick={this.handleItemClick}
-                            className={
-                              tab === 'studies'
-                                ? 'discoverMenuTitle selectedMenuTitle'
-                                : 'discoverMenuTitle'
-                            }
-                          >
-                            <p>Studies</p>
-                          </Menu.Item>
-                        </Menu>
-                      </div>
+                            <Menu.Item
+                              name="studies"
+                              active={tab === 'studies'}
+                              onClick={this.handleItemClick}
+                              className={
+                                tab === 'studies'
+                                  ? 'discoverMenuTitle selectedMenuTitle'
+                                  : 'discoverMenuTitle'
+                              }
+                            >
+                              <p>Studies</p>
+                            </Menu.Item>
+                          </Menu>
+                        </div>
+                      )}
 
                       {this.state.tab === 'assignments' && (
-                        <ClassAssignments schoolclass={schoolclass} />
+                        <ClassAssignments
+                          schoolclass={schoolclass}
+                          featuredAssignmentId={this.props.featuredAssignmentId}
+                        />
                       )}
 
                       {this.state.tab === 'students' && (

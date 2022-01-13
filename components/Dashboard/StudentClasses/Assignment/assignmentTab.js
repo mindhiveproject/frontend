@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 
-import ReactHtmlParser from 'react-html-parser';
-
 import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
-import DeleteAssignment from './deleteAssignment';
 
 import HomeworkTab from '../Homework/homeworkTab';
 
@@ -23,11 +20,12 @@ export const MY_ASSIGNMENT_HOMEWORKS = gql`
   }
 `;
 
-const StyledPost = styled.div`
+const StyledAssignmentTab = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   background: white;
   border-radius: 1rem;
+  margin: 1rem 0rem;
   .header {
     padding: 30px 20px 20px 20px;
     display: grid;
@@ -80,19 +78,23 @@ class AssignmentTab extends Component {
   render() {
     const { assignment, classId } = this.props;
     return (
-      <StyledPost>
+      <StyledAssignmentTab>
         <div className="header">
           <div>
             <h2>{assignment.title}</h2>
           </div>
           <div className="headerInfo">
             <span>{moment(assignment.createdAt).format('MMMM D, YYYY')}</span>
-            <button
-              className="secondary"
-              onClick={() => this.props.viewAssignment(assignment.id)}
-            >
-              View
-            </button>
+
+            {!this.props.featuredAssignmentId && (
+              <a
+                target="_blank"
+                href={`/dashboard/myclasses/assignments/${assignment.id}`}
+              >
+                <button className="secondary">Open in new tab</button>
+              </a>
+            )}
+
             <button onClick={() => this.props.workOnAssignment(assignment.id)}>
               New homework
             </button>
@@ -112,6 +114,7 @@ class AssignmentTab extends Component {
                 <>
                   {homeworks.map(homework => (
                     <HomeworkTab
+                      key={homework.id}
                       homework={homework}
                       openHomework={this.props.openHomework}
                       assignmentId={assignment.id}
@@ -122,7 +125,7 @@ class AssignmentTab extends Component {
             }}
           </Query>
         </div>
-      </StyledPost>
+      </StyledAssignmentTab>
     );
   }
 }

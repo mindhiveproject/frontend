@@ -49,3 +49,9 @@
   to = "/signup/mentor/[code]/[invite].html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/dashboard/myclasses/assignments/*"
+  to = "/dashboard/myclasses/assignments/[id].html"
+  status = 200
+  force = true

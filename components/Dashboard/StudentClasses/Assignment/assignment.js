@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 
 import ReactHtmlParser from 'react-html-parser';
 
-const GET_ASSIGNMENT = gql`
+export const GET_ASSIGNMENT = gql`
   query GET_ASSIGNMENT($id: ID!) {
     assignment(where: { id: $id }) {
       id

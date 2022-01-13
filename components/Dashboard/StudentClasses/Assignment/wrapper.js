@@ -27,6 +27,7 @@ class ClassAssignments extends Component {
     page: this.props.page || 'assignments',
     assignmentId: null,
     homeworkId: null,
+    featuredAssignmentId: this.props.featuredAssignmentId || null,
   };
 
   addAssignment = () => {
@@ -66,7 +67,7 @@ class ClassAssignments extends Component {
 
   render() {
     const { schoolclass } = this.props;
-    const { page, assignmentId, homeworkId } = this.state;
+    const { page, assignmentId, homeworkId, featuredAssignmentId } = this.state;
 
     if (page === 'assignment') {
       return (
@@ -116,16 +117,23 @@ class ClassAssignments extends Component {
               const { assignments } = data;
               return (
                 <>
-                  {assignments.map(assignment => (
-                    <AssignmentTab
-                      key={assignment.id}
-                      assignment={assignment}
-                      classId={schoolclass.id}
-                      workOnAssignment={this.workOnAssignment}
-                      viewAssignment={this.viewAssignment}
-                      openHomework={this.openHomework}
-                    />
-                  ))}
+                  {assignments
+                    .filter(assignment =>
+                      featuredAssignmentId
+                        ? assignment.id === featuredAssignmentId
+                        : true
+                    )
+                    .map(assignment => (
+                      <AssignmentTab
+                        key={assignment.id}
+                        assignment={assignment}
+                        classId={schoolclass.id}
+                        workOnAssignment={this.workOnAssignment}
+                        viewAssignment={this.viewAssignment}
+                        openHomework={this.openHomework}
+                        featuredAssignmentId={this.props.featuredAssignmentId}
+                      />
+                    ))}
                 </>
               );
             }}
