@@ -31,6 +31,9 @@ class TaskCard extends Component {
           if (e.target && e.target.id === 'favoriteButton') {
             return;
           }
+          if (e.target && e.target.id === 'publishButton') {
+            return;
+          }
           if (developingMode && onSelectComponent) {
             onSelectComponent(component);
           } else if (onSelectTask) {

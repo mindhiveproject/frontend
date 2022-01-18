@@ -104,7 +104,7 @@ class EditBasic extends Component {
           ))}
         </StyledSettingBlock>
 
-        {this.props.templateEditor && (
+        {(this.props.templateEditor || this.props.adminMode) && (
           <div>
             <label htmlFor="description">
               {taskType} card description (for Develop mode)
@@ -123,7 +123,7 @@ class EditBasic extends Component {
           </div>
         )}
 
-        {this.props.templateEditor && (
+        {(this.props.templateEditor || this.props.adminMode) && (
           <div>
             <label htmlFor="descriptionForParticipants">
               {taskType} card description (for Discover mode)

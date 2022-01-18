@@ -28,7 +28,10 @@ class PublishTaskToggle extends Component {
     return (
       <Mutation mutation={PUBLISH_TOGGLE_TASK} variables={{ id }}>
         {(publishToggleTask, { loading, error }) => (
-          <StyledPublishBtn onClick={() => publishToggleTask()}>
+          <StyledPublishBtn
+            id="publishButton"
+            onClick={() => publishToggleTask()}
+          >
             {isPublic ? `Make private` : `Publish`}
           </StyledPublishBtn>
         )}

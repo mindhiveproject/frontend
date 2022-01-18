@@ -219,6 +219,7 @@ const UPDATE_COMPONENT = gql`
     $subtitle: String
     $slug: String
     $description: String
+    $descriptionForParticipants: String
     $parameters: Json
     $settings: Json
     $collaborators: [String]
@@ -233,6 +234,7 @@ const UPDATE_COMPONENT = gql`
       subtitle: $subtitle
       slug: $slug
       description: $description
+      descriptionForParticipants: $descriptionForParticipants
       parameters: $parameters
       settings: $settings
       collaborators: $collaborators
@@ -662,6 +664,7 @@ class ComponentBuilder extends Component {
                 templateEditor={this.props.templateEditor && !needToClone}
                 handleScriptUpload={this.handleScriptUpload}
                 deleteTemplateLocally={this.deleteTemplateLocally}
+                adminMode={this.props.adminMode}
               />
               <StyledPreviewPane>
                 <PreviewPane task={this.state.task} user={this.props.user} />

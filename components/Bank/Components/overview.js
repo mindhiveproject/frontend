@@ -90,6 +90,7 @@ class OverviewComponentsBank extends Component {
                       onSelectComponent={this.props.onSelectComponent}
                       user={this.props.user}
                       overviewMode
+                      developingMode
                     />
                   ))}
                 </div>
