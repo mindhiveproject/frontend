@@ -21,11 +21,6 @@ class TaskPage extends Component {
         <div className="studyDescription">
           <h1>{task.title}</h1>
           <div>
-            Description for researchers
-            <h3>{ReactHtmlParser(task.description)}</h3>
-          </div>
-          <div>
-            Description for participants
             <h3>{ReactHtmlParser(task.descriptionForParticipants)}</h3>
           </div>
           <div className="controlBtns">
