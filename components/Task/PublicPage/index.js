@@ -40,7 +40,7 @@ class TaskParticipantPage extends Component {
           if (!data.task)
             return <p>No task or survey found for {this.props.slug}</p>;
           const { task } = data;
-          return <TaskPage task={task} />;
+          return <TaskPage task={task} user={this.props.user} />;
         }}
       </Query>
     );

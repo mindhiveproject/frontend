@@ -3,6 +3,9 @@ import ReactHtmlParser from 'react-html-parser';
 import Head from 'next/head';
 import Link from 'next/link';
 import moment from 'moment';
+import { Icon } from 'semantic-ui-react';
+
+import ManageFavorites from '../../Bank/Components/manageFavorites';
 
 import { StyledTask } from './styles';
 
@@ -10,7 +13,9 @@ class TaskPage extends Component {
   state = {};
 
   render() {
-    const { task } = this.props;
+    const { task, user } = this.props;
+
+    const isFavorite = user?.favoriteTasks?.map(t => t?.id).includes(task?.id);
 
     return (
       <StyledTask>
@@ -19,7 +24,18 @@ class TaskPage extends Component {
         </Head>
 
         <div className="studyDescription">
-          <h1>{task.title}</h1>
+          <div className="headerLine">
+            <h1>{task.title}</h1>
+            <div>
+              <ManageFavorites id={task?.id} isFavorite={isFavorite}>
+                {isFavorite ? (
+                  <Icon id="favoriteButton" name="favorite" color="yellow" />
+                ) : (
+                  <Icon id="favoriteButton" name="favorite" color="grey" />
+                )}
+              </ManageFavorites>
+            </div>
+          </div>
           <div>
             <h3>{ReactHtmlParser(task.descriptionForParticipants)}</h3>
           </div>
@@ -35,44 +51,46 @@ class TaskPage extends Component {
           </div>
         </div>
 
-        <div className="studyInfo">
-          <div className="authors">
-            <div>
-              <h3>Author</h3>
-              <p>{task?.author?.username}</p>
-            </div>
-            {task?.collaborators?.length ? (
+        {false && (
+          <div className="studyInfo">
+            <div className="authors">
               <div>
-                <h3>Collaborator(s)</h3>
-                {task?.collaborators?.map(col => (
-                  <p>{col.username}</p>
-                ))}
+                <h3>Author</h3>
+                <p>{task?.author?.username}</p>
               </div>
-            ) : (
-              <></>
-            )}
-          </div>
-
-          <div>
-            <h3>Settings</h3>
-            {task?.parameters?.length && (
-              <p>{task?.parameters?.length} parameters</p>
-            )}
-            {task?.isPublic ? <p>Public</p> : <p>Private</p>}
-            {task?.isExternal ? <p>External link</p> : <p>lab.js script</p>}
-          </div>
-
-          <div className="time">
-            <div>
-              <h3>Created</h3>{' '}
-              <p>{moment(task?.createdAt).format('MMM D, YYYY')}</p>
+              {task?.collaborators?.length ? (
+                <div>
+                  <h3>Collaborator(s)</h3>
+                  {task?.collaborators?.map(col => (
+                    <p>{col.username}</p>
+                  ))}
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
+
             <div>
-              <h3>Updated</h3>{' '}
-              <p>{moment(task?.updatedAt).format('MMM D, YYYY')}</p>
+              <h3>Settings</h3>
+              {task?.parameters?.length && (
+                <p>{task?.parameters?.length} parameters</p>
+              )}
+              {task?.isPublic ? <p>Public</p> : <p>Private</p>}
+              {task?.isExternal ? <p>External link</p> : <p>lab.js script</p>}
+            </div>
+
+            <div className="time">
+              <div>
+                <h3>Created</h3>{' '}
+                <p>{moment(task?.createdAt).format('MMM D, YYYY')}</p>
+              </div>
+              <div>
+                <h3>Updated</h3>{' '}
+                <p>{moment(task?.updatedAt).format('MMM D, YYYY')}</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </StyledTask>
     );
   }

@@ -24,6 +24,13 @@ export const StyledTask = styled.div`
     grid-area: description;
     grid-gap: 2rem;
     align-content: baseline;
+
+    .headerLine {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-gap: 2rem;
+      align-items: center;
+    }
   }
 
   .studyInfo {

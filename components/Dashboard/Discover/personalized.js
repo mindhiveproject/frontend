@@ -105,7 +105,7 @@ class DashboardDiscover extends Component {
                 ← Back
               </a>
             </div>
-            <TaskParticipantPage slug={this.state.task.slug} />
+            <TaskParticipantPage slug={this.state.task.slug} user={user} />
           </StyledDasboard>
         </AuthorizedPage>
       );
