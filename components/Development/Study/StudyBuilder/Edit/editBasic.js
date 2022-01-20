@@ -129,7 +129,7 @@ class EditBasic extends Component {
           </div>
         )}
 
-        {isAuthor && (
+        {false && isAuthor && (
           <Link
             href={{
               pathname: '/study/results',
@@ -144,7 +144,7 @@ class EditBasic extends Component {
           </Link>
         )}
 
-        {isAuthor && (
+        {false && isAuthor && (
           <Link
             href={{
               pathname: '/data/study',
@@ -164,31 +164,3 @@ class EditBasic extends Component {
 }
 
 export default EditBasic;
-
-// {hasIRBAccess && (
-//   <Query query={CONSENTS_QUERY}>
-//     {({ data, loading, error }) => {
-//       if (loading) return <p>Loading ... </p>;
-//       const { consents } = data;
-//       return (
-//         <div className="consentSelector">
-//           <p>IRB consent</p>
-//           <select
-//             type="text"
-//             id="consent"
-//             name="consent"
-//             value={study.consent}
-//             onChange={this.props.handleStudyChange}
-//           >
-//             <option value="no">Choose the consent form</option>
-//             {consents.map(consent => (
-//               <option key={consent.id} value={consent.id}>
-//                 {consent.title}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//       );
-//     }}
-//   </Query>
-// )}

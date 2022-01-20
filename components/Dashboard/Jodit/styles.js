@@ -5,6 +5,7 @@ export const StyledPost = styled.form`
   height: 100%;
   grid-row-gap: 10px;
   font-family: Lato;
+  font-size: 18px;
 
   .proposalCardBoard {
     display: grid;
@@ -55,22 +56,6 @@ export const StyledPost = styled.form`
     border: 2px solid #007c70;
     border-radius: 4px;
     cursor: pointer;
-  }
-  h1 {
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 56px;
-    letter-spacing: 0em;
-    /* text-align: center; */
-    margin-bottom: 40px;
-  }
-  p {
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0.05em;
   }
   fieldset {
     display: grid;

@@ -26,7 +26,6 @@ export const Jodit = ({ externalContent, updateContent, readonly }) => {
       minHeight: 500,
       askBeforePasteFromWord: false,
       askBeforePasteHTML: false,
-
       // theme: 'dark',
     };
   }
