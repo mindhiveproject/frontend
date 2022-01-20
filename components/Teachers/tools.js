@@ -93,13 +93,13 @@ class Tools extends Component {
               <img src="/content/teachers/tools/proposal.png" />
               <p className="innerText">
                 The <strong>Proposal Board</strong> consists of text-based
-                “cards” designed to help students learn to create realistic
-                collaboration plans. Students can assign different sections to
-                themselves and each other; provide and receive comments from
-                their teachers, peers, and scientists; and toggle between
-                ‘draft’ and ‘print’ views of their proposal. By deconstructing
-                proposals into pre-organized tasks, a variety of learners can
-                engage successfully through complex material.
+                “cards” designed to help students create realistic collaboration
+                plans. Students can assign different sections to themselves and
+                each other; provide and receive comments from their teachers,
+                peers, and scientists; and toggle between ‘draft’ and ‘print’
+                views of their proposal. By deconstructing proposals into
+                pre-organized tasks, a variety of learners can successfully
+                navigate and engage with complex material.
               </p>
             </div>
           )}

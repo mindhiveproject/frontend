@@ -19,15 +19,15 @@ class Front extends Component {
             support human brain and behavior science inquiry for learners and
             educators who seek authentic STEM research experiences. The MindHive
             platform features a suite of online tools that support learners’
-            research activities, paired with teaching materials that llustrate
+            research activities, paired with teaching materials that illustrate
             and contextualize human brain and behavior research concepts and
             Open Science principles. The MindHive program emphasizes
-            collaboration: it co-designed by a team of educational researchers,
-            teachers, cognitive and social scientists, UX researchers. and
-            developers; and supports collaborations between students from
-            schools across the country, professional scientists, and community
-            members. Explore the links and materials below to learn how MindHive
-            may help you in your teaching goals.
+            collaboration: it is co-designed by a team of educational
+            researchers, teachers, cognitive and social scientists, UX
+            researchers, and developers; and supports collaboration between
+            students from schools across the country, professional scientists,
+            and community members. Explore the links and materials below to
+            learn how MindHive may help you in your teaching goals.
           </p>
           <div className="centered">
             <a
@@ -38,7 +38,7 @@ class Front extends Component {
             </a>
           </div>
           <p className="centered">
-            Or email us directly to{' '}
+            Or email us directly at{' '}
             <a href="mailto:info@mindhive.science">info@mindhive.science</a>
           </p>
         </div>
@@ -48,9 +48,9 @@ class Front extends Component {
             <div>
               <h2>Student-driven citizen science</h2>
               <p>
-                <em>MindHive</em> carries citizen science to the next level by
-                supporting student-teacher-scientist (STS) partnerships where
-                research projects are{' '}
+                MindHive carries citizen science to the next level by supporting
+                student-teacher-scientist (STS) partnerships where research
+                projects are{' '}
                 <strong>
                   not just scientist-initiated, but also student-initiated, or
                   developed in student-scientist partnerships
@@ -60,11 +60,12 @@ class Front extends Component {
               <p>
                  The MindHive platform supports{' '}
                 <strong>
-                  students in participating in and learning from In studies
+                  students in participating in and learning from studies
                   designed by professional scientists as well as other students,
-                  tgenerating their own research questions and hypotheses,
-                  design a research study, give and receive peer feedback,
-                  collect and analyze data, and present their results. 
+                  generating their own research questions and hypotheses,
+                  designing research studies, giving and receiving peer
+                  feedback, collecting and analyzing data, and presenting their
+                  results.
                 </strong>
               </p>
               <p>
@@ -72,9 +73,9 @@ class Front extends Component {
                 <strong>
                   curriculum guides students through the full process of science
                   inquiry. Students learn about basic principles and methods in
-                  human brain and behavior science, they engage in questions
-                  around research ethics and citizen science, and discuss the
-                  processes that drive scientific discovery and rigor
+                  human brain and behavior science, engage in questions around
+                  research ethics and citizen science, and discuss the processes
+                  that drive scientific discovery and rigor
                 </strong>
                 .
               </p>
@@ -130,7 +131,7 @@ class Front extends Component {
                     Student as <span className="underscored">Participant</span>
                   </h5>
                   <p>
-                    Students engage in the MindHive platform to participate and
+                    Students use the MindHive platform to participate and
                     reflect on studies designed by professional cognitive and
                     social neuroscientists, community organizers, and students
                     across the country
@@ -154,9 +155,9 @@ class Front extends Component {
                     Student as <span className="underscored">Scientist</span>
                   </h5>
                   <p>
-                    Students design their own study, review and participate in
+                    Students design their own studies, review and participate in
                     studies designed by students from a network of schools
-                    across the country, collect and analyze reseach data, and
+                    across the country, collect and analyze research data, and
                     generate research reports
                   </p>
                 </div>
@@ -189,7 +190,7 @@ class Front extends Component {
           <p className="centered">
             MindHive lessons can be flexibly implemented and mix ‘n matched to
             fit your specific STEM teaching needs. Learning materials are
-            designed to align with NGSS standards and is structured to follow
+            designed to align with NGSS standards and are structured to follow
             the “5 E’s” (Engage, Explore, Explain, Elaborate, and Evaluate) and
             scaffold students in gaining research experience in a collaborative
             citizen science environment with students from schools across the
