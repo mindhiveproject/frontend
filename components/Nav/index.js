@@ -142,36 +142,3 @@ class Nav extends Component {
 }
 
 export default Nav;
-
-// <Link href="/login">
-//   <NavButton>Login</NavButton>
-// </Link>
-// <Link href="/signup">
-//   <NavButtonSecondary>Signup</NavButtonSecondary>
-// </Link>
-
-// <Mutation mutation={TOGGLE_DASHBOARD_MUTATION}>
-//   {toggleDashboard => (
-//     <NavButton onClick={toggleDashboard}>Dashboard</NavButton>
-//   )}
-// </Mutation>
-
-// <ContainerOnlyForStudents>
-//   <NavRightContainer>
-//     {false && (
-//       <Link href="/onboarding">
-//         <NavButton>Student Onboarding</NavButton>
-//       </Link>
-//     )}
-//   </NavRightContainer>
-// </ContainerOnlyForStudents>
-
-// <Link href="/templates/my">
-//   <NavButton>Templates</NavButton>
-// </Link>
-// <Link href="/task/my">
-//   <NavButton>Tasks</NavButton>
-// </Link>
-// <Link href="/study/my">
-//   <NavButton>Studies</NavButton>
-// </Link>

@@ -161,21 +161,26 @@ class Front extends Component {
                   </p>
                 </div>
                 <div>
-                  <Link href="/teachers#tools">
+                  <a
+                    target="_blank"
+                    href="https://docs.google.com/document/d/1LqCdIvmWoTe7n9eGwk41ZawJOeAHOXQwiLdBmQhKFAw/edit?usp=sharing"
+                  >
                     <button className="secondary">Explore our tools</button>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="white" id="tools">
-          <h2 className="centered">
-            Our tools for collaborative science inquiry
-          </h2>
-          <Tools />
-        </div>
+        {false && (
+          <div className="white" id="tools">
+            <h2 className="centered">
+              Our tools for collaborative science inquiry
+            </h2>
+            <Tools />
+          </div>
+        )}
 
         <div className="white" id="curriculum">
           <h2 className="centered">
