@@ -9,7 +9,7 @@ import HomeworkTab from '../Homework/homeworkTab';
 
 export const MY_ASSIGNMENT_HOMEWORKS = gql`
   query MY_ASSIGNMENT_HOMEWORKS($id: ID!) {
-    homeworks(where: { assignment: { id: $id } }) {
+    myHomeworks(where: { assignment: { id: $id } }) {
       id
       title
       content
@@ -107,12 +107,12 @@ class AssignmentTab extends Component {
             {({ error, loading, data }) => {
               if (error) return <Error error={error} />;
               if (loading) return <p>Loading</p>;
-              if (!data.homeworks || data.homeworks.length === 0)
+              if (!data.myHomeworks || data.myHomeworks.length === 0)
                 return <p>No homework found for this assignment</p>;
-              const { homeworks } = data;
+              const { myHomeworks } = data;
               return (
                 <>
-                  {homeworks.map(homework => (
+                  {myHomeworks.map(homework => (
                     <HomeworkTab
                       key={homework.id}
                       homework={homework}

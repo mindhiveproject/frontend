@@ -89,6 +89,17 @@ class AssignmentTab extends Component {
     public: true,
   };
 
+  copyLink = () => {
+    const copyLink = `https://mindhive.science/dashboard/myclasses/assignments/${this.props.assignment.id}`;
+    const temp = document.createElement('input');
+    document.body.append(temp);
+    temp.value = copyLink;
+    temp.select();
+    document.execCommand('copy');
+    temp.remove();
+    alert('The link is copied');
+  };
+
   render() {
     const { assignment, classId } = this.props;
     return (
@@ -115,13 +126,12 @@ class AssignmentTab extends Component {
             </div>
 
             <div className="title">
-              {!this.props.featuredAssignmentId && (
-                <a
-                  target="_blank"
-                  href={`/dashboard/myclasses/assignments/${assignment.id}`}
-                >
-                  <button className="secondary">Open in new tab</button>
-                </a>
+              {assignment.public ? (
+                <button className="secondary" onClick={() => this.copyLink()}>
+                  Copy link
+                </button>
+              ) : (
+                <div></div>
               )}
 
               <DeleteAssignment assignmentId={assignment?.id} classId={classId}>
