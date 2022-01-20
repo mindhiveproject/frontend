@@ -26,10 +26,21 @@ class AssignmentPage extends Component {
       >
         {({ data, loading }) => {
           if (loading) return <p>Loading ... </p>;
-          if (!data || !data.assignment)
-            return <p>No assignment found for id {this.props.assignmentId}</p>;
+          if (!data || !data.assignment) return <h2>No assignment found</h2>;
           const { assignment } = data;
           const schoolclass = assignment.classes[0];
+          if (!this.props.userClasses.includes(schoolclass?.id)) {
+            return (
+              <div>
+                <h2>No assignment found</h2>
+                <p>
+                  Please check if you are a student of the class with this
+                  assignment.
+                </p>
+              </div>
+            );
+          }
+
           return (
             <ClassPage
               classId={schoolclass?.id}

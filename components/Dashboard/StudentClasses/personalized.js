@@ -74,6 +74,7 @@ class DashboardStudentClasses extends Component {
             goToClass={this.openClass}
             assignmentId={this.props.assignmentId}
             backButtonText="📝 See all assignments of this class"
+            userClasses={this.props.user?.studentIn.map(c => c?.id)}
           />
         </AuthorizedPage>
       );

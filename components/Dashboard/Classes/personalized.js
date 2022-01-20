@@ -57,6 +57,12 @@ class DashboardClasses extends Component {
   render() {
     const page = this.state.assignmentId ? this.props.page : this.state.page;
 
+    const userClassesIds = [
+      ...this.props.user?.teacherIn.map(c => c?.id),
+      ...this.props.user?.mentorIn.map(c => c?.id),
+    ];
+    console.log('userClassesIds', userClassesIds);
+
     if (page === 'classes') {
       return (
         <AuthorizedPage>
@@ -89,6 +95,7 @@ class DashboardClasses extends Component {
             goToClassToTab={this.openClassTab}
             goToClass={this.openClass}
             backButtonText="📝 See all assignments of this class"
+            userClasses={userClassesIds}
           />
         </AuthorizedPage>
       );

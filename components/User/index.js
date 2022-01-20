@@ -57,6 +57,10 @@ const USER_DASHBOARD_QUERY = gql`
         id
         title
       }
+      mentorIn {
+        id
+        title
+      }
       researcherIn {
         id
         title
