@@ -10,19 +10,19 @@ class Card extends Component {
     let statusStyle = null;
     switch(status) {        
       default:
-        statusStyle = "info-status-not-started"
+        statusStyle = "status-not-started"
         break;
       case 'Started' :
-        statusStyle = "info-status-started"
+        statusStyle = "status-started"
         break;
       case 'On-Hold' :
-        statusStyle = "info-status-on-hold"
+        statusStyle = "status-on-hold"
         break;
       case "Completed" :
-        statusStyle = "info-status-completed"
+        statusStyle = "status-completed"
         break;
       case 'Closed' :
-        statusStyle = "info-status-closed"
+        statusStyle = "status-closed"
     }
     // const assignedTo = card?.assignedTo.map(user => user.username) || [];
 
@@ -49,7 +49,7 @@ class Card extends Component {
                       ))
                     : ''}
                 </div> 
-                {status && <div className={statusStyle}>{status}</div>}
+                {status && <div className={"info-status " + statusStyle}>{status}</div>}
               </div>
             )}
           </div>
