@@ -1,13 +1,30 @@
-import React, { Component } from "react";
-import { Container, Draggable } from "react-smooth-dnd";
+import React, { Component } from 'react';
+import { Container, Draggable } from 'react-smooth-dnd';
 
-import { StyledCard } from "./styles";
+import { StyledCard } from './styles';
 
 class Card extends Component {
   render() {
     const { card, proposalBuildMode, adminMode } = this.props;
     const status = card?.settings?.status;
-    // const assignedTo = card?.assignedTo.map(user => user.username) || [];
+
+    let statusStyle = null;
+    switch (status) {
+      default:
+        statusStyle = 'info-status-not-started';
+        break;
+      case 'Started':
+        statusStyle = 'info-status-started';
+        break;
+      case 'On-Hold':
+        statusStyle = 'info-status-on-hold';
+        break;
+      case 'Completed':
+        statusStyle = 'info-status-completed';
+        break;
+      case 'Closed':
+        statusStyle = 'info-status-closed';
+    }
 
     return (
       <Draggable key={card.id}>
@@ -26,14 +43,14 @@ class Card extends Component {
                         <div key={i} className="info-assigned">
                            
                           {adminMode
-                            ? user?.publicReadableId || "John Doe"
+                            ? user?.publicReadableId || 'John Doe'
                             : user?.username}
                         </div>
                       ))
-                    : ""}
+                    : ''}
                 </div>
                 {status && (
-                  <div className={"info-status " + statusStyle}>{status}</div>
+                  <div className={`info-status ${statusStyle}`}>{status}</div>
                 )}
               </div>
             )}
@@ -45,7 +62,7 @@ class Card extends Component {
             onClick={() => {
               if (
                 confirm(
-                  "Are you sure you want to delete this card? This action cannot be undone."
+                  'Are you sure you want to delete this card? This action cannot be undone.'
                 )
               ) {
                 this.props.onDeleteCard(card.id);
