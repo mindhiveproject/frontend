@@ -25,7 +25,6 @@ class Card extends Component {
       case 'Closed':
         statusStyle = 'status-closed';
     }
-    console.log('statusStyle', statusStyle);
 
     return (
       <Draggable key={card.id}>
