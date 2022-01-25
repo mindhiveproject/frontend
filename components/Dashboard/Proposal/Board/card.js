@@ -11,20 +11,21 @@ class Card extends Component {
     let statusStyle = null;
     switch (status) {
       default:
-        statusStyle = 'info-status-not-started';
+        statusStyle = 'status-not-started';
         break;
       case 'Started':
-        statusStyle = 'info-status-started';
+        statusStyle = 'status-started';
         break;
       case 'On-Hold':
-        statusStyle = 'info-status-on-hold';
+        statusStyle = 'status-on-hold';
         break;
       case 'Completed':
-        statusStyle = 'info-status-completed';
+        statusStyle = 'status-completed';
         break;
       case 'Closed':
-        statusStyle = 'info-status-closed';
+        statusStyle = 'status-closed';
     }
+    console.log('statusStyle', statusStyle);
 
     return (
       <Draggable key={card.id}>
