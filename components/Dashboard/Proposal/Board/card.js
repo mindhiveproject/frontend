@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Container, Draggable } from 'react-smooth-dnd';
+import React, { Component } from "react";
+import { Container, Draggable } from "react-smooth-dnd";
 
-import { StyledCard } from './styles';
+import { StyledCard } from "./styles";
 
 class Card extends Component {
   render() {
@@ -26,13 +26,15 @@ class Card extends Component {
                         <div key={i} className="info-assigned">
                            
                           {adminMode
-                            ? user?.publicReadableId || 'John Doe'
+                            ? user?.publicReadableId || "John Doe"
                             : user?.username}
                         </div>
                       ))
-                    : ''}
+                    : ""}
                 </div>
-                {status && <div className="info-status">{status}</div>}
+                {status && (
+                  <div className={"info-status " + statusStyle}>{status}</div>
+                )}
               </div>
             )}
           </div>
@@ -43,7 +45,7 @@ class Card extends Component {
             onClick={() => {
               if (
                 confirm(
-                  'Are you sure you want to delete this card? This action cannot be undone.'
+                  "Are you sure you want to delete this card? This action cannot be undone."
                 )
               ) {
                 this.props.onDeleteCard(card.id);

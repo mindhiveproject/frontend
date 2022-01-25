@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledSections = styled.div``;
 
@@ -130,9 +130,7 @@ export const StyledCard = styled.div`
       width: fit-content;
       display: grid;
       align-items: center;
-      color: #d53533;
       box-sizing: border-box;
-      background: rgba(224, 103, 102, 0.2);
       border: 1px solid transparent;
       border-radius: 60px;
       font-family: Lato;
@@ -141,6 +139,26 @@ export const StyledCard = styled.div`
       font-weight: 400;
       letter-spacing: 0.05em;
       padding: 1px 7px 1px 7px;
+    }
+    .status-not-started {
+      color: #d53533;
+      background: rgba(224, 103, 102, 0.2);
+    }
+    .status-started {
+      color: #0085bc;
+      background: rgba(81, 202, 252, 0.2);
+    }
+    .status-on-hold {
+      color: #bb6900;
+      background: rgba(254, 210, 79, 0.2);
+    }
+    .status-completed {
+      color: #007c70;
+      background: rgba(48, 213, 192, 0.2);
+    }
+    .status-closed {
+      color: #3900bd;
+      background: rgba(155, 113, 252, 0.2);
     }
   }
 `;
