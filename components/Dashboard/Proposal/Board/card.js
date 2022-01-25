@@ -7,23 +7,6 @@ class Card extends Component {
   render() {
     const { card, proposalBuildMode, adminMode } = this.props;
     const status = card?.settings?.status;
-    let statusStyle = null;
-    switch(status) {        
-      default:
-        statusStyle = "info-status-not-started"
-        break;
-      case 'Started' :
-        statusStyle = "info-status-started"
-        break;
-      case 'On-Hold' :
-        statusStyle = "info-status-on-hold"
-        break;
-      case "Completed" :
-        statusStyle = "info-status-completed"
-        break;
-      case 'Closed' :
-        statusStyle = "info-status-closed"
-    }
     // const assignedTo = card?.assignedTo.map(user => user.username) || [];
 
     return (
@@ -48,8 +31,8 @@ class Card extends Component {
                         </div>
                       ))
                     : ''}
-                </div> 
-                {status && <div className={statusStyle}>{status}</div>}
+                </div>
+                {status && <div className="info-status">{status}</div>}
               </div>
             )}
           </div>

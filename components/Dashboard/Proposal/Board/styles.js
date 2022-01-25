@@ -126,79 +126,15 @@ export const StyledCard = styled.div`
       letter-spacing: 0.05em;
       padding: 1px 7px 1px 7px;
     }
-    .info-status-not-started {
+    .info-status {
       width: fit-content;
       display: grid;
       align-items: center;
-      box-sizing: border-box;
-      border: 1px solid transparent;
-      border-radius: 60px;
       color: #d53533;
+      box-sizing: border-box;
       background: rgba(224, 103, 102, 0.2);
-      font-family: Lato;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      padding: 1px 7px 1px 7px;
-    }
-    .info-status-started {
-      width: fit-content;
-      display: grid;
-      align-items: center;
-      box-sizing: border-box;
       border: 1px solid transparent;
       border-radius: 60px;
-      color: #0085BC;
-      background: rgba(81, 202, 252, 0.2);
-      font-family: Lato;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      padding: 1px 7px 1px 7px;
-    }
-    .info-status-on-hold {
-      width: fit-content;
-      display: grid;
-      align-items: center;
-      box-sizing: border-box;
-      border: 1px solid transparent;
-      border-radius: 60px;
-      color: #BB6900;
-      background: rgba(254, 210, 79, 0.2);
-      font-family: Lato;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      padding: 1px 7px 1px 7px;
-    }
-    .info-status-completed {
-      width: fit-content;
-      display: grid;
-      align-items: center;
-      box-sizing: border-box;
-      border: 1px solid transparent;
-      border-radius: 60px;
-      color: #007C70;
-      background: rgba(48, 213, 192, 0.2);
-      font-family: Lato;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      padding: 1px 7px 1px 7px;
-    }
-    .info-status-closed {
-      width: fit-content;
-      display: grid;
-      align-items: center;
-      box-sizing: border-box;
-      border: 1px solid transparent;
-      border-radius: 60px;
-      color: #3900BD;
-      background: rgba(155, 113, 252, 0.2);
       font-family: Lato;
       font-size: 12px;
       font-style: normal;
