@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 
 import Error from '../ErrorMessage/index';
-import FunctionalWrapper from './wrapper';
+import Selector from './selector';
 import InDev from '../Development/Study/inDev';
 
 const MY_STUDY_RESULTS_QUERY = gql`
@@ -56,7 +56,16 @@ class StudyResults extends Component {
             return <p>No study found for the id {id}</p>;
           const { myStudyResults } = data;
 
-          if (myStudyResults.length === 0) {
+          const resultsWithData = myStudyResults
+            .filter(
+              result => result?.fullData?.id || result?.incrementalData.length
+            )
+            .filter(
+              result =>
+                result.resultType === null || result.resultType !== 'TEST'
+            );
+
+          if (resultsWithData.length === 0) {
             return (
               <InDev
                 header="No data to analyze yet"
@@ -65,7 +74,7 @@ class StudyResults extends Component {
             );
           }
 
-          return <FunctionalWrapper myStudyResults={myStudyResults} />;
+          return <Selector myStudyResults={resultsWithData} />;
         }}
       </Query>
     );

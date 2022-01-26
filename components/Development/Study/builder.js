@@ -6,6 +6,7 @@ import TaskBuilderWrapper from '../Component/builderWrapper';
 
 import Navigation from './navigation';
 import StudyBuilderSection from './StudyBuilder/index';
+import DownloadSection from './Download/index';
 import AnalyzeSection from './Analyze/index';
 import ProposalSection from './Proposal/index';
 import ReviewSection from './Review/index';
@@ -320,6 +321,10 @@ class StudyBuilder extends Component {
 
             {this.state.section === 'collect' && (
               <CollectSection study={this.state.study} user={this.props.user} />
+            )}
+
+            {this.state.section === 'download' && (
+              <DownloadSection studyId={this.state.study.id} />
             )}
 
             {this.state.section === 'analyze' && (

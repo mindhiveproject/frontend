@@ -201,6 +201,19 @@ class Navigation extends Component {
           </Menu.Item>
 
           <Menu.Item
+            name="download"
+            active={section === 'download'}
+            onClick={this.props.handleSectionChange}
+            className={
+              section === 'download'
+                ? 'discoverMenuTitle selectedMenuTitle'
+                : 'discoverMenuTitle'
+            }
+          >
+            <p>Download</p>
+          </Menu.Item>
+
+          <Menu.Item
             name="analyze"
             active={section === 'analyze'}
             onClick={this.props.handleSectionChange}

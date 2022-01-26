@@ -34,7 +34,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
         id
         content
       }
-      incrementalData @stream(initialCount: 1, label: "incDataStream") {
+      incrementalData {
         id
         content
       }
@@ -56,7 +56,11 @@ class StudyResults extends Component {
             return <p>No study found for the id {id}</p>;
           const { myStudyResults } = data;
 
-          if (myStudyResults.length === 0) {
+          const resultsWithData = myStudyResults.filter(
+            result => result?.fullData?.id || result?.incrementalData.length
+          );
+
+          if (resultsWithData.length === 0) {
             return (
               <InDev
                 header="No data to analyze yet"
@@ -65,11 +69,7 @@ class StudyResults extends Component {
             );
           }
 
-          return (
-            <div>
-              <p>{myStudyResults.length}</p>
-            </div>
-          );
+          return <FunctionalWrapper myStudyResults={resultsWithData} />;
         }}
       </Query>
     );
