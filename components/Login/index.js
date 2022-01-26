@@ -68,6 +68,14 @@ class Login extends Component {
                     password: '',
                     usernameEmail: '',
                   });
+                  // if login happens inside of "participate" flow
+                  if (this.props.proceedTo) {
+                    Router.push({
+                      pathname: '/participate/details',
+                      query: { id: this.props.proceedTo, guest: false },
+                    });
+                    return;
+                  }
                   if (this.props.task) {
                     Router.push('/tasks/[slug]', `/tasks/${this.props.task}`);
                     return;
@@ -86,10 +94,10 @@ class Login extends Component {
               >
                 <fieldset disabled={loading} aria-busy={loading}>
                   <h1>Login</h1>
-                  <h3>Enter your username or email</h3>
+
                   <Error error={error} />
                   <label htmlFor="usernameEmail">
-                    Username or email
+                    Email or username
                     <input
                       type="text"
                       name="usernameEmail"
@@ -110,20 +118,17 @@ class Login extends Component {
                     />
                   </label>
                   <button type="submit">Login</button>
-                  <GoogleLogin task={this.props.task} />
+                  <GoogleLogin
+                    task={this.props.task}
+                    proceedTo={this.props.proceedTo}
+                  />
                 </fieldset>
 
-                <Link href="/requestreset">
-                  <a
-                    style={{
-                      float: 'right',
-                      marginTop: '20px',
-                      marginBottom: '20px',
-                    }}
-                  >
-                    Forgot your password?
-                  </a>
-                </Link>
+                <div className="forgotLink">
+                  <Link href="/requestreset">
+                    <a>Forgot your password?</a>
+                  </Link>
+                </div>
               </CreateAccountForm>
             </SignupForm>
           )}

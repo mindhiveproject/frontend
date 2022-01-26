@@ -33,6 +33,14 @@ class GoogleAuthLogin extends Component {
       },
     });
     const { serviceLogin } = res.data;
+    // if login happens inside of "participate" flow
+    if (this.props.proceedTo) {
+      Router.push({
+        pathname: '/participate/details',
+        query: { id: this.props.proceedTo, guest: false },
+      });
+      return;
+    }
     joinStudyRedirect(this.props.study, serviceLogin);
   };
 

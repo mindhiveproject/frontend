@@ -239,12 +239,12 @@ export const CreateAccountForm = styled.form`
   button,
   input[type='submit'] {
     font-family: Lato;
-    margin-top: 3rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     width: 100%;
     background: #007c70;
     color: white;
-    padding: 1.5rem 0.5rem;
+    padding: 1.2rem 0.5rem;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -298,6 +298,16 @@ export const CreateAccountForm = styled.form`
     line-height: 16px;
     letter-spacing: 0em;
     text-align: left;
+  }
+  .forgotLink {
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    margin-top: 1rem;
   }
 `;
 

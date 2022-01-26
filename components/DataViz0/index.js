@@ -34,7 +34,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
         id
         content
       }
-      incrementalData @stream(initialCount: 1, label: "incDataStream") {
+      incrementalData {
         id
         content
       }
@@ -65,11 +65,7 @@ class StudyResults extends Component {
             );
           }
 
-          return (
-            <div>
-              <p>{myStudyResults.length}</p>
-            </div>
-          );
+          return <FunctionalWrapper myStudyResults={myStudyResults} />;
         }}
       </Query>
     );

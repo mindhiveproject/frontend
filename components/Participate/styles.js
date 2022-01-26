@@ -13,16 +13,29 @@ export const OnboardingModal = styled.div`
 
 export const OnboardingForm = styled.div`
   display: grid;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   margin-top: 30px;
   padding: 20px;
   h1 {
     font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
     font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
     line-height: 56px;
+    letter-spacing: 0em;
+
+    color: #1a1a1a;
+  }
+  h2 {
+    font-family: Lato;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.05em;
+
+    color: #1a1a1a;
   }
   h3 {
     font-family: Lato;
@@ -33,10 +46,11 @@ export const OnboardingForm = styled.div`
   }
   p {
     font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
     font-size: 18px;
-    line-height: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.05em;
   }
   input {
     max-width: 500px;
@@ -45,7 +59,6 @@ export const OnboardingForm = styled.div`
     height: 48px;
     border: 1px solid #cccccc;
     border-radius: 4px;
-    /* width: 100%; */
     font-size: 16px;
     line-height: 24px;
     padding: 12px;
@@ -55,18 +68,17 @@ export const OnboardingForm = styled.div`
     }
   }
   button {
-    max-width: 500px;
     font-family: Lato;
     margin-top: 3rem;
     margin-bottom: 3rem;
     width: 100%;
-    background: #007c70;
-    color: white;
-    padding: 1.5rem 0.5rem;
+    background: white;
+    color: #007c70;
+    /* padding: 1rem 0.5rem; */
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
-    line-height: 100%;
+    /* line-height: 100%; */
     border: 2px solid #007c70;
     border-radius: 4px;
     cursor: pointer;
@@ -128,57 +140,45 @@ export const OnboardingHeader = styled.div`
   }
 `;
 
-export const ResponseButtons = styled.div`
-  .selectedBtn {
-    background: #007c70 !important;
-    color: #ffffff !important;
+export const StyledWaySelector = styled.div`
+  display: grid;
+  .header {
+    margin: 3rem 0rem;
+    text-align: center;
   }
-  button {
-    max-width: 322px !important;
-    font-family: Lato;
-    margin-top: 0.5rem !important;
-    margin-bottom: 2rem !important;
-    width: 100%;
-    background: none !important;
-    color: #666666 !important;
-    padding: 1.5rem 0.5rem;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 100%;
-    border: 2px solid #007c70;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 90px !important;
+  .options {
+    margin: 2rem 0rem;
+    display: grid;
+    grid-gap: 0rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    text-align: center;
+    .option {
+      display: grid;
+      grid-template-rows: 1fr 1fr auto;
+      grid-gap: 1rem;
+      justify-items: center;
+      padding: 1rem 3rem;
+    }
+    .middle {
+      border-left: 2px solid #f2f2f2;
+      border-right: 2px solid #f2f2f2;
+    }
+    .right {
+      border-left: 2px solid #f2f2f2;
+    }
+    button {
+      width: 211px;
+      height: 56px;
+    }
   }
 `;
 
-export const StyledConsentForm = styled.div`
+export const OnboardingDetails = styled.div`
   display: grid;
-  grid-gap: 1rem;
-
-  .coveredStudiesAndTasks {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .consentInfo {
-    display: grid;
-    margin: 1rem 0rem;
-  }
-  .buttonsHolder {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-column-gap: 20px;
-    a {
-      cursor: pointer;
-    }
-    .secondary {
-      background: white;
-      color: #007c70;
-    }
-  }
-  .headerTitle {
-    display: grid;
-    align-self: center;
+  max-width: 800px;
+  margin: 0 auto;
+  button {
+    max-width: 211px;
+    padding: 1rem 0.5rem;
   }
 `;

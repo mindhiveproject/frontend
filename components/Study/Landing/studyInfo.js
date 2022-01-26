@@ -101,7 +101,8 @@ class StudyInformation extends Component {
                 <ContainerOnlyForNoProfile>
                   <Link
                     href={{
-                      pathname: '/join/getstarted',
+                      // pathname: '/join/getstarted',
+                      pathname: '/participate/select',
                       query: { id: study.id },
                     }}
                   >
@@ -113,7 +114,8 @@ class StudyInformation extends Component {
                   {!studyIds.includes(study.id) && (
                     <Link
                       href={{
-                        pathname: '/join/getstarted',
+                        // pathname: '/join/getstarted',
+                        pathname: '/participate/select',
                         query: { id: study.id },
                       }}
                     >
