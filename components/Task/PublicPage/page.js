@@ -29,9 +29,19 @@ class TaskPage extends Component {
             <div>
               <ManageFavorites id={task?.id} isFavorite={isFavorite}>
                 {isFavorite ? (
-                  <Icon id="favoriteButton" name="favorite" color="yellow" />
+                  <Icon
+                    id="favoriteButton"
+                    name="favorite"
+                    color="yellow"
+                    size="big"
+                  />
                 ) : (
-                  <Icon id="favoriteButton" name="favorite" color="grey" />
+                  <Icon
+                    id="favoriteButton"
+                    name="favorite"
+                    color="grey"
+                    size="big"
+                  />
                 )}
               </ManageFavorites>
             </div>

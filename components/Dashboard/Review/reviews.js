@@ -57,7 +57,7 @@ class Reviews extends Component {
     return (
       <StyledDasboard>
         <StyledClassesDasboard>
-          <h1>Review your peers' studies</h1>
+          <h1>Review studies</h1>
 
           <Query
             query={PROPOSALS_FOR_REVIEW_QUERY}
