@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import { Container, Draggable } from 'react-smooth-dnd';
 
 import { StyledCard } from './styles';
@@ -34,7 +35,7 @@ class Card extends Component {
           }}
         >
           <div className="card-drag-handle">
-            <h4>{card.title}</h4>
+            <h4>{ReactHtmlParser(card.title)}</h4>
             {!proposalBuildMode && (
               <div className="card-information">
                 <div className="info-assigned-container">
