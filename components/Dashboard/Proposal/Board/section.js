@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactHTMLParser from 'react-html-parser';
 import { gql, useMutation } from '@apollo/client';
 import sortBy from 'lodash/sortBy';
 import { Container, Draggable } from 'react-smooth-dnd';
@@ -334,7 +335,7 @@ const Section = ({
   return (
     <StyledSection>
       <div className="column-drag-handle">
-        <h3>{section.title}</h3>
+        <h3>{ReactHTMLParser(section.title)}</h3>
         <span>
           {numOfCards} card{numOfCards <= 1 ? '' : 's'}
         </span>
