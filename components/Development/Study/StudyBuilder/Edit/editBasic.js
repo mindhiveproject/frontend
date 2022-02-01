@@ -36,6 +36,7 @@ class EditBasic extends Component {
     temp.select();
     document.execCommand('copy');
     temp.remove();
+    alert('The link is copied');
   };
 
   render() {
