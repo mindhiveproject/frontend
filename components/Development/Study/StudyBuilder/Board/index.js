@@ -15,6 +15,7 @@ const Board = ({ blocks, openTaskEditor, viewing, updateComponents }) => {
         blockId: uniqid.time(),
         title,
         tests: [],
+        skip: false,
       },
     ];
     updateComponentsWithBlocks(newBlocks);
@@ -22,6 +23,26 @@ const Board = ({ blocks, openTaskEditor, viewing, updateComponents }) => {
 
   const updateBlock = () => {
     // console.log('onUpdateBlock');
+  };
+
+  const updateBlockTitle = ({ id, title }) => {
+    const newBlocks = blocks.map(block => {
+      if (block.blockId === id) {
+        return { ...block, title };
+      }
+      return block;
+    });
+    updateComponentsWithBlocks(newBlocks);
+  };
+
+  const updateBlockStatus = ({ id, skip }) => {
+    const newBlocks = blocks.map(block => {
+      if (block.blockId === id) {
+        return { ...block, skip };
+      }
+      return block;
+    });
+    updateComponentsWithBlocks(newBlocks);
   };
 
   const deleteBlock = id => {
@@ -69,6 +90,8 @@ const Board = ({ blocks, openTaskEditor, viewing, updateComponents }) => {
         onDeleteTest={deleteTest}
         openTaskEditor={openTaskEditor}
         viewing={viewing}
+        updateBlockTitle={updateBlockTitle}
+        updateBlockStatus={updateBlockStatus}
       />
     </div>
   );

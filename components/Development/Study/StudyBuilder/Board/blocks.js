@@ -94,6 +94,8 @@ class Blocks extends Component {
               key={index}
               blocks={blocks}
               block={block}
+              updateBlockTitle={this.props.updateBlockTitle}
+              updateBlockStatus={this.props.updateBlockStatus}
               deleteBlock={this.props.deleteBlock}
               onTestChange={this.onTestChange}
               onCreateTest={this.props.onCreateTest}

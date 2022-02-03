@@ -235,21 +235,3 @@ class PreviewPane extends Component {
 }
 
 export default PreviewPane;
-
-// {false && (
-//   <div>
-//     {components.map((component, blockNumber) => (
-//       <Block
-//         key={blockNumber}
-//         blockNumber={blockNumber}
-//         block={component}
-//         onRemoveComponent={this.props.onRemoveComponent}
-//         openTaskEditor={this.props.openTaskEditor}
-//         viewing={this.state.viewing}
-//         onUpdateBlock={this.props.onUpdateBlock}
-//         onDrop={this.onDrop}
-//       />
-//     ))}
-//   </div>
-// )}
-//

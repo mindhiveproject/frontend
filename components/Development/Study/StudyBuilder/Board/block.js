@@ -3,6 +3,7 @@ import sortBy from 'lodash/sortBy';
 
 import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
+import { Radio } from 'semantic-ui-react';
 import Test from './test';
 
 const TestsList = styled.div`
@@ -21,12 +22,18 @@ const StyledBlock = styled.div`
   .column-drag-handle {
     background: #fef3cd;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
     grid-gap: 10px;
     justify-items: end;
     padding: 5px;
     border-radius: 4px;
     height: 50px;
+    .toggleInfo  {
+      display: grid;
+      grid-gap: 0.5rem;
+      grid-template-columns: 1fr auto;
+    }
   }
   .deleteBtn {
     display: grid;
@@ -56,6 +63,8 @@ const StyledBlock = styled.div`
 const Block = ({
   block,
   blocks,
+  updateBlockTitle,
+  updateBlockStatus,
   deleteBlock,
   onTestChange,
   onCreateTest,
@@ -102,6 +111,30 @@ const Block = ({
         <div>
           <h1>{block.title}</h1>
         </div>
+        <div className="toggleInfo">
+          <Radio
+            toggle
+            checked={!block?.skip}
+            onChange={() => {
+              updateBlockStatus({ id: block.blockId, skip: !block?.skip });
+            }}
+          />
+          <div>{block?.skip ? 'OFF' : 'ON'}</div>
+        </div>
+        <div
+          className="deleteBtn"
+          onClick={() => {
+            const title = prompt('Please enter a new title');
+            if (title != null) {
+              updateBlockTitle({
+                id: block.blockId,
+                title,
+              });
+            }
+          }}
+        >
+          ✏️
+        </div>
         <div
           className="deleteBtn"
           onClick={() => {
@@ -143,23 +176,3 @@ const Block = ({
 };
 
 export default Block;
-
-// {false && (
-//   <div>
-//     <label>
-//       Test name:
-//       <input
-//         type="text"
-//         value={testName}
-//         onChange={e => setTestName(e.target.value)}
-//       />
-//     </label>
-//     <button
-//       onClick={() => {
-//         addTest(block.blockId, testName);
-//       }}
-//     >
-//       + Test
-//     </button>
-//   </div>
-// )}

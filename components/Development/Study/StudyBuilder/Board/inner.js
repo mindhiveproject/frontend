@@ -47,6 +47,8 @@ class Inner extends Component {
         <Blocks
           blocks={blocks}
           onSetBlocks={this.props.onSetBlocks}
+          updateBlockTitle={this.props.updateBlockTitle}
+          updateBlockStatus={this.props.updateBlockStatus}
           deleteBlock={this.deleteBlock}
           onUpdateBlock={this.props.onUpdateBlock}
           onCreateTest={this.props.onCreateTest}

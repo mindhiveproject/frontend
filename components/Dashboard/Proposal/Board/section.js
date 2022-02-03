@@ -345,7 +345,7 @@ const Section = ({
         <div
           className="deleteBtn"
           onClick={() => {
-            const title = prompt('Please enter new title');
+            const title = prompt('Please enter a new title');
             if (title != null) {
               onUpdateSection({
                 variables: {
