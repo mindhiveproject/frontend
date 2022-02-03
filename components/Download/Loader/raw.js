@@ -104,7 +104,9 @@ export default function Loader({ results }) {
 
   return (
     <div>
-      <button onClick={() => downloadData({ results })}>Download</button>
+      <button onClick={() => downloadData({ results })}>
+        Download raw data
+      </button>
     </div>
   );
 }

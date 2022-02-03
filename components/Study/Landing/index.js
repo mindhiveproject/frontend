@@ -54,6 +54,7 @@ class StudyLanding extends Component {
                     openedFromDashboard={this.props.openedFromDashboard}
                     task={this.props.c}
                     inReview={this.props.inReview}
+                    guestCode={this.props.code}
                   />
                 );
               }}

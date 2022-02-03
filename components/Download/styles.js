@@ -10,6 +10,11 @@ export const StyledDownload = styled.div`
     display: grid;
     padding: 2rem;
   }
+  .loadButtons {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 export const StyledResult = styled.div`

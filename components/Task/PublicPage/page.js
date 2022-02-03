@@ -17,6 +17,7 @@ class TaskPage extends Component {
 
     const isFavorite = user?.favoriteTasks?.map(t => t?.id).includes(task?.id);
 
+    console.log('task', task);
     return (
       <StyledTask>
         <Head>
@@ -46,6 +47,17 @@ class TaskPage extends Component {
               </ManageFavorites>
             </div>
           </div>
+          {task?.settings?.mobileCompatible && (
+            <div>
+              <Icon
+                id="favoriteButton"
+                name="mobile alternate"
+                color="teal"
+                size="large"
+              />
+              <span>Mobile compatible</span>
+            </div>
+          )}
           <div>
             <h3>{ReactHtmlParser(task.descriptionForParticipants)}</h3>
           </div>

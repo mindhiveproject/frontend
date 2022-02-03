@@ -112,7 +112,11 @@ out/
 
 # Lambda functions
 /lambda
+lambda/internal.js
+lambda/qualtrics.js
 
 # CMS docs
 content/docs
 public/img
+
+package-lock.json

@@ -9,10 +9,31 @@ const StyledBank = styled.div`
   display: grid;
   .zeroState {
     display: grid;
+    grid-gap: 1rem;
     width: 100%;
     text-align: center;
-    padding: 2rem 2rem;
+    padding: 3rem 3rem;
     margin: 2rem 0rem;
+    background: #f2f2f2;
+    border-radius: 4px;
+    h1 {
+      font-family: Lato;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 29px;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+    p {
+      font-family: Lato;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
   }
 `;
 
@@ -62,7 +83,15 @@ class Tasks extends Component {
               return (
                 <StyledBank>
                   <div className="zeroState">
-                    <h3>Explore the surveys and tasks above</h3>
+                    <h1>
+                      You haven’t added any surveys or tasks to your Favorites
+                      yet.
+                    </h1>
+                    <p>
+                      Once you have added a survey or task to your "favorites",
+                      it will appear here. Go to Discover or the tabs above to
+                      explore public surveys and tasks.
+                    </p>
                   </div>
                 </StyledBank>
               );

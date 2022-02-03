@@ -14,7 +14,10 @@ const StyledTaskList = styled.div`
 class StudyTasks extends Component {
   render() {
     const { user, study } = this.props;
-    const studyIds = user?.participantIn?.map(study => study.id) || [];
+    const studyIds =
+      user?.participantIn?.map(study => study.id) ||
+      user?.guestParticipantIn?.map(study => study.id) ||
+      [];
 
     // check whether there is a user and blocks, if yes, assign correct block of tasks to the user
     let components = [];

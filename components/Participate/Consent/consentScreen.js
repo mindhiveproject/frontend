@@ -135,7 +135,8 @@ class ConsentScreen extends Component {
                   consent?.id,
                   'agree',
                   this.props.joinStudy,
-                  this.props.joinStudyAsGuest
+                  this.props.joinStudyAsGuest,
+                  this.props.signUpAsGuest
                 )
               }
             >
@@ -153,7 +154,8 @@ class ConsentScreen extends Component {
                     consent?.id,
                     'skipped',
                     this.props.joinStudy,
-                    this.props.joinStudyAsGuest
+                    this.props.joinStudyAsGuest,
+                    this.props.signUpAsGuest
                   )
                 }
               >

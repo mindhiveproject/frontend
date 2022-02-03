@@ -10,11 +10,6 @@ const MY_STUDY_RESULTS_QUERY = gql`
   query MY_STUDY_RESULTS_QUERY($id: ID!) {
     myStudyResults(where: { id: $id }) {
       id
-      study {
-        id
-        title
-        components
-      }
       task {
         id
         title
@@ -24,22 +19,15 @@ const MY_STUDY_RESULTS_QUERY = gql`
         id
         publicId
         publicReadableId
-        generalInfo
       }
-      quantity
-      data
-      createdAt
-      updatedAt
       fullData {
         id
-        content
       }
       incrementalData {
         id
-        content
       }
-      testVersion
       resultType
+      updatedAt
     }
   }
 `;

@@ -316,8 +316,8 @@ class ComponentBuilder extends Component {
   };
 
   handleSettingsChange = e => {
-    const { name } = e.target;
-    const { value } = e.target;
+    const { name, type } = e.target;
+    const value = type === 'checkbox' ? e.target.checked : e.target.value;
     const settings = { ...this.state.task.settings };
     settings[name] = value;
     this.setState({

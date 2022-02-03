@@ -72,6 +72,7 @@ class StudyWrapper extends Component {
           onStartTheTask={this.startTheTask}
           onStartExternalTask={this.startExternalTask}
           inReview={this.props.inReview}
+          guestCode={this.props.guestCode}
         />
       );
     }
@@ -82,6 +83,7 @@ class StudyWrapper extends Component {
           user={user}
           onStartTheTask={this.startTheTask}
           onStartExternalTask={this.startExternalTask}
+          guestCode={this.props.guestCode}
         />
       </Page>
     );

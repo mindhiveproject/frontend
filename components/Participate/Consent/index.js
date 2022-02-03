@@ -10,6 +10,7 @@ import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
 import ConsentScreen from './consentScreen';
 
 import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
+import joinStudyAsGuestRedirect from './JoinStudyAsGuestRedirect';
 
 import { OnboardingDetails } from '../styles';
 
@@ -24,13 +25,15 @@ const JOIN_STUDY = gql`
   }
 `;
 
-// const JOIN_STUDY_AS_GUEST = gql`
-//   mutation JOIN_STUDY_AS_GUEST($id: ID!, $info: Json, $study: Json) {
-//     joinStudyAsGuest(id: $id, info: $info, study: $study) {
-//       message
-//     }
-//   }
-// `;
+const JOIN_STUDY_AS_GUEST = gql`
+  mutation JOIN_STUDY_AS_GUEST($id: ID!, $info: Json, $study: Json) {
+    joinStudyAsGuest(id: $id, info: $info, study: $study) {
+      id
+      publicId
+      studiesInfo
+    }
+  }
+`;
 
 const GUEST_PARTICIPANT_SIGNUP_MUTATION = gql`
   mutation GUEST_PARTICIPANT_SIGNUP_MUTATION(
@@ -80,7 +83,13 @@ class Consent extends Component {
     });
   };
 
-  recordMyConsent = async (consentId, decision, join, joinAsGuest) => {
+  recordMyConsent = async (
+    consentId,
+    decision,
+    join,
+    joinAsGuest,
+    signUpAsGuest
+  ) => {
     if (this.state.activeConsent + 1 < this.state.numberOfConsents) {
       this.setState({
         [`consent-${consentId}`]: decision,
@@ -88,8 +97,19 @@ class Consent extends Component {
       });
     } else if (this.props.user) {
       if (this.props.query.guest === 'true') {
-        // TODO
-        console.log('I want to be a guest here');
+        const res = await joinAsGuest({
+          variables: {
+            id: this.props.study.id,
+            info: {
+              ...this.state,
+              [`consent-${consentId}`]: decision,
+              guest: true, // join as a guest
+            },
+            study: this.props.study,
+          },
+        });
+        const { joinStudyAsGuest } = res.data;
+        joinStudyAsGuestRedirect(this.props.study, joinStudyAsGuest);
       } else {
         const res = await join({
           variables: {
@@ -105,7 +125,7 @@ class Consent extends Component {
       // make new guest account
       const username = generate().dashed;
       const password = uniqid();
-      const res = await joinAsGuest({
+      const res = await signUpAsGuest({
         variables: {
           info: { ...this.state, [`consent-${consentId}`]: decision },
           study: this.props.study,
@@ -148,67 +168,75 @@ class Consent extends Component {
           mutation={GUEST_PARTICIPANT_SIGNUP_MUTATION}
           refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
         >
-          {joinStudyAsGuest => (
+          {signUpAsGuest => (
             <Mutation
-              mutation={JOIN_STUDY}
+              mutation={JOIN_STUDY_AS_GUEST}
               refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
             >
-              {(joinStudy, { loading, error }) => (
-                <ConsentScreen
-                  under18={under18}
-                  consent={consent[this.state.activeConsent]}
-                  sona={this.state.sona}
-                  studentNYC={this.state.studentNYC}
-                  covered={this.state.covered}
-                  updateState={this.updateState}
-                  consentNumber={this.state.activeConsent}
-                  numberOfConsents={this.state.numberOfConsents}
-                  recordMyConsent={this.recordMyConsent}
-                  joinStudy={joinStudy}
-                  joinStudyAsGuest={joinStudyAsGuest}
+              {joinStudyAsGuest => (
+                <Mutation
+                  mutation={JOIN_STUDY}
+                  refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
                 >
-                  <>
-                    {under18 && (
+                  {(joinStudy, { loading, error }) => (
+                    <ConsentScreen
+                      under18={under18}
+                      consent={consent[this.state.activeConsent]}
+                      sona={this.state.sona}
+                      studentNYC={this.state.studentNYC}
+                      covered={this.state.covered}
+                      updateState={this.updateState}
+                      consentNumber={this.state.activeConsent}
+                      numberOfConsents={this.state.numberOfConsents}
+                      recordMyConsent={this.recordMyConsent}
+                      signUpAsGuest={signUpAsGuest}
+                      joinStudyAsGuest={joinStudyAsGuest}
+                      joinStudy={joinStudy}
+                    >
                       <>
-                        <div>
-                          <label htmlFor="parentname">
-                            <p>Parent name</p>
-                            <input
-                              type="text"
-                              id="parentname"
-                              name="parentname"
-                              onChange={this.updateState}
-                            />
-                          </label>
-                        </div>
+                        {under18 && (
+                          <>
+                            <div>
+                              <label htmlFor="parentname">
+                                <p>Parent name</p>
+                                <input
+                                  type="text"
+                                  id="parentname"
+                                  name="parentname"
+                                  onChange={this.updateState}
+                                />
+                              </label>
+                            </div>
 
-                        <div>
-                          <label htmlFor="parentemail">
-                            <p>Parent email address</p>
-                            <input
-                              type="email"
-                              id="parentemail"
-                              name="parentemail"
-                              onChange={this.updateState}
-                            />
-                          </label>
-                        </div>
+                            <div>
+                              <label htmlFor="parentemail">
+                                <p>Parent email address</p>
+                                <input
+                                  type="email"
+                                  id="parentemail"
+                                  name="parentemail"
+                                  onChange={this.updateState}
+                                />
+                              </label>
+                            </div>
 
-                        <div>
-                          <label htmlFor="kidname">
-                            <p>Your name</p>
-                            <input
-                              type="text"
-                              id="kidname"
-                              name="kidname"
-                              onChange={this.updateState}
-                            />
-                          </label>
-                        </div>
+                            <div>
+                              <label htmlFor="kidname">
+                                <p>Your name</p>
+                                <input
+                                  type="text"
+                                  id="kidname"
+                                  name="kidname"
+                                  onChange={this.updateState}
+                                />
+                              </label>
+                            </div>
+                          </>
+                        )}
                       </>
-                    )}
-                  </>
-                </ConsentScreen>
+                    </ConsentScreen>
+                  )}
+                </Mutation>
               )}
             </Mutation>
           )}

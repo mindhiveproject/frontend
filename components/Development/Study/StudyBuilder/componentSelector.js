@@ -61,7 +61,7 @@ class componentSelector extends Component {
                   : 'discoverMenuTitle'
               }
             >
-              <p>Favorite</p>
+              <p>Favorites</p>
             </Menu.Item>
 
             <Menu.Item

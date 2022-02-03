@@ -5,7 +5,17 @@ import Result from './result';
 
 import { StyledDownload } from './styles';
 
-const DynamicLoader = dynamic(() => import('./loader'), { ssr: false });
+const DynamicRawDataLoader = dynamic(() => import('./Loader/raw'), {
+  ssr: false,
+});
+const DynamicAggregatedByTestDataLoader = dynamic(
+  () => import('./Loader/aggByTest'),
+  { ssr: false }
+);
+const DynamicAggregatedByParticipantDataLoader = dynamic(
+  () => import('./Loader/aggByParticipant'),
+  { ssr: false }
+);
 
 class Selector extends Component {
   state = {
@@ -31,7 +41,10 @@ class Selector extends Component {
 
     return (
       <StyledDownload>
-        <DynamicLoader results={this.state.results} />
+        <div className="loadButtons">
+          <DynamicRawDataLoader results={this.state.results} />
+          <DynamicAggregatedByTestDataLoader results={this.state.results} />
+        </div>
         <div className="taskSelector"></div>
         <div className="selector">
           {myStudyResults.map(result => {

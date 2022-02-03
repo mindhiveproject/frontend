@@ -9,6 +9,7 @@ import { ContainerOnlyForAuthorizedCollaborators } from '../../Permissions/Colla
 
 import StudyTasks from './studyTasks';
 import InfoTabs from './infoTabs';
+import GuestWrapper from './guestWrapper';
 
 class StudyInformation extends Component {
   state = { activeTab: 'what' };
@@ -111,7 +112,7 @@ class StudyInformation extends Component {
                 </ContainerOnlyForNoProfile>
 
                 <ContainerOnlyForProfile>
-                  {!studyIds.includes(study.id) && (
+                  {!studyIds.includes(study.id) && !this.props.guestCode && (
                     <Link
                       href={{
                         pathname: '/join/getstarted',
@@ -125,59 +126,27 @@ class StudyInformation extends Component {
                 </ContainerOnlyForProfile>
               </>
             )}
-
-            {false && (
-              <>
-                <ContainerOnlyForScientists>
-                  <Link
-                    href={{
-                      pathname: '/study/preview',
-                      query: { id: study.id },
-                    }}
-                  >
-                    <button>Preview</button>
-                  </Link>
-                </ContainerOnlyForScientists>
-
-                <ContainerOnlyForAuthorizedCollaborators
-                  ids={
-                    study.collaborators && study.collaborators.map(c => c.id)
-                  }
-                  id={study.author && study.author.id}
-                >
-                  <Link
-                    href={{
-                      pathname: '/study/edit',
-                      query: { id: study.id },
-                    }}
-                  >
-                    <button className="secondaryBtn">Edit</button>
-                  </Link>
-                </ContainerOnlyForAuthorizedCollaborators>
-              </>
-            )}
           </div>
 
-          {joinedTheStudy && (
+          {joinedTheStudy && !this.props.guestCode && (
             <StudyTasks
               study={study}
               user={this.props.user}
               onStartTheTask={this.props.onStartTheTask}
               onStartExternalTask={this.props.onStartExternalTask}
+            />
+          )}
+
+          {this.props.guestCode && (
+            <GuestWrapper
+              study={study}
+              onStartTheTask={this.props.onStartTheTask}
+              onStartExternalTask={this.props.onStartExternalTask}
+              guestCode={this.props.guestCode}
             />
           )}
 
           <InfoTabs infoBlocks={infoBlocks} study={study} />
-
-          {false && !joinedTheStudy && (
-            <StudyTasks
-              study={study}
-              user={this.props.user}
-              onStartTheTask={this.props.onStartTheTask}
-              onStartExternalTask={this.props.onStartExternalTask}
-              inReview={this.props.inReview}
-            />
-          )}
         </div>
 
         <div className="studyInfoTimePartners">

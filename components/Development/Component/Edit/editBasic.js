@@ -48,6 +48,7 @@ class EditBasic extends Component {
         user.permissions.includes('SCIENTIST') ||
         user.permissions.includes('ADMIN'));
     const settings = {
+      mobileCompatible: false,
       descriptionBefore: '',
       descriptionAfter: '',
       ...task.settings,
