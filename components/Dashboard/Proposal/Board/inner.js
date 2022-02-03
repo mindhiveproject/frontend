@@ -117,30 +117,26 @@ class Inner extends Component {
             adminMode={this.props.adminMode}
           />
 
-          {(true || proposalBuildMode) && (
-            <StyledNewInput>
-              <label htmlFor="sectionTitle">
-                <div>
-                  <span>New section</span>
-                </div>
-                <input
-                  type="text"
-                  id="sectionTitle"
-                  name="title"
-                  placeholder=""
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                  required
-                />
-              </label>
-              <div
-                className="addBtn"
-                onClick={() => this.createSection(board.id)}
-              >
-                Add section
-              </div>
-            </StyledNewInput>
-          )}
+          <StyledNewInput>
+            <label htmlFor="sectionTitle">
+              <div>New section</div>
+              <input
+                type="text"
+                id="sectionTitle"
+                name="title"
+                placeholder=""
+                value={this.state.title}
+                onChange={this.handleChange}
+                required
+              />
+            </label>
+            <div
+              className="addBtn"
+              onClick={() => this.createSection(board.id)}
+            >
+              Add section
+            </div>
+          </StyledNewInput>
         </div>
       </StyledGrid>
     );

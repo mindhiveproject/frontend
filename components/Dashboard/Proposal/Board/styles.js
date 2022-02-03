@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledSections = styled.div``;
 
@@ -7,7 +7,9 @@ export const StyledNewInput = styled.div`
   justify-content: start;
   text-align: start;
   margin: 10px;
+  padding: 1rem 0rem;
   border-top: 1px solid lightgrey;
+  justify-content: center;
   input {
     border: 1px solid #e6e6e6;
     border-radius: 4px;
@@ -43,6 +45,12 @@ export const StyledSection = styled.div`
   max-width: 300px;
   min-width: 250px;
   margin: 10px;
+  .infoLine {
+    margin: 0rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-gap: 1rem;
+  }
   .column-drag-handle {
     cursor: pointer;
     text-align: center;

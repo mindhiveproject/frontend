@@ -125,6 +125,7 @@ class Sections extends Component {
                 boardId={this.props.boardId}
                 sections={sections}
                 section={section}
+                onUpdateSection={this.props.onUpdateSection}
                 deleteSection={this.props.deleteSection}
                 onCardChange={this.onCardChange}
                 openCard={this.props.openCard}

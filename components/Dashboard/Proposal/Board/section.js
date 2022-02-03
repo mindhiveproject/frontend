@@ -78,6 +78,7 @@ const Section = ({
   section,
   sections,
   boardId,
+  onUpdateSection,
   deleteSection,
   onCardChange,
   openCard,
@@ -336,11 +337,28 @@ const Section = ({
     <StyledSection>
       <div className="column-drag-handle">
         <h3>{ReactHTMLParser(section.title)}</h3>
-        <span>
-          {numOfCards} card{numOfCards <= 1 ? '' : 's'}
-        </span>
       </div>
-      {(true || proposalBuildMode) && (
+      <div className="infoLine">
+        <div>
+          {numOfCards} card{numOfCards <= 1 ? '' : 's'}
+        </div>
+        <div
+          className="deleteBtn"
+          onClick={() => {
+            const title = prompt('Please enter new title');
+            if (title != null) {
+              onUpdateSection({
+                variables: {
+                  id: section.id,
+                  boardId,
+                  title,
+                },
+              });
+            }
+          }}
+        >
+          Edit title
+        </div>
         <div
           className="deleteBtn"
           onClick={() => {
@@ -359,7 +377,7 @@ const Section = ({
         >
           Delete section
         </div>
-      )}
+      </div>
 
       <div>
         <Container
@@ -397,29 +415,27 @@ const Section = ({
           )}
         </Container>
       </div>
-      {(true || proposalBuildMode) && (
-        <StyledNewInput>
-          <label htmlFor={`input-${section.id}`}>
-            <span>New card</span>
-            <input
-              id={`input-${section.id}`}
-              type="text"
-              name={`input-${section.id}`}
-              value={cardName}
-              onChange={e => setCardName(e.target.value)}
-            />
-          </label>
+      <StyledNewInput>
+        <label htmlFor={`input-${section.id}`}>
+          <div>New card</div>
+          <input
+            id={`input-${section.id}`}
+            type="text"
+            name={`input-${section.id}`}
+            value={cardName}
+            onChange={e => setCardName(e.target.value)}
+          />
+        </label>
 
-          <div
-            className="addBtn"
-            onClick={() => {
-              addCardMutation(section.id, cardName);
-            }}
-          >
-            Add card
-          </div>
-        </StyledNewInput>
-      )}
+        <div
+          className="addBtn"
+          onClick={() => {
+            addCardMutation(section.id, cardName);
+          }}
+        >
+          Add card
+        </div>
+      </StyledNewInput>
     </StyledSection>
   );
 };
