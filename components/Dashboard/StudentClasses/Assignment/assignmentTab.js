@@ -90,6 +90,7 @@ class AssignmentTab extends Component {
               <a
                 target="_blank"
                 href={`/dashboard/myclasses/assignments/${assignment.id}`}
+                rel="noreferrer"
               >
                 <button className="secondary">Open in new tab</button>
               </a>

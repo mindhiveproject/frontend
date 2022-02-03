@@ -38,8 +38,11 @@ export const Jodit = ({ externalContent, updateContent, readonly }) => {
       tabIndex={1} // tabIndex of textarea
       onBlur={newContent => {
         if (newContent) {
-          setContent(newContent.target.innerHTML);
-          updateContent(newContent.target.innerHTML);
+          console.log('newContent', newContent);
+          setContent(newContent);
+          updateContent(newContent);
+          // setContent(newContent?.target?.innerHTML);
+          // updateContent(newContent?.target?.innerHTML);
         }
       }}
       onChange={newContent => {}}
