@@ -150,15 +150,17 @@ function StudyCard({
           </div>
         </div>
       )}
-      <div className="studyAdmin">
-        <ToggleHiding
-          id={study?.id}
-          isHidden={!study?.isHidden}
-          showAllStudies={showAllStudies}
-        >
-          {study.isHidden ? 'Unhide' : 'Hide'}
-        </ToggleHiding>
-      </div>
+      {false && (
+        <div className="studyAdmin">
+          <ToggleHiding
+            id={study?.id}
+            isHidden={!study?.isHidden}
+            showAllStudies={showAllStudies}
+          >
+            {study.isHidden ? 'Unhide' : 'Hide'}
+          </ToggleHiding>
+        </div>
+      )}
     </StyledStudyCard>
   );
 }
