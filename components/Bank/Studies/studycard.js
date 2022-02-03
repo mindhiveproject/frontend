@@ -5,6 +5,7 @@ import { StyledStudyCard } from '../styles';
 
 // import DeleteStudy from './delete';
 import ManageStudy from './manage';
+import ToggleHiding from './toggleHiding';
 
 // compute the number of different types of permissions in author and collaborators
 const computeNumber = ({ study, role }) => {
@@ -22,7 +23,13 @@ const computeNumber = ({ study, role }) => {
   return collaborators + author;
 };
 
-function StudyCard({ study, user, onSelectStudy, overviewMode }) {
+function StudyCard({
+  study,
+  user,
+  onSelectStudy,
+  overviewMode,
+  showAllStudies,
+}) {
   const numberOfStudents = useMemo(
     () => computeNumber({ study, role: 'STUDENT' }),
     [study]
@@ -143,6 +150,15 @@ function StudyCard({ study, user, onSelectStudy, overviewMode }) {
           </div>
         </div>
       )}
+      <div className="studyAdmin">
+        <ToggleHiding
+          id={study?.id}
+          isHidden={!study?.isHidden}
+          showAllStudies={showAllStudies}
+        >
+          {study.isHidden ? 'Unhide' : 'Hide'}
+        </ToggleHiding>
+      </div>
     </StyledStudyCard>
   );
 }

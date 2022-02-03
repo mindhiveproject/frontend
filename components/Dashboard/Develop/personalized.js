@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import { Menu } from 'semantic-ui-react';
+import { Menu, Radio } from 'semantic-ui-react';
+import styled from 'styled-components';
 import DevelopedStudiesBank from '../../Bank/Studies/developed';
 import DevelopedComponentsBank from '../../Bank/Components/developed';
 
@@ -10,14 +11,30 @@ import EmptyPage from '../../Page/empty';
 import DevelopmentSelectScreen from '../../Development/selectScreen';
 import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
 import ComponentBuilderWrapper from '../../Development/Component/builderWrapper';
-
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
+
+const StyledPreviewToggle = styled.div`
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  grid-gap: 1rem;
+  margin: 1rem 0rem;
+  align-items: center;
+  span {
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.05em;
+  }
+`;
 
 class DashboardDevelop extends Component {
   state = {
     page: this.props.page || 'bank',
     tab: this.props.tab || 'studies',
     devInfo: {},
+    showAllStudies: false,
   };
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
@@ -62,8 +79,10 @@ class DashboardDevelop extends Component {
     const { page, tab } = this.state;
     const { user } = this.props;
 
-    const numberOfStudies =
-      user?.researcherIn.length + user?.collaboratorInStudy.length;
+    const myStudies = [...user?.researcherIn, ...user?.collaboratorInStudy].map(
+      study => study?.id
+    );
+    const numberOfStudies = [...new Set(myStudies)]?.length;
     const numberOfTasks =
       user?.taskCreatorIn.filter(task => task.taskType === 'TASK').length +
       user?.collaboratorInTask.filter(task => task.taskType === 'TASK').length;
@@ -134,10 +153,29 @@ class DashboardDevelop extends Component {
               </div>
 
               {this.state.tab === 'studies' && (
-                <DevelopedStudiesBank
-                  onSelectStudy={this.goToStudy}
-                  user={this.props.user}
-                />
+                <div>
+                  <StyledPreviewToggle>
+                    <Radio
+                      toggle
+                      checked={this.state.showAllStudies}
+                      onChange={() => {
+                        this.setState({
+                          showAllStudies: !this.state.showAllStudies,
+                        });
+                      }}
+                    />
+                    <span>
+                      {this.state.showAllStudies
+                        ? 'Show all studies'
+                        : 'Do not show hidden studies'}
+                    </span>
+                  </StyledPreviewToggle>
+                  <DevelopedStudiesBank
+                    onSelectStudy={this.goToStudy}
+                    user={this.props.user}
+                    showAllStudies={this.state.showAllStudies}
+                  />
+                </div>
               )}
 
               {this.state.tab === 'tasks' && (

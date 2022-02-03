@@ -8,8 +8,8 @@ import { StyledBank, StyledStudyCard, StyledZeroState } from '../styles';
 import StudyCard from './studycard';
 
 const MY_DEVELOPED_STUDIES_QUERY = gql`
-  query MY_DEVELOPED_STUDIES_QUERY {
-    myStudies {
+  query MY_DEVELOPED_STUDIES_QUERY($isHidden: Boolean) {
+    myStudies(where: { isHidden: $isHidden }) {
       id
       title
       slug
@@ -28,6 +28,7 @@ const MY_DEVELOPED_STUDIES_QUERY = gql`
       }
       public
       shortDescription
+      isHidden
     }
   }
 `;
@@ -36,7 +37,10 @@ class DevelopedStudiesBank extends Component {
   render() {
     return (
       <>
-        <Query query={MY_DEVELOPED_STUDIES_QUERY}>
+        <Query
+          query={MY_DEVELOPED_STUDIES_QUERY}
+          variables={{ isHidden: this.props.showAllStudies }}
+        >
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
@@ -63,6 +67,7 @@ class DevelopedStudiesBank extends Component {
                       onSelectStudy={this.props.onSelectStudy}
                       user={this.props.user}
                       developingMode
+                      showAllStudies={this.props.showAllStudies}
                     />
                   ))}
                 </div>
