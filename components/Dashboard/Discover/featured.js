@@ -65,6 +65,10 @@ const StyledFeatured = styled.div`
 `;
 
 class FeaturedStudies extends Component {
+  componentDidMount() {
+    document.documentElement.scrollTop = 0;
+  }
+
   state = {
     study: this.props.studies[0].id,
   };
