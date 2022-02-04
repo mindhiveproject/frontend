@@ -28,6 +28,7 @@ function StudyCard({
   onSelectStudy,
   overviewMode,
   showAllStudies,
+  developingMode,
 }) {
   const numberOfStudents = useMemo(
     () => computeNumber({ study, role: 'STUDENT' }),
@@ -151,11 +152,13 @@ function StudyCard({
           </div>
         </div>
       )}
-      <div className="studyAdmin">
-        <ToggleUserStudyHide id={study?.id} isHidden={isHidden}>
-          {isHidden ? 'Unhide' : 'Hide'}
-        </ToggleUserStudyHide>
-      </div>
+      {developingMode && (
+        <div className="studyAdmin">
+          <ToggleUserStudyHide id={study?.id} isHidden={isHidden}>
+            {isHidden ? 'Unhide' : 'Hide'}
+          </ToggleUserStudyHide>
+        </div>
+      )}
     </StyledStudyCard>
   );
 }
