@@ -83,6 +83,7 @@ const USER_DASHBOARD_QUERY = gql`
       info
       publicId
       publicReadableId
+      studiesInfo
     }
   }
 `;

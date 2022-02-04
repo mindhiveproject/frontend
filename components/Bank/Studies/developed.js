@@ -8,8 +8,8 @@ import { StyledBank, StyledStudyCard, StyledZeroState } from '../styles';
 import StudyCard from './studycard';
 
 const MY_DEVELOPED_STUDIES_QUERY = gql`
-  query MY_DEVELOPED_STUDIES_QUERY($isHidden: Boolean) {
-    myStudies(where: { isHidden: $isHidden }) {
+  query MY_DEVELOPED_STUDIES_QUERY {
+    myStudies {
       id
       title
       slug
@@ -37,10 +37,7 @@ class DevelopedStudiesBank extends Component {
   render() {
     return (
       <>
-        <Query
-          query={MY_DEVELOPED_STUDIES_QUERY}
-          variables={{ isHidden: this.props.showAllStudies }}
-        >
+        <Query query={MY_DEVELOPED_STUDIES_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
@@ -57,10 +54,25 @@ class DevelopedStudiesBank extends Component {
                 </StyledZeroState>
               );
             }
+
+            let filteredStudies = studies;
+            if (this.props.user?.studiesInfo && !this.props.showAllStudies) {
+              const studiesIDsToHide = studies
+                .filter(
+                  st => this.props.user?.studiesInfo[st?.id]?.hideInDevelop
+                )
+                .map(study => study.id);
+              if (studiesIDsToHide.length) {
+                filteredStudies = studies.filter(
+                  study => !studiesIDsToHide.includes(study?.id)
+                );
+              }
+            }
+
             return (
               <StyledBank>
                 <div className="studies">
-                  {studies.map(study => (
+                  {filteredStudies.map(study => (
                     <StudyCard
                       key={study.id}
                       study={study}

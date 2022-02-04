@@ -3,9 +3,8 @@ import ReactHtmlParser from 'react-html-parser';
 
 import { StyledStudyCard } from '../styles';
 
-// import DeleteStudy from './delete';
 import ManageStudy from './manage';
-import ToggleHiding from './toggleHiding';
+import ToggleUserStudyHide from './toggleUserStudyHide';
 
 // compute the number of different types of permissions in author and collaborators
 const computeNumber = ({ study, role }) => {
@@ -45,6 +44,8 @@ function StudyCard({
   // const numberOfStudents = computeNumber({ study, role: 'STUDENT' });
   // const numberOfScientists = computeNumber({ study, role: 'SCIENTIST' });
   // const numberOfTeachers = computeNumber({ study, role: 'TEACHER' });
+
+  const isHidden = user?.studiesInfo[study?.id]?.hideInDevelop;
 
   const numberOfParticipants = study?.participants?.length || 0;
 
@@ -150,17 +151,11 @@ function StudyCard({
           </div>
         </div>
       )}
-      {false && (
-        <div className="studyAdmin">
-          <ToggleHiding
-            id={study?.id}
-            isHidden={!study?.isHidden}
-            showAllStudies={showAllStudies}
-          >
-            {study.isHidden ? 'Unhide' : 'Hide'}
-          </ToggleHiding>
-        </div>
-      )}
+      <div className="studyAdmin">
+        <ToggleUserStudyHide id={study?.id} isHidden={isHidden}>
+          {isHidden ? 'Unhide' : 'Hide'}
+        </ToggleUserStudyHide>
+      </div>
     </StyledStudyCard>
   );
 }
