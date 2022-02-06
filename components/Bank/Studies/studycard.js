@@ -42,11 +42,9 @@ function StudyCard({
     () => computeNumber({ study, role: 'TEACHER' }),
     [study]
   );
-  // const numberOfStudents = computeNumber({ study, role: 'STUDENT' });
-  // const numberOfScientists = computeNumber({ study, role: 'SCIENTIST' });
-  // const numberOfTeachers = computeNumber({ study, role: 'TEACHER' });
 
-  const isHidden = user?.studiesInfo[study?.id]?.hideInDevelop;
+  const isHidden =
+    user?.studiesInfo && user?.studiesInfo[study?.id]?.hideInDevelop;
 
   const numberOfParticipants = study?.participants?.length || 0;
 
