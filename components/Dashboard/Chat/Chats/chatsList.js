@@ -3,10 +3,10 @@ import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
 import styled from 'styled-components';
-import TalkRow from './row';
+import ChatRow from './chatRow';
 import { StyledDasboard, StyledClassesDasboard } from '../../styles';
 
-const StyledTalkHeader = styled.div`
+const StyledChatHeader = styled.div`
   display: grid;
   margin: 1rem 0rem;
   padding: 1rem;
@@ -15,7 +15,7 @@ const StyledTalkHeader = styled.div`
   font-weight: bold;
 `;
 
-// write a query here, later refactor it in a separate file if it is used elsewhere
+// query my chats
 const MY_TALKS_QUERY = gql`
   query MY_TALKS_QUERY {
     myTalks {
@@ -34,7 +34,7 @@ const MY_TALKS_QUERY = gql`
   }
 `;
 
-class TalksList extends Component {
+class ChatsList extends Component {
   render() {
     return (
       <StyledDasboard>
@@ -53,7 +53,7 @@ class TalksList extends Component {
                     <p>Once you create a group chat, it will appear here.</p>
                     <div className="navigationHeader">
                       <div>
-                        <button onClick={this.props.addTalk}>
+                        <button onClick={this.props.addChat}>
                           New group chat
                         </button>
                       </div>
@@ -65,23 +65,23 @@ class TalksList extends Component {
                 <>
                   <div className="navigationHeader">
                     <div>
-                      <button onClick={this.props.addTalk}>
+                      <button onClick={this.props.addChat}>
                         New group chat
                       </button>
                     </div>
                   </div>
                   <div>
-                    <StyledTalkHeader>
+                    <StyledChatHeader>
                       <div>Name</div>
                       <div>Members</div>
                       <div>Date created</div>
-                    </StyledTalkHeader>
+                    </StyledChatHeader>
 
-                    {myTalks.map(mytalk => (
-                      <TalkRow
-                        mytalk={mytalk}
-                        key={mytalk.id}
-                        openTalk={this.props.openTalk}
+                    {myTalks.map(chat => (
+                      <ChatRow
+                        chat={chat}
+                        key={chat.id}
+                        openChat={this.props.openChat}
                         openAddMembers={this.props.openAddMembers}
                       />
                     ))}
@@ -96,5 +96,5 @@ class TalksList extends Component {
   }
 }
 
-export default TalksList;
+export default ChatsList;
 export { MY_TALKS_QUERY };

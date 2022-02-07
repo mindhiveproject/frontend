@@ -20,7 +20,7 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const StyledTalkRow = styled.div`
+const StyledChatRow = styled.div`
   display: grid;
   grid-gap: 2rem;
   margin: 1rem 0rem;
@@ -28,6 +28,7 @@ const StyledTalkRow = styled.div`
   grid-template-columns: 1fr 2fr 1fr;
   background: white;
   cursor: pointer;
+  align-items: center;
   .members {
     font-size: 1rem;
     display: grid;
@@ -48,35 +49,37 @@ const StyledTalkRow = styled.div`
   }
 `;
 
-class TalkRow extends Component {
+class ChatRow extends Component {
   render() {
-    const { mytalk } = this.props;
+    const { chat } = this.props;
     return (
       <StyledWrapper>
-        <StyledTalkRow onClick={() => this.props.openTalk(mytalk.id)}>
-          <div>{mytalk?.settings?.title}</div>
+        <StyledChatRow onClick={() => this.props.openChat(chat.id)}>
+          <div>{chat?.settings?.title}</div>
           <div className="members">
-            {mytalk?.members?.map(member => (
-              <div className="member">{member?.username}</div>
+            {chat?.members?.map((member, num) => (
+              <div className="member" key={num}>
+                {member?.username}
+              </div>
             ))}
           </div>
-          <div>{moment(mytalk?.createdAt).format('MMMM D, YYYY')}</div>
-        </StyledTalkRow>
+          <div>{moment(chat?.createdAt).format('MMMM D, YYYY')}</div>
+        </StyledChatRow>
         <div className="controlBtns">
           <div
             className="addMembersBtn"
             onClick={() =>
-              this.props.openAddMembers(mytalk?.id, mytalk?.settings?.title)
+              this.props.openAddMembers(chat?.id, chat?.settings?.title)
             }
           >
             <Icon name="user plus" />
           </div>
-          <LeaveGroupChat id={mytalk?.id} />
+          <LeaveGroupChat id={chat?.id} />
         </div>
       </StyledWrapper>
     );
   }
 }
 
-export default TalkRow;
-export { StyledTalkRow };
+export default ChatRow;
+export { StyledChatRow };

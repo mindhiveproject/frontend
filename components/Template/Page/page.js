@@ -16,7 +16,7 @@ class TemplatePage extends Component {
       <div>
         <StyledTemplate>
           <Head>
-            <title>mindHIVE | {template.title}</title>
+            <title>MindHive | {template.title}</title>
           </Head>
           <h2>{template.title}</h2>
           <p>{template.description}</p>

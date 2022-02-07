@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Button, Modal } from 'semantic-ui-react';
 
-import { VIEW_TALK_QUERY } from '../page';
+import { VIEW_TALK_QUERY } from '../chatPage';
 
 import Note from '../../../Jodit/note';
 

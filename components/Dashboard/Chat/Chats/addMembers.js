@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
-import { MY_TALKS_QUERY } from './list';
+import { MY_TALKS_QUERY } from './chatsList';
 
 import { StyledSubmitForm } from '../../../Styles/Forms';
 import FindMember from './findMember';

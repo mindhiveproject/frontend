@@ -4,7 +4,7 @@ import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 
-import { MY_TALKS_QUERY } from './list';
+import { MY_TALKS_QUERY } from './chatsList';
 
 const StyledLeaveButton = styled.div`
   color: red;

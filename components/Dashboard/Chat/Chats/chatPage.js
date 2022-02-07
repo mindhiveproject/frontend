@@ -12,11 +12,29 @@ import { StyledDasboard, StyledDevelopDasboard } from '../../styles';
 
 import Message from './Messages/message';
 import CreateMessage from './Messages/create';
+import EditChatTitle from './editChatTitle';
 
 const StyledGroupChat = styled.div`
   display: grid;
   grid-gap: 2rem;
   margin: 2rem 0rem;
+  .chatHeader {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 1rem;
+    align-items: center;
+    button {
+      min-height: 56px;
+      padding: 10px 24px 10px 24px;
+      background: #007c70;
+      border: 2px solid #007c70;
+      box-sizing: border-box;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-family: 'Lato';
+    }
+  }
   .members {
     font-size: 1.2rem;
     display: grid;
@@ -65,11 +83,11 @@ const VIEW_TALK_QUERY = gql`
   }
 `;
 
-class TalkPage extends Component {
+class ChatPage extends Component {
   state = {};
 
   render() {
-    const { talkId } = this.props;
+    const { chatId } = this.props;
 
     return (
       <StyledDasboard>
@@ -84,14 +102,18 @@ class TalkPage extends Component {
 
           <Query
             query={VIEW_TALK_QUERY}
-            variables={{ id: talkId }}
+            variables={{ id: chatId }}
             pollInterval={5000}
           >
             {({ error, loading, data }) => {
               if (error) return <Error error={error} />;
               if (loading) return <p>Loading</p>;
-              if (!data.talk) return <p>No talk found for {talkId}</p>;
+              if (!data.talk) return <p>No talk found for {chatId}</p>;
               const { talk } = data;
+
+              // find out whether the user is the creator of the chat
+              const isChatAdmin = talk?.author?.id === this.props.me?.id;
+
               const messages = [...talk?.words].sort((a, b) =>
                 a.createdAt > b.createdAt
                   ? -1
@@ -102,20 +124,29 @@ class TalkPage extends Component {
               return (
                 <StyledGroupChat>
                   <Head>
-                    <title>mindHIVE | {talkId}</title>
+                    <title>MindHive | {talk?.settings?.title}</title>
                   </Head>
-                  <div className="navigationHeader">
-                    <div>
-                      <h1>{talk?.settings?.title}</h1>
-                    </div>
-                    <div>
-                      <CreateMessage talkId={talkId} />
-                    </div>
+                  <div>
+                    {isChatAdmin ? (
+                      <EditChatTitle chat={talk} />
+                    ) : (
+                      <div>
+                        <h1>{talk?.settings?.title}</h1>
+                      </div>
+                    )}
                   </div>
-                  <div className="members">
-                    {talk?.members?.map(member => (
-                      <div className="member">{member?.username}</div>
-                    ))}
+
+                  <div className="chatHeader">
+                    <div>
+                      <CreateMessage chatId={chatId} />
+                    </div>
+                    <div className="members">
+                      {talk?.members?.map((member, num) => (
+                        <div className="member" key={num}>
+                          {member?.username}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <div>
                     {messages.map(message => (
@@ -132,5 +163,5 @@ class TalkPage extends Component {
   }
 }
 
-export default TalkPage;
+export default ChatPage;
 export { VIEW_TALK_QUERY };

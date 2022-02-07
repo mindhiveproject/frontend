@@ -24,7 +24,7 @@ class TaskPage extends Component {
       <div>
         <StyledTask>
           <Head>
-            <title>mindHIVE | {task.title}</title>
+            <title>MindHive | {task.title}</title>
           </Head>
           <h2>{task.title}</h2>
           <div>{ReactHtmlParser(task.description)}</div>

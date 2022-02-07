@@ -61,7 +61,6 @@ class DashboardClasses extends Component {
       ...this.props.user?.teacherIn.map(c => c?.id),
       ...this.props.user?.mentorIn.map(c => c?.id),
     ];
-    console.log('userClassesIds', userClassesIds);
 
     if (page === 'classes') {
       return (
