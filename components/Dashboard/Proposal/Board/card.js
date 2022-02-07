@@ -7,7 +7,7 @@ import { StyledCard } from './styles';
 class Card extends Component {
   render() {
     const { card, proposalBuildMode, adminMode } = this.props;
-    const status = card?.settings?.status;
+    const status = card?.settings?.status? card.settings.status : 'Not started';
 
     let statusStyle = null;
     switch (status) {

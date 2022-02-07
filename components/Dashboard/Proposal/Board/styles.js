@@ -149,24 +149,24 @@ export const StyledCard = styled.div`
       padding: 1px 7px 1px 7px;
     }
     .status-not-started {
-      color: #d53533;
-      background: rgba(224, 103, 102, 0.2);
+      color: #896900;
+      background: rgba(254, 210, 79, 0.18);
     }
     .status-started {
-      color: #0085bc;
-      background: rgba(81, 202, 252, 0.2);
+      color: #0063CE;
+      background: rgba(0, 117, 224, 0.12);
     }
     .status-on-hold {
-      color: #bb6900;
-      background: rgba(254, 210, 79, 0.2);
+      color: #C92927;
+      background: rgba(224, 103, 102, 0.12);
     }
     .status-completed {
-      color: #007c70;
-      background: rgba(48, 213, 192, 0.2);
+      color: #00635A;
+      background: rgba(0, 124, 112, 0.12);
     }
     .status-closed {
-      color: #3900bd;
-      background: rgba(155, 113, 252, 0.2);
+      color: #1A1A1A;
+      background: rgba(0, 0, 0, 0.12);
     }
   }
 `;
