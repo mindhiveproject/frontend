@@ -24,7 +24,7 @@ const StyledModalWrapper = styled.div`
 
 class CreateMessageModal extends Component {
   state = {
-    talk: this.props.talkId,
+    talk: this.props.chatId,
     message: '',
     settings: {},
   };

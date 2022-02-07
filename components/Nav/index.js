@@ -18,6 +18,8 @@ import { ContainerOnlyForScientists } from '../Permissions/Scientist/index';
 import { ContainerOnlyForParticipants } from '../Permissions/Participant/index';
 import { ContainerOnlyForTeachers } from '../Permissions/Teacher/index';
 
+import { TOGGLE_OPENING_MUTATION } from '../Opening/index';
+
 const MenuModal = styled.div`
   position: fixed;
   top: 0;
@@ -130,6 +132,15 @@ class Nav extends Component {
                     <Link href="/dashboard">
                       <NavButton>Dashboard</NavButton>
                     </Link>
+                  )}
+                  {data?.data?.me && (
+                    <>
+                      <Mutation mutation={TOGGLE_OPENING_MUTATION}>
+                        {toggleOpening => (
+                          <button onClick={toggleOpening}>Open</button>
+                        )}
+                      </Mutation>
+                    </>
                   )}
                 </NavRightContainer>
               </ContainerOnlyForProfile>

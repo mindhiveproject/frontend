@@ -1,10 +1,10 @@
-import DashboardChat from '../../components/Dashboard/Chat/index';
+import Chat from '../../components/Dashboard/Chat/index';
 import AuthorizedPage from '../../components/Page/userpage';
 
-const DashboardChatPage = props => (
+const ChatPage = props => (
   <AuthorizedPage>
-    <DashboardChat />
+    <Chat />
   </AuthorizedPage>
 );
 
-export default DashboardChatPage;
+export default ChatPage;

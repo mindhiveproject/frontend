@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-
-import { Menu } from 'semantic-ui-react';
+import { Icon, Menu } from 'semantic-ui-react';
 
 import { StudyBuilderNav } from '../styles';
 
@@ -11,6 +10,8 @@ import { USER_DASHBOARD_QUERY } from '../../User/index';
 import { MY_DEVELOPED_STUDIES_QUERY } from '../../Bank/Studies/developed';
 
 import { PROPOSAL_BOARD_QUERY } from '../../Dashboard/Proposal/proposalpage';
+
+import { TOGGLE_OPENING_MUTATION } from '../../Opening/index';
 
 const CREATE_NEW_STUDY = gql`
   mutation CREATE_NEW_STUDY(
@@ -226,6 +227,16 @@ class Navigation extends Component {
             <p>Analyze</p>
           </Menu.Item>
         </Menu>
+
+        <div>
+          <Mutation mutation={TOGGLE_OPENING_MUTATION}>
+            {toggleOpening => (
+              <button onClick={toggleOpening}>
+                <Icon name="rocketchat" size="large" />
+              </button>
+            )}
+          </Mutation>
+        </div>
 
         <div className="rightButtons">
           {!adminMode && (

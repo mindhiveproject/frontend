@@ -4,6 +4,7 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Header from '../Header/index';
 import Footer from '../Footer/index';
 import Meta from '../Meta/index';
+import Opening from '../Opening/index';
 
 import { StyledPage, Inner, UserPage, UserInner } from './styles';
 
@@ -45,6 +46,7 @@ class EmptyPage extends Component {
         <Meta />
         {this.props.children}
         <GlobalStyle />
+        <Opening />
       </ThemeProvider>
     );
   }

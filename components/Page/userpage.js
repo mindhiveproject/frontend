@@ -12,6 +12,8 @@ import { CURRENT_USER_QUERY } from '../User/index';
 
 import { UserPage, UserInner, UserNav } from './styles';
 
+import Opening from '../Opening/index';
+
 const theme = {
   red: '#FF0000',
   black: '#393939',
@@ -64,6 +66,7 @@ class AuthorizedPage extends Component {
                   <SidebarNav user={data?.me} />
                 </UserNav>
                 <UserInner>{this.props.children}</UserInner>
+                <Opening />
               </UserPage>
             );
           }}

@@ -7,7 +7,7 @@ import ChatWrapper from './wrapper';
 
 import { StyledDasboard } from '../styles';
 
-class DashboardStatic extends Component {
+class Chat extends Component {
   render() {
     return (
       <Query query={CURRENT_USER_EMAIL_QUERY}>
@@ -27,4 +27,4 @@ class DashboardStatic extends Component {
   }
 }
 
-export default DashboardStatic;
+export default Chat;
