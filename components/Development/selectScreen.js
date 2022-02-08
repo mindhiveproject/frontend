@@ -272,7 +272,7 @@ class DevelopmentSelectScreen extends Component {
                 settings: {
                   consentObtained: false,
                   guestParticipation: true,
-                  proceedToFirstTask: false,
+                  proceedToFirstTask: true,
                   zipCode: false,
                   sonaId: false,
                   minorsBlocked: false,
