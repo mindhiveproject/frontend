@@ -8,6 +8,7 @@ import { MY_TALKS_QUERY } from './chatsList';
 import { StyledSubmitForm } from '../../../Styles/Forms';
 import FindMember from './findMember';
 import FindClassMembers from './findClassMembers';
+import FindStudyMembers from './findStudyMembers';
 
 const CREATE_NEW_TALK = gql`
   mutation CREATE_NEW_TALK($members: [ID]!, $settings: Json) {
@@ -46,6 +47,7 @@ class AddChat extends Component {
   state = {
     members: [],
     classes: [],
+    studies: [],
     settings: {},
   };
 
@@ -64,9 +66,18 @@ class AddChat extends Component {
   };
 
   handleClassChange = (name, value, members) => {
+    const updatedMembers = [...new Set([...this.state.members, ...members])];
     this.setState({
       classes: value,
-      members,
+      members: updatedMembers,
+    });
+  };
+
+  handleStudyChange = (name, value, members) => {
+    const updatedMembers = [...new Set([...this.state.members, ...members])];
+    this.setState({
+      studies: value,
+      members: updatedMembers,
     });
   };
 
@@ -109,7 +120,7 @@ class AddChat extends Component {
                   </label>
 
                   <div className="membersBlock">
-                    <p>Invite classes</p>
+                    <p>Select classes</p>
                     <FindClassMembers
                       classes={this.state.classes}
                       handleClassChange={this.handleClassChange}
@@ -117,7 +128,15 @@ class AddChat extends Component {
                   </div>
 
                   <div className="membersBlock">
-                    <p>Invite members</p>
+                    <p>Select study collaborators</p>
+                    <FindStudyMembers
+                      studies={this.state.studies}
+                      handleStudyChange={this.handleStudyChange}
+                    />
+                  </div>
+
+                  <div className="membersBlock">
+                    <p>The following MinHive members will be invited</p>
                     <FindMember
                       members={this.state.members}
                       handleSetState={this.handleSetState}

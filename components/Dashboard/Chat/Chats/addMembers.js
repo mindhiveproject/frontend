@@ -43,7 +43,7 @@ const StyledSelectionScreen = styled.div`
 
 class AddMembersToTalk extends Component {
   state = {
-    id: this.props.talkId,
+    id: this.props.chatId,
     members: [],
   };
 
