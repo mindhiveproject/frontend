@@ -168,7 +168,7 @@ class CardModal extends Component {
         size="large"
         onClose={() => onClose()}
       >
-        <Modal.Content>
+        <Modal.Content scrolling>
           <Modal.Description>
             <Query query={GET_CARD_CONTENT} variables={{ id: cardId }}>
               {({ data, loading: queryLoading }) => {
