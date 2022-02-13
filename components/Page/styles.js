@@ -20,6 +20,9 @@ export const UserPage = styled.div`
 export const UserInner = styled.div`
   max-width: ${props => props.theme.maxWidth};
   padding: 2rem;
+  overflow-y: auto;
+  height: 100%;
+  max-height: 90vh;
 `;
 
 export const UserNav = styled.div`

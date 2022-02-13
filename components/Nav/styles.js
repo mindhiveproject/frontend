@@ -9,6 +9,11 @@ export const StyledSidebar = styled.div`
   justify-items: left;
   align-content: start;
   padding-left: 30px;
+  padding-bottom: 30px;
+
+  overflow-y: auto;
+  height: 100%;
+  max-height: 90vh;
 
   .navLinks {
     display: grid;
