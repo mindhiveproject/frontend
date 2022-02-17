@@ -15,7 +15,14 @@ export default function BirthdayPicker({ onDateInput }) {
 
   return (
     <StyledBirthdayPicker>
-      <DatePicker onChange={e => onInput(e)} value={value} />
+      <DatePicker
+        onChange={e => onInput(e)}
+        value={value}
+        monthPlaceholder="MM"
+        dayPlaceholder="DD"
+        yearPlaceholder="YYYY"
+        clearIcon={null}
+      />
     </StyledBirthdayPicker>
   );
 }

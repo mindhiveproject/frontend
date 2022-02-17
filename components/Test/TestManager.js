@@ -53,6 +53,7 @@ class TestManager extends Component {
                   });
                 },
                 version,
+                guest: this.props.guest?.id,
               }}
             />
           </StyledBox>

@@ -12,8 +12,11 @@ class TaskCard extends Component {
   };
 
   render() {
-    const { task, study, version } = this.props;
+    const { task, study, version, user } = this.props;
     const taskType = task?.taskType?.toLowerCase();
+
+    console.log('user', user);
+    console.log('this.props.guest', this.props.guest);
 
     const allowRetake = !study.settings?.forbidRetake;
 
@@ -51,7 +54,7 @@ class TaskCard extends Component {
                 {!this.props.completed && (
                   <div className="actionLinks">
                     <button>
-                      <a target="_blank" href={task.link}>
+                      <a target="_blank" href={task.link} rel="noreferrer">
                         <p>Take external {taskType}</p>
                       </a>
                     </button>
@@ -61,7 +64,7 @@ class TaskCard extends Component {
                 {allowRetake && this.props.completed && (
                   <div className="actionLinks">
                     <button>
-                      <a target="_blank" href={task.link}>
+                      <a target="_blank" href={task.link} rel="noreferrer">
                         <p>Retake external {taskType}</p>
                       </a>
                     </button>
@@ -104,27 +107,23 @@ class TaskCard extends Component {
                   ReactHtmlParser(task.settings.descriptionAfter)}
               </div>
 
-              {!this.props.completed && (
+              {(!this.props.completed ||
+                (this.props.completed && allowRetake)) && (
                 <div className="actionLinks">
                   <button>
                     <a
                       target="_blank"
-                      href={`/do/task?s=${this.props.study.id}&v=${version}`}
+                      href={`/do/task?s=${this.props.study.id}&v=${version}${
+                        this.props.guest ? `&code=${this.props.guestCode}` : ''
+                      }`}
+                      rel="noreferrer"
                     >
-                      <p>Take {taskType}</p>
-                    </a>
-                  </button>
-                </div>
-              )}
-
-              {allowRetake && this.props.completed && (
-                <div className="actionLinks">
-                  <button>
-                    <a
-                      target="_blank"
-                      href={`/do/task?s=${this.props.study.id}&v=${version}`}
-                    >
-                      <p>Retake {taskType}</p>
+                      <p>
+                        {allowRetake && this.props.completed
+                          ? 'Retake'
+                          : 'Take'}{' '}
+                        {taskType}
+                      </p>
                     </a>
                   </button>
                 </div>
@@ -138,6 +137,20 @@ class TaskCard extends Component {
 }
 
 export default TaskCard;
+
+// {allowRetake && this.props.completed && (
+//   <div className="actionLinks">
+//     <button>
+//       <a
+//         target="_blank"
+//         href={`/do/task?s=${this.props.study.id}&v=${version}`}
+//         rel="noreferrer"
+//       >
+//         <p>Retake {taskType}</p>
+//       </a>
+//     </button>
+//   </div>
+// )}
 
 // <div className="actionLinks">
 //   {this.props.completed && !task.link && (

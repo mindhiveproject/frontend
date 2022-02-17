@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledBirthdayPicker = styled.div`
+  margin: 1rem 0rem 2rem 0rem;
   .react-date-picker {
     display: inline-flex;
     position: relative;
@@ -12,6 +13,7 @@ export const StyledBirthdayPicker = styled.div`
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    margin: 0rem;
   }
   .react-date-picker--disabled {
     background-color: #42d8c9;
@@ -19,33 +21,41 @@ export const StyledBirthdayPicker = styled.div`
   }
   .react-date-picker__wrapper {
     display: grid;
-    grid-template-columns: 5fr auto auto;
-    border: thin solid lightgray;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding: 10px;
+    grid-template-columns: 1fr auto;
+    grid-gap: 1rem;
+    /* border: thin solid lightgray; */
+    /* border-radius: 5px; */
+    /* margin-bottom: 20px; */
+    /* padding: 10px; */
   }
   .react-date-picker__inputGroup {
     display: grid;
-    grid-template-columns: repeat(6, auto);
+    grid-template-columns: repeat(3, auto);
     align-content: center;
-    min-width: 200px;
-    font-size: 2rem;
+    /* min-width: 200px; */
+    font-size: 16px;
   }
   .react-date-picker__inputGroup__divider {
-    padding: 1px 0;
-    white-space: pre;
+    /* padding: 1px 0; */
+    /* white-space: pre; */
+    display: none;
   }
   .react-date-picker__inputGroup__input {
-    min-width: 0.54em;
-    height: 100%;
+    /* min-width: 0.54em; */
+    /* height: 100%; */
     position: relative;
-    padding: 0 1px;
+    /* padding: 0 1px; */
     border: 0;
     background: none;
     font: inherit;
     box-sizing: content-box;
     -moz-appearance: textfield;
+    border: 1px solid #cccccc;
+    width: 92px !important;
+    /* height: 48px; */
+    text-align: center;
+    margin-bottom: 0rem;
+    padding: 0rem;
   }
   .react-date-picker__inputGroup__input::-webkit-outer-spin-button,
   .react-date-picker__inputGroup__input::-webkit-inner-spin-button {
@@ -62,7 +72,7 @@ export const StyledBirthdayPicker = styled.div`
   .react-date-picker__button {
     border: 0;
     background: transparent;
-    padding: 4px 6px;
+    /* padding: 4px 6px; */
   }
   .react-date-picker__button:enabled {
     cursor: pointer;
@@ -128,11 +138,16 @@ export const StyledBirthdayPicker = styled.div`
   }
   .react-calendar__navigation {
     /* height: 44px; */
-    margin-bottom: 1em;
+    /* margin-bottom: 1em; */
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 4fr 1fr 1fr; */
+    justify-content: center;
+    grid-template-columns: repeat(5, auto);
   }
   .react-calendar__navigation button {
-    /* min-width: 44px; */
+    min-width: 44px;
     background: none;
+    color: white;
   }
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {
@@ -177,6 +192,7 @@ export const StyledBirthdayPicker = styled.div`
     text-align: center;
     padding: 0.75em 0.5em;
     background: none;
+    color: white;
   }
   .react-calendar__tile:disabled {
     background-color: #42d8c9;
@@ -190,7 +206,7 @@ export const StyledBirthdayPicker = styled.div`
   }
   .react-calendar__tile--now:enabled:hover,
   .react-calendar__tile--now:enabled:focus {
-    background: #ffffa9;
+    background: #00bcd4;
   }
   .react-calendar__tile--hasActive {
     background: #76baff;

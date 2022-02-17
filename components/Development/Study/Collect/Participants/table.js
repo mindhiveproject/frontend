@@ -31,6 +31,7 @@ class ParticipantsTable extends Component {
             participant={participant}
             studyId={this.props.studyId}
             openParticipant={this.props.openParticipant}
+            openGuestParticipant={this.props.openGuestParticipant}
             consents={this.props.consents}
           />
         ))}

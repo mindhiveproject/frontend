@@ -7,7 +7,7 @@ class Guest extends Component {
   };
 
   render() {
-    return <Demographics {...this.props} />;
+    return <Demographics {...this.props} user={{}} />;
   }
 }
 

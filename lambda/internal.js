@@ -31156,7 +31156,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 
 
-var SUBMIT_RESULTS_FROM_API_MUTATION = Object(graphql_tag__WEBPACK_IMPORTED_MODULE_1__["default"])(_templateObject || (_templateObject = Object(_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitResultFromAPI(\n    $userId: ID!\n    $templateId: ID\n    $taskId: ID\n    $studyId: ID\n    $data: Json\n    $dataString: String\n    $metadata: Json\n    $dataPolicy: String\n    $resultType: ResultType\n    $version: String\n  ) {\n    submitResultFromAPI(\n      userId: $userId\n      templateId: $templateId\n      taskId: $taskId\n      studyId: $studyId\n      data: $data\n      dataString: $dataString\n      metadata: $metadata\n      dataPolicy: $dataPolicy\n      resultType: $resultType\n      version: $version\n    ) {\n      message\n    }\n  }\n"])));
+var SUBMIT_RESULTS_FROM_API_MUTATION = Object(graphql_tag__WEBPACK_IMPORTED_MODULE_1__["default"])(_templateObject || (_templateObject = Object(_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitResultFromAPI(\n    $userId: ID!\n    $templateId: ID\n    $taskId: ID\n    $studyId: ID\n    $data: Json\n    $dataString: String\n    $metadata: Json\n    $dataPolicy: String\n    $resultType: ResultType\n    $version: String\n    $guestId: ID\n  ) {\n    submitResultFromAPI(\n      userId: $userId\n      templateId: $templateId\n      taskId: $taskId\n      studyId: $studyId\n      data: $data\n      dataString: $dataString\n      metadata: $metadata\n      dataPolicy: $dataPolicy\n      resultType: $resultType\n      version: $version\n      guestId: $guestId\n    ) {\n      message\n    }\n  }\n"])));
 
 
 /***/ }),
@@ -31186,14 +31186,14 @@ var LZUTF8 = __webpack_require__(/*! lzutf8 */ "../node_modules/lzutf8/build/pro
 
 exports.handler = /*#__PURE__*/function () {
   var _ref = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(event, context) {
-    var serverUrl, _event$queryStringPar, user, template, task, study, policy, type, version, _JSON$parse, metadata, url, data, dataRawString, dataString, response;
+    var serverUrl, _event$queryStringPar, user, template, task, study, policy, type, version, guest, _JSON$parse, metadata, url, data, dataRawString, dataString, response;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             serverUrl =  false ? undefined : _config__WEBPACK_IMPORTED_MODULE_3__["endpoint"];
-            _event$queryStringPar = event.queryStringParameters, user = _event$queryStringPar.user, template = _event$queryStringPar.template, task = _event$queryStringPar.task, study = _event$queryStringPar.study, policy = _event$queryStringPar.policy, type = _event$queryStringPar.type, version = _event$queryStringPar.version;
+            _event$queryStringPar = event.queryStringParameters, user = _event$queryStringPar.user, template = _event$queryStringPar.template, task = _event$queryStringPar.task, study = _event$queryStringPar.study, policy = _event$queryStringPar.policy, type = _event$queryStringPar.type, version = _event$queryStringPar.version, guest = _event$queryStringPar.guest;
             _JSON$parse = JSON.parse(event.body), metadata = _JSON$parse.metadata, url = _JSON$parse.url, data = _JSON$parse.data;
             dataRawString = JSON.stringify(data);
             dataString = LZUTF8.compress(dataRawString, {
@@ -31222,7 +31222,8 @@ exports.handler = /*#__PURE__*/function () {
                   },
                   dataPolicy: policy,
                   resultType: type === 'undefined' ? null : type,
-                  version: version === 'undefined' ? null : version
+                  version: version === 'undefined' ? null : version,
+                  guestId: guest === 'undefined' ? null : guest
                 }
               })
             });

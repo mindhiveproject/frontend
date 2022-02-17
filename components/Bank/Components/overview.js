@@ -7,9 +7,9 @@ import styled from 'styled-components';
 import { StyledBank, StyledStudyCard, StyledZeroState } from '../styles';
 import Card from './card';
 
-const OVERVIEW_TASKS_QUERY = gql`
-  query OVERVIEW_TASKS_QUERY {
-    allTasks(where: { taskType: TASK }) {
+const OVERVIEW_COMPONENTS_QUERY = gql`
+  query OVERVIEW_COMPONENTS_QUERY($taskType: TaskType) {
+    allTasks(where: { taskType: $taskType }) {
       id
       title
       slug
@@ -28,40 +28,60 @@ const OVERVIEW_TASKS_QUERY = gql`
   }
 `;
 
-const OVERVIEW_SURVEYS_QUERY = gql`
-  query OVERVIEW_SURVEYS_QUERY {
-    allTasks(where: { taskType: SURVEY }) {
-      id
-      title
-      slug
-      description
-      author {
-        id
-      }
-      collaborators {
-        id
-        username
-      }
-      public
-      taskType
-      submitForPublishing
-    }
-  }
-`;
+// const OVERVIEW_TASKS_QUERY = gql`
+//   query OVERVIEW_TASKS_QUERY {
+//     allTasks(where: { taskType: TASK }) {
+//       id
+//       title
+//       slug
+//       description
+//       author {
+//         id
+//       }
+//       collaborators {
+//         id
+//         username
+//       }
+//       public
+//       taskType
+//       submitForPublishing
+//     }
+//   }
+// `;
+//
+// const OVERVIEW_SURVEYS_QUERY = gql`
+//   query OVERVIEW_SURVEYS_QUERY {
+//     allTasks(where: { taskType: SURVEY }) {
+//       id
+//       title
+//       slug
+//       description
+//       author {
+//         id
+//       }
+//       collaborators {
+//         id
+//         username
+//       }
+//       public
+//       taskType
+//       submitForPublishing
+//     }
+//   }
+// `;
 
 class OverviewComponentsBank extends Component {
   render() {
     const { componentType } = this.props;
-    const component = componentType === 'SURVEY' ? 'survey' : 'task';
+    const component = componentType.toLowerCase();
 
     return (
       <>
         <Query
-          query={
-            componentType === 'SURVEY'
-              ? OVERVIEW_SURVEYS_QUERY
-              : OVERVIEW_TASKS_QUERY
-          }
+          query={OVERVIEW_COMPONENTS_QUERY}
+          variables={{
+            taskType: componentType,
+          }}
         >
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
@@ -104,4 +124,4 @@ class OverviewComponentsBank extends Component {
 }
 
 export default OverviewComponentsBank;
-export { OVERVIEW_TASKS_QUERY, OVERVIEW_SURVEYS_QUERY };
+export { OVERVIEW_COMPONENTS_QUERY };

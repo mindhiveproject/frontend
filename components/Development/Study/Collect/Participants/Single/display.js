@@ -54,7 +54,7 @@ class ParticipantDisplay extends Component {
 
           <div>
             <h3>Consents</h3>
-            {!participant.consentGivenFor.length ? (
+            {!participant?.consentGivenFor?.length ? (
               <p>No consents</p>
             ) : (
               <>

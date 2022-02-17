@@ -13,13 +13,19 @@ class SignedInUser extends Component {
 
   render() {
     const { study, query } = this.props;
-    const { step } = query;
+    const { step, guest } = query;
 
     return (
       <div>
         {step === 'select' && <SignedInSelectWay {...this.props} />}
         {step === 'details' && <ProvideDetails {...this.props} />}
-        {step === 'consent' && <Consent {...this.props} />}
+        {step === 'consent' && guest === 'false' && <Consent {...this.props} />}
+        {step === 'consent' && guest === 'true' && (
+          <Consent
+            {...this.props}
+            user={{ generalInfo: { ...this.props.query } }}
+          />
+        )}
       </div>
     );
   }

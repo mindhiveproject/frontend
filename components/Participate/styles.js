@@ -181,4 +181,7 @@ export const OnboardingDetails = styled.div`
     max-width: 211px;
     padding: 1rem 0.5rem;
   }
+  .translation {
+    margin-bottom: 2rem;
+  }
 `;

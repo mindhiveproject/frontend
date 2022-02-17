@@ -12,6 +12,7 @@ const SUBMIT_RESULTS_FROM_API_MUTATION = gql`
     $dataPolicy: String
     $resultType: ResultType
     $version: String
+    $guestId: ID
   ) {
     submitResultFromAPI(
       userId: $userId
@@ -24,6 +25,7 @@ const SUBMIT_RESULTS_FROM_API_MUTATION = gql`
       dataPolicy: $dataPolicy
       resultType: $resultType
       version: $version
+      guestId: $guestId
     ) {
       message
     }

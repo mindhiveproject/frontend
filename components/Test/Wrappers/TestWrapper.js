@@ -3,6 +3,7 @@ import { Query } from '@apollo/client/react/components';
 import styled from 'styled-components';
 import { TASK_QUERY } from '../../Task/Run/index';
 import TestManager from '../TestManager';
+import Error from '../../ErrorMessage/index';
 
 const StyledLinkWindow = styled.div`
   height: 90vh;
@@ -35,7 +36,7 @@ class TestWrapper extends Component {
                 Please click the link below to participate in the{' '}
                 {testPayloadData.taskType.toLowerCase()}{' '}
                 <strong>{testPayloadData.title}</strong>{' '}
-                <a href={testPayloadData.link} target="_blank">
+                <a href={testPayloadData.link} target="_blank" rel="noreferrer">
                   {testPayloadData.link}
                 </a>
               </StyledLinkWindow>
@@ -48,6 +49,7 @@ class TestWrapper extends Component {
               study={this.props.study}
               test={testPayloadData}
               version={this.props.v}
+              guest={this.props.guest}
             />
           );
         }}

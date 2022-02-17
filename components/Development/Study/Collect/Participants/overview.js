@@ -17,6 +17,8 @@ class ParticipantsOverview extends Component {
   render() {
     const { participants } = this.props;
 
+    console.log('participants', participants);
+
     const sortedParticipants = [...participants].sort(
       (a, b) => a[this.state.sortBy] - b[this.state.sortBy]
     );
@@ -49,12 +51,14 @@ class ParticipantsOverview extends Component {
             </p>
             <p>Actions</p>
             <p>Consent</p>
+            <p>Account</p>
           </div>
           <ParticipantTable
             studyId={this.props.studyId}
             participants={participants}
             sortBy={this.state.sortBy}
             openParticipant={this.props.openParticipant}
+            openGuestParticipant={this.props.openGuestParticipant}
             consents={this.props.consents}
           />
         </StyledParticipantsBoard>

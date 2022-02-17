@@ -32,11 +32,11 @@ class Demographics extends Component {
   };
 
   render() {
-    // console.log('this.state', this.state);
     const { user, study, query } = this.props;
     const { step, guest } = query;
 
-    // console.log('user', user);
+    const hasConsent =
+      study?.consent.length && study?.settings?.consentObtained;
 
     let zipDataAvailable;
     let studentsNYCAvailable;
@@ -58,8 +58,13 @@ class Demographics extends Component {
         <h1>Let's get started</h1>
         <h3>
           We are glad that you are interested in participating in "{study.title}
-          ". To begin, please answer the following:
+          ".
         </h3>
+
+        {user?.generalInfo?.share !== 'true' && (
+          <h3>To begin, please answer the following:</h3>
+        )}
+
         {study?.settings?.zipCode && !zipDataAvailable && (
           <div>
             <label htmlFor="zip">
@@ -122,10 +127,7 @@ class Demographics extends Component {
               <p className="questionTitle">
                 Do you understand basic instruction written in English?
               </p>
-              <p>
-                (La versión en español de la plataforma estará disponible en
-                poco tiempo.)
-              </p>
+
               <ResponseButtons>
                 <button
                   onClick={() => this.setStateToValue('eng', 'yes')}
@@ -144,6 +146,12 @@ class Demographics extends Component {
                   No
                 </button>
               </ResponseButtons>
+              <p className="translation">
+                <em>
+                  (La versión en español de la plataforma estará disponible en
+                  poco tiempo.)
+                </em>
+              </p>
             </label>
           </div>
         )}
@@ -206,14 +214,26 @@ class Demographics extends Component {
             </label>
           </div>
         )}
-        <Link
-          href={{
-            pathname: `/participate/consent`,
-            query: { ...this.state, id: study.id },
-          }}
-        >
-          <button>Next</button>
-        </Link>
+
+        {hasConsent ? (
+          <Link
+            href={{
+              pathname: `/participate/consent`,
+              query: { ...this.state, id: study.id },
+            }}
+          >
+            <button>Next</button>
+          </Link>
+        ) : (
+          <Link
+            href={{
+              pathname: `/participate/consent`,
+              query: { ...this.state, id: study.id },
+            }}
+          >
+            <button>Next</button>
+          </Link>
+        )}
       </OnboardingDetails>
     );
   }

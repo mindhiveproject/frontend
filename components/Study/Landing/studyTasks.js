@@ -28,7 +28,6 @@ class StudyTasks extends Component {
       study.components.blocks[0].tests
     ) {
       if (user) {
-        console.log('user', user);
         // select the blocks for the specific user
         const userStudyInfo = user.studiesInfo && user.studiesInfo[study.id];
         if (userStudyInfo) {
@@ -108,6 +107,8 @@ class StudyTasks extends Component {
                   joinedTheStudy={studyIds.includes(study.id)}
                   inReview={this.props.inReview}
                   version={task.testId}
+                  guest={this.props.guest}
+                  guestCode={this.props.guestCode}
                 />
               );
             }}

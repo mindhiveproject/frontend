@@ -137,19 +137,19 @@ export const ResponseButtons = styled.div`
     max-width: 322px !important;
     font-family: Lato;
     margin-top: 0.5rem !important;
-    margin-bottom: 2rem !important;
+    margin-bottom: 1rem !important;
     width: 100%;
     background: none !important;
     color: #666666 !important;
-    padding: 1.5rem 0.5rem;
+    padding: 1rem 0.5rem;
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 100%;
-    border: 2px solid #007c70;
+    border: 1px solid #cccccc;
     border-radius: 4px;
     cursor: pointer;
-    width: 90px !important;
+    width: 92px !important;
   }
 `;
 

@@ -67,11 +67,12 @@ class StudyWrapper extends Component {
 
           // find task id using the version number
           if (!this.props.t) {
-            const { user } = this.props;
-            const userStudyInfo = user?.studiesInfo[studyPayloadData.id];
-            const userBlock = userStudyInfo?.blockId;
+            const participant = this.props.guest || this.props.user;
+            const participantStudyInfo =
+              participant?.studiesInfo[studyPayloadData.id];
+            const participantBlock = participantStudyInfo?.blockId;
             const studyBlock = studyPayloadData?.components?.blocks.filter(
-              block => block?.blockId === userBlock
+              block => block?.blockId === participantBlock
             );
             const components = studyBlock[0].tests;
             t = components

@@ -7,6 +7,7 @@ import MessageSender from './message';
 import InDev from '../../inDev';
 
 import SinglePage from './Single/index';
+import SingleGuestPage from './Single/guest';
 import { StyledCollectSection, StyledCollectBoard } from './styles';
 
 const MY_STUDY_PARTICIPANTS_QUERY = gql`
@@ -35,6 +36,15 @@ const MY_STUDY_PARTICIPANTS_QUERY = gql`
           description
           organization
         }
+      }
+      guests {
+        id
+        publicId
+        publicReadableId
+        studiesInfo
+        tasksInfo
+        consentsInfo
+        generalInfo
       }
     }
   }
@@ -65,6 +75,13 @@ class StudyParticipants extends Component {
     });
   };
 
+  openGuestParticipant = participantId => {
+    this.setState({
+      page: 'guestParticipant',
+      participantId,
+    });
+  };
+
   goBack = () => {
     this.setState({
       page: 'participants',
@@ -86,10 +103,14 @@ class StudyParticipants extends Component {
             if (loading) return <p>Loading</p>;
             if (!data.myStudyParticipants)
               return <p>No participants found for {this.props.id}</p>;
-            const {
-              myStudyParticipants: { participants },
-            } = data;
+            // const {
+            //   myStudyParticipants: { participants, guests },
+            // } = data;
             const consents = data?.myStudyParticipants?.consent || [];
+
+            const loggedInUsers = data?.myStudyParticipants?.participants || [];
+            const guests = data?.myStudyParticipants?.guests || [];
+            const participants = [...loggedInUsers, ...guests];
 
             return (
               <StyledCollectSection>
@@ -127,6 +148,7 @@ class StudyParticipants extends Component {
                     participants={participants}
                     studyId={this.props.id}
                     openParticipant={this.openParticipant}
+                    openGuestParticipant={this.openGuestParticipant}
                     consents={consents}
                   />
                 </StyledCollectBoard>
@@ -140,6 +162,16 @@ class StudyParticipants extends Component {
     if (page === 'participant') {
       return (
         <SinglePage
+          participantId={this.state.participantId}
+          studyId={this.props.id}
+          goBack={this.goBack}
+        />
+      );
+    }
+
+    if (page === 'guestParticipant') {
+      return (
+        <SingleGuestPage
           participantId={this.state.participantId}
           studyId={this.props.id}
           goBack={this.goBack}

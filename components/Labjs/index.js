@@ -20,7 +20,10 @@ class ExperimentWindow extends Component {
       params, // the test parameters
       style, // the css style
       version, // the task version
+      guest, // guest id
     } = this.props.settings;
+
+    console.log('this.props.settings', this.props.settings);
 
     const script = convert(this.props.settings.script);
 
@@ -29,7 +32,7 @@ class ExperimentWindow extends Component {
         ...script.plugins,
         {
           type: 'lab.plugins.Transmit',
-          url: `/.netlify/functions/internal/?user=${user}&template=${template}&task=${task}&study=${study}&policy=${policy}&version=${version}`,
+          url: `/.netlify/functions/internal/?user=${user}&template=${template}&task=${task}&study=${study}&policy=${policy}&version=${version}&guest=${guest}`,
           callbacks: {},
         },
       ];

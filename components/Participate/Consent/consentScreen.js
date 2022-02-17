@@ -8,7 +8,7 @@ class ConsentScreen extends Component {
     '';
 
   render() {
-    const { consent, children } = this.props;
+    const { consent, children, hasConsent } = this.props;
 
     const publicStudies = consent?.studies.filter(study => study.public) || [];
 
@@ -33,10 +33,16 @@ class ConsentScreen extends Component {
 
     return (
       <StyledConsentForm>
-        <h1>
-          Study consent{' '}
-          {this.props.numberOfConsents > 1 ? this.props.consentNumber + 1 : ''}
-        </h1>
+        {hasConsent ? (
+          <h1>
+            Study consent{' '}
+            {this.props.numberOfConsents > 1
+              ? this.props.consentNumber + 1
+              : ''}
+          </h1>
+        ) : (
+          <div />
+        )}
 
         {this.props.under18 && (
           <>
@@ -126,45 +132,64 @@ class ConsentScreen extends Component {
 
         {children}
 
-        <div>
+        {hasConsent ? (
           <div>
-            <button
-              className="secondary"
-              onClick={() =>
-                this.props.recordMyConsent(
-                  consent?.id,
-                  'agree',
-                  this.props.joinStudy,
-                  this.props.joinStudyAsGuest,
-                  this.props.signUpAsGuest
-                )
-              }
-            >
-              I agree, next
-            </button>
-          </div>
-
-          <div>
-            <p>
-              Or you can{' '}
-              <a
-                style={{ cursor: 'pointer' }}
+            <div>
+              <button
+                className="secondary"
                 onClick={() =>
                   this.props.recordMyConsent(
                     consent?.id,
-                    'skipped',
+                    'agree',
                     this.props.joinStudy,
                     this.props.joinStudyAsGuest,
                     this.props.signUpAsGuest
                   )
                 }
               >
-                skip consent
-              </a>{' '}
-              and your data won’t be used for research purposes
-            </p>
+                I agree, next
+              </button>
+            </div>
+
+            <div>
+              <p>
+                Or you can{' '}
+                <a
+                  style={{ cursor: 'pointer' }}
+                  onClick={() =>
+                    this.props.recordMyConsent(
+                      consent?.id,
+                      'skipped',
+                      this.props.joinStudy,
+                      this.props.joinStudyAsGuest,
+                      this.props.signUpAsGuest
+                    )
+                  }
+                >
+                  skip consent
+                </a>{' '}
+                and your data won’t be used for research purposes
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <button
+              className="secondary"
+              onClick={() =>
+                this.props.recordMyConsent(
+                  null,
+                  'no consent',
+                  this.props.joinStudy,
+                  this.props.joinStudyAsGuest,
+                  this.props.signUpAsGuest
+                )
+              }
+            >
+              Join the study
+            </button>
+          </div>
+        )}
       </StyledConsentForm>
     );
   }

@@ -11,6 +11,10 @@ const ALL_USERS_QUERY = gql`
       id
       publicReadableId
       publicId
+      username
+      authEmail {
+        email
+      }
     }
   }
 `;
@@ -18,7 +22,7 @@ const ALL_USERS_QUERY = gql`
 const StyledHeader = styled.div`
   display: grid;
   padding: 10px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   font-weight: bold;
 `;
 
@@ -26,7 +30,7 @@ const StyledRow = styled.div`
   display: grid;
   padding: 10px;
   margin-bottom: 2px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   background: white;
 `;
 
@@ -75,6 +79,8 @@ class OverviewUsers extends Component {
             <div>
               <StyledHeader>
                 <div>Readable ID</div>
+                <div>Username</div>
+                <div>Email</div>
               </StyledHeader>
 
               {users.map((person, i) => {
@@ -91,6 +97,10 @@ class OverviewUsers extends Component {
                         person.publicId ||
                         person.id ||
                         'John Doe'}
+                    </div>
+                    <div>{person?.username}</div>
+                    <div>
+                      {person?.authEmail?.length && person?.authEmail[0]?.email}
                     </div>
                   </StyledRow>
                 );

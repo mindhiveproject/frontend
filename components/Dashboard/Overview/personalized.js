@@ -106,6 +106,19 @@ class DashboardOverview extends Component {
                   </Menu.Item>
 
                   <Menu.Item
+                    name="blocks"
+                    active={tab === 'blocks'}
+                    onClick={this.handleItemClick}
+                    className={
+                      tab === 'blocks'
+                        ? 'discoverMenuTitle selectedMenuTitle'
+                        : 'discoverMenuTitle'
+                    }
+                  >
+                    <p>All blocks</p>
+                  </Menu.Item>
+
+                  <Menu.Item
                     name="users"
                     active={tab === 'users'}
                     onClick={this.handleItemClick}
@@ -153,6 +166,14 @@ class DashboardOverview extends Component {
               {this.state.tab === 'surveys' && (
                 <OverviewComponentsBank
                   componentType="SURVEY"
+                  onSelectComponent={this.openComponentEditor}
+                  user={this.props.user}
+                />
+              )}
+
+              {this.state.tab === 'blocks' && (
+                <OverviewComponentsBank
+                  componentType="BLOCK"
                   onSelectComponent={this.openComponentEditor}
                   user={this.props.user}
                 />

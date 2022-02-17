@@ -55,6 +55,8 @@ class GuestWrapper extends Component {
               user={guestPayloadData}
               onStartTheTask={this.props.onStartTheTask}
               onStartExternalTask={this.props.onStartExternalTask}
+              guestCode={this.props.guestCode}
+              guest
             />
           );
         }}
@@ -64,3 +66,4 @@ class GuestWrapper extends Component {
 }
 
 export default GuestWrapper;
+export { GUEST_QUERY };

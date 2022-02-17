@@ -154,6 +154,9 @@ class Consent extends Component {
     const { step, guest } = query;
     const { consent } = study;
 
+    const hasConsent =
+      study?.consent.length && study?.settings?.consentObtained;
+
     // compute whether the person is under 18
     let under18;
     if (this.state.bd) {
@@ -192,6 +195,7 @@ class Consent extends Component {
                       signUpAsGuest={signUpAsGuest}
                       joinStudyAsGuest={joinStudyAsGuest}
                       joinStudy={joinStudy}
+                      hasConsent={hasConsent}
                     >
                       <>
                         {under18 && (

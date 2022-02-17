@@ -96,7 +96,15 @@ class ParticipantRow extends Component {
 
           return (
             <div className="tableRow">
-              <div onClick={() => this.props.openParticipant(participant.id)}>
+              <div
+                onClick={() => {
+                  if (participant.__typename === 'Guest') {
+                    this.props.openGuestParticipant(participant.id);
+                  } else {
+                    this.props.openParticipant(participant.id);
+                  }
+                }}
+              >
                 <a>
                   {participant.publicReadableId ||
                     participant.publicId ||
@@ -148,6 +156,7 @@ class ParticipantRow extends Component {
                   </div>
                 ))}
               </p>
+              <p>{participant.__typename === 'Guest' ? 'Guest' : 'User'}</p>
             </div>
           );
         }}
