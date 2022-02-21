@@ -9,20 +9,6 @@ export const StyledSidebar = styled.div`
   justify-items: left;
   align-content: start;
   padding: 17px 0 40px 17px;
-  overflow-y: scroll;
-  height: 100%;
-  max-height: 90vh;
-  mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
-  mask-size: 100% 20000px;
-  mask-position: left bottom;
-  -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
-  -webkit-mask-size: 100% 20000px;
-  -webkit-mask-position: left bottom;
-  transition: mask-position 0.3s, -webkit-mask-position 0.3s;
-
-  :hover {
-    -webkit-mask-position: left top;
-  }
 
   .navLinks {
     display: grid;

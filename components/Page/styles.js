@@ -19,26 +19,26 @@ export const UserPage = styled.div`
 
 export const UserInner = styled.div`
   max-width: ${props => props.theme.maxWidth};
-  padding: 17px 2rem 2rem 17px;
-  overflow-y: scroll;
+  padding: 17px 2rem 0 17px;
+  overflow-y: hidden;
   height: 100%;
-  max-height: 90vh;
-  mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
-  mask-size: 100% 20000px;
-  mask-position: left bottom;
-  -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
-  -webkit-mask-size: 100% 20000px;
-  -webkit-mask-position: left bottom;
-  transition: mask-position 0.3s, -webkit-mask-position 0.3s;
-
+  max-height: 99.9vh;
+  
   :hover {
-    -webkit-mask-position: left top;
+    overflow-y: auto;
   }
 `;
 
 export const UserNav = styled.div`
   display: grid;
   background: white;
+  overflow-y: hidden;
+  height: 100%;
+  max-height: 99.9vh;
+
+  :hover {
+    overflow-y: auto;
+  }
 `;
 
 export const StyledPage = styled.div`
