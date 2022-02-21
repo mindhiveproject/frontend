@@ -5,7 +5,7 @@ export const StyledBuilderPage = styled.div`
   height: 100vh;
   /* grid-template-rows: minmax(100px, auto) 1fr; */
   grid-template-rows: auto 1fr;
-  overflow: auto;
+  overflow-y: hidden;
   p {
     font-family: Lato;
     font-size: 16px;
@@ -78,40 +78,24 @@ export const StyledBuilder = styled.div`
   grid-gap: 20px;
   .leftCompartment {
     background: #ffffff;
-    overflow-y: auto;
     height: 100%;
     max-height: 90vh;
     padding-bottom: 5rem;
     resize: horizontal;
-    overflow: auto;
-    mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 10px, black 10px);
-    mask-size: 100% 20000px;
-    mask-position: left bottom;
-    -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 10px, black 10px);
-    -webkit-mask-size: 100% 20000px;
-    -webkit-mask-position: left bottom;
-    transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+    overflow: hidden;
 
     :hover {
-      -webkit-mask-position: left top;
+      overflow: auto;
     }
   }
   .rightCompartment {
-    overflow-y: auto;
     height: 100%;
     max-height: 90vh;
     padding-bottom: 5rem;
-    overflow: auto;
-    mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 15px, black 15px);
-    mask-size: 100% 20000px;
-    mask-position: left bottom;
-    -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 15px, black 15px);
-    -webkit-mask-size: 100% 20000px;
-    -webkit-mask-position: left bottom;
-    transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+    overflow: hidden;
 
     :hover {
-      -webkit-mask-position: left top;
+      overflow: auto;
     }
   }
 `;
