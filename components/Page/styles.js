@@ -19,7 +19,7 @@ export const UserPage = styled.div`
 
 export const UserInner = styled.div`
   max-width: ${props => props.theme.maxWidth};
-  padding: 17px 2rem 0 17px;
+  padding: 17px 2rem 2rem 17px;
   overflow-y: hidden;
   height: 100%;
   max-height: 99.9vh;
