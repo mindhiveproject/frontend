@@ -43,6 +43,7 @@ const GlobalStyle = createGlobalStyle`
     display: grid;
     height: 100%;
   }
+  overflow: hidden;
 `;
 
 class AuthorizedPage extends Component {

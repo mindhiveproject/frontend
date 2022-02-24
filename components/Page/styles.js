@@ -20,10 +20,10 @@ export const UserPage = styled.div`
 export const UserInner = styled.div`
   max-width: ${props => props.theme.maxWidth};
   padding: 17px 2rem 2rem 17px;
+  height: 101%;
+  max-height: 100vh;
   overflow-y: hidden;
-  height: 100%;
-  max-height: 99.9vh;
-  
+
   :hover {
     overflow-y: auto;
   }
@@ -32,9 +32,9 @@ export const UserInner = styled.div`
 export const UserNav = styled.div`
   display: grid;
   background: white;
+  height: 101%;
+  max-height: 100vh;
   overflow-y: hidden;
-  height: 100%;
-  max-height: 99.9vh;
 
   :hover {
     overflow-y: auto;
