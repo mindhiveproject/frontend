@@ -120,12 +120,14 @@ class ParticipantRow extends Component {
               {isTypesPresent ? (
                 isTest ? (
                   <ChangeResultsStatus
+                    type={participant.__typename}
                     participantId={participant.id}
                     studyId={studyId}
                     status="MAIN"
                   />
                 ) : (
                   <ChangeResultsStatus
+                    type={participant.__typename}
                     participantId={participant.id}
                     studyId={studyId}
                     status="TEST"

@@ -26,6 +26,12 @@ const MY_STUDY_RESULTS_QUERY = gql`
         publicReadableId
         generalInfo
       }
+      guest {
+        id
+        publicId
+        publicReadableId
+        generalInfo
+      }
       quantity
       data
       createdAt

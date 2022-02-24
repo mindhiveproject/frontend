@@ -178,8 +178,8 @@ export const OnboardingDetails = styled.div`
   max-width: 800px;
   margin: 0 auto;
   button {
-    max-width: 211px;
-    padding: 1rem 0.5rem;
+    max-width: 323px;
+    padding: 1.5rem 0.5rem;
   }
   .translation {
     margin-bottom: 2rem;

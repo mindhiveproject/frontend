@@ -163,7 +163,20 @@ export const StyledConsentForm = styled.div`
   }
   .consentInfo {
     display: grid;
+    grid-template-columns: 25px auto;
+    grid-gap: 2rem;
     margin: 1rem 0rem;
+    padding: 3rem 2rem;
+    background: #fff9e6;
+    border-radius: 4px;
+
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
   }
   .buttonsHolder {
     display: grid;
@@ -172,9 +185,22 @@ export const StyledConsentForm = styled.div`
     a {
       cursor: pointer;
     }
+    .primary {
+      background: #007c70;
+      color: white;
+      width: 100%;
+    }
     .secondary {
       background: white;
       color: #007c70;
+    }
+    .withConsent {
+      max-width: 323px;
+      text-align: center;
+      a {
+        color: #007c70;
+        text-decoration: underline;
+      }
     }
   }
   .headerTitle {

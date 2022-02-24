@@ -37,7 +37,6 @@ class Selector extends Component {
 
   render() {
     const { myStudyResults } = this.props;
-    console.log('myStudyResults', myStudyResults);
 
     return (
       <StyledDownload>

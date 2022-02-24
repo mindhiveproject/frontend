@@ -19,7 +19,7 @@ class TestManager extends Component {
   };
 
   render() {
-    const { user, study, test, version } = this.props;
+    const { user, study, test, version, guest } = this.props;
     const policy = 'science';
 
     if (this.state.page === 'test') {
@@ -53,7 +53,7 @@ class TestManager extends Component {
                   });
                 },
                 version,
-                guest: this.props.guest?.id,
+                guest: guest?.id,
               }}
             />
           </StyledBox>
@@ -65,6 +65,8 @@ class TestManager extends Component {
       return (
         <PostPrompt
           user={user}
+          guest={guest}
+          participant={guest || user}
           study={study}
           task={test}
           token={this.state.token}

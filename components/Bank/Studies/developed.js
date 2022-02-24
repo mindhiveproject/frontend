@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
-import Link from 'next/link';
-import styled from 'styled-components';
-import { StyledBank, StyledStudyCard, StyledZeroState } from '../styles';
+import { StyledBank, StyledZeroState } from '../styles';
 import StudyCard from './studycard';
 
 const MY_DEVELOPED_STUDIES_QUERY = gql`
@@ -24,6 +22,9 @@ const MY_DEVELOPED_STUDIES_QUERY = gql`
         permissions
       }
       participants {
+        id
+      }
+      guests {
         id
       }
       public

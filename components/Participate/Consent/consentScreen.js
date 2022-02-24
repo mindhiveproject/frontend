@@ -8,7 +8,7 @@ class ConsentScreen extends Component {
     '';
 
   render() {
-    const { consent, children, hasConsent } = this.props;
+    const { consent, children, hasActiveConsent } = this.props;
 
     const publicStudies = consent?.studies.filter(study => study.public) || [];
 
@@ -33,143 +33,148 @@ class ConsentScreen extends Component {
 
     return (
       <StyledConsentForm>
-        {hasConsent ? (
-          <h1>
-            Study consent{' '}
-            {this.props.numberOfConsents > 1
-              ? this.props.consentNumber + 1
-              : ''}
-          </h1>
-        ) : (
-          <div />
-        )}
+        {hasActiveConsent ? (
+          <div>
+            <h1>
+              Study consent{' '}
+              {this.props.numberOfConsents > 1
+                ? this.props.consentNumber + 1
+                : ''}
+            </h1>
 
-        {this.props.under18 && (
-          <>
-            {(this.props.sona === 'no' ||
-              typeof this.props.sona === 'undefined' ||
-              !sonaMinorsConsent.length ||
-              !sonaMinorsKidsConsent.length) &&
-              (this.props.studentNYC === 'no' ||
-                typeof this.props.studentNYC === 'undefined' ||
-                !studentsParentsNYCConsent.length ||
-                !studentsMinorsNYCConsent.length) && (
-                <>
-                  <div>{ReactHtmlParser(regularMinorsConsent)}</div>
-                  <div>{ReactHtmlParser(regularMinorsKidsConsent)}</div>
-                </>
-              )}
+            {this.props.under18 && (
+              <>
+                {(this.props.sona === 'no' ||
+                  typeof this.props.sona === 'undefined' ||
+                  !sonaMinorsConsent.length ||
+                  !sonaMinorsKidsConsent.length) &&
+                  (this.props.studentNYC === 'no' ||
+                    typeof this.props.studentNYC === 'undefined' ||
+                    !studentsParentsNYCConsent.length ||
+                    !studentsMinorsNYCConsent.length) && (
+                    <>
+                      <div>{ReactHtmlParser(regularMinorsConsent)}</div>
+                      <div>{ReactHtmlParser(regularMinorsKidsConsent)}</div>
+                    </>
+                  )}
 
-            {this.props.sona === 'yes' &&
-              sonaMinorsConsent &&
-              sonaMinorsKidsConsent && (
-                <>
-                  <div>{ReactHtmlParser(sonaMinorsConsent)}</div>
-                  <div>{ReactHtmlParser(sonaMinorsKidsConsent)}</div>
-                </>
-              )}
+                {this.props.sona === 'yes' &&
+                  sonaMinorsConsent &&
+                  sonaMinorsKidsConsent && (
+                    <>
+                      <div>{ReactHtmlParser(sonaMinorsConsent)}</div>
+                      <div>{ReactHtmlParser(sonaMinorsKidsConsent)}</div>
+                    </>
+                  )}
 
-            {this.props?.studentNYC === 'yes' &&
-              studentsParentsNYCConsent &&
-              studentsMinorsNYCConsent && (
-                <>
-                  <div>{ReactHtmlParser(studentsParentsNYCConsent)}</div>
-                  <div>{ReactHtmlParser(studentsMinorsNYCConsent)}</div>
-                </>
-              )}
-          </>
-        )}
-
-        {!this.props.under18 && (
-          <>
-            {(this.props.sona === 'no' ||
-              typeof this.props.sona === 'undefined' ||
-              !sonaAdultsConsent.length) &&
-              (this.props.studentNYC === 'no' ||
-                typeof this.props.studentNYC === 'undefined' ||
-                !studentsNYCConsent.length) && (
-                <div>{ReactHtmlParser(regularAdultsConsent)}</div>
-              )}
-
-            {this.props.sona === 'yes' && sonaAdultsConsent && (
-              <div>{ReactHtmlParser(sonaAdultsConsent)}</div>
+                {this.props?.studentNYC === 'yes' &&
+                  studentsParentsNYCConsent &&
+                  studentsMinorsNYCConsent && (
+                    <>
+                      <div>{ReactHtmlParser(studentsParentsNYCConsent)}</div>
+                      <div>{ReactHtmlParser(studentsMinorsNYCConsent)}</div>
+                    </>
+                  )}
+              </>
             )}
 
-            {this.props?.studentNYC === 'yes' && studentsNYCConsent && (
-              <div>{ReactHtmlParser(studentsNYCConsent)}</div>
+            {!this.props.under18 && (
+              <>
+                {(this.props.sona === 'no' ||
+                  typeof this.props.sona === 'undefined' ||
+                  !sonaAdultsConsent.length) &&
+                  (this.props.studentNYC === 'no' ||
+                    typeof this.props.studentNYC === 'undefined' ||
+                    !studentsNYCConsent.length) && (
+                    <div>{ReactHtmlParser(regularAdultsConsent)}</div>
+                  )}
+
+                {this.props.sona === 'yes' && sonaAdultsConsent && (
+                  <div>{ReactHtmlParser(sonaAdultsConsent)}</div>
+                )}
+
+                {this.props?.studentNYC === 'yes' && studentsNYCConsent && (
+                  <div>{ReactHtmlParser(studentsNYCConsent)}</div>
+                )}
+              </>
             )}
-          </>
-        )}
 
-        {consent && (
-          <div className="consentInfo">
-            <div>
-              <p>
-                This study is part of the{' '}
-                <strong>{consent?.organization}</strong> research protocol{' '}
-                <strong>{consent?.title}</strong>.
-              </p>
-
-              {publicStudies.length ? (
+            {consent && (
+              <div className="consentInfo">
+                <div>
+                  <img src="/content/icons/info.svg" />
+                </div>
                 <div>
                   <p>
-                    Tasks and surveys associated with the following studies are
-                    covered under this protocol
+                    <strong>
+                      This study is part of the {consent?.organization} research
+                      protocol <em>{consent?.title}</em>.
+                    </strong>
                   </p>
 
-                  <div className="coveredStudiesAndTasks">
-                    {publicStudies.map(study => (
-                      <li key={study.id}>{study.title}</li>
-                    ))}
-                  </div>
+                  {publicStudies.length ? (
+                    <div>
+                      <p>
+                        Tasks and surveys associated with the following studies
+                        are covered under this protocol:
+                      </p>
+
+                      <div className="coveredStudiesAndTasks">
+                        {publicStudies.map(study => (
+                          <li key={study.id}>
+                            <em>{study.title}</em>
+                          </li>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
-              ) : (
-                <div></div>
-              )}
-            </div>
-          </div>
-        )}
+              </div>
+            )}
 
-        {children}
+            {children}
 
-        {hasConsent ? (
-          <div>
-            <div>
-              <button
-                className="secondary"
-                onClick={() =>
-                  this.props.recordMyConsent(
-                    consent?.id,
-                    'agree',
-                    this.props.joinStudy,
-                    this.props.joinStudyAsGuest,
-                    this.props.signUpAsGuest
-                  )
-                }
-              >
-                I agree, next
-              </button>
-            </div>
+            <div className="buttonsHolder">
+              <div className="withConsent">
+                <div>
+                  <button
+                    className="primary"
+                    onClick={() =>
+                      this.props.recordMyConsent(
+                        consent?.id,
+                        'agree',
+                        this.props.joinStudy,
+                        this.props.joinStudyAsGuest,
+                        this.props.signUpAsGuest
+                      )
+                    }
+                  >
+                    I agree, next
+                  </button>
+                </div>
 
-            <div>
-              <p>
-                Or you can{' '}
-                <a
-                  style={{ cursor: 'pointer' }}
-                  onClick={() =>
-                    this.props.recordMyConsent(
-                      consent?.id,
-                      'skipped',
-                      this.props.joinStudy,
-                      this.props.joinStudyAsGuest,
-                      this.props.signUpAsGuest
-                    )
-                  }
-                >
-                  skip consent
-                </a>{' '}
-                and your data won’t be used for research purposes
-              </p>
+                <div>
+                  <p>
+                    Or you can{' '}
+                    <a
+                      onClick={() =>
+                        this.props.recordMyConsent(
+                          consent?.id,
+                          'skipped',
+                          this.props.joinStudy,
+                          this.props.joinStudyAsGuest,
+                          this.props.signUpAsGuest
+                        )
+                      }
+                    >
+                      skip consent
+                    </a>{' '}
+                    and your data won’t be stored
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         ) : (

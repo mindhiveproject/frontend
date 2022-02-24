@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import ReactHtmlParser from 'react-html-parser';
+
 import { OnboardingForm } from '../Study/styles';
 import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
+
 import Crossover from './crossover';
+import GuestCrossover from './guestCrossover';
+
 import StudyConsentText from '../Study/Registration/Steps/4-studyConsentText';
 import StudyConsentForm from '../Study/Registration/Steps/5-studyConsent';
 
@@ -25,8 +28,10 @@ class PostPrompt extends Component {
     const { consent } = this.props.task;
     let isConsentGiven = false;
     if (consent && consent.id) {
-      const userConsents = this.props.user.consentGivenFor.map(c => c.id);
-      isConsentGiven = userConsents.includes(consent.id);
+      const participantConsents = this.props.participant?.consentGivenFor.map(
+        c => c.id
+      );
+      isConsentGiven = participantConsents.includes(consent.id);
     }
     return isConsentGiven;
   };
@@ -34,12 +39,13 @@ class PostPrompt extends Component {
   checkDataAgreement = () => {
     // check that the data agreement is present
     // Question - do we save it somewhere before?
-    const userDataPolicy = this.props.user?.generalInfo?.data || undefined;
-    return userDataPolicy;
+    const participantDataPolicy =
+      this.props.participant?.generalInfo?.data || undefined;
+    return participantDataPolicy;
   };
 
   checkNextTaskId = () => {
-    const { study, user, version } = this.props;
+    const { study, participant, version } = this.props;
     let components = [];
     if (
       study.components &&
@@ -47,11 +53,11 @@ class PostPrompt extends Component {
       study.components.blocks.length &&
       study.components.blocks[0].tests
     ) {
-      // select the blocks for the specific user
-      const userStudyInfo = user.studiesInfo[study.id];
-      const userBlock = userStudyInfo.blockId;
+      // select the blocks for the specific participant
+      const participantStudyInfo = participant.studiesInfo[study.id];
+      const participantBlock = participantStudyInfo.blockId;
       const studyBlock = study.components.blocks.filter(
-        block => block.blockId === userBlock
+        block => block.blockId === participantBlock
       );
       if (studyBlock && studyBlock.length && studyBlock[0].tests) {
         components = studyBlock[0].tests;
@@ -60,7 +66,7 @@ class PostPrompt extends Component {
       components = study.components;
     }
     const fullResultsInThisStudy =
-      user?.results
+      participant?.results
         .filter(
           result =>
             result.study &&
@@ -86,7 +92,7 @@ class PostPrompt extends Component {
   };
 
   checkWhetherToShowDataUsageQuestion = () => {
-    const isStudent = this.props?.user?.permissions.includes('STUDENT');
+    const isStudent = this.props?.participant?.permissions?.includes('STUDENT');
     if (isStudent) {
       return true;
     }
@@ -125,6 +131,24 @@ class PostPrompt extends Component {
     }
   };
 
+  onGuestSubmit = async (e, redirect) => {
+    e.preventDefault();
+    // return back to the study page or continue to the next task
+    if (redirect === 'nextTask' && this.state.nextTaskId) {
+      Router.push({
+        pathname: `/do/task`,
+        query: {
+          s: this.props.study.id,
+          v: this.state.nextTaskId,
+        },
+      });
+    } else {
+      Router.push({
+        pathname: `/studies/${this.props.study.slug}`,
+      });
+    }
+  };
+
   onSubmit = async (e, updateResultsMutation, redirect) => {
     e.preventDefault();
     updateResultsMutation({
@@ -151,29 +175,35 @@ class PostPrompt extends Component {
     });
 
     // return back to the study page or continue to the next task
-    // let url;
-    if (redirect === 'studyPage') {
-      Router.replace({
-        pathname: `/studies/${this.props.study.slug}`,
-      });
-      // url = `/studies/${this.props.study.slug}`;
-    } else if (redirect === 'nextTask' && this.state.nextTaskId) {
-      await Router.replace({
+    // if (redirect === 'studyPage') {
+    //   Router.replace({
+    //     pathname: `/studies/${this.props.study.slug}`,
+    //   });
+    // } else if (redirect === 'nextTask' && this.state.nextTaskId) {
+    //   await Router.replace({
+    //     pathname: `/do/task`,
+    //     query: {
+    //       s: this.props.study.id,
+    //       v: this.state.nextTaskId,
+    //     },
+    //   });
+    //   Router.reload();
+    // }
+
+    // return back to the study page or continue to the next task
+    if (redirect === 'nextTask' && this.state.nextTaskId) {
+      Router.push({
         pathname: `/do/task`,
         query: {
           s: this.props.study.id,
           v: this.state.nextTaskId,
         },
       });
-      Router.reload();
-      // const url = `/do/task?s=${this.props.study.id}&v=${this.state.nextTaskId}`;
-      // window.open(url, '_blank');
-      // window.setTimeout(function() {
-      //   this.close();
-      // }, 1000);
+    } else {
+      Router.push({
+        pathname: `/studies/${this.props.study.slug}`,
+      });
     }
-    // const win = window.open(url, '_blank');
-    // win.focus();
   };
 
   render() {
@@ -184,8 +214,9 @@ class PostPrompt extends Component {
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
         {(updateResult, { error }) => {
-          const { study, user, task } = this.props;
-          const isStudent = user?.permissions.includes('STUDENT');
+          const { study, participant, task } = this.props;
+          console.log('participant', participant);
+          const isStudent = participant?.permissions?.includes('STUDENT');
 
           // always show data usage prompt
           if (this.state.askDataUsageQuestion) {
@@ -272,9 +303,29 @@ class PostPrompt extends Component {
               </div>
             );
           }
+
+          if (this.props.guest) {
+            return (
+              <GuestCrossover
+                user={this.props.user}
+                guest={this.props.guest}
+                participant={this.props.participant}
+                study={this.props.study}
+                task={this.props.task}
+                onUpdateState={this.updateState}
+                onToggleState={this.toggleState}
+                agreeReceiveTaskUpdates={this.state.agreeReceiveTaskUpdates}
+                updateResultMutation={updateResult}
+                onSubmit={this.onGuestSubmit}
+                nextTaskId={this.state.nextTaskId}
+              />
+            );
+          }
           return (
             <Crossover
               user={this.props.user}
+              guest={this.props.guest}
+              participant={this.props.participant}
               study={this.props.study}
               task={this.props.task}
               onUpdateState={this.updateState}

@@ -18,6 +18,20 @@ const MY_DATA_QUERY = gql`
 `;
 
 const load = ({ result, content, writer, type }) => {
+  const userID =
+    result?.user?.publicReadableId ||
+    result?.user?.publicId ||
+    result?.user?.id ||
+    'john-doe';
+
+  const guestID =
+    result?.guest?.publicReadableId ||
+    result?.guest?.publicId ||
+    result?.guest?.id ||
+    'john-doe';
+
+  const participantId = result?.guest ? guestID : userID;
+
   // decode
   const myData = JSON.parse(
     LZUTF8.decompress(content, {
@@ -26,9 +40,7 @@ const load = ({ result, content, writer, type }) => {
   );
   // populate data with participant information
   const extendedData = myData.map(line => {
-    line.participantId =
-      result.user &&
-      (result.user.publicReadableId || result.user.publicId || result.user.id);
+    line.participantId = participantId;
     line.task = result.task && result.task.title;
     line.taskTitle = result.task && result.task.subtitle;
     line.testVersion = result.testVersion && result.testVersion;
@@ -66,7 +78,7 @@ export default function AggregatedByTest({ results }) {
 
   // download the current state of the data as a csv file
   async function downloadData({ results }) {
-    console.log('Downloading data for', results);
+    // console.log('Downloading data for', results);
 
     const fileStream = streamSaver.createWriteStream(
       `data-${moment().format('YYYY-MM-DD--HH:mm')}.csv`,

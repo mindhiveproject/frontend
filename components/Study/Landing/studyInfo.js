@@ -11,6 +11,10 @@ import StudyTasks from './studyTasks';
 import InfoTabs from './infoTabs';
 import GuestWrapper from './guestWrapper';
 
+// pathnames for participants
+const pathname = '/participate/select';
+const oldPathname = '/join/getstarted';
+
 class StudyInformation extends Component {
   state = { activeTab: 'what' };
 
@@ -102,8 +106,7 @@ class StudyInformation extends Component {
                 <ContainerOnlyForNoProfile>
                   <Link
                     href={{
-                      pathname: '/join/getstarted',
-                      // pathname: '/participate/select',
+                      pathname,
                       query: { id: study.id },
                     }}
                   >
@@ -115,8 +118,7 @@ class StudyInformation extends Component {
                   {!studyIds.includes(study.id) && !this.props.guestCode && (
                     <Link
                       href={{
-                        pathname: '/join/getstarted',
-                        // pathname: '/participate/select',
+                        pathname,
                         query: { id: study.id },
                       }}
                     >

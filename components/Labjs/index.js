@@ -23,8 +23,6 @@ class ExperimentWindow extends Component {
       guest, // guest id
     } = this.props.settings;
 
-    console.log('this.props.settings', this.props.settings);
-
     const script = convert(this.props.settings.script);
 
     if (policy !== 'no' && policy !== 'preview') {
