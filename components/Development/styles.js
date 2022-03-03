@@ -5,7 +5,7 @@ export const StyledBuilderPage = styled.div`
   height: 100vh;
   /* grid-template-rows: minmax(100px, auto) 1fr; */
   grid-template-rows: auto 1fr;
-  overflow-y: hidden;
+  overflow-y: auto;
   p {
     font-family: Lato;
     font-size: 16px;
