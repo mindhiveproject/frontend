@@ -98,7 +98,7 @@ const DELETE_SECTION = gql`
 const Board = ({ id, openCard, proposalBuildMode, adminMode }) => {
   const { loading, error, data } = useQuery(BOARD_QUERY, {
     variables: { id },
-    pollInterval: 5000, // get new data every 5 seconds
+    pollInterval: 20000, // get new data every 20 seconds
   });
 
   const [sections, setSections] = useState([]);
