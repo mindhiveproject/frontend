@@ -328,7 +328,7 @@ class StudyBuilder extends Component {
             )}
 
             {this.state.section === 'analyze' && (
-              <AnalyzeSection studyId={this.state.study.id} />
+              <AnalyzeSection study={this.state.study} />
             )}
           </StyledBuilderPage>
         )}
