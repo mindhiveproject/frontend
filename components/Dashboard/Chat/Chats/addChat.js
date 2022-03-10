@@ -120,7 +120,7 @@ class AddChat extends Component {
                   </label>
 
                   <div className="membersBlock">
-                    <p>Select classes</p>
+                    <p>Add by class</p>
                     <FindClassMembers
                       classes={this.state.classes}
                       handleClassChange={this.handleClassChange}
@@ -128,7 +128,7 @@ class AddChat extends Component {
                   </div>
 
                   <div className="membersBlock">
-                    <p>Select study collaborators</p>
+                    <p>Add by study</p>
                     <FindStudyMembers
                       studies={this.state.studies}
                       handleStudyChange={this.handleStudyChange}

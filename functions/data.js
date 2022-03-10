@@ -2,20 +2,20 @@ import { request, gql } from 'graphql-request';
 import { STUDY_RESULTS_QUERY } from '../components/Study/Results/index';
 import { endpoint, prodEndpoint } from '../config';
 
-// const axios = require('axios');
-const LZUTF8 = require('lzutf8');
+// const LZUTF8 = require('lzutf8');
 
 exports.handler = async (event, context) => {
   const serverUrl =
     process.env.NODE_ENV === 'production' ? prodEndpoint : endpoint;
-  const { study } = event.queryStringParameters;
 
-  console.log('study', study);
+  // const { study } = event.queryStringParameters;
+
+  const { study } = event.headers;
+
   // define query variables
   const variables = {
     slug: study,
   };
-  // console.log('serverUrl', serverUrl);
 
   const allRequestedData = await request(
     serverUrl,
@@ -23,7 +23,17 @@ exports.handler = async (event, context) => {
     variables
   );
   const { studyResults } = allRequestedData;
-  // console.log(studyResults);
+
+  // send data
+  return {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    statusCode: 200,
+    body: JSON.stringify({
+      data: studyResults,
+    }),
+  };
 
   // const data = studyResults
   //   .map(result => {
@@ -72,19 +82,7 @@ exports.handler = async (event, context) => {
   // );
 
   // https://jun711.github.io/aws/handling-aws-api-gateway-and-lambda-413-error/
-
   // the only problem with 6mb limit is here ⬇️
-
-  // send data
-  return {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    statusCode: 200,
-    body: JSON.stringify({
-      data: 'OK',
-    }),
-  };
 
   // const data = JSON.stringify({
   //   // query: STUDY_RESULTS_QUERY,
@@ -99,8 +97,6 @@ exports.handler = async (event, context) => {
   //   method: 'GET',
   //   url: `${serverUrl}?${data}`,
   // });
-
-  // console.log('response', response);
 
   // return {
   //   headers: {
