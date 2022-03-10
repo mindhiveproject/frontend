@@ -8,9 +8,9 @@ exports.handler = async (event, context) => {
   const serverUrl =
     process.env.NODE_ENV === 'production' ? prodEndpoint : endpoint;
 
-  // const { study } = event.queryStringParameters;
+  const { study } = event.queryStringParameters;
 
-  const { study } = event.headers;
+  // const { study } = event.headers;
 
   // define query variables
   const variables = {
