@@ -92,10 +92,17 @@ export const StyledBuilder = styled.div`
     height: 100%;
     max-height: 90vh;
     padding-bottom: 5rem;
-    overflow: hidden;
+    overflow: auto;
+    mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 15px, black 15px);
+    mask-size: 100% 20000px;
+    mask-position: left bottom;
+    -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 15px, black 15px);
+    -webkit-mask-size: 100% 20000px;
+    -webkit-mask-position: left bottom;
+    transition: mask-position 0.3s, -webkit-mask-position 0.3s;
 
     :hover {
-      overflow: auto;
+      -webkit-mask-position: left top;
     }
   }
 `;
