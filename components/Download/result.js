@@ -8,13 +8,19 @@ export default function Result({ result, isSelected, toggleResult }) {
     result?.user?.id ||
     'john-doe';
 
+  const guestID =
+    result?.guest?.publicReadableId ||
+    result?.guest?.publicId ||
+    result?.guest?.id ||
+    'john-doe';
+
   return (
     <StyledResult
       key={result?.fullData?.id}
       isSelected={isSelected}
       onClick={() => toggleResult({ isSelected, id: result?.id })}
     >
-      <div>{userID}</div>
+      <div>{result?.guest ? guestID : userID}</div>
       <div>{moment(result?.updatedAt).format('MMMM D, YYYY, h:mma')}</div>
       <div>
         {result?.task?.title} {result?.task?.subtitle}

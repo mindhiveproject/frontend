@@ -112,7 +112,7 @@ class ChatPage extends Component {
               const { talk } = data;
 
               // find out whether the user is the creator of the chat
-              const isChatAdmin = talk?.author?.id === this.props.me?.id;
+              // const isChatAdmin = talk?.author?.id === this.props.me?.id;
 
               const messages = [...talk?.words].sort((a, b) =>
                 a.createdAt > b.createdAt
@@ -126,15 +126,7 @@ class ChatPage extends Component {
                   <Head>
                     <title>MindHive | {talk?.settings?.title}</title>
                   </Head>
-                  <div>
-                    {isChatAdmin ? (
-                      <EditChatTitle chat={talk} />
-                    ) : (
-                      <div>
-                        <h1>{talk?.settings?.title}</h1>
-                      </div>
-                    )}
-                  </div>
+                  <EditChatTitle chat={talk} />
 
                   <div className="chatHeader">
                     <div>

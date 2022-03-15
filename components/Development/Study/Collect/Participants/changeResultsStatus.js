@@ -22,13 +22,33 @@ const CHANGE_STATUS_OF_DATA_MUTATION = gql`
   }
 `;
 
+const CHANGE_GUEST_STATUS_OF_DATA_MUTATION = gql`
+  mutation CHANGE_GUEST_STATUS_OF_DATA_MUTATION(
+    $participantId: ID!
+    $studyId: ID!
+    $status: ResultType!
+  ) {
+    changeStatusGuestParticipantStudyResults(
+      participantId: $participantId
+      studyId: $studyId
+      status: $status
+    ) {
+      message
+    }
+  }
+`;
+
 class ChangeResultsStatus extends Component {
   render() {
-    const { participantId, studyId, status } = this.props;
+    const { type, participantId, studyId, status } = this.props;
 
     return (
       <Mutation
-        mutation={CHANGE_STATUS_OF_DATA_MUTATION}
+        mutation={
+          type === 'Guest'
+            ? CHANGE_GUEST_STATUS_OF_DATA_MUTATION
+            : CHANGE_STATUS_OF_DATA_MUTATION
+        }
         variables={this.props}
         refetchQueries={[
           {

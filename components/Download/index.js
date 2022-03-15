@@ -20,6 +20,11 @@ const MY_STUDY_RESULTS_QUERY = gql`
         publicId
         publicReadableId
       }
+      guest {
+        id
+        publicId
+        publicReadableId
+      }
       fullData {
         id
       }

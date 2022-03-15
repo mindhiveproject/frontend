@@ -12,6 +12,20 @@ const processRawData = results => {
       result => result.resultType === null || result.resultType !== 'TEST'
     )
     .map(result => {
+      const userID =
+        result?.user?.publicReadableId ||
+        result?.user?.publicId ||
+        result?.user?.id ||
+        'john-doe';
+
+      const guestID =
+        result?.guest?.publicReadableId ||
+        result?.guest?.publicId ||
+        result?.guest?.id ||
+        'john-doe';
+
+      const participantId = result?.guest ? guestID : userID;
+
       let { data } = result;
       const fullContent = result.fullData?.content;
       const incrementalContent =
@@ -37,11 +51,7 @@ const processRawData = results => {
       }
       // augment the raw data with participant information
       const resultData = data.map(line => {
-        line.participantId =
-          result.user &&
-          (result.user.publicReadableId ||
-            result.user.publicId ||
-            result.user.id);
+        line.participantId = participantId;
         line.task = result.task && result.task.title;
         line.taskTitle = result.task && result.task.subtitle;
         line.testVersion = result.testVersion && result.testVersion;

@@ -13,9 +13,6 @@ const joinStudyAsGuestRedirect = async (study, profile) => {
         const [component] = studyBlock[0].tests;
         if (component) {
           const { testId } = component;
-          // await Router.push({
-          //   pathname: `/studies/${study.slug}`,
-          // });
           Router.push({
             pathname: `/do/task`,
             query: {

@@ -249,9 +249,12 @@ const Section = ({
     }
   };
 
-  const addCardMutation = (sectionId, title) => {
+  const addCardMutation = async (sectionId, title) => {
+    if (!title) {
+      return alert('Please enter a title');
+    }
     setCardName('');
-    createCard({
+    const newCard = await createCard({
       variables: {
         boardId,
         title,
@@ -312,6 +315,7 @@ const Section = ({
         },
       },
     });
+    openCard(newCard?.data?.createProposalCard?.id);
   };
 
   const deleteCardMutation = id => {
@@ -328,6 +332,7 @@ const Section = ({
         deleteProposalCard: {
           id,
           __typename: 'ProposalCard',
+          section: null,
         },
       },
     });

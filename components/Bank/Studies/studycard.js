@@ -46,7 +46,9 @@ function StudyCard({
   const isHidden =
     user?.studiesInfo && user?.studiesInfo[study?.id]?.hideInDevelop;
 
-  const numberOfParticipants = study?.participants?.length || 0;
+  const numberOfUsers = study?.participants?.length || 0;
+  const numberOfGuests = study?.guests?.length || 0;
+  const numberOfParticipants = numberOfUsers + numberOfGuests;
 
   const isAuthor =
     user?.id === study?.author?.id ||
