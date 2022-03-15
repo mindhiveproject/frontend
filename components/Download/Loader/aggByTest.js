@@ -54,7 +54,7 @@ const load = ({ result, content, writer, type }) => {
     .map(f => ({
       study: f.study,
       task: f.task,
-      taskSubtitle: f.taskSubtitle,
+      taskTitle: f.taskTitle,
       testVersion: f.testVersion,
       participantId: f.participantId,
       ...f.aggregated,

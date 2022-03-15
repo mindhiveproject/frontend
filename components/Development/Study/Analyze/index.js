@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import Data from '../../../DataViz/index';
+// import Data from '../../../DataViz/index';
 import InDev from '../inDev';
+
+import Starboard from '../../../Starboard/index';
 
 class AnalyzeSection extends Component {
   render() {
-    const { studyId } = this.props;
-    if (!studyId) {
+    const { study } = this.props;
+    if (!study || !study.id) {
       return (
         <InDev
           header="No study found"
@@ -14,7 +16,8 @@ class AnalyzeSection extends Component {
       );
     }
 
-    return <Data id={this.props.studyId} />;
+    // return <Data id={this.props.studyId} />;
+    return <Starboard study={study} />;
   }
 }
 
