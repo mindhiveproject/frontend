@@ -11,31 +11,35 @@ const StyledLeaveButton = styled.div`
   cursor: pointer;
 `;
 
-const LEAVE_GROUP_CHAT = gql`
-  mutation LEAVE_GROUP_CHAT($id: ID!) {
-    leaveGroupChat(id: $id) {
+const DELETE_GROUP_CHAT = gql`
+  mutation DELETE_GROUP_CHAT($id: ID!) {
+    deleteGroupChat(id: $id) {
       id
     }
   }
 `;
 
-class LeaveGroupChat extends Component {
+class DeleteGroupChat extends Component {
   render() {
     return (
       <Mutation
-        mutation={LEAVE_GROUP_CHAT}
+        mutation={DELETE_GROUP_CHAT}
         variables={{ id: this.props.id }}
         refetchQueries={[{ query: MY_TALKS_QUERY }]}
       >
         {(leaveGroupChat, { loading, error }) => (
           <StyledLeaveButton
             onClick={() => {
-              if (confirm('Are you sure you want to leave this group chat?')) {
+              if (
+                confirm(
+                  'All messages will be deleted. Are you sure you want to delete this group chat?'
+                )
+              ) {
                 leaveGroupChat(this.props.id);
               }
             }}
           >
-            <Icon name="sign-out" color="teal" />
+            <Icon name="close" />
           </StyledLeaveButton>
         )}
       </Mutation>
@@ -43,4 +47,4 @@ class LeaveGroupChat extends Component {
   }
 }
 
-export default LeaveGroupChat;
+export default DeleteGroupChat;

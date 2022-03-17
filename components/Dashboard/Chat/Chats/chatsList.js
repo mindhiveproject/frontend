@@ -83,6 +83,7 @@ class ChatsList extends Component {
                         key={chat.id}
                         openChat={this.props.openChat}
                         openAddMembers={this.props.openAddMembers}
+                        user={this.props.user}
                       />
                     ))}
                   </div>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 
 import LeaveGroupChat from './leaveGroupChat';
+import DeleteGroupChat from './deleteGroupChat';
 
 const StyledWrapper = styled.div`
   display: grid;
@@ -51,7 +52,12 @@ const StyledChatRow = styled.div`
 
 class ChatRow extends Component {
   render() {
-    const { chat } = this.props;
+    const { chat, user } = this.props;
+
+    const isChatMember = chat.members
+      .map(member => member.id)
+      .includes(user?.id);
+
     return (
       <StyledWrapper>
         <StyledChatRow onClick={() => this.props.openChat(chat.id)}>
@@ -74,7 +80,8 @@ class ChatRow extends Component {
           >
             <Icon name="user plus" />
           </div>
-          <LeaveGroupChat id={chat?.id} />
+          {isChatMember && <LeaveGroupChat id={chat?.id} />}
+          {chat?.author?.id === user?.id && <DeleteGroupChat id={chat?.id} />}
         </div>
       </StyledWrapper>
     );

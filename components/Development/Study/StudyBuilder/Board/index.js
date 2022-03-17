@@ -67,10 +67,10 @@ const Board = ({ blocks, openTaskEditor, viewing, updateComponents }) => {
   const updateTest = () => {};
 
   const deleteTest = (blockId, testId) => {
-    const newBlocks = blocks.map(block => {
+    const newBlocks = [...blocks].map(block => {
       if (block.blockId === blockId) {
-        block.tests = block.tests.filter(test => test.testId !== testId);
-        return block;
+        const tests = block.tests.filter(test => test.testId !== testId);
+        return { ...block, tests };
       }
       return block;
     });

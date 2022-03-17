@@ -48,6 +48,7 @@ class ChatWrapper extends Component {
           addChat={this.addChat}
           openChat={this.openChat}
           openAddMembers={this.openAddMembers}
+          user={this.props.me}
         />
       );
     }

@@ -30,7 +30,7 @@ const StyledSelectionScreen = styled.div`
   display: grid;
   margin: 30px;
   background: #f7f9f8;
-  grid-template-rows: 0px auto;
+  grid-template-rows: 1fr auto;
   .header {
     display: grid;
     grid-template-columns: 1fr auto;
