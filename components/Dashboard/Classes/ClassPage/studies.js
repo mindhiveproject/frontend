@@ -35,7 +35,7 @@ const StyledStudiesHeader = styled.div`
   display: grid;
   grid-gap: 10px;
   padding: 10px;
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
   font-weight: bold;
 `;
 
@@ -102,7 +102,7 @@ class ClassStudies extends Component {
               ↓
             </span>
           </div>
-          <div>Creator(s)</div>
+          <div>Collaborator(s)</div>
           <div>Participants</div>
           <div>Date created</div>
           <div></div>
@@ -138,7 +138,11 @@ class ClassStudies extends Component {
             }
 
             return orderedStudies.map(study => (
-              <StudyRow key={study.id} study={study} />
+              <StudyRow
+                key={study.id}
+                study={study}
+                openStudyBuilder={this.props.openStudyBuilder}
+              />
             ));
           }}
         </Query>

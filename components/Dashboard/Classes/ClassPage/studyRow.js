@@ -8,7 +8,7 @@ const StyledStudiesRow = styled.div`
   grid-gap: 10px;
   padding: 10px;
   margin-bottom: 2px;
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
   background: white;
 `;
 
@@ -26,9 +26,18 @@ class StudyRow extends Component {
         <div>{study.participants.length}</div>
         <div>{moment(study.createdAt).format('MMMM D, YYYY')}</div>
         <div>
-          <Link href="/studies/[slug]" as={`/studies/${study.slug}`}>
-            <a>Go to study</a>
-          </Link>
+          <a target="_blank" href={`/studies/${study.slug}`} rel="noreferrer">
+            Study page
+          </a>
+        </div>
+        <div>
+          <a
+            onClick={() => {
+              this.props.openStudyBuilder(study?.id);
+            }}
+          >
+            Study builder
+          </a>
         </div>
       </StyledStudiesRow>
     );

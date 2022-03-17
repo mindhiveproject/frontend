@@ -197,7 +197,10 @@ class ClassPage extends Component {
                       )}
 
                       {this.state.tab === 'studies' && (
-                        <ClassStudies schoolclass={schoolclass} />
+                        <ClassStudies
+                          schoolclass={schoolclass}
+                          openStudyBuilder={this.props.openStudyBuilder}
+                        />
                       )}
 
                       {this.state.tab === 'assignments' && (

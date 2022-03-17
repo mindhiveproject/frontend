@@ -57,8 +57,6 @@ class CollaboratorsModal extends Component {
   render() {
     const { study, handleSetState, onModalClose, user } = this.props;
 
-    console.log('study', study);
-
     return (
       <Modal
         open={open}

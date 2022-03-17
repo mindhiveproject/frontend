@@ -4,7 +4,9 @@ import ClassPage from './classpage';
 import AddClass from './addclass';
 
 import AuthorizedPage from '../../Page/userpage';
+import EmptyPage from '../../Page/empty';
 
+import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
 import AssignmentPage from './Assignment/assignmentPage';
 
 class DashboardClasses extends Component {
@@ -13,6 +15,7 @@ class DashboardClasses extends Component {
     classId: null,
     assignmentId: this.props.assignmentId || null,
     tab: null,
+    studyId: null,
   };
 
   componentDidUpdate(prevProps) {
@@ -43,6 +46,7 @@ class DashboardClasses extends Component {
       classId,
       assignmentId: null,
       tab,
+      studyId: null,
     });
   };
 
@@ -51,6 +55,13 @@ class DashboardClasses extends Component {
       page: 'classes',
       classId: null,
       assignmentId: null,
+    });
+  };
+
+  openStudyBuilder = studyId => {
+    this.setState({
+      page: 'studyBuilder',
+      studyId,
     });
   };
 
@@ -77,6 +88,7 @@ class DashboardClasses extends Component {
             classId={this.state.classId}
             tab={this.state.tab}
             goBack={this.goBack}
+            openStudyBuilder={this.openStudyBuilder}
           />
         </AuthorizedPage>
       );
@@ -97,6 +109,20 @@ class DashboardClasses extends Component {
             userClasses={userClassesIds}
           />
         </AuthorizedPage>
+      );
+    }
+
+    if (page === 'studyBuilder') {
+      return (
+        <EmptyPage>
+          <StudyBuilderWrapper
+            onLeave={() => this.openClassTab(this.state.classId, 'studies')}
+            studyId={this.state.studyId}
+            user={this.props.user}
+            needToClone={false}
+            adminMode
+          />
+        </EmptyPage>
       );
     }
   }

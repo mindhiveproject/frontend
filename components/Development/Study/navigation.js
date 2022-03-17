@@ -12,8 +12,6 @@ import SaveStudy from './saveStudy';
 class Navigation extends Component {
   render() {
     const { section, adminMode } = this.props;
-    // const [proposal] = this.props?.study?.proposal || [];
-    // const proposalId = proposal ? proposal.id : undefined;
 
     return (
       <StudyBuilderNav>
@@ -115,7 +113,7 @@ class Navigation extends Component {
         </div>
 
         <div className="rightButtons">
-          {!adminMode && (
+          {true && (
             <div>
               <button
                 onClick={() => {
