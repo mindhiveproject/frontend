@@ -22,10 +22,17 @@ export const UserInner = styled.div`
   padding: 17px 2rem 2rem 17px;
   height: 101%;
   max-height: 100vh;
-  overflow-y: hidden;
+  overflow-y: auto;
+  mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+  mask-size: 100% 20000px;
+  mask-position: left bottom;
+  -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+  -webkit-mask-size: 100% 20000px;
+  -webkit-mask-position: left bottom;
+  transition: mask-position 0.3s, -webkit-mask-position 0.3s;
 
   :hover {
-    overflow-y: auto;
+    -webkit-mask-position: left top;
   }
 `;
 
