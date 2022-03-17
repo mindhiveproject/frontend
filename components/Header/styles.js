@@ -55,6 +55,9 @@ export const Logo = styled.a`
   img {
     margin-right: 10px;
   }
+  :hover {
+    opacity: .6;
+  }
 `;
 
 export const MainNavLink = styled.div`
