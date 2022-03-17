@@ -16,6 +16,9 @@ const StyledClassRow = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   background: white;
   cursor: pointer;
+  :hover {
+    box-shadow: 0px 2px 24px 0px #0000001a;
+  }
 `;
 
 class ProposalRow extends Component {

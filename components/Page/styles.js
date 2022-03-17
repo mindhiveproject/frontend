@@ -15,6 +15,12 @@ export const UserPage = styled.div`
   grid-gap: 10px;
   height: 100%;
   grid-template-columns: 225px auto;
+  button:hover {
+    opacity: .6;
+  }
+  a:hover {
+    opacity: .6;
+  }
 `;
 
 export const UserInner = styled.div`
