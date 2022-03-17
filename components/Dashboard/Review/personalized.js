@@ -48,8 +48,12 @@ class DashboardReview extends Component {
           if (userPayloadError) return <Error error={userPayloadError} />;
           if (userPayloadLoading) return <p>Loading</p>;
           const myClasses =
-            [...userPayloadData?.studentIn, ...userPayloadData?.teacherIn] ||
-            [];
+            [
+              ...userPayloadData?.studentIn,
+              ...userPayloadData?.teacherIn,
+              ...userPayloadData?.mentorIn,
+            ] || [];
+
           const networkClassIds =
             myClasses
               .map(myClass => {
@@ -61,6 +65,15 @@ class DashboardReview extends Component {
                 return [];
               })
               .flat() || [];
+
+          // merge together my classes and classes in the networks
+          const allClassIds = [
+            ...new Set([
+              ...myClasses.map(myClass => myClass.id),
+              ...networkClassIds,
+            ]),
+          ];
+
           return (
             <>
               {page === 'proposalsPage' && (
@@ -68,7 +81,7 @@ class DashboardReview extends Component {
                   <Reviews
                     openReview={this.openReview}
                     openSynthesize={this.openSynthesize}
-                    networkClassIds={networkClassIds}
+                    networkClassIds={allClassIds}
                   />
                 </AuthorizedPage>
               )}
@@ -78,7 +91,7 @@ class DashboardReview extends Component {
                   <Review
                     proposalId={this.state.proposalId}
                     goBack={this.goBack}
-                    networkClassIds={networkClassIds}
+                    networkClassIds={allClassIds}
                     stage="INDIVIDUAL"
                   />
                 </EmptyPage>
@@ -89,7 +102,7 @@ class DashboardReview extends Component {
                   <Review
                     proposalId={this.state.proposalId}
                     goBack={this.goBack}
-                    networkClassIds={networkClassIds}
+                    networkClassIds={allClassIds}
                     stage="SYNTHESIS"
                     tab="reviews"
                   />

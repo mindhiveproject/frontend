@@ -280,7 +280,7 @@ class DevelopmentSelectScreen extends Component {
                   hideParticipateButton: false,
                   showEmailNotificationPropmt: false,
                 },
-                collaborators: [],
+                collaborators: [this.props.user?.username],
                 info: [
                   {
                     name: 'what',
@@ -298,6 +298,7 @@ class DevelopmentSelectScreen extends Component {
                 ],
               }}
               user={this.props.user}
+              newStudyFromScratch
             />
           );
         }

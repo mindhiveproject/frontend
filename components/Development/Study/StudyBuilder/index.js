@@ -16,7 +16,6 @@ class StudyBuilderSection extends Component {
               handleStudyChange={this.props.handleStudyChange}
               handleParameterChange={this.props.handleParameterChange}
               handleSettingsChange={this.props.handleSettingsChange}
-              handleCollaboratorsChange={this.props.handleCollaboratorsChange}
               handleSetState={this.props.handleSetState}
               study={this.props.study}
               user={this.props.user}

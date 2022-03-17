@@ -13,7 +13,7 @@ import ReviewSection from './Review/index';
 import CollectSection from './Collect/index';
 import InDev from './inDev';
 
-import CollaboratorsModal from './Collaborators/modal';
+import SharingModal from './Sharing/modal';
 
 import {
   StyledBuilder,
@@ -39,6 +39,7 @@ class StudyBuilder extends Component {
     isTaskBuilderOpen: false,
     needToClone: this.props.needToClone,
     adminMode: this.props.adminMode,
+    newStudyFromScratch: this.props.newStudyFromScratch,
     section: 'studyBuilder',
   };
 
@@ -114,20 +115,20 @@ class StudyBuilder extends Component {
     });
   };
 
-  handleCollaboratorsChange = e => {
-    const { name, value } = e.target;
-    const collaborators = [...this.state.study.collaborators];
-    collaborators[name] = value;
-    if (name == collaborators.length - 1) {
-      collaborators.push('');
-    }
-    this.setState({
-      study: {
-        ...this.state.study,
-        collaborators,
-      },
-    });
-  };
+  // handleCollaboratorsChange = e => {
+  //   const { name, value } = e.target;
+  //   const collaborators = [...this.state.study.collaborators];
+  //   collaborators[name] = value;
+  //   if (name == collaborators.length - 1) {
+  //     collaborators.push('');
+  //   }
+  //   this.setState({
+  //     study: {
+  //       ...this.state.study,
+  //       collaborators,
+  //     },
+  //   });
+  // };
 
   uploadImage = async e => {
     const { files } = e.target;
@@ -208,12 +209,14 @@ class StudyBuilder extends Component {
     const myStudy = res.data.createStudy;
     this.setState({
       needToClone: false,
+      newStudyFromScratch: false,
       study: {
         ...myStudy,
         consent: myStudy.consent?.id,
         collaborators: (myStudy.collaborators &&
           myStudy.collaborators.map(c => c.username).length &&
           myStudy.collaborators.map(c => c.username)) || [''],
+        classes: myStudy.classes.map(cl => cl?.id),
       },
     });
   };
@@ -240,9 +243,9 @@ class StudyBuilder extends Component {
     });
   };
 
-  openAddCollaboratorsModal = () => {
+  openSharingModal = () => {
     this.setState({
-      page: 'collaborators',
+      page: 'sharing',
     });
   };
 
@@ -254,10 +257,14 @@ class StudyBuilder extends Component {
 
   render() {
     const { user } = this.props;
-    const { study, needToClone, adminMode } = this.state;
+    const { study, needToClone, adminMode, newStudyFromScratch } = this.state;
+
     const isAuthor =
       user.id === study?.author?.id ||
       study?.collaborators.includes(user.username);
+
+    const [proposal] = study?.proposal || [];
+    const proposalId = proposal ? proposal.id : undefined;
 
     return (
       <>
@@ -272,14 +279,16 @@ class StudyBuilder extends Component {
             <Navigation
               onLeave={this.props.onLeave}
               study={this.state.study}
-              adminMode={adminMode}
               isAuthor={isAuthor}
+              adminMode={adminMode}
               needToClone={needToClone}
+              newStudyFromScratch={newStudyFromScratch}
+              proposalId={proposalId}
               createNewStudy={this.createNewStudy}
               updateMyStudy={this.updateMyStudy}
               handleSectionChange={this.handleSectionChange}
               section={this.state.section}
-              openAddCollaboratorsModal={this.openAddCollaboratorsModal}
+              openSharingModal={this.openSharingModal}
             />
 
             {this.state.section === 'proposal' && (
@@ -296,7 +305,6 @@ class StudyBuilder extends Component {
                 handleStudyChange={this.handleStudyChange}
                 handleParameterChange={this.handleParameterChange}
                 handleSettingsChange={this.handleSettingsChange}
-                handleCollaboratorsChange={this.handleCollaboratorsChange}
                 handleSetState={this.handleSetState}
                 study={this.state.study}
                 user={this.props.user}
@@ -332,12 +340,19 @@ class StudyBuilder extends Component {
             )}
           </StyledBuilderPage>
         )}
-        {this.state.page === 'collaborators' && (
-          <CollaboratorsModal
-            onModalClose={this.onModalClose}
+        {this.state.page === 'sharing' && (
+          <SharingModal
             study={this.state.study}
-            handleCollaboratorsChange={this.handleCollaboratorsChange}
+            isAuthor={isAuthor}
+            adminMode={adminMode}
+            needToClone={needToClone}
+            newStudyFromScratch={newStudyFromScratch}
+            proposalId={proposalId}
+            createNewStudy={this.createNewStudy}
+            updateMyStudy={this.updateMyStudy}
+            onModalClose={this.onModalClose}
             handleSetState={this.handleSetState}
+            user={this.props.user}
           />
         )}
       </>

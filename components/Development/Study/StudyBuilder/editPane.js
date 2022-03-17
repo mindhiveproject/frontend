@@ -81,7 +81,6 @@ class EditPane extends Component {
           {this.state.tab === 'sharing' && (
             <EditSharing
               study={this.props.study}
-              handleCollaboratorsChange={this.props.handleCollaboratorsChange}
               handleSetState={this.props.handleSetState}
             />
           )}

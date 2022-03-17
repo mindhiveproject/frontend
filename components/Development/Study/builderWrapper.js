@@ -41,6 +41,10 @@ const PROJECT_QUERY = gql`
       components
       public
       submitForPublishing
+      classes {
+        id
+        title
+      }
     }
   }
 `;
@@ -66,7 +70,7 @@ class StudyBuilderWrapper extends Component {
           if (!data || !data.study)
             return <h1>No study found for id {this.props.studyId}</h1>;
 
-          const isAuthor =
+          const isAuthorOrCollaborator =
             user.id === data.study?.author?.id ||
             data.study?.collaborators.map(c => c.id).includes(user.id);
 
@@ -75,22 +79,25 @@ class StudyBuilderWrapper extends Component {
             study = {
               ...data.study,
               consent: null,
-              collaborators: [''],
+              collaborators: [user?.username],
+              classes: null,
               ...makeCloneNames(data.study.title),
             };
-          } else if (isAuthor || adminMode) {
+          } else if (isAuthorOrCollaborator || adminMode) {
             study = {
               ...data.study,
               consent: data.study.consent.map(consent => consent?.id),
               collaborators: (data.study.collaborators &&
                 data.study.collaborators.map(c => c.username).length &&
                 data.study.collaborators.map(c => c.username)) || [''],
+              classes: data.study.classes.map(cl => cl?.id),
             };
           } else {
             study = {
               ...data.study,
               consent: null,
-              collaborators: [''],
+              collaborators: [user?.username],
+              classes: null,
               ...makeCloneNames(data.study.title),
             };
           }
@@ -103,6 +110,7 @@ class StudyBuilderWrapper extends Component {
                 user={this.props.user}
                 needToClone={needToClone}
                 adminMode={adminMode}
+                newStudyFromScratch={this.props.newStudyFromScratch}
               />
             </EmptyPage>
           );

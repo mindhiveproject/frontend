@@ -17,8 +17,6 @@ class ParticipantsOverview extends Component {
   render() {
     const { participants } = this.props;
 
-    console.log('participants', participants);
-
     const sortedParticipants = [...participants].sort(
       (a, b) => a[this.state.sortBy] - b[this.state.sortBy]
     );

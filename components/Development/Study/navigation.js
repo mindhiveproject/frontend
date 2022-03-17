@@ -5,139 +5,15 @@ import { Icon, Menu } from 'semantic-ui-react';
 
 import { StudyBuilderNav } from '../styles';
 
-import { PROJECT_QUERY } from './builderWrapper';
-import { USER_DASHBOARD_QUERY } from '../../User/index';
-import { MY_DEVELOPED_STUDIES_QUERY } from '../../Bank/Studies/developed';
-
-import { PROPOSAL_BOARD_QUERY } from '../../Dashboard/Proposal/proposalpage';
-
 import { TOGGLE_OPENING_MUTATION } from '../../Opening/index';
 
-const CREATE_NEW_STUDY = gql`
-  mutation CREATE_NEW_STUDY(
-    $title: String!
-    $description: String!
-    $shortDescription: String
-    $settings: Json
-    $info: Json
-    $image: String
-    $largeImage: String
-    $consent: [ID]
-    $components: Json
-    $submitForPublishing: Boolean
-  ) {
-    createStudy(
-      title: $title
-      shortDescription: $shortDescription
-      description: $description
-      settings: $settings
-      info: $info
-      image: $image
-      largeImage: $largeImage
-      consent: $consent
-      components: $components
-      submitForPublishing: $submitForPublishing
-    ) {
-      id
-      slug
-      title
-      shortDescription
-      description
-      settings
-      info
-      image
-      largeImage
-      consent {
-        id
-      }
-      components
-      author {
-        id
-      }
-      collaborators {
-        id
-        username
-      }
-      public
-      submitForPublishing
-    }
-  }
-`;
-
-const UPDATE_STUDY = gql`
-  mutation UPDATE_STUDY(
-    $id: ID!
-    $title: String
-    $slug: String
-    $shortDescription: String
-    $description: String
-    $settings: Json
-    $info: Json
-    $image: String
-    $largeImage: String
-    $collaborators: [String]
-    $consent: [ID]
-    $components: Json
-    $submitForPublishing: Boolean
-  ) {
-    updateStudy(
-      id: $id
-      title: $title
-      slug: $slug
-      shortDescription: $shortDescription
-      description: $description
-      settings: $settings
-      info: $info
-      image: $image
-      largeImage: $largeImage
-      collaborators: $collaborators
-      consent: $consent
-      components: $components
-      submitForPublishing: $submitForPublishing
-    ) {
-      id
-      slug
-      title
-      shortDescription
-      description
-      settings
-      image
-      largeImage
-      consent {
-        id
-      }
-      public
-      submitForPublishing
-    }
-  }
-`;
+import SaveStudy from './saveStudy';
 
 class Navigation extends Component {
   render() {
     const { section, adminMode } = this.props;
-    const [proposal] = this.props?.study?.proposal || [];
-    const proposalId = proposal ? proposal.id : undefined;
-    let refetchQueries = {};
-    // refetch proposal query if there is one
-    if (proposalId) {
-      refetchQueries = [
-        {
-          query: PROJECT_QUERY,
-          variables: { id: this.props.study.id },
-        },
-        {
-          query: PROPOSAL_BOARD_QUERY,
-          variables: { id: proposalId },
-        },
-      ];
-    } else {
-      refetchQueries = [
-        {
-          query: PROJECT_QUERY,
-          variables: { id: this.props.study.id },
-        },
-      ];
-    }
+    // const [proposal] = this.props?.study?.proposal || [];
+    // const proposalId = proposal ? proposal.id : undefined;
 
     return (
       <StudyBuilderNav>
@@ -243,7 +119,7 @@ class Navigation extends Component {
             <div>
               <button
                 onClick={() => {
-                  this.props.openAddCollaboratorsModal();
+                  this.props.openSharingModal();
                 }}
                 className="addCollaboratorsButton"
               >
@@ -252,47 +128,16 @@ class Navigation extends Component {
             </div>
           )}
 
-          {(this.props.isAuthor || this.props.adminMode) &&
-          !this.props.needToClone ? (
-            <Mutation mutation={UPDATE_STUDY} refetchQueries={refetchQueries}>
-              {(updateStudy, { loading, error }) => {
-                if (error) {
-                  alert(
-                    'Oops! this link has already be taken: please pick another.'
-                  );
-                }
-                return (
-                  <button
-                    className="secondaryBtn"
-                    onClick={() => {
-                      this.props.updateMyStudy(updateStudy);
-                    }}
-                  >
-                    {loading ? 'Saving' : 'Save'}
-                  </button>
-                );
-              }}
-            </Mutation>
-          ) : (
-            <Mutation
-              mutation={CREATE_NEW_STUDY}
-              refetchQueries={[
-                { query: MY_DEVELOPED_STUDIES_QUERY },
-                { query: USER_DASHBOARD_QUERY },
-              ]}
-            >
-              {(createStudy, { loading, error }) => (
-                <button
-                  className="secondaryBtn"
-                  onClick={() => {
-                    this.props.createNewStudy(createStudy);
-                  }}
-                >
-                  {loading ? 'Saving' : 'Save your study'}
-                </button>
-              )}
-            </Mutation>
-          )}
+          <SaveStudy
+            study={this.props.study}
+            isAuthor={this.props.isAuthor}
+            adminMode={this.props.adminMode}
+            needToClone={this.props.needToClone}
+            newStudyFromScratch={this.props.newStudyFromScratch}
+            proposalId={this.props.proposalId}
+            createNewStudy={this.props.createNewStudy}
+            updateMyStudy={this.props.updateMyStudy}
+          />
         </div>
       </StudyBuilderNav>
     );

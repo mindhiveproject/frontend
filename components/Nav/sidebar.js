@@ -71,7 +71,8 @@ const SidebarNav = ({ user }) => {
         {(user?.permissions.includes('ADMIN') ||
           user?.permissions.includes('SCIENTIST') ||
           user?.permissions.includes('TEACHER') ||
-          user?.permissions.includes('STUDENT')) && (
+          user?.permissions.includes('STUDENT') ||
+          user?.permissions.includes('MENTOR')) && (
           <Link href="/dashboard/develop">
             <NavLink selected={router.pathname === '/dashboard/develop'}>
               <div>

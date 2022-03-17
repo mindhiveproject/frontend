@@ -233,6 +233,16 @@ const USER_CLASSES_QUERY = gql`
           }
         }
       }
+      mentorIn {
+        id
+        title
+        network {
+          classes {
+            id
+            title
+          }
+        }
+      }
     }
   }
 `;

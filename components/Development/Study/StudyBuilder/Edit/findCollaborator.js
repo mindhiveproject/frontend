@@ -1,7 +1,7 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import { Dropdown, Icon } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 const ALL_USERNAMES = gql`
   query ALL_USERNAMES {
