@@ -1,3 +1,5 @@
+import { PROPOSALS_FOR_REVIEW_QUERY } from "../reviews";
+
 export const individualQuestions = [
   {
     name: '1',
@@ -42,17 +44,21 @@ export const synthesisQuestions = [
   {
     name: '1',
     question: 'We learned',
+    text: 'Summarize the study and its goals in your own words. What did you find compelling? What did you learn about the human brain and behavior?',
   },
   {
     name: '2',
     question: 'We liked',
+    text: 'What stands out to you about this proposal? What resonates? What do you think is effective? Creative?',
   },
   {
     name: '3',
     question: 'We wished',
+    text: 'What do you think the scientist could think differently about? What’s not in the proposal that you might incorporate? What do you want to know more about?',
   },
   {
     name: '4',
     question: 'We wondered',
+    text: 'What is a suggestion you might make? (e.g., I wonder if the author might...) What might be the outcome of a slight tweak to the proposal?',
   },
 ];
