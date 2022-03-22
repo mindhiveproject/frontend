@@ -23,6 +23,14 @@ const StyledReviewQuestions = styled.div`
     letter-spacing: 0em;
     text-align: left;
   }
+  h2 {
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700, Bold;
+    line-height: 24px;
+    margin-bottom: 0;
+  }
   p {
     font-family: Lato;
     font-size: 16px;
@@ -208,7 +216,7 @@ class ReviewQuestions extends Component {
     return (
       <StyledReviewQuestions>
         <>
-          <h1>Review questions</h1>
+          <h1>Synthesis questions</h1>
           <div className="reviewItems">
             {this.state.content.map((item, i) => (
               <SingleQuestion

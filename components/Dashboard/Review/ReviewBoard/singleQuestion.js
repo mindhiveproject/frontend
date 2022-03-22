@@ -13,7 +13,8 @@ class SingleQuestion extends Component {
     return (
       <StyledReviewItem>
         <div>
-          <p>{item.question}</p>
+          <h2>{item.question}</h2>
+          <p>{item.text}</p>
         </div>
 
         {stage === 'INDIVIDUAL' && (
