@@ -77,10 +77,8 @@ const StyledFullReviewContainer = styled.div`
       grid-template-columns: auto 1fr;
       grid-gap: 9px;
       background: #ffffff;
-      border: 1px solid #cccccc;
       box-sizing: border-box;
       border-radius: 4px;
-      padding: 15px;
       align-items: center;
     }
   }
@@ -290,6 +288,7 @@ class ReviewPage extends Component {
 
                             <Dropdown
                               fluid
+                              selection
                               defaultValue={this.state.view}
                               options={[
                                 {
