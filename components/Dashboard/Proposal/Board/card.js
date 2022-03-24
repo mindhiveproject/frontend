@@ -7,7 +7,7 @@ import { StyledCard } from './styles';
 class Card extends Component {
   render() {
     const { card, proposalBuildMode, adminMode } = this.props;
-    const status = card?.settings?.status? card.settings.status : 'Not started';
+    let status = card?.settings?.status? card.settings.status : 'Not started';
 
     let statusStyle = null;
     switch (status) {
@@ -25,6 +25,15 @@ class Card extends Component {
         break;
       case 'Completed':
         statusStyle = 'status-completed';
+        break;
+      // in case any cards are still tagged 'Closed' or 'On-Hold'
+      case 'Closed':
+        status = 'Started';
+        statusStyle = 'status-started';
+        break;
+      case 'On-Hold':
+        status = 'Needs feedback';
+        statusStyle = 'status-needs-feedback';
     }
 
     return (
