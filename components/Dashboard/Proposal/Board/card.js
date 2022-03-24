@@ -17,14 +17,14 @@ class Card extends Component {
       case 'Started':
         statusStyle = 'status-started';
         break;
-      case 'On-Hold':
-        statusStyle = 'status-on-hold';
+      case 'Needs feedback':
+        statusStyle = 'status-needs-feedback';
+        break;
+      case 'Feedback given':
+        statusStyle = 'status-feedback-given';
         break;
       case 'Completed':
         statusStyle = 'status-completed';
-        break;
-      case 'Closed':
-        statusStyle = 'status-closed';
     }
 
     return (

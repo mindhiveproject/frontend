@@ -25,17 +25,17 @@ const StyledDropdown = styled.div`
     color: #0063CE !important;
     background: rgba(0, 117, 224, 0.12) !important;
   }
-  .status-on-hold {
+  .status-needs-feedback {
     color: #C92927 !important;
     background: rgba(224, 103, 102, 0.12) !important;
+  }
+  .status-feedback-given {
+    color: #6F25CE !important;
+    background: rgba(111, 37, 206, 0.12) !important;
   }
   .status-completed {
     color: #00635A !important;
     background: rgba(0, 124, 112, 0.12) !important;
-  }
-  .status-closed {
-    color: #1A1A1A !important;
-    background: rgba(0, 0, 0, 0.12) !important;
   }
   .info-status :hover {
     background: #F7F7F7 !important;
@@ -63,22 +63,22 @@ class StatusForm extends Component {
         className: 'info-status status-started',
       },
       {
-        key: 'On hold',
-        text: 'On hold',
-        value: 'On hold',
-        className: 'info-status status-on-hold',
+        key: 'Needs feedback',
+        text: 'Needs feedback',
+        value: 'Needs feedback',
+        className: 'info-status status-needs-feedback',
+      },
+      {
+        key: 'Feedback given',
+        text: 'Feedback given',
+        value: 'Feedback given',
+        className: 'info-status status-feedback-given',
       },
       {
         key: 'Completed',
         text: 'Completed',
         value: 'Completed',
         className: 'info-status status-completed',
-      },
-      {
-        key: 'Closed',
-        text: 'Closed',
-        value: 'Closed',
-        className: 'info-status status-closed',
       }
     ];
 
