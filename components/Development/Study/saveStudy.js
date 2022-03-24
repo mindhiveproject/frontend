@@ -62,6 +62,9 @@ const CREATE_NEW_STUDY = gql`
         id
         title
       }
+      proposal {
+        id
+      }
     }
   }
 `;
@@ -115,6 +118,9 @@ const UPDATE_STUDY = gql`
       classes {
         id
         title
+      }
+      proposal {
+        id
       }
     }
   }

@@ -197,6 +197,7 @@ const CURRENT_USER_EMAIL_QUERY = gql`
         email
       }
       generalInfo
+      isPublic
     }
   }
 `;

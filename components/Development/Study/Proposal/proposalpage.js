@@ -109,18 +109,28 @@ class ProposalPage extends Component {
                     >
                       <p>← Go back</p>
                     </div>
-                    <Radio
-                      toggle
-                      checked={this.state.isPDF}
-                      onChange={() => {
-                        this.setState({
-                          isPDF: !this.state.isPDF,
-                        });
-                      }}
-                    />
-                    <span>{this.state.isPDF ? 'Preview' : 'Edit'}</span>
+                    {proposal?.isSubmitted ? (
+                      <div>
+                        <h3>The proposal has been submitted and locked 🔒</h3>
+                      </div>
+                    ) : (
+                      <>
+                        <Radio
+                          toggle
+                          checked={this.state.isPDF}
+                          onChange={() => {
+                            this.setState({
+                              isPDF: !this.state.isPDF,
+                            });
+                          }}
+                        />
+                        <span>{this.state.isPDF ? 'Preview' : 'Edit'}</span>
+                      </>
+                    )}
                   </StyledPreviewToggle>
-                  {!this.state.isPDF ? (
+                  {this.state.isPDF || proposal?.isSubmitted ? (
+                    <ProposalPDF proposal={proposal} />
+                  ) : (
                     <>
                       <Head>
                         <title>{proposal?.title}</title>
@@ -132,8 +142,6 @@ class ProposalPage extends Component {
                         proposalBuildMode={this.props.proposalBuildMode}
                       />
                     </>
-                  ) : (
-                    <ProposalPDF proposal={proposal} />
                   )}
                 </StyledProposalBoard>
               );

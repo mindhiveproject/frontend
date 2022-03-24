@@ -97,7 +97,7 @@ class ProposalHeader extends Component {
         {(updateProposal, { loading, error }) => {
           if (error) {
             alert(
-              'Oops! this class title has already be taken: please pick another.'
+              'Oops! this title has already be taken: please pick another.'
             );
           }
           return (

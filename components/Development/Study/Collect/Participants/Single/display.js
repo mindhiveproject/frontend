@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import ParticipantResults from './results';
 import { StyledCollectSection, StyledParticipantPage } from '../styles';
 
 class ParticipantDisplay extends Component {
   render() {
     const { participant, studyId } = this.props;
+
     let email = '';
     if (
       participant?.authEmail &&
@@ -21,12 +23,22 @@ class ParticipantDisplay extends Component {
         <StyledParticipantPage>
           <p>
             <span>Participant ID </span>
-            <strong>
+            <span
+              style={{
+                'font-size': '2rem',
+                'font-weight': 'bold',
+                background: '#007c70',
+                padding: '0rem 1rem',
+                margin: '0rem 0.5rem',
+                'border-radius': '1rem',
+                color: 'white',
+              }}
+            >
               {participant.publicReadableId ||
                 participant.publicId ||
                 participant.id ||
                 'John Doe'}
-            </strong>
+            </span>
           </p>
           <div>
             <h3>Study-related information</h3>
@@ -37,7 +49,7 @@ class ParticipantDisplay extends Component {
                     <p>
                       Do you understand basic instruction written in English?
                     </p>
-                    <p>{studyInfo[key]}</p>
+                    <p>{studyInfo[key] === 'yes' ? 'Yes' : 'No'}</p>
                   </div>
                 );
               }
@@ -46,6 +58,32 @@ class ParticipantDisplay extends Component {
                   <div className="infoItem" key={key}>
                     <p>Between-subject condition</p>
                     <p>{studyInfo[key]}</p>
+                  </div>
+                );
+              }
+              if (key === 'share') {
+                return (
+                  <div className="infoItem" key={key}>
+                    <p>Agreed to save information for future studies</p>
+                    <p>{studyInfo[key] === 'true' ? 'Yes' : 'No'}</p>
+                  </div>
+                );
+              }
+              if (key === 'zip' && studyInfo.zip) {
+                return (
+                  <div className="infoItem" key={key}>
+                    <p>Zip code</p>
+                    <p>{studyInfo[key]}</p>
+                  </div>
+                );
+              }
+              if (key === 'bd' && studyInfo.bd) {
+                return (
+                  <div className="infoItem" key={key}>
+                    <p>Birthday</p>
+                    <p>
+                      {moment(parseInt(studyInfo[key])).format('MMMM D, YYYY')}
+                    </p>
                   </div>
                 );
               }

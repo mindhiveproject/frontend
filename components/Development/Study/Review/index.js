@@ -45,11 +45,20 @@ class ReviewSection extends Component {
   render() {
     const { study } = this.props;
 
+    if (!study?.id) {
+      return (
+        <InDev
+          header="👀 No study found"
+          message="Please save your new study and reload the page"
+        />
+      );
+    }
+
     if (!study?.proposal || study?.proposal?.length === 0) {
       return (
         <InDev
-          header="No proposal found"
-          message="Please create a new proposal first."
+          header="👀 No proposal found"
+          message="Please create a proposal"
         />
       );
     }

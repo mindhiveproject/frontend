@@ -29,7 +29,7 @@ class TestManager extends Component {
           <StyledBox>
             <ExperimentWindow
               settings={{
-                user: user?.id,
+                user: guest?.id ? null : user?.id,
                 template: test?.template?.id,
                 task: test?.id,
                 study: study?.id,

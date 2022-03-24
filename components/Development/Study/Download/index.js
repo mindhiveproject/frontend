@@ -8,8 +8,8 @@ class AnalyzeSection extends Component {
     if (!studyId) {
       return (
         <InDev
-          header="No study found"
-          message="Please save your study first."
+          header="👀 No study found"
+          message="Please save your new study"
         />
       );
     }

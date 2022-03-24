@@ -9,8 +9,8 @@ class CollectSection extends Component {
     if (!study?.id) {
       return (
         <InDev
-          header="No study found"
-          message="Please save your study first."
+          header="👀 No study found"
+          message="Please save your new study"
         />
       );
     }

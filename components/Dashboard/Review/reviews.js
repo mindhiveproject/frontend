@@ -6,19 +6,16 @@ import styled from 'styled-components';
 import ReviewLine from './ReviewBoard/line';
 import { StyledDasboard, StyledClassesDasboard } from '../styles';
 
-const StyledRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 50px;
-  align-items: center;
-`;
-
 const StyledReviewHeader = styled.div`
   display: grid;
   margin: 5px;
   padding: 10px;
-  grid-template-columns: 4fr 2fr 1fr 1fr 2fr;
-  cursor: pointer;
+  grid-template-columns: 300px 200px 120px 120px 200px;
+  grid-gap: 5px;
   font-weight: bold;
+  .centered {
+    text-align: center;
+  }
 `;
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
@@ -36,6 +33,7 @@ const PROPOSALS_FOR_REVIEW_QUERY = gql`
       }
       study {
         title
+        slug
       }
       author {
         id
@@ -82,27 +80,23 @@ class Reviews extends Component {
               return (
                 <>
                   <div className="navigationHeader"></div>
-                  <div>
-                    <StyledRow>
-                      <StyledReviewHeader>
-                        <div>Study title</div>
-                        <div>Class</div>
-                        <div>Submitted</div>
-                        <div>Reviews</div>
-                        <div>Actions</div>
-                      </StyledReviewHeader>
-                      <div></div>
-                    </StyledRow>
 
-                    {proposalsForReview.map(proposal => (
-                      <ReviewLine
-                        proposal={proposal}
-                        key={proposal.id}
-                        openReview={this.props.openReview}
-                        openSynthesize={this.props.openSynthesize}
-                      />
-                    ))}
-                  </div>
+                  <StyledReviewHeader>
+                    <div>Study title</div>
+                    <div>Class</div>
+                    <div className="centered">Submitted</div>
+                    <div className="centered">Reviews</div>
+                    <div>Actions</div>
+                  </StyledReviewHeader>
+
+                  {proposalsForReview.map(proposal => (
+                    <ReviewLine
+                      proposal={proposal}
+                      key={proposal.id}
+                      openReview={this.props.openReview}
+                      openSynthesize={this.props.openSynthesize}
+                    />
+                  ))}
                 </>
               );
             }}

@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 const SUBMIT_RESULTS_FROM_API_MUTATION = gql`
   mutation submitResultFromAPI(
-    $userId: ID!
+    $userId: ID
     $templateId: ID
     $taskId: ID
     $studyId: ID

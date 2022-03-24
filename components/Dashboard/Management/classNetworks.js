@@ -78,6 +78,7 @@ class ClassNetworksList extends Component {
                       <ClassRow
                         classNetwork={classNetwork}
                         key={classNetwork.id}
+                        updateClassNetwork={this.props.updateClassNetwork}
                       />
                     ))}
                   </div>
@@ -91,27 +92,38 @@ class ClassNetworksList extends Component {
   }
 }
 
+const StyledClassWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  grid-gap: 1rem;
+`;
+
 const StyledClassRow = styled.div`
   display: grid;
   margin: 5px;
   padding: 10px;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   background: white;
-  /* cursor: pointer; */
 `;
 
 class ClassRow extends Component {
   render() {
     const { classNetwork } = this.props;
     return (
-      <div>
+      <StyledClassWrapper>
         <StyledClassRow>
           <div>{classNetwork?.title}</div>
           <div>{classNetwork?.creator?.username}</div>
           <div>{classNetwork?.classes?.length}</div>
           <div>{moment(classNetwork?.createdAt).format('MMMM D, YYYY')}</div>
         </StyledClassRow>
-      </div>
+        <div>
+          <a onClick={() => this.props.updateClassNetwork(classNetwork?.id)}>
+            Edit
+          </a>
+        </div>
+      </StyledClassWrapper>
     );
   }
 }

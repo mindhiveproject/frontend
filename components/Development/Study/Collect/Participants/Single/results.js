@@ -5,7 +5,7 @@ import Error from '../../../../../ErrorMessage/index';
 
 import Result from './result';
 
-const PARTICIPANT_RESULTS_QUERY = gql`
+export const PARTICIPANT_RESULTS_QUERY = gql`
   query PARTICIPANT_RESULTS_QUERY($participantId: ID!, $studyId: ID) {
     participantResults(participantId: $participantId, studyId: $studyId) {
       id
@@ -40,6 +40,7 @@ const PARTICIPANT_RESULTS_QUERY = gql`
         content
       }
       resultType
+      testVersion
     }
   }
 `;
@@ -66,6 +67,7 @@ class ParticipantResults extends Component {
                   <div>Study</div>
                   <div>Task title</div>
                   <div>Task subtitle</div>
+                  <div>Task ID</div>
                   <div>Created</div>
                   <div>Updated</div>
                   <div>Data policy</div>
@@ -81,6 +83,8 @@ class ParticipantResults extends Component {
                   <Result
                     key={result.id}
                     result={result}
+                    participantId={participantId}
+                    studyId={studyId}
                     refetchQueries={[
                       {
                         query: PARTICIPANT_RESULTS_QUERY,

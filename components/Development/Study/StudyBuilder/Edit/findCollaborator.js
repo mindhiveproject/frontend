@@ -3,9 +3,9 @@ import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import { Dropdown } from 'semantic-ui-react';
 
-const ALL_USERNAMES = gql`
-  query ALL_USERNAMES {
-    allUsernames {
+const ALL_PUBLIC_USERNAMES = gql`
+  query ALL_PUBLIC_USERNAMES {
+    allPublicUsernames {
       username
       permissions
     }
@@ -16,11 +16,12 @@ class FindCollaborator extends Component {
   render() {
     const { study } = this.props;
     return (
-      <Query query={ALL_USERNAMES}>
+      <Query query={ALL_PUBLIC_USERNAMES}>
         {({ data, loading }) => {
           if (loading) return <p>Loading ... </p>;
-          if (!data || !data.allUsernames) return <h1>No usernames found</h1>;
-          const usernames = data.allUsernames.map(user => ({
+          if (!data || !data.allPublicUsernames)
+            return <h1>No usernames found</h1>;
+          const usernames = data.allPublicUsernames.map(user => ({
             key: user.username,
             text: user.username,
             value: user.username,

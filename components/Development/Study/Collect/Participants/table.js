@@ -3,7 +3,7 @@ import ParticipantRow from './row';
 
 class ParticipantsTable extends Component {
   render() {
-    const { studyId, participants, sortBy } = this.props;
+    const { studyId, participants, sortBy, isDirectSorting } = this.props;
 
     const updatedParticipants = participants.map(participant => {
       const studyInfo =
@@ -18,9 +18,12 @@ class ParticipantsTable extends Component {
       };
     });
 
-    const sortedParticipants = [...updatedParticipants].sort((a, b) =>
-      a[sortBy] > b[sortBy] ? 1 : -1
-    );
+    const sortedParticipants = [...updatedParticipants].sort((a, b) => {
+      if (isDirectSorting) {
+        return a[sortBy] > b[sortBy] ? 1 : -1;
+      }
+      return a[sortBy] > b[sortBy] ? -1 : 1;
+    });
 
     return (
       <div>

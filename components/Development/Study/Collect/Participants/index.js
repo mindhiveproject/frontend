@@ -103,9 +103,6 @@ class StudyParticipants extends Component {
             if (loading) return <p>Loading</p>;
             if (!data.myStudyParticipants)
               return <p>No participants found for {this.props.id}</p>;
-            // const {
-            //   myStudyParticipants: { participants, guests },
-            // } = data;
             const consents = data?.myStudyParticipants?.consent || [];
 
             const loggedInUsers = data?.myStudyParticipants?.participants || [];

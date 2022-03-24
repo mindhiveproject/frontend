@@ -4,14 +4,16 @@ import AuthorizedPage from '../../Page/userpage';
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
 
 import ClassesList from './classes';
-import ClassNetworksList from './classNetworks';
+import ClassNetworks from './classNetworks';
 import AddClassNetwork from './addClassNetwork';
+import UpdateClassNetwork from './updateClassNetwork';
 
 class DashboardManagement extends Component {
   state = {
     page: this.props.page || 'main',
     tab: this.props.tab || 'classes',
     devInfo: {},
+    classNetworkId: null,
   };
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
@@ -25,15 +27,15 @@ class DashboardManagement extends Component {
   goBack = () => {
     this.setState({
       page: 'main',
-      // id: null,
     });
   };
 
-  // switchToBank = () => {
-  //   this.setState({
-  //     page: 'main',
-  //   });
-  // };
+  updateClassNetwork = classNetworkId => {
+    this.setState({
+      page: 'editClassNetwork',
+      classNetworkId,
+    });
+  };
 
   render() {
     const { page, tab } = this.state;
@@ -84,7 +86,10 @@ class DashboardManagement extends Component {
 
               {this.state.tab === 'classes' && <ClassesList />}
               {this.state.tab === 'classNetworks' && (
-                <ClassNetworksList addClassNetwork={this.addClassNetwork} />
+                <ClassNetworks
+                  addClassNetwork={this.addClassNetwork}
+                  updateClassNetwork={this.updateClassNetwork}
+                />
               )}
             </StyledDevelopDasboard>
           </StyledDasboard>
@@ -96,6 +101,17 @@ class DashboardManagement extends Component {
       return (
         <AuthorizedPage>
           <AddClassNetwork goBack={this.goBack} />
+        </AuthorizedPage>
+      );
+    }
+
+    if (page === 'editClassNetwork') {
+      return (
+        <AuthorizedPage>
+          <UpdateClassNetwork
+            goBack={this.goBack}
+            classNetworkId={this.state.classNetworkId}
+          />
         </AuthorizedPage>
       );
     }

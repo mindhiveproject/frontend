@@ -147,14 +147,6 @@ class ParticipantRow extends Component {
                         participant?.consentsInfo[consent?.id]?.decision) ||
                         'No info'}
                     </span>
-                    {' - '}
-                    <span>
-                      {(participant?.consentsInfo &&
-                        participant?.consentsInfo[consent?.id] &&
-                        participant?.consentsInfo[consent?.id]
-                          ?.saveCoveredConsent) ||
-                        'No info'}
-                    </span>
                   </div>
                 ))}
               </p>
@@ -168,3 +160,12 @@ class ParticipantRow extends Component {
 }
 
 export default ParticipantRow;
+
+// {' - '}
+// <span>
+//   {(participant?.consentsInfo &&
+//     participant?.consentsInfo[consent?.id] &&
+//     participant?.consentsInfo[consent?.id]
+//       ?.saveCoveredConsent) ||
+//     'No info'}
+// </span>

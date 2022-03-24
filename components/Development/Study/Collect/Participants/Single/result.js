@@ -5,6 +5,7 @@ import { saveAs } from 'file-saver';
 import { jsonToCSV } from 'react-papaparse';
 
 import DeleteResult from '../../../../../Results/Delete/delete';
+import ChangeOneResultStatus from './changeOneResultStatus';
 
 const LZUTF8 = require('lzutf8');
 
@@ -83,6 +84,7 @@ class Result extends Component {
         <div>{result?.study?.title}</div>
         <div>{result?.task?.title}</div>
         <div>{result?.task?.subtitle}</div>
+        <div>{result?.testVersion}</div>
         <div>{moment(result?.createdAt).format('MMMM D, YY, h:mm:ss')}</div>
         <div>{moment(result?.updatedAt).format('MMMM D, YY, h:mm:ss')}</div>
         <div>{result.dataPolicy}</div>
@@ -90,7 +92,25 @@ class Result extends Component {
         <div>{result?.fullData?.id ? 'yes' : 'no'}</div>
         <div>{result.quantity}</div>
         <div>{result?.incrementalData?.length}</div>
-        <div>{result?.resultType === 'TEST' ? 'Excluded' : 'Included'}</div>
+
+        <div>
+          {result?.resultType === 'TEST' ? (
+            <ChangeOneResultStatus
+              id={result?.id}
+              participantId={this.props.participantId}
+              studyId={this.props.studyId}
+              status="MAIN"
+            />
+          ) : (
+            <ChangeOneResultStatus
+              id={result?.id}
+              participantId={this.props.participantId}
+              studyId={this.props.studyId}
+              status="TEST"
+            />
+          )}
+        </div>
+
         <a onClick={() => this.download(result)}>Download</a>
         <DeleteResult id={result.id} refetchQueries={this.props.refetchQueries}>
           <a>Delete</a>

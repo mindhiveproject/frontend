@@ -50,8 +50,8 @@ class ProposalWrapper extends Component {
     if (!study?.id) {
       return (
         <InDev
-          header="No study found"
-          message="Please save your new study first."
+          header="👀 No study found"
+          message="Please save your new study and reload the page"
         />
       );
     }

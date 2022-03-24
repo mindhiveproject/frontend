@@ -21,12 +21,14 @@ const EDIT_ACCOUNT_MUTATION = gql`
     $email: String
     $password: String
     $info: Json
+    $isPublic: Boolean
   ) {
     editAccount(
       username: $username
       email: $email
       password: $password
       info: $info
+      isPublic: $isPublic
     ) {
       id
     }
@@ -44,6 +46,7 @@ class HomeDashboard extends Component {
     info: { ...this.props?.me?.generalInfo },
     password: '',
     passwordRepeat: '',
+    isPublic: this.props?.me?.isPublic,
   };
 
   saveToState = e => {
@@ -52,7 +55,7 @@ class HomeDashboard extends Component {
     });
   };
 
-  toggleState = e => {
+  toggleInfoState = e => {
     this.setState({
       info: {
         ...this.state.info,
@@ -61,8 +64,21 @@ class HomeDashboard extends Component {
     });
   };
 
+  toggleState = e => {
+    this.setState({
+      [e.target.name]: !this.state[e.target.name],
+    });
+  };
+
   render() {
-    const { username, email, info, password, passwordRepeat } = this.state;
+    const {
+      username,
+      email,
+      info,
+      password,
+      passwordRepeat,
+      isPublic,
+    } = this.state;
     return (
       <Mutation
         mutation={EDIT_ACCOUNT_MUTATION}
@@ -70,6 +86,7 @@ class HomeDashboard extends Component {
           username: this.state.username,
           info: this.state.info,
           email: this.state.email,
+          isPublic: this.state.isPublic,
         }}
         refetchQueries={[{ query: CURRENT_USER_EMAIL_QUERY }]}
       >
@@ -153,7 +170,7 @@ class HomeDashboard extends Component {
                         id="updates"
                         name="updates"
                         checked={info.updates}
-                        onChange={this.toggleState}
+                        onChange={this.toggleInfoState}
                       />
                       <span>
                         I agree to receive notifications and updates related to
@@ -163,6 +180,26 @@ class HomeDashboard extends Component {
                     </div>
                   </label>
                 </div>
+
+                {(this.props?.me?.permissions?.includes('SCIENTIST') ||
+                  this.props?.me?.permissions?.includes('ADMIN')) && (
+                  <div>
+                    <label htmlFor="isPublic">
+                      <div className="checkboxField">
+                        <input
+                          type="checkbox"
+                          id="isPublic"
+                          name="isPublic"
+                          checked={isPublic}
+                          onChange={this.toggleState}
+                        />
+                        <span>
+                          Open my account to the public for collaboration
+                        </span>
+                      </div>
+                    </label>
+                  </div>
+                )}
 
                 <button type="submit">Update account</button>
               </fieldset>

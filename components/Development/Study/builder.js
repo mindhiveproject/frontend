@@ -115,21 +115,6 @@ class StudyBuilder extends Component {
     });
   };
 
-  // handleCollaboratorsChange = e => {
-  //   const { name, value } = e.target;
-  //   const collaborators = [...this.state.study.collaborators];
-  //   collaborators[name] = value;
-  //   if (name == collaborators.length - 1) {
-  //     collaborators.push('');
-  //   }
-  //   this.setState({
-  //     study: {
-  //       ...this.state.study,
-  //       collaborators,
-  //     },
-  //   });
-  // };
-
   uploadImage = async e => {
     const { files } = e.target;
     const data = new FormData();

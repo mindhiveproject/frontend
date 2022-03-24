@@ -33,6 +33,7 @@ const MY_STUDY_RESULTS_QUERY = gql`
       }
       resultType
       updatedAt
+      testVersion
     }
   }
 `;
@@ -61,7 +62,7 @@ class StudyResults extends Component {
           if (resultsWithData.length === 0) {
             return (
               <InDev
-                header="No data to analyze yet"
+                header="No data to download yet"
                 message="Share the study link with participants or test yourself to generate data"
               />
             );

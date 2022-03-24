@@ -34,7 +34,7 @@ exports.handler = async (event, context) => {
       query: SUBMIT_RESULTS_FROM_API_MUTATION,
       operationName: 'submitResultFromAPI',
       variables: {
-        userId: user,
+        userId: user === 'null' ? null : user,
         templateId: template,
         taskId: task === 'undefined' ? null : task,
         studyId: study === 'undefined' ? null : study,
