@@ -156,17 +156,17 @@ export const StyledCard = styled.div`
       color: #0063CE;
       background: rgba(0, 117, 224, 0.12);
     }
-    .status-on-hold {
+    .status-needs-feedback {
       color: #C92927;
       background: rgba(224, 103, 102, 0.12);
+    }
+    .status-feedback-given {
+      color: #6F25CE !important;
+      background: rgba(111, 37, 206, 0.12) !important;
     }
     .status-completed {
       color: #00635A;
       background: rgba(0, 124, 112, 0.12);
-    }
-    .status-closed {
-      color: #1A1A1A;
-      background: rgba(0, 0, 0, 0.12);
     }
   }
 `;
