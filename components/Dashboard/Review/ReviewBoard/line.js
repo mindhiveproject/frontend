@@ -5,7 +5,7 @@ const StyledClassRow = styled.div`
   display: grid;
   margin: 5px;
   padding: 10px;
-  grid-template-columns: 300px 200px 120px 120px 200px;
+  grid-template-columns: 300px 200px 120px 120px 300px;
   grid-gap: 5px;
   background: white;
   .buttons {
