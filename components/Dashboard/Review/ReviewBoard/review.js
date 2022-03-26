@@ -273,18 +273,8 @@ class ReviewPage extends Component {
                       {this.props.stage === 'SYNTHESIS' &&
                         this.state.tab === 'reviews' && (
                           <div className="headerRight">
-                            {this.state.view === 'byQuestion' && (
-                              <img
-                                width="20px"
-                                src="/static/assets/view-question.png"
-                              />
-                            )}
-                            {this.state.view === 'byReviewer' && (
-                              <img
-                                width="20px"
-                                src="/static/assets/view-reviewer.png"
-                              />
-                            )}
+                            {this.state.view === 'byQuestion'}
+                            {this.state.view === 'byReviewer'}
 
                             <Dropdown
                               fluid
