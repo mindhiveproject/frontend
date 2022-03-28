@@ -113,12 +113,14 @@ class Overview extends Component {
                     <button onClick={() => this.props.copyProposal(prop?.id)}>
                       Copy
                     </button>
-                    <DeleteProposal
-                      proposalId={prop?.id}
-                      studyId={this.props.study?.id}
-                    >
-                      <button>Delete</button>
-                    </DeleteProposal>
+                    {!prop?.isSubmitted && (
+                      <DeleteProposal
+                        proposalId={prop?.id}
+                        studyId={this.props.study?.id}
+                      >
+                        <button>Delete</button>
+                      </DeleteProposal>
+                    )}
                   </div>
                 </StyledItemRow>
               </StyledRow>

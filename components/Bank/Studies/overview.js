@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
-import Link from 'next/link';
-import styled from 'styled-components';
-import { StyledBank, StyledStudyCard, StyledZeroState } from '../styles';
+import { StyledBank, StyledZeroState } from '../styles';
 import StudyCard from './studycard';
 
+import PaginationStudies from './studyPagination';
+
 const OVERVIEW_STUDIES_QUERY = gql`
-  query OVERVIEW_STUDIES_QUERY {
-    allStudies {
+  query OVERVIEW_STUDIES_QUERY($skip: Int, $first: Int) {
+    allStudies(skip: $skip, first: $first) {
       id
       title
       slug
@@ -36,9 +36,16 @@ const OVERVIEW_STUDIES_QUERY = gql`
 
 class OverviewStudiesBank extends Component {
   render() {
+    const perPage = 9;
     return (
       <>
-        <Query query={OVERVIEW_STUDIES_QUERY}>
+        <Query
+          query={OVERVIEW_STUDIES_QUERY}
+          variables={{
+            skip: this.props.pagination * perPage - perPage,
+            first: perPage,
+          }}
+        >
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
@@ -55,6 +62,10 @@ class OverviewStudiesBank extends Component {
             }
             return (
               <StyledBank>
+                <PaginationStudies
+                  pagination={this.props.pagination}
+                  perPage={perPage}
+                />
                 <div className="studies">
                   {studies.map(study => (
                     <StudyCard
