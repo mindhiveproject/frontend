@@ -12,7 +12,7 @@ export const individualQuestions = [
   },
   {
     name: '3',
-    question: 'Do the predicted outcomes support the researchers’ hypothesis?',
+    question: 'Do the predicted outcomes support the researchers’ hypothesis? Why (not)?',
   },
   {
     name: '4',

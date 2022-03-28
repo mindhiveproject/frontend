@@ -216,7 +216,7 @@ class ReviewQuestions extends Component {
     return (
       <StyledReviewQuestions>
         <>
-          <h1>Synthesis questions</h1>
+          <h1>{this.props.stage === 'INDIVIDUAL' ? 'Review questions' : 'Synthesis questions'}</h1>
           <div className="reviewItems">
             {this.state.content.map((item, i) => (
               <SingleQuestion
