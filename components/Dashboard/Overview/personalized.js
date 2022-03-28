@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
+import Link from 'next/link';
 
 import AuthorizedPage from '../../Page/userpage';
 import EmptyPage from '../../Page/empty';
@@ -16,6 +17,7 @@ import { StyledDasboard, StyledDevelopDasboard } from '../styles';
 
 class DashboardOverview extends Component {
   state = {
+    pagination: this.props.pagination || 1,
     page: this.props.page || 'bank',
     tab: this.props.tab || 'studies',
     devInfo: {},
@@ -49,8 +51,8 @@ class DashboardOverview extends Component {
   };
 
   render() {
-    const { page, tab } = this.state;
-    const { user } = this.props;
+    const { page } = this.state;
+    const { user, tab } = this.props;
 
     if (page === 'bank') {
       return (
@@ -69,93 +71,101 @@ class DashboardOverview extends Component {
                   <Menu.Item
                     name="studies"
                     active={tab === 'studies'}
-                    onClick={this.handleItemClick}
                     className={
                       tab === 'studies'
                         ? 'discoverMenuTitle selectedMenuTitle'
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>All studies</p>
+                    <Link href="/dashboard/overview/studies">
+                      <p>All studies</p>
+                    </Link>
                   </Menu.Item>
 
                   <Menu.Item
                     name="tasks"
                     active={tab === 'tasks'}
-                    onClick={this.handleItemClick}
                     className={
                       tab === 'tasks'
                         ? 'discoverMenuTitle selectedMenuTitle'
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>All tasks</p>
+                    <Link href="/dashboard/overview/tasks">
+                      <p>All tasks</p>
+                    </Link>
                   </Menu.Item>
 
                   <Menu.Item
                     name="surveys"
                     active={tab === 'surveys'}
-                    onClick={this.handleItemClick}
                     className={
                       tab === 'surveys'
                         ? 'discoverMenuTitle selectedMenuTitle'
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>All surveys</p>
+                    <Link href="/dashboard/overview/surveys">
+                      <p>All surveys</p>
+                    </Link>
                   </Menu.Item>
 
                   <Menu.Item
                     name="blocks"
                     active={tab === 'blocks'}
-                    onClick={this.handleItemClick}
                     className={
                       tab === 'blocks'
                         ? 'discoverMenuTitle selectedMenuTitle'
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>All blocks</p>
+                    <Link href="/dashboard/overview/blocks">
+                      <p>All blocks</p>
+                    </Link>
                   </Menu.Item>
 
                   <Menu.Item
                     name="users"
                     active={tab === 'users'}
-                    onClick={this.handleItemClick}
                     className={
                       tab === 'users'
                         ? 'discoverMenuTitle selectedMenuTitle'
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>All users</p>
+                    <Link href="/dashboard/overview/users">
+                      <p>All users</p>
+                    </Link>
                   </Menu.Item>
 
                   <Menu.Item
                     name="classes"
                     active={tab === 'classes'}
-                    onClick={this.handleItemClick}
                     className={
                       tab === 'classes'
                         ? 'discoverMenuTitle selectedMenuTitle'
                         : 'discoverMenuTitle'
                     }
                   >
-                    <p>All classes</p>
+                    <Link href="/dashboard/overview/classes">
+                      <p>All classes</p>
+                    </Link>
                   </Menu.Item>
                 </Menu>
               </div>
 
-              {this.state.tab === 'studies' && (
+              {tab === 'studies' && (
                 <OverviewStudiesBank
                   onSelectStudy={this.goToStudy}
                   user={this.props.user}
+                  pagination={this.props.pagination}
+                  tab={this.props.tab}
                 />
               )}
 
-              {this.state.tab === 'users' && <OverviewUsers />}
+              {tab === 'users' && <OverviewUsers />}
 
-              {this.state.tab === 'tasks' && (
+              {tab === 'tasks' && (
                 <OverviewComponentsBank
                   componentType="TASK"
                   onSelectComponent={this.openComponentEditor}
@@ -163,7 +173,7 @@ class DashboardOverview extends Component {
                 />
               )}
 
-              {this.state.tab === 'surveys' && (
+              {tab === 'surveys' && (
                 <OverviewComponentsBank
                   componentType="SURVEY"
                   onSelectComponent={this.openComponentEditor}
@@ -171,7 +181,7 @@ class DashboardOverview extends Component {
                 />
               )}
 
-              {this.state.tab === 'blocks' && (
+              {tab === 'blocks' && (
                 <OverviewComponentsBank
                   componentType="BLOCK"
                   onSelectComponent={this.openComponentEditor}
@@ -179,7 +189,7 @@ class DashboardOverview extends Component {
                 />
               )}
 
-              {this.state.tab === 'classes' && <OverviewClasses />}
+              {tab === 'classes' && <OverviewClasses />}
             </StyledDevelopDasboard>
           </StyledDasboard>
         </AuthorizedPage>

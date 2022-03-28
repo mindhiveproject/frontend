@@ -37,6 +37,28 @@ const ALL_PUBLIC_STUDIES_TO_CLONE_QUERY = gql`
   }
 `;
 
+const MY_AND_PUBLIC_STUDIES_TO_CLONE_QUERY = gql`
+  query MY_AND_PUBLIC_STUDIES_TO_CLONE_QUERY {
+    myAndPublicStudies {
+      id
+      title
+      slug
+      author {
+        id
+      }
+      collaborators {
+        id
+      }
+      public
+      image
+      shortDescription
+      tasks {
+        id
+      }
+    }
+  }
+`;
+
 class ChooseStudyToClone extends Component {
   onSelectStudy = study => {
     this.props.onChoiceToClone(study);
@@ -62,11 +84,11 @@ class ChooseStudyToClone extends Component {
             <p>Select which study you would like to clone below.</p>
           </div>
 
-          <Query query={ALL_PUBLIC_STUDIES_TO_CLONE_QUERY}>
+          <Query query={MY_AND_PUBLIC_STUDIES_TO_CLONE_QUERY}>
             {({ data, error, loading }) => {
               if (loading) return <p>Loading ...</p>;
               if (error) return <p>Error: {error.message}</p>;
-              const { studies } = data;
+              const studies = data?.myAndPublicStudies || [];
               return (
                 <StyledBankToClone>
                   {studies.map(study => (

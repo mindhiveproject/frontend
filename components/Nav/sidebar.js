@@ -222,7 +222,7 @@ const SidebarNav = ({ user }) => {
           <>
             <div className="workspaceHeader">ADMIN</div>
 
-            <Link href="/dashboard/overview">
+            <Link href="/dashboard/overview/studies">
               <NavLink selected={router.pathname === '/dashboard/overview'}>
                 <div>
                   <svg
