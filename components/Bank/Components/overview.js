@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
-import Link from 'next/link';
-import styled from 'styled-components';
 import { StyledBank, StyledStudyCard, StyledZeroState } from '../styles';
 import Card from './card';
 
+import PaginationComponents from '../../Pagination/allComponents';
+
 const OVERVIEW_COMPONENTS_QUERY = gql`
-  query OVERVIEW_COMPONENTS_QUERY($taskType: TaskType) {
-    allTasks(where: { taskType: $taskType }) {
+  query OVERVIEW_COMPONENTS_QUERY(
+    $taskType: TaskType
+    $skip: Int
+    $first: Int
+  ) {
+    allTasks(where: { taskType: $taskType }, skip: $skip, first: $first) {
       id
       title
       slug
@@ -28,50 +32,9 @@ const OVERVIEW_COMPONENTS_QUERY = gql`
   }
 `;
 
-// const OVERVIEW_TASKS_QUERY = gql`
-//   query OVERVIEW_TASKS_QUERY {
-//     allTasks(where: { taskType: TASK }) {
-//       id
-//       title
-//       slug
-//       description
-//       author {
-//         id
-//       }
-//       collaborators {
-//         id
-//         username
-//       }
-//       public
-//       taskType
-//       submitForPublishing
-//     }
-//   }
-// `;
-//
-// const OVERVIEW_SURVEYS_QUERY = gql`
-//   query OVERVIEW_SURVEYS_QUERY {
-//     allTasks(where: { taskType: SURVEY }) {
-//       id
-//       title
-//       slug
-//       description
-//       author {
-//         id
-//       }
-//       collaborators {
-//         id
-//         username
-//       }
-//       public
-//       taskType
-//       submitForPublishing
-//     }
-//   }
-// `;
-
 class OverviewComponentsBank extends Component {
   render() {
+    const perPage = 9;
     const { componentType } = this.props;
     const component = componentType.toLowerCase();
 
@@ -81,6 +44,8 @@ class OverviewComponentsBank extends Component {
           query={OVERVIEW_COMPONENTS_QUERY}
           variables={{
             taskType: componentType,
+            skip: this.props.pagination * perPage - perPage,
+            first: perPage,
           }}
         >
           {({ data, error, loading }) => {
@@ -102,6 +67,11 @@ class OverviewComponentsBank extends Component {
             }
             return (
               <StyledBank>
+                <PaginationComponents
+                  componentType={componentType}
+                  pagination={this.props.pagination}
+                  perPage={perPage}
+                />
                 <div className="studies">
                   {tasks.map(component => (
                     <Card

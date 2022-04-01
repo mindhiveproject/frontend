@@ -61,9 +61,7 @@ class DashboardOverview extends Component {
             <StyledDevelopDasboard>
               <h1>Overview</h1>
               <div className="navigationHeader">
-                <div>
-                  <p>Admin overview of the platform MindHive.</p>
-                </div>
+                <p>Admin overview of the platform MindHive.</p>
               </div>
 
               <div>
@@ -77,9 +75,7 @@ class DashboardOverview extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <Link href="/dashboard/overview/studies">
-                      <p>All studies</p>
-                    </Link>
+                    <Link href="/dashboard/overview/studies">Studies</Link>
                   </Menu.Item>
 
                   <Menu.Item
@@ -91,9 +87,7 @@ class DashboardOverview extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <Link href="/dashboard/overview/tasks">
-                      <p>All tasks</p>
-                    </Link>
+                    <Link href="/dashboard/overview/tasks">Tasks</Link>
                   </Menu.Item>
 
                   <Menu.Item
@@ -105,9 +99,7 @@ class DashboardOverview extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <Link href="/dashboard/overview/surveys">
-                      <p>All surveys</p>
-                    </Link>
+                    <Link href="/dashboard/overview/surveys">Surveys</Link>
                   </Menu.Item>
 
                   <Menu.Item
@@ -119,9 +111,7 @@ class DashboardOverview extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <Link href="/dashboard/overview/blocks">
-                      <p>All blocks</p>
-                    </Link>
+                    <Link href="/dashboard/overview/blocks">Blocks</Link>
                   </Menu.Item>
 
                   <Menu.Item
@@ -133,9 +123,7 @@ class DashboardOverview extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <Link href="/dashboard/overview/users">
-                      <p>All users</p>
-                    </Link>
+                    <Link href="/dashboard/overview/users">Users</Link>
                   </Menu.Item>
 
                   <Menu.Item
@@ -147,9 +135,7 @@ class DashboardOverview extends Component {
                         : 'discoverMenuTitle'
                     }
                   >
-                    <Link href="/dashboard/overview/classes">
-                      <p>All classes</p>
-                    </Link>
+                    <Link href="/dashboard/overview/classes">Classes</Link>
                   </Menu.Item>
                 </Menu>
               </div>
@@ -163,13 +149,12 @@ class DashboardOverview extends Component {
                 />
               )}
 
-              {tab === 'users' && <OverviewUsers />}
-
               {tab === 'tasks' && (
                 <OverviewComponentsBank
                   componentType="TASK"
                   onSelectComponent={this.openComponentEditor}
                   user={this.props.user}
+                  pagination={this.props.pagination}
                 />
               )}
 
@@ -178,6 +163,7 @@ class DashboardOverview extends Component {
                   componentType="SURVEY"
                   onSelectComponent={this.openComponentEditor}
                   user={this.props.user}
+                  pagination={this.props.pagination}
                 />
               )}
 
@@ -186,10 +172,17 @@ class DashboardOverview extends Component {
                   componentType="BLOCK"
                   onSelectComponent={this.openComponentEditor}
                   user={this.props.user}
+                  pagination={this.props.pagination}
                 />
               )}
 
-              {tab === 'classes' && <OverviewClasses />}
+              {tab === 'users' && (
+                <OverviewUsers pagination={this.props.pagination} />
+              )}
+
+              {tab === 'classes' && (
+                <OverviewClasses pagination={this.props.pagination} />
+              )}
             </StyledDevelopDasboard>
           </StyledDasboard>
         </AuthorizedPage>

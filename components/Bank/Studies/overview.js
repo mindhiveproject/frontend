@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { StyledBank, StyledZeroState } from '../styles';
 import StudyCard from './studycard';
 
-import PaginationStudies from './studyPagination';
+import PaginationStudies from '../../Pagination/allStudies';
 
 const OVERVIEW_STUDIES_QUERY = gql`
   query OVERVIEW_STUDIES_QUERY($skip: Int, $first: Int) {

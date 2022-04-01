@@ -5,10 +5,12 @@ import gql from 'graphql-tag';
 import moment from 'moment';
 import ClassPage from '../../Classes/classpage';
 
-// query to get all users
+import PaginationClasses from '../../../Pagination/allClasses';
+
+// query to get all classes
 const ALL_CLASSES_QUERY = gql`
-  query ALL_CLASSES_QUERY {
-    classes {
+  query ALL_CLASSES_QUERY($skip: Int, $first: Int) {
+    classes(skip: $skip, first: $first) {
       id
       title
       creator {
@@ -71,6 +73,7 @@ class OverviewClasses extends Component {
   };
 
   render() {
+    const perPage = 10;
     const { page } = this.state;
     if (page === 'classpage') {
       return (
@@ -83,7 +86,13 @@ class OverviewClasses extends Component {
     }
 
     return (
-      <Query query={ALL_CLASSES_QUERY} variables={{ role: 'TEACHER' }}>
+      <Query
+        query={ALL_CLASSES_QUERY}
+        variables={{
+          skip: this.props.pagination * perPage - perPage,
+          first: perPage,
+        }}
+      >
         {({ data, error, loading }) => {
           if (loading) return <p>Loading ...</p>;
           if (error) return <p>Error: {error.message}</p>;
@@ -93,6 +102,10 @@ class OverviewClasses extends Component {
           }
           return (
             <div>
+              <PaginationClasses
+                pagination={this.props.pagination}
+                perPage={perPage}
+              />
               <StyledHeader>
                 <div>Class name</div>
                 <div>Number of students</div>

@@ -4,10 +4,12 @@ import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import FetchStudentPage from '../../Classes/ClassPage/StudentPage/index';
 
+import PaginationUsers from '../../../Pagination/allUsers';
+
 // query to get all users
 const ALL_USERS_QUERY = gql`
-  query ALL_USERS_QUERY {
-    users {
+  query ALL_USERS_QUERY($skip: Int, $first: Int) {
+    users(skip: $skip, first: $first) {
       id
       publicReadableId
       publicId
@@ -55,6 +57,7 @@ class OverviewUsers extends Component {
   };
 
   render() {
+    const perPage = 30;
     const { page } = this.state;
     if (page === 'person') {
       return (
@@ -67,7 +70,13 @@ class OverviewUsers extends Component {
     }
 
     return (
-      <Query query={ALL_USERS_QUERY} variables={{ role: 'TEACHER' }}>
+      <Query
+        query={ALL_USERS_QUERY}
+        variables={{
+          skip: this.props.pagination * perPage - perPage,
+          first: perPage,
+        }}
+      >
         {({ data, error, loading }) => {
           if (loading) return <p>Loading ...</p>;
           if (error) return <p>Error: {error.message}</p>;
@@ -77,6 +86,10 @@ class OverviewUsers extends Component {
           }
           return (
             <div>
+              <PaginationUsers
+                pagination={this.props.pagination}
+                perPage={perPage}
+              />
               <StyledHeader>
                 <div>Readable ID</div>
                 <div>Username</div>
