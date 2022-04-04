@@ -55,3 +55,9 @@
   to = "/dashboard/myclasses/assignments/[id].html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/do/task"
+  to = "/do/task.html"
+  status = 200
+  force = true

@@ -135,21 +135,24 @@ class PostPrompt extends Component {
     e.preventDefault();
     // return back to the study page or continue to the next task
     if (redirect === 'nextTask' && this.state.nextTaskId) {
-      Router.push({
-        pathname: `/do/task`,
-        query: {
-          s: this.props.study.id,
-          v: this.state.nextTaskId,
-          code: this.props.guest?.publicId,
-        },
-      });
+      window.location = `/do/task?s=${this.props.study.id}&v=${this.state.nextTaskId}&code=${this.props.guest?.publicId}`;
+      // Router.push({
+      //   pathname: `/do/task`,
+      //   query: {
+      //     s: this.props.study.id,
+      //     v: this.state.nextTaskId,
+      //     code: this.props.guest?.publicId,
+      //   },
+      // });
+      // http://localhost:7777/do/task?s=cl14xwcf7glc20914juj7orlt&v=l14xwvbk&code=sktwilj5l1l5e7wr
     } else {
-      Router.push({
-        pathname: `/studies/${this.props.study.slug}`,
-        query: {
-          code: this.props.guest?.publicId,
-        },
-      });
+      window.location = `/studies/${this.props.study.slug}?code=${this.props.guest?.publicId}`;
+      // Router.push({
+      //   pathname: `/studies/${this.props.study.slug}`,
+      //   query: {
+      //     code: this.props.guest?.publicId,
+      //   },
+      // });
     }
   };
 
