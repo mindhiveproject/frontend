@@ -140,11 +140,15 @@ class PostPrompt extends Component {
         query: {
           s: this.props.study.id,
           v: this.state.nextTaskId,
+          code: this.props.guest?.publicId,
         },
       });
     } else {
       Router.push({
         pathname: `/studies/${this.props.study.slug}`,
+        query: {
+          code: this.props.guest?.publicId,
+        },
       });
     }
   };
@@ -175,22 +179,6 @@ class PostPrompt extends Component {
     });
 
     // return back to the study page or continue to the next task
-    // if (redirect === 'studyPage') {
-    //   Router.replace({
-    //     pathname: `/studies/${this.props.study.slug}`,
-    //   });
-    // } else if (redirect === 'nextTask' && this.state.nextTaskId) {
-    //   await Router.replace({
-    //     pathname: `/do/task`,
-    //     query: {
-    //       s: this.props.study.id,
-    //       v: this.state.nextTaskId,
-    //     },
-    //   });
-    //   Router.reload();
-    // }
-
-    // return back to the study page or continue to the next task
     if (redirect === 'nextTask' && this.state.nextTaskId) {
       Router.push({
         pathname: `/do/task`,
@@ -215,7 +203,7 @@ class PostPrompt extends Component {
       >
         {(updateResult, { error }) => {
           const { study, participant, task } = this.props;
-          console.log('participant', participant);
+
           const isStudent = participant?.permissions?.includes('STUDENT');
 
           // always show data usage prompt

@@ -64,7 +64,6 @@ class StudyWrapper extends Component {
           if (studyPayloadError) return <Error error={studyPayloadError} />;
           if (studyPayloadLoading) return <p>Loading</p>;
           let t;
-
           // find task id using the version number
           if (!this.props.t) {
             const participant = this.props.guest || this.props.user;
@@ -79,7 +78,6 @@ class StudyWrapper extends Component {
               .filter(component => component.testId === this.props.v)
               .map(component => component?.id)[0];
           }
-
           return <TestWrapper study={studyPayloadData} t={t} {...this.props} />;
         }}
       </Query>
