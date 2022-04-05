@@ -11,16 +11,24 @@ export const StyledStudyCard = styled.div`
   box-shadow: 0px 2px 4px 0px #00000026;
   transition: box-shadow 300ms ease-out;
 
-  :hover {
-    box-shadow: 0px 2px 24px 0px #0000001a;
-  }
-
   .clickableWrapper {
     cursor: pointer;
   }
 
   .studyImage {
     height: 166px;
+    position: relative;
+    :hover {
+      .archiveButton {
+        display: inline-block;
+      }
+    }
+  }
+  .archiveButton {
+    position:absolute;
+    top: 10%;
+    left: 85%;
+    display: none;
   }
   .noImage {
     background: lightgrey;
