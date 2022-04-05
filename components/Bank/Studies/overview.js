@@ -9,7 +9,7 @@ import StudyCard from './studycard';
 
 import PaginationStudies from '../../Pagination/allStudies';
 
-const StyledOverview = styled.div`
+export const StyledOverview = styled.div`
   display: grid;
   grid-gap: 1rem;
   .searchArea {
@@ -81,7 +81,7 @@ class OverviewStudiesBank extends Component {
   };
 
   render() {
-    const perPage = 9;
+    const perPage = 12;
     return (
       <StyledOverview>
         <div className="searchArea">

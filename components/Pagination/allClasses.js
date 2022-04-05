@@ -7,8 +7,8 @@ import gql from 'graphql-tag';
 import { StyledPagination } from './styles';
 
 const PAGINATION_CLASSES_QUERY = gql`
-  query PAGINATION_CLASSES_QUERY {
-    countClasses {
+  query PAGINATION_CLASSES_QUERY($search: String) {
+    countClasses(where: { title_contains: $search }) {
       aggregate {
         count
       }
@@ -18,9 +18,9 @@ const PAGINATION_CLASSES_QUERY = gql`
 
 class PaginationStudies extends Component {
   render() {
-    const { perPage, pagination } = this.props;
+    const { perPage, pagination, search } = this.props;
     return (
-      <Query query={PAGINATION_CLASSES_QUERY}>
+      <Query query={PAGINATION_CLASSES_QUERY} variables={{ search }}>
         {({ data, error, loading }) => {
           if (loading) return <p>Loading ...</p>;
           if (error) return <p>Error: {error.message}</p>;

@@ -2,14 +2,25 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
+import debounce from 'lodash.debounce';
 import FetchStudentPage from '../../Classes/ClassPage/StudentPage/index';
 
 import PaginationUsers from '../../../Pagination/allUsers';
+import { StyledOverview } from '../../../Bank/Studies/overview';
 
 // query to get all users
 const ALL_USERS_QUERY = gql`
-  query ALL_USERS_QUERY($skip: Int, $first: Int) {
-    users(skip: $skip, first: $first) {
+  query ALL_USERS_QUERY($skip: Int, $first: Int, $search: String) {
+    users(
+      skip: $skip
+      first: $first
+      where: {
+        OR: [
+          { username_contains: $search }
+          { publicReadableId_contains: $search }
+        ]
+      }
+    ) {
       id
       publicReadableId
       publicId
@@ -40,6 +51,8 @@ class OverviewUsers extends Component {
   state = {
     page: this.props.page || 'list',
     id: null,
+    keyword: '',
+    search: '',
   };
 
   openJournal = id => {
@@ -56,6 +69,19 @@ class OverviewUsers extends Component {
     });
   };
 
+  debouncedSearch = debounce(value => {
+    this.setState({
+      search: value,
+    });
+  }, 1000);
+
+  saveToState = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+    this.debouncedSearch(e.target.value);
+  };
+
   render() {
     const perPage = 30;
     const { page } = this.state;
@@ -70,58 +96,73 @@ class OverviewUsers extends Component {
     }
 
     return (
-      <Query
-        query={ALL_USERS_QUERY}
-        variables={{
-          skip: this.props.pagination * perPage - perPage,
-          first: perPage,
-        }}
-      >
-        {({ data, error, loading }) => {
-          if (loading) return <p>Loading ...</p>;
-          if (error) return <p>Error: {error.message}</p>;
-          const { users } = data;
-          if (users.length === 0) {
-            return <h3>There are no users</h3>;
-          }
-          return (
-            <div>
-              <PaginationUsers
-                pagination={this.props.pagination}
-                perPage={perPage}
-              />
-              <StyledHeader>
-                <div>Readable ID</div>
-                <div>Username</div>
-                <div>Email</div>
-              </StyledHeader>
+      <StyledOverview>
+        <div className="searchArea">
+          <span>Search</span>
+          <input
+            type="text"
+            name="keyword"
+            value={this.state.keyword}
+            onChange={this.saveToState}
+          />
+        </div>
+        <Query
+          query={ALL_USERS_QUERY}
+          variables={{
+            skip: this.props.pagination * perPage - perPage,
+            first: perPage,
+            search: this.state.search,
+          }}
+        >
+          {({ data, error, loading }) => {
+            if (loading) return <p>Loading ...</p>;
+            if (error) return <p>Error: {error.message}</p>;
+            const { users } = data;
+            if (users.length === 0) {
+              return <h3>There are no users</h3>;
+            }
+            return (
+              <div>
+                <StyledHeader>
+                  <div>Readable ID</div>
+                  <div>Username</div>
+                  <div>Email</div>
+                </StyledHeader>
 
-              {users.map((person, i) => {
-                const email =
-                  (person?.authEmail?.length && person?.authEmail[0].email) ||
-                  '';
-                return (
-                  <StyledRow key={i}>
-                    <div
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => this.openJournal(person.id)}
-                    >
-                      {person.publicReadableId ||
-                        person.publicId ||
-                        person.id ||
-                        'John Doe'}
-                    </div>
-                    <div>{person?.username}</div>
-                    <div>
-                      {person?.authEmail?.length && person?.authEmail[0]?.email}
-                    </div>
-                  </StyledRow>
-                );
-              })}
-            </div>
-          );
-        }}
-      </Query>
+                {users.map((person, i) => {
+                  const email =
+                    (person?.authEmail?.length && person?.authEmail[0].email) ||
+                    '';
+                  return (
+                    <StyledRow key={i}>
+                      <div
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => this.openJournal(person.id)}
+                      >
+                        {person.publicReadableId ||
+                          person.publicId ||
+                          person.id ||
+                          'John Doe'}
+                      </div>
+                      <div>{person?.username}</div>
+                      <div>
+                        {person?.authEmail?.length &&
+                          person?.authEmail[0]?.email}
+                      </div>
+                    </StyledRow>
+                  );
+                })}
+
+                <PaginationUsers
+                  pagination={this.props.pagination}
+                  perPage={perPage}
+                  search={this.state.search}
+                />
+              </div>
+            );
+          }}
+        </Query>
+      </StyledOverview>
     );
   }
 }

@@ -7,8 +7,10 @@ import gql from 'graphql-tag';
 import { StyledPagination } from './styles';
 
 const PAGINATION_COMPONENTS_QUERY = gql`
-  query PAGINATION_COMPONENTS_QUERY($componentType: TaskType) {
-    countComponents(where: { taskType: $componentType }) {
+  query PAGINATION_COMPONENTS_QUERY($componentType: TaskType, $search: String) {
+    countComponents(
+      where: { taskType: $componentType, title_contains: $search }
+    ) {
       aggregate {
         count
       }
@@ -18,11 +20,14 @@ const PAGINATION_COMPONENTS_QUERY = gql`
 
 class PaginationStudies extends Component {
   render() {
-    const { componentType, perPage, pagination } = this.props;
+    const { componentType, perPage, pagination, search } = this.props;
     const componentName = `${componentType.toLowerCase()}s`;
 
     return (
-      <Query query={PAGINATION_COMPONENTS_QUERY} variables={{ componentType }}>
+      <Query
+        query={PAGINATION_COMPONENTS_QUERY}
+        variables={{ componentType, search }}
+      >
         {({ data, error, loading }) => {
           if (loading) return <p>Loading ...</p>;
           if (error) return <p>Error: {error.message}</p>;

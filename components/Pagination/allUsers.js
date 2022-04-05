@@ -7,8 +7,15 @@ import gql from 'graphql-tag';
 import { StyledPagination } from './styles';
 
 const PAGINATION_USERS_QUERY = gql`
-  query PAGINATION_USERS_QUERY {
-    countUsers {
+  query PAGINATION_USERS_QUERY($search: String) {
+    countUsers(
+      where: {
+        OR: [
+          { username_contains: $search }
+          { publicReadableId_contains: $search }
+        ]
+      }
+    ) {
       aggregate {
         count
       }
@@ -18,9 +25,9 @@ const PAGINATION_USERS_QUERY = gql`
 
 class PaginationStudies extends Component {
   render() {
-    const { perPage, pagination } = this.props;
+    const { perPage, pagination, search } = this.props;
     return (
-      <Query query={PAGINATION_USERS_QUERY}>
+      <Query query={PAGINATION_USERS_QUERY} variables={{ search }}>
         {({ data, error, loading }) => {
           if (loading) return <p>Loading ...</p>;
           if (error) return <p>Error: {error.message}</p>;
