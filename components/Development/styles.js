@@ -474,7 +474,7 @@ export const StudyBuilderNav = styled.div`
   }
   .rightButtons {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto auto;
     grid-gap: 1rem;
     @media only screen and (max-width: 1000px) {
       grid-template-columns: 1fr;
