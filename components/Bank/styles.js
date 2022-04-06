@@ -13,6 +13,9 @@ export const StyledStudyCard = styled.div`
 
   :hover {
     box-shadow: 0px 2px 24px 0px #0000001a;
+    .archiveButton {
+      display: inline-block;
+    }
   }
 
   .clickableWrapper {
@@ -22,14 +25,9 @@ export const StyledStudyCard = styled.div`
   .studyImage {
     height: 166px;
     position: relative;
-    :hover {
-      .archiveButton {
-        display: inline-block;
-      }
-    }
   }
   .archiveButton {
-    position:absolute;
+    position: absolute;
     top: 10%;
     left: 85%;
     display: none;

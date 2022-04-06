@@ -93,7 +93,7 @@ function StudyCard({
           {study.image ? (
             <>
               <img src={study.image} alt={study.title} />
-              <ArchiveDelete className='archiveButton' /> {/*this should only display on Devleop screen */}
+              { developingMode && <ArchiveDelete className='archiveButton' /> }
             </>
           ) : (
             <div className="noImage"></div>
