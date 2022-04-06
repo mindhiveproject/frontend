@@ -13,6 +13,9 @@ export const StyledStudyCard = styled.div`
 
   :hover {
     box-shadow: 0px 2px 24px 0px #0000001a;
+    .archiveButton {
+      display: inline-block;
+    }
   }
 
   .clickableWrapper {
