@@ -7,6 +7,7 @@ import { StudyBuilderNav } from '../styles';
 
 import { TOGGLE_OPENING_MUTATION } from '../../Opening/index';
 
+import ArchiveDelete from './archiveDelete'
 import SaveStudy from './saveStudy';
 
 class Navigation extends Component {
@@ -125,6 +126,8 @@ class Navigation extends Component {
               </button>
             </div>
           )}
+
+          <ArchiveDelete />
 
           <SaveStudy
             study={this.props.study}

@@ -175,6 +175,14 @@ export const StyledDevelopDasboard = styled.div`
     }
   }
 
+  .menuBar {
+    display: grid;
+    grid-template-columns: auto 220px;
+    .dropdown {
+      height: 50%;
+    }
+  }
+
   .studies {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

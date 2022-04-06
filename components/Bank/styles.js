@@ -21,6 +21,18 @@ export const StyledStudyCard = styled.div`
 
   .studyImage {
     height: 166px;
+    position: relative;
+    :hover {
+      .archiveButton {
+        display: inline-block;
+      }
+    }
+  }
+  .archiveButton {
+    position:absolute;
+    top: 10%;
+    left: 85%;
+    display: none;
   }
   .noImage {
     background: lightgrey;

@@ -70,6 +70,18 @@ class DevelopedStudiesBank extends Component {
               }
             }
 
+            // switch (studiesFilter) {
+            //   case 'All':
+            //     //remove filter
+            //   break;
+            //   case 'Active':
+            //     //update filter to only include active studies
+            //   break;
+            //   case 'Archived':
+            //     //update filter to only inlcude archived studies
+            //   break;
+            // }
+
             return (
               <StyledBank>
                 <div className="studies">

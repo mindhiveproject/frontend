@@ -3,6 +3,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import { StyledStudyCard } from '../styles';
 
+import ArchiveDelete from '../../Development/Study/archiveDelete';
 import ManageStudy from './manage';
 import ToggleUserStudyHide from './toggleUserStudyHide';
 
@@ -90,7 +91,10 @@ function StudyCard({
       >
         <div className="studyImage">
           {study.image ? (
-            <img src={study.image} alt={study.title} />
+            <>
+              <img src={study.image} alt={study.title} />
+              <ArchiveDelete className='archiveButton' /> {/*this should only display on Devleop screen */}
+            </>
           ) : (
             <div className="noImage"></div>
           )}

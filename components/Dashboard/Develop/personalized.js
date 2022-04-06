@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Menu, Radio } from 'semantic-ui-react';
+import { Menu, Radio, Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
 import DevelopedStudiesBank from '../../Bank/Studies/developed';
 import DevelopedComponentsBank from '../../Bank/Components/developed';
@@ -28,6 +28,27 @@ const StyledPreviewToggle = styled.div`
     letter-spacing: 0.05em;
   }
 `;
+
+const filterOptions=[
+  {
+    key: 'All',
+    text: 'All studies',
+    value: 'All',
+    content: 'All'
+  },
+  {
+    key: 'Active',
+    text: 'Active studies',
+    value: 'Active',
+    content: 'Active'
+  },
+  {
+    key: 'Archived',
+    text: 'Archived studies',
+    value: 'Archived',
+    content: 'Archived'
+  }
+];
 
 class DashboardDevelop extends Component {
   state = {
@@ -75,6 +96,10 @@ class DashboardDevelop extends Component {
     });
   };
 
+  // filterStudies = (event, data) => {
+  //   let studiesFilter = data.value;
+  // }
+
   render() {
     const { page, tab } = this.state;
     const { user } = this.props;
@@ -109,7 +134,7 @@ class DashboardDevelop extends Component {
                 </div>
               </div>
 
-              <div>
+              <div className='menuBar'>
                 <Menu text stackable className="discoverMenu">
                   <Menu.Item
                     name="studies"
@@ -150,6 +175,15 @@ class DashboardDevelop extends Component {
                     <p>My surveys ({numberOfSurveys || 0})</p>
                   </Menu.Item>
                 </Menu>
+
+                <Dropdown 
+                  selection
+                  fluid
+                  defaultValue={filterOptions[0].value}
+                  options={filterOptions}
+                  onChange={this.filterStudies}
+                />
+
               </div>
 
               {this.state.tab === 'studies' && (
@@ -174,6 +208,7 @@ class DashboardDevelop extends Component {
                     onSelectStudy={this.goToStudy}
                     user={this.props.user}
                     showAllStudies={this.state.showAllStudies}
+                    // studiesFilter={studiesFilter}
                   />
                 </div>
               )}
