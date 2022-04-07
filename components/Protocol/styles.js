@@ -38,3 +38,8 @@ export const StyledNavigation = styled.div`
     }
   }
 `;
+
+export const StyledViewProtocolPage = styled.div`
+  display: grid;
+  grid-gap: 2rem;
+`;

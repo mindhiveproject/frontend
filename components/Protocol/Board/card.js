@@ -15,6 +15,19 @@ class ProtocolCard extends Component {
       <StyledCard>
         <h2>{protocol.title}</h2>
 
+        <Link
+          href={{
+            pathname: '/dashboard/irb/view',
+            query: { id: protocol.id },
+          }}
+        >
+          <a>
+            <h2>
+              <button>View</button>
+            </h2>
+          </a>
+        </Link>
+
         <ContainerOnlyForAuthorizedScientists
           id={protocol.author && protocol.author.id}
         >
