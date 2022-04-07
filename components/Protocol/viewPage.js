@@ -47,7 +47,7 @@ class EditProtocolForm extends Component {
         <div>
           <h3>Consent collaborators</h3>
           {this.state.collaborators.map((name, i) => (
-            <p>{name}</p>
+            <p key={i}>{name}</p>
           ))}
         </div>
 

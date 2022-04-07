@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import { SimpleInformationBlock } from '../Styles/Forms';
 
 class InformationBlock extends Component {
@@ -39,7 +40,7 @@ class InformationBlock extends Component {
           </h3>
         )}
 
-        <div>{text}</div>
+        <div>{ReactHtmlParser(text)}</div>
       </SimpleInformationBlock>
     );
   }
