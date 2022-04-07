@@ -16,23 +16,25 @@ class SignedInSelectWay extends Component {
         </div>
 
         <div className="options">
-          <div className="option">
-            <h2>Guest participant</h2>
-            <p>
-              Proceed directly to the study. Guests cannot save information for
-              the next time.
-            </p>
-            <Link
-              href={{
-                pathname: `/participate/details`,
-                query: { ...this.state, guest: true },
-              }}
-            >
-              <button>Continue as guest</button>
-            </Link>
-          </div>
+          {this.props?.study?.settings?.guestParticipation && (
+            <div className="option borderRight">
+              <h2>Guest participant</h2>
+              <p>
+                Proceed directly to the study. Guests cannot save information
+                for the next time.
+              </p>
+              <Link
+                href={{
+                  pathname: `/participate/details`,
+                  query: { ...this.state, guest: true },
+                }}
+              >
+                <button>Continue as guest</button>
+              </Link>
+            </div>
+          )}
 
-          <div className="option right">
+          <div className="option">
             <h2>MindHive member</h2>
             <p>Continue as a member for a faster study experience.</p>
             <Link

@@ -11,7 +11,7 @@ const loading = keyframes`
 `;
 
 export const SimpleStyledForm = styled.form`
-  width: 100vh;
+  // width: 100vh;
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
   border: 5px solid white;
   border-radius: 10px;

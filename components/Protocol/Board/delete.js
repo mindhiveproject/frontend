@@ -13,17 +13,20 @@ const DELETE_PROTOCOL_MUTATION = gql`
 `;
 
 class DeleteProtocol extends Component {
-  update = (cache, payload) => {
-    // manually update the cache on the client so it matches the server
-    // 1. read the cache
-    const data = cache.readQuery({ query: MY_PROTOCOLS_QUERY });
-    // 2. Filter the deleted items out of the page
-    data.myConsents = data.myConsents.filter(
-      consent => consent.id !== payload.data.deleteConsent.id
-    );
-    // 3. Put the items back
-    cache.writeQuery({ query: MY_PROTOCOLS_QUERY, data });
-  };
+  // update = (cache, payload) => {
+  //   // manually update the cache on the client so it matches the server
+  //   // 1. read the cache
+  //   const data = cache.readQuery({ query: MY_PROTOCOLS_QUERY });
+  //   // 2. Filter the deleted items out of the page
+  //   const myConsents = data.myConsents.filter(
+  //     consent => consent.id !== payload.data.deleteConsent.id
+  //   );
+  //   // 3. Put the items back
+  //   cache.writeQuery({
+  //     query: MY_PROTOCOLS_QUERY,
+  //     data: { ...data, myConsents },
+  //   });
+  // };
 
   render() {
     return (

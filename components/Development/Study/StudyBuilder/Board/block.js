@@ -18,18 +18,33 @@ const StyledBlock = styled.div`
   border: 1px solid #43dacb;
   border-radius: 4px;
   display: grid;
-  grid-template-rows: 50px auto;
+  grid-template-rows: 120px auto;
+
   .column-drag-handle {
     background: #fef3cd;
     display: grid;
-    grid-template-columns: auto 1fr auto auto;
+    grid-template-columns: 1fr;
     align-items: center;
-    grid-gap: 10px;
-    justify-items: end;
+    grid-gap: 0.5rem;
+    justify-items: center;
     padding: 5px;
     border-radius: 4px;
-    height: 50px;
-    .toggleInfo  {
+
+    .header {
+      display: grid;
+      height: 50px;
+      align-content: center;
+      text-align: center;
+    }
+    .buttons {
+      height: 50px;
+      display: grid;
+      grid-gap: 0.5rem;
+      grid-template-columns: auto auto auto;
+      align-items: center;
+      justify-self: center;
+    }
+    .toggleInfo {
       display: grid;
       grid-gap: 0.5rem;
       grid-template-columns: 1fr auto;
@@ -41,7 +56,6 @@ const StyledBlock = styled.div`
     width: 35px;
     height: 35px;
     text-align: center;
-    padding: 15px 10px;
     cursor: pointer;
     border-radius: 20px;
     border: 1px solid #cccccc;
@@ -108,45 +122,47 @@ const Block = ({
   return (
     <StyledBlock>
       <div className="column-drag-handle">
-        <div>
-          <h1>{block.title}</h1>
+        <div className="header">
+          <h3>{block.title}</h3>
         </div>
-        <div className="toggleInfo">
-          <Radio
-            toggle
-            checked={!block?.skip}
-            onChange={() => {
-              updateBlockStatus({ id: block.blockId, skip: !block?.skip });
+        <div className="buttons">
+          <div className="toggleInfo">
+            <Radio
+              toggle
+              checked={!block?.skip}
+              onChange={() => {
+                updateBlockStatus({ id: block.blockId, skip: !block?.skip });
+              }}
+            />
+            <div>{block?.skip ? 'OFF' : 'ON'}</div>
+          </div>
+          <div
+            className="deleteBtn"
+            onClick={() => {
+              const title = prompt('Please enter a new title');
+              if (title != null) {
+                updateBlockTitle({
+                  id: block.blockId,
+                  title,
+                });
+              }
             }}
-          />
-          <div>{block?.skip ? 'OFF' : 'ON'}</div>
-        </div>
-        <div
-          className="deleteBtn"
-          onClick={() => {
-            const title = prompt('Please enter a new title');
-            if (title != null) {
-              updateBlockTitle({
-                id: block.blockId,
-                title,
-              });
-            }
-          }}
-        >
-          ✏️
-        </div>
-        <div
-          className="deleteBtn"
-          onClick={() => {
-            const r = confirm(
-              'Are you sure you want to delete this between-subjects block?'
-            );
-            if (r == true) {
-              deleteBlock(block.blockId);
-            }
-          }}
-        >
-          &times;
+          >
+            ✏️
+          </div>
+          <div
+            className="deleteBtn"
+            onClick={() => {
+              const r = confirm(
+                'Are you sure you want to delete this between-subjects block?'
+              );
+              if (r == true) {
+                deleteBlock(block.blockId);
+              }
+            }}
+          >
+            ❌
+          </div>
         </div>
       </div>
 

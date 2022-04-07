@@ -116,14 +116,6 @@ class Nav extends Component {
                 </NavRightContainer>
               </ContainerOnlyForNoProfile>
 
-              <ContainerOnlyForScientists>
-                <NavRightContainerForAdmin>
-                  <Link href="/irb/my">
-                    <NavButton>IRB protocols</NavButton>
-                  </Link>
-                </NavRightContainerForAdmin>
-              </ContainerOnlyForScientists>
-
               <ContainerOnlyForProfile>
                 <NavRightContainer>
                   {data?.data?.me && (
@@ -142,3 +134,11 @@ class Nav extends Component {
 }
 
 export default Nav;
+
+// <ContainerOnlyForScientists>
+//   <NavRightContainerForAdmin>
+//     <Link href="/irb/my">
+//       <NavButton>IRB protocols</NavButton>
+//     </Link>
+//   </NavRightContainerForAdmin>
+// </ContainerOnlyForScientists>

@@ -7,6 +7,8 @@ import EditProtocolForm from './form';
 import { MY_PROTOCOLS_QUERY } from './Board/my';
 import { ALL_PROTOCOLS_QUERY } from './Board/all';
 
+import Navigation from './navigation';
+
 const SINGLE_PROTOCOL_QUERY = gql`
   query SINGLE_PROTOCOL_QUERY($id: ID!) {
     consent(where: { id: $id }) {
@@ -66,39 +68,42 @@ class UpdateProtocol extends Component {
         ...state,
       },
     });
-    Router.push('/irb/my');
+    Router.push('/dashboard/irb/my');
   };
 
   render() {
     return (
-      <Query query={SINGLE_PROTOCOL_QUERY} variables={{ id: this.props.id }}>
-        {({ data, loading }) => {
-          if (loading) return <p>Loading ... </p>;
-          if (!data || !data.consent)
-            return <p>No IRB protocol found for id {this.props.id}</p>;
-          return (
-            <Mutation
-              mutation={UPDATE_PROTOCOL}
-              variables={this.state}
-              refetchQueries={[
-                { query: MY_PROTOCOLS_QUERY },
-                { query: ALL_PROTOCOLS_QUERY },
-              ]}
-            >
-              {(updateConsent, { loading, error }) => (
-                <EditProtocolForm
-                  title="Edit protocol"
-                  error={error}
-                  loading={loading}
-                  consent={data.consent}
-                  onSubmit={this.update}
-                  callback={updateConsent}
-                />
-              )}
-            </Mutation>
-          );
-        }}
-      </Query>
+      <>
+        <Navigation />
+        <Query query={SINGLE_PROTOCOL_QUERY} variables={{ id: this.props.id }}>
+          {({ data, loading }) => {
+            if (loading) return <p>Loading ... </p>;
+            if (!data || !data.consent)
+              return <p>No IRB protocol found for id {this.props.id}</p>;
+            return (
+              <Mutation
+                mutation={UPDATE_PROTOCOL}
+                variables={this.state}
+                refetchQueries={[
+                  { query: MY_PROTOCOLS_QUERY },
+                  { query: ALL_PROTOCOLS_QUERY },
+                ]}
+              >
+                {(updateConsent, { loading, error }) => (
+                  <EditProtocolForm
+                    title="Edit protocol"
+                    error={error}
+                    loading={loading}
+                    consent={data.consent}
+                    onSubmit={this.update}
+                    callback={updateConsent}
+                  />
+                )}
+              </Mutation>
+            );
+          }}
+        </Query>
+      </>
     );
   }
 }

@@ -114,18 +114,16 @@ class Navigation extends Component {
         </div>
 
         <div className="rightButtons">
-          {true && (
-            <div>
-              <button
-                onClick={() => {
-                  this.props.openSharingModal();
-                }}
-                className="addCollaboratorsButton"
-              >
-                Add collaborators
-              </button>
-            </div>
-          )}
+          <div>
+            <button
+              onClick={() => {
+                this.props.openSharingModal();
+              }}
+              className="addCollaboratorsButton"
+            >
+              Add collaborators
+            </button>
+          </div>
 
           <ArchiveDelete />
 

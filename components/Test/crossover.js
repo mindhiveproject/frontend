@@ -25,6 +25,9 @@ class Crossover extends Component {
     const isNextTask = this.props.nextTaskId;
     const { task } = this.props;
 
+    console.log('this.props', this.props);
+    console.log('data', agreeReceiveUpdates, isEmailAvailable);
+
     return (
       <div>
         <OnboardingForm>
