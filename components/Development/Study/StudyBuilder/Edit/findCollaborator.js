@@ -4,8 +4,8 @@ import gql from 'graphql-tag';
 import { Dropdown } from 'semantic-ui-react';
 
 const ALL_PUBLIC_USERNAMES = gql`
-  query ALL_PUBLIC_USERNAMES {
-    allPublicUsernames {
+  query ALL_PUBLIC_USERNAMES($usernames: [String]) {
+    allPublicUsernames(usernames: $usernames) {
       username
       permissions
     }
@@ -15,8 +15,12 @@ const ALL_PUBLIC_USERNAMES = gql`
 class FindCollaborator extends Component {
   render() {
     const { study } = this.props;
+    const existingCollaborators = study?.collaborators || [];
     return (
-      <Query query={ALL_PUBLIC_USERNAMES}>
+      <Query
+        query={ALL_PUBLIC_USERNAMES}
+        variables={{ usernames: existingCollaborators }}
+      >
         {({ data, loading }) => {
           if (loading) return <p>Loading ... </p>;
           if (!data || !data.allPublicUsernames)
