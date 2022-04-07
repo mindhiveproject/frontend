@@ -3,7 +3,7 @@ import Page from '../../components/Page/index';
 
 const AllProtocolsPage = props => (
   <Page>
-    <AllProtocols />
+    <AllProtocols tab="all" />
   </Page>
 );
 

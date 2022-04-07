@@ -5,7 +5,7 @@ import Page from '../../components/Page/index';
 const MyProtocolsPage = props => (
   <Page>
     <PageOnlyForScientists>
-      <MyProtocols />
+      <MyProtocols tab="my" />
     </PageOnlyForScientists>
   </Page>
 );

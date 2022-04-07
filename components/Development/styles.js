@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const StyledBuilderPage = styled.div`
   display: grid;
   height: 100vh;
-  /* grid-template-rows: minmax(100px, auto) 1fr; */
   grid-template-rows: auto 1fr;
   overflow-y: auto;
   p {
@@ -74,7 +73,6 @@ export const StyledBuilder = styled.div`
   width: 100%;
   grid-template-columns: ${props => (props.isWide ? '1fr 1fr' : '4fr 7fr')};
 
-  /* grid-template-columns: auto auto; */
   grid-gap: 20px;
   .leftCompartment {
     background: #ffffff;
@@ -93,10 +91,12 @@ export const StyledBuilder = styled.div`
     max-height: 90vh;
     padding-bottom: 5rem;
     overflow: auto;
-    mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 15px, black 15px);
+    mask-image: linear-gradient(to top, transparent, black),
+      linear-gradient(to left, transparent 15px, black 15px);
     mask-size: 100% 20000px;
     mask-position: left bottom;
-    -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 15px, black 15px);
+    -webkit-mask-image: linear-gradient(to top, transparent, black),
+      linear-gradient(to left, transparent 15px, black 15px);
     -webkit-mask-size: 100% 20000px;
     -webkit-mask-position: left bottom;
     transition: mask-position 0.3s, -webkit-mask-position 0.3s;

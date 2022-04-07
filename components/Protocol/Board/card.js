@@ -20,7 +20,7 @@ class ProtocolCard extends Component {
         >
           <Link
             href={{
-              pathname: '/irb/edit',
+              pathname: '/dashboard/irb/edit',
               query: { id: protocol.id },
             }}
           >
@@ -38,7 +38,7 @@ class ProtocolCard extends Component {
         >
           <Link
             href={{
-              pathname: '/irb/edit',
+              pathname: '/dashboard/irb/edit',
               query: { id: protocol.id },
             }}
           >
