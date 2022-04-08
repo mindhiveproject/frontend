@@ -7,23 +7,41 @@ import DeleteStudy from '../../Bank/Studies/delete';
 
 const ArchiveDeleteDropdown = styled.div`
   .archiveDropdown {
-      width: 270px;
-      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7);
-      span {
+    width: 270px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7);
+    span {
       font-size: 16px;
       font-weight: bold;
-      }
-      p {
+    }
+    p {
       color: #666666;
       line-height: 150%;
       font-size: 16px;
-      }
-      .heading {
+    }
+    .heading {
       line-height: 200%;
-      }
-      .red {
+    }
+    .red {
       color: #D53533;
-      }
+    }
+  }
+`;
+
+const StyledModal = styled.div`
+  display: grid;
+  margin: 43px 51px;
+  h3 {
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1a1a1a;
+  }
+  .red {
+    color: #D53533;
   }
 `;
 
@@ -52,10 +70,23 @@ function ArchiveModal() {
     >
       <Modal.Content>
         <Modal.Description>
-          <h3>Are you sure you want to <em>archive</em> this study?</h3>
+          <StyledModal>
+            <h3>Are you sure you want to <strong>archive</strong> this study?</h3>
             <p>Archiving a study allows you to focus on active studies. The study will be moved to an "Archived" section within your Develop area. It will not impact how others see the study. You can unarchive a study at any time.</p>
+          </StyledModal>
         </Modal.Description>
       </Modal.Content>
+      <Modal.Actions>
+        <Button
+          content="Cancel"
+          onClick={() => setOpen(false)}
+        />
+        <Button
+          color='green'
+          content="Archive"
+          onClick={() => setOpen(false)}
+        />
+      </Modal.Actions>
     </Modal>
   )
 }
@@ -77,7 +108,7 @@ function DeleteModal() {
                 <Icon name='trash' className='red' />
                 <span className='red'>Delete Study</span>
               </div>
-              <p className='red'>Deleting a study deletes it for all <br/>collaborators on that study.</p> 
+              <p className='red'>Deleting a study deletes it for <em>all <br/>collaborators</em> on that study.</p> 
             </>
           }
         />
@@ -85,10 +116,23 @@ function DeleteModal() {
     >
       <Modal.Content>
         <Modal.Description>
-          <h3>Are you sure you want to delete this study?</h3>
-            <p>Deleting a study will <em>permanently delete the study and all its data</em> for you and all study collaborators. If you would like to keep your data you can archive the study. Archiving will move the study to an "Archived" section within your Develop area and keep the study active for all study collaborators. <em>This action cannot be undone.</em></p>
+          <StyledModal>
+            <h3>Are you sure you want to <strong>delete</strong> this study?</h3>
+            <p>Deleting a study will <strong>permanently delete the study and all its data</strong> for you and all study collaborators. If you would like to keep your data you can archive the study. Archiving will move the study to an "Archived" section within your Develop area and keep the study active for all study collaborators. <span className='red'><strong>This action cannot be undone.</strong></span></p>
+          </StyledModal>
         </Modal.Description>
       </Modal.Content>
+      <Modal.Actions>
+        <Button
+          content="Cancel"
+          onClick={() => setOpen(false)}
+        />
+        <Button
+          color='red'
+          content="Delete"
+          onClick={() => setOpen(false)}
+        />
+      </Modal.Actions>
     </Modal>
     )
 }
