@@ -6,6 +6,8 @@ import gql from 'graphql-tag';
 import { MY_PROTOCOLS_QUERY } from './Board/my';
 import { ALL_PROTOCOLS_QUERY } from './Board/all';
 
+import Navigation from './navigation';
+
 import EditProtocolForm from './form';
 
 const CREATE_NEW_PROTOCOL = gql`
@@ -38,29 +40,32 @@ class AddProtocol extends Component {
         ...state,
       },
     });
-    Router.push(`/irb/my`);
+    Router.push(`/dashboard/irb/my`);
   };
 
   render() {
     return (
-      <Mutation
-        mutation={CREATE_NEW_PROTOCOL}
-        refetchQueries={[
-          { query: MY_PROTOCOLS_QUERY },
-          { query: ALL_PROTOCOLS_QUERY },
-        ]}
-      >
-        {(createConsent, { loading, error }) => (
-          <EditProtocolForm
-            title="Add new protocol"
-            error={error}
-            loading={loading}
-            consent={{}}
-            onSubmit={this.save}
-            callback={createConsent}
-          />
-        )}
-      </Mutation>
+      <>
+        <Navigation tab={this.props.tab} />
+        <Mutation
+          mutation={CREATE_NEW_PROTOCOL}
+          refetchQueries={[
+            { query: MY_PROTOCOLS_QUERY },
+            { query: ALL_PROTOCOLS_QUERY },
+          ]}
+        >
+          {(createConsent, { loading, error }) => (
+            <EditProtocolForm
+              title="Add new protocol"
+              error={error}
+              loading={loading}
+              consent={{}}
+              onSubmit={this.save}
+              callback={createConsent}
+            />
+          )}
+        </Mutation>
+      </>
     );
   }
 }

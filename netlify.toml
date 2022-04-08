@@ -67,3 +67,21 @@
   to = "/dashboard/overview/[item]/[page].html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/dashboard/irb"
+  to = "/dashboard/irb.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/dashboard/irb/view"
+  to = "/dashboard/irb/view.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/dashboard/irb/edit"
+  to = "/dashboard/irb/edit.html"
+  status = 200
+  force = true
