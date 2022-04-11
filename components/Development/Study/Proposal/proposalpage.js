@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 
 import Head from 'next/head';
-import { Radio } from 'semantic-ui-react';
+import { Radio, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import Error from '../../../ErrorMessage/index';
 
@@ -36,6 +36,17 @@ const StyledPreviewToggle = styled.div`
   }
   .goBackButton {
     cursor: pointer;
+  }
+  .alert {
+    background: #FFF9E6;
+    padding: 5px 10px 5px 10px;
+    border-radius: 4px;
+    margin-left: 20px;
+    span, .icon {
+      font-weight: 400;
+      font-size: 14px;
+      color: #666666;
+    }
   }
 `;
 
@@ -124,7 +135,16 @@ class ProposalPage extends Component {
                             });
                           }}
                         />
-                        <span>{this.state.isPDF ? 'Preview' : 'Edit'}</span>
+                        <span>{this.state.isPDF ? 
+                          <div>
+                            Preview
+                            <span className="alert">
+                              <Icon name='info circle'/>
+                              <span>Content from cards marked as "complete" in edit mode will appear here, in preview mode, displaying what your reviewers will see.</span>
+                            </span>
+                          </div>
+                          : 'Edit'}
+                        </span>
                       </>
                     )}
                   </StyledPreviewToggle>
