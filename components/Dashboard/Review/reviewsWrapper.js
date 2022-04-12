@@ -82,7 +82,11 @@ class ReviewsWrapper extends Component {
           )}
 
           {classes.map(c => c.id).includes(tab) && (
-            <ClassProposals classId={tab} />
+            <ClassProposals
+              classId={tab}
+              openReview={this.props.openReview}
+              openSynthesize={this.props.openSynthesize}
+            />
           )}
         </StyledReviewDasboard>
       </StyledDasboard>
