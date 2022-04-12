@@ -17,7 +17,10 @@ const OVERVIEW_COMPONENTS_QUERY = gql`
     $search: String
   ) {
     allTasks(
-      where: { taskType: $taskType, title_contains: $search }
+      where: {
+        taskType: $taskType
+        OR: [{ title_contains: $search }, { slug_contains: $search }]
+      }
       skip: $skip
       first: $first
     ) {

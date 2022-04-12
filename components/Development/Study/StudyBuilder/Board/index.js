@@ -78,22 +78,20 @@ const Board = ({ blocks, openTaskEditor, viewing, updateComponents }) => {
   };
 
   return (
-    <div>
-      <Inner
-        blocks={blocks}
-        onSetBlocks={updateComponentsWithBlocks}
-        onCreateBlock={createBlock}
-        onUpdateBlock={updateBlock}
-        onDeleteBlock={deleteBlock}
-        onCreateTest={createTest}
-        onUpdateTest={updateTest}
-        onDeleteTest={deleteTest}
-        openTaskEditor={openTaskEditor}
-        viewing={viewing}
-        updateBlockTitle={updateBlockTitle}
-        updateBlockStatus={updateBlockStatus}
-      />
-    </div>
+    <Inner
+      blocks={blocks}
+      onSetBlocks={updateComponentsWithBlocks}
+      onCreateBlock={createBlock}
+      onUpdateBlock={updateBlock}
+      onDeleteBlock={deleteBlock}
+      onCreateTest={createTest}
+      onUpdateTest={updateTest}
+      onDeleteTest={deleteTest}
+      openTaskEditor={openTaskEditor}
+      viewing={viewing}
+      updateBlockTitle={updateBlockTitle}
+      updateBlockStatus={updateBlockStatus}
+    />
   );
 };
 

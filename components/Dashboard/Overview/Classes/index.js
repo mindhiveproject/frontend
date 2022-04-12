@@ -12,7 +12,11 @@ import { StyledOverview } from '../../../Bank/Studies/overview';
 // query to get all classes
 const ALL_CLASSES_QUERY = gql`
   query ALL_CLASSES_QUERY($skip: Int, $first: Int, $search: String) {
-    classes(skip: $skip, first: $first, where: { title_contains: $search }) {
+    classes(
+      skip: $skip
+      first: $first
+      where: { OR: [{ title_contains: $search }, { code_contains: $search }] }
+    ) {
       id
       title
       creator {

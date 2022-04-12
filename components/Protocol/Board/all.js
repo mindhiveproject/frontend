@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import Link from 'next/link';
 
 import { StyledBoard, List, NavigationButtons } from '../../Styles/Boards';
 import ProtocolCard from './card';
+
+import Navigation from '../navigation';
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const ALL_PROTOCOLS_QUERY = gql`
@@ -30,42 +31,7 @@ class AllStudies extends Component {
   render() {
     return (
       <StyledBoard>
-        <h1>All protocols</h1>
-        <NavigationButtons>
-          <Link
-            href={{
-              pathname: '/irb/add',
-            }}
-          >
-            <a>
-              <button>
-                <h2>Add new protocol</h2>
-              </button>
-            </a>
-          </Link>
-          <Link
-            href={{
-              pathname: '/irb/my',
-            }}
-          >
-            <a>
-              <button>
-                <h2>My IRB protocols</h2>
-              </button>
-            </a>
-          </Link>
-          <Link
-            href={{
-              pathname: '/irb/all',
-            }}
-          >
-            <a>
-              <button>
-                <h2>All IRB protocols</h2>
-              </button>
-            </a>
-          </Link>
-        </NavigationButtons>
+        <Navigation tab={this.props.tab} />
         <Query query={ALL_PROTOCOLS_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;

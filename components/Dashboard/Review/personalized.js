@@ -6,12 +6,13 @@ import Review from './ReviewBoard/review';
 import AuthorizedPage from '../../Page/userpage';
 import EmptyPage from '../../Page/empty';
 import Error from '../../ErrorMessage/index';
+import ReviewsWrapper from './reviewsWrapper';
 
 import { USER_CLASSES_QUERY } from '../../User/index';
 
 class DashboardReview extends Component {
   state = {
-    page: this.props.page || 'proposalsPage',
+    page: this.props.page || 'reviewsWrapper',
     proposalId: null,
   };
 
@@ -31,7 +32,7 @@ class DashboardReview extends Component {
 
   goBack = () => {
     this.setState({
-      page: 'proposalsPage',
+      page: 'reviewsWrapper',
       proposalId: null,
     });
   };
@@ -53,29 +54,37 @@ class DashboardReview extends Component {
               ...userPayloadData?.teacherIn,
               ...userPayloadData?.mentorIn,
             ] || [];
-
-          const networkClassIds =
+          const networkClasses =
             myClasses
               .map(myClass => {
                 if (myClass?.network) {
-                  return myClass?.network?.classes.map(
-                    theClass => theClass?.id
-                  );
+                  console.log('myClass.network', myClass.network);
+                  return myClass?.network?.map(net => net.classes).flat();
                 }
                 return [];
               })
               .flat() || [];
-
-          // merge together my classes and classes in the networks
-          const allClassIds = [
-            ...new Set([
-              ...myClasses.map(myClass => myClass.id),
-              ...networkClassIds,
-            ]),
-          ];
+          const allClasses = [...myClasses, ...networkClasses];
+          const allClassIds = allClasses.map(theclass => theclass.id);
+          const allUniqueClassIds = [...new Set([...allClassIds])];
+          const allUniqueClasses = allUniqueClassIds.map(id => ({
+            id,
+            title: allClasses.filter(c => c.id === id).map(c => c.title)[0],
+          }));
 
           return (
             <>
+              {page === 'reviewsWrapper' && (
+                <AuthorizedPage>
+                  <ReviewsWrapper
+                    openReview={this.openReview}
+                    openSynthesize={this.openSynthesize}
+                    goBack={this.goBack}
+                    classes={allUniqueClasses}
+                  />
+                </AuthorizedPage>
+              )}
+
               {page === 'proposalsPage' && (
                 <AuthorizedPage>
                   <Reviews

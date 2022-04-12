@@ -159,12 +159,11 @@ export const StyledWaySelector = styled.div`
       justify-items: center;
       padding: 1rem 3rem;
     }
-    .middle {
+    .borderLeft {
       border-left: 2px solid #f2f2f2;
-      border-right: 2px solid #f2f2f2;
     }
-    .right {
-      border-left: 2px solid #f2f2f2;
+    .borderRight {
+      border-right: 2px solid #f2f2f2;
     }
     button {
       width: 211px;

@@ -20,6 +20,16 @@ const StyledModal = styled.div`
     text-align: left;
     color: #1a1a1a;
   }
+  .collaboratorUsernamesForAdmin {
+    display: grid;
+    margin: 1rem 0rem 0rem 0rem;
+    padding: 1rem;
+    border: 1px solid pink;
+    border-radius: 1rem;
+    .collaboratorUsername {
+      padding: 0.5rem 0rem;
+    }
+  }
 `;
 
 const StyledButtons = styled.div`
@@ -73,6 +83,22 @@ class CollaboratorsModal extends Component {
                 handleSetState={this.props.handleSetState}
                 user={user}
               />
+
+              {user?.permissions.includes('ADMIN') &&
+                study.collaborators.length > 0 && (
+                  <div className="collaboratorUsernamesForAdmin">
+                    <span>
+                      <em>This information is visible only for ADMIN</em>
+                    </span>
+                    <h2>Collaborators</h2>
+                    {study.collaborators.map((collaborator, num) => (
+                      <span key={num} className="collaboratorUsername">
+                        {collaborator}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
               <h2>Add collaborators</h2>
               <FindCollaborator
                 study={study}
