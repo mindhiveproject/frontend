@@ -24,28 +24,42 @@ const StyledClassRow = styled.div`
 
 class ReviewRow extends Component {
   render() {
-    const { proposal } = this.props;
+    const { proposal, showProposalTitle, showClass, showStatus } = this.props;
+
     let theClass;
-    if (
-      proposal?.author?.teacherIn &&
-      proposal?.author?.teacherIn.length &&
-      proposal?.author?.teacherIn[0].title
-    ) {
-      theClass = proposal?.author?.teacherIn[0].title;
+    if (proposal?.study?.classes?.length) {
+      theClass = proposal?.study?.classes[0].title;
     }
-    if (
-      proposal?.author?.studentIn &&
-      proposal?.author?.studentIn.length &&
-      proposal?.author?.studentIn[0].title
-    ) {
-      theClass = proposal?.author?.studentIn[0].title;
-    }
+    // if (
+    //   proposal?.author?.teacherIn &&
+    //   proposal?.author?.teacherIn.length &&
+    //   proposal?.author?.teacherIn[0].title
+    // ) {
+    //   theClass = proposal?.author?.teacherIn[0].title;
+    // }
+    // if (
+    //   proposal?.author?.studentIn &&
+    //   proposal?.author?.studentIn.length &&
+    //   proposal?.author?.studentIn[0].title
+    // ) {
+    //   theClass = proposal?.author?.studentIn[0].title;
+    // }
 
     return (
       <StyledClassRow>
-        <div>{proposal?.study?.title}</div>
-        <div>{theClass}</div>
-        <div className="centered">{proposal?.isSubmitted ? '✔︎' : '𐄂'}</div>
+        {showProposalTitle ? (
+          <div>
+            {proposal?.study?.title} ({proposal?.title})
+          </div>
+        ) : (
+          <div>{proposal?.study?.title}</div>
+        )}
+
+        {showClass && <div>{theClass}</div>}
+        {showStatus && (
+          <div className="centered">{proposal?.isSubmitted ? 'Yes' : 'No'}</div>
+        )}
+
         <div className="centered">
           {
             proposal?.reviews?.filter(review => review.stage === 'INDIVIDUAL')

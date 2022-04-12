@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-
 import styled from 'styled-components';
-import ReviewLine from './ReviewBoard/line';
-import { StyledDasboard, StyledClassesDasboard } from '../styles';
+
+import ReviewLine from '../ReviewBoard/line';
 
 const StyledReviewHeader = styled.div`
   display: grid;
@@ -19,9 +18,9 @@ const StyledReviewHeader = styled.div`
 `;
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
-const PROPOSALS_FOR_REVIEW_QUERY = gql`
-  query PROPOSALS_FOR_REVIEW_QUERY($classes: [ID!]) {
-    proposalsForReview(where: { id_in: $classes }) {
+const FEATURED_PROPOSALS_FOR_REVIEW_QUERY = gql`
+  query FEATURED_PROPOSALS_FOR_REVIEW_QUERY {
+    proposalsFeaturedStudies {
       id
       slug
       title
@@ -50,19 +49,19 @@ const PROPOSALS_FOR_REVIEW_QUERY = gql`
   }
 `;
 
-class Reviews extends Component {
+class FeaturedProposals extends Component {
   render() {
     return (
       <Query
-        query={PROPOSALS_FOR_REVIEW_QUERY}
+        query={FEATURED_PROPOSALS_FOR_REVIEW_QUERY}
         variables={{ classes: this.props.networkClassIds }}
       >
         {({ data, error, loading }) => {
           if (loading) return <p>Loading ...</p>;
           if (error) return <p>Error: {error.message}</p>;
-          const { proposalsForReview } = data;
+          const { proposalsFeaturedStudies } = data;
 
-          if (proposalsForReview.length === 0) {
+          if (proposalsFeaturedStudies.length === 0) {
             return (
               <>
                 <h3>There are no studies to review yet.</h3>
@@ -79,13 +78,11 @@ class Reviews extends Component {
 
               <StyledReviewHeader>
                 <div>Study title</div>
-                <div>Class</div>
-                <div className="centered">Submitted</div>
                 <div className="centered">Reviews</div>
                 <div>Actions</div>
               </StyledReviewHeader>
 
-              {proposalsForReview.map(proposal => (
+              {proposalsFeaturedStudies.map(proposal => (
                 <ReviewLine
                   proposal={proposal}
                   key={proposal.id}
@@ -101,5 +98,4 @@ class Reviews extends Component {
   }
 }
 
-export default Reviews;
-export { PROPOSALS_FOR_REVIEW_QUERY };
+export default FeaturedProposals;
