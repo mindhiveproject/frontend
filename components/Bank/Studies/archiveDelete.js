@@ -82,8 +82,8 @@ function ArchiveModal() {
           onClick={() => setOpen(false)}
         />
         <Button
-          color='green'
-          content="Archive"
+          style={{background: '#007C70', color: '#FFFFFF'}}
+          content="Active"
           onClick={() => setOpen(false)}
         />
       </Modal.Actions>
@@ -119,6 +119,8 @@ function DeleteModal() {
           <StyledModal>
             <h3>Are you sure you want to <strong>delete</strong> this study?</h3>
             <p>Deleting a study will <strong>permanently delete the study and all its data</strong> for you and all study collaborators. If you would like to keep your data you can archive the study. Archiving will move the study to an "Archived" section within your Develop area and keep the study active for all study collaborators. <span className='red'><strong>This action cannot be undone.</strong></span></p>
+            <p><strong>Type "DELETE" to confirm</strong></p>
+            <input></input>
           </StyledModal>
         </Modal.Description>
       </Modal.Content>
@@ -127,8 +129,8 @@ function DeleteModal() {
           content="Cancel"
           onClick={() => setOpen(false)}
         />
-        <Button
-          color='red'
+        <Button 
+          style={{background:"#D53533", color:"#FFFFFF"}}
           content="Delete"
           onClick={() => setOpen(false)}
         />
