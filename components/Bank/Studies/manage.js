@@ -36,20 +36,28 @@ class PublishStudy extends Component {
           <StyledToggle>
             <Radio
               toggle
-              onClick={() =>
-                toggleStudySetting({ variables: { public: !isPublic } })
-              }
+              onClick={() => {
+                if (isPublic) {
+                  toggleStudySetting({
+                    variables: { public: !isPublic, featured: false },
+                  });
+                } else {
+                  toggleStudySetting({ variables: { public: !isPublic } });
+                }
+              }}
               label="Public"
               checked={isPublic}
             />
-            <Radio
-              toggle
-              onClick={() =>
-                toggleStudySetting({ variables: { featured: !isFeatured } })
-              }
-              label="Featured"
-              checked={isFeatured}
-            />
+            {isPublic && (
+              <Radio
+                toggle
+                onClick={() =>
+                  toggleStudySetting({ variables: { featured: !isFeatured } })
+                }
+                label="Featured"
+                checked={isFeatured}
+              />
+            )}
           </StyledToggle>
         )}
       </Mutation>

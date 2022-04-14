@@ -11,6 +11,7 @@ class Demographics extends Component {
     share: 'true', // default of the page
     ...this.props.query, // put everything coming from query
     ...this.props.user?.generalInfo, // populate with user information
+    guest: this.props.query.guest,
   };
 
   updateState = e => {
@@ -34,6 +35,9 @@ class Demographics extends Component {
   render() {
     const { user, study, query } = this.props;
     const { step, guest } = query;
+
+    console.log('user', user);
+    console.log('this.state', this.state);
 
     const hasConsent =
       study?.consent.length && study?.settings?.consentObtained;

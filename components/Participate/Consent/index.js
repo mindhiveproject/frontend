@@ -96,6 +96,8 @@ class Consent extends Component {
         activeConsent: this.state.activeConsent + 1,
       });
     } else if (this.props.user) {
+      console.log('this.props', this.props);
+
       if (this.props.query.guest === 'true') {
         const res = await joinAsGuest({
           variables: {
