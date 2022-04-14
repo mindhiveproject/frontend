@@ -4,7 +4,7 @@ import { Query } from '@apollo/client/react/components';
 
 import Head from 'next/head';
 import moment from 'moment';
-import { Menu, Icon, Dropdown } from 'semantic-ui-react';
+import { Menu, Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
 import Error from '../../../ErrorMessage/index';
 
@@ -13,7 +13,6 @@ import ReviewQuestions from './questions';
 import { CURRENT_USER_ID_QUERY } from '../../../User/index';
 
 import StudyPage from '../../../StudyPage/index';
-import TaskPage from '../../../Task/Run/index';
 
 import IndividualReviews from './individual/wrapper';
 
@@ -109,8 +108,11 @@ const FULL_PROPOSAL_QUERY = gql`
         stage
         author {
           id
+          username
         }
         content
+        createdAt
+        updatedAt
       }
       study {
         id
@@ -337,6 +339,7 @@ class ReviewPage extends Component {
                               review => review.stage === 'INDIVIDUAL'
                             )}
                             view={this.state.view}
+                            user={this.props.user}
                           />
                         )}
                     </div>

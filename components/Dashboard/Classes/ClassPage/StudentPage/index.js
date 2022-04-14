@@ -39,6 +39,8 @@ const STUDENT_QUERY = gql`
           slug
           title
         }
+        content
+        stage
       }
       authorOfHomework {
         id

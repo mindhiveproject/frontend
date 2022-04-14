@@ -54,11 +54,11 @@ class DashboardReview extends Component {
               ...userPayloadData?.teacherIn,
               ...userPayloadData?.mentorIn,
             ] || [];
+
           const networkClasses =
             myClasses
               .map(myClass => {
                 if (myClass?.network) {
-                  console.log('myClass.network', myClass.network);
                   return myClass?.network?.map(net => net.classes).flat();
                 }
                 return [];
@@ -114,6 +114,7 @@ class DashboardReview extends Component {
                     networkClassIds={allClassIds}
                     stage="SYNTHESIS"
                     tab="reviews"
+                    user={this.props.user}
                   />
                 </EmptyPage>
               )}
