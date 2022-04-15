@@ -31,7 +31,7 @@ class ToggleUserStudyHide extends Component {
           return (
             <Button
               style={{background: '#007C70', color: '#FFFFFF'}}
-              content="Archive"
+              content={this.props.isHidden ? 'Unarchive' : 'Archive'}
               onClick={() => {
                 updateHiddenStatusStudy().catch(err => {
                   alert(err.message);

@@ -13,6 +13,7 @@ import ArchiveDelete from './archiveDelete'
 class Navigation extends Component {
   render() {
     const { section, adminMode } = this.props;
+    // need to provide isHidden as a prop
 
     return (
       <StudyBuilderNav>
@@ -125,7 +126,10 @@ class Navigation extends Component {
             </button>
           </div>
 
-          <ArchiveDelete />
+          <ArchiveDelete 
+            study={this.props.study}
+            isHidden={isHidden}
+          />
 
           <SaveStudy
             study={this.props.study}
