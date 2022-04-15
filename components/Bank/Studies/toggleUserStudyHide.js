@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import styled from 'styled-components';
-import { Radio } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 import { USER_DASHBOARD_QUERY } from '../../User/index';
-
-const StyledHideToggle = styled.div`
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: auto 1fr;
-`;
 
 const UPDATE_USER_STUDY_HIDE_IN_DEVELOP = gql`
   mutation UPDATE_USER_STUDY_HIDE_IN_DEVELOP(
@@ -36,18 +29,15 @@ class ToggleUserStudyHide extends Component {
             return <div>Updating ...</div>;
           }
           return (
-            <StyledHideToggle>
-              <Radio
-                toggle
-                checked={!this.props.isHidden}
-                onChange={() => {
-                  updateHiddenStatusStudy().catch(err => {
-                    alert(err.message);
-                  });
-                }}
-              />
-              <span>{this.props.isHidden ? 'Hidden' : 'Visible'}</span>
-            </StyledHideToggle>
+            <Button
+              style={{background: '#007C70', color: '#FFFFFF'}}
+              content="Archive"
+              onClick={() => {
+                updateHiddenStatusStudy().catch(err => {
+                  alert(err.message);
+                });
+              }}
+            />
           );
         }}
       </Mutation>

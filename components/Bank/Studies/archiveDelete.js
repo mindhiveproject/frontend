@@ -83,9 +83,7 @@ function ArchiveModal({study, isHidden}) {
           onClick={() => setOpen(false)}
         />
         <ToggleUserStudyHide
-          style={{background: '#007C70', color: '#FFFFFF'}} //
-          content="Active"                                  //
-          onClick={() => setOpen(false)}                    //
+          id={study?.id} isHidden={isHidden}
         />
       </Modal.Actions>
     </Modal>
