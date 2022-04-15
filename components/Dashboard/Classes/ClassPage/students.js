@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
-import { Dropdown, Menu } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 import { Mutation, Query } from '@apollo/client/react/components';
 import Error from '../../../ErrorMessage/index';
 
@@ -34,6 +34,7 @@ const StyledStudentsTop = styled.div`
     color: #007c70;
     border: 2px solid #007c70;
     border-radius: 4px;
+    height: fit-content;
   }
 `;
 
@@ -57,7 +58,7 @@ const StyledStudentRow = styled.div`
   }
   border-radius: 4px;
   .dropdownMenu {
-    font-size: 2rem !important;
+    font-size: 1.5rem !important;
   }
   .dropdownItem {
     font-size: 1.5rem !important;
@@ -175,7 +176,7 @@ class ClassStudents extends Component {
                           '';
                         return (
                           <StyledStudentRow key={i}>
-                            <Dropdown className="dropdownMenu">
+                            <Dropdown className="dropdownMenu" simple>
                               <Dropdown.Menu>
                                 <Dropdown.Item
                                   className="dropdownItem"
@@ -192,6 +193,7 @@ class ClassStudents extends Component {
                                 </Dropdown.Item>
                                 <Dropdown
                                   item
+                                  simple
                                   text="Move to class"
                                   className="dropdownItem"
                                   options={otherClasses.map(myClass => ({

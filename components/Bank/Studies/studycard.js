@@ -159,27 +159,31 @@ function StudyCard({
         </div>
       </div>
 
-      {overviewMode && (
-        <div className="studyAdmin">
-          <ManageStudy
-            id={study.id}
-            isPublic={study.public}
-            isFeatured={study.featured}
-          />
-          <div>
-            {study?.submitForPublishing && (
-              <div>The study was submitted for publishing</div>
-            )}
+      <div className="tempOverlay">
+        {overviewMode && (
+          <div className="studyAdmin">
+            <div>
+              <div className="message">
+                {study?.submitForPublishing && (
+                  <div>Submitted for publishing</div>
+                )}
+              </div>
+              <ManageStudy
+                id={study.id}
+                isPublic={study.public}
+                isFeatured={study.featured}
+              />
+            </div>
           </div>
-        </div>
-      )}
-      {developingMode && (
-        <div className="studyAdmin">
-          <ToggleUserStudyHide id={study?.id} isHidden={isHidden}>
-            {isHidden ? 'Unhide' : 'Hide'}
-          </ToggleUserStudyHide>
-        </div>
-      )}
+        )}
+        {developingMode && (
+          <div className="studyAdmin">
+            <ToggleUserStudyHide id={study?.id} isHidden={isHidden}>
+              {isHidden ? 'Unhide' : 'Hide'}
+            </ToggleUserStudyHide>
+          </div>
+        )}
+      </div>
     </StyledStudyCard>
   );
 }
