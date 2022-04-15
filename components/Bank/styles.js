@@ -2,6 +2,15 @@ import styled from 'styled-components';
 
 export const StyledBank = styled.div`
   display: grid;
+  padding-top: 10px;
+`;
+
+export const StyledDropdown = styled.div`
+  display: grid;
+  .dropdown {
+    width: 220px;
+  }
+  justify-content: end;
 `;
 
 export const StyledStudyCard = styled.div`
