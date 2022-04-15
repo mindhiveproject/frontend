@@ -40,16 +40,15 @@ const StyledStudentsTop = styled.div`
 const StyledStudentHeader = styled.div`
   display: grid;
   padding: 10px;
-  grid-template-columns: 1fr 1fr 50px;
+  grid-template-columns: 100px 1fr 1fr;
   font-weight: bold;
 `;
 
 const StyledStudentRow = styled.div`
   display: grid;
-  /* padding: 10px; */
   padding: 1.5rem 1rem;
   margin-bottom: 2px;
-  grid-template-columns: 1fr 1fr 50px;
+  grid-template-columns: 100px 1fr 1fr;
   background: white;
   box-shadow: 0px 2px 4px 0px #00000026;
   transition: box-shadow 300ms ease-out;
@@ -57,6 +56,12 @@ const StyledStudentRow = styled.div`
     box-shadow: 0px 2px 24px 0px #0000001a;
   }
   border-radius: 4px;
+  .dropdownMenu {
+    font-size: 2rem !important;
+  }
+  .dropdownItem {
+    font-size: 1.5rem !important;
+  }
 `;
 
 class ClassStudents extends Component {
@@ -158,9 +163,9 @@ class ClassStudents extends Component {
                       </StyledStudentsTop>
 
                       <StyledStudentHeader>
+                        <div>Actions</div>
                         <div>Student/Username</div>
                         <div>Email address</div>
-                        <div>Actions</div>
                       </StyledStudentHeader>
 
                       {students.map((student, i) => {
@@ -170,18 +175,10 @@ class ClassStudents extends Component {
                           '';
                         return (
                           <StyledStudentRow key={i}>
-                            <div
-                              style={{ cursor: 'pointer' }}
-                              onClick={() =>
-                                this.props.openStudentPage(student.id)
-                              }
-                            >
-                              {student.username}
-                            </div>
-                            <div>{email}</div>
-                            <Dropdown text="...">
+                            <Dropdown className="dropdownMenu">
                               <Dropdown.Menu>
                                 <Dropdown.Item
+                                  className="dropdownItem"
                                   name="remove"
                                   onClick={() =>
                                     this.removeFromClass(
@@ -196,9 +193,11 @@ class ClassStudents extends Component {
                                 <Dropdown
                                   item
                                   text="Move to class"
+                                  className="dropdownItem"
                                   options={otherClasses.map(myClass => ({
                                     key: myClass.id,
                                     text: myClass.title,
+                                    className: 'dropdownItem',
                                     onClick: () =>
                                       this.changeTheClass(
                                         moveToClass,
@@ -210,6 +209,15 @@ class ClassStudents extends Component {
                                 />
                               </Dropdown.Menu>
                             </Dropdown>
+                            <div
+                              style={{ cursor: 'pointer' }}
+                              onClick={() =>
+                                this.props.openStudentPage(student.id)
+                              }
+                            >
+                              {student.username}
+                            </div>
+                            <div>{email}</div>
                           </StyledStudentRow>
                         );
                       })}

@@ -137,7 +137,7 @@ class StudyInformation extends Component {
                   query: { id: study.id, guest: true, step: 'select' },
                 }}
               >
-                <button>Participate in the study again as a guest</button>
+                <button>Participate as guest</button>
               </Link>
               <StudyTasks
                 study={study}

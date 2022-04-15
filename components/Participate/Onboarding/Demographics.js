@@ -36,9 +36,6 @@ class Demographics extends Component {
     const { user, study, query } = this.props;
     const { step, guest } = query;
 
-    console.log('user', user);
-    console.log('this.state', this.state);
-
     const hasConsent =
       study?.consent.length && study?.settings?.consentObtained;
 

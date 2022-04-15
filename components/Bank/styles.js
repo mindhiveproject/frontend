@@ -16,7 +16,9 @@ export const StyledStudyCard = styled.div`
   }
 
   .clickableWrapper {
+    display: grid;
     cursor: pointer;
+    height: 100%;
   }
 
   .studyImage {
@@ -33,9 +35,10 @@ export const StyledStudyCard = styled.div`
   }
   .cardInfo {
     display: grid;
-    align-content: baseline;
+    align-content: space-between;
     padding: 16px;
     grid-gap: 2rem;
+    height: 100%;
 
     .studyMain {
       display: grid;
@@ -68,7 +71,7 @@ export const StyledStudyCard = styled.div`
       }
       .studyCreatedByPanel {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
         grid-gap: 1rem;
         padding: 2rem;
         background: #f7f9f8;
