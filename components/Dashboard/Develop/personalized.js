@@ -109,7 +109,7 @@ class DashboardDevelop extends Component {
                 </div>
               </div>
 
-              <div className="menuBar">
+              <div>
                 <Menu text stackable className="discoverMenu">
                   <Menu.Item
                     name="studies"
