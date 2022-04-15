@@ -10,6 +10,28 @@ export const StyledStudyCard = styled.div`
   overflow: hidden;
   box-shadow: 0px 2px 4px 0px #00000026;
   transition: box-shadow 300ms ease-out;
+  height: 100%;
+  position: relative;
+
+  .tempOverlay {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    .studyAdmin {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 1rem;
+      padding: 15px;
+      border-radius: 10px;
+      justify-items: center;
+      font-size: 1rem;
+      background: #ffffffb3;
+      .message {
+        text-align: center;
+      }
+    }
+  }
 
   :hover {
     box-shadow: 0px 2px 24px 0px #0000001a;
@@ -19,7 +41,9 @@ export const StyledStudyCard = styled.div`
   }
 
   .clickableWrapper {
+    display: grid;
     cursor: pointer;
+    height: 100%;
   }
 
   .studyImage {
@@ -43,9 +67,10 @@ export const StyledStudyCard = styled.div`
   }
   .cardInfo {
     display: grid;
-    align-content: baseline;
+    align-content: space-between;
     padding: 16px;
     grid-gap: 2rem;
+    height: 100%;
 
     .studyMain {
       display: grid;
@@ -78,7 +103,7 @@ export const StyledStudyCard = styled.div`
       }
       .studyCreatedByPanel {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
         grid-gap: 1rem;
         padding: 2rem;
         background: #f7f9f8;
@@ -96,16 +121,6 @@ export const StyledStudyCard = styled.div`
         }
       }
     }
-  }
-
-  .studyAdmin {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
-    padding: 16px;
-    align-items: end;
-    font-size: 1rem;
-    border-top: 1px solid lightgrey;
   }
 
   a {

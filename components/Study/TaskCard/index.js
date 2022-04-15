@@ -15,9 +15,6 @@ class TaskCard extends Component {
     const { task, study, version, user } = this.props;
     const taskType = task?.taskType?.toLowerCase();
 
-    console.log('user', user);
-    console.log('this.props.guest', this.props.guest);
-
     const allowRetake = !study.settings?.forbidRetake;
 
     if (task.isExternal && task.link) {

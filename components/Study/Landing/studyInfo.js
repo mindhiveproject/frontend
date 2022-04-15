@@ -13,7 +13,6 @@ import GuestWrapper from './guestWrapper';
 
 // pathnames for participants
 const pathname = '/participate/select';
-const oldPathname = '/join/getstarted';
 
 class StudyInformation extends Component {
   state = { activeTab: 'what' };
@@ -131,12 +130,22 @@ class StudyInformation extends Component {
           </div>
 
           {joinedTheStudy && !this.props.guestCode && (
-            <StudyTasks
-              study={study}
-              user={this.props.user}
-              onStartTheTask={this.props.onStartTheTask}
-              onStartExternalTask={this.props.onStartExternalTask}
-            />
+            <>
+              <Link
+                href={{
+                  pathname: '/participate/details',
+                  query: { id: study.id, guest: true, step: 'select' },
+                }}
+              >
+                <button>Participate as guest</button>
+              </Link>
+              <StudyTasks
+                study={study}
+                user={this.props.user}
+                onStartTheTask={this.props.onStartTheTask}
+                onStartExternalTask={this.props.onStartExternalTask}
+              />
+            </>
           )}
 
           {this.props.guestCode && (

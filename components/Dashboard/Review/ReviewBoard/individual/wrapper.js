@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import Board from './board';
 
 class IndividualReviewsWrapper extends Component {
@@ -11,6 +12,9 @@ class IndividualReviewsWrapper extends Component {
         title: content.question,
       })),
       title: `Reviewer ${num + 1}`,
+      hiddenTitle: review?.author?.username,
+      createdAt: review.createdAt,
+      updatedAt: review.updatedAt,
     }));
 
     // rearrange array
@@ -18,8 +22,12 @@ class IndividualReviewsWrapper extends Component {
       review.content.map(question => ({
         ...question,
         author: review.author.id,
+        authorUsername: review.author?.username,
+        createdAt: review.createdAt,
+        updatedAt: review.updatedAt,
       }))
     );
+
     const byQuestions = [1, 2, 3, 4, 5, 6].map(name => {
       const content = sections
         .map((section, num) =>
@@ -28,20 +36,27 @@ class IndividualReviewsWrapper extends Component {
             .map(section => ({
               answer: section.answer,
               title: `Reviewer ${num + 1}`,
+              hiddenTitle: section.authorUsername,
               rating: section.rating,
               question: section.question,
+              createdAt: section.createdAt,
+              updatedAt: section.updatedAt,
             }))
         )
         .flat();
       return {
         name,
-        title: content && content.length && content[0].question,
+        title:
+          content && content.length ? content[0].question : `Question ${name}`,
         content,
       };
     });
 
     return (
-      <Board sections={view === 'byQuestion' ? byQuestions : byReviewers} />
+      <Board
+        sections={view === 'byQuestion' ? byQuestions : byReviewers}
+        user={this.props.user}
+      />
     );
   }
 }

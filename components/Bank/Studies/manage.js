@@ -8,8 +8,8 @@ import styled from 'styled-components';
 
 const StyledToggle = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, 100px);
-  grid-gap: 1rem 2rem;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
 `;
 
 const TOGGLE_STUDY_SETTINGS = gql`
@@ -36,20 +36,28 @@ class PublishStudy extends Component {
           <StyledToggle>
             <Radio
               toggle
-              onClick={() =>
-                toggleStudySetting({ variables: { public: !isPublic } })
-              }
+              onClick={() => {
+                if (isPublic) {
+                  toggleStudySetting({
+                    variables: { public: !isPublic, featured: false },
+                  });
+                } else {
+                  toggleStudySetting({ variables: { public: !isPublic } });
+                }
+              }}
               label="Public"
               checked={isPublic}
             />
-            <Radio
-              toggle
-              onClick={() =>
-                toggleStudySetting({ variables: { featured: !isFeatured } })
-              }
-              label="Featured"
-              checked={isFeatured}
-            />
+            {isPublic && (
+              <Radio
+                toggle
+                onClick={() =>
+                  toggleStudySetting({ variables: { featured: !isFeatured } })
+                }
+                label="Featured"
+                checked={isFeatured}
+              />
+            )}
           </StyledToggle>
         )}
       </Mutation>

@@ -11,6 +11,7 @@ class Demographics extends Component {
     share: 'true', // default of the page
     ...this.props.query, // put everything coming from query
     ...this.props.user?.generalInfo, // populate with user information
+    guest: this.props.query.guest,
   };
 
   updateState = e => {

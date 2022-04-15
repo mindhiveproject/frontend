@@ -3,19 +3,20 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 
+import ReviewModal from './reviewModal';
+
 const StyledStudiesHeader = styled.div`
   display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 1fr auto;
+  grid-gap: 1rem;
+  grid-template-columns: 300px 100px 100px 200px auto;
   padding: 10px;
   font-weight: bold;
-  grid-gap: 1rem;
 `;
 
 const StyledClassRow = styled.div`
   display: grid;
   padding: 10px;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 300px 100px 100px 200px auto;
   background: white;
   grid-gap: 1rem;
   .title {
@@ -24,6 +25,7 @@ const StyledClassRow = styled.div`
     grid-gap: 1rem;
     align-items: center;
   }
+  margin: 1rem 0rem;
 `;
 
 const EmptyRow = styled.div`
@@ -41,16 +43,18 @@ class Reviewed extends Component {
   render() {
     const { student } = this.props;
 
-    const reviewedStudies = [
+    const reviews = [
       ...student.reviews.map(review => ({
         id: review?.id,
         title: review?.study?.title,
         reviewedAt: review?.createdAt,
         slug: review?.study?.slug,
+        stage: review?.stage,
+        content: review?.content,
       })),
     ];
 
-    if (reviewedStudies.length === 0) {
+    if (reviews.length === 0) {
       return (
         <EmptyRow>
           <div>The student hasn’t reviewed any studies yet.</div>
@@ -62,21 +66,29 @@ class Reviewed extends Component {
       <>
         <StyledStudiesHeader>
           <div>Study title</div>
+          <div>Review</div>
+          <div>Study</div>
+          <div>Review type</div>
           <div>Date reviewed</div>
         </StyledStudiesHeader>
 
-        {reviewedStudies.map((study, id) => (
+        {reviews.map((review, id) => (
           <StyledClassRow key={id}>
-            <div className="title">
-              {study.title}
+            <div className="title">{review.title}</div>
+            <div>
+              <ReviewModal review={review} student={student} />
+            </div>
+            <div>
               <a
-                href={`https://mindhive.science/studies/${study.slug}`}
+                href={`https://mindhive.science/studies/${review.slug}`}
                 target="_blank"
+                rel="noreferrer"
               >
-                <Icon name="external alternate" />
+                Open
               </a>
             </div>
-            <div>{moment(study.reviewedAt).format('MMMM D, YYYY, h:mma')}</div>
+            <div>{review?.stage}</div>
+            <div>{moment(review.reviewedAt).format('MMMM D, YYYY, h:mma')}</div>
           </StyledClassRow>
         ))}
       </>

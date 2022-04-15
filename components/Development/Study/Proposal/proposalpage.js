@@ -31,20 +31,24 @@ const StyledPreviewToggle = styled.div`
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 16px;
+    line-height: 24px;
     letter-spacing: 0.05em;
   }
   .goBackButton {
     cursor: pointer;
   }
+  .preview {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
   .alert {
     background: #FFF9E6;
     padding: 5px 10px 5px 10px;
+    margin-left: 5px;
     border-radius: 4px;
-    margin-left: 20px;
     span, .icon {
       font-weight: 400;
-      font-size: 14px;
+      font-size: 13px;
       color: #666666;
     }
   }
@@ -136,7 +140,7 @@ class ProposalPage extends Component {
                           }}
                         />
                         <span>{this.state.isPDF ? 
-                          <div>
+                          <div className="preview">
                             Preview
                             <span className="alert">
                               <Icon name='info circle'/>

@@ -36,7 +36,11 @@ export const StyledOverview = styled.div`
 
 const OVERVIEW_STUDIES_QUERY = gql`
   query OVERVIEW_STUDIES_QUERY($skip: Int, $first: Int, $search: String) {
-    allStudies(skip: $skip, first: $first, where: { title_contains: $search }) {
+    allStudies(
+      skip: $skip
+      first: $first
+      where: { OR: [{ title_contains: $search }, { slug_contains: $search }] }
+    ) {
       id
       title
       slug

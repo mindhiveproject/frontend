@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 import styled from 'styled-components';
 import ReactStars from 'react-rating-stars-component'; // https://www.npmjs.com/package/react-rating-stars-component
@@ -22,6 +23,10 @@ const StyledBoard = styled.div`
     padding: 20px;
     text-align: center;
     align-content: baseline;
+    .title {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
     .averageRating {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -59,12 +64,20 @@ class Board extends Component {
   };
 
   render() {
-    const { sections } = this.props;
+    const { sections, user } = this.props;
     return (
       <StyledBoard>
         {sections.map((section, num) => (
-          <div className="section">
-            <h4>{section.title}</h4>
+          <div key={num} className="section">
+            <div className="title">{section.title}</div>
+            {user?.permissions.includes('TEACHER') && (
+              <div>{section.hiddenTitle}</div>
+            )}
+            {section?.createdAt && (
+              <em>
+                {moment(section?.createdAt).format('MMMM D, YYYY, h:mma')}
+              </em>
+            )}
             <div className="averageRating">
               <div>Average</div>
               <div>
@@ -80,12 +93,21 @@ class Board extends Component {
                 />
               </div>
             </div>
+
             <div className="cards">
               {section.content
                 .filter(card => card.answer)
-                .map(card => (
-                  <div className="card">
-                    <h4>{card.title}</h4>
+                .map((card, num) => (
+                  <div key={num} className="card">
+                    <div className="title">{card.title}</div>
+                    {user?.permissions.includes('TEACHER') && (
+                      <div>{card?.hiddenTitle}</div>
+                    )}
+                    {card?.createdAt && (
+                      <em>
+                        {moment(card?.createdAt).format('MMMM D, YYYY, h:mma')}
+                      </em>
+                    )}
                     {card.answer}
                   </div>
                 ))}

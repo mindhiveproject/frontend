@@ -70,7 +70,7 @@ class ClassNetworksList extends Component {
                     <StyledClassHeader>
                       <div>Network name</div>
                       <div>Creator</div>
-                      <div>Number of classes</div>
+                      <div>Classes</div>
                       <div>Date created</div>
                     </StyledClassHeader>
 
@@ -105,6 +105,9 @@ const StyledClassRow = styled.div`
   padding: 10px;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   background: white;
+  .classTitles {
+    font-size: 1.3rem;
+  }
 `;
 
 class ClassRow extends Component {
@@ -115,7 +118,11 @@ class ClassRow extends Component {
         <StyledClassRow>
           <div>{classNetwork?.title}</div>
           <div>{classNetwork?.creator?.username}</div>
-          <div>{classNetwork?.classes?.length}</div>
+          <div className="classTitles">
+            {classNetwork?.classes.map(c => (
+              <div>{c.title}</div>
+            ))}
+          </div>
           <div>{moment(classNetwork?.createdAt).format('MMMM D, YYYY')}</div>
         </StyledClassRow>
         <div>

@@ -8,7 +8,8 @@ import ManageStudy from './manage';
 import ToggleUserStudyHide from './toggleUserStudyHide';
 
 // compute the number of different types of permissions in author and collaborators
-const computeNumber = ({ study, role }) => {
+// excluding admin
+const computeNumberExceptAdmin = ({ study, role }) => {
   const collaborators =
     study?.collaborators
       .filter(person => person?.id !== study?.author?.id) // not the study author
@@ -23,6 +24,17 @@ const computeNumber = ({ study, role }) => {
   return collaborators + author;
 };
 
+// compute the number of different types of permissions
+const computeNumber = ({ study, role }) => {
+  const collaborators =
+    study?.collaborators
+      .filter(person => person?.id !== study?.author?.id) // not the study author
+      .map(person => person?.permissions)
+      .filter(permissions => permissions?.includes(role)).length || 0;
+  const author = study?.author?.permissions?.includes(role) ? 1 : 0;
+  return collaborators + author;
+};
+
 function StudyCard({
   study,
   user,
@@ -32,15 +44,16 @@ function StudyCard({
   developingMode,
 }) {
   const numberOfStudents = useMemo(
-    () => computeNumber({ study, role: 'STUDENT' }),
+    () => computeNumberExceptAdmin({ study, role: 'STUDENT' }),
     [study]
   );
+  // count scientists if they are also admins
   const numberOfScientists = useMemo(
     () => computeNumber({ study, role: 'SCIENTIST' }),
     [study]
   );
   const numberOfTeachers = useMemo(
-    () => computeNumber({ study, role: 'TEACHER' }),
+    () => computeNumberExceptAdmin({ study, role: 'TEACHER' }),
     [study]
   );
 
@@ -119,50 +132,62 @@ function StudyCard({
           <div className="studyCreatedBy">
             <div className="studyCreatedByHeader">Created by</div>
             <div className="studyCreatedByPanel">
-              <div className="studyCreatedBySection">
-                <div className="studyCreatedByNumber">
-                  {numberOfStudents || '--'}
+              {numberOfStudents > 0 && (
+                <div className="studyCreatedBySection">
+                  <div className="studyCreatedByNumber">
+                    {numberOfStudents || '--'}
+                  </div>
+                  <p>Student{numberOfStudents === 1 ? '' : 's'}</p>
                 </div>
-                <p>Student{numberOfStudents === 1 ? '' : 's'}</p>
-              </div>
-              <div className="studyCreatedBySection">
-                <div className="studyCreatedByNumber">
-                  {numberOfScientists || '--'}
+              )}
+
+              {numberOfScientists > 0 && (
+                <div className="studyCreatedBySection">
+                  <div className="studyCreatedByNumber">
+                    {numberOfScientists || '--'}
+                  </div>
+                  <p>Scientist{numberOfScientists === 1 ? '' : 's'}</p>
                 </div>
-                <p>Scientist{numberOfScientists === 1 ? '' : 's'}</p>
-              </div>
-              <div className="studyCreatedBySection">
-                <div className="studyCreatedByNumber">
-                  {numberOfTeachers || '--'}
+              )}
+
+              {numberOfTeachers > 0 && (
+                <div className="studyCreatedBySection">
+                  <div className="studyCreatedByNumber">
+                    {numberOfTeachers || '--'}
+                  </div>
+                  <p>Teacher{numberOfTeachers === 1 ? '' : 's'}</p>
                 </div>
-                <p>Teacher{numberOfTeachers === 1 ? '' : 's'}</p>
-              </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {overviewMode && (
-        <div className="studyAdmin">
-          <ManageStudy
-            id={study.id}
-            isPublic={study.public}
-            isFeatured={study.featured}
-          />
-          <div>
-            {study?.submitForPublishing && (
-              <div>The study was submitted for publishing</div>
-            )}
+      <div className="tempOverlay">
+        {overviewMode && (
+          <div className="studyAdmin">
+            <div>
+              <div className="message">
+                {study?.submitForPublishing && (
+                  <div>Submitted for publishing</div>
+                )}
+              </div>
+              <ManageStudy
+                id={study.id}
+                isPublic={study.public}
+                isFeatured={study.featured}
+              />
+            </div>
           </div>
-        </div>
-      )}
-      {developingMode && (
-        <div className="studyAdmin">
-          <ToggleUserStudyHide id={study?.id} isHidden={isHidden}>
-            {isHidden ? 'Unhide' : 'Hide'}
-          </ToggleUserStudyHide>
-        </div>
-      )}
+        )}
+        {developingMode && (
+          <div className="studyAdmin">
+            <ToggleUserStudyHide id={study?.id} isHidden={isHidden}>
+              {isHidden ? 'Unhide' : 'Hide'}
+            </ToggleUserStudyHide>
+          </div>
+        )}
+      </div>
     </StyledStudyCard>
   );
 }

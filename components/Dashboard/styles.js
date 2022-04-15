@@ -511,3 +511,87 @@ export const StyledButtons = styled.div`
     }
   }
 `;
+
+export const StyledReviewDasboard = styled.div`
+  width: 100%;
+  display: grid;
+  padding: 20px;
+
+  .navigationHeader {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 20px;
+    justify-items: end;
+    margin: 1rem 0rem 2rem 0rem;
+    button {
+      min-height: 56px;
+      padding: 10px 24px 10px 24px;
+      background: #007c70;
+      border: 2px solid #007c70;
+      box-sizing: border-box;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-family: 'Lato';
+    }
+  }
+
+  .studies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-column-gap: 26px;
+    grid-row-gap: 26px;
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-column-gap: 26px;
+    grid-row-gap: 26px;
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .surveys {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-column-gap: 26px;
+    grid-row-gap: 26px;
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .discoverMenu {
+    margin-bottom: 24px !important;
+
+    .discoverMenuTitle {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      width: auto;
+      padding-bottom: 10px !important;
+      display: grid;
+      justify-content: center;
+      border-bottom: 2px solid #e6e6e6;
+      p {
+        font-family: Lato;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 23px;
+        letter-spacing: 0em;
+        color: #666666;
+      }
+    }
+    .selectedMenuTitle {
+      border-bottom: 4px solid #ffc107 !important;
+      p {
+        color: #1a1a1a;
+      }
+    }
+  }
+`;
