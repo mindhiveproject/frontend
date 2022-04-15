@@ -5,7 +5,6 @@ import { StyledStudyCard } from '../styles';
 
 import ArchiveDelete from '../../Development/Study/archiveDelete';
 import ManageStudy from './manage';
-import ToggleUserStudyHide from './toggleUserStudyHide';
 
 // compute the number of different types of permissions in author and collaborators
 // excluding admin
@@ -40,7 +39,6 @@ function StudyCard({
   user,
   onSelectStudy,
   overviewMode,
-  showAllStudies,
   developingMode,
 }) {
   const numberOfStudents = useMemo(
@@ -106,7 +104,13 @@ function StudyCard({
           {study.image ? (
             <>
               <img src={study.image} alt={study.title} />
-              { developingMode && <ArchiveDelete className='archiveButton' /> }
+              { developingMode && 
+                <ArchiveDelete 
+                  className='archiveButton' 
+                  study={study}
+                  isHidden={isHidden}  
+                />  
+              }
             </>
           ) : (
             <div className="noImage"></div>
@@ -178,13 +182,6 @@ function StudyCard({
                 isFeatured={study.featured}
               />
             </div>
-          </div>
-        )}
-        {developingMode && (
-          <div className="studyAdmin">
-            <ToggleUserStudyHide id={study?.id} isHidden={isHidden}>
-              {isHidden ? 'Unhide' : 'Hide'}
-            </ToggleUserStudyHide>
           </div>
         )}
       </div>

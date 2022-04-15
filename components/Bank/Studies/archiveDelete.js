@@ -4,6 +4,7 @@ import { Dropdown, Icon, Modal, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import DeleteStudy from '../../Bank/Studies/delete';
+import ToggleUserStudyHide from './toggleUserStudyHide';
 
 const ArchiveDeleteDropdown = styled.div`
   .archiveDropdown {
@@ -45,7 +46,7 @@ const StyledModal = styled.div`
   }
 `;
 
-function ArchiveModal() {
+function ArchiveModal({study, isHidden}) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -81,10 +82,10 @@ function ArchiveModal() {
           content="Cancel"
           onClick={() => setOpen(false)}
         />
-        <Button
-          style={{background: '#007C70', color: '#FFFFFF'}}
-          content="Active"
-          onClick={() => setOpen(false)}
+        <ToggleUserStudyHide
+          style={{background: '#007C70', color: '#FFFFFF'}} //
+          content="Active"                                  //
+          onClick={() => setOpen(false)}                    //
         />
       </Modal.Actions>
     </Modal>
@@ -154,8 +155,13 @@ class ArchiveDelete extends Component {
           upward={false}
         >
         	<Dropdown.Menu className="archiveDropdown">
-            <ArchiveModal />
-            <DeleteModal />
+            <ArchiveModal
+              study={this.props.study}
+              isHidden={this.props.idHidden}
+            />
+            <DeleteModal 
+              study={this.props.study}
+            />
           </Dropdown.Menu>
         </Dropdown>
       </ArchiveDeleteDropdown>

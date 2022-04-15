@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Menu, Radio, Dropdown } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import styled from 'styled-components';
 import DevelopedStudiesBank from '../../Bank/Studies/developed';
 import DevelopedComponentsBank from '../../Bank/Components/developed';
@@ -28,27 +28,6 @@ const StyledPreviewToggle = styled.div`
     letter-spacing: 0.05em;
   }
 `;
-
-const filterOptions=[
-  {
-    key: 'All',
-    text: 'All studies',
-    value: 'All',
-    content: 'All'
-  },
-  {
-    key: 'Active',
-    text: 'Active studies',
-    value: 'Active',
-    content: 'Active'
-  },
-  {
-    key: 'Archived',
-    text: 'Archived studies',
-    value: 'Archived',
-    content: 'Archived'
-  }
-];
 
 class DashboardDevelop extends Component {
   state = {
@@ -95,10 +74,6 @@ class DashboardDevelop extends Component {
       page: 'bank',
     });
   };
-
-  // filterStudies = (event, data) => {
-  //   let studiesFilter = data.value;
-  // }
 
   render() {
     const { page, tab } = this.state;
@@ -176,39 +151,14 @@ class DashboardDevelop extends Component {
                   </Menu.Item>
                 </Menu>
 
-                <Dropdown 
-                  selection
-                  fluid
-                  defaultValue={filterOptions[0].value}
-                  options={filterOptions}
-                  onChange={this.filterStudies}
-                />
-
               </div>
-
+                
               {this.state.tab === 'studies' && (
                 <div>
-                  <StyledPreviewToggle>
-                    <Radio
-                      toggle
-                      checked={this.state.showAllStudies}
-                      onChange={() => {
-                        this.setState({
-                          showAllStudies: !this.state.showAllStudies,
-                        });
-                      }}
-                    />
-                    <span>
-                      {this.state.showAllStudies
-                        ? 'Show all studies'
-                        : 'Do not show hidden studies'}
-                    </span>
-                  </StyledPreviewToggle>
                   <DevelopedStudiesBank
                     onSelectStudy={this.goToStudy}
                     user={this.props.user}
                     showAllStudies={this.state.showAllStudies}
-                    // studiesFilter={studiesFilter}
                   />
                 </div>
               )}
