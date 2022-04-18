@@ -82,8 +82,9 @@ function ArchiveModal({study, isHidden}) {
           content="Cancel"
           onClick={() => setOpen(false)}
         />
-        <ToggleUserStudyHide
+        <ToggleUserStudyHide 
           id={study?.id} isHidden={isHidden}
+          setOpen={setOpen}
         />
       </Modal.Actions>
     </Modal>
@@ -153,9 +154,9 @@ class ArchiveDelete extends Component {
           upward={false}
         >
         	<Dropdown.Menu className="archiveDropdown">
-            <ArchiveModal
+            <ArchiveModal 
               study={this.props.study}
-              isHidden={this.props.idHidden}
+              isHidden={this.props.isHidden}
             />
             <DeleteModal 
               study={this.props.study}

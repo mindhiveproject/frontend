@@ -36,6 +36,7 @@ class ToggleUserStudyHide extends Component {
                 updateHiddenStatusStudy().catch(err => {
                   alert(err.message);
                 });
+                this.props.setOpen(false);
               }}
             />
           );

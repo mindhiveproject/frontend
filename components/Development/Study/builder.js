@@ -264,6 +264,7 @@ class StudyBuilder extends Component {
             <Navigation
               onLeave={this.props.onLeave}
               study={this.state.study}
+              user={this.props.user}
               isAuthor={isAuthor}
               adminMode={adminMode}
               needToClone={needToClone}
@@ -302,9 +303,6 @@ class StudyBuilder extends Component {
                 }
                 uploadImage={this.uploadImage}
                 deleteParameter={this.deleteParameter}
-                toggleTaskSelector={this.toggleTaskSelector}
-                openTaskEditor={this.openTaskEditor}
-                needToClone={needToClone}
                 updateComponents={this.updateComponents}
               />
             )}
