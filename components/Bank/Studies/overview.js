@@ -57,6 +57,9 @@ const OVERVIEW_STUDIES_QUERY = gql`
       participants {
         id
       }
+      guests {
+        id
+      }
       public
       featured
       shortDescription

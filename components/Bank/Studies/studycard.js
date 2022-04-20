@@ -111,10 +111,12 @@ function StudyCard({
 
         <div className="cardInfo">
           <div className="studyMain">
-            <div className="studyParticipants">
-              {numberOfParticipants} study participant
-              {numberOfParticipants === 1 ? '' : 's'}
-            </div>
+            {false && (
+              <div className="studyParticipants">
+                {numberOfParticipants} study participant
+                {numberOfParticipants === 1 ? '' : 's'}
+              </div>
+            )}
 
             <div className="studyHeader">
               <h2>{study.title}</h2>

@@ -24,6 +24,10 @@ const StyledClassRow = styled.div`
     grid-gap: 1rem;
     align-items: center;
   }
+  .testInfo {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+  }
 `;
 
 const EmptyRow = styled.div`
@@ -57,23 +61,63 @@ class Participated extends Component {
           <div>
             <span>Study title</span>
           </div>
-          <div>Date participated</div>
+          <div>Tasks</div>
         </StyledStudiesHeader>
 
-        {studies.map((study, id) => (
-          <StyledClassRow key={id}>
-            <div className="title">
-              {study.title}
-              <a
-                href={`https://mindhive.science/studies/${study.slug}`}
-                target="_blank"
-              >
-                <Icon name="external alternate" />
-              </a>
-            </div>
-            <div>In development 🚧🏗👷</div>
-          </StyledClassRow>
-        ))}
+        {studies.map((study, num) => {
+          const studyInfo = student?.studiesInfo[study?.id];
+          const { blockId } = studyInfo;
+          const studyBlock = study.components?.blocks.filter(
+            block => block?.blockId === blockId
+          )[0];
+          const tests = studyBlock?.tests || [];
+          const completedTests = student?.results.filter(
+            res => res.payload === 'full'
+          );
+
+          const testsWithInfo = tests.map(test => {
+            const testWithInfo = {
+              ...test,
+              completed: completedTests
+                .map(t => t.testVersion)
+                .includes(test?.testId),
+              date: completedTests
+                .filter(t => t.testVersion === test?.testId)
+                .map(t => t.createdAt)[0],
+            };
+            return testWithInfo;
+          });
+
+          // console.log('testsWithInfo', testsWithInfo);
+
+          return (
+            <StyledClassRow key={num}>
+              <div className="title">
+                {study.title}
+                <a
+                  href={`https://mindhive.science/studies/${study.slug}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Icon name="external alternate" />
+                </a>
+              </div>
+              <div>
+                {testsWithInfo?.map((test, num) => (
+                  <div className="testInfo" key={num}>
+                    <div>{test?.title}</div>
+                    <div>
+                      {test?.completed ? 'Completed ✅' : 'Not completed ❌'}
+                    </div>
+                    <div>
+                      {moment(test?.date).format('MMMM D, YYYY, h:mma')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </StyledClassRow>
+          );
+        })}
       </>
     );
   }

@@ -19,8 +19,10 @@ const STUDENT_QUERY = gql`
       image
       studiesInfo
       participantIn {
+        id
         title
         slug
+        components
       }
       researcherIn {
         title
@@ -45,6 +47,15 @@ const STUDENT_QUERY = gql`
       authorOfHomework {
         id
         title
+      }
+      results {
+        id
+        payload
+        study {
+          id
+        }
+        testVersion
+        createdAt
       }
     }
   }
@@ -71,6 +82,9 @@ class FetchStudentPage extends Component {
               if (!data.student)
                 return <p>No student found for {this.props.studentId}</p>;
               const { student } = data;
+
+              console.log('student', student);
+
               return (
                 <StudentPage
                   student={student}

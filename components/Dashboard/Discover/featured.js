@@ -103,7 +103,10 @@ class FeaturedStudies extends Component {
                   name="featuredStudy"
                   value={study.id}
                   checked={this.state.study === study.id}
-                  onChange={() => {
+                  // onChange={() => {
+                  //   this.setState({ study: study.id });
+                  // }}
+                  onClick={() => {
                     this.setState({ study: study.id });
                   }}
                   autoFocus={this.state.study === study.id}
