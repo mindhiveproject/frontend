@@ -25,7 +25,6 @@ const ALL_PUBLIC_STUDIES_QUERY = gql`
       tasks {
         id
       }
-      components
     }
   }
 `;

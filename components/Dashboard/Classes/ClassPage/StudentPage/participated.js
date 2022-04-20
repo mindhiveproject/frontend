@@ -123,5 +123,3 @@ class Participated extends Component {
 }
 
 export default Participated;
-
-// <div>{moment(study.createdAt).format('MMMM D, YYYY')}</div>
