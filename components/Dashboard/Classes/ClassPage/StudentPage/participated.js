@@ -26,7 +26,8 @@ const StyledClassRow = styled.div`
   }
   .testInfo {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr auto auto;
+    grid-gap: 1rem;
   }
 `;
 
@@ -43,9 +44,8 @@ const EmptyRow = styled.div`
 
 class Participated extends Component {
   render() {
-    const { student } = this.props;
-
-    const studies = [...student.participantIn];
+    const student = this.props?.student || {};
+    const studies = student?.participantIn || [];
 
     if (studies.length === 0) {
       return (
@@ -65,15 +65,14 @@ class Participated extends Component {
         </StyledStudiesHeader>
 
         {studies.map((study, num) => {
-          const studyInfo = student?.studiesInfo[study?.id];
-          const { blockId } = studyInfo;
+          const studyInfo = student?.studiesInfo[study?.id] || {};
+          const blockId = studyInfo?.blockId || undefined;
           const studyBlock = study.components?.blocks.filter(
             block => block?.blockId === blockId
           )[0];
           const tests = studyBlock?.tests || [];
-          const completedTests = student?.results.filter(
-            res => res.payload === 'full'
-          );
+          const completedTests =
+            student?.results?.filter(res => res.payload === 'full') || [];
 
           const testsWithInfo = tests.map(test => {
             const testWithInfo = {
@@ -88,19 +87,19 @@ class Participated extends Component {
             return testWithInfo;
           });
 
-          // console.log('testsWithInfo', testsWithInfo);
-
           return (
             <StyledClassRow key={num}>
               <div className="title">
                 {study.title}
-                <a
-                  href={`https://mindhive.science/studies/${study.slug}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Icon name="external alternate" />
-                </a>
+                <div>
+                  <a
+                    href={`https://mindhive.science/studies/${study.slug}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Icon name="external alternate" />
+                  </a>
+                </div>
               </div>
               <div>
                 {testsWithInfo?.map((test, num) => (
