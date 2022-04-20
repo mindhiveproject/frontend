@@ -19,19 +19,46 @@ const ALL_PUBLIC_STUDIES_QUERY = gql`
         id
         permissions
       }
-      participants {
-        id
-      }
       public
       image
       description
       tasks {
         id
       }
-      components
     }
   }
 `;
+
+// const ALL_PUBLIC_STUDIES_QUERY = gql`
+//   query ALL_PUBLIC_STUDIES_QUERY {
+//     studies {
+//       id
+//       title
+//       slug
+//       author {
+//         id
+//         permissions
+//       }
+//       collaborators {
+//         id
+//         permissions
+//       }
+//       participants {
+//         id
+//       }
+//       guests {
+//         id
+//       }
+//       public
+//       image
+//       description
+//       tasks {
+//         id
+//       }
+//       components
+//     }
+//   }
+// `;
 
 class StudiesBank extends Component {
   render() {
