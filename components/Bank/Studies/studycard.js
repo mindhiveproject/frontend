@@ -3,7 +3,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import { StyledStudyCard } from '../styles';
 
-import ArchiveDelete from '../../Development/Study/archiveDelete';
+import ArchiveDelete from './archiveDelete';
 import ManageStudy from './manage';
 
 // compute the number of different types of permissions in author and collaborators
@@ -104,16 +104,25 @@ function StudyCard({
           {study.image ? (
             <>
               <img src={study.image} alt={study.title} />
-              { developingMode && 
+              {developingMode && 
                 <ArchiveDelete 
-                  className='archiveButton' 
+                  className='archiveButton'
                   study={study}
-                  isHidden={isHidden}  
-                />  
-              }
+                  isHidden={isHidden}
+                />
+              } 
             </>
           ) : (
-            <div className="noImage"></div>
+            <>
+              <div className="noImage"></div>
+              {developingMode && 
+                <ArchiveDelete 
+                  className='archiveButton'
+                  study={study}
+                  isHidden={isHidden}
+                />
+              } 
+            </>
           )}
         </div>
 
