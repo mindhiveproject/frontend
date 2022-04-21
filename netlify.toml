@@ -1,9 +1,6 @@
 [build]
-  publish = ".next"
+  command = "npm run export"
   functions = "lambda" #  netlify-lambda reads this
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
 
 [[redirects]]
   from = "/studies/*"
