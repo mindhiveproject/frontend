@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-import { Menu } from 'semantic-ui-react';
-
 import StudiesBank from '../../Bank/Studies/index';
 import ComponentsBank from '../../Bank/Components/index';
+
+import StyledMenu from '../../Styles/StyledMenu';
 
 class Library extends Component {
   state = {
     tab: this.props.tab || 'studies',
   };
 
-  handleItemClick = (e, { name }) => this.setState({ tab: name });
+  handleItemClick = name => this.setState({ tab: name });
 
   render() {
     const { user, goToStudy, goToTask, redirect } = this.props;
@@ -18,35 +18,29 @@ class Library extends Component {
 
     return (
       <>
-        <div>
-          <Menu text stackable className="discoverMenu">
-            <Menu.Item
-              name="studies"
-              active={tab === 'studies'}
-              onClick={this.handleItemClick}
+        <StyledMenu>
+          <div className="menu">
+            <div
+              onClick={() => this.handleItemClick('studies')}
               className={
-                tab === 'studies'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
+                tab === 'studies' ? 'menuTitle selectedMenuTitle' : 'menuTitle'
               }
             >
               <p>Studies</p>
-            </Menu.Item>
+            </div>
 
-            <Menu.Item
-              name="components"
-              active={tab === 'components'}
-              onClick={this.handleItemClick}
+            <div
+              onClick={() => this.handleItemClick('components')}
               className={
                 tab === 'components'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
+                  ? 'menuTitle selectedMenuTitle'
+                  : 'menuTitle'
               }
             >
               <p>Tasks & Surveys</p>
-            </Menu.Item>
-          </Menu>
-        </div>
+            </div>
+          </div>
+        </StyledMenu>
 
         {tab === 'studies' && <StudiesBank onSelectStudy={goToStudy} />}
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 
-import { StyledFeaturedStudyCard } from '../styles';
+import { StyledFeaturedStudyCard } from '../../Styles/StyledFeatured';
 
 class FeaturedStudyCard extends Component {
   render() {

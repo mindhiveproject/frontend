@@ -14,10 +14,8 @@ class TaskPage extends Component {
 
   render() {
     const { task, user } = this.props;
-
     const isFavorite = user?.favoriteTasks?.map(t => t?.id).includes(task?.id);
 
-    console.log('task', task);
     return (
       <StyledTask>
         <Head>

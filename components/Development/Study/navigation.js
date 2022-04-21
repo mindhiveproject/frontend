@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import { Icon, Menu } from 'semantic-ui-react';
 
 import { StudyBuilderNav } from '../styles';

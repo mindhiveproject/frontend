@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import generate from 'project-name-generator';
 import Router from 'next/router';
 import { SignupButton } from '../../Sign/styles';
 import Error from '../../ErrorMessage/index';

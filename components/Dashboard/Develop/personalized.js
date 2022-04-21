@@ -79,6 +79,10 @@ class DashboardDevelop extends Component {
     const { page, tab } = this.state;
     const { user } = this.props;
 
+    if (!user) {
+      return <div>Please log in</div>;
+    }
+
     const myStudies = [...user?.researcherIn, ...user?.collaboratorInStudy].map(
       study => study?.id
     );
