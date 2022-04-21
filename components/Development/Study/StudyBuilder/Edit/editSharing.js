@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import FindCollaborator from './findCollaborator';
 
 const StyledSharingPane = styled.div`
   display: grid;

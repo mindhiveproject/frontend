@@ -93,8 +93,8 @@ class TaskCard extends Component {
               <div
                 style={{
                   display: 'grid',
-                  'grid-template-columns': '1fr auto',
-                  'grid-gap': '10px',
+                  gridTemplateColumns: '1fr auto',
+                  gridGap: '10px',
                 }}
               >
                 {this.props.overviewMode && (
