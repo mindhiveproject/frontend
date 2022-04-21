@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 const StyledMenu = styled.div`
   display: grid;
-
+  align-content: baseline;
   .menu {
     display: grid;
+    align-content: baseline;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     margin: 20px 6px 29px 6px !important;
     cursor: pointer;
