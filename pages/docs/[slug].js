@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import marked from 'marked';
+import { marked } from 'marked';
 import Page from '../../components/Page/index';
 import Document from '../../components/Documents/index';
 
