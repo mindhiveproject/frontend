@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
+import { Dropdown } from 'semantic-ui-react';
 
-import { StyledBank, StyledZeroState } from '../styles';
+import { StyledBank, StyledZeroState, StyledDropdown } from '../styles';
 import StudyCard from './studycard';
 
 const MY_DEVELOPED_STUDIES_QUERY = gql`
@@ -34,8 +35,40 @@ const MY_DEVELOPED_STUDIES_QUERY = gql`
   }
 `;
 
+const filterOptions = [
+  {
+    key: 'All',
+    text: 'All studies',
+    value: 'All',
+    content: 'All'
+  },
+  {
+    key: 'Active',
+    text: 'Active studies',
+    value: 'Active',
+    content: 'Active'
+  },
+  {
+    key: 'Archived',
+    text: 'Archived studies',
+    value: 'Archived',
+    content: 'Archived'
+  }
+];
+
 class DevelopedStudiesBank extends Component {
+  state= {
+    filter: 'All'
+  }
+
+  filterStudies = (event, data) => {
+    this.setState({
+      filter: data.value
+    })
+  }
+
   render() {
+
     return (
       <>
         <Query query={MY_DEVELOPED_STUDIES_QUERY}>
@@ -57,34 +90,54 @@ class DevelopedStudiesBank extends Component {
             }
 
             let filteredStudies = studies;
-            if (this.props.user?.studiesInfo && !this.props.showAllStudies) {
-              const studiesIDsToHide = studies
+            let studiesIDsToHide = [];
+            if (this.props.user?.studiesInfo) {
+              studiesIDsToHide = studies
                 .filter(
                   st => this.props.user?.studiesInfo[st?.id]?.hideInDevelop
                 )
                 .map(study => study.id);
-              if (studiesIDsToHide.length) {
+            }
+
+            switch (this.state.filter) {
+              case 'Active':
                 filteredStudies = studies.filter(
                   study => !studiesIDsToHide.includes(study?.id)
                 );
-              }
+              break;
+              case 'Archived':
+                filteredStudies = studies.filter(
+                  study => studiesIDsToHide.includes(study?.id)
+                );
+              break;
             }
 
             return (
-              <StyledBank>
-                <div className="studies">
-                  {filteredStudies.map(study => (
-                    <StudyCard
-                      key={study.id}
-                      study={study}
-                      onSelectStudy={this.props.onSelectStudy}
-                      user={this.props.user}
-                      developingMode
-                      showAllStudies={this.props.showAllStudies}
-                    />
-                  ))}
-                </div>
-              </StyledBank>
+              <>
+                <StyledDropdown>
+                  <Dropdown
+                    selection
+                    fluid
+                    value={this.state.filter}
+                    options={filterOptions}
+                    onChange={this.filterStudies}
+                  />
+                </StyledDropdown>
+                <StyledBank>
+                  <div className="studies">
+                    {filteredStudies.map(study => (
+                      <StudyCard
+                        key={study.id}
+                        study={study}
+                        onSelectStudy={this.props.onSelectStudy}
+                        user={this.props.user}
+                        developingMode
+                        showAllStudies={this.props.showAllStudies}
+                      />
+                    ))}
+                  </div>
+                </StyledBank>
+              </>
             );
           }}
         </Query>

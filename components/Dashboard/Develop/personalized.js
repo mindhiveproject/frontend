@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Menu, Radio } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import styled from 'styled-components';
 import DevelopedStudiesBank from '../../Bank/Studies/developed';
 import DevelopedComponentsBank from '../../Bank/Components/developed';
@@ -154,26 +154,11 @@ class DashboardDevelop extends Component {
                     <p>My surveys ({numberOfSurveys || 0})</p>
                   </Menu.Item>
                 </Menu>
-              </div>
 
+              </div>
+                
               {this.state.tab === 'studies' && (
                 <div>
-                  <StyledPreviewToggle>
-                    <Radio
-                      toggle
-                      checked={this.state.showAllStudies}
-                      onChange={() => {
-                        this.setState({
-                          showAllStudies: !this.state.showAllStudies,
-                        });
-                      }}
-                    />
-                    <span>
-                      {this.state.showAllStudies
-                        ? 'Show all studies'
-                        : 'Do not show hidden studies'}
-                    </span>
-                  </StyledPreviewToggle>
                   <DevelopedStudiesBank
                     onSelectStudy={this.goToStudy}
                     user={this.props.user}

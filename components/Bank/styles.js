@@ -2,6 +2,15 @@ import styled from 'styled-components';
 
 export const StyledBank = styled.div`
   display: grid;
+  padding-top: 10px;
+`;
+
+export const StyledDropdown = styled.div`
+  display: grid;
+  .dropdown {
+    width: 220px;
+  }
+  justify-content: end;
 `;
 
 export const StyledStudyCard = styled.div`
@@ -35,6 +44,9 @@ export const StyledStudyCard = styled.div`
 
   :hover {
     box-shadow: 0px 2px 24px 0px #0000001a;
+    .archiveButton {
+      display: inline-block;
+    }
   }
 
   .clickableWrapper {
@@ -45,6 +57,13 @@ export const StyledStudyCard = styled.div`
 
   .studyImage {
     height: 166px;
+    position: relative;
+  }
+  .archiveButton {
+    position: absolute;
+    top: 10%;
+    left: 85%;
+    display: none;
   }
   .noImage {
     background: lightgrey;

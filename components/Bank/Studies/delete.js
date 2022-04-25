@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import styled from 'styled-components';
+import { Button } from 'semantic-ui-react';
 
 import { MY_DEVELOPED_STUDIES_QUERY } from './developed';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
-
-const StyledDeleteBtn = styled.button`
-  padding: 10px 5px 10px 5px;
-  background: white;
-  border: 2px solid red;
-  box-sizing: border-box;
-  border-radius: 4px;
-  cursor: pointer;
-`;
 
 const DELETE_STUDY_MUTATION = gql`
   mutation DELETE_STUDY_MUTATION($id: ID!) {
@@ -44,23 +35,25 @@ class DeleteStudy extends Component {
         update={this.update}
         refetchQueries={[{ query: USER_DASHBOARD_QUERY }]}
       >
-        {(deleteStudy, { error }) => (
-          <StyledDeleteBtn
+        {(deleteStudy, {error, loading}) => {
+          if (loading){
+            return <div>updating...</div>
+          }
+          return(
+          <Button
+            style={{background:"#D53533", color:"#FFFFFF"}}
+            content="Delete"
             onClick={() => {
-              if (
-                confirm(
-                  'Are you sure you want to delete this study? This will delete the entire study from the platform for everyone. This action cannot be undone. Please proceed with caution.'
-                )
-              ) {
-                deleteStudy().catch(err => {
-                  alert(err.message);
-                });
-              }
+              this.props.inputValue === "DELETE" ? 
+              deleteStudy().catch(err => {
+                alert(err.message);
+              }) : 
+              alert('Please type DELETE to delete your study')
+              this.props.setOpen(false);
             }}
-          >
-            {this.props.children}
-          </StyledDeleteBtn>
-        )}
+          />
+          );
+        }}
       </Mutation>
     );
   }
