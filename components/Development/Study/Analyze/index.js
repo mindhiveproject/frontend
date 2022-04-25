@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import Data from '../../../DataViz/index';
 import InDev from '../inDev';
 
-import Starboard from '../../../Starboard/index';
+import NotebookWrapper from '../../../Starboard/wrapper';
 
 class AnalyzeSection extends Component {
   render() {
@@ -17,7 +17,7 @@ class AnalyzeSection extends Component {
     }
 
     // return <Data id={this.props.studyId} />;
-    return <Starboard study={study} />;
+    return <NotebookWrapper study={study} />;
   }
 }
 
