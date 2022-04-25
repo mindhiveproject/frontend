@@ -24,6 +24,7 @@ class NotebookWrapper extends Component {
   saveToState = e => {
     this.setState({
       [e.target.name]: e.target.value,
+      isNew: false,
     });
   };
 
@@ -65,18 +66,6 @@ class NotebookWrapper extends Component {
 
   render() {
     const { study } = this.props;
-
-    // if (this.state.isSelectModalOpen) {
-    //   return (
-    //     <StyledStarboard>
-    //       <Menu handleItemClick={this.handleItemClick} />
-    //       <SavedScripts
-    //         openScript={this.openScript}
-    //         newScript={this.newScript}
-    //       />
-    //     </StyledStarboard>
-    //   );
-    // }
 
     return (
       <StyledStarboard>
