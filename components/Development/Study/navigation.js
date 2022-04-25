@@ -7,13 +7,14 @@ import { StudyBuilderNav } from '../styles';
 import { TOGGLE_OPENING_MUTATION } from '../../Opening/index';
 
 import SaveStudy from './saveStudy';
-import ArchiveDelete from './archiveDelete'
+import ArchiveDelete from '../../Bank/Studies/archiveDelete';
 
 class Navigation extends Component {
   render() {
     const { section, adminMode, user } = this.props;
-    const isHidden = 
-      user?.studiesInfo && user?.studiesInfo[this.props.study?.id]?.hideInDevelop;
+    const isHidden =
+      user?.studiesInfo &&
+      user?.studiesInfo[this.props.study?.id]?.hideInDevelop;
 
     return (
       <StudyBuilderNav>
@@ -126,10 +127,7 @@ class Navigation extends Component {
             </button>
           </div>
 
-          <ArchiveDelete 
-            study={this.props.study}
-            isHidden={isHidden}
-          />
+          <ArchiveDelete study={this.props.study} isHidden={isHidden} />
 
           <SaveStudy
             study={this.props.study}

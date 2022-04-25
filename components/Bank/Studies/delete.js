@@ -20,11 +20,14 @@ class DeleteStudy extends Component {
     // 1. read the cache
     const data = cache.readQuery({ query: MY_DEVELOPED_STUDIES_QUERY });
     // 2. Filter the deleted items out of the page
-    data.myStudies = data.myStudies.filter(
+    const myStudies = [...data.myStudies].filter(
       study => study.id !== payload.data.deleteStudy.id
     );
     // 3. Put the items back
-    cache.writeQuery({ query: MY_DEVELOPED_STUDIES_QUERY, data });
+    cache.writeQuery({
+      query: MY_DEVELOPED_STUDIES_QUERY,
+      data: { myStudies },
+    });
   };
 
   render() {
@@ -35,23 +38,23 @@ class DeleteStudy extends Component {
         update={this.update}
         refetchQueries={[{ query: USER_DASHBOARD_QUERY }]}
       >
-        {(deleteStudy, {error, loading}) => {
-          if (loading){
-            return <div>updating...</div>
+        {(deleteStudy, { error, loading }) => {
+          if (loading) {
+            return <div>updating...</div>;
           }
-          return(
-          <Button
-            style={{background:"#D53533", color:"#FFFFFF"}}
-            content="Delete"
-            onClick={() => {
-              this.props.inputValue === "DELETE" ? 
-              deleteStudy().catch(err => {
-                alert(err.message);
-              }) : 
-              alert('Please type DELETE to delete your study')
-              this.props.setOpen(false);
-            }}
-          />
+          return (
+            <Button
+              style={{ background: '#D53533', color: '#FFFFFF' }}
+              content="Delete"
+              onClick={() => {
+                this.props.inputValue === 'DELETE'
+                  ? deleteStudy().catch(err => {
+                      alert(err.message);
+                    })
+                  : alert('Please type DELETE to delete your study');
+                this.props.setOpen(false);
+              }}
+            />
           );
         }}
       </Mutation>
