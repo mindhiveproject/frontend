@@ -319,7 +319,7 @@ class StudyBuilder extends Component {
             )}
 
             {this.state.section === 'analyze' && (
-              <AnalyzeSection study={this.state.study} />
+              <AnalyzeSection study={this.state.study} user={this.props.user} />
             )}
           </StyledBuilderPage>
         )}

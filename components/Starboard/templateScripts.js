@@ -2,30 +2,23 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import moment from 'moment';
 
-import { MY_SCRIPTS } from '../Queries/Script';
+import { TEMPLATE_SCRIPTS } from '../Queries/Script';
 
 class SavedScripts extends Component {
   render() {
     const { user } = this.props;
     return (
       <div className="scriptSelector">
-        <Query query={MY_SCRIPTS}>
+        <Query query={TEMPLATE_SCRIPTS}>
           {({ error, loading, data }) => {
             if (error) return <Error error={error} />;
             if (loading) return <p>Loading</p>;
-            if (!data?.myScripts) return <p>No scripts</p>;
-            const scripts = data.myScripts;
+            if (!data?.scripts) return <p>No scripts</p>;
+            const { scripts } = data;
 
             return (
               <div className="savedScripts">
-                <div
-                  onClick={() => this.props.createNewScript()}
-                  className="link"
-                >
-                  Create new script
-                </div>
-
-                <h2>Scripts</h2>
+                <h2>Templates</h2>
                 <div className="savedScript">
                   <div>Title</div>
                   <div>Description</div>
@@ -42,7 +35,7 @@ class SavedScripts extends Component {
                 {scripts.map((script, num) => (
                   <div key={num} className="savedScript">
                     <div
-                      onClick={() => this.props.openScript({ script })}
+                      onClick={() => this.props.openTemplate({ script })}
                       className="link"
                     >
                       {script?.title}

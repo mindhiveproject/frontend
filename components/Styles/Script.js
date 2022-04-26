@@ -39,11 +39,28 @@ const StyledStarboard = styled.div`
   .savedScript {
     display: grid;
     grid-gap: 2rem;
-    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-template-columns: 2fr 4fr 2fr 2fr 3fr;
+    .settingInfo {
+      display: grid;
+      grid-gap: 1rem;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
   }
+
   .link {
     cursor: pointer;
     text-decoration: underline;
+  }
+  .checkboxField {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 14fr;
+    align-items: center;
   }
 `;
 

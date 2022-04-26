@@ -6,7 +6,7 @@ import NotebookWrapper from '../../../Starboard/wrapper';
 
 class AnalyzeSection extends Component {
   render() {
-    const { study } = this.props;
+    const { study, user } = this.props;
     if (!study || !study.id) {
       return (
         <InDev
@@ -17,7 +17,7 @@ class AnalyzeSection extends Component {
     }
 
     // return <Data id={this.props.studyId} />;
-    return <NotebookWrapper study={study} />;
+    return <NotebookWrapper study={study} user={user} />;
   }
 }
 

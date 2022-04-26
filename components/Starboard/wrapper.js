@@ -5,6 +5,9 @@ import Notebook from './notebook';
 
 import Menu from './menu';
 import SavedScripts from './savedScripts';
+import Templates from './templateScripts';
+
+import ScriptForm from './scriptForm';
 
 import { CREATE_SCRIPT, UPDATE_SCRIPT } from '../Mutations/Script';
 import { MY_SCRIPTS } from '../Queries/Script';
@@ -16,14 +19,20 @@ class NotebookWrapper extends Component {
     isScripting: false,
     id: null,
     isSelectModalOpen: false,
+    isTemplatesModalOpen: false,
     title: '',
     description: '',
     content: '',
+    isTemplate: false,
+    isPublic: false,
+    isFeatured: false,
   };
 
   saveToState = e => {
+    const { name, type } = e.target;
+    const value = type === 'checkbox' ? e.target.checked : e.target.value;
     this.setState({
-      [e.target.name]: e.target.value,
+      [name]: value,
       isNew: false,
     });
   };
@@ -32,7 +41,7 @@ class NotebookWrapper extends Component {
     this.setState({ content, isNew: false });
   };
 
-  newScript = () => {
+  createNewScript = () => {
     this.setState({
       isSelectModalOpen: false,
       isScripting: true,
@@ -41,31 +50,60 @@ class NotebookWrapper extends Component {
       id: null,
       title: '',
       description: '',
+      isTemplate: false,
+      isPublic: false,
+      isFeatured: false,
     });
   };
 
   openScript = ({ script }) => {
     this.setState({
       isSelectModalOpen: false,
+      isTemplatesModalOpen: false,
       isScripting: true,
       id: script?.id,
       content: script?.content,
       title: script?.title,
       description: script?.description,
       isNew: true,
+      isTemplate: script?.isTemplate,
+      isPublic: script?.isPublic,
+      isFeatured: script?.isFeatured,
+    });
+  };
+
+  openTemplate = ({ script }) => {
+    this.setState({
+      isSelectModalOpen: false,
+      isTemplatesModalOpen: false,
+      isScripting: true,
+      content: script?.content,
+      title: script?.title,
+      description: script?.description,
+      isNew: true,
+      isTemplate: false,
+      isPublic: false,
+      isFeatured: false,
     });
   };
 
   handleItemClick = (e, { name }) => {
-    if (name === 'open') {
+    if (name === 'myScripts') {
       this.setState({
         isSelectModalOpen: !this.state.isSelectModalOpen,
+        isTemplatesModalOpen: false,
+      });
+    }
+    if (name === 'templates') {
+      this.setState({
+        isTemplatesModalOpen: !this.state.isTemplatesModalOpen,
+        isSelectModalOpen: false,
       });
     }
   };
 
   render() {
-    const { study } = this.props;
+    const { study, user } = this.props;
 
     return (
       <StyledStarboard>
@@ -74,8 +112,13 @@ class NotebookWrapper extends Component {
         {this.state.isSelectModalOpen && (
           <SavedScripts
             openScript={this.openScript}
-            newScript={this.newScript}
+            createNewScript={this.createNewScript}
+            user={user}
           />
+        )}
+
+        {this.state.isTemplatesModalOpen && (
+          <Templates openTemplate={this.openTemplate} user={user} />
         )}
 
         <div className="upperPart">
@@ -88,38 +131,24 @@ class NotebookWrapper extends Component {
                   refetchQueries={[{ query: MY_SCRIPTS }]}
                 >
                   {(updateScript, { loading, error }) => (
-                    <fieldset disabled={loading} aria-busy={loading}>
-                      <label htmlFor="title">
-                        Title
-                        <input
-                          type="text"
-                          name="title"
-                          value={this.state.title}
-                          onChange={this.saveToState}
-                        />
-                      </label>
-                      <label htmlFor="description">
-                        Description
-                        <textarea
-                          id="description"
-                          name="description"
-                          value={this.state.description}
-                          onChange={this.saveToState}
-                        />
-                      </label>
-                      <button
-                        onClick={async e => {
-                          e.preventDefault();
-                          if (!this.state.title.trim()) {
-                            return alert('Title is missing');
-                          }
-                          const res = await updateScript();
-                        }}
-                        disabled={loading}
-                      >
-                        Save
-                      </button>
-                    </fieldset>
+                    <ScriptForm
+                      loading={loading}
+                      title={this.state.title}
+                      description={this.state.description}
+                      isPublic={this.state.isPublic}
+                      isTemplate={this.state.isTemplate}
+                      isFeatured={this.state.isFeatured}
+                      saveToState={this.saveToState}
+                      onSaveClick={async e => {
+                        e.preventDefault();
+                        if (!this.state.title.trim()) {
+                          return alert('The script title is missing');
+                        }
+                        await updateScript();
+                      }}
+                      buttonName="Save"
+                      user={user}
+                    />
                   )}
                 </Mutation>
               ) : (
@@ -129,41 +158,27 @@ class NotebookWrapper extends Component {
                   refetchQueries={[{ query: MY_SCRIPTS }]}
                 >
                   {(createScript, { loading, error }) => (
-                    <fieldset disabled={loading} aria-busy={loading}>
-                      <label htmlFor="title">
-                        Title
-                        <input
-                          type="text"
-                          name="title"
-                          value={this.state.title}
-                          onChange={this.saveToState}
-                        />
-                      </label>
-                      <label htmlFor="description">
-                        Description
-                        <textarea
-                          id="description"
-                          name="description"
-                          value={this.state.description}
-                          onChange={this.saveToState}
-                        />
-                      </label>
-                      <button
-                        onClick={async e => {
-                          e.preventDefault();
-                          if (!this.state.title.trim()) {
-                            return alert('Title is missing');
-                          }
-                          const res = await createScript();
-                          this.setState({
-                            id: res?.data?.createScript?.id,
-                          });
-                        }}
-                        disabled={loading}
-                      >
-                        Save new script
-                      </button>
-                    </fieldset>
+                    <ScriptForm
+                      loading={loading}
+                      title={this.state.title}
+                      description={this.state.description}
+                      isPublic={this.state.isPublic}
+                      isTemplate={this.state.isTemplate}
+                      isFeatured={this.state.isFeatured}
+                      saveToState={this.saveToState}
+                      onSaveClick={async e => {
+                        e.preventDefault();
+                        if (!this.state.title.trim()) {
+                          return alert('The script title is missing');
+                        }
+                        const res = await createScript();
+                        this.setState({
+                          id: res?.data?.createScript?.id,
+                        });
+                      }}
+                      buttonName="Save new script"
+                      user={user}
+                    />
                   )}
                 </Mutation>
               )}
