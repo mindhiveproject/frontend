@@ -24,7 +24,7 @@ class Notebook extends React.Component {
 
     const el = new StarboardEmbed({
       notebookContent: this.props.content,
-      src: this.props.url,
+      src: url,
       onContentUpdateMessage: message => {
         this.props.updateContent({ content: message?.content });
       },
