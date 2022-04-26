@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 const urlDev = 'http://192.168.0.143:9001/';
 const urlDevOffice = 'http://134.34.42.77:9001/';
 const urlProd = 'https://starboard.mindhive.science/';
-const url = process.env.NODE_ENV === 'production' ? urlProd : urlDevOffice;
+
+const url = process.env.NODE_ENV === 'development' ? urlDevOffice : urlProd;
 
 class Notebook extends React.Component {
   state = {
