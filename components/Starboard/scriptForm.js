@@ -35,7 +35,7 @@ class ScriptForm extends Component {
           />
         </label>
 
-        {user?.permissions?.includes.ADMIN && (
+        {user?.permissions?.includes('ADMIN') && (
           <div>
             <label htmlFor="isPublic">
               <div className="checkboxField">

@@ -31,7 +31,7 @@ class SavedScripts extends Component {
                   <div>Description</div>
                   <div>Created</div>
                   <div>Last updated</div>
-                  {user?.permissions?.includes.ADMIN && (
+                  {user?.permissions?.includes('ADMIN') && (
                     <div className="settingInfo">
                       <div>Public</div>
                       <div>Template</div>
@@ -54,7 +54,7 @@ class SavedScripts extends Component {
                     <div>
                       {moment(script?.updatedAt).format('MMMM D, YYYY, h:mma')}
                     </div>
-                    {user?.permissions?.includes.ADMIN && (
+                    {user?.permissions?.includes('ADMIN') && (
                       <div className="settingInfo">
                         <div>{script?.isPublic ? 'yes' : 'no'}</div>
                         <div>{script?.isTemplate ? 'yes' : 'no'}</div>
