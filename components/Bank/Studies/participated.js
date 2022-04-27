@@ -70,10 +70,19 @@ class ParticipatedStudiesBank extends Component {
                 </StyledZeroState>
               );
             }
+            let filteredStudies = studies
+            let studiesIDsToHide = studies
+              .map(study => study.id);
+
+            if (this.props.allStudies) {
+              filteredStudies = this.props.allStudies.filter(
+                study => !studiesIDsToHide.includes(study?.id)
+              );
+            }
             return (
               <StyledBank>
                 <div className="studies">
-                  {studies.map(study => (
+                  {filteredStudies.map(study => (
                     <StudyCard
                       key={study.id}
                       study={study}
