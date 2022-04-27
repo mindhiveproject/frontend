@@ -57,7 +57,7 @@ const filterOptions = [
 ];
 
 class DevelopedStudiesBank extends Component {
-  state= {
+  state = {
     filter: 'All'
   }
 

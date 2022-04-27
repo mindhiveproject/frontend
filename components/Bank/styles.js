@@ -7,9 +7,6 @@ export const StyledBank = styled.div`
 
 export const StyledDropdown = styled.div`
   display: grid;
-  .dropdown {
-    width: 220px;
-  }
   justify-content: end;
 `;
 
