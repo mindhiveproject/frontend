@@ -61,9 +61,12 @@ function ArchiveModal({study, isHidden}) {
             <>
               <div className="heading">
                 <Icon name='archive' />
-                <span>Archive Study</span>
+                <span>{isHidden ? "Unarchive study" : "Archive Study"}</span>
               </div>
-              <p>Archiving a study moves it to the <br/>"Archived" section in your Develop <br/>area. It will not impact how others <br/>see the study.</p> 
+              {isHidden ? 
+                <p>Unarchiving a study will return it to<br/> the "Active" section in your develop<br/> area. It will not impact how others <br/>see the study</p>
+                : <p>Archiving a study moves it to the <br/>"Archived" section in your Develop <br/>area. It will not impact how others <br/>see the study.</p> 
+              }
             </>
           }
         />
@@ -72,8 +75,11 @@ function ArchiveModal({study, isHidden}) {
       <Modal.Content>
         <Modal.Description>
           <StyledModal>
-            <h3>Are you sure you want to <strong>archive</strong> this study?</h3>
-            <p>Archiving a study allows you to focus on active studies. The study will be moved to an "Archived" section within your Develop area. It will not impact how others see the study. You can unarchive a study at any time.</p>
+            <h3>Are you sure you want to <strong>{isHidden ? "unarchive" : "archive"}</strong> this study?</h3>
+            {isHidden ? 
+              <p>The study will be returned to the "Active" section within your Develop area. It will not impact how others see the study. You can rearchive a study at any time.</p>
+              : <p>Archiving a study allows you to focus on active studies. The study will be moved to an "Archived" section within your Develop area. It will not impact how others see the study. You can unarchive a study at any time.</p>
+            }
           </StyledModal>
         </Modal.Description>
       </Modal.Content>
