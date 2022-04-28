@@ -98,7 +98,7 @@ const SidebarNav = ({ user }) => {
           </Link>
         )}
 
-        <Link href="/dashboard/participate">
+        {/* <Link href="/dashboard/participate">
           <NavLink selected={router.pathname === '/dashboard/participate'}>
             <div>
               <svg
@@ -120,7 +120,7 @@ const SidebarNav = ({ user }) => {
             </div>
             <div>Participate</div>
           </NavLink>
-        </Link>
+        </Link> */}
 
         <Link href="/dashboard/review">
           <NavLink selected={router.pathname === '/dashboard/review'}>
