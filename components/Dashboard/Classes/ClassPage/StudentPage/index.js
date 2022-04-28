@@ -77,13 +77,11 @@ class FetchStudentPage extends Component {
 
           <Query query={STUDENT_QUERY} variables={{ id: this.props.studentId }}>
             {({ error, loading, data }) => {
-              if (error) return <Error error={error} />;
+              if (error) return <div>{JSON.stringify(error)}</div>;
               if (loading) return <div>Loading ...</div>;
               if (!data.student)
                 return <p>No student found for {this.props.studentId}</p>;
               const { student } = data;
-
-              console.log('student', student);
 
               return (
                 <StudentPage
