@@ -6,7 +6,7 @@ import { Icon } from 'semantic-ui-react';
 const StyledStudiesHeader = styled.div`
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: 300px 150px 2fr 1fr 1fr 1fr;
+  grid-template-columns: 200px 200px 2fr 1fr 1fr 1fr;
   padding: 10px;
   font-weight: bold;
   grid-gap: 1rem;
@@ -15,25 +15,35 @@ const StyledStudiesHeader = styled.div`
 const StyledClassRow = styled.div`
   display: grid;
   padding: 10px;
-  grid-template-columns: 300px 150px auto;
+  grid-template-columns: 200px 200px auto;
   background: white;
   grid-gap: 1rem;
+  border-bottom: 1px solid lightGrey;
   .title {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
+    align-content: center;
     grid-gap: 1rem;
-    align-items: center;
+    align-content: baseline;
   }
   .conditionName {
     display: grid;
-    align-items: center;
+    align-content: baseline;
   }
-  .testInfo {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    grid-gap: 1rem;
-    align-items: center;
+  li {
+    font-size: 1.3rem;
   }
+`;
+
+const TestInfoRow = styled.div`
+  display: grid;
+  padding: 0rem 1rem;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-gap: 1rem;
+  align-items: center;
+  background: ${props => (props.odd ? '#f0f0f0' : 'white')};
+  border-radius: 5px;
+  align-content: baseline;
 `;
 
 const EmptyRow = styled.div`
@@ -68,7 +78,7 @@ class Participated extends Component {
           </div>
           <div>Condition</div>
           <div>Task/survey/block</div>
-          <div>ID</div>
+          <div>Task ID</div>
           <div>Status</div>
           <div>Date</div>
         </StyledStudiesHeader>
@@ -101,20 +111,36 @@ class Participated extends Component {
           // filter completed tasks
           // const completedTests = student?.results?.filter(res => res.payload === 'full') || [];
           const results = student?.results || [];
+          console.log('results', results);
 
           // populate tests with the information whether it was completed and completion date
-          const testsWithInfo = tests.map(test => {
-            const testWithInfo = {
-              ...test,
-              status: results
-                .filter(t => t.testVersion === test?.testId)
-                .map(t => t.payload)[0],
-              date: results
-                .filter(t => t.testVersion === test?.testId)
-                .map(t => t.createdAt)[0],
-            };
-            return testWithInfo;
-          });
+          // const testsWithInfo = tests.map(test => {
+          //   const testWithInfo = {
+          //     ...test,
+          //     status: results
+          //       .filter(t => t.testVersion === test?.testId)
+          //       .map(t => t.payload)[0],
+          //     date: results
+          //       .filter(t => t.testVersion === test?.testId)
+          //       .map(t => t.createdAt)[0],
+          //   };
+          //   return testWithInfo;
+          // });
+
+          const resultsWithInfo = results
+            .filter(result => result?.study?.id === study?.id)
+            .map(result => {
+              const resultExtended = {
+                ...result,
+                title:
+                  tests
+                    .filter(test => test?.testId === result?.testVersion)
+                    .map(test => test?.title) || [],
+              };
+              return resultExtended;
+            });
+
+          console.log('resultsWithInfo', resultsWithInfo);
 
           return (
             <StyledClassRow key={num}>
@@ -130,17 +156,29 @@ class Participated extends Component {
                   </a>
                 </div>
               </div>
-              <div className="conditionName">{blockName}</div>
+              <div className="conditionName">
+                {blockName}
+
+                <div>
+                  {tests.map((test, num) => (
+                    <li key={num}>{test?.title}</li>
+                  ))}
+                </div>
+              </div>
               <div>
-                {testsWithInfo?.map((test, num) => (
-                  <div className="testInfo" key={num}>
-                    <div>{test?.title}</div>
-                    <div>{test?.testId}</div>
+                {resultsWithInfo?.map((test, num) => (
+                  <TestInfoRow key={num} odd={num % 2}>
+                    <div>
+                      {test?.title.map((title, num) => (
+                        <span key={num}>{title} </span>
+                      ))}
+                    </div>
+                    <div>{test?.testVersion}</div>
 
                     <div>
-                      {test?.status ? (
+                      {test?.payload ? (
                         <>
-                          {test?.status === 'full'
+                          {test?.payload === 'full'
                             ? '✅ Completed '
                             : '🔥 Started'}
                         </>
@@ -149,13 +187,13 @@ class Participated extends Component {
                       )}
                     </div>
                     <div>
-                      {test?.date ? (
-                        moment(test?.date).format('MM.D.YYYY, h:mma')
+                      {test?.createdAt ? (
+                        moment(test?.createdAt).format('MM.D.YYYY, h:mma')
                       ) : (
                         <></>
                       )}
                     </div>
-                  </div>
+                  </TestInfoRow>
                 ))}
               </div>
             </StyledClassRow>

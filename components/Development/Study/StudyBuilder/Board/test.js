@@ -129,6 +129,7 @@ class Test extends Component {
                       openTaskEditor={this.props.openTaskEditor}
                       viewing={this.props.viewing}
                       onDeleteTest={this.props.onDeleteTest}
+                      togglePreview={this.props.togglePreview}
                       inStudyBuilder
                     />
                   </StyledTaskCard>

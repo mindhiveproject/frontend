@@ -56,6 +56,7 @@ class Inner extends Component {
           onDeleteTest={this.props.onDeleteTest}
           openTaskEditor={this.props.openTaskEditor}
           viewing={this.props.viewing}
+          togglePreview={this.props.togglePreview}
         />
 
         <StyledInput>

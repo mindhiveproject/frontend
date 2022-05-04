@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import uniqid from 'uniqid';
 import Inner from './inner';
 
-const Board = ({ blocks, openTaskEditor, viewing, updateComponents }) => {
+const Board = ({
+  blocks,
+  openTaskEditor,
+  viewing,
+  updateComponents,
+  togglePreview,
+}) => {
   const updateComponentsWithBlocks = blocks => {
     const components = { blocks };
     updateComponents(components);
@@ -91,6 +97,7 @@ const Board = ({ blocks, openTaskEditor, viewing, updateComponents }) => {
       viewing={viewing}
       updateBlockTitle={updateBlockTitle}
       updateBlockStatus={updateBlockStatus}
+      togglePreview={togglePreview}
     />
   );
 };

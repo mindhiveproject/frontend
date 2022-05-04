@@ -7,7 +7,7 @@ import { StyledCard } from './styles';
 class Card extends Component {
   render() {
     const { card, proposalBuildMode, adminMode } = this.props;
-    let status = card?.settings?.status? card.settings.status : 'Not started';
+    let status = card?.settings?.status ? card.settings.status : 'Not started';
 
     let statusStyle = null;
     switch (status) {
@@ -53,7 +53,9 @@ class Card extends Component {
                         <div key={i} className="info-assigned">
                            
                           {adminMode
-                            ? user?.publicReadableId || 'John Doe'
+                            ? user?.username ||
+                              user?.publicReadableId ||
+                              'John Doe'
                             : user?.username}
                         </div>
                       ))

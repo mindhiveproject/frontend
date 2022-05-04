@@ -107,13 +107,6 @@ class TabPreview extends Component {
                   {task.taskType && task.taskType.toLowerCase()}
                 </button>
               </div>
-              {false && (
-                <div>
-                  <a onClick={() => console.log('Preview')}>
-                    <p>Preview</p>
-                  </a>
-                </div>
-              )}
             </div>
           </div>
         </StyledTaskCard>

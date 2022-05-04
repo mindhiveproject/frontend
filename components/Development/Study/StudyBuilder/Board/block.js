@@ -86,6 +86,7 @@ const Block = ({
   onDeleteTest,
   openTaskEditor,
   viewing,
+  togglePreview,
 }) => {
   const { tests } = block;
   const [testName, setTestName] = useState('');
@@ -181,6 +182,7 @@ const Block = ({
                 openTaskEditor={openTaskEditor}
                 viewing={viewing}
                 index={index}
+                togglePreview={togglePreview}
               />
             ))}
             {provided.placeholder}
