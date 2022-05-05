@@ -8,6 +8,9 @@ export const StyledBank = styled.div`
 export const StyledDropdown = styled.div`
   display: grid;
   justify-content: end;
+  p {
+    font-size: 16px;
+  }
 `;
 
 export const StyledStudyCard = styled.div`
