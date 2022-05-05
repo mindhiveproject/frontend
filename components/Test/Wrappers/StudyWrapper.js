@@ -73,7 +73,8 @@ class StudyWrapper extends Component {
             const studyBlock = studyPayloadData?.components?.blocks.filter(
               block => block?.blockId === participantBlock
             );
-            const components = studyBlock[0].tests;
+            const components =
+              studyBlock && studyBlock.length && studyBlock[0].tests;
             t = components
               .filter(component => component.testId === this.props.v)
               .map(component => component?.id)[0];

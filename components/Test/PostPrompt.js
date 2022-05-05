@@ -183,17 +183,19 @@ class PostPrompt extends Component {
 
     // return back to the study page or continue to the next task
     if (redirect === 'nextTask' && this.state.nextTaskId) {
-      Router.push({
-        pathname: `/do/task`,
-        query: {
-          s: this.props.study.id,
-          v: this.state.nextTaskId,
-        },
-      });
+      window.location = `/do/task?s=${this.props.study.id}&v=${this.state.nextTaskId}`;
+      // Router.push({
+      //   pathname: `/do/task`,
+      //   query: {
+      //     s: this.props.study.id,
+      //     v: this.state.nextTaskId,
+      //   },
+      // });
     } else {
-      Router.push({
-        pathname: `/studies/${this.props.study.slug}`,
-      });
+      window.location = `/studies/${this.props.study.slug}`;
+      // Router.push({
+      //   pathname: `/studies/${this.props.study.slug}`,
+      // });
     }
   };
 

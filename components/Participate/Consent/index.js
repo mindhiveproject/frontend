@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import Router from 'next/router';
 
 import uniqid from 'uniqid';
 import generate from 'project-name-generator';
@@ -96,8 +95,6 @@ class Consent extends Component {
         activeConsent: this.state.activeConsent + 1,
       });
     } else if (this.props.user) {
-      console.log('this.props', this.props);
-
       if (this.props.query.guest === 'true') {
         const res = await joinAsGuest({
           variables: {
