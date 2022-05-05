@@ -15,6 +15,8 @@ import InDev from './inDev';
 
 import SharingModal from './Sharing/modal';
 
+import ExperimentPreview from '../../Task/Preview/index';
+
 import {
   StyledBuilder,
   StyledEditPane,
@@ -41,6 +43,14 @@ class StudyBuilder extends Component {
     adminMode: this.props.adminMode,
     newStudyFromScratch: this.props.newStudyFromScratch,
     section: 'studyBuilder',
+    showPreview: false,
+  };
+
+  togglePreview = component => {
+    this.setState({
+      showPreview: true,
+      component,
+    });
   };
 
   handleSectionChange = (e, { name }) => this.setState({ section: name });
@@ -251,6 +261,17 @@ class StudyBuilder extends Component {
     const [proposal] = study?.proposal || [];
     const proposalId = proposal ? proposal.id : undefined;
 
+    if (this.state.showPreview) {
+      return (
+        <ExperimentPreview
+          user={this.props?.user?.id || ''}
+          parameters={this.state.component.parameters}
+          template={this.state.component.template}
+          handleFinish={() => this.setState({ showPreview: false })}
+        />
+      );
+    }
+
     return (
       <>
         {this.state.isTaskBuilderOpen ? (
@@ -304,6 +325,7 @@ class StudyBuilder extends Component {
                 uploadImage={this.uploadImage}
                 deleteParameter={this.deleteParameter}
                 updateComponents={this.updateComponents}
+                togglePreview={this.togglePreview}
               />
             )}
             {this.state.section === 'review' && (

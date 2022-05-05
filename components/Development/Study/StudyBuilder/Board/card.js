@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
-import styled from 'styled-components';
 import ExperimentPreview from '../../../../Task/Preview/index';
 
 import { ContainerOnlyForAuthorsOrCollaborators } from '../../../../Permissions/Author/index';
@@ -15,9 +12,10 @@ class Card extends Component {
   togglePreview = e => {
     e.target.blur();
     e.preventDefault();
-    this.setState({
-      showPreview: !this.state.showPreview,
-    });
+    // this.setState({
+    //   showPreview: !this.state.showPreview,
+    // });
+    this.props.togglePreview(this.props.component);
   };
 
   render() {
@@ -30,7 +28,7 @@ class Card extends Component {
     ];
 
     return (
-      <>
+      <div className="card">
         <div>
           {component.image && (
             <div className="taskImage">
@@ -80,7 +78,7 @@ class Card extends Component {
               )}
 
               {component.link && (
-                <a target="_blank" href={component.link}>
+                <a target="_blank" href={component.link} rel="noreferrer">
                   <button>Preview</button>
                 </a>
               )}
@@ -105,30 +103,9 @@ class Card extends Component {
             handleFinish={() => this.setState({ showPreview: false })}
           />
         )}
-      </>
+      </div>
     );
   }
 }
 
 export default Card;
-
-// {false && this.props.inStudyBuilder && (
-//   <Link
-//     href={{
-//       pathname: '/task/results',
-//       query: { id: component.id },
-//     }}
-//   >
-//     <button>Task results</button>
-//   </Link>
-// )}
-
-// {this.props.onSelectComponent && !component.link && (
-//   <button
-//     onClick={() => {
-//       this.props.onSelectComponent(component);
-//     }}
-//   >
-//     Select
-//   </button>
-// )}

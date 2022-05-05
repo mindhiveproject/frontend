@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import slugify from 'slugify';
-import { Container, Draggable } from 'react-smooth-dnd';
 import uniqid from 'uniqid';
-import Block from './Preview/block';
+
 import InfoTabs from './Preview/infoTabs';
 import { UploadImageContainer } from '../styles';
 import Board from './Board/index';
@@ -32,13 +31,6 @@ class PreviewPane extends Component {
         title: e.target.value,
       });
     }
-  };
-
-  onDrop = e => {
-    // console.log('e', e);
-    // if (e.removedIndex !== e.addedIndex) {
-    //   this.props.onMoveComponent(e.removedIndex, e.addedIndex, e.payload);
-    // }
   };
 
   render() {
@@ -208,6 +200,7 @@ class PreviewPane extends Component {
               openTaskEditor={this.props.openTaskEditor}
               viewing={this.state.viewing}
               updateComponents={this.props.updateComponents}
+              togglePreview={this.props.togglePreview}
             />
 
             <div>

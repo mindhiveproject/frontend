@@ -7,7 +7,7 @@ export const PreviewContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  z-index: 5;
 `;
 
 export const Preview = styled.div`
@@ -16,19 +16,15 @@ export const Preview = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  /* padding: 1rem 1rem; */
   width: 100%;
   height: 100%;
-  /* border-radius: 0.3rem; */
   overflow-y: auto;
-  /* font-size: 1rem; */
 `;
 
 export const CloseButton = styled.span`
   position: absolute;
   top: 1%;
   right: 1%;
-  /* float: right; */
   width: 3.3rem;
   line-height: 3rem;
   text-align: center;

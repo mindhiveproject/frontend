@@ -77,7 +77,7 @@ class OriginalTemplateForm extends Component {
     title: this.props.title,
     shortDescription: this.props.shortDescription,
     description: this.props.description,
-    parameters: this.props.parameters,
+    parameters: this.props.parameters || [],
     script: this.props.script,
     style: this.props.style,
   };
@@ -153,6 +153,7 @@ class OriginalTemplateForm extends Component {
   };
 
   render() {
+    console.log('this.state', this.state);
     return (
       <Mutation mutation={UPDATE_TEMPLATE} variables={this.state}>
         {(updateTemplate, { loading, error }) => (
@@ -212,7 +213,7 @@ class OriginalTemplateForm extends Component {
                 </button>
               </div>
 
-              {this.state.parameters.map(
+              {this.state.parameters?.map(
                 ({ name, value, type, help, example, options, array }) => (
                   <StyledParameterBlock key={name} htmlFor={name}>
                     <div className="name">{name}</div>

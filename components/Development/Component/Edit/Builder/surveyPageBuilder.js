@@ -211,7 +211,10 @@ class Item extends Component {
             className="type"
           >
             <option value="text">Text</option>
-            <option value="select">Multiple choice</option>
+            <option value="select">Multiple choice (select one)</option>
+            <option value="checkbox">
+              Multiple choice (select many options)
+            </option>
             <option value="freeinput">Text input</option>
             <option value="vas">Visual scale</option>
             <option value="likert">Likert scale</option>
@@ -241,7 +244,7 @@ class Item extends Component {
             </>
           )}
 
-          {(type === 'select' || type === 'likert') && (
+          {(type === 'select' || type === 'checkbox' || type === 'likert') && (
             <>
               <div>Options</div>
               {options.map((option, num) => (
