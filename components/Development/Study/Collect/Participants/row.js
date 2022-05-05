@@ -139,12 +139,10 @@ class ParticipantRow extends Component {
               <p>
                 {consents.map(consent => (
                   <div>
-                    <span>{consent.title}</span>
-                    {' - '}
                     <span>
                       {(participant?.consentsInfo &&
-                        participant?.consentsInfo[consent?.id] &&
-                        participant?.consentsInfo[consent?.id]?.decision) ||
+                        participant?.consentsInfo[consent] &&
+                        participant?.consentsInfo[consent]?.decision) ||
                         'No info'}
                     </span>
                   </div>
@@ -160,12 +158,3 @@ class ParticipantRow extends Component {
 }
 
 export default ParticipantRow;
-
-// {' - '}
-// <span>
-//   {(participant?.consentsInfo &&
-//     participant?.consentsInfo[consent?.id] &&
-//     participant?.consentsInfo[consent?.id]
-//       ?.saveCoveredConsent) ||
-//     'No info'}
-// </span>

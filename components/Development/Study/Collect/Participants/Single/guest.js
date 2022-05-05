@@ -31,7 +31,10 @@ class SinglePage extends Component {
         <StyledDevelopDasboard>
           <div style={{ marginBottom: '2rem' }}>
             <div className="goBackBtn">
-              <span style={{ cursor: 'pointer' }} onClick={this.props.goBack}>
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => this.props.goBack('guests')}
+              >
                 ← Back
               </span>
             </div>

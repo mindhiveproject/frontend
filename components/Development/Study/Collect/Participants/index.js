@@ -1,10 +1,9 @@
+// DEPRECATED
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query, Mutation } from '@apollo/client/react/components';
 import ParticipantsOverview from './overview';
 import MessageSender from './message';
-
-import InDev from '../../inDev';
 
 import SinglePage from './Single/index';
 import SingleGuestPage from './Single/guest';

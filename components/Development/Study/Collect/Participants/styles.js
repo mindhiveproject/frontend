@@ -5,7 +5,6 @@ export const StyledCollectSection = styled.div`
   display: grid;
   justify-content: stretch;
   width: 100%;
-  min-height: 93vh;
 
   h1 {
     font-family: Lato;
@@ -70,6 +69,27 @@ export const StyledCollectBoard = styled.div`
     grid-area: participants;
   }
   .noresponses {
+  }
+  .searchArea {
+    display: grid;
+    justify-content: start;
+    align-items: center;
+    span {
+      font-size: 18px;
+      margin-bottom: 0.5rem;
+    }
+    input {
+      font-family: Lato;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 20px;
+      padding: 12px;
+      &:focus {
+        outline: 0;
+        border-color: ${props => props.theme.red};
+      }
+    }
   }
 `;
 

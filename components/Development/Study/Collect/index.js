@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import StudyParticipants from './Participants/index';
 import InDev from '../inDev';
+
+import CollectWrapper from './wrapper';
 
 class CollectSection extends Component {
   render() {
@@ -15,11 +16,7 @@ class CollectSection extends Component {
       );
     }
 
-    return (
-      <div>
-        <StudyParticipants id={study?.id} studySlug={study?.slug} />
-      </div>
-    );
+    return <CollectWrapper study={study} />;
   }
 }
 
