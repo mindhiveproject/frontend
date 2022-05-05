@@ -40,19 +40,19 @@ const filterOptions = [
     key: 'All',
     text: 'All studies',
     value: 'All',
-    content: 'All'
+    content: <p>All</p>
   },
   {
     key: 'Active',
     text: 'Active studies',
     value: 'Active',
-    content: 'Active'
+    content: <p>Active</p>
   },
   {
     key: 'Archived',
     text: 'Archived studies',
     value: 'Archived',
-    content: 'Archived'
+    content: <p>Archived</p>
   }
 ];
 

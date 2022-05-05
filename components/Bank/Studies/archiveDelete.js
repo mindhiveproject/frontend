@@ -64,8 +64,8 @@ function ArchiveModal({study, isHidden}) {
                 <span>{isHidden ? "Unarchive study" : "Archive Study"}</span>
               </div>
               {isHidden ? 
-                <p>Unarchiving a study will return it to<br/> the "Active" section in your develop<br/> area. It will not impact how others <br/>see the study</p>
-                : <p>Archiving a study moves it to the <br/>"Archived" section in your Develop <br/>area. It will not impact how others <br/>see the study.</p> 
+                <p style={{padding: "5px"}}>Unarchiving a study will return it<br/> to the "Active" section in your<br/> develop area. It will not impact <br/>how others see the study</p>
+                : <p style={{padding: "5px"}}>Archiving a study moves it to the <br/>"Archived" section in your <br/>Develop area. It will not impact <br/>how others see the study.</p> 
               }
             </>
           }
@@ -119,7 +119,7 @@ function DeleteModal({study}) {
                 <Icon name='trash' className='red' />
                 <span className='red'>Delete Study</span>
               </div>
-              <p className='red'>Deleting a study deletes it for <em>all <br/>collaborators</em> on that study.</p> 
+              <p style={{padding: "5px"}} className='red'>Deleting a study deletes it for <em>all <br/>collaborators</em> on that study.</p> 
             </>
           }
         />
