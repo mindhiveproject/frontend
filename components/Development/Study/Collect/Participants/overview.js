@@ -23,9 +23,6 @@ class ParticipantsOverview extends Component {
     return (
       <div className="participants">
         <StyledParticipantsBoard>
-          <div style={{ padding: '10px' }}>
-            <h2>Responses</h2>
-          </div>
           <div className="tableHeader">
             <p onClick={() => this.sortBy('publicReadableId')}>
               Readable ID{' '}
