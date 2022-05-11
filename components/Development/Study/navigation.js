@@ -117,18 +117,10 @@ class Navigation extends Component {
         </div>
 
         <div className="rightButtons">
-          {/* <div>
-            <button
-              onClick={() => {
-                this.props.openSharingModal();
-              }}
-              className="addCollaboratorsButton"
-            >
-              Add collaborators
-            </button>
-          </div> */}
 
-          <Collaborators />
+          <Collaborators
+            openSharingModal={this.props.openSharingModal}
+          />
           
           <ArchiveDelete study={this.props.study} isHidden={isHidden} />
 

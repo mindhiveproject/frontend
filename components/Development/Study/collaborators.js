@@ -1,21 +1,5 @@
-import React, {Component, useState} from 'react';
-import {Image, Modal, Dropdown, Icon} from 'semantic-ui-react';
-
-function CollaboratorModal({}) {
-  const [open, setOpen] = useState(false)
-  return (
-    <Modal // this is a button that opens a modal with all collaborators listed and an option to add
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-      size='small'
-      trigger={<Icon name='dropdown' />}
-    >
-      <Modal.Content>Modal Content</Modal.Content>
-      {/* this must already exist somewhere */}
-    </Modal>
-  )
-}
+import React, { Component } from 'react';
+import { Image, Dropdown, Icon } from 'semantic-ui-react';
 
 class Collaborators extends Component {
 
@@ -86,7 +70,7 @@ class Collaborators extends Component {
               height: '28px'
             }}
           >
-          <span // dropdown on hover; number is adaptive to # of collaborators
+          <span // number is adaptive to # of collaborators
             style={{
               fontSize: 'small'
             }}
@@ -95,6 +79,7 @@ class Collaborators extends Component {
               trigger='+3'
               icon={null}
               floating
+              simple // causes the dropdown to trigger on hover rather than click
             >
               <Dropdown.Menu>
                 <Dropdown.Item>List of additional collaborators</Dropdown.Item>
@@ -106,11 +91,19 @@ class Collaborators extends Component {
           <span
             style={{
               position: 'absolute',
-              left: '80%',
+              left: '75%',
               padding: '6px'
             }}
           >
-            <CollaboratorModal />
+            <Icon 
+              name='dropdown'
+              style={{
+                cursor: 'pointer'
+              }}
+              onClick={() => {
+                this.props.openSharingModal();
+              }} 
+            />
           </span>
       </div>
   	);
