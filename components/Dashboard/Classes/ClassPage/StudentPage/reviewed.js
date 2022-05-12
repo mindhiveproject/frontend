@@ -91,7 +91,7 @@ class Reviewed extends Component {
             </div>
             <div>
               <a
-                href={`${window.location.href}/../../proposals/${review.proposalSlug}`}
+                href={`https://mindhive.science/proposals/${review.proposalSlug}`}
                 target="_blank"
                 rel="noreferrer"
               >

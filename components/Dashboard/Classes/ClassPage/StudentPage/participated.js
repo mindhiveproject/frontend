@@ -108,24 +108,7 @@ class Participated extends Component {
             tests = studyBlock?.tests || [];
           }
 
-          // filter completed tasks
-          // const completedTests = student?.results?.filter(res => res.payload === 'full') || [];
           const results = student?.results || [];
-          // console.log('results', results);
-
-          // populate tests with the information whether it was completed and completion date
-          // const testsWithInfo = tests.map(test => {
-          //   const testWithInfo = {
-          //     ...test,
-          //     status: results
-          //       .filter(t => t.testVersion === test?.testId)
-          //       .map(t => t.payload)[0],
-          //     date: results
-          //       .filter(t => t.testVersion === test?.testId)
-          //       .map(t => t.createdAt)[0],
-          //   };
-          //   return testWithInfo;
-          // });
 
           const resultsWithInfo = results
             .filter(result => result?.study?.id === study?.id)
@@ -140,15 +123,13 @@ class Participated extends Component {
               return resultExtended;
             });
 
-          // console.log('resultsWithInfo', resultsWithInfo);
-
           return (
             <StyledClassRow key={num}>
               <div className="title">
                 {study.title}
                 <div>
                   <a
-                    href={`${window.location.href}/../../studies/${study.slug}`}
+                    href={`https://mindhive.science/studies/${study.slug}`}
                     target="_blank"
                     rel="noreferrer"
                   >

@@ -72,7 +72,7 @@ class Created extends Component {
             <div className="title">
               {study.title}
               <a
-                href={`${window.location.href}/../../studies/${study.slug}`}
+                href={`https://mindhive.science/studies/${study.slug}`}
                 target="_blank"
                 rel="noreferrer"
               >
