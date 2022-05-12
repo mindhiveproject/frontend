@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
-import Link from 'next/link';
 import { StyledBank, StyledStudyCard, StyledZeroState } from '../styles';
 import StudyCard from './studycard';
 
@@ -48,24 +47,7 @@ class ParticipatedStudiesBank extends Component {
                 <StyledZeroState>
                   <div className="message">
                     <h2>You haven't participated in any studies yet.</h2>
-                    <p>
-                      <span>See </span>
-                      <Link
-                        href={{
-                          pathname: '/dashboard/discover',
-                        }}
-                      >
-                        <span
-                          style={{
-                            'text-decoration': 'underline',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          Discover
-                        </span>
-                      </Link>
-                      <span> to browse our database.</span>
-                    </p>
+                    <p>Switch to the 'All studies' tab to Discover new studies.</p>
                   </div>
                 </StyledZeroState>
               );
