@@ -64,10 +64,12 @@ const USER_DASHBOARD_QUERY = gql`
       researcherIn {
         id
         title
+        isHidden
       }
       collaboratorInStudy {
         id
         title
+        isHidden
       }
       taskCreatorIn {
         id

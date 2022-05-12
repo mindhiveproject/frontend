@@ -8,7 +8,7 @@ import { USER_DASHBOARD_QUERY } from '../../User/index';
 
 const DELETE_STUDY_MUTATION = gql`
   mutation DELETE_STUDY_MUTATION($id: ID!) {
-    deleteStudy(id: $id) {
+    preDeleteStudy(id: $id) {
       id
     }
   }
@@ -21,7 +21,7 @@ class DeleteStudy extends Component {
     const data = cache.readQuery({ query: MY_DEVELOPED_STUDIES_QUERY });
     // 2. Filter the deleted items out of the page
     const myStudies = [...data.myStudies].filter(
-      study => study.id !== payload.data.deleteStudy.id
+      study => study.id !== payload.data.preDeleteStudy.id
     );
     // 3. Put the items back
     cache.writeQuery({
@@ -47,11 +47,13 @@ class DeleteStudy extends Component {
               style={{ background: '#D53533', color: '#FFFFFF' }}
               content="Delete"
               onClick={() => {
-                this.props.inputValue === 'DELETE'
-                  ? deleteStudy().catch(err => {
-                      alert(err.message);
-                    })
-                  : alert('Please type DELETE to delete your study');
+                if (this.props.inputValue === 'DELETE') {
+                  deleteStudy().catch(err => {
+                    alert(err.message);
+                  });
+                } else {
+                  return alert('Please type DELETE to delete your study');
+                }
                 this.props.setOpen(false);
               }}
             />

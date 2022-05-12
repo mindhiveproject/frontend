@@ -104,24 +104,24 @@ function StudyCard({
           {study.image ? (
             <>
               <img src={study.image} alt={study.title} />
-              {developingMode && 
-                <ArchiveDelete 
-                  className='archiveButton'
+              {developingMode && (
+                <ArchiveDelete
+                  className="archiveButton"
                   study={study}
                   isHidden={isHidden}
                 />
-              } 
+              )}
             </>
           ) : (
             <>
               <div className="noImage"></div>
-              {developingMode && 
-                <ArchiveDelete 
-                  className='archiveButton'
+              {developingMode && (
+                <ArchiveDelete
+                  className="archiveButton"
                   study={study}
                   isHidden={isHidden}
                 />
-              } 
+              )}
             </>
           )}
         </div>
@@ -184,7 +184,12 @@ function StudyCard({
             <div>
               <div className="message">
                 {study?.submitForPublishing && (
-                  <div>Submitted for publishing</div>
+                  <div>The study was submitted for publishing</div>
+                )}
+              </div>
+              <div className="message">
+                {study?.isHidden && (
+                  <div>The study was deleted by researcher</div>
                 )}
               </div>
               <ManageStudy

@@ -83,9 +83,9 @@ class DashboardDevelop extends Component {
       return <div>Please log in</div>;
     }
 
-    const myStudies = [...user?.researcherIn, ...user?.collaboratorInStudy].map(
-      study => study?.id
-    );
+    const myStudies = [...user?.researcherIn, ...user?.collaboratorInStudy]
+      .filter(study => !study.isHidden)
+      .map(study => study?.id);
     const numberOfStudies = [...new Set(myStudies)]?.length;
     const numberOfTasks =
       user?.taskCreatorIn.filter(task => task.taskType === 'TASK').length +
@@ -154,9 +154,8 @@ class DashboardDevelop extends Component {
                     <p>My surveys ({numberOfSurveys || 0})</p>
                   </Menu.Item>
                 </Menu>
-
               </div>
-                
+
               {this.state.tab === 'studies' && (
                 <div>
                   <DevelopedStudiesBank

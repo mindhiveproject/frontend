@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
-
 import styled from 'styled-components';
+
+// import { StyledStudyCard } from '../../Bank/styles';
 
 const StyledStudyCard = styled.div`
   background: #ffffff;
@@ -11,6 +10,20 @@ const StyledStudyCard = styled.div`
   border-radius: 4px;
   overflow: hidden;
   text-align: left;
+
+  .clickableWrapper {
+    display: grid;
+    cursor: pointer;
+    height: 100%;
+  }
+
+  :hover {
+    box-shadow: 0px 2px 24px 0px #0000001a;
+    .archiveButton {
+      display: inline-block;
+    }
+  }
+
   .studyImage {
     height: 166px;
   }
@@ -82,25 +95,23 @@ class StudyCard extends Component {
 
     return (
       <StyledStudyCard>
-        <div className="studyImage">
-          {study.image ? (
-            <img src={study.image} alt={study.title} />
-          ) : (
-            <div className="noImage"></div>
-          )}
-        </div>
+        <div
+          className="clickableWrapper"
+          onClick={() => {
+            this.props.onSelectStudy(study);
+          }}
+        >
+          <div className="studyImage">
+            {study.image ? (
+              <img src={study.image} alt={study.title} />
+            ) : (
+              <div className="noImage"></div>
+            )}
+          </div>
 
-        <div className="cardInfo">
-          <h2>{study.title}</h2>
-          {ReactHtmlParser(study.shortDescription)}
-          <div className="cardBtn">
-            <button
-              onClick={() => {
-                this.props.onSelectStudy(study);
-              }}
-            >
-              <p>Select</p>
-            </button>
+          <div className="cardInfo">
+            <h2>{study.title}</h2>
+            {ReactHtmlParser(study.shortDescription)}
           </div>
         </div>
       </StyledStudyCard>

@@ -158,7 +158,7 @@ class PostPrompt extends Component {
 
   onSubmit = async (e, updateResultsMutation, redirect) => {
     e.preventDefault();
-    updateResultsMutation({
+    await updateResultsMutation({
       variables: {
         id: this.props.token,
         info: {
@@ -206,11 +206,20 @@ class PostPrompt extends Component {
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
-        {(updateResult, { error }) => {
+        {(updateResult, { loading, error }) => {
           const { study, participant, task } = this.props;
 
           const isStudent = participant?.permissions?.includes('STUDENT');
 
+          if (loading) {
+            return (
+              <OnboardingForm>
+                <div className="message">
+                  <p>Uploading the data, please wait.</p>
+                </div>
+              </OnboardingForm>
+            );
+          }
           // always show data usage prompt
           if (this.state.askDataUsageQuestion) {
             return (
