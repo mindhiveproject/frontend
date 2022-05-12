@@ -17,10 +17,7 @@ import { COMPONENT_TO_CLONE_QUERY } from './builderWrapper';
 // lab.js script template functions
 import assemble from '../../AddExperiment/assembleDev/index';
 
-import {
-  MY_DEVELOPED_TASKS_QUERY,
-  MY_DEVELOPED_SURVEYS_QUERY,
-} from '../../Bank/Components/developed';
+import { MY_DEVELOPED_COMPONENTS_QUERY } from '../../Bank/Components/developed';
 
 import {
   StyledBuilder,
@@ -545,8 +542,10 @@ class ComponentBuilder extends Component {
                             { query: MY_SURVEYS_QUERY },
                             { query: MY_TASKS_QUERY },
                             { query: USER_DASHBOARD_QUERY },
-                            { query: MY_DEVELOPED_TASKS_QUERY },
-                            { query: MY_DEVELOPED_SURVEYS_QUERY },
+                            {
+                              query: MY_DEVELOPED_COMPONENTS_QUERY,
+                              variables: { taskType: task?.taskType },
+                            },
                           ]}
                         >
                           {(createTask, { loading, error }) => (
@@ -618,8 +617,10 @@ class ComponentBuilder extends Component {
                             { query: MY_SURVEYS_QUERY },
                             { query: MY_TASKS_QUERY },
                             { query: USER_DASHBOARD_QUERY },
-                            { query: MY_DEVELOPED_TASKS_QUERY },
-                            { query: MY_DEVELOPED_SURVEYS_QUERY },
+                            {
+                              query: MY_DEVELOPED_COMPONENTS_QUERY,
+                              variables: { taskType: task?.taskType },
+                            },
                           ]}
                         >
                           {(createTask, { loading, error }) => (

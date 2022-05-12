@@ -111,7 +111,7 @@ class Participated extends Component {
           // filter completed tasks
           // const completedTests = student?.results?.filter(res => res.payload === 'full') || [];
           const results = student?.results || [];
-          console.log('results', results);
+          // console.log('results', results);
 
           // populate tests with the information whether it was completed and completion date
           // const testsWithInfo = tests.map(test => {
@@ -140,7 +140,7 @@ class Participated extends Component {
               return resultExtended;
             });
 
-          console.log('resultsWithInfo', resultsWithInfo);
+          // console.log('resultsWithInfo', resultsWithInfo);
 
           return (
             <StyledClassRow key={num}>
@@ -148,7 +148,7 @@ class Participated extends Component {
                 {study.title}
                 <div>
                   <a
-                    href={`https://mindhive.science/studies/${study.slug}`}
+                    href={`${window.location.href}/../../studies/${study.slug}`}
                     target="_blank"
                     rel="noreferrer"
                   >

@@ -3,10 +3,7 @@ import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 
-import {
-  MY_DEVELOPED_TASKS_QUERY,
-  MY_DEVELOPED_SURVEYS_QUERY,
-} from './developed';
+import { MY_DEVELOPED_COMPONENTS_QUERY } from './developed';
 import { USER_DASHBOARD_QUERY } from '../../User/index';
 
 const StyledDeleteBtn = styled.button`
@@ -28,15 +25,17 @@ const DELETE_TASK_MUTATION = gql`
 
 class DeleteComponent extends Component {
   render() {
-    const componentType = this.props.taskType === 'SURVEY' ? 'survey' : 'task';
+    const componentType = this.props.taskType.toLowerCase();
     return (
       <Mutation
         mutation={DELETE_TASK_MUTATION}
         variables={{ id: this.props.id }}
         refetchQueries={[
           { query: USER_DASHBOARD_QUERY },
-          { query: MY_DEVELOPED_TASKS_QUERY },
-          { query: MY_DEVELOPED_SURVEYS_QUERY },
+          {
+            query: MY_DEVELOPED_COMPONENTS_QUERY,
+            variables: { taskType: this.props.taskType },
+          },
         ]}
       >
         {(deleteTask, { error }) => (

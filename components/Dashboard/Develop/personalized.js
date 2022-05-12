@@ -94,6 +94,9 @@ class DashboardDevelop extends Component {
       user?.taskCreatorIn.filter(task => task.taskType === 'SURVEY').length +
       user?.collaboratorInTask.filter(task => task.taskType === 'SURVEY')
         .length;
+    const numberOfBlocks =
+      user?.taskCreatorIn.filter(task => task.taskType === 'BLOCK').length +
+      user?.collaboratorInTask.filter(task => task.taskType === 'BLOCK').length;
 
     if (page === 'bank') {
       return (
@@ -153,6 +156,19 @@ class DashboardDevelop extends Component {
                   >
                     <p>My surveys ({numberOfSurveys || 0})</p>
                   </Menu.Item>
+
+                  <Menu.Item
+                    name="blocks"
+                    active={tab === 'blocks'}
+                    onClick={this.handleItemClick}
+                    className={
+                      tab === 'blocks'
+                        ? 'discoverMenuTitle selectedMenuTitle'
+                        : 'discoverMenuTitle'
+                    }
+                  >
+                    <p>My blocks ({numberOfBlocks || 0})</p>
+                  </Menu.Item>
                 </Menu>
               </div>
 
@@ -177,6 +193,14 @@ class DashboardDevelop extends Component {
               {this.state.tab === 'surveys' && (
                 <DevelopedComponentsBank
                   componentType="SURVEY"
+                  onSelectComponent={this.openComponentEditor}
+                  user={this.props.user}
+                />
+              )}
+
+              {this.state.tab === 'blocks' && (
+                <DevelopedComponentsBank
+                  componentType="BLOCK"
                   onSelectComponent={this.openComponentEditor}
                   user={this.props.user}
                 />

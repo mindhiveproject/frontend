@@ -41,6 +41,9 @@ const STUDENT_QUERY = gql`
           slug
           title
         }
+        proposal {
+          slug
+        }
         content
         stage
       }

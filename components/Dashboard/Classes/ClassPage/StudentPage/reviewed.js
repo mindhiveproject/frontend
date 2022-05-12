@@ -8,7 +8,7 @@ import ReviewModal from './reviewModal';
 const StyledStudiesHeader = styled.div`
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: 300px 100px 100px 200px auto;
+  grid-template-columns: 300px 70px 70px 100px 200px auto;
   padding: 10px;
   font-weight: bold;
 `;
@@ -16,7 +16,7 @@ const StyledStudiesHeader = styled.div`
 const StyledClassRow = styled.div`
   display: grid;
   padding: 10px;
-  grid-template-columns: 300px 100px 100px 200px auto;
+  grid-template-columns: 300px 70px 70px 100px 200px auto;
   background: white;
   grid-gap: 1rem;
   .title {
@@ -51,6 +51,7 @@ class Reviewed extends Component {
         slug: review?.study?.slug,
         stage: review?.stage,
         content: review?.content,
+        proposalSlug: review?.proposal?.slug,
       })),
     ];
 
@@ -68,6 +69,7 @@ class Reviewed extends Component {
           <div>Study title</div>
           <div>Review</div>
           <div>Study</div>
+          <div>Proposal</div>
           <div>Review type</div>
           <div>Date reviewed</div>
         </StyledStudiesHeader>
@@ -81,6 +83,15 @@ class Reviewed extends Component {
             <div>
               <a
                 href={`https://mindhive.science/studies/${review.slug}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open
+              </a>
+            </div>
+            <div>
+              <a
+                href={`${window.location.href}/../../proposals/${review.proposalSlug}`}
                 target="_blank"
                 rel="noreferrer"
               >
