@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import gql from 'graphql-tag';
 import { useLazyQuery } from '@apollo/client';
 import { jsonToCSV } from 'react-papaparse';
-import { saveAs } from 'file-saver';
 import streamSaver from 'streamsaver';
 import moment from 'moment';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 const LZUTF8 = require('lzutf8');
 
@@ -75,10 +76,11 @@ const load = ({ result, content, writer, type }) => {
 
 export default function AggregatedByTest({ results }) {
   const [findData, { loading, data, error }] = useLazyQuery(MY_DATA_QUERY);
+  const [isLoading, setIsLoading] = useState(false);
 
   // download the current state of the data as a csv file
   async function downloadData({ results }) {
-    // console.log('Downloading data for', results);
+    setIsLoading(true);
 
     const fileStream = streamSaver.createWriteStream(
       `data-${moment().format('YYYY-MM-DD--HH:mm')}.csv`,
@@ -123,6 +125,7 @@ export default function AggregatedByTest({ results }) {
     }
 
     writer.close();
+    setIsLoading(false);
   }
 
   return (
@@ -130,6 +133,9 @@ export default function AggregatedByTest({ results }) {
       <button onClick={() => downloadData({ results })}>
         Download aggregated data
       </button>
+      <Dimmer active={isLoading}>
+        <Loader>Please wait while data is loading</Loader>
+      </Dimmer>
     </div>
   );
 }
