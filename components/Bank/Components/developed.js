@@ -2,34 +2,12 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
-import Link from 'next/link';
-import styled from 'styled-components';
-import { StyledBank, StyledStudyCard, StyledZeroState } from '../styles';
+import { StyledBank, StyledZeroState } from '../styles';
 import Card from './card';
 
-const MY_DEVELOPED_TASKS_QUERY = gql`
-  query MY_DEVELOPED_TASKS_QUERY {
-    myTasks(where: { taskType: TASK }) {
-      id
-      title
-      slug
-      description
-      author {
-        id
-      }
-      collaborators {
-        id
-        username
-      }
-      public
-      taskType
-    }
-  }
-`;
-
-const MY_DEVELOPED_SURVEYS_QUERY = gql`
-  query MY_DEVELOPED_SURVEYS_QUERY {
-    myTasks(where: { taskType: SURVEY }) {
+const MY_DEVELOPED_COMPONENTS_QUERY = gql`
+  query MY_DEVELOPED_COMPONENTS_QUERY($taskType: TaskType) {
+    myTasks(where: { taskType: $taskType }) {
       id
       title
       slug
@@ -50,16 +28,13 @@ const MY_DEVELOPED_SURVEYS_QUERY = gql`
 class DevelopedStudiesBank extends Component {
   render() {
     const { componentType } = this.props;
-    const component = componentType === 'SURVEY' ? 'survey' : 'task';
+    const component = componentType.toLowerCase();
 
     return (
       <>
         <Query
-          query={
-            componentType === 'SURVEY'
-              ? MY_DEVELOPED_SURVEYS_QUERY
-              : MY_DEVELOPED_TASKS_QUERY
-          }
+          query={MY_DEVELOPED_COMPONENTS_QUERY}
+          variables={{ taskType: componentType }}
         >
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
@@ -101,4 +76,5 @@ class DevelopedStudiesBank extends Component {
 }
 
 export default DevelopedStudiesBank;
-export { MY_DEVELOPED_TASKS_QUERY, MY_DEVELOPED_SURVEYS_QUERY };
+// export { MY_DEVELOPED_TASKS_QUERY, MY_DEVELOPED_SURVEYS_QUERY };
+export { MY_DEVELOPED_COMPONENTS_QUERY };

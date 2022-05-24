@@ -8,6 +8,8 @@ const StyledFullProposal = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
+  padding: 2rem;
+  max-width: 1200px;
 `;
 
 class ProposalPDF extends Component {

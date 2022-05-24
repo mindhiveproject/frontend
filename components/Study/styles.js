@@ -311,6 +311,13 @@ export const OnboardingForm = styled.div`
     font-size: 20px;
     margin-top: 20px;
   }
+  .message {
+    padding: 1rem;
+    background: #007c70;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+  }
 `;
 
 export const ResponseButtons = styled.div`

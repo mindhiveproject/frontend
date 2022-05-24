@@ -64,6 +64,7 @@ const OVERVIEW_STUDIES_QUERY = gql`
       featured
       shortDescription
       submitForPublishing
+      isHidden
     }
   }
 `;

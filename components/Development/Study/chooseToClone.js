@@ -15,27 +15,27 @@ const StyledBankToClone = styled.div`
   margin: 20px;
 `;
 
-const ALL_PUBLIC_STUDIES_TO_CLONE_QUERY = gql`
-  query ALL_PUBLIC_STUDIES_TO_CLONE_QUERY {
-    studies {
-      id
-      title
-      slug
-      author {
-        id
-      }
-      collaborators {
-        id
-      }
-      public
-      image
-      shortDescription
-      tasks {
-        id
-      }
-    }
-  }
-`;
+// const ALL_PUBLIC_STUDIES_TO_CLONE_QUERY = gql`
+//   query ALL_PUBLIC_STUDIES_TO_CLONE_QUERY {
+//     studies {
+//       id
+//       title
+//       slug
+//       author {
+//         id
+//       }
+//       collaborators {
+//         id
+//       }
+//       public
+//       image
+//       shortDescription
+//       tasks {
+//         id
+//       }
+//     }
+//   }
+// `;
 
 const MY_AND_PUBLIC_STUDIES_TO_CLONE_QUERY = gql`
   query MY_AND_PUBLIC_STUDIES_TO_CLONE_QUERY {

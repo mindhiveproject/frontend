@@ -74,6 +74,7 @@ class Created extends Component {
               <a
                 href={`https://mindhive.science/studies/${study.slug}`}
                 target="_blank"
+                rel="noreferrer"
               >
                 <Icon name="external alternate" />
               </a>
