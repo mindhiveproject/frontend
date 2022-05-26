@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import ExperimentPreview from '../../../../Task/Preview/index';
 
 import { ContainerOnlyForAuthorsOrCollaborators } from '../../../../Permissions/Author/index';
 
 class Card extends Component {
-  state = {
-    showPreview: false,
-  };
-
   togglePreview = e => {
     e.target.blur();
     e.preventDefault();
-    // this.setState({
-    //   showPreview: !this.state.showPreview,
-    // });
     this.props.togglePreview(this.props.component);
   };
 
@@ -95,14 +87,6 @@ class Card extends Component {
             </div>
           </div>
         </div>
-        {this.state.showPreview && (
-          <ExperimentPreview
-            user={this.props?.user?.id || ''}
-            parameters={component.parameters}
-            template={component.template}
-            handleFinish={() => this.setState({ showPreview: false })}
-          />
-        )}
       </div>
     );
   }

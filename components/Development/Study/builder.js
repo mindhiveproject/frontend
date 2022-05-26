@@ -15,7 +15,7 @@ import InDev from './inDev';
 
 import SharingModal from './Sharing/modal';
 
-import ExperimentPreview from '../../Task/Preview/index';
+import FullScreenPreview from '../../Preview/fullscreen';
 
 import {
   StyledBuilder,
@@ -43,13 +43,20 @@ class StudyBuilder extends Component {
     adminMode: this.props.adminMode,
     newStudyFromScratch: this.props.newStudyFromScratch,
     section: 'studyBuilder',
-    showPreview: false,
+    showComponentPreview: false,
+    showStudyPreview: false,
   };
 
-  togglePreview = component => {
+  toggleComponentPreview = component => {
     this.setState({
-      showPreview: true,
+      showComponentPreview: true,
       component,
+    });
+  };
+
+  toggleStudyPreview = () => {
+    this.setState({
+      showStudyPreview: true,
     });
   };
 
@@ -207,7 +214,7 @@ class StudyBuilder extends Component {
       newStudyFromScratch: false,
       study: {
         ...myStudy,
-        consent: myStudy.consent?.id,
+        consentId: myStudy.consent.map(consent => consent.id),
         collaborators: (myStudy.collaborators &&
           myStudy.collaborators.map(c => c.username).length &&
           myStudy.collaborators.map(c => c.username)) || [''],
@@ -261,13 +268,25 @@ class StudyBuilder extends Component {
     const [proposal] = study?.proposal || [];
     const proposalId = proposal ? proposal.id : undefined;
 
-    if (this.state.showPreview) {
+    if (this.state.showStudyPreview) {
       return (
-        <ExperimentPreview
+        <FullScreenPreview
+          previewOf="study"
+          user={this.props?.user?.id || ''}
+          study={study}
+          handleFinish={() => this.setState({ showStudyPreview: false })}
+        />
+      );
+    }
+
+    if (this.state.showComponentPreview) {
+      return (
+        <FullScreenPreview
+          previewOf="component"
           user={this.props?.user?.id || ''}
           parameters={this.state.component.parameters}
           template={this.state.component.template}
-          handleFinish={() => this.setState({ showPreview: false })}
+          handleFinish={() => this.setState({ showComponentPreview: false })}
         />
       );
     }
@@ -325,7 +344,8 @@ class StudyBuilder extends Component {
                 uploadImage={this.uploadImage}
                 deleteParameter={this.deleteParameter}
                 updateComponents={this.updateComponents}
-                togglePreview={this.togglePreview}
+                toggleComponentPreview={this.toggleComponentPreview}
+                toggleStudyPreview={this.toggleStudyPreview}
               />
             )}
             {this.state.section === 'review' && (

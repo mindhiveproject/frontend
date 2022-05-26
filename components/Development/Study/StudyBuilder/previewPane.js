@@ -164,6 +164,12 @@ class PreviewPane extends Component {
           </div>
 
           <div>
+            <button onClick={this.props.toggleStudyPreview}>
+              Study preview
+            </button>
+          </div>
+
+          <div>
             <div className="procedureTabContainer">
               <div className="description">Procedure</div>
               <div className="viewingBtnsContainer">
@@ -200,7 +206,7 @@ class PreviewPane extends Component {
               openTaskEditor={this.props.openTaskEditor}
               viewing={this.state.viewing}
               updateComponents={this.props.updateComponents}
-              togglePreview={this.props.togglePreview}
+              togglePreview={this.props.toggleComponentPreview}
             />
 
             <div>

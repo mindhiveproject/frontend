@@ -26,6 +26,19 @@ const PROJECT_QUERY = gql`
       }
       consent {
         id
+        title
+        organization
+        info
+        settings
+        studies {
+          id
+          title
+          public
+        }
+        tasks {
+          id
+          title
+        }
       }
       tasks {
         id
@@ -78,6 +91,7 @@ class StudyBuilderWrapper extends Component {
           if (needToClone && !adminMode) {
             study = {
               ...data.study,
+              consentId: null,
               consent: null,
               collaborators: [user?.username],
               classes: null,
@@ -86,7 +100,7 @@ class StudyBuilderWrapper extends Component {
           } else if (isAuthorOrCollaborator || adminMode) {
             study = {
               ...data.study,
-              consent: data.study.consent.map(consent => consent?.id),
+              consentId: data.study.consent.map(consent => consent?.id),
               collaborators: (data.study.collaborators &&
                 data.study.collaborators.map(c => c.username).length &&
                 data.study.collaborators.map(c => c.username)) || [''],
@@ -95,6 +109,7 @@ class StudyBuilderWrapper extends Component {
           } else {
             study = {
               ...data.study,
+              consentId: null,
               consent: null,
               collaborators: [user?.username],
               classes: null,

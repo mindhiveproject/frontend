@@ -44,7 +44,6 @@ class GuestWrapper extends Component {
           const guestPayloadError = guestPayload.error;
           const guestPayloadLoading = guestPayload.loading;
           const guestPayloadData = guestPayload.data && guestPayload.data.guest;
-          console.log('guestPayloadData', guestPayloadData);
 
           if (guestPayloadError) return <p>Error</p>;
           if (guestPayloadLoading) return <p>Loading</p>;
