@@ -8,6 +8,11 @@ class Collaborators extends Component {
 	render() {
     const {study} = this.props;
     const existingCollaborators = study?.collaborators || [];
+    const googleIDs = existingCollaborators.map(collaborator => ({
+      googleId : collaborator.authEmail
+    }));
+    console.log(existingCollaborators); //I'm now accessing the collaborators here
+    console.log(googleIDs); //not working
   	return (
           <div 
             style={{

@@ -120,6 +120,7 @@ class Navigation extends Component {
 
           <Collaborators
             openSharingModal={this.props.openSharingModal}
+            study={this.props.study}
           />
           
           <ArchiveDelete study={this.props.study} isHidden={isHidden} />
