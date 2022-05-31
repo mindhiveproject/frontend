@@ -1,7 +1,5 @@
-import React, { useState, Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import { Dropdown, Icon } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Dropdown } from 'semantic-ui-react';
 
 class ConsentsSelector extends Component {
   render() {
@@ -15,7 +13,7 @@ class ConsentsSelector extends Component {
     return (
       <DropdownExampleMultipleSelection
         consents={consents}
-        studyConsents={study?.consent}
+        studyConsents={study?.consentId}
         handleSetState={handleSetState}
       />
     );
@@ -30,7 +28,7 @@ const DropdownExampleMultipleSelection = ({
   handleSetState,
 }) => {
   const onChange = (event, data) => {
-    handleSetState('consent', data.value);
+    handleSetState('consentId', data.value);
   };
 
   return (

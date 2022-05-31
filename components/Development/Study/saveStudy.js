@@ -16,7 +16,7 @@ const CREATE_NEW_STUDY = gql`
     $info: Json
     $image: String
     $largeImage: String
-    $consent: [ID]
+    $consentId: [ID]
     $components: Json
     $submitForPublishing: Boolean
     $collaborators: [String]
@@ -30,7 +30,7 @@ const CREATE_NEW_STUDY = gql`
       info: $info
       image: $image
       largeImage: $largeImage
-      consent: $consent
+      consentId: $consentId
       components: $components
       submitForPublishing: $submitForPublishing
       collaborators: $collaborators
@@ -47,6 +47,19 @@ const CREATE_NEW_STUDY = gql`
       largeImage
       consent {
         id
+        title
+        organization
+        info
+        settings
+        studies {
+          id
+          title
+          public
+        }
+        tasks {
+          id
+          title
+        }
       }
       components
       author {
@@ -81,7 +94,7 @@ const UPDATE_STUDY = gql`
     $image: String
     $largeImage: String
     $collaborators: [String]
-    $consent: [ID]
+    $consentId: [ID]
     $components: Json
     $submitForPublishing: Boolean
     $classes: [String]
@@ -97,7 +110,7 @@ const UPDATE_STUDY = gql`
       image: $image
       largeImage: $largeImage
       collaborators: $collaborators
-      consent: $consent
+      consentId: $consentId
       components: $components
       submitForPublishing: $submitForPublishing
       classes: $classes
@@ -112,6 +125,19 @@ const UPDATE_STUDY = gql`
       largeImage
       consent {
         id
+        title
+        organization
+        info
+        settings
+        studies {
+          id
+          title
+          public
+        }
+        tasks {
+          id
+          title
+        }
       }
       public
       submitForPublishing

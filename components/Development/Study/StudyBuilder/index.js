@@ -47,7 +47,8 @@ class StudyBuilderSection extends Component {
               openTaskEditor={this.props.openTaskEditor}
               needToClone={this.props.needToClone}
               updateComponents={this.props.updateComponents}
-              togglePreview={this.props.togglePreview}
+              toggleComponentPreview={this.props.toggleComponentPreview}
+              toggleStudyPreview={this.props.toggleStudyPreview}
             />
           </StyledPreviewPane>
         </div>
