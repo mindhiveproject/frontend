@@ -4,6 +4,23 @@ import gql from 'graphql-tag';
 
 import { ExperimentWindow } from '../../../Labjs/preview';
 import PostPrompt from './postprompt';
+import styled from 'styled-components';
+
+const StyledLinkWindow = styled.div`
+  height: 90vh;
+  padding: 2rem;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  line-height: 3rem;
+  font-family: Lato;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #666666;
+  .returnLink {
+    margin: 4rem 0rem;
+  }
+`;
 
 // write a query here, later refactor it in a separate file if it is used elsewhere
 const TASK_QUERY = gql`
@@ -128,7 +145,25 @@ class TaskPreview extends Component {
           if (!data.task) return <p>No task found for {componentId}</p>;
           const { task } = data;
 
-          if (window === 'task') {
+          if (window === 'post') {
+            return (
+              <PostPrompt
+                user={user}
+                study={this.props.study}
+                task={task}
+                versionId={this.props.versionId}
+                token={this.state.token}
+                policy={policy}
+                slug={this.props.study.slug}
+                onClosePrompt={this.closePrompt}
+                onStartTheTask={this.startTheTask}
+                onEndTask={this.props.onEndTask}
+                onUpdateVirtualUser={this.props.onUpdateVirtualUser}
+              />
+            );
+          }
+
+          if (window === 'task' && task?.template?.id) {
             return (
               <ExperimentWindow
                 settings={{
@@ -151,21 +186,26 @@ class TaskPreview extends Component {
             );
           }
 
-          if (window === 'post') {
+          if (task.isExternal && task.link) {
             return (
-              <PostPrompt
-                user={user}
-                study={this.props.study}
-                task={task}
-                versionId={this.props.versionId}
-                token={this.state.token}
-                policy={policy}
-                slug={this.props.study.slug}
-                onClosePrompt={this.closePrompt}
-                onStartTheTask={this.startTheTask}
-                onEndTask={this.props.onEndTask}
-                onUpdateVirtualUser={this.props.onUpdateVirtualUser}
-              />
+              <StyledLinkWindow>
+                Please click the link below to participate in the{' '}
+                {task.taskType.toLowerCase()}{' '}
+                <strong>{task.title}</strong>{' '}
+                <a href={task.link} target="_blank" rel="noreferrer">
+                  {task.link}
+                </a>
+
+                <div className="returnLink">
+                  <p
+                    style={{ 'text-decoration': 'underline', cursor: 'pointer' }}
+                    onClick={e => this.props.onEndTask()}
+                  >
+                    Go back to the main study page
+                  </p>
+                </div>
+
+              </StyledLinkWindow>
             );
           }
 
