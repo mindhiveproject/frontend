@@ -11,6 +11,7 @@ import {
 
 import ParticipantDetails from './details';
 import Consent from './Consent/index';
+import Blocked from './blockingPage';
 
 class FlowWrapper extends Component {
   render() {
@@ -24,6 +25,9 @@ class FlowWrapper extends Component {
         break;
       case 'consent':
         header = 'Study consent';
+        break;
+      case 'blocked':
+        header = 'Access is blocked';
         break;
       default:
         header = 'Participation';
@@ -50,6 +54,7 @@ class FlowWrapper extends Component {
             <div>
               {step === 'details' && <ParticipantDetails {...this.props} />}
               {step === 'consent' && <Consent {...this.props} />}
+              {step === 'blocked' && <Blocked {...this.props} />}
             </div>
           </OnboardingForm>
         </OnboardingModal>

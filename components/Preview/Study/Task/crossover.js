@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import {
-  OnboardingForm,
-  ResponseButtons,
-  OnboardingHeader,
-} from '../../Study/styles';
+import { OnboardingForm } from '../../../Study/styles';
 
 class Crossover extends Component {
   render() {
@@ -25,7 +21,7 @@ class Crossover extends Component {
     const agreeReceiveUpdates = this.props.user?.generalInfo
       ?.agreeReceiveUpdates;
     // check whether there is a next task
-    const isNextTask = this.props.nextTaskId;
+    const isNextTask = this.props.user.nextVersionId;
     const { task } = this.props;
 
     return (
@@ -79,28 +75,14 @@ class Crossover extends Component {
 
           <div className="buttonsHolder">
             {isNextTask && (
-              <button
-                onClick={e =>
-                  this.props.onSubmit(
-                    e,
-                    this.props.updateResultMutation,
-                    'nextTask'
-                  )
-                }
-              >
+              <button onClick={e => this.props.onSubmit(e, 'nextTask')}>
                 Proceed to the next task
               </button>
             )}
           </div>
           <p
             style={{ 'text-decoration': 'underline', cursor: 'pointer' }}
-            onClick={e =>
-              this.props.onSubmit(
-                e,
-                this.props.updateResultMutation,
-                'studyPage'
-              )
-            }
+            onClick={e => this.props.onSubmit(e, 'studyPage')}
           >
             Go back to the main study page
           </p>

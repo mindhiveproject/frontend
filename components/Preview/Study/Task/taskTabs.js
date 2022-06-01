@@ -57,13 +57,8 @@ class TaskTabs extends Component {
 
     const completeResultsInStudyByVersion =
       user?.results
-        ?.filter(
-          result =>
-            result.study &&
-            result.study.id === study.id &&
-            result.payload === 'full'
-        )
-        .map(result => result.testVersion) || [];
+        ?.filter(result => result.studyId === study.id)
+        .map(result => result.versionId) || [];
 
     return (
       <StyledTaskList>
@@ -92,7 +87,7 @@ class TaskTabs extends Component {
                   )}
                   onStartTheTask={this.props.onStartTheTask}
                   joinedTheStudy={studyIds.includes(study.id)}
-                  version={task.testId}
+                  versionId={task.testId}
                 />
               );
             }}
