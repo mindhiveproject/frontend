@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import { Image, Dropdown, Icon } from 'semantic-ui-react';
 import Avatar from 'react-avatar';
 
 class Collaborators extends Component {
 	render() {
     const {study} = this.props;
-    const existingCollaborators = study?.collaborators || [];
-    const googleIDs = existingCollaborators.map(collaborator => ({
-      googleId : collaborator.authEmail
-    }));
-    console.log(existingCollaborators); //I'm now accessing the collaborators here
-    console.log(googleIDs); //not working
+    const existingCollaborators = study?.collaborators || []; // just collaborator usernames
+    const settings = study?.collaboratorProfiles?.map(c => c?.authEmail[0]?.settings)
+    const tokens = study?.collaboratorProfiles?.map(c => c?.authEmail[0]?.settings.emailConfirmation.token) || []; // getting settings
+    console.log(existingCollaborators); //I'm now accessing the collaborator usernames here
+    console.log(settings); // getting settings, which contains a token
+    console.log(tokens); // working, but can't get past settings
   	return (
           <div 
             style={{
@@ -26,7 +24,7 @@ class Collaborators extends Component {
           >
             <Avatar // can have a googleID attribute that you pass it
               name="Laurie Anderson" 
-              googleId=""
+              googleId={tokens[1]} // though token might be same as ID, not working
               size="26px" 
               round={true}
               style={{
