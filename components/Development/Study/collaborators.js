@@ -6,25 +6,40 @@ class Collaborators extends Component {
 	render() {
     const {study} = this.props;
     const existingCollaborators = study?.collaborators || []; // just collaborator usernames
-    const settings = study?.collaboratorProfiles?.map(c => c?.authEmail[0]?.settings)
-    const tokens = study?.collaboratorProfiles?.map(c => c?.authEmail[0]?.settings.emailConfirmation.token) || []; // getting settings
+    const settings = study?.collaboratorProfiles?.map(c => c?.authEmail[0]?.settings) // getting settings
     console.log(existingCollaborators); //I'm now accessing the collaborator usernames here
-    console.log(settings); // getting settings, which contains a token
-    console.log(tokens); // working, but can't get past settings
+    console.log(JSON.stringify(settings)); // getting settings
+    const numCollaborators = existingCollaborators.length;
+    let barWidth = '';
+    // this switch needs to also change the relative position of the avatar circles to adjust to the length of the entire bar
+    switch (numCollaborators){ 
+      case 3:
+        barWidth ='100px';
+        break;
+      case 2:
+        barWidth ='80px';
+        break;
+      case 1:
+        barWidth ='60px';
+        break;
+      default:
+        barWidth ='120px';
+        break;
+    }
   	return (
           <div 
             style={{
               position: 'relative',
               backgroundColor: '#DEDEDE',
               borderRadius: '50px/60px',
-              width: '120px',
+              width: barWidth,
               height: '32px',
               padding: '3px'
             }}
           >
             <Avatar // can have a googleID attribute that you pass it
-              name="Laurie Anderson" 
-              googleId={tokens[1]} // though token might be same as ID, not working
+              name={existingCollaborators[0]} 
+              googleId=""
               size="26px" 
               round={true}
               style={{
@@ -32,8 +47,9 @@ class Collaborators extends Component {
                 left: '50%',
               }}
             /> 
+            {numCollaborators > 1 &&
             <Avatar
-              name="Joe Shmo"
+              name={existingCollaborators[1]}
               size="26px"
               round={true}
               style={{
@@ -41,8 +57,10 @@ class Collaborators extends Component {
                 left: '35%',
               }}
             />
+            }
+            {numCollaborators > 2 &&
             <Avatar
-              name="Sam Hill"
+              name={existingCollaborators[2]}
               size="26px"
               round={true}
               style={{
@@ -50,6 +68,8 @@ class Collaborators extends Component {
                 left: '20%',
               }}
             />
+            }
+            {numCollaborators > 3 &&
             <span
               style={{
                 borderRadius: '50%',
@@ -69,7 +89,7 @@ class Collaborators extends Component {
                 }}
               > 
                 <Dropdown
-                  trigger='+3' // this number is a reflection of how many > 3 collaborators there are
+                  trigger={'+' + existingCollaborators.length} // this number is a reflection of how many > 3 collaborators there are
                   icon={null}
                   floating
                   simple // causes the dropdown to trigger on hover rather than click
@@ -81,6 +101,7 @@ class Collaborators extends Component {
                 </Dropdown>
               </span>
             </span>
+            }
             <span
               style={{
                 position: 'absolute',
