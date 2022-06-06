@@ -44,6 +44,7 @@ class ConsentWrapper extends Component {
       const studiesInfo = { [this.props.study.id]: info };
 
       this.props.onUpdateVirtualUser({
+        ...this.props.user,
         generalInfo: {
           ...this.state,
           [`consent-${consentId}`]: decision,
@@ -52,7 +53,19 @@ class ConsentWrapper extends Component {
         studiesInfo,
       });
 
-      this.props.onFinishRegistration({ window: 'study' });
+      if (this.props.study?.settings?.proceedToFirstTask) {
+        if (block?.tests.length) {
+          const componentId = block?.tests.map(test => test?.id)[0];
+          const versionId = block?.tests.map(test => test?.testId)[0];
+          this.props.onStartTheTask({ window: 'task', componentId, versionId });
+        } else {
+          alert(
+            `There are no tasks or surveys in the condition ${block?.title}`
+          );
+        }
+      } else {
+        this.props.onFinishRegistration({ window: 'study' });
+      }
     }
   };
 

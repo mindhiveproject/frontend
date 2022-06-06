@@ -12,7 +12,7 @@ class TaskCard extends Component {
   };
 
   render() {
-    const { task, study, version, user } = this.props;
+    const { task, study, versionId, user } = this.props;
     const taskType = task?.taskType?.toLowerCase();
 
     const allowRetake = !study.settings?.forbidRetake;
@@ -109,7 +109,10 @@ class TaskCard extends Component {
                 <div className="actionLinks">
                   <button
                     onClick={() =>
-                      this.props.onStartTheTask({ componentId: task?.id })
+                      this.props.onStartTheTask({
+                        componentId: task?.id,
+                        versionId,
+                      })
                     }
                   >
                     <p>

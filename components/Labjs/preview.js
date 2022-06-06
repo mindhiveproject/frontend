@@ -20,14 +20,14 @@ class ExperimentWindow extends Component {
     this.study = lab.util.fromObject(clonedeep(script), lab);
     this.study.run();
     this.study.on('end', () => {
-      props.settings.on_finish();
+      props.settings.on_finish({ isInterrupted: false });
     });
     this.study.options.events.keydown = async e => {
       if (e.code === 'Escape') {
         if (this.study) {
           await this.study.internals.controller.audioContext.close();
           this.study = undefined;
-          props.settings.on_finish();
+          props.settings.on_finish({ isInterrupted: true });
         }
       }
     };
@@ -44,7 +44,7 @@ class ExperimentWindow extends Component {
     try {
       if (this.study) {
         this.study.internals.controller.audioContext.close();
-        this.study.end();
+        // this.study.end();
       }
     } catch (e) {
       console.log('Experiment closed before unmount');

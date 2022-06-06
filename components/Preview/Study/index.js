@@ -10,26 +10,40 @@ import StudyRegistration from './Registration/index';
 import TaskPreview from './Task/preview';
 
 class StudyWindow extends Component {
-  state = { window: 'study', virtualUser: {}, componentId: null };
+  state = {
+    window: 'study',
+    virtualUser: { results: [] },
+    componentId: null,
+    versionId: null,
+  };
 
   onStartRegistration = () => {
     this.setState({ window: 'registration' });
   };
 
   restartFromFrontPage = () => {
-    this.setState({ window: 'study', virtualUser: {} });
+    this.setState({
+      window: 'study',
+      virtualUser: {},
+      componentId: null,
+      versionId: null,
+    });
   };
 
   finishRegistration = ({ window }) => {
     this.setState({ window });
   };
 
-  onStartTheTask = ({ componentId }) => {
-    this.setState({ window: 'task', componentId });
+  onStartTheTask = ({ componentId, versionId }) => {
+    this.setState({ window: 'task', componentId, versionId });
   };
 
   onEndTheTask = () => {
-    this.setState({ window: 'study' });
+    this.setState({ window: 'study', componentId: null, versionId: null });
+  };
+
+  proceedToPostPrompt = () => {
+    this.setState({ window: 'post' });
   };
 
   updateVirtualUser = virtualUser => {
@@ -69,20 +83,27 @@ class StudyWindow extends Component {
         {window === 'registration' && (
           <StyledStudyPreviewPage>
             <StudyRegistration
-              study={study}
               user={virtualUser}
+              study={study}
               onUpdateVirtualUser={this.updateVirtualUser}
               onInterruptRegistration={this.restartFromFrontPage}
               onFinishRegistration={this.finishRegistration}
+              onStartTheTask={this.onStartTheTask}
             />
           </StyledStudyPreviewPage>
         )}
 
-        {window === 'task' && (
+        {(window === 'task' || window === 'post') && (
           <TaskPreview
             user={virtualUser}
+            study={study}
             componentId={this.state.componentId}
-            handleFinish={this.onEndTheTask}
+            versionId={this.state.versionId}
+            onUpdateVirtualUser={this.updateVirtualUser}
+            onEndTask={this.onEndTheTask}
+            onStartTheTask={this.onStartTheTask}
+            proceedToPostPrompt={this.proceedToPostPrompt}
+            window={window}
           />
         )}
       </>

@@ -8,7 +8,22 @@ class StudyRegistration extends Component {
     },
   };
 
+  isUnder18 = birthdayTimestamp => {
+    const diff = Date.now() - birthdayTimestamp;
+    const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.2425;
+    return diff / millisecondsInYear < 18;
+  };
+
   proceed = ({ hasConsent, generalInfo }) => {
+    if (this.props.study?.settings?.minorsBlocked && generalInfo?.bd) {
+      if (this.isUnder18(generalInfo?.bd)) {
+        this.setState({
+          query: { step: 'blocked' },
+        });
+        return;
+      }
+    }
+
     if (hasConsent) {
       this.props.onUpdateVirtualUser({
         ...this.props.user,
@@ -40,7 +55,19 @@ class StudyRegistration extends Component {
         studiesInfo,
       });
 
-      this.props.onFinishRegistration({ window: 'study' });
+      if (this.props.study?.settings?.proceedToFirstTask) {
+        if (block?.tests.length) {
+          const componentId = block?.tests.map(test => test?.id)[0];
+          const versionId = block?.tests.map(test => test?.testId)[0];
+          this.props.onStartTheTask({ window: 'task', componentId, versionId });
+        } else {
+          alert(
+            `There are no tasks or surveys in the condition ${block?.title}`
+          );
+        }
+      } else {
+        this.props.onFinishRegistration({ window: 'study' });
+      }
     }
   };
 
@@ -57,6 +84,7 @@ class StudyRegistration extends Component {
         onUpdateVirtualUser={this.props.onUpdateVirtualUser}
         onInterruptRegistration={this.props.onInterruptRegistration}
         onFinishRegistration={this.props.onFinishRegistration}
+        onStartTheTask={this.props.onStartTheTask}
       />
     );
   }

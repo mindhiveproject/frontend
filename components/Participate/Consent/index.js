@@ -164,6 +164,15 @@ class Consent extends Component {
       under18 = diff / millisecondsInYear < 18;
     }
 
+    if (study?.settings?.minorsBlocked && under18) {
+      return (
+        <h2>
+          We are very sorry but only participants who are 18 or older can take
+          part in this study at this time.
+        </h2>
+      );
+    }
+
     return (
       <OnboardingDetails>
         <Mutation
