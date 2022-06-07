@@ -5,12 +5,13 @@ import Avatar from 'react-avatar';
 class Collaborators extends Component {
 	render() {
     const {study} = this.props;
-    const existingCollaborators = study?.collaborators || []; // only provides the collaborators' usernames
+    const existingCollaborators = study?.collaborators || []; // provides only the collaborators' usernames
     const settings = study?.collaboratorProfiles?.map(c => c?.authEmail[0]?.settings)
     console.log(existingCollaborators);
     console.log(JSON.stringify(settings)); // can access settings, no googleAuth found
-    const numCollaborators = existingCollaborators.length +3;
-    const remainingCollaborators = numCollaborators - 3;
+    const numCollaborators = existingCollaborators.length;
+    const remainingNumCollaborators = numCollaborators - 3;
+    const remainingCollaborators = existingCollaborators.filter(c => existingCollaborators.indexOf(c) > 2)
     let barWidth = '';
     let firstAvatarPosition = '';
     let secondAvatarPosition = '';
@@ -20,28 +21,28 @@ class Collaborators extends Component {
     switch (numCollaborators){ 
       case 3:
         barWidth ='100px';
-        firstAvatarPosition = '5%';
-        secondAvatarPosition = '25%';
-        thirdAvatarPosition = '45%';
-        dropdownPosition = '75%';
+        firstAvatarPosition ='5%';
+        secondAvatarPosition ='25%';
+        thirdAvatarPosition ='45%';
+        dropdownPosition ='75%';
         break;
       case 2:
         barWidth ='80px';
-        secondAvatarPosition = '7%';
-        thirdAvatarPosition = '30%';
-        dropdownPosition = '70%';
+        secondAvatarPosition ='7%';
+        thirdAvatarPosition ='30%';
+        dropdownPosition ='70%';
         break;
       case 1:
         barWidth ='60px';
-        thirdAvatarPosition = '10%';
-        dropdownPosition = '60%';
+        thirdAvatarPosition ='10%';
+        dropdownPosition ='60%';
         break;
       default:
         barWidth ='120px';
-        firstAvatarPosition = '20%';
-        secondAvatarPosition = '35%';
-        thirdAvatarPosition = '50%';
-        dropdownPosition = '80%';
+        firstAvatarPosition ='20%';
+        secondAvatarPosition ='35%';
+        thirdAvatarPosition ='50%';
+        dropdownPosition ='80%';
         break;
     }
   	return (
@@ -106,14 +107,14 @@ class Collaborators extends Component {
                   fontWeight: 'bold'                
                 }}
               > 
-                <Dropdown //hovering over this should show additional collaborators
-                  trigger={'+' + remainingCollaborators}
+                <Dropdown
+                  trigger={'+' + remainingNumCollaborators}
                   icon={null}
                   floating
                   simple // causes the dropdown to trigger on hover rather than click
                 >                  
                   <Dropdown.Menu> 
-                    {existingCollaborators.map(c => 
+                    {remainingCollaborators.map(c => 
                       (<Dropdown.Item>{c}</Dropdown.Item>)
                     )}
                   </Dropdown.Menu>
