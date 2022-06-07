@@ -5,25 +5,43 @@ import Avatar from 'react-avatar';
 class Collaborators extends Component {
 	render() {
     const {study} = this.props;
-    const existingCollaborators = study?.collaborators || []; // just collaborator usernames
-    const settings = study?.collaboratorProfiles?.map(c => c?.authEmail[0]?.settings) // getting settings
-    console.log(existingCollaborators); //I'm now accessing the collaborator usernames here
-    console.log(JSON.stringify(settings)); // getting settings
-    const numCollaborators = existingCollaborators.length;
+    const existingCollaborators = study?.collaborators || []; // only provides the collaborators' usernames
+    const settings = study?.collaboratorProfiles?.map(c => c?.authEmail[0]?.settings)
+    console.log(existingCollaborators);
+    console.log(JSON.stringify(settings)); // can access settings, no googleAuth found
+    const numCollaborators = existingCollaborators.length +3;
+    const remainingCollaborators = numCollaborators - 3;
     let barWidth = '';
-    // this switch needs to also change the relative position of the avatar circles to adjust to the length of the entire bar
+    let firstAvatarPosition = '';
+    let secondAvatarPosition = '';
+    let thirdAvatarPosition = '';
+    let dropdownPosition = '';
+    // changes the width of the collaborator bar and the relative position of the avatar circles within the bar
     switch (numCollaborators){ 
       case 3:
         barWidth ='100px';
+        firstAvatarPosition = '5%';
+        secondAvatarPosition = '25%';
+        thirdAvatarPosition = '45%';
+        dropdownPosition = '75%';
         break;
       case 2:
         barWidth ='80px';
+        secondAvatarPosition = '7%';
+        thirdAvatarPosition = '30%';
+        dropdownPosition = '70%';
         break;
       case 1:
         barWidth ='60px';
+        thirdAvatarPosition = '10%';
+        dropdownPosition = '60%';
         break;
       default:
         barWidth ='120px';
+        firstAvatarPosition = '20%';
+        secondAvatarPosition = '35%';
+        thirdAvatarPosition = '50%';
+        dropdownPosition = '80%';
         break;
     }
   	return (
@@ -37,14 +55,14 @@ class Collaborators extends Component {
               padding: '3px'
             }}
           >
-            <Avatar // can have a googleID attribute that you pass it
+            <Avatar
               name={existingCollaborators[0]} 
-              googleId=""
+              googleId="" // can have a googleID as an attribute, which allows it to access a profile image
               size="26px" 
               round={true}
               style={{
                 position: 'absolute',
-                left: '50%',
+                left: thirdAvatarPosition,
               }}
             /> 
             {numCollaborators > 1 &&
@@ -54,7 +72,7 @@ class Collaborators extends Component {
               round={true}
               style={{
                 position: 'absolute',                  
-                left: '35%',
+                left: secondAvatarPosition,
               }}
             />
             }
@@ -65,7 +83,7 @@ class Collaborators extends Component {
               round={true}
               style={{
                 position: 'absolute',                  
-                left: '20%',
+                left: firstAvatarPosition,
               }}
             />
             }
@@ -80,24 +98,25 @@ class Collaborators extends Component {
                 width: '26px',
                 height: '26px',
                 fontSize: '.8em',
-                fontWeight: 'bold' //not working???
               }}
             >
               <span
                 style={{
-                  fontSize: 'small'                
+                  fontSize: numCollaborators < 10 ? 'small' : 'smaller',
+                  fontWeight: 'bold'                
                 }}
               > 
-                <Dropdown
-                  trigger={'+' + existingCollaborators.length} // this number is a reflection of how many > 3 collaborators there are
+                <Dropdown //hovering over this should show additional collaborators
+                  trigger={'+' + remainingCollaborators}
                   icon={null}
                   floating
                   simple // causes the dropdown to trigger on hover rather than click
                 >                  
-                  <Dropdown.Menu>
-                    <Dropdown.Item>List of additional collaborators</Dropdown.Item>
+                  <Dropdown.Menu> 
+                    {existingCollaborators.map(c => 
+                      (<Dropdown.Item>{c}</Dropdown.Item>)
+                    )}
                   </Dropdown.Menu>
-                  {/* the dropdown displays the additional collaborators */}
                 </Dropdown>
               </span>
             </span>
@@ -105,8 +124,8 @@ class Collaborators extends Component {
             <span
               style={{
                 position: 'absolute',
-                left: '75%',
-                padding: '6px'
+                bottom: '25%',
+                left: dropdownPosition,
               }}
             >
               <Icon 
