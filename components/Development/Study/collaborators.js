@@ -6,11 +6,11 @@ class Collaborators extends Component {
   render() {
     const { study } = this.props;
     const existingCollaborators = study?.collaborators || []; // provides only the collaborators' usernames
-    const settings = study?.collaboratorProfiles?.map(
-      (c) => c?.authEmail[0]?.settings
+    const profImages = study?.collaboratorProfiles?.map((c) =>
+      c.authEmail[0].settings.googleAuth
+        ? c.authEmail[0].settings.googleAuth.picture
+        : ""
     );
-    console.log(existingCollaborators);
-    console.log(JSON.stringify(settings)); // can access settings, no googleAuth found
     const numCollaborators = existingCollaborators.length;
     const remainingNumCollaborators = numCollaborators - 3;
     const remainingCollaborators = existingCollaborators.filter(
@@ -62,7 +62,7 @@ class Collaborators extends Component {
       >
         <Avatar
           name={existingCollaborators[0]}
-          googleId="" // can have a googleID as an attribute, which allows it to access a profile image
+          src={profImages[0]}
           size="26px"
           round={true}
           style={{
@@ -73,6 +73,7 @@ class Collaborators extends Component {
         {numCollaborators > 1 && (
           <Avatar
             name={existingCollaborators[1]}
+            src={profImages[1]}
             size="26px"
             round={true}
             style={{
@@ -84,6 +85,7 @@ class Collaborators extends Component {
         {numCollaborators > 2 && (
           <Avatar
             name={existingCollaborators[2]}
+            src={profImages[2]}
             size="26px"
             round={true}
             style={{
