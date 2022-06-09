@@ -8,6 +8,7 @@ import { TOGGLE_OPENING_MUTATION } from '../../Opening/index';
 
 import SaveStudy from './saveStudy';
 import ArchiveDelete from '../../Bank/Studies/archiveDelete';
+import Collaborators from './collaborators';
 
 class Navigation extends Component {
   render() {
@@ -116,17 +117,12 @@ class Navigation extends Component {
         </div>
 
         <div className="rightButtons">
-          <div>
-            <button
-              onClick={() => {
-                this.props.openSharingModal();
-              }}
-              className="addCollaboratorsButton"
-            >
-              Add collaborators
-            </button>
-          </div>
 
+          <Collaborators
+            openSharingModal={this.props.openSharingModal}
+            study={this.props.study}
+          />
+          
           <ArchiveDelete study={this.props.study} isHidden={isHidden} />
 
           <SaveStudy

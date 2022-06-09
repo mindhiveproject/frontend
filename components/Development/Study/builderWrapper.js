@@ -23,6 +23,10 @@ const PROJECT_QUERY = gql`
       collaborators {
         id
         username
+        authEmail {
+          email
+          settings
+        }
       }
       consent {
         id
@@ -94,6 +98,7 @@ class StudyBuilderWrapper extends Component {
               consentId: null,
               consent: null,
               collaborators: [user?.username],
+              collaboratorProfiles: data.study.collaborators, // complete collaborator profiles
               classes: null,
               ...makeCloneNames(data.study.title),
             };
@@ -104,6 +109,7 @@ class StudyBuilderWrapper extends Component {
               collaborators: (data.study.collaborators &&
                 data.study.collaborators.map(c => c.username).length &&
                 data.study.collaborators.map(c => c.username)) || [''],
+              collaboratorProfiles: data.study.collaborators, // complete collaborator profiles
               classes: data.study.classes.map(cl => cl?.id),
             };
           } else {
@@ -112,6 +118,7 @@ class StudyBuilderWrapper extends Component {
               consentId: null,
               consent: null,
               collaborators: [user?.username],
+              collaboratorProfiles: data.study.collaborators, // complete collaborator profiles
               classes: null,
               ...makeCloneNames(data.study.title),
             };
