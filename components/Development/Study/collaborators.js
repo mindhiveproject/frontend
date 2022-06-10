@@ -23,30 +23,30 @@ class Collaborators extends Component {
     let dropdownPosition = "";
     // changes the width of the collaborator bar and the relative position of the avatar circles within the bar
     switch (numCollaborators) {
-      case 3:
-        barWidth = "100px";
-        firstAvatarPosition = "5%";
-        secondAvatarPosition = "25%";
-        thirdAvatarPosition = "45%";
-        dropdownPosition = "75%";
+      case 1:
+        barWidth = "50px";
+        firstAvatarPosition = "10%";
+        dropdownPosition = "65%";
         break;
       case 2:
-        barWidth = "80px";
+        barWidth = "75px";
         secondAvatarPosition = "7%";
-        thirdAvatarPosition = "30%";
-        dropdownPosition = "70%";
+        firstAvatarPosition = "37%";
+        dropdownPosition = "75%";
         break;
-      case 1:
-        barWidth = "60px";
-        thirdAvatarPosition = "10%";
-        dropdownPosition = "60%";
+      case 3:
+        barWidth = "100px";
+        thirdAvatarPosition = "6%";
+        secondAvatarPosition = "29%";
+        firstAvatarPosition = "52%";
+        dropdownPosition = "80%";
         break;
       default:
-        barWidth = "120px";
-        firstAvatarPosition = "20%";
-        secondAvatarPosition = "35%";
-        thirdAvatarPosition = "50%";
-        dropdownPosition = "80%";
+        barWidth = "125px";
+        thirdAvatarPosition = "5%";
+        secondAvatarPosition = "24%";
+        firstAvatarPosition = "43%";
+        dropdownPosition = "85%";
         break;
     }
     return (
@@ -60,47 +60,13 @@ class Collaborators extends Component {
           padding: "3px",
         }}
       >
-        <Avatar
-          name={existingCollaborators[0]}
-          src={profImages[0]}
-          size="26px"
-          round={true}
-          style={{
-            position: "absolute",
-            left: thirdAvatarPosition,
-          }}
-        />
-        {numCollaborators > 1 && (
-          <Avatar
-            name={existingCollaborators[1]}
-            src={profImages[1]}
-            size="26px"
-            round={true}
-            style={{
-              position: "absolute",
-              left: secondAvatarPosition,
-            }}
-          />
-        )}
-        {numCollaborators > 2 && (
-          <Avatar
-            name={existingCollaborators[2]}
-            src={profImages[2]}
-            size="26px"
-            round={true}
-            style={{
-              position: "absolute",
-              left: firstAvatarPosition,
-            }}
-          />
-        )}
         {numCollaborators > 3 && (
           <span
             style={{
               borderRadius: "50%",
               padding: "6px",
               position: "absolute",
-              left: "5%",
+              left: "62%",
               backgroundColor: "grey",
               width: "26px",
               height: "26px",
@@ -127,6 +93,43 @@ class Collaborators extends Component {
               </Dropdown>
             </span>
           </span>
+        )}
+        <Avatar
+          name={existingCollaborators[0]}
+          src={profImages[0]}
+          maxInitials="2"
+          size="26px"
+          round={true}
+          style={{
+            position: "absolute",
+            left: firstAvatarPosition,
+          }}
+        />
+        {numCollaborators > 1 && (
+          <Avatar
+            name={existingCollaborators[1]}
+            src={profImages[1]}
+            maxInitials="2"
+            size="26px"
+            round={true}
+            style={{
+              position: "absolute",
+              left: secondAvatarPosition,
+            }}
+          />
+        )}
+        {numCollaborators > 2 && (
+          <Avatar
+            name={existingCollaborators[2]}
+            src={profImages[2]}
+            maxInitials="2"
+            size="26px"
+            round={true}
+            style={{
+              position: "absolute",
+              left: thirdAvatarPosition,
+            }}
+          />
         )}
         <span
           style={{
