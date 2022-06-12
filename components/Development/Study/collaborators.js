@@ -6,11 +6,11 @@ class Collaborators extends Component {
   render() {
     const { study } = this.props;
     const existingCollaborators = study?.collaborators || []; // provides only the collaborators' usernames
-    const profImages = study?.collaboratorProfiles?.map((c) =>
-      c.authEmail[0].settings.googleAuth
-        ? c.authEmail[0].settings.googleAuth.picture
-        : ""
+    const settings = study?.collaboratorProfiles?.map(
+      (c) => c?.authEmail[0]?.settings
     );
+    console.log(existingCollaborators);
+    console.log(JSON.stringify(settings)); // can access settings, no googleAuth found
     const numCollaborators = existingCollaborators.length;
     const remainingNumCollaborators = numCollaborators - 3;
     const remainingCollaborators = existingCollaborators.filter(
@@ -23,30 +23,30 @@ class Collaborators extends Component {
     let dropdownPosition = "";
     // changes the width of the collaborator bar and the relative position of the avatar circles within the bar
     switch (numCollaborators) {
-      case 1:
-        barWidth = "50px";
-        firstAvatarPosition = "10%";
-        dropdownPosition = "65%";
-        break;
-      case 2:
-        barWidth = "75px";
-        secondAvatarPosition = "7%";
-        firstAvatarPosition = "37%";
-        dropdownPosition = "75%";
-        break;
       case 3:
         barWidth = "100px";
-        thirdAvatarPosition = "6%";
-        secondAvatarPosition = "29%";
-        firstAvatarPosition = "52%";
-        dropdownPosition = "80%";
+        firstAvatarPosition = "5%";
+        secondAvatarPosition = "25%";
+        thirdAvatarPosition = "45%";
+        dropdownPosition = "75%";
+        break;
+      case 2:
+        barWidth = "80px";
+        secondAvatarPosition = "7%";
+        thirdAvatarPosition = "30%";
+        dropdownPosition = "70%";
+        break;
+      case 1:
+        barWidth = "60px";
+        thirdAvatarPosition = "10%";
+        dropdownPosition = "60%";
         break;
       default:
-        barWidth = "125px";
-        thirdAvatarPosition = "5%";
-        secondAvatarPosition = "24%";
-        firstAvatarPosition = "43%";
-        dropdownPosition = "85%";
+        barWidth = "120px";
+        firstAvatarPosition = "20%";
+        secondAvatarPosition = "35%";
+        thirdAvatarPosition = "50%";
+        dropdownPosition = "80%";
         break;
     }
     return (
@@ -60,13 +60,45 @@ class Collaborators extends Component {
           padding: "3px",
         }}
       >
+        <Avatar
+          name={existingCollaborators[0]}
+          googleId="" // can have a googleID as an attribute, which allows it to access a profile image
+          size="26px"
+          round={true}
+          style={{
+            position: "absolute",
+            left: thirdAvatarPosition,
+          }}
+        />
+        {numCollaborators > 1 && (
+          <Avatar
+            name={existingCollaborators[1]}
+            size="26px"
+            round={true}
+            style={{
+              position: "absolute",
+              left: secondAvatarPosition,
+            }}
+          />
+        )}
+        {numCollaborators > 2 && (
+          <Avatar
+            name={existingCollaborators[2]}
+            size="26px"
+            round={true}
+            style={{
+              position: "absolute",
+              left: firstAvatarPosition,
+            }}
+          />
+        )}
         {numCollaborators > 3 && (
           <span
             style={{
               borderRadius: "50%",
               padding: "6px",
               position: "absolute",
-              left: "62%",
+              left: "5%",
               backgroundColor: "grey",
               width: "26px",
               height: "26px",
@@ -93,43 +125,6 @@ class Collaborators extends Component {
               </Dropdown>
             </span>
           </span>
-        )}
-        <Avatar
-          name={existingCollaborators[0]}
-          src={profImages[0]}
-          maxInitials="2"
-          size="26px"
-          round={true}
-          style={{
-            position: "absolute",
-            left: firstAvatarPosition,
-          }}
-        />
-        {numCollaborators > 1 && (
-          <Avatar
-            name={existingCollaborators[1]}
-            src={profImages[1]}
-            maxInitials="2"
-            size="26px"
-            round={true}
-            style={{
-              position: "absolute",
-              left: secondAvatarPosition,
-            }}
-          />
-        )}
-        {numCollaborators > 2 && (
-          <Avatar
-            name={existingCollaborators[2]}
-            src={profImages[2]}
-            maxInitials="2"
-            size="26px"
-            round={true}
-            style={{
-              position: "absolute",
-              left: thirdAvatarPosition,
-            }}
-          />
         )}
         <span
           style={{
