@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Dropdown, Icon } from "semantic-ui-react";
+import { Dropdown, Icon } from "semantic-ui-react";
 import Avatar from "react-avatar";
 
 class Collaborators extends Component {
@@ -7,7 +7,7 @@ class Collaborators extends Component {
     const { study } = this.props;
     const existingCollaborators = study?.collaborators || []; // provides only the collaborators' usernames
     const profImages = study?.collaboratorProfiles?.map((c) =>
-      c.authEmail[0].settings.googleAuth
+      c.authEmail[0]?.settings?.googleAuth
         ? c.authEmail[0].settings.googleAuth.picture
         : ""
     );
