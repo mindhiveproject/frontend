@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
-import Error from '../../ErrorMessage/index';
-import { USER_DASHBOARD_QUERY } from '../../User/index';
+import Error from '../../../ErrorMessage/index';
+import { USER_DASHBOARD_QUERY } from '../../../User/index';
 
-import DashboardDevelop from './personalized';
+import DashboardAssignments from './personalized';
 
 class PersonalDashboard extends Component {
   render() {
@@ -16,9 +16,7 @@ class PersonalDashboard extends Component {
           if (userPayloadError) return <Error error={userPayloadError} />;
           if (userPayloadLoading) return <p>Loading</p>;
 
-          return (
-            <DashboardDevelop user={userPayloadData} tab={this.props.tab} />
-          );
+          return <DashboardAssignments user={userPayloadData} />;
         }}
       </Query>
     );

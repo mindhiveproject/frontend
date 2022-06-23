@@ -1,5 +1,70 @@
 import gql from 'graphql-tag';
 
+// query used to get study information during its development
+export const STUDY_DEVELOPMENT_QUERY = gql`
+  query STUDY_DEVELOPMENT_QUERY($id: ID!) {
+    study(where: { id: $id }) {
+      id
+      title
+      slug
+      shortDescription
+      description
+      settings
+      image
+      largeImage
+      info
+      author {
+        id
+      }
+      collaborators {
+        id
+        username
+        authEmail {
+          email
+          settings
+        }
+      }
+      consent {
+        id
+        title
+        organization
+        info
+        settings
+        studies {
+          id
+          title
+          public
+        }
+        tasks {
+          id
+          title
+        }
+      }
+      tasks {
+        id
+        title
+        description
+      }
+      proposal {
+        id
+        title
+        createdAt
+        isSubmitted
+      }
+      components
+      public
+      submitForPublishing
+      classes {
+        id
+        title
+      }
+      tags {
+        id
+      }
+    }
+  }
+`;
+
 // get the information about the study using the study slug
 export const STUDY_QUERY = gql`
   query STUDY_QUERY($slug: String!) {

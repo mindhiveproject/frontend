@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { Menu } from 'semantic-ui-react';
-import styled from 'styled-components';
 import DevelopedStudiesBank from '../../Bank/Studies/developed';
 import DevelopedComponentsBank from '../../Bank/Components/developed';
 
@@ -13,21 +12,7 @@ import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
 import ComponentBuilderWrapper from '../../Development/Component/builderWrapper';
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
 
-const StyledPreviewToggle = styled.div`
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-  grid-gap: 1rem;
-  margin: 1rem 0rem;
-  align-items: center;
-  span {
-    font-family: Roboto;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0.05em;
-  }
-`;
+import DevelopArea from '../../Develop/index.js';
 
 class DashboardDevelop extends Component {
   state = {
@@ -39,9 +24,19 @@ class DashboardDevelop extends Component {
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
 
+  // todo change later to old study builder
   goToStudy = study => {
     this.setState({
       page: 'studyBuilder',
+      devInfo: {
+        studyIdToClone: study.id,
+      },
+    });
+  };
+
+  openNewStudyBuilder = study => {
+    this.setState({
+      page: 'studyBuilderNew',
       devInfo: {
         studyIdToClone: study.id,
       },
@@ -221,6 +216,7 @@ class DashboardDevelop extends Component {
         </EmptyPage>
       );
     }
+
     if (page === 'studyBuilder') {
       return (
         <EmptyPage>
@@ -233,6 +229,20 @@ class DashboardDevelop extends Component {
         </EmptyPage>
       );
     }
+
+    if (page === 'studyBuilderNew') {
+      return (
+        <EmptyPage>
+          <DevelopArea
+            user={this.props.user}
+            studyId={this.state.devInfo.studyIdToClone}
+            onLeave={this.switchToBank}
+            needToClone={false}
+          />
+        </EmptyPage>
+      );
+    }
+
     if (page === 'componentBuilder') {
       return (
         <EmptyPage>
