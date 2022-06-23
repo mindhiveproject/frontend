@@ -14,6 +14,7 @@ export const StyledBoard = styled.div`
 
 export const StyledSettings = styled.div`
   display: grid;
+  align-content: baseline;
   grid-gap: 18px;
   background: #f4f5f5;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);

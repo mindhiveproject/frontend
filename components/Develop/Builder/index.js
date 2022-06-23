@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
 
 import { StyledBoard } from '../styles';
-// import Diagram from './Diagram/index';
 import Settings from './Settings/index';
 
 const Diagram = () => import('./Diagram/index');

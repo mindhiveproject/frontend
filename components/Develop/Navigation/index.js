@@ -8,8 +8,25 @@ import { TOGGLE_OPENING_MUTATION } from '../../Opening/index';
 
 import Collaborators from './collaborators';
 import ArchiveDelete from '../../Bank/Studies/archiveDelete';
+import SharingModal from '../Sharing/modal';
 
 export default class Navigation extends Component {
+  state = {
+    modal: null,
+  };
+
+  openModal = modal => {
+    this.setState({
+      modal,
+    });
+  };
+
+  onModalClose = () => {
+    this.setState({
+      modal: null,
+    });
+  };
+
   render() {
     const { study, page, user } = this.props;
     const isHidden =
@@ -24,7 +41,7 @@ export default class Navigation extends Component {
           </div>
           <div className="rightPanel">
             <Collaborators
-              openSharingModal={this.props.openSharingModal}
+              openSharingModal={() => this.openModal('sharing')}
               study={study}
             />
 
@@ -133,6 +150,9 @@ export default class Navigation extends Component {
             </Menu.Item>
           </Menu>
         </div>
+        {this.state.modal === 'sharing' && (
+          <SharingModal {...this.props} onModalClose={this.onModalClose} />
+        )}
       </StyledNavigation>
     );
   }

@@ -9,9 +9,9 @@ const StyledBank = styled.div`
   display: grid;
 `;
 
-const MY_BLOCKS_QUERY = gql`
-  query MY_BLOCKS_QUERY {
-    myTasks(where: { taskType: BLOCK }) {
+const MY_TASKS_QUERY = gql`
+  query MY_TASKS_QUERY {
+    myTasks(where: { taskType: TASK }) {
       id
       title
       subtitle
@@ -44,7 +44,7 @@ class MyTasks extends Component {
   render() {
     return (
       <>
-        <Query query={MY_BLOCKS_QUERY}>
+        <Query query={MY_TASKS_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <p>Loading ...</p>;
             if (error) return <p>Error: {error.message}</p>;
@@ -54,11 +54,10 @@ class MyTasks extends Component {
                 <div className="tasks">
                   {tasks.map(task => (
                     <CardWrapper
+                      {...this.props}
                       key={task.id}
                       component={task}
                       redirect="d"
-                      onAddComponent={this.props.onAddComponent}
-                      openTaskEditor={this.props.openTaskEditor}
                     />
                   ))}
                 </div>
@@ -72,4 +71,4 @@ class MyTasks extends Component {
 }
 
 export default MyTasks;
-export { MY_BLOCKS_QUERY };
+export { MY_TASKS_QUERY };

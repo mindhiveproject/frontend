@@ -55,10 +55,9 @@ class Surveys extends Component {
                 <div className="surveys">
                   {tasks.map(survey => (
                     <CardWrapper
+                      {...this.props}
                       key={survey.id}
                       component={survey}
-                      onAddComponent={this.props.onAddComponent}
-                      openTaskEditor={this.props.openTaskEditor}
                     />
                   ))}
                 </div>

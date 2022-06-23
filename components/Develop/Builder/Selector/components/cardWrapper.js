@@ -22,24 +22,26 @@ class CardWrapper extends Component {
     const { component } = this.props;
 
     return (
-      <NodesTypesContainer>
-        <NodeTypeLabel
-          model={{
-            ports: 'in',
-            name: component?.title,
-            details: component?.description,
-            componentID: component.id,
-          }}
-          name={component?.title}
-        >
-          <Card
-            key={component.id}
-            component={component}
-            onAddComponent={this.addToStudy}
-            openTaskEditor={this.props.openTaskEditor}
-          />
-        </NodeTypeLabel>
-      </NodesTypesContainer>
+      <div onClick={() => this.props.openModal('task', component)}>
+        <NodesTypesContainer>
+          <NodeTypeLabel
+            model={{
+              ports: 'in',
+              name: component?.title,
+              details: component?.description,
+              componentID: component.id,
+            }}
+            name={component?.title}
+          >
+            <Card
+              key={component.id}
+              component={component}
+              onAddComponent={this.addToStudy}
+              openTaskEditor={this.props.openTaskEditor}
+            />
+          </NodeTypeLabel>
+        </NodesTypesContainer>
+      </div>
     );
   }
 }

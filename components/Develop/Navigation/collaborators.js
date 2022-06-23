@@ -97,7 +97,7 @@ class Collaborators extends Component {
         <Avatar
           name={existingCollaborators[0]}
           src={profImages?.length && profImages[0]}
-          maxInitials="2"
+          maxInitials={2}
           size="26px"
           round
           style={{
@@ -109,7 +109,7 @@ class Collaborators extends Component {
           <Avatar
             name={existingCollaborators[1]}
             src={profImages[1]}
-            maxInitials="2"
+            maxInitials={2}
             size="26px"
             round
             style={{
@@ -122,7 +122,7 @@ class Collaborators extends Component {
           <Avatar
             name={existingCollaborators[2]}
             src={profImages[2]}
-            maxInitials="2"
+            maxInitials={2}
             size="26px"
             round
             style={{

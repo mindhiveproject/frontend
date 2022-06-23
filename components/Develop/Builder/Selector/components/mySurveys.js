@@ -54,11 +54,10 @@ class Surveys extends Component {
                 <div className="surveys">
                   {surveys.map(survey => (
                     <CardWrapper
+                      {...this.props}
                       key={survey.id}
                       component={survey}
                       redirect="d"
-                      onAddComponent={this.props.onAddComponent}
-                      openTaskEditor={this.props.openTaskEditor}
                     />
                   ))}
                 </div>

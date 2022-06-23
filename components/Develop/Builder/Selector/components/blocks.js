@@ -55,11 +55,10 @@ class Tasks extends Component {
                 <div className="tasks">
                   {tasks.map(task => (
                     <CardWrapper
+                      {...this.props}
                       key={task.id}
                       component={task}
                       redirect="d"
-                      onAddComponent={this.props.onAddComponent}
-                      openTaskEditor={this.props.openTaskEditor}
                     />
                   ))}
                 </div>

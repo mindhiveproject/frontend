@@ -154,7 +154,7 @@ export const StyledEditPane = styled.div`
 
   .discoverMenu {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 20px 6px 29px 6px !important;
     cursor: pointer;
     /* grid-column-gap: 5px; */

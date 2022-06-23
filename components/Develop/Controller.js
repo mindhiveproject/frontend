@@ -5,7 +5,6 @@ import { StyledDevelopWrapper } from './styles';
 
 import Page from './Page';
 import FullScreenPreview from '../Preview/fullscreen';
-import SharingModal from './Sharing/modal';
 
 export default class Controller extends Component {
   state = {
@@ -190,19 +189,6 @@ export default class Controller extends Component {
     });
   };
 
-  openSharingModal = () => {
-    console.log('open sharing modal');
-    this.setState({
-      modal: 'sharing',
-    });
-  };
-
-  onModalClose = () => {
-    this.setState({
-      modal: null,
-    });
-  };
-
   createNewStudy = async createStudyMutation => {
     const res = await createStudyMutation({
       variables: {
@@ -277,7 +263,6 @@ export default class Controller extends Component {
           createNewStudy={this.createNewStudy}
           updateMyStudy={this.updateMyStudy}
           handlePageChange={this.handlePageChange}
-          openSharingModal={this.openSharingModal}
         />
         <Page
           {...this.state}
@@ -296,17 +281,6 @@ export default class Controller extends Component {
           toggleComponentPreview={this.toggleComponentPreview}
           toggleStudyPreview={this.toggleStudyPreview}
         />
-        {this.state.modal === 'sharing' && (
-          <SharingModal
-            {...this.state}
-            user={this.props.user}
-            proposalId={proposalId}
-            createNewStudy={this.createNewStudy}
-            updateMyStudy={this.updateMyStudy}
-            onModalClose={this.onModalClose}
-            updateStudyState={this.updateStudyState}
-          />
-        )}
       </StyledDevelopWrapper>
     );
   }

@@ -3,13 +3,13 @@ import { Menu, Dropdown } from 'semantic-ui-react';
 
 import { StyledEditPane } from './styles';
 
-import Favorite from './Selector/favorite';
-import Surveys from './Selector/surveys';
-import MySurveys from './Selector/mySurveys';
-import Tasks from './Selector/tasks';
-import MyTasks from './Selector/myTasks';
-import Blocks from './Selector/blocks';
-import MyBlocks from './Selector/myBlocks';
+import Favorite from './components/favorite';
+import Surveys from './components/surveys';
+import MySurveys from './components/mySurveys';
+import Tasks from './components/tasks';
+import MyTasks from './components/myTasks';
+import Blocks from './components/blocks';
+import MyBlocks from './components/myBlocks';
 
 const createdByOptions = [
   {
@@ -125,50 +125,28 @@ class componentSelector extends Component {
         </div>
 
         {this.state.tab === 'favorite' && (
-          <Favorite
-            onAddComponent={this.props.onAddComponent}
-            openTaskEditor={this.props.openTaskEditor}
-            selector={this.state.createdBy}
-          />
+          <Favorite {...this.props} selector={this.state.createdBy} />
         )}
 
         {this.state.tab === 'surveys' && this.state.createdBy === 'anyone' && (
-          <Surveys
-            onAddComponent={this.props.onAddComponent}
-            openTaskEditor={this.props.openTaskEditor}
-          />
+          <Surveys {...this.props} />
         )}
         {this.state.tab === 'surveys' && this.state.createdBy === 'me' && (
-          <MySurveys
-            onAddComponent={this.props.onAddComponent}
-            openTaskEditor={this.props.openTaskEditor}
-          />
+          <MySurveys {...this.props} />
         )}
 
         {this.state.tab === 'tasks' && this.state.createdBy === 'anyone' && (
-          <Tasks
-            onAddComponent={this.props.onAddComponent}
-            openTaskEditor={this.props.openTaskEditor}
-          />
+          <Tasks {...this.props} />
         )}
         {this.state.tab === 'tasks' && this.state.createdBy === 'me' && (
-          <MyTasks
-            onAddComponent={this.props.onAddComponent}
-            openTaskEditor={this.props.openTaskEditor}
-          />
+          <MyTasks {...this.props} />
         )}
 
         {this.state.tab === 'blocks' && this.state.createdBy === 'anyone' && (
-          <Blocks
-            onAddComponent={this.props.onAddComponent}
-            openTaskEditor={this.props.openTaskEditor}
-          />
+          <Blocks {...this.props} />
         )}
         {this.state.tab === 'blocks' && this.state.createdBy === 'me' && (
-          <MyBlocks
-            onAddComponent={this.props.onAddComponent}
-            openTaskEditor={this.props.openTaskEditor}
-          />
+          <MyBlocks {...this.props} />
         )}
       </StyledEditPane>
     );
