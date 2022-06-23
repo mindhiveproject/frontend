@@ -38,6 +38,7 @@ function StudyCard({
   study,
   user,
   onSelectStudy,
+  openNewStudyBuilder,
   overviewMode,
   developingMode,
 }) {
@@ -109,6 +110,7 @@ function StudyCard({
                   className="archiveButton"
                   study={study}
                   isHidden={isHidden}
+                  openNewStudyBuilder={openNewStudyBuilder}
                 />
               )}
             </>
@@ -120,6 +122,7 @@ function StudyCard({
                   className="archiveButton"
                   study={study}
                   isHidden={isHidden}
+                  openNewStudyBuilder={openNewStudyBuilder}
                 />
               )}
             </>

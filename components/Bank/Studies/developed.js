@@ -40,35 +40,34 @@ const filterOptions = [
     key: 'All',
     text: 'All studies',
     value: 'All',
-    content: <p>All</p>
+    content: <p>All</p>,
   },
   {
     key: 'Active',
     text: 'Active studies',
     value: 'Active',
-    content: <p>Active</p>
+    content: <p>Active</p>,
   },
   {
     key: 'Archived',
     text: 'Archived studies',
     value: 'Archived',
-    content: <p>Archived</p>
-  }
+    content: <p>Archived</p>,
+  },
 ];
 
 class DevelopedStudiesBank extends Component {
   state = {
-    filter: 'All'
-  }
+    filter: 'All',
+  };
 
   filterStudies = (event, data) => {
     this.setState({
-      filter: data.value
-    })
-  }
+      filter: data.value,
+    });
+  };
 
   render() {
-
     return (
       <>
         <Query query={MY_DEVELOPED_STUDIES_QUERY}>
@@ -104,12 +103,12 @@ class DevelopedStudiesBank extends Component {
                 filteredStudies = studies.filter(
                   study => !studiesIDsToHide.includes(study?.id)
                 );
-              break;
+                break;
               case 'Archived':
-                filteredStudies = studies.filter(
-                  study => studiesIDsToHide.includes(study?.id)
+                filteredStudies = studies.filter(study =>
+                  studiesIDsToHide.includes(study?.id)
                 );
-              break;
+                break;
             }
 
             return (
@@ -130,6 +129,7 @@ class DevelopedStudiesBank extends Component {
                         key={study.id}
                         study={study}
                         onSelectStudy={this.props.onSelectStudy}
+                        openNewStudyBuilder={this.props.openNewStudyBuilder}
                         user={this.props.user}
                         developingMode
                         showAllStudies={this.props.showAllStudies}

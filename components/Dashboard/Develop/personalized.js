@@ -171,6 +171,7 @@ class DashboardDevelop extends Component {
                 <div>
                   <DevelopedStudiesBank
                     onSelectStudy={this.goToStudy}
+                    openNewStudyBuilder={this.openNewStudyBuilder}
                     user={this.props.user}
                     showAllStudies={this.state.showAllStudies}
                   />
