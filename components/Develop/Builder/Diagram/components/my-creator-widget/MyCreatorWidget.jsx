@@ -12,12 +12,8 @@ export const MyCreatorWidget = props => {
   const diagramEngine = props.engine;
 
   const onNodeDrop = event => {
-    // console.log({ event });
-
     const dataString = event.dataTransfer.getData('storm-diagram-node');
     const data = JSON.parse(dataString);
-
-    console.log({ data });
 
     const node = new MyNodeModel({
       color: 'white',

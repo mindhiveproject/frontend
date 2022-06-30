@@ -11,7 +11,6 @@ const loading = keyframes`
 `;
 
 export const SimpleStyledForm = styled.form`
-  // width: 100vh;
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
   border: 5px solid white;
   border-radius: 10px;
@@ -21,7 +20,6 @@ export const SimpleStyledForm = styled.form`
   font-weight: 600;
   label {
     display: block;
-    /* margin-bottom: 1rem; */
   }
   input,
   textarea,
@@ -111,13 +109,12 @@ export const SimpleInformationBlock = styled.div`
 `;
 
 export const SimpleForm = styled.form`
-  /* box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
   background: rgba(0, 0, 0, 0.01);
   border: 5px solid white;
   padding: 20px;
   font-size: 1.5rem;
   line-height: 1.5;
-  font-weight: 600; */
+  font-weight: 600;
   label {
     display: block;
     margin-bottom: 1rem;
@@ -127,7 +124,6 @@ export const SimpleForm = styled.form`
   select {
     width: 100%;
     padding: 0.5rem;
-    /* font-size: 1rem; */
     border: 1px solid black;
     &:focus {
       outline: 0;
@@ -158,12 +154,6 @@ export const SimpleForm = styled.form`
       height: 10px;
       content: '';
       display: block;
-      /* background-image: linear-gradient(
-        to right,
-        #208962 0%,
-        #49e889 50%,
-        #208962 100%
-      ); */
     }
     &[aria-busy='true']::before {
       background-size: 50% auto;
@@ -429,6 +419,7 @@ export const StyledSubmitForm = styled.form`
   fieldset {
     display: grid;
     justify-self: center;
+    justify-items: center;
     grid-gap: 5px;
     width: 100%;
     max-width: 500px;
@@ -450,7 +441,7 @@ export const StyledSubmitForm = styled.form`
       transition: transform 0.5s;
     }
   }
-  .membersBlock  {
+  .membersBlock {
     margin: 2rem 0rem;
   }
 `;

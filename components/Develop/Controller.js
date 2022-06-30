@@ -20,11 +20,22 @@ export default class Controller extends Component {
     modal: null,
   };
 
+  // to update the study state
   updateStudyState = (name, value) => {
     this.setState({
       study: {
         ...this.state.study,
         [name]: value,
+      },
+    });
+  };
+
+  // to update many values of the study state
+  handleSetMultipleValuesInState = values => {
+    this.setState({
+      study: {
+        ...this.state.study,
+        ...values,
       },
     });
   };
@@ -64,15 +75,6 @@ export default class Controller extends Component {
       study: {
         ...this.state.study,
         info,
-      },
-    });
-  };
-
-  handleSetMultipleValuesInState = values => {
-    this.setState({
-      study: {
-        ...this.state.study,
-        ...values,
       },
     });
   };
@@ -257,15 +259,16 @@ export default class Controller extends Component {
         <Navigation
           {...this.state}
           user={this.props.user}
-          proposalId={proposalId}
           onLeave={this.props.onLeave}
-          isAuthor={isAuthor}
           createNewStudy={this.createNewStudy}
           updateMyStudy={this.updateMyStudy}
           handlePageChange={this.handlePageChange}
+          proposalId={proposalId}
+          isAuthor={isAuthor}
         />
         <Page
           {...this.state}
+          proposals={this.props.study.proposal}
           user={this.props.user}
           handleStudyChange={this.handleStudyChange}
           handleParameterChange={this.handleParameterChange}

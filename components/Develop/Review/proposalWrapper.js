@@ -1,121 +1,25 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+
 import { Mutation } from '@apollo/client/react/components';
 
 import { Icon, Dropdown } from 'semantic-ui-react';
 import ChecklistItem from './checklist/index';
 import { checklistItems } from './checklist/checkTemplate';
-import { PROPOSAL_REVIEWS_QUERY } from './index';
-import { UPDATE_PROPOSAL_BOARD } from '../../../Mutations/Proposal';
+
+// queries & mutations
+import { PROPOSAL_REVIEWS_QUERY } from '../../Queries/Review';
+import { UPDATE_PROPOSAL_BOARD } from '../../Mutations/Proposal';
 
 import ReviewRow from './reviews/row';
 
-const StyledReviewSection = styled.div`
-  background: #e5e5e5;
-  display: grid;
-  justify-content: stretch;
-`;
-
-const StyledReviewBoard = styled.div`
-  display: grid;
-  max-width: 1100px;
-  margin: 45px 0px 45px 0px;
-  width: 100%;
-  justify-self: center;
-
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    'submit submit'
-    'checklist reviews';
-  grid-gap: 20px;
-
-  .submit {
-    grid-area: submit;
-    .submitPanel {
-      display: grid;
-      grid-template-columns: 4fr 3fr;
-    }
-    .submitBtnContainer {
-      display: grid;
-      justify-content: end;
-      align-content: baseline;
-      button {
-        border: 2px solid #b3b3b3;
-      }
-    }
-  }
-  .checklist {
-    grid-area: checklist;
-    .checklistItems {
-      display: grid;
-      grid-gap: 10px;
-      margin-top: 18px;
-    }
-  }
-  .reviews {
-    grid-area: reviews;
-    .reviewsCards {
-      display: grid;
-      grid-gap: 10px;
-      .allReviewsToggle {
-        cursor: pointer;
-        color: #007c70;
-        font-family: Lato;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 24px;
-        letter-spacing: 0em;
-        text-align: left;
-        text-decoration-line: underline;
-      }
-    }
-    .reviewsPlaceholder {
-      border: 1px solid #e6e6e6;
-      box-sizing: border-box;
-      border-radius: 4px;
-      padding: 40px;
-      p {
-        text-align: center;
-      }
-    }
-  }
-`;
-
-const StyledReviewCard = styled.div`
-  background: white;
-  border-radius: 4px;
-  padding: 41px 50px 21px 50px;
-  h2 {
-    font-family: Lato;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 36px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #1a1a1a;
-  }
-  p {
-    font-family: Lato;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: left;
-  }
-  .dropdown {
-    background: #fff9e6;
-    padding: 0.5rem 0.5rem 0.5rem 1rem;
-    border-radius: 1rem;
-  }
-`;
+import {
+  StyledReviewSection,
+  StyledReviewBoard,
+  StyledReviewCard,
+} from './styles';
 
 class ProposalWrapper extends Component {
   state = {
-    id: this.props.proposal.id,
-    checklist: this.props.proposal?.checklist || [],
     showAllReviews: false,
   };
 
@@ -132,22 +36,21 @@ class ProposalWrapper extends Component {
 
   submitProposal = async updateProposalMutation => {
     const res = await updateProposalMutation({
-      variables: { isSubmitted: true },
+      variables: { id: this.props.proposal.id, isSubmitted: true },
     });
   };
 
   toggleCheckTo = async (name, newState, updateProposalMutation) => {
     let checklist;
+    const prevCheckList = this.props.proposal?.checklist || [];
     if (newState) {
-      checklist = [...this.state.checklist, name];
+      checklist = [...prevCheckList, name];
     } else {
-      checklist = [...this.state.checklist.filter(item => item !== name)];
+      checklist = [...prevCheckList.filter(item => item !== name)];
     }
-    this.setState({
-      checklist,
-    });
     const res = await updateProposalMutation({
       variables: {
+        id: this.props.proposal.id,
         checklist,
       },
     });
@@ -159,7 +62,6 @@ class ProposalWrapper extends Component {
     return (
       <Mutation
         mutation={UPDATE_PROPOSAL_BOARD}
-        variables={this.state}
         refetchQueries={[
           {
             query: PROPOSAL_REVIEWS_QUERY,
@@ -264,6 +166,7 @@ class ProposalWrapper extends Component {
                         toggleCheckTo={this.toggleCheckTo}
                         updateProposalMutation={updateProposal}
                         takeAction={this.takeAction}
+                        isSubmitted={!!proposal?.isSubmitted}
                       />
                     ))}
                   </div>

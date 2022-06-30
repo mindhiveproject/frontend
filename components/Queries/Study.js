@@ -61,6 +61,7 @@ export const STUDY_DEVELOPMENT_QUERY = gql`
       tags {
         id
       }
+      diagram
     }
   }
 `;

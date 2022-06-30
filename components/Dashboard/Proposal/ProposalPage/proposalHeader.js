@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
+
+import { UPDATE_PROPOSAL_BOARD } from '../../../Mutations/Proposal';
 
 const StyledProposalHeader = styled.div`
   display: grid;
@@ -49,30 +50,6 @@ const StyledProposalHeader = styled.div`
     letter-spacing: 0em;
     text-align: left;
     color: #666666;
-  }
-`;
-
-const UPDATE_PROPOSAL_BOARD = gql`
-  mutation UPDATE_PROPOSAL_BOARD(
-    $id: ID!
-    $title: String
-    $description: String
-    $isSubmitted: Boolean
-    $checklist: Json
-  ) {
-    updateProposalBoard(
-      id: $id
-      title: $title
-      description: $description
-      isSubmitted: $isSubmitted
-      checklist: $checklist
-    ) {
-      id
-      title
-      description
-      isSubmitted
-      checklist
-    }
   }
 `;
 
@@ -154,4 +131,3 @@ class ProposalHeader extends Component {
 }
 
 export default ProposalHeader;
-export { UPDATE_PROPOSAL_BOARD };

@@ -15,6 +15,7 @@ export const CREATE_NEW_STUDY = gql`
     $collaborators: [String]
     $classes: [String]
     $tags: [ID]
+    $diagram: String
   ) {
     createStudy(
       title: $title
@@ -30,6 +31,7 @@ export const CREATE_NEW_STUDY = gql`
       collaborators: $collaborators
       classes: $classes
       tags: $tags
+      diagram: $diagram
     ) {
       id
       slug
@@ -76,6 +78,7 @@ export const CREATE_NEW_STUDY = gql`
       tags {
         id
       }
+      diagram
     }
   }
 `;
@@ -97,6 +100,7 @@ export const UPDATE_STUDY = gql`
     $submitForPublishing: Boolean
     $classes: [String]
     $tags: [ID]
+    $diagram: String
   ) {
     updateStudy(
       id: $id
@@ -114,6 +118,7 @@ export const UPDATE_STUDY = gql`
       submitForPublishing: $submitForPublishing
       classes: $classes
       tags: $tags
+      diagram: $diagram
     ) {
       id
       slug
@@ -151,6 +156,7 @@ export const UPDATE_STUDY = gql`
       tags {
         id
       }
+      diagram
     }
   }
 `;

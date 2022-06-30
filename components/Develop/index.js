@@ -78,11 +78,11 @@ export default class DevelopArea extends Component {
           return (
             <Controller
               onLeave={this.props.onLeave}
-              study={study}
+              newStudyFromScratch={this.props.newStudyFromScratch}
               user={this.props.user}
+              study={study}
               needToClone={needToClone}
               adminMode={adminMode}
-              newStudyFromScratch={this.props.newStudyFromScratch}
             />
           );
         }}

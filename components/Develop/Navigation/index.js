@@ -36,9 +36,15 @@ export default class Navigation extends Component {
     return (
       <StyledNavigation>
         <div className="firstLine">
-          <div>
-            <span className="studyTitle">{study?.title}</span>
+          <div className="leftPanel">
+            <div className="goBackBtn" onClick={this.props.onLeave}>
+              ←
+            </div>
+            <div>
+              <span className="studyTitle">{study?.title}</span>
+            </div>
           </div>
+
           <div className="rightPanel">
             <Collaborators
               openSharingModal={() => this.openModal('sharing')}
@@ -81,6 +87,7 @@ export default class Navigation extends Component {
                   : 'discoverMenuTitle'
               }
             >
+              <img src="/content/icons/Loading.svg" />
               <p>Proposal</p>
             </Menu.Item>
 
@@ -94,33 +101,8 @@ export default class Navigation extends Component {
                   : 'discoverMenuTitle'
               }
             >
+              <img src="/content/icons/Edit.svg" />
               <p>Study Builder</p>
-            </Menu.Item>
-
-            <Menu.Item
-              name="review"
-              active={page === 'review'}
-              onClick={this.props.handlePageChange}
-              className={
-                page === 'review'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
-              }
-            >
-              <p>Reviews</p>
-            </Menu.Item>
-
-            <Menu.Item
-              name="collect"
-              active={page === 'collect'}
-              onClick={this.props.handlePageChange}
-              className={
-                page === 'collect'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
-              }
-            >
-              <p>Collect</p>
             </Menu.Item>
 
             <Menu.Item
@@ -133,7 +115,36 @@ export default class Navigation extends Component {
                   : 'discoverMenuTitle'
               }
             >
-              <p>Download</p>
+              <img src="/content/icons/Finder.svg" />
+              <p>Participant Page</p>
+            </Menu.Item>
+
+            <Menu.Item
+              name="review"
+              active={page === 'review'}
+              onClick={this.props.handlePageChange}
+              className={
+                page === 'review'
+                  ? 'discoverMenuTitle selectedMenuTitle'
+                  : 'discoverMenuTitle'
+              }
+            >
+              <img src="/content/icons/Eye.svg" />
+              <p>Review</p>
+            </Menu.Item>
+
+            <Menu.Item
+              name="collect"
+              active={page === 'collect'}
+              onClick={this.props.handlePageChange}
+              className={
+                page === 'collect'
+                  ? 'discoverMenuTitle selectedMenuTitle'
+                  : 'discoverMenuTitle'
+              }
+            >
+              <img src="/content/icons/Briefcase.svg" />
+              <p>Test & Collect</p>
             </Menu.Item>
 
             <Menu.Item
@@ -146,6 +157,7 @@ export default class Navigation extends Component {
                   : 'discoverMenuTitle'
               }
             >
+              <img src="/content/icons/Stats.svg" />
               <p>Analyze</p>
             </Menu.Item>
           </Menu>

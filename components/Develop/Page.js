@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+// new components
 import Builder from './Builder/index';
+import Proposal from './Proposal/index';
+import Review from './Review/index';
 
 // old components
-import ProposalSection from '../Development/Study/Proposal/index';
-import ReviewSection from '../Development/Study/Review/index';
+// import ProposalSection from '../Development/Study/Proposal/index';
+// import ReviewSection from '../Development/Study/Review/index';
 import CollectSection from '../Development/Study/Collect/index';
 import DownloadSection from '../Development/Study/Download/index';
 import AnalyzeSection from '../Development/Study/Analyze/index';
@@ -14,8 +17,8 @@ export default class Page extends Component {
     return (
       <>
         {page === 'builder' && <Builder {...this.props} />}
-        {page === 'proposal' && <ProposalSection {...this.props} />}
-        {page === 'review' && <ReviewSection {...this.props} />}
+        {page === 'proposal' && <Proposal {...this.props} />}
+        {page === 'review' && <Review {...this.props} />}
         {page === 'collect' && <CollectSection {...this.props} />}
         {page === 'download' && <DownloadSection {...this.props} />}
         {page === 'analyze' && <AnalyzeSection {...this.props} />}
