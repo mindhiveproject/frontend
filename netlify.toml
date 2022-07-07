@@ -85,3 +85,9 @@
   to = "/dashboard/irb/edit.html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/users/*"
+  to = "/users/[username].html"
+  status = 200
+  force = true

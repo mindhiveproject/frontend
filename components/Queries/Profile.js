@@ -43,6 +43,8 @@ export const PUBLIC_PROFILE_QUERY = gql`
         id
         title
         isHidden
+        description
+        shortDescription
       }
       taskCreatorIn {
         id

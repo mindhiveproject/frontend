@@ -15,14 +15,16 @@ class UserProfile extends Component {
         <div className="profile">
           <div className="profileContainer">
             <div className="firstLine">
-              <div>Profile image</div>
+              <div className="image">
+                <img src="https://cdn-icons-png.flaticon.com/512/219/219986.png" />
+              </div>
               <div>
                 <div>
                   <Icon name="map pin" />
-                  Location
+                  Metropolis
                 </div>
                 <div className="snsLinks">
-                  <p>SNS links</p>
+                  <p>https://www.metropolis.com/JoeLunchbucket</p>
                   {profile?.authEmail?.email && (
                     <div className="snsLink">
                       <a
@@ -36,7 +38,7 @@ class UserProfile extends Component {
                     </div>
                   )}
                 </div>
-                <p>Website link</p>
+                <p>https://my-personal-website.com/</p>
               </div>
             </div>
 
@@ -50,24 +52,71 @@ class UserProfile extends Component {
             <div className="thirdLine">
               <div>2 Followers</div>
               <div>0 Following</div>
-              <div>0 Liked</div>
-              <div>1 Created</div>
-              <div>0 Collections</div>
+              <div>4 Liked</div>
+              <div>2 Studies</div>
+              <div>0 Classes</div>
             </div>
 
             <div className="fourthLine">
-              <p>Follow button</p>
-
-              <p>Write a message button</p>
+              <button>Follow</button>
+              <button>Send a message</button>
             </div>
           </div>
 
           <div className="bioContainer">
-            <div>Profile bio</div>
+            <div>
+              <h2>Interests</h2>
+              <span>Social Brain</span>
+              <span>Psychology</span>
+              <span>Environment</span>
+            </div>
+
+            <div>
+              <h2>Bio</h2>The terms average Joe, ordinary Joe, Joe Sixpack, Joe
+              Lunchbucket, Joe Snuffy, Joe Blow, Joe Schmo (for males) and
+              ordinary Jane, average Jane, and plain Jane (for females), are
+              used primarily in North America to refer to a completely average
+              person, typically an average American. It can be used both to give
+              the image of a hypothetical "completely average person" or to
+              describe an existing person. Parallel terms in other languages for
+              local equivalents exist worldwide.
+            </div>
           </div>
         </div>
 
-        <div className="display">Display of things</div>
+        <div className="display">
+          <div>
+            <h2>Researcher in</h2>
+            {profile?.collaboratorInStudy.map(study => (
+              <div className="studyDescriptionCard">
+                <h3>{study?.title}</h3>
+                <p>{study?.description}</p>
+                <p>{study?.shortDescription}</p>
+              </div>
+            ))}
+          </div>
+
+          <div>
+            <h2>Participant in</h2>
+            {profile?.participantIn.map(study => (
+              <p>{study?.title}</p>
+            ))}
+          </div>
+
+          <div>
+            <h2>Teacher in</h2>
+            {profile?.teacherIn.map(theclass => (
+              <p>{theclass?.title}</p>
+            ))}
+          </div>
+
+          <div>
+            <h2>Mentor in</h2>
+            {profile?.mentorIn.map(theclass => (
+              <p>{theclass?.title}</p>
+            ))}
+          </div>
+        </div>
       </StyledAccount>
     );
   }
