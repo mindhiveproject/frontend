@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import { Button } from 'semantic-ui-react';
 
 import { MY_DEVELOPED_STUDIES_QUERY } from './developed';
-import { USER_DASHBOARD_QUERY } from '../../User/index';
+import { USER_DASHBOARD_QUERY } from '../../Queries/User';
 
 const DELETE_STUDY_MUTATION = gql`
   mutation DELETE_STUDY_MUTATION($id: ID!) {

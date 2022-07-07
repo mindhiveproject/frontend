@@ -1,5 +1,22 @@
 import gql from 'graphql-tag';
 
+export const GET_CARD_TITLES_OF_PROPOSAL_QUERY_BY_ID = gql`
+  query GET_CARD_TITLES_OF_PROPOSAL_QUERY_BY_ID($id: ID!) {
+    proposalBoard(where: { id: $id }) {
+      id
+      sections {
+        id
+        position
+        cards {
+          id
+          title
+          position
+        }
+      }
+    }
+  }
+`;
+
 export const PROPOSAL_TEMPLATES_QUERY = gql`
   query PROPOSAL_TEMPLATES_QUERY {
     proposalBoards(where: { isTemplate: true }) {

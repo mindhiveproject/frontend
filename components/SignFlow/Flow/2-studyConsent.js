@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import Router from 'next/router';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 
 import { OnboardingHeader } from '../styles';
 import { Logo } from '../../Header/styles';

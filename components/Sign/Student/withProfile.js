@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import {
   CURRENT_USER_EMAIL_QUERY,
   CURRENT_USER_RESULTS_QUERY,
-} from '../../User/index';
+} from '../../Queries/User';
 
 const JOIN_CLASS_MUTATION = gql`
   mutation JOIN_CLASS_MUTATION($id: ID!, $email: String) {

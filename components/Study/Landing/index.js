@@ -5,7 +5,7 @@ import Error from '../../ErrorMessage/index';
 import StudyWrapper from './studyWrapper';
 import Page from '../../Page/index';
 
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import { STUDY_QUERY } from '../../Queries/Study';
 
 class StudyLanding extends Component {

@@ -10,7 +10,7 @@ import Error from '../../../ErrorMessage/index';
 
 import Proposal from '../../Jodit/proposal';
 import ReviewQuestions from './questions';
-import { CURRENT_USER_ID_QUERY } from '../../../User/index';
+import { CURRENT_USER_ID_QUERY } from '../../../Queries/User';
 
 import StudyPage from '../../../StudyPage/index';
 

@@ -52,11 +52,13 @@ class Collaborators extends Component {
     return (
       <div
         style={{
+          display: 'grid',
+          alignItems: 'center',
           position: 'relative',
           backgroundColor: '#DEDEDE',
           borderRadius: '50px/60px',
           width: barWidth,
-          height: '32px',
+          height: '42px',
           padding: '3px',
         }}
       >
@@ -68,8 +70,8 @@ class Collaborators extends Component {
               position: 'absolute',
               left: '62%',
               backgroundColor: 'grey',
-              width: '26px',
-              height: '26px',
+              width: '24px',
+              height: '24px',
               fontSize: '.8em',
             }}
           >

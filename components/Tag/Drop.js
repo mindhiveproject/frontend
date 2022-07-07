@@ -28,7 +28,7 @@ const DropdownExampleMultipleSelection = ({
 
   return (
     <Dropdown
-      placeholder="Type tag"
+      placeholder="Search for tags"
       fluid
       multiple
       search

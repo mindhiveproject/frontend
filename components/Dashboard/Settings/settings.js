@@ -7,7 +7,7 @@ import Error from '../../ErrorMessage/index';
 
 import { CreateAccountForm } from '../../Sign/styles';
 
-import { CURRENT_USER_EMAIL_QUERY } from '../../User/index';
+import { CURRENT_USER_EMAIL_QUERY } from '../../Queries/User';
 
 const StyledSettingsDasboard = styled.div`
   width: 100%;

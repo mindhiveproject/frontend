@@ -24,7 +24,7 @@ const createdByOptions = [
   },
 ];
 
-class componentSelector extends Component {
+class ComponentSelector extends Component {
   state = {
     tab: this.props.tab || 'favorite',
     createdBy: this.props.createdBy || 'anyone',
@@ -40,15 +40,6 @@ class componentSelector extends Component {
     const { tab, createdBy } = this.state;
     return (
       <StyledEditPane>
-        <div className="closeBtnContainerEdit">
-          <span
-            className="closeBtnEdit"
-            onClick={() => this.props.toggleTaskSelector(false)}
-          >
-            &times;
-          </span>
-        </div>
-
         <Menu text stackable className="discoverMenu">
           <Menu.Item
             name="favorite"
@@ -153,4 +144,4 @@ class componentSelector extends Component {
   }
 }
 
-export default componentSelector;
+export default ComponentSelector;

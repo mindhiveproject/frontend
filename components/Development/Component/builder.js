@@ -10,7 +10,7 @@ import PreviewInBuilder from '../../Task/PreviewInBuilder/index';
 
 import { MY_SURVEYS_QUERY } from '../Study/StudyBuilder/Selector/mySurveys';
 import { MY_TASKS_QUERY } from '../Study/StudyBuilder/Selector/myTasks';
-import { USER_DASHBOARD_QUERY } from '../../User/index';
+import { USER_DASHBOARD_QUERY } from '../../Queries/User';
 import { COMPONENT_QUERY } from '../Study/StudyBuilder/Preview/componentPane';
 import { COMPONENT_TO_CLONE_QUERY } from './builderWrapper';
 

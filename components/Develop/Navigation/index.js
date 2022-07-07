@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Menu } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import { Mutation } from '@apollo/client/react/components';
 import { StyledNavigation } from './styles';
 import SaveStudy from './saveStudy';
@@ -51,15 +51,13 @@ export default class Navigation extends Component {
               study={study}
             />
 
-            <div>
-              <Mutation mutation={TOGGLE_OPENING_MUTATION}>
-                {toggleOpening => (
-                  <button onClick={toggleOpening}>
-                    <Icon name="rocketchat" size="large" />
-                  </button>
-                )}
-              </Mutation>
-            </div>
+            <Mutation mutation={TOGGLE_OPENING_MUTATION}>
+              {toggleOpening => (
+                <div className="chatButton" onClick={toggleOpening}>
+                  <img src="/content/icons/chat.svg" />
+                </div>
+              )}
+            </Mutation>
 
             <ArchiveDelete study={this.props.study} isHidden={isHidden} />
 

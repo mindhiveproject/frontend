@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { SimpleForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import { ALL_CLASSES_QUERY } from '../../Class/Board/all';
 import { REVIEW_CLASS_QUERY } from '../../Class/Review/index';
 

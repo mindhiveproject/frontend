@@ -11,18 +11,3 @@ export const StyledBoard = styled.div`
   padding: 10px;
   height: 90vh;
 `;
-
-export const StyledSettings = styled.div`
-  display: grid;
-  align-content: baseline;
-  grid-gap: 18px;
-  background: #f4f5f5;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
-  padding: 30px;
-  .card {
-    padding: 20px 30px;
-    background: #ffffff;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
-    border-radius: 8px;
-  }
-`;

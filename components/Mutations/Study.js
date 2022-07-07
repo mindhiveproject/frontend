@@ -4,6 +4,7 @@ export const CREATE_NEW_STUDY = gql`
   mutation CREATE_NEW_STUDY(
     $title: String!
     $description: String!
+    $descriptionInProposalCardId: ID
     $shortDescription: String
     $settings: Json
     $info: Json
@@ -19,8 +20,9 @@ export const CREATE_NEW_STUDY = gql`
   ) {
     createStudy(
       title: $title
-      shortDescription: $shortDescription
       description: $description
+      descriptionInProposalCardId: $descriptionInProposalCardId
+      shortDescription: $shortDescription
       settings: $settings
       info: $info
       image: $image
@@ -36,8 +38,20 @@ export const CREATE_NEW_STUDY = gql`
       id
       slug
       title
-      shortDescription
       description
+      descriptionInProposalCard {
+        id
+        title
+        description
+        section {
+          id
+          board {
+            id
+            title
+          }
+        }
+      }
+      shortDescription
       settings
       info
       image
@@ -90,6 +104,7 @@ export const UPDATE_STUDY = gql`
     $slug: String
     $shortDescription: String
     $description: String
+    $descriptionInProposalCardId: ID
     $settings: Json
     $info: Json
     $image: String
@@ -106,8 +121,9 @@ export const UPDATE_STUDY = gql`
       id: $id
       title: $title
       slug: $slug
-      shortDescription: $shortDescription
       description: $description
+      descriptionInProposalCardId: $descriptionInProposalCardId
+      shortDescription: $shortDescription
       settings: $settings
       info: $info
       image: $image
@@ -123,8 +139,20 @@ export const UPDATE_STUDY = gql`
       id
       slug
       title
-      shortDescription
       description
+      descriptionInProposalCard {
+        id
+        title
+        description
+        section {
+          id
+          board {
+            id
+            title
+          }
+        }
+      }
+      shortDescription
       settings
       image
       largeImage

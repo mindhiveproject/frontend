@@ -7,7 +7,7 @@ import { StyledBox } from './styles';
 import {
   CURRENT_USER_RESULTS_QUERY,
   CURRENT_USER_QUERY,
-} from '../../User/index';
+} from '../../Queries/User';
 
 import Qualtrics from '../../Qualtrics/redirect';
 import PostPrompt from './postprompt';

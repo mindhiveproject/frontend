@@ -3,7 +3,7 @@ import { Query, Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import { adopt } from 'react-adopt';
 import Link from 'next/link';
-import { CURRENT_USER_STUDIES_QUERY } from '../User/index';
+import { CURRENT_USER_STUDIES_QUERY } from '../Queries/User';
 import {
   CartStyles,
   Supreme,

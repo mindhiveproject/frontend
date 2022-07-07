@@ -9,6 +9,18 @@ export const STUDY_DEVELOPMENT_QUERY = gql`
       slug
       shortDescription
       description
+      descriptionInProposalCard {
+        id
+        title
+        description
+        section {
+          id
+          board {
+            id
+            title
+          }
+        }
+      }
       settings
       image
       largeImage

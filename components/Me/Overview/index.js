@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { adopt } from 'react-adopt';
 import { Query, Mutation } from '@apollo/client/react/components';
 import Link from 'next/link';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import ResultPane from '../../Results/Pane/index';
 
 import { ContainerOnlyForTeachers } from '../../Permissions/Teacher/index';

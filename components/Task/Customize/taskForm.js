@@ -7,7 +7,7 @@ import SelectOne from './Builder/selectOne';
 import SurveyBuilder from './Builder/surveyBuilder';
 import ArrayBuilder from './Builder/arrayBuilder';
 
-import { CURRENT_USER_QUERY } from '../../User/index';
+import { CURRENT_USER_QUERY } from '../../Queries/User';
 
 import { StyledTaskForm, StyledTaskBlock, ControlButtons } from '../styles';
 import ExperimentPreview from '../Preview/index';

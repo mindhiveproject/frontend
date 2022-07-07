@@ -1,5 +1,5 @@
 import { Query } from '@apollo/client/react/components';
-import { CURRENT_USER_QUERY } from '../../User/index';
+import { CURRENT_USER_QUERY } from '../../Queries/User';
 
 export const PageOnlyFor = props => {
   const { roles } = props || [];

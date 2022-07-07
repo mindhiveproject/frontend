@@ -18,7 +18,7 @@ import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
 
 import DeleteClass from '../Delete/index';
 
-import User from '../../User/index';
+import User from '../../Queries/User';
 
 class ClassCard extends Component {
   // prop types https://reactjs.org/docs/typechecking-with-proptypes.html

@@ -8,7 +8,7 @@ import {
   ResponseButtons,
   OnboardingHeader,
 } from '../../Study/styles';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import StudyConsentText from '../../Study/Registration/Steps/4-studyConsentText';
 import StudyConsentForm from '../../Study/Registration/Steps/5-studyConsent';
 

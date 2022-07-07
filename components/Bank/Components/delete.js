@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import styled from 'styled-components';
 
 import { MY_DEVELOPED_COMPONENTS_QUERY } from './developed';
-import { USER_DASHBOARD_QUERY } from '../../User/index';
+import { USER_DASHBOARD_QUERY } from '../../Queries/User';
 
 const StyledDeleteBtn = styled.button`
   padding: 10px 5px 10px 5px;

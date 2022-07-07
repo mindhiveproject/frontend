@@ -3,7 +3,7 @@ import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import { Button } from 'semantic-ui-react';
 
-import { USER_DASHBOARD_QUERY } from '../../User/index';
+import { USER_DASHBOARD_QUERY } from '../../Queries/User';
 
 const UPDATE_USER_STUDY_HIDE_IN_DEVELOP = gql`
   mutation UPDATE_USER_STUDY_HIDE_IN_DEVELOP(

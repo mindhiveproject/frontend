@@ -3,7 +3,7 @@ import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
 import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import ResultLine from './line';
 
 class ResultReviewer extends Component {

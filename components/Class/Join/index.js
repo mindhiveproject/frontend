@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import Router from 'next/router';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 
 const JOIN_CLASS_MUTATION = gql`
   mutation JOIN_CLASS_MUTATION($id: ID!) {

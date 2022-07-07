@@ -4,7 +4,7 @@ import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
 import { OnboardingForm } from '../Study/styles';
-import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../Queries/User';
 
 import Crossover from './crossover';
 import GuestCrossover from './guestCrossover';

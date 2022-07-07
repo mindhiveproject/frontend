@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 import uniqid from 'uniqid';
 import generate from 'project-name-generator';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 
 import ConsentScreen from './consentScreen';
 

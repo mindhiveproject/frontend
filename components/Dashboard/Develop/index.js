@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import Error from '../../ErrorMessage/index';
-import { USER_DASHBOARD_QUERY } from '../../User/index';
+import { USER_DASHBOARD_QUERY } from '../../Queries/User';
 
 import DashboardDevelop from './personalized';
 

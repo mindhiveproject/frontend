@@ -6,7 +6,7 @@ import Router from 'next/router';
 
 import joinStudyRedirect from './JoinStudyRedirect';
 
-import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../Queries/User';
 
 const JOIN_STUDY = gql`
   mutation JOIN_STUDY($id: ID!, $info: Json, $study: Json) {

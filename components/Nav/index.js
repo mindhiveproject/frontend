@@ -9,7 +9,7 @@ import {
   NavButton,
   NavButtonSecondary,
 } from './styles';
-import User from '../User/index';
+import User from '../Queries/User';
 
 import { ContainerOnlyForNoProfile } from '../Permissions/NoProfile/index';
 import { ContainerOnlyForProfile } from '../Permissions/Profile/index';

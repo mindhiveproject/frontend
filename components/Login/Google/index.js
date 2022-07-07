@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import Router from 'next/router';
 import { SignupButton } from '../../Sign/styles';
 import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
 
 const clientID =

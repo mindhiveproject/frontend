@@ -110,10 +110,8 @@ export const StyledBuilder = styled.div`
 export const StyledEditPane = styled.div`
   display: grid;
   width: 100%;
+  min-height: 500px;
   align-content: baseline;
-  background: #ffffff;
-  margin-top: 10px;
-  padding: 10px 48px 0px 42px;
 
   resize: horizontal;
   overflow: auto;
@@ -157,7 +155,6 @@ export const StyledEditPane = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 20px 6px 29px 6px !important;
     cursor: pointer;
-    /* grid-column-gap: 5px; */
 
     .discoverMenuTitle {
       padding-bottom: 10px !important;
@@ -205,9 +202,7 @@ export const StyledEditPane = styled.div`
 
 export const StyledPreviewPane = styled.div`
   display: grid;
-  /* margin: 40px 70px 40px 70px; */
   margin: 1rem;
-  /* resize: horizontal; */
   overflow: auto;
 
   input,

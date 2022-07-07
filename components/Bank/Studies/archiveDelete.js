@@ -191,12 +191,11 @@ class ArchiveDelete extends Component {
     return (
       <ArchiveDeleteDropdown className={this.props.className}>
         <Dropdown
-          button
-          icon="cog"
-          className="icon"
+          className="archiveDeleteIcon"
           direction="left"
-          floating
           upward={false}
+          icon={null}
+          trigger={<img src="/content/icons/Settings.svg" />}
         >
           <Dropdown.Menu className="archiveDropdown">
             <ArchiveModal

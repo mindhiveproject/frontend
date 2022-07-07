@@ -10,7 +10,7 @@ import {
   CURRENT_USER_RESULTS_QUERY,
   CURRENT_USER_STUDIES_QUERY,
   USER_DASHBOARD_QUERY,
-} from '../User/index';
+} from '../Queries/User';
 import { MY_DEVELOPED_STUDIES_QUERY } from '../Bank/Studies/developed';
 import { MY_DEVELOPED_COMPONENTS_QUERY } from '../Bank/Components/developed';
 

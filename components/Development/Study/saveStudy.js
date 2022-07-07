@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 import { PROJECT_QUERY } from './builderWrapper';
 import { PROPOSAL_BOARD_QUERY } from '../../Dashboard/Proposal/proposalpage';
-import { USER_DASHBOARD_QUERY } from '../../User/index';
+import { USER_DASHBOARD_QUERY } from '../../Queries/User';
 import { MY_DEVELOPED_STUDIES_QUERY } from '../../Bank/Studies/developed';
 
 const CREATE_NEW_STUDY = gql`

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import Error from '../ErrorMessage/index';
 
-import { CURRENT_USER_RESULTS_QUERY } from '../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../Queries/User';
 import { MY_FAVORITE_TASKS_QUERY } from '../Development/Study/StudyBuilder/Selector/favorite';
 
 const MANAGE_TASK_FAVORITES = gql`

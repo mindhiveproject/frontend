@@ -6,7 +6,7 @@ import {
   CURRENT_USER_RESULTS_QUERY,
   CURRENT_USER_STUDIES_QUERY,
   USER_DASHBOARD_QUERY,
-} from '../../User/index';
+} from '../../Queries/User';
 
 const LEAVE_STUDY_MUTATION = gql`
   mutation LEAVE_STUDY_MUTATION($id: ID!) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import Error from '../../ErrorMessage/index';
 import { SignupButton } from '../styles';
 import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';

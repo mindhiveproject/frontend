@@ -5,7 +5,7 @@ import { flowRight as compose } from 'lodash';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import Error from '../../ErrorMessage/index';
 
 const EMAIL_CONFIRMATION_MUTATION = gql`

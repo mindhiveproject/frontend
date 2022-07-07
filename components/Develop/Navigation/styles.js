@@ -1,12 +1,28 @@
 import styled from 'styled-components';
 
+export const SaveButton = styled.div`
+  background: #556aeb;
+  border-radius: 100px;
+  padding: 8px 20px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffffff;
+
+  cursor: pointer;
+  width: 82px;
+`;
+
 export const StyledNavigation = styled.div`
   display: grid;
   .firstLine {
     display: grid;
     grid-template-columns: 1fr auto;
     grid-gap: 20px;
-    padding: 15px;
+    padding: 7px;
     background: #ffffff;
     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
     .leftPanel {
@@ -37,6 +53,17 @@ export const StyledNavigation = styled.div`
       display: grid;
       grid-gap: 20px;
       grid-template-columns: auto auto auto auto;
+      .chatButton,
+      .archiveDeleteIcon {
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        background: #f3f5f6;
+        width: 42px;
+        height: 42px;
+        border-radius: 20px;
+        cursor: pointer;
+      }
     }
   }
   .secondLine {

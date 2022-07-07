@@ -269,6 +269,7 @@ export default class Controller extends Component {
         <Page
           {...this.state}
           proposals={this.props.study.proposal}
+          descriptionInProposalCard={this.props.study.descriptionInProposalCard}
           user={this.props.user}
           handleStudyChange={this.handleStudyChange}
           handleParameterChange={this.handleParameterChange}

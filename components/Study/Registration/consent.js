@@ -13,7 +13,7 @@ import {
   OnboardingHeader,
 } from '../styles';
 
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 
 import GetStarted from './Steps/1-getStarted';
 import PreParentConsent from './Steps/2-preParentConsent';

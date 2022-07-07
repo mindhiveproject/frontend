@@ -4,7 +4,7 @@
 // import { Mutation } from '@apollo/client/react/components';
 // import gql from 'graphql-tag';
 //
-// import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+// import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 // // import { REVIEW_MY_RESULTS } from '../Review/index';
 //
 // const ADD_RESULT_MUTATION = gql`

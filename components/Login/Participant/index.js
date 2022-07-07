@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { SignupForm, CreateAccountForm, SignupButton } from '../../Sign/styles';
 import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
 
 import GoogleLogin from '../Google/index';

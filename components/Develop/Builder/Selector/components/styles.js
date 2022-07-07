@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const StyledTaskCard = styled.div`
   display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-gap: 10px;
   background: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.09), 0px 5px 6px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
@@ -12,35 +14,27 @@ export const StyledTaskCard = styled.div`
       : props.taskType === 'SURVEY'
       ? '#28619e'
       : '#ffc7c3'};
-  padding: 16px;
   margin-bottom: 10px;
-  .cardHeader {
+  .movableCard {
     display: grid;
-    grid-template-columns: auto 1fr;
-    justify-items: end;
-    button {
-      width: 35px;
-      height: 35px;
-      text-align: center;
-      border-radius: 20px;
-    }
+    width: 100%;
+    height: 100%;
   }
-  .cardButtons {
+  .icons {
     display: grid;
     align-items: center;
-    justify-items: start;
-    grid-template-columns: 150px auto;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
-    a {
+    padding: 16px;
+    .icon {
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      background: #f3f5f6;
+      width: 42px;
+      height: 42px;
+      border-radius: 20px;
       cursor: pointer;
-      text-decoration-line: underline;
-      font-family: Roboto;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 16px;
-      letter-spacing: 0.04em;
-      text-align: center;
     }
   }
 `;

@@ -64,14 +64,17 @@ export const StyledStudyCard = styled.div`
     top: 10%;
     left: 85%;
     display: none;
+    background: white;
+    border-radius: 30px;
+    padding: 8px 10px 3px 10px;
   }
   .noImage {
     background: lightgrey;
-    height: 166px;
+    height: 100%;
   }
   img {
     width: 100%;
-    height: 166px;
+    height: 100%;
     object-fit: cover;
   }
   .cardInfo {

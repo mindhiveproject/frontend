@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import Router from 'next/router';
 import { SignupForm, CreateAccountForm } from '../styles';
 import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 
 const STUDENT_SIGNUP_MUTATION = gql`
   mutation STUDENT_SIGNUP_MUTATION(

@@ -8,7 +8,7 @@ import EmptyPage from '../../Page/empty';
 import Error from '../../ErrorMessage/index';
 import ReviewsWrapper from './reviewsWrapper';
 
-import { USER_CLASSES_QUERY } from '../../User/index';
+import { USER_CLASSES_QUERY } from '../../Queries/User';
 
 class DashboardReview extends Component {
   state = {

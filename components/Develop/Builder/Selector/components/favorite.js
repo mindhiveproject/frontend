@@ -101,6 +101,7 @@ class Tasks extends Component {
                 <div className="tasks">
                   {favoriteTasks.map(task => (
                     <CardWrapper
+                      {...this.props}
                       key={task.id}
                       component={task}
                       redirect="d"

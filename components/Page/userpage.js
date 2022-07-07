@@ -8,7 +8,7 @@ import Login from '../Login/index';
 import Page from './index';
 
 import Error from '../ErrorMessage/index';
-import { CURRENT_USER_QUERY } from '../User/index';
+import { CURRENT_USER_QUERY } from '../Queries/User';
 
 import { UserPage, UserInner, UserNav } from './styles';
 

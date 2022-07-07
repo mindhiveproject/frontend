@@ -50,6 +50,7 @@ export default class DevelopArea extends Component {
               classes: null,
               tags: null,
               ...makeCloneName(data.study.title),
+              descriptionInProposalCard: null,
             };
           } else if (isAuthorOrCollaborator || adminMode) {
             study = {
@@ -72,6 +73,7 @@ export default class DevelopArea extends Component {
               classes: null,
               tags: null,
               ...makeCloneName(data.study.title),
+              descriptionInProposalCard: null,
             };
           }
 

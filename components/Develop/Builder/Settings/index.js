@@ -1,41 +1,49 @@
 import React, { Component } from 'react';
-import SelectorWrapper from '../Selector/index';
-import StudyTagger from '../../../Tag/StudyTagger';
-import { StyledSettings } from '../../styles';
-import TaskModal from '../../Task/Modal';
+import { Menu } from 'semantic-ui-react';
+
+import Study from './study';
+import AddBlock from './addBlock';
+
+import { StyledSettings } from './styles';
 
 export default class Settings extends Component {
   state = {
-    modal: null,
+    tab: this.props.tab || 'study',
   };
 
-  openModal = (modal, component) => {
-    this.setState({
-      modal,
-      component,
-    });
-  };
-
-  onModalClose = () => {
-    this.setState({
-      modal: null,
-      component: null,
-    });
-  };
+  handleItemClick = (e, { name }) => this.setState({ tab: name });
 
   render() {
+    const { tab } = this.state;
     return (
       <StyledSettings>
-        <h2>Study settings</h2>
-        <div className="card">
-          <SelectorWrapper {...this.props} openModal={this.openModal} />
-        </div>
-        <div className="card">
-          <StudyTagger {...this.props} />
-        </div>
-        {this.state.modal === 'task' && (
-          <TaskModal {...this.props} onModalClose={this.onModalClose} />
-        )}
+        <Menu text stackable className="menu">
+          <Menu.Item
+            name="study"
+            active={tab === 'study'}
+            onClick={this.handleItemClick}
+            className={
+              tab === 'study' ? 'menuTitle selectedMenuTitle' : 'menuTitle'
+            }
+          >
+            <h1>Study settings</h1>
+          </Menu.Item>
+
+          <Menu.Item
+            name="addBlock"
+            active={tab === 'addBlock'}
+            onClick={this.handleItemClick}
+            className={
+              tab === 'addBlock' ? 'menuTitle selectedMenuTitle' : 'menuTitle'
+            }
+          >
+            <h1>Add a study block</h1>
+          </Menu.Item>
+        </Menu>
+
+        {this.state.tab === 'study' && <Study {...this.props} />}
+
+        {this.state.tab === 'addBlock' && <AddBlock {...this.props} />}
       </StyledSettings>
     );
   }

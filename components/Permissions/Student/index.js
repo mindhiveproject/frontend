@@ -2,7 +2,7 @@ import { Query } from '@apollo/client/react/components';
 import {
   CURRENT_USER_QUERY,
   CURRENT_USER_RESULTS_QUERY,
-} from '../../User/index';
+} from '../../Queries/User';
 
 export const ContainerOnlyForStudents = props => (
   <Query query={CURRENT_USER_QUERY}>

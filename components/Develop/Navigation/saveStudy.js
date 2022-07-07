@@ -7,8 +7,10 @@ import { STUDY_DEVELOPMENT_QUERY } from '../../Queries/Study';
 import { CREATE_NEW_STUDY, UPDATE_STUDY } from '../../Mutations/Study';
 
 import { PROPOSAL_BOARD_QUERY } from '../../Dashboard/Proposal/proposalpage';
-import { USER_DASHBOARD_QUERY } from '../../User/index';
+import { USER_DASHBOARD_QUERY } from '../../Queries/User';
 import { MY_DEVELOPED_STUDIES_QUERY } from '../../Bank/Studies/developed';
+
+import { SaveButton } from './styles';
 
 class SaveStudy extends Component {
   render() {
@@ -58,7 +60,7 @@ class SaveStudy extends Component {
                 );
               }
               return (
-                <button
+                <SaveButton
                   className="secondaryBtn"
                   onClick={() => {
                     updateMyStudy(updateStudy);
@@ -68,7 +70,7 @@ class SaveStudy extends Component {
                   }}
                 >
                   {buttonTitle || (loading ? 'Saving' : 'Save')}
-                </button>
+                </SaveButton>
               );
             }}
           </Mutation>
@@ -81,7 +83,7 @@ class SaveStudy extends Component {
             ]}
           >
             {(createStudy, { loading, error }) => (
-              <button
+              <SaveButton
                 className="secondaryBtn"
                 onClick={() => {
                   createNewStudy(createStudy);
@@ -91,7 +93,7 @@ class SaveStudy extends Component {
                 }}
               >
                 {buttonTitle || (loading ? 'Saving' : 'Save your study')}
-              </button>
+              </SaveButton>
             )}
           </Mutation>
         )}

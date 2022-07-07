@@ -30,7 +30,7 @@ import StudyConsentForm from './Steps/5-studyConsent';
 import BlockingPage from './Steps/blockingPage';
 import { Logo } from '../../Header/styles';
 
-import { CURRENT_USER_RESULTS_QUERY } from '../../User/index';
+import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 
 class RegistrationPage extends Component {
   // need to assign a between-subjects block and the id of the first task
