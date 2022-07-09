@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Modal, Icon } from "semantic-ui-react";
+import React, { Component } from 'react';
+import { Modal, Icon } from 'semantic-ui-react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const StyledContent = styled.div`
   display: grid;
@@ -129,39 +129,39 @@ class TaskModal extends Component {
             </div>
           </StyledHeader>
         </Modal.Header>
-        <Modal.Content style={{ padding: "0px", backgroundColor: "#E6E6E6" }}>
+        <Modal.Content style={{ padding: '0px', backgroundColor: '#E6E6E6' }}>
           <StyledContent>
             <div className="leftPanel">
               <h2>Parameters</h2>
               <p>The following features of this task can be tweaked:</p>
               <div className="symbolBlock">
                 <div>
-                  <Icon name="clipboard outline" style={{ color: "#556AEB" }} />
+                  <Icon name="clipboard outline" style={{ color: '#556AEB' }} />
                   Task Instructions
                 </div>
                 <div>
-                  <Icon name="clone outline" style={{ color: "#556AEB" }} />
+                  <Icon name="clone outline" style={{ color: '#556AEB' }} />
                   Number of trials
                 </div>
                 <div>
-                  <Icon name="star outline" style={{ color: "#556AEB" }} />
+                  <Icon name="star outline" style={{ color: '#556AEB' }} />
                   Number of points participants start the task with
                 </div>
                 <div>
-                  <Icon name="random" style={{ color: "#556AEB" }} />
+                  <Icon name="random" style={{ color: '#556AEB' }} />
                   Whether trials should be randomized
                 </div>
                 <div>
                   <Icon
                     name="question circle outline"
-                    style={{ color: "#556AEB" }}
+                    style={{ color: '#556AEB' }}
                   />
                   Which question is asked between trials and how often
                 </div>
                 <div>
                   <Icon
                     name="question circle outline"
-                    style={{ color: "#556AEB" }}
+                    style={{ color: '#556AEB' }}
                   />
                   Which question is asked before and after the task
                 </div>
@@ -171,22 +171,22 @@ class TaskModal extends Component {
               <p>Default parameter values (can clone task and modify these)</p>
               <div className="symbolBlock">
                 <div>
-                  <Icon name="clone outline" style={{ color: "#556AEB" }} />
+                  <Icon name="clone outline" style={{ color: '#556AEB' }} />
                   <strong>60 trials</strong>
                 </div>
                 <div>
                   <Icon
                     name="question circle outline"
-                    style={{ color: "#556AEB" }}
+                    style={{ color: '#556AEB' }}
                   />
                   Show question every <strong>5 trials</strong>
                 </div>
                 <div>
-                  <Icon name="star outline" style={{ color: "#556AEB" }} />
+                  <Icon name="star outline" style={{ color: '#556AEB' }} />
                   Participants start the task with <strong>500 points</strong>
                 </div>
                 <div>
-                  <Icon name="random" style={{ color: "#556AEB" }} />
+                  <Icon name="random" style={{ color: '#556AEB' }} />
                   <strong>Randomized trial sequence</strong> <br /> Note that
                   trials are balanced across the 3 conditions (lose/gain/mixed)
                 </div>
