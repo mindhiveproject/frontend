@@ -3,7 +3,7 @@ import { Modal, Icon } from 'semantic-ui-react';
 
 import { StyledContent, StyledHeader, StyledButtons } from '../styles';
 
-class TaskModal extends Component {
+class BlockModal extends Component {
   render() {
     const { component } = this.props;
 
@@ -17,10 +17,10 @@ class TaskModal extends Component {
         <Modal.Header>
           <StyledHeader>
             <div>
-              <h1>Task Name</h1>
+              <h1>Block Name</h1>
               <p>{component?.title}</p>
               <p>
-                Task Description/Background: Nulla ex fugiat non tempor ea sit
+                Block Description/Background: Nulla ex fugiat non tempor ea sit
                 veniam sint labore exercitation nostrud nulla. Irure adipisicing
                 culpa occaecat ipsum qui est reprehenderit. Elit consequat et
                 officia aute non magna velit ex et anim. Veniam magna non
@@ -45,7 +45,7 @@ class TaskModal extends Component {
                     className="previewBtn"
                     // onClick={}
                   >
-                    Preview task
+                    Preview block
                   </button>
                 </div>
               </StyledButtons>
@@ -56,69 +56,25 @@ class TaskModal extends Component {
           <StyledContent>
             <div className="leftPanel">
               <h2>Parameters</h2>
-              <p>The following features of this task can be tweaked:</p>
+              <p>The following features of this block can be tweaked:</p>
               <div className="symbolBlock">
                 <div>
                   <Icon name="clipboard outline" style={{ color: '#556AEB' }} />
-                  Task Instructions
-                </div>
-                <div>
-                  <Icon name="clone outline" style={{ color: '#556AEB' }} />
-                  Number of trials
-                </div>
-                <div>
-                  <Icon name="star outline" style={{ color: '#556AEB' }} />
-                  Number of points participants start the task with
-                </div>
-                <div>
-                  <Icon name="random" style={{ color: '#556AEB' }} />
-                  Whether trials should be randomized
+                  Block Instructions
                 </div>
                 <div>
                   <Icon
                     name="question circle outline"
                     style={{ color: '#556AEB' }}
                   />
-                  Which question is asked between trials and how often
-                </div>
-                <div>
-                  <Icon
-                    name="question circle outline"
-                    style={{ color: '#556AEB' }}
-                  />
-                  Which question is asked before and after the task
-                </div>
-              </div>
-
-              <h2>Default Implementation on MindHive</h2>
-              <p>Default parameter values (can clone task and modify these)</p>
-              <div className="symbolBlock">
-                <div>
-                  <Icon name="clone outline" style={{ color: '#556AEB' }} />
-                  <strong>60 trials</strong>
-                </div>
-                <div>
-                  <Icon
-                    name="question circle outline"
-                    style={{ color: '#556AEB' }}
-                  />
-                  Show question every <strong>5 trials</strong>
-                </div>
-                <div>
-                  <Icon name="star outline" style={{ color: '#556AEB' }} />
-                  Participants start the task with <strong>500 points</strong>
-                </div>
-                <div>
-                  <Icon name="random" style={{ color: '#556AEB' }} />
-                  <strong>Randomized trial sequence</strong> <br /> Note that
-                  trials are balanced across the 3 conditions (lose/gain/mixed)
+                  Which question is asked before and after the block
                 </div>
               </div>
 
               <h2>Aggregate Variables</h2>
               <p>
                 These data are automatically written to a csv file upon
-                completion of the task
+                completion of the block
               </p>
               <ul className="contentBlock">
                 <li>variable1</li>
@@ -128,7 +84,7 @@ class TaskModal extends Component {
             </div>
 
             <div className="rightPanel">
-              <h2>Task Screenshot</h2>
+              <h2>Block Screenshot</h2>
               <img className="contentBlock" />
 
               <h2>Resources</h2>
@@ -155,4 +111,4 @@ class TaskModal extends Component {
   }
 }
 
-export default TaskModal;
+export default BlockModal;
