@@ -28,7 +28,11 @@ export default class AddBlock extends Component {
         <SelectorWrapper {...this.props} openModal={this.openModal} />
 
         {this.state.modal === 'task' && (
-          <TaskModal {...this.props} onModalClose={this.onModalClose} />
+          <TaskModal
+            {...this.props}
+            component={this.state.component}
+            onModalClose={this.onModalClose}
+          />
         )}
       </>
     );
