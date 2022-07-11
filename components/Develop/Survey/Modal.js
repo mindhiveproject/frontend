@@ -17,18 +17,8 @@ class SurveyModal extends Component {
         <Modal.Header>
           <StyledHeader>
             <div>
-              <h1>Survey Name</h1>
-              <p>{component?.title}</p>
-              <p>
-                Survey Description/Background: Nulla ex fugiat non tempor ea sit
-                veniam sint labore exercitation nostrud nulla. Irure adipisicing
-                culpa occaecat ipsum qui est reprehenderit. Elit consequat et
-                officia aute non magna velit ex et anim. Veniam magna non
-                consequat tempor voluptate elit. Elit Lorem officia sunt quis
-                magna quis Lorem ullamco est. Non culpa nostrud excepteur
-                commodo enim fugiat non proident duis esse in. Voluptate ex
-                ipsum eiusmod nostrud sint.
-              </p>
+              <h1>{component?.title}</h1>
+              <p>{component?.description}</p>
             </div>
             <div className="rightPanel">
               <StyledButtons>

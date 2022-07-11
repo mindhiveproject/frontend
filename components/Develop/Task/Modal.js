@@ -2,8 +2,22 @@ import React, { Component } from 'react';
 import { Modal, Icon } from 'semantic-ui-react';
 
 import { StyledContent, StyledHeader, StyledButtons } from '../styles';
+import ExperimentPreview from '../../Task/Preview/index';
 
 class TaskModal extends Component {
+  state = {
+    showPreview: false,
+    size: 'large',
+  };
+
+  togglePreview = (e) => {
+    e.target.blur();
+    e.preventDefault();
+    this.setState({
+      showPreview: !this.state.showPreview,
+    });
+  };
+
   render() {
     const { component } = this.props;
 
@@ -11,24 +25,15 @@ class TaskModal extends Component {
       <Modal
         open={open}
         closeOnDimmerClick
-        size="large"
+        size={this.state.size}
         onClose={() => this.props.onModalClose()}
       >
         <Modal.Header>
           <StyledHeader>
             <div>
-              <h1>Task Name</h1>
-              <p>{component?.title}</p>
-              <p>
-                Task Description/Background: Nulla ex fugiat non tempor ea sit
-                veniam sint labore exercitation nostrud nulla. Irure adipisicing
-                culpa occaecat ipsum qui est reprehenderit. Elit consequat et
-                officia aute non magna velit ex et anim. Veniam magna non
-                consequat tempor voluptate elit. Elit Lorem officia sunt quis
-                magna quis Lorem ullamco est. Non culpa nostrud excepteur
-                commodo enim fugiat non proident duis esse in. Voluptate ex
-                ipsum eiusmod nostrud sint.
-              </p>
+              <h1>{component?.title}</h1>
+              {/* not all tasks appear to have a description */}
+              <p>{component?.description}</p>{' '}
             </div>
             <div className="rightPanel">
               <StyledButtons>
@@ -43,7 +48,10 @@ class TaskModal extends Component {
                 <div>
                   <button
                     className="previewBtn"
-                    // onClick={}
+                    onClick={(e) => {
+                      this.setState({ size: 'fullscreen' });
+                      this.togglePreview(e);
+                    }}
                   >
                     Preview task
                   </button>
@@ -150,6 +158,16 @@ class TaskModal extends Component {
             </button>
           </StyledButtons>
         </Modal.Actions>
+        {this.state.showPreview && (
+          <ExperimentPreview
+            user={this.props?.user?.id || ''}
+            parameters={component.parameters}
+            template={component.template}
+            handleFinish={() =>
+              this.setState({ showPreview: false, size: 'large' })
+            }
+          />
+        )}
       </Modal>
     );
   }
