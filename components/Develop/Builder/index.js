@@ -21,8 +21,8 @@ export default class Builder extends Component {
           handleSetMultipleValuesInState={
             this.props.handleSetMultipleValuesInState
           }
-          // diagram={this.props?.study?.diagram}
-          diagram={JSON.stringify(diagram)}
+          diagram={this.props?.study?.diagram}
+          // diagram={JSON.stringify(diagram)}
         />
         <Settings {...this.props} />
       </StyledBoard>

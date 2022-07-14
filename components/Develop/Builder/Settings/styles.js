@@ -7,6 +7,7 @@ export const StyledSettings = styled.div`
   background: #f4f5f5;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
   padding: 30px;
+  overflow-y: scroll;
   .menuTitle {
     h1 {
       color: lightgrey;

@@ -13,13 +13,26 @@ const Diagram = React.memo(props => {
   const [engine, setEngine] = useState(null);
 
   useEffect(() => {
+    const handleMouseUp = () => {
+      saveDiagramState();
+    };
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  });
+
+  useEffect(() => {
     function startEngine() {
-      const engine = createEngine();
-      engine.setModel(new DiagramModel());
-      // Create custom node
-      engine.getNodeFactories().registerFactory(new NodesFactory());
-      setEngine(engine);
-      if (props.diagram) {
+      if (!engine) {
+        const newEngine = createEngine();
+        newEngine.setModel(new DiagramModel());
+        // Create custom node
+        newEngine.getNodeFactories().registerFactory(new NodesFactory());
+        setEngine(newEngine);
+      }
+
+      if (engine && props.diagram) {
         const model2 = new DiagramModel();
         model2.deserializeModel(JSON.parse(props.diagram), engine);
         engine.setModel(model2);
@@ -27,9 +40,9 @@ const Diagram = React.memo(props => {
     }
     startEngine();
     return () => {
-      console.log('closing diagram');
+      // console.log('closing diagram');
     };
-  }, [props.diagram]); // Only re-subscribe if props.diagram
+  }, [engine, props.diagram]); // Only re-subscribe if props.diagram
 
   const findChildren = node => {
     let children = [];
@@ -95,7 +108,6 @@ const Diagram = React.memo(props => {
     const { model } = engine;
     // Serializing
     const diagram = JSON.stringify(model.serialize());
-    // console.log('diagram', diagram);
     // Get the experiment model
     const components = createStudyDesign({ model });
     // console.log('studyDesign components', components);
@@ -112,39 +124,13 @@ const Diagram = React.memo(props => {
 
   return (
     <StyledDigram>
+      {false && <button onClick={saveDiagramState}>Save the state</button>}
+
       {engine && <MyCreatorWidget engine={engine} />}
-      <button onClick={saveDiagramState}>Save the state</button>
+
       {false && <button onClick={loadDiagramState}>Load the state</button>}
     </StyledDigram>
   );
 });
 
 export default Diagram;
-
-// const example = {
-//   blocks: [
-//     {
-//       blockId: 'kzr1pfd4',
-//       title: 'Experimental',
-//       tests: [
-//         {
-//           id: 'ckzr1gn8ih0v00999phywg8dt',
-//           title: 'Stroop task',
-//           testId: 'kzr1pfd5',
-//         },
-//       ],
-//     },
-//     {
-//       blockId: 'kzr1prn6',
-//       title: 'Control',
-//       tests: [
-//         {
-//           id: 'ckzr1gn8ih0v00999phywg8dt',
-//           title: 'Stroop task',
-//           testId: 'kzr1pt5r',
-//         },
-//       ],
-//       skip: false,
-//     },
-//   ],
-// };

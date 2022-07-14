@@ -25,4 +25,20 @@ export class MyNodeModel extends NodeModel {
       })
     );
   }
+
+  serialize() {
+    return {
+      ...super.serialize(),
+      name: this.options.name,
+      details: this.options.details,
+      componentID: this.options.componentID,
+    };
+  }
+
+  deserialize(ob, engine) {
+    super.deserialize(ob, engine);
+    this.options.name = ob.data.name;
+    this.options.details = ob.data.details;
+    this.options.componentID = ob.data.componentID;
+  }
 }
