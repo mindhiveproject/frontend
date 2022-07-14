@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 // new components
-import Builder from './Builder/index';
 import Proposal from './Proposal/index';
+import Builder from './Builder/index';
+import ParticipantPage from './ParticipantPage/index';
 import Review from './Review/index';
 
 // old components
@@ -16,11 +17,11 @@ export default class Page extends Component {
     const { page } = this.props;
     return (
       <>
-        {page === 'builder' && <Builder {...this.props} />}
         {page === 'proposal' && <Proposal {...this.props} />}
+        {page === 'builder' && <Builder {...this.props} />}
+        {page === 'participant' && <ParticipantPage {...this.props} />}
         {page === 'review' && <Review {...this.props} />}
         {page === 'collect' && <CollectSection {...this.props} />}
-        {page === 'download' && <DownloadSection {...this.props} />}
         {page === 'analyze' && <AnalyzeSection {...this.props} />}
       </>
     );

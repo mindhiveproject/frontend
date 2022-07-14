@@ -7,9 +7,8 @@ export const StyledDevelopWrapper = styled.div`
 export const StyledBoard = styled.div`
   display: grid;
   grid-template-columns: 5fr 3fr;
-  border: 1px solid grey;
-  padding: 10px;
-  height: 90vh;
+  padding: 0px;
+  height: 85vh;
 `;
 
 export const StyledContent = styled.div`

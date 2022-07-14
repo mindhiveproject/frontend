@@ -19,12 +19,17 @@ const Diagram = React.memo(props => {
       // Create custom node
       engine.getNodeFactories().registerFactory(new NodesFactory());
       setEngine(engine);
+      if (props.diagram) {
+        const model2 = new DiagramModel();
+        model2.deserializeModel(JSON.parse(props.diagram), engine);
+        engine.setModel(model2);
+      }
     }
     startEngine();
     return () => {
       console.log('closing diagram');
     };
-  }, [props.diagram]); // Only re-subscribe if props.friend.id changes
+  }, [props.diagram]); // Only re-subscribe if props.diagram
 
   const findChildren = node => {
     let children = [];
@@ -116,30 +121,30 @@ const Diagram = React.memo(props => {
 
 export default Diagram;
 
-const example = {
-  blocks: [
-    {
-      blockId: 'kzr1pfd4',
-      title: 'Experimental',
-      tests: [
-        {
-          id: 'ckzr1gn8ih0v00999phywg8dt',
-          title: 'Stroop task',
-          testId: 'kzr1pfd5',
-        },
-      ],
-    },
-    {
-      blockId: 'kzr1prn6',
-      title: 'Control',
-      tests: [
-        {
-          id: 'ckzr1gn8ih0v00999phywg8dt',
-          title: 'Stroop task',
-          testId: 'kzr1pt5r',
-        },
-      ],
-      skip: false,
-    },
-  ],
-};
+// const example = {
+//   blocks: [
+//     {
+//       blockId: 'kzr1pfd4',
+//       title: 'Experimental',
+//       tests: [
+//         {
+//           id: 'ckzr1gn8ih0v00999phywg8dt',
+//           title: 'Stroop task',
+//           testId: 'kzr1pfd5',
+//         },
+//       ],
+//     },
+//     {
+//       blockId: 'kzr1prn6',
+//       title: 'Control',
+//       tests: [
+//         {
+//           id: 'ckzr1gn8ih0v00999phywg8dt',
+//           title: 'Stroop task',
+//           testId: 'kzr1pt5r',
+//         },
+//       ],
+//       skip: false,
+//     },
+//   ],
+// };
