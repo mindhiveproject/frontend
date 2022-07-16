@@ -81,9 +81,9 @@ export default class Controller extends Component {
 
   handleSettingsChange = e => {
     const { name } = e.target;
-    const value = e.target.checked;
+    // const value = e.target.checked;
     const settings = { ...this.state.study.settings };
-    settings[name] = value;
+    settings[name] = !this.state.study.settings[name];
     this.setState({
       study: {
         ...this.state.study,

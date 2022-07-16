@@ -104,11 +104,11 @@ export default class Navigation extends Component {
             </Menu.Item>
 
             <Menu.Item
-              name="download"
-              active={page === 'download'}
+              name="participant"
+              active={page === 'participant'}
               onClick={this.props.handlePageChange}
               className={
-                page === 'download'
+                page === 'participant'
                   ? 'discoverMenuTitle selectedMenuTitle'
                   : 'discoverMenuTitle'
               }
