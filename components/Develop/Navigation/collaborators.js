@@ -55,7 +55,7 @@ class Collaborators extends Component {
           display: 'grid',
           alignItems: 'center',
           position: 'relative',
-          backgroundColor: '#DEDEDE',
+          backgroundColor: '#F3F5F6',
           borderRadius: '50px/60px',
           width: barWidth,
           height: '42px',
@@ -101,6 +101,7 @@ class Collaborators extends Component {
           src={profImages?.length && profImages[0]}
           maxInitials={2}
           size="26px"
+          textSizeRatio={1.5}
           round
           style={{
             position: 'absolute',
@@ -113,6 +114,7 @@ class Collaborators extends Component {
             src={profImages[1]}
             maxInitials={2}
             size="26px"
+            textSizeRatio={1.5}
             round
             style={{
               position: 'absolute',
@@ -126,6 +128,7 @@ class Collaborators extends Component {
             src={profImages[2]}
             maxInitials={2}
             size="26px"
+            textSizeRatio={1.5}
             round
             style={{
               position: 'absolute',
