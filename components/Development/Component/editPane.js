@@ -72,6 +72,7 @@ class EditPane extends Component {
             handleScriptUpload={this.props.handleScriptUpload}
             deleteTemplateLocally={this.props.deleteTemplateLocally}
             adminMode={this.props.adminMode}
+            uploadImage={this.props.uploadImage}
           />
         )}
 

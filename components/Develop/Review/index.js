@@ -16,7 +16,6 @@ class ReviewSection extends Component {
   };
 
   onProposalChange = (event, data) => {
-    console.log('data.value', data.value);
     this.setState({
       proposalId: data.value,
     });
@@ -61,7 +60,6 @@ class ReviewSection extends Component {
                 />
               );
             const { proposalBoard } = data;
-            console.log('proposalBoard', proposalBoard);
 
             return (
               <ReviewsContainer

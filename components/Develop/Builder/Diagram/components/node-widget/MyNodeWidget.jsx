@@ -2,7 +2,6 @@ import React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams-core';
 
 export const MyNodeWidget = props => (
-  // console.log({ props });
   <div className="my-node">
     <div
       className="my-node-header-container"

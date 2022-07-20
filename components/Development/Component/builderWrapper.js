@@ -68,6 +68,8 @@ const COMPONENT_TO_CLONE_QUERY = gql`
       isOriginal
       isExternal
       link
+      image
+      largeImage
     }
   }
 `;

@@ -50,14 +50,11 @@ const load = ({ result, content, writer, type }) => {
     return line;
   });
 
-  // console.log('myData', myData);
   const allKeys = extendedData
     .map(line => Object.keys(line))
     .reduce((a, b) => a.concat(b), []);
   const keys = Array.from(new Set(allKeys));
-  // console.log('keys', keys);
   const csv = jsonToCSV({ fields: keys, data: extendedData });
-  // console.log('csv', csv);
   const uInt8 = new TextEncoder().encode(`${csv}\n`);
 
   writer.write(uInt8);
@@ -82,8 +79,6 @@ export default function DataLoader({ results }) {
     const writer = fileStream.getWriter();
 
     for (const result of results) {
-      // console.log('id', id);
-
       if (result?.fullData?.id) {
         const res = await findData({
           variables: {

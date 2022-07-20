@@ -11,16 +11,27 @@ import ManageFavoriteComponents from '../../../../Favorite/ManageComponents';
 import { NodesTypesContainer } from '../../Diagram/components/nodes-types-container/NodesTypesContainer';
 import { NodeTypeLabel } from '../../Diagram/components/node-type-label/NodeTypeLabel';
 
+import TaskModal from '../../../Task/Modal';
+
 class Card extends Component {
   state = {
     showPreview: false,
+    showModal: false,
+    fromModal: false,
   };
 
-  togglePreview = e => {
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal,
+    });
+  };
+
+  togglePreview = (e, fromModal) => {
     e.target.blur();
     e.preventDefault();
     this.setState({
       showPreview: !this.state.showPreview,
+      fromModal,
     });
   };
 
@@ -53,7 +64,7 @@ class Card extends Component {
             <ManageFavoriteComponents id={component?.id} />
 
             {!component.link && (
-              <div className="icon" onClick={e => this.togglePreview(e)}>
+              <div className="icon" onClick={e => this.togglePreview(e, false)}>
                 <img src="/content/icons/Eye.svg" />
               </div>
             )}
@@ -66,10 +77,7 @@ class Card extends Component {
               </a>
             )}
 
-            <div
-              className="icon"
-              onClick={() => this.props.openModal('task', component)}
-            >
+            <div className="icon" onClick={() => this.toggleModal()}>
               <img src="/content/icons/info-2.svg" />
             </div>
           </div>
@@ -79,7 +87,20 @@ class Card extends Component {
             user={this.props?.user?.id || ''}
             parameters={component.parameters}
             template={component.template}
-            handleFinish={() => this.setState({ showPreview: false })}
+            handleFinish={() =>
+              this.setState({
+                showPreview: false,
+                showModal: this.state.fromModal,
+              })
+            }
+          />
+        )}
+        {this.state.showModal && (
+          <TaskModal
+            {...this.props}
+            component={component}
+            onModalClose={this.toggleModal}
+            onShowPreview={this.togglePreview}
           />
         )}
       </>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 
 import Study from './study';
-import AddBlock from './addBlock';
+import ComponentSelector from '../Selector/componentSelector';
 
 import { StyledSettings } from './styles';
 
@@ -43,7 +43,7 @@ export default class Settings extends Component {
 
         {this.state.tab === 'study' && <Study {...this.props} />}
 
-        {this.state.tab === 'addBlock' && <AddBlock {...this.props} />}
+        {this.state.tab === 'addBlock' && <ComponentSelector {...this.props} />}
       </StyledSettings>
     );
   }

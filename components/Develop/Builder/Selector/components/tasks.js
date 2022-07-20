@@ -28,6 +28,7 @@ const ALL_PUBLIC_TASKS_QUERY = gql`
       descriptionForParticipants
       taskType
       parameters
+      settings
       template {
         id
         title
@@ -37,6 +38,7 @@ const ALL_PUBLIC_TASKS_QUERY = gql`
         style
       }
       link
+      image
     }
   }
 `;

@@ -1,39 +1,34 @@
 import React, { Component } from 'react';
 import { Modal, Icon } from 'semantic-ui-react';
 
+import ReactHtmlParser from 'react-html-parser';
 import { StyledContent, StyledHeader, StyledButtons } from '../styles';
-import ExperimentPreview from '../../Task/Preview/index';
 
 class TaskModal extends Component {
-  state = {
-    showPreview: false,
-    size: 'large',
-  };
-
-  togglePreview = (e) => {
-    e.target.blur();
-    e.preventDefault();
-    this.setState({
-      showPreview: !this.state.showPreview,
-    });
-  };
-
   render() {
-    const { component } = this.props;
+    // get the data
+    const component = this.props?.component || {};
+    const settings = component?.settings || {};
+    const resources =
+      (settings?.resources && JSON.parse(settings?.resources)) || [];
+    const aggregateVariables =
+      (settings?.aggregateVariables &&
+        JSON.parse(settings?.aggregateVariables)) ||
+      [];
+    const parameters = component?.parameters || [];
 
     return (
       <Modal
-        open={open}
+        open
         closeOnDimmerClick
-        size={this.state.size}
+        size="large"
         onClose={() => this.props.onModalClose()}
       >
         <Modal.Header>
           <StyledHeader>
             <div>
               <h1>{component?.title}</h1>
-              {/* not all tasks appear to have a description */}
-              <p>{component?.description}</p>{' '}
+              <p>{component?.description}</p>
             </div>
             <div className="rightPanel">
               <StyledButtons>
@@ -48,9 +43,9 @@ class TaskModal extends Component {
                 <div>
                   <button
                     className="previewBtn"
-                    onClick={(e) => {
-                      this.setState({ size: 'fullscreen' });
-                      this.togglePreview(e);
+                    onClick={e => {
+                      this.props.onModalClose();
+                      this.props.onShowPreview(e, true);
                     }}
                   >
                     Preview task
@@ -63,88 +58,113 @@ class TaskModal extends Component {
         <Modal.Content style={{ padding: '0px', backgroundColor: '#E6E6E6' }}>
           <StyledContent>
             <div className="leftPanel">
-              <h2>Parameters</h2>
-              <p>The following features of this task can be tweaked:</p>
-              <div className="symbolBlock">
-                <div>
-                  <Icon name="clipboard outline" style={{ color: '#556AEB' }} />
-                  Task Instructions
-                </div>
-                <div>
-                  <Icon name="clone outline" style={{ color: '#556AEB' }} />
-                  Number of trials
-                </div>
-                <div>
-                  <Icon name="star outline" style={{ color: '#556AEB' }} />
-                  Number of points participants start the task with
-                </div>
-                <div>
-                  <Icon name="random" style={{ color: '#556AEB' }} />
-                  Whether trials should be randomized
-                </div>
-                <div>
-                  <Icon
-                    name="question circle outline"
-                    style={{ color: '#556AEB' }}
-                  />
-                  Which question is asked between trials and how often
-                </div>
-                <div>
-                  <Icon
-                    name="question circle outline"
-                    style={{ color: '#556AEB' }}
-                  />
-                  Which question is asked before and after the task
-                </div>
-              </div>
+              {settings?.background && (
+                <>
+                  <h2>Background</h2>
+                  <p>{settings?.background}</p>
+                </>
+              )}
 
-              <h2>Default Implementation on MindHive</h2>
-              <p>Default parameter values (can clone task and modify these)</p>
-              <div className="symbolBlock">
-                <div>
-                  <Icon name="clone outline" style={{ color: '#556AEB' }} />
-                  <strong>60 trials</strong>
-                </div>
-                <div>
-                  <Icon
-                    name="question circle outline"
-                    style={{ color: '#556AEB' }}
-                  />
-                  Show question every <strong>5 trials</strong>
-                </div>
-                <div>
-                  <Icon name="star outline" style={{ color: '#556AEB' }} />
-                  Participants start the task with <strong>500 points</strong>
-                </div>
-                <div>
-                  <Icon name="random" style={{ color: '#556AEB' }} />
-                  <strong>Randomized trial sequence</strong> <br /> Note that
-                  trials are balanced across the 3 conditions (lose/gain/mixed)
-                </div>
-              </div>
+              {settings?.researchQuestion && (
+                <>
+                  <h2>Research question</h2>
+                  <p>{settings?.researchQuestion}</p>
+                </>
+              )}
 
-              <h2>Aggregate Variables</h2>
-              <p>
-                These data are automatically written to a csv file upon
-                completion of the task
-              </p>
-              <ul className="contentBlock">
-                <li>variable1</li>
-                <li>variable2</li>
-                <li>variable3</li>
-              </ul>
+              {parameters.length > 0 && (
+                <>
+                  <h2>Parameters</h2>
+                  <p>The following features of this task can be tweaked:</p>
+                  <div className="symbolBlock">
+                    {parameters.map((parameter, num) => (
+                      <div key={num}>
+                        <Icon
+                          name={parameter?.icon || 'clipboard outline'}
+                          style={{ color: '#556AEB' }}
+                        />
+                        {parameter.help}
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {parameters.length > 0 && (
+                <>
+                  <h2>Default Implementation on MindHive</h2>
+                  <p>
+                    Default parameter values (can clone task and modify these)
+                  </p>
+                  <div className="symbolBlock">
+                    {parameters.map((parameter, num) => (
+                      <div key={num}>
+                        <Icon
+                          name={parameter?.icon || 'clipboard outline'}
+                          style={{ color: '#556AEB' }}
+                        />
+                        {ReactHtmlParser(parameter.value)}
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {aggregateVariables.length > 0 && (
+                <>
+                  <h2>Aggregate Variables</h2>
+                  <p>
+                    These data are automatically written to a csv file upon
+                    completion of the task
+                  </p>
+                  <ul className="contentBlock">
+                    {aggregateVariables.map((variable, num) => (
+                      <li key={num}>{ReactHtmlParser(variable)}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+
+              {settings?.descriptionBefore && (
+                <>
+                  <h2>What participants see before taking the task</h2>
+                  <p>{settings?.descriptionBefore}</p>
+                </>
+              )}
+
+              {settings?.descriptionAfter && (
+                <>
+                  <h2>What participants see after taking the task</h2>
+                  <p>{settings?.descriptionAfter}</p>
+                </>
+              )}
             </div>
 
             <div className="rightPanel">
-              <h2>Task Screenshot</h2>
-              <img className="contentBlock" />
+              {component?.image && (
+                <>
+                  <h2>Task Screenshot</h2>
+                  <img className="contentBlock" src={component?.image} />
+                </>
+              )}
 
-              <h2>Resources</h2>
-              <ul className="contentBlock">
-                <li>citation1</li>
-                <li>citation2</li>
-                <li>citation3</li>
-              </ul>
+              {settings?.duration && (
+                <>
+                  <h2>Duration</h2>
+                  <p>{settings?.duration}</p>
+                </>
+              )}
+
+              {resources.length > 0 && (
+                <>
+                  <h2>Resources</h2>
+                  <ul className="contentBlock">
+                    {resources.map((resource, num) => (
+                      <li key={num}>{ReactHtmlParser(resource)}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </div>
           </StyledContent>
         </Modal.Content>
@@ -158,16 +178,6 @@ class TaskModal extends Component {
             </button>
           </StyledButtons>
         </Modal.Actions>
-        {this.state.showPreview && (
-          <ExperimentPreview
-            user={this.props?.user?.id || ''}
-            parameters={component.parameters}
-            template={component.template}
-            handleFinish={() =>
-              this.setState({ showPreview: false, size: 'large' })
-            }
-          />
-        )}
       </Modal>
     );
   }

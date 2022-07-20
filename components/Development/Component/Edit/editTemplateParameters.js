@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { StyledParameterBlock } from '../styles';
+import { Icon } from 'semantic-ui-react';
+import { StyledParameterBlock, StyledIconSpan } from '../styles';
+
+const iconOptions = [
+  'clone outline',
+  'clipboard outline',
+  'star outline',
+  'random',
+  'question circle outline',
+];
 
 class EditTemplateParameters extends Component {
   parseIt = body => {
@@ -21,7 +30,7 @@ class EditTemplateParameters extends Component {
     return (
       <div>
         {parameters.map(
-          ({ name, value, type, help, example, options, array }) => (
+          ({ name, value, type, help, example, options, array, icon }) => (
             <StyledParameterBlock key={name} htmlFor={name}>
               <div className="name">{name}</div>
 
@@ -39,6 +48,31 @@ class EditTemplateParameters extends Component {
                 <option value="textarea">Text</option>
                 <option value="select">Select one</option>
               </select>
+
+              <div>Select the icon</div>
+              <div className="iconSelector">
+                {iconOptions.map((iconName, num) => (
+                  <StyledIconSpan
+                    key={num}
+                    isSelected={iconName === icon}
+                    onClick={() => {
+                      handleTemplateParamChange(
+                        {
+                          target: {
+                            name,
+                            type: 'text',
+                            value: iconName,
+                            className: 'icon',
+                          },
+                        },
+                        'icon'
+                      );
+                    }}
+                  >
+                    <Icon name={iconName} style={{ color: '#556AEB' }} />
+                  </StyledIconSpan>
+                ))}
+              </div>
 
               <div>
                 Provide instructions for other users to understand what this
@@ -91,11 +125,3 @@ class EditTemplateParameters extends Component {
 }
 
 export default EditTemplateParameters;
-
-//               <option value="text">Text</option>
-//               <option value="number">Number</option>
-//               <option value="textarea">Textarea</option>
-//               <option value="select">Select one</option>
-//               <option value="vas">Visual scale</option>
-//               // <option value="survey">Survey builder</option>
-//               <option value="array">Provide array</option>

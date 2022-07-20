@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { StyledParameterBlock } from '../styles';
 
+import ArrayBuilder from './Builder/arrayBuilder';
+
 const StyledSettingsBlock = styled.div`
   display: grid;
   align-items: center;
@@ -50,6 +52,37 @@ class SettingBlock extends Component {
         </StyledParameterBlock>
       );
     }
+    if (name === 'resources') {
+      return (
+        <StyledParameterBlock key={name} htmlFor={name}>
+          <div className="input">
+            <label>Resources</label>
+            <ArrayBuilder
+              name={name}
+              content={this.props.value}
+              onChange={this.props.onChange}
+              title="Resource"
+            />
+          </div>
+        </StyledParameterBlock>
+      );
+    }
+
+    if (name === 'aggregateVariables') {
+      return (
+        <StyledParameterBlock key={name} htmlFor={name}>
+          <div className="input">
+            <label>Aggregate variables</label>
+            <ArrayBuilder
+              name={name}
+              content={this.props.value}
+              onChange={this.props.onChange}
+              title="Variable"
+            />
+          </div>
+        </StyledParameterBlock>
+      );
+    }
     return (
       <StyledParameterBlock key={name} htmlFor={name}>
         {name === 'descriptionBefore' && (
@@ -58,6 +91,9 @@ class SettingBlock extends Component {
         {name === 'descriptionAfter' && (
           <p>{taskType} card description (post-participation)</p>
         )}
+        {name === 'background' && <p>Background</p>}
+        {name === 'researchQuestion' && <p>Research question</p>}
+        {name === 'scoring' && <p>Scoring</p>}
         <div className="input">
           <textarea
             id={name}
