@@ -77,7 +77,6 @@ class EditTag extends Component {
             if (!data || !data.tag)
               return <p>No tag found for id {this.state.id}</p>;
             const { tag } = data;
-            console.log({ tag });
             return (
               <StyledSelectionScreen>
                 <div className="header">

@@ -38,7 +38,6 @@ class ProposalCardSelector extends Component {
               </div>
             );
 
-          // console.log('proposalPayloadData', proposalPayloadData);
           // get the titles of all cards in the proposal
 
           const { sections } = proposalPayloadData;

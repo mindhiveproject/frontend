@@ -39,6 +39,9 @@ export const StyledContent = styled.div`
   p, li {
     font-size: 16px;
   }
+  img {
+    width: 100%;
+  }
 `;
 
 export const StyledHeader = styled.div`

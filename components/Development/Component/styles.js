@@ -32,6 +32,21 @@ export const StyledParameterBlock = styled.div`
     width: fit-content;
     border: 1px solid grey;
   }
+  .iconSelector {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 50px);
+    align-items: center;
+    justify-items: center;
+  }
+`;
+
+export const StyledIconSpan = styled.span`
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  align-content: center;
+  justify-content: center;
+  ${props => props.isSelected && 'border: 1px solid #556AEB'};
 `;
 
 export const StyledTaskPreviewPane = styled.div`
@@ -96,7 +111,6 @@ const loading = keyframes`
 
 export const StyledTaskForm = styled.form`
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
-  // background: rgba(0, 0, 0, 0.01);
   border: 5px solid white;
   border-radius: 10px;
   padding: 20px;

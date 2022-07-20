@@ -125,8 +125,6 @@ class ClassStudies extends Component {
               );
             }
 
-            console.log('classStudies', classStudies);
-
             let orderedStudies;
             if (this.state.randomizeStudiesOrder) {
               orderedStudies = this.shuffleArray(classStudies);

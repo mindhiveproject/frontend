@@ -56,6 +56,7 @@ export const MY_FAVORITE_TASKS_QUERY = gql`
       descriptionForParticipants
       taskType
       parameters
+      settings
       template {
         id
         title
@@ -65,6 +66,7 @@ export const MY_FAVORITE_TASKS_QUERY = gql`
         style
       }
       link
+      image
     }
   }
 `;

@@ -18,6 +18,59 @@ const StyledSettingBlock = styled.div`
   margin-bottom: 15px;
 `;
 
+const UploadImageContainer = styled.div`
+  .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    background: #f2f2f2;
+    padding: 65px 52px 65px 52px;
+    margin-bottom: 10px;
+  }
+
+  .upload-btn-wrapper-with-image {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    color: white;
+    background-color: white;
+    padding: 14px 18px;
+    border-radius: 4px;
+    font-size: 18px;
+    background: #b3b3b3;
+    border: 2px solid #b3b3b3;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+
+  .upload-btn-wrapper input[type='file'] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+  .upload-btn-wrapper-with-image input[type='file'] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+  input {
+    height: 100%;
+  }
+`;
+
 class EditBasic extends Component {
   handleTitleChange = e => {
     const slug = slugify(e.target.value, {
@@ -47,12 +100,21 @@ class EditBasic extends Component {
       (user.permissions.includes('TEACHER') ||
         user.permissions.includes('SCIENTIST') ||
         user.permissions.includes('ADMIN'));
+
+    // default settings for each task
     const settings = {
       mobileCompatible: false,
       descriptionBefore: '',
       descriptionAfter: '',
+      background: '',
+      researchQuestion: '',
+      duration: '',
+      scoring: '',
+      resources: '[]',
+      aggregateVariables: '[]',
       ...task.settings,
     };
+
     return (
       <StyledBasicPane>
         <label htmlFor="title">
@@ -214,6 +276,37 @@ class EditBasic extends Component {
             }}
           </Query>
         )}
+
+        <div>
+          <label>Upload screenshot</label>
+          <UploadImageContainer>
+            <div
+              className={
+                task.image
+                  ? 'upload-btn-wrapper-with-image'
+                  : 'upload-btn-wrapper'
+              }
+            >
+              <button className="btn">
+                {task.image
+                  ? 'Update task screenshot'
+                  : 'Upload task screenshot'}
+              </button>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                value={task.file}
+                onChange={e => this.props.uploadImage(e)}
+              />
+              <div>
+                {task.image && (
+                  <img width="300" src={task.image} alt="Upload preview" />
+                )}
+              </div>
+            </div>
+          </UploadImageContainer>
+        </div>
       </StyledBasicPane>
     );
   }

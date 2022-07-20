@@ -26,225 +26,12 @@ import {
   StyledBuilderPage,
 } from '../styles';
 
-// for situations with original lab.js script
-const CREATE_COMPONENT_WITH_TEMPLATE = gql`
-  mutation CREATE_COMPONENT_WITH_TEMPLATE(
-    $title: String!
-    $subtitle: String
-    $slug: String
-    $description: String
-    $parameters: Json
-    $settings: Json
-    $collaborators: [String]
-    $consent: ID
-    $taskType: TaskType
-    $submitForPublishing: Boolean
-    $template: Json
-    $isOriginal: Boolean
-  ) {
-    createTaskWithTemplate(
-      title: $title
-      subtitle: $subtitle
-      slug: $slug
-      description: $description
-      parameters: $parameters
-      settings: $settings
-      collaborators: $collaborators
-      consent: $consent
-      taskType: $taskType
-      submitForPublishing: $submitForPublishing
-      template: $template
-      isOriginal: $isOriginal
-    ) {
-      id
-      title
-      slug
-      description
-      parameters
-      settings
-      updatedAt
-      author {
-        id
-      }
-      template {
-        id
-        title
-        description
-        parameters
-        script
-        style
-        createdAt
-        updatedAt
-      }
-      collaborators {
-        id
-        username
-      }
-      consent {
-        id
-        title
-      }
-      taskType
-      public
-      submitForPublishing
-      isOriginal
-    }
-  }
-`;
-
-const UPDATE_COMPONENT_WITH_TEMPLATE = gql`
-  mutation UPDATE_COMPONENT_WITH_TEMPLATE(
-    $id: ID!
-    $title: String
-    $subtitle: String
-    $slug: String
-    $description: String
-    $descriptionForParticipants: String
-    $parameters: Json
-    $settings: Json
-    $collaborators: [String]
-    $consent: ID
-    $taskType: TaskType
-    $submitForPublishing: Boolean
-    $template: Json
-  ) {
-    updateTaskWithTemplate(
-      id: $id
-      title: $title
-      subtitle: $subtitle
-      slug: $slug
-      description: $description
-      descriptionForParticipants: $descriptionForParticipants
-      parameters: $parameters
-      settings: $settings
-      collaborators: $collaborators
-      consent: $consent
-      taskType: $taskType
-      submitForPublishing: $submitForPublishing
-      template: $template
-    ) {
-      id
-      title
-      template {
-        id
-        title
-        description
-        parameters
-        script
-        style
-        createdAt
-        updatedAt
-      }
-    }
-  }
-`;
-
-// for situation with cloning
-const CREATE_COMPONENT = gql`
-  mutation CREATE_COMPONENT(
-    $title: String!
-    $subtitle: String
-    $slug: String
-    $templateId: ID
-    $description: String
-    $parameters: Json
-    $settings: Json
-    $collaborators: [String]
-    $consent: ID
-    $taskType: TaskType
-    $submitForPublishing: Boolean
-    $link: String
-    $isExternal: Boolean
-    $isOriginal: Boolean
-  ) {
-    createTask(
-      title: $title
-      subtitle: $subtitle
-      slug: $slug
-      templateId: $templateId
-      description: $description
-      parameters: $parameters
-      settings: $settings
-      collaborators: $collaborators
-      consent: $consent
-      taskType: $taskType
-      submitForPublishing: $submitForPublishing
-      link: $link
-      isExternal: $isExternal
-      isOriginal: $isOriginal
-    ) {
-      id
-      title
-      slug
-      description
-      parameters
-      settings
-      updatedAt
-      author {
-        id
-      }
-      template {
-        id
-        title
-        description
-        parameters
-        script
-        style
-      }
-      collaborators {
-        id
-        username
-      }
-      consent {
-        id
-        title
-      }
-      taskType
-      public
-      submitForPublishing
-      isOriginal
-      isExternal
-      link
-    }
-  }
-`;
-
-const UPDATE_COMPONENT = gql`
-  mutation UPDATE_COMPONENT(
-    $id: ID!
-    $title: String
-    $subtitle: String
-    $slug: String
-    $description: String
-    $descriptionForParticipants: String
-    $parameters: Json
-    $settings: Json
-    $collaborators: [String]
-    $consent: ID
-    $taskType: TaskType
-    $submitForPublishing: Boolean
-    $link: String
-  ) {
-    updateTask(
-      id: $id
-      title: $title
-      subtitle: $subtitle
-      slug: $slug
-      description: $description
-      descriptionForParticipants: $descriptionForParticipants
-      parameters: $parameters
-      settings: $settings
-      collaborators: $collaborators
-      consent: $consent
-      taskType: $taskType
-      submitForPublishing: $submitForPublishing
-      link: $link
-    ) {
-      id
-      title
-    }
-  }
-`;
+import {
+  CREATE_COMPONENT_WITH_TEMPLATE,
+  UPDATE_COMPONENT_WITH_TEMPLATE,
+  CREATE_COMPONENT,
+  UPDATE_COMPONENT,
+} from '../../Mutations/Task';
 
 class ComponentBuilder extends Component {
   state = {
@@ -451,6 +238,25 @@ class ComponentBuilder extends Component {
           script: null,
           style: null,
         },
+      },
+    });
+  };
+
+  uploadImage = async e => {
+    const { files } = e.target;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'studies');
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/mindhive-science/image/upload',
+      { method: 'POST', body: data }
+    );
+    const file = await res.json();
+    this.setState({
+      task: {
+        ...this.state.task,
+        image: file.secure_url,
+        largeImage: file.eager[0].secure_url,
       },
     });
   };
@@ -666,6 +472,7 @@ class ComponentBuilder extends Component {
                 handleScriptUpload={this.handleScriptUpload}
                 deleteTemplateLocally={this.deleteTemplateLocally}
                 adminMode={this.props.adminMode}
+                uploadImage={this.uploadImage}
               />
               <StyledPreviewPane>
                 <PreviewPane task={this.state.task} user={this.props.user} />

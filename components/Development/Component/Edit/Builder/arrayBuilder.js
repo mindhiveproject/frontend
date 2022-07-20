@@ -66,6 +66,7 @@ class ArrayBuilder extends Component {
                 id={number}
                 handleItemChange={this.handleChange}
                 deleteItem={this.deleteItem}
+                title={this.props.title}
               />
             ))}
           <button className="addButton" onClick={this.addItem}>
@@ -84,12 +85,12 @@ class ArrayBuilder extends Component {
 
 class Item extends Component {
   render() {
-    const { id, item } = this.props;
+    const { id, item, title } = this.props;
     return (
       <StyledSurveyBuilderItemLine>
         <div className="input">
           <>
-            <div>Condition</div>
+            <div>{title || 'Condition'}</div>
             <input
               type="text"
               name={id}

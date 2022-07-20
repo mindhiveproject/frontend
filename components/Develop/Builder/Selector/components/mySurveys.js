@@ -27,6 +27,7 @@ const MY_SURVEYS_QUERY = gql`
       public
       taskType
       parameters
+      settings
       template {
         id
         title
@@ -36,6 +37,7 @@ const MY_SURVEYS_QUERY = gql`
         style
       }
       link
+      image
     }
   }
 `;

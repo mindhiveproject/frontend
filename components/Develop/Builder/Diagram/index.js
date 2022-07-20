@@ -110,14 +110,12 @@ const Diagram = React.memo(props => {
     const diagram = JSON.stringify(model.serialize());
     // Get the experiment model
     const components = createStudyDesign({ model });
-    // console.log('studyDesign components', components);
     props.handleSetMultipleValuesInState({ components, diagram });
   };
 
   const loadDiagramState = () => {
     // DESERIALIZING
     const model2 = new DiagramModel();
-    // console.log('study?.diagram', props.study?.diagram);
     model2.deserializeModel(JSON.parse(props.study?.diagram), engine);
     engine.setModel(model2);
   };
