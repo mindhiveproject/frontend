@@ -16,12 +16,14 @@ export class MyNodeModel extends NodeModel {
       new DefaultPortModel({
         in: true,
         name: 'in',
+        alignment: 'top',
       })
     );
     this.addPort(
       new DefaultPortModel({
         in: false,
         name: 'out',
+        alignment: 'down',
       })
     );
   }

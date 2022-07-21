@@ -11,6 +11,7 @@ class CardWrapper extends Component {
         key={component.id}
         component={component}
         openModal={this.props.openModal}
+        addComponentToCanvas={this.props.addComponentToCanvas}
       />
     );
   }

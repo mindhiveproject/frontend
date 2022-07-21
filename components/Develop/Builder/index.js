@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
 
-import { StyledBoard } from '../styles';
-import Settings from './Settings/index';
-
 const Diagram = () => import('./Diagram/index');
 
 const DynamicDiagram = dynamic(Diagram, {
@@ -16,15 +13,13 @@ const DynamicDiagram = dynamic(Diagram, {
 export default class Builder extends Component {
   render() {
     return (
-      <StyledBoard>
-        <DynamicDiagram
-          handleSetMultipleValuesInState={
-            this.props.handleSetMultipleValuesInState
-          }
-          diagram={this.props?.study?.diagram}
-        />
-        <Settings {...this.props} />
-      </StyledBoard>
+      <DynamicDiagram
+        handleSetMultipleValuesInState={
+          this.props.handleSetMultipleValuesInState
+        }
+        diagram={this.props?.study?.diagram}
+        {...this.props}
+      />
     );
   }
 }

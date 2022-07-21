@@ -11,6 +11,17 @@ export const MyCreatorWidget = props => {
 
   const diagramEngine = props.engine;
 
+  const shorten = text => {
+    if (text && text.split(' ').length > 12) {
+      const short = text
+        .split(' ')
+        .slice(0, 12)
+        .join(' ');
+      return `${short} ...`;
+    }
+    return text;
+  };
+
   const onNodeDrop = event => {
     const dataString = event.dataTransfer.getData('storm-diagram-node');
     const data = JSON.parse(dataString);
@@ -18,7 +29,7 @@ export const MyCreatorWidget = props => {
     const node = new MyNodeModel({
       color: 'white',
       name: data?.name,
-      details: data?.details,
+      details: shorten(data?.details),
       componentID: data?.componentID,
     });
 

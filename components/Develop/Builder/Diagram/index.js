@@ -8,8 +8,15 @@ import { NodesFactory } from './components/NodesFactory';
 import { MyCreatorWidget } from './components/my-creator-widget/MyCreatorWidget';
 
 import { StyledDigram } from './styles';
+import { StyledBoard } from '../../styles';
+import Settings from '../Settings/index';
+
+import { MyNodeModel } from './components/MyNodeModel';
 
 const Diagram = React.memo(props => {
+  // force update canvas
+  const forceUpdate = React.useReducer(bool => !bool)[1];
+
   const [engine, setEngine] = useState(null);
 
   useEffect(() => {
@@ -120,14 +127,39 @@ const Diagram = React.memo(props => {
     engine.setModel(model2);
   };
 
+  const addComponentToCanvas = ({ name, details, componentID }) => {
+    const shorten = text => {
+      if (text && text.split(' ').length > 12) {
+        const short = text
+          .split(' ')
+          .slice(0, 12)
+          .join(' ');
+        return `${short} ...`;
+      }
+      return text;
+    };
+
+    const node = new MyNodeModel({
+      color: 'white',
+      name,
+      details: shorten(details),
+      componentID,
+    });
+    // change X and Y later to be in the centre of the canvas
+    const event = { clientX: 200, clientY: 200 };
+    const point = engine.getRelativeMousePoint(event);
+    node.setPosition(point);
+    engine.getModel().addNode(node);
+    forceUpdate();
+  };
+
   return (
-    <StyledDigram>
-      {false && <button onClick={saveDiagramState}>Save the state</button>}
-
-      {engine && <MyCreatorWidget engine={engine} />}
-
-      {false && <button onClick={loadDiagramState}>Load the state</button>}
-    </StyledDigram>
+    <StyledBoard>
+      <StyledDigram>
+        {engine && <MyCreatorWidget engine={engine} />}
+      </StyledDigram>
+      <Settings {...props} addComponentToCanvas={addComponentToCanvas} />
+    </StyledBoard>
   );
 });
 

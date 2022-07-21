@@ -94,6 +94,8 @@ class SettingBlock extends Component {
         {name === 'background' && <p>Background</p>}
         {name === 'researchQuestion' && <p>Research question</p>}
         {name === 'scoring' && <p>Scoring</p>}
+        {name === 'basics' && <p>Basics</p>}
+        {name === 'format' && <p>Format</p>}
         <div className="input">
           <textarea
             id={name}

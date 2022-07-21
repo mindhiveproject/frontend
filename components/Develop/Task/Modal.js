@@ -35,7 +35,14 @@ class TaskModal extends Component {
                 <div>
                   <button
                     className="addBtn"
-                    // onClick={}
+                    onClick={() => {
+                      this.props.addComponentToCanvas({
+                        name: component?.title,
+                        details: component?.description,
+                        componentID: component?.id,
+                      });
+                      this.props.onModalClose();
+                    }}
                   >
                     Add to study
                   </button>
@@ -145,6 +152,20 @@ class TaskModal extends Component {
                 <>
                   <h2>Task Screenshot</h2>
                   <img className="contentBlock" src={component?.image} />
+                </>
+              )}
+
+              {settings?.basics && (
+                <>
+                  <h2>Basics</h2>
+                  <p>{settings?.basics}</p>
+                </>
+              )}
+
+              {settings?.format && (
+                <>
+                  <h2>Format</h2>
+                  <p>{settings?.format}</p>
                 </>
               )}
 
