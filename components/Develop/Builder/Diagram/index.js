@@ -128,10 +128,21 @@ const Diagram = React.memo(props => {
   };
 
   const addComponentToCanvas = ({ name, details, componentID }) => {
+    const shorten = text => {
+      if (text && text.split(' ').length > 12) {
+        const short = text
+          .split(' ')
+          .slice(0, 12)
+          .join(' ');
+        return `${short} ...`;
+      }
+      return text;
+    };
+
     const node = new MyNodeModel({
       color: 'white',
       name,
-      details,
+      details: shorten(details),
       componentID,
     });
     // change X and Y later to be in the centre of the canvas

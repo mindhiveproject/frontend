@@ -110,6 +110,8 @@ class EditBasic extends Component {
       researchQuestion: '',
       duration: '',
       scoring: '',
+      basics: '',
+      format: '',
       resources: '[]',
       aggregateVariables: '[]',
       ...task.settings,

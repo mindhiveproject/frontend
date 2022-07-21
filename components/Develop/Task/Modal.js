@@ -155,6 +155,20 @@ class TaskModal extends Component {
                 </>
               )}
 
+              {settings?.basics && (
+                <>
+                  <h2>Basics</h2>
+                  <p>{settings?.basics}</p>
+                </>
+              )}
+
+              {settings?.format && (
+                <>
+                  <h2>Format</h2>
+                  <p>{settings?.format}</p>
+                </>
+              )}
+
               {settings?.duration && (
                 <>
                   <h2>Duration</h2>
