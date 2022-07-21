@@ -35,7 +35,14 @@ class TaskModal extends Component {
                 <div>
                   <button
                     className="addBtn"
-                    // onClick={}
+                    onClick={() => {
+                      this.props.addComponentToCanvas({
+                        name: component?.title,
+                        details: component?.description,
+                        componentID: component?.id,
+                      });
+                      this.props.onModalClose();
+                    }}
                   >
                     Add to study
                   </button>
