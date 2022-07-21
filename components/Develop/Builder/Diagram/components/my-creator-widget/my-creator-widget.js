@@ -4,10 +4,7 @@ export const StyledCreatorWidget = styled.div`
   height: 100%;
 
   .creator-body {
-    /* flex-grow: 1; */
     display: grid;
-    /* flex-direction: column; */
-    /* min-height: 100%; */
     height: 100%;
   }
 
@@ -23,9 +20,8 @@ export const StyledCreatorWidget = styled.div`
     padding-left: 30px;
     align-items: center;
   }
+
   .creator-content {
-    /* display: flex;
-    flex-grow: 1; */
     display: grid;
     grid-template-columns: 1fr;
     height: 100%;

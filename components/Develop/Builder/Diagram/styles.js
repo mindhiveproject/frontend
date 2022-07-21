@@ -44,24 +44,15 @@ export const StyledDigram = styled.div`
   .my-node-header-text {
     color: #1a1a1a;
     font-size: 16px;
-    /* padding-left: 3px; */
     margin: 15px 0px 0 10px;
-
-    /* font-family: 'Inter'; */
     font-style: normal;
     font-weight: 500;
     line-height: 150%;
   }
 
   .my-node-content {
-    /* color: #6a6b6b; */
-    /* font-size: 11px; */
-    /* text-align: left; */
-    /* width: 80%; */
-    /* margin: 0 auto; */
     margin: 80px 0 0 10px;
     color: #666666;
-    /* font-family: Inter; */
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -74,17 +65,16 @@ export const StyledDigram = styled.div`
     top: 40px;
   }
 
-  .left-port {
+  .up-port {
     top: 0;
-    margin-top: -9px;
+    margin-top: -12px;
     margin-left: 179px;
   }
 
-  .right-port {
-    /* right: 0;
-    margin-right: -7px; */
+  .bottom-port {
+    margin-right: -7px;
     bottom: 0;
-    margin-top: 81px;
+    margin-top: 87px;
     margin-left: 179px;
   }
 
