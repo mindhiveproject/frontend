@@ -68,14 +68,12 @@ class TaskModal extends Component {
               {settings?.background && (
                 <>
                   <h2>Background</h2>
-                  <p>{settings?.background}</p>
-                </>
-              )}
-
-              {settings?.researchQuestion && (
-                <>
-                  <h2>Research question</h2>
-                  <p>{settings?.researchQuestion}</p>
+                  {settings?.researchQuestion && (
+                    <p><strong>{settings?.researchQuestion}</strong></p>
+                  )}
+                  {settings?.background && (
+                    <p>{settings?.background}</p>
+                  )}
                 </>
               )}
 
@@ -134,14 +132,14 @@ class TaskModal extends Component {
 
               {settings?.descriptionBefore && (
                 <>
-                  <h2>What participants see before taking the task</h2>
+                  <h2>What participants see <u>before</u> taking the task</h2>
                   <p>{settings?.descriptionBefore}</p>
                 </>
               )}
 
               {settings?.descriptionAfter && (
                 <>
-                  <h2>What participants see after taking the task</h2>
+                  <h2>What participants see <u>after</u> taking the task</h2>
                   <p>{settings?.descriptionAfter}</p>
                 </>
               )}
@@ -152,13 +150,6 @@ class TaskModal extends Component {
                 <>
                   <h2>Task Screenshot</h2>
                   <img className="contentBlock" src={component?.image} />
-                </>
-              )}
-
-              {settings?.basics && (
-                <>
-                  <h2>Basics</h2>
-                  <p>{settings?.basics}</p>
                 </>
               )}
 
