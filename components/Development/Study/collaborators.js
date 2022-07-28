@@ -70,7 +70,7 @@ class Collaborators extends Component {
               backgroundColor: 'grey',
               width: '26px',
               height: '26px',
-              fontSize: '.8em',
+              fontSize: '16px',
             }}
           >
             <span
@@ -97,8 +97,9 @@ class Collaborators extends Component {
         <Avatar
           name={existingCollaborators[0]}
           src={profImages?.length && profImages[0]}
-          maxInitials="2"
+          maxInitials={2}
           size="26px"
+          textSizeRatio={1.5}
           round
           style={{
             position: 'absolute',
@@ -109,8 +110,9 @@ class Collaborators extends Component {
           <Avatar
             name={existingCollaborators[1]}
             src={profImages[1]}
-            maxInitials="2"
+            maxInitials={2}
             size="26px"
+            textSizeRatio={1.5}
             round
             style={{
               position: 'absolute',
@@ -122,8 +124,9 @@ class Collaborators extends Component {
           <Avatar
             name={existingCollaborators[2]}
             src={profImages[2]}
-            maxInitials="2"
+            maxInitials={2}
             size="26px"
+            textSizeRatio={1.5}
             round
             style={{
               position: 'absolute',

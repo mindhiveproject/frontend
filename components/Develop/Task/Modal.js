@@ -50,7 +50,7 @@ class TaskModal extends Component {
                 <div>
                   <button
                     className="previewBtn"
-                    onClick={e => {
+                    onClick={(e) => {
                       this.props.onModalClose();
                       this.props.onShowPreview(e, true);
                     }}
@@ -66,125 +66,112 @@ class TaskModal extends Component {
           <StyledContent>
             <div className="leftPanel">
               {settings?.background && (
-                <>
+                <div className="contentBlock">
                   <h2>Background</h2>
-                  <p>{settings?.background}</p>
-                </>
-              )}
-
-              {settings?.researchQuestion && (
-                <>
-                  <h2>Research question</h2>
-                  <p>{settings?.researchQuestion}</p>
-                </>
+                  <div>
+                    {settings?.researchQuestion && (
+                      <p>
+                        <strong>{settings?.researchQuestion}</strong>
+                      </p>
+                    )}
+                    {settings?.background && <p>{settings?.background}</p>}
+                  </div>
+                </div>
               )}
 
               {parameters.length > 0 && (
-                <>
+                <div>
                   <h2>Parameters</h2>
                   <p>The following features of this task can be tweaked:</p>
-                  <div className="symbolBlock">
-                    {parameters.map((parameter, num) => (
-                      <div key={num}>
-                        <Icon
-                          name={parameter?.icon || 'clipboard outline'}
-                          style={{ color: '#556AEB' }}
-                        />
-                        {parameter.help}
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-
-              {parameters.length > 0 && (
-                <>
-                  <h2>Default Implementation on MindHive</h2>
-                  <p>
-                    Default parameter values (can clone task and modify these)
+                  <p style={{ fontSize: '14px' }}>
+                    * Default values are shown (can clone task and modify these)
                   </p>
                   <div className="symbolBlock">
                     {parameters.map((parameter, num) => (
-                      <div key={num}>
-                        <Icon
-                          name={parameter?.icon || 'clipboard outline'}
-                          style={{ color: '#556AEB' }}
-                        />
-                        {ReactHtmlParser(parameter.value)}
+                      <div style={{ padding: '5px' }} key={num}>
+                        <p>
+                          <Icon
+                            name={parameter?.icon || 'clipboard outline'}
+                            style={{ color: '#556AEB' }}
+                          />
+                          <span style={{ fontWeight: '600' }}>
+                            {parameter.help}
+                          </span>
+                        </p>
+                        <p style={{ fontWeight: 'lighter' }}>
+                          {ReactHtmlParser(parameter.value)}
+                        </p>
                       </div>
                     ))}
                   </div>
-                </>
+                </div>
               )}
 
               {aggregateVariables.length > 0 && (
-                <>
+                <div className="contentBlock">
                   <h2>Aggregate Variables</h2>
                   <p>
                     These data are automatically written to a csv file upon
                     completion of the task
                   </p>
-                  <ul className="contentBlock">
+                  <ul>
                     {aggregateVariables.map((variable, num) => (
                       <li key={num}>{ReactHtmlParser(variable)}</li>
                     ))}
                   </ul>
-                </>
+                </div>
               )}
 
               {settings?.descriptionBefore && (
-                <>
-                  <h2>What participants see before taking the task</h2>
-                  <p>{settings?.descriptionBefore}</p>
-                </>
+                <div>
+                  <h2>
+                    What participants see <u>before</u> taking the task
+                  </h2>
+                  <p className="symbolBlock">{settings?.descriptionBefore}</p>
+                </div>
               )}
 
               {settings?.descriptionAfter && (
-                <>
-                  <h2>What participants see after taking the task</h2>
-                  <p>{settings?.descriptionAfter}</p>
-                </>
+                <div>
+                  <h2>
+                    What participants see <u>after</u> taking the task
+                  </h2>
+                  <p className="symbolBlock">{settings?.descriptionAfter}</p>
+                </div>
               )}
             </div>
 
             <div className="rightPanel">
               {component?.image && (
-                <>
+                <div className="contentBlock">
                   <h2>Task Screenshot</h2>
-                  <img className="contentBlock" src={component?.image} />
-                </>
-              )}
-
-              {settings?.basics && (
-                <>
-                  <h2>Basics</h2>
-                  <p>{settings?.basics}</p>
-                </>
+                  <img src={component?.image} />
+                </div>
               )}
 
               {settings?.format && (
-                <>
+                <div className="contentBlock">
                   <h2>Format</h2>
                   <p>{settings?.format}</p>
-                </>
+                </div>
               )}
 
               {settings?.duration && (
-                <>
+                <div className="contentBlock">
                   <h2>Duration</h2>
                   <p>{settings?.duration}</p>
-                </>
+                </div>
               )}
 
               {resources.length > 0 && (
-                <>
+                <div className="contentBlock">
                   <h2>Resources</h2>
-                  <ul className="contentBlock">
+                  <ul>
                     {resources.map((resource, num) => (
                       <li key={num}>{ReactHtmlParser(resource)}</li>
                     ))}
                   </ul>
-                </>
+                </div>
               )}
             </div>
           </StyledContent>
