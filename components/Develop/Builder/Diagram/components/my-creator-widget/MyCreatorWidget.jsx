@@ -52,7 +52,7 @@ export const MyCreatorWidget = props => {
             }}
           >
             <DiagramCanvas>
-              <CanvasWidget engine={diagramEngine} />
+              <CanvasWidget {...props} />
             </DiagramCanvas>
           </div>
         </div>

@@ -13,11 +13,25 @@ import Settings from '../Settings/index';
 
 import { MyNodeModel } from './components/MyNodeModel';
 
+import ComponentModal from '../Component/modal.js';
+
 const Diagram = React.memo(props => {
   // force update canvas
   const forceUpdate = React.useReducer(bool => !bool)[1];
 
   const [engine, setEngine] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [componentModalID, setComponentModalID] = useState(null);
+
+  const openComponentModal = ({ componentID }) => {
+    setIsModalOpen(true);
+    setComponentModalID(componentID);
+  };
+
+  const closeComponentModal = () => {
+    setIsModalOpen(false);
+    setComponentModalID(null);
+  };
 
   useEffect(() => {
     const handleMouseUp = () => {
@@ -34,6 +48,7 @@ const Diagram = React.memo(props => {
       if (!engine) {
         const newEngine = createEngine();
         newEngine.setModel(new DiagramModel());
+        newEngine.openComponentModal = openComponentModal;
         // Create custom node
         newEngine.getNodeFactories().registerFactory(new NodesFactory());
         setEngine(newEngine);
@@ -156,9 +171,21 @@ const Diagram = React.memo(props => {
   return (
     <StyledBoard>
       <StyledDigram>
-        {engine && <MyCreatorWidget engine={engine} />}
+        {engine && (
+          <MyCreatorWidget
+            engine={engine}
+            openComponentModal={openComponentModal}
+          />
+        )}
       </StyledDigram>
       <Settings {...props} addComponentToCanvas={addComponentToCanvas} />
+      {isModalOpen && (
+        <ComponentModal
+          {...props}
+          componentID={componentModalID}
+          closeModal={closeComponentModal}
+        />
+      )}
     </StyledBoard>
   );
 });

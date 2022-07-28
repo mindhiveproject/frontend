@@ -9,6 +9,22 @@ export const StyledBoard = styled.div`
   grid-template-columns: 5fr 3fr;
   padding: 0px;
   height: 85vh;
+  .modal {
+    display: grid;
+    align-content: baseline;
+    padding: 20px;
+    position: relative;
+    background: white;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    right: 0;
+    min-width: 800px;
+    bottom: 0;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+  }
 `;
 
 export const StyledContent = styled.div`

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import TaskCard from '../TaskCard/index';
 
-import { COMPONENT_QUERY } from '../../Development/Study/StudyBuilder/Preview/componentPane';
+import { COMPONENT_QUERY } from '../../Queries/Component';
 
 const StyledTaskList = styled.div`
   display: grid;

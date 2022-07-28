@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import ReactHtmlParser from 'react-html-parser';
-import ExperimentPreview from '../../../../Task/Preview/index';
 import Card from './card';
-// import Card from '../../Component/Card/index';
+
+import { COMPONENT_QUERY } from '../../../../Queries/Component';
 
 const StyledTaskCard = styled.div`
   display: grid;
@@ -75,33 +73,6 @@ const EmptyContainer = styled.div`
   border: 1px solid grey;
   min-height: 100px;
   border-radius: 4px;
-`;
-
-// write a query here, later refactor it in a separate file if it is used elsewhere
-const COMPONENT_QUERY = gql`
-  query COMPONENT_QUERY($id: ID!) {
-    task(where: { id: $id }) {
-      id
-      title
-      subtitle
-      slug
-      description
-      parameters
-      settings
-      updatedAt
-      link
-      template {
-        id
-        title
-        description
-        parameters
-        script
-        style
-      }
-      taskType
-      isExternal
-    }
-  }
 `;
 
 class ComponentPane extends Component {
@@ -178,4 +149,3 @@ class ComponentPane extends Component {
 }
 
 export default ComponentPane;
-export { COMPONENT_QUERY };

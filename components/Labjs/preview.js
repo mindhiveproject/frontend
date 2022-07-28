@@ -4,6 +4,8 @@ import Head from 'next/head';
 import * as lab from './lib/lab.js';
 import { convert } from './functions';
 
+const OSC = require('osc-js');
+
 class ExperimentWindow extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,10 @@ class ExperimentWindow extends Component {
   componentDidMount() {
     const { props } = this;
     const script = convert(props.settings.script);
+
+    // const osc = new OSC();
+    // osc.open(); // connect by default to ws://localhost:8080
+    // console.log('osc', osc);
 
     Object.assign(
       script.content[0] && script.content[0].parameters,
@@ -23,6 +29,9 @@ class ExperimentWindow extends Component {
       props.settings.on_finish({ isInterrupted: false });
     });
     this.study.options.events.keydown = async e => {
+      // console.log('key pressed', e.code);
+      // const message = new OSC.Message('/test/random', Math.random());
+      // osc.send(message);
       if (e.code === 'Escape') {
         if (this.study) {
           await this.study.internals.controller.audioContext.close();

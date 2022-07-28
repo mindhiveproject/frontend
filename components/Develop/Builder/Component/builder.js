@@ -1,38 +1,23 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 
-import lz from 'lzutf8';
+import { BuilderNav, StyledBuilderPage } from './styles';
+
+import PreviewInBuilder from '../../../Task/PreviewInBuilder/index';
 import EditPane from './editPane';
-import PreviewPane from './previewPane';
 
-import PreviewInBuilder from '../../Task/PreviewInBuilder/index';
-
-import { MY_SURVEYS_QUERY } from '../Study/StudyBuilder/Selector/mySurveys';
-import { MY_TASKS_QUERY } from '../Study/StudyBuilder/Selector/myTasks';
-import { USER_DASHBOARD_QUERY } from '../../Queries/User';
+import { USER_DASHBOARD_QUERY } from '../../../Queries/User';
 import {
   COMPONENT_QUERY,
   COMPONENT_TO_CLONE_QUERY,
-} from '../../Queries/Component';
-
-// lab.js script template functions
-import assemble from '../../AddExperiment/assembleDev/index';
-
-import { MY_DEVELOPED_COMPONENTS_QUERY } from '../../Bank/Components/developed';
-
-import {
-  StyledBuilder,
-  BuilderNav,
-  StyledPreviewPane,
-  StyledBuilderPage,
-} from '../styles';
+} from '../../../Queries/Component';
 
 import {
   CREATE_COMPONENT_WITH_TEMPLATE,
   UPDATE_COMPONENT_WITH_TEMPLATE,
   CREATE_COMPONENT,
   UPDATE_COMPONENT,
-} from '../../Mutations/Task';
+} from '../../../Mutations/Task';
 
 class ComponentBuilder extends Component {
   state = {
@@ -280,8 +265,11 @@ class ComponentBuilder extends Component {
         {!this.state.showPreview && (
           <StyledBuilderPage>
             <BuilderNav>
-              <div className="goBackBtn" onClick={this.props.onLeave}>
-                ← Leave {taskType} Editor
+              <div className="goBackBtn" onClick={this.props.closeModal}>
+                ❌
+              </div>
+              <div className="taskTitle">
+                <p>{this.state.task?.title}</p>
               </div>
               <div className="taskLabel">
                 <p>
@@ -289,9 +277,6 @@ class ComponentBuilder extends Component {
                   {this.state.task?.isExternal ? 'external ' : ''}
                   {task?.taskType.toLowerCase()}
                 </p>
-              </div>
-              <div className="taskTitle">
-                <p>{this.state.task?.title}</p>
               </div>
 
               <div className="rightButtons">
@@ -455,30 +440,25 @@ class ComponentBuilder extends Component {
               </div>
             </BuilderNav>
 
-            <StyledBuilder isWide>
-              <EditPane
-                handleTaskChange={this.handleComponentChange}
-                handleParameterChange={this.handleParamChange}
-                handleTemplateParamChange={this.handleTemplateParamChange}
-                deleteTemplateParameter={this.deleteTemplateParameter}
-                handleSettingsChange={this.handleSettingsChange}
-                handleCollaboratorsChange={this.handleCollaboratorsChange}
-                handleSetState={this.handleSetState}
-                task={this.state.task}
-                handleSetMultipleValuesInState={
-                  this.handleSetMultipleValuesInState
-                }
-                user={this.props.user}
-                templateEditor={this.props.templateEditor && !needToClone}
-                handleScriptUpload={this.handleScriptUpload}
-                deleteTemplateLocally={this.deleteTemplateLocally}
-                adminMode={this.props.adminMode}
-                uploadImage={this.uploadImage}
-              />
-              <StyledPreviewPane>
-                <PreviewPane task={this.state.task} user={this.props.user} />
-              </StyledPreviewPane>
-            </StyledBuilder>
+            <EditPane
+              handleTaskChange={this.handleComponentChange}
+              handleParameterChange={this.handleParamChange}
+              handleTemplateParamChange={this.handleTemplateParamChange}
+              deleteTemplateParameter={this.deleteTemplateParameter}
+              handleSettingsChange={this.handleSettingsChange}
+              handleCollaboratorsChange={this.handleCollaboratorsChange}
+              handleSetState={this.handleSetState}
+              task={this.state.task}
+              handleSetMultipleValuesInState={
+                this.handleSetMultipleValuesInState
+              }
+              user={this.props.user}
+              templateEditor={this.props.templateEditor && !needToClone}
+              handleScriptUpload={this.handleScriptUpload}
+              deleteTemplateLocally={this.deleteTemplateLocally}
+              adminMode={this.props.adminMode}
+              uploadImage={this.uploadImage}
+            />
           </StyledBuilderPage>
         )}
 

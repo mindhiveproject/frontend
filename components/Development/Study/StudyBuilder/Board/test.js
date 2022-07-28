@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import { Draggable } from 'react-beautiful-dnd';
 import Card from './card';
+
+import { COMPONENT_QUERY } from '../../../../Queries/Component';
 
 const StyledTaskCard = styled.div`
   display: grid;
@@ -69,37 +70,6 @@ const StyledTaskCard = styled.div`
 `;
 
 const StyledTest = styled.div``;
-
-const COMPONENT_QUERY = gql`
-  query COMPONENT_QUERY($id: ID!) {
-    task(where: { id: $id }) {
-      id
-      title
-      subtitle
-      slug
-      description
-      parameters
-      settings
-      updatedAt
-      link
-      template {
-        id
-        title
-        description
-        parameters
-        script
-        style
-      }
-      taskType
-      author {
-        id
-      }
-      collaborators {
-        id
-      }
-    }
-  }
-`;
 
 class Test extends Component {
   render() {

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
 import slugify from 'slugify';
 
 import ComponentBuilder from './builder';
@@ -14,6 +12,8 @@ import {
   StyledStudyBuilderPage,
 } from './styles';
 
+import { COMPONENT_TO_CLONE_QUERY } from '../../Queries/Component';
+
 const makeCloneNames = title => {
   const randomNumber = Math.floor(Math.random() * 10000);
   const newTitle = `Clone of ${title}-${randomNumber}`;
@@ -24,55 +24,6 @@ const makeCloneNames = title => {
   });
   return { slug, title: newTitle };
 };
-
-const COMPONENT_TO_CLONE_QUERY = gql`
-  query COMPONENT_TO_CLONE_QUERY($id: ID!) {
-    task(where: { id: $id }) {
-      id
-      title
-      subtitle
-      slug
-      description
-      descriptionForParticipants
-      parameters
-      settings
-      updatedAt
-      link
-      author {
-        id
-      }
-      template {
-        id
-        title
-        description
-        parameters
-        script
-        style
-        author {
-          id
-        }
-        createdAt
-        updatedAt
-      }
-      collaborators {
-        id
-        username
-      }
-      consent {
-        id
-        title
-      }
-      taskType
-      public
-      submitForPublishing
-      isOriginal
-      isExternal
-      link
-      image
-      largeImage
-    }
-  }
-`;
 
 class ComponentBuilderWrapper extends Component {
   render() {
@@ -145,4 +96,3 @@ class ComponentBuilderWrapper extends Component {
 }
 
 export default ComponentBuilderWrapper;
-export { COMPONENT_TO_CLONE_QUERY };
