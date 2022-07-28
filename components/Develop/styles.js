@@ -13,10 +13,10 @@ export const StyledBoard = styled.div`
 
 export const StyledContent = styled.div`
   display: grid;
-  grid-template-columns: 70% auto;
+  grid-template-columns: 65% auto;
   column-gap: 1px;
   .leftPanel {
-    padding 70px;
+    padding 50px 70px 0px 70px;
     background-color: #F7F9F8;
   }
   .rightPanel {
@@ -24,18 +24,20 @@ export const StyledContent = styled.div`
     background-color: #F7F9F8;
   }
   .contentBlock {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    ul {
+      padding-left: 20px;
+    }
   }
   .symbolBlock {
     background: #FFFFFF;
-    padding: 10px;
-    font-size: 16px;
+    box-shadow: 0px 2px 10px
+      rgba(0, 0, 0, 0.07);
+    border-radius: 8px;
+    padding: 15px;
     margin-bottom: 50px;
-    div {
-      padding 5px;
-    }
   }
-  p, li {
+  p, li, span {
     font-size: 16px;
   }
   img {
