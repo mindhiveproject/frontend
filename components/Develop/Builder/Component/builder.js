@@ -330,15 +330,7 @@ class ComponentBuilder extends Component {
                       <div>
                         <Mutation
                           mutation={CREATE_COMPONENT_WITH_TEMPLATE}
-                          refetchQueries={[
-                            { query: MY_SURVEYS_QUERY },
-                            { query: MY_TASKS_QUERY },
-                            { query: USER_DASHBOARD_QUERY },
-                            {
-                              query: MY_DEVELOPED_COMPONENTS_QUERY,
-                              variables: { taskType: task?.taskType },
-                            },
-                          ]}
+                          refetchQueries={[{ query: USER_DASHBOARD_QUERY }]}
                         >
                           {(createTask, { loading, error }) => (
                             <div>
@@ -405,15 +397,7 @@ class ComponentBuilder extends Component {
                       <div>
                         <Mutation
                           mutation={CREATE_COMPONENT}
-                          refetchQueries={[
-                            { query: MY_SURVEYS_QUERY },
-                            { query: MY_TASKS_QUERY },
-                            { query: USER_DASHBOARD_QUERY },
-                            {
-                              query: MY_DEVELOPED_COMPONENTS_QUERY,
-                              variables: { taskType: task?.taskType },
-                            },
-                          ]}
+                          refetchQueries={[{ query: USER_DASHBOARD_QUERY }]}
                         >
                           {(createTask, { loading, error }) => (
                             <div>
