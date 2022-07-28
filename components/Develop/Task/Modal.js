@@ -50,7 +50,7 @@ class TaskModal extends Component {
                 <div>
                   <button
                     className="previewBtn"
-                    onClick={e => {
+                    onClick={(e) => {
                       this.props.onModalClose();
                       this.props.onShowPreview(e, true);
                     }}
@@ -68,12 +68,14 @@ class TaskModal extends Component {
               {settings?.background && (
                 <>
                   <h2>Background</h2>
-                  {settings?.researchQuestion && (
-                    <p><strong>{settings?.researchQuestion}</strong></p>
-                  )}
-                  {settings?.background && (
-                    <p>{settings?.background}</p>
-                  )}
+                  <div className="contentBlock">
+                    {settings?.researchQuestion && (
+                      <p>
+                        <strong>{settings?.researchQuestion}</strong>
+                      </p>
+                    )}
+                    {settings?.background && <p>{settings?.background}</p>}
+                  </div>
                 </>
               )}
 
@@ -81,34 +83,24 @@ class TaskModal extends Component {
                 <>
                   <h2>Parameters</h2>
                   <p>The following features of this task can be tweaked:</p>
-                  <div className="symbolBlock">
-                    {parameters.map((parameter, num) => (
-                      <div key={num}>
-                        <Icon
-                          name={parameter?.icon || 'clipboard outline'}
-                          style={{ color: '#556AEB' }}
-                        />
-                        {parameter.help}
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-
-              {parameters.length > 0 && (
-                <>
-                  <h2>Default Implementation on MindHive</h2>
                   <p>
-                    Default parameter values (can clone task and modify these)
+                    *Default values are shown (can clone task and modify these)
                   </p>
                   <div className="symbolBlock">
                     {parameters.map((parameter, num) => (
                       <div key={num}>
-                        <Icon
-                          name={parameter?.icon || 'clipboard outline'}
-                          style={{ color: '#556AEB' }}
-                        />
-                        {ReactHtmlParser(parameter.value)}
+                        <p>
+                          <Icon
+                            name={parameter?.icon || 'clipboard outline'}
+                            style={{ color: '#556AEB' }}
+                          />
+                          <span style={{ fontWeight: '900' }}>
+                            {parameter.help}:
+                          </span>
+                        </p>
+                        <p style={{ fontWeight: '100' }}>
+                          {ReactHtmlParser(parameter.value)}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -132,15 +124,19 @@ class TaskModal extends Component {
 
               {settings?.descriptionBefore && (
                 <>
-                  <h2>What participants see <u>before</u> taking the task</h2>
-                  <p>{settings?.descriptionBefore}</p>
+                  <h2>
+                    What participants see <u>before</u> taking the task
+                  </h2>
+                  <p className="symbolBlock">{settings?.descriptionBefore}</p>
                 </>
               )}
 
               {settings?.descriptionAfter && (
                 <>
-                  <h2>What participants see <u>after</u> taking the task</h2>
-                  <p>{settings?.descriptionAfter}</p>
+                  <h2>
+                    What participants see <u>after</u> taking the task
+                  </h2>
+                  <p className="symbolBlock">{settings?.descriptionAfter}</p>
                 </>
               )}
             </div>
@@ -156,14 +152,14 @@ class TaskModal extends Component {
               {settings?.format && (
                 <>
                   <h2>Format</h2>
-                  <p>{settings?.format}</p>
+                  <p className="contentBlock">{settings?.format}</p>
                 </>
               )}
 
               {settings?.duration && (
                 <>
                   <h2>Duration</h2>
-                  <p>{settings?.duration}</p>
+                  <p className="contentBlock">{settings?.duration}</p>
                 </>
               )}
 

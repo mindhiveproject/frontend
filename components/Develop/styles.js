@@ -29,7 +29,6 @@ export const StyledContent = styled.div`
   .symbolBlock {
     background: #FFFFFF;
     padding: 10px;
-    max-width: 300px;
     font-size: 16px;
     margin-bottom: 50px;
     div {
