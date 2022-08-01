@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import { Modal, Icon } from 'semantic-ui-react';
+import { Modal, Icon, Accordion } from 'semantic-ui-react';
 
 import ReactHtmlParser from 'react-html-parser';
 import { StyledContent, StyledHeader, StyledButtons } from '../styles';
 
 class TaskModal extends Component {
+  state = { active: false };
+
+  handleClick = (e) => {
+    const { active } = this.state;
+    this.setState({ active: !active });
+  };
+
   render() {
     // get the data
+    const { active } = this.state;
     const component = this.props?.component || {};
     const settings = component?.settings || {};
     const resources =
@@ -65,6 +73,13 @@ class TaskModal extends Component {
         <Modal.Content style={{ padding: '0px', backgroundColor: '#E6E6E6' }}>
           <StyledContent>
             <div className="leftPanel">
+              {component?.image && (
+                <div className="contentBlock">
+                  <h2>Task Screenshot</h2>
+                  <img src={component?.image} />
+                </div>
+              )}
+
               {settings?.background && (
                 <div className="contentBlock">
                   <h2>Background</h2>
@@ -74,7 +89,9 @@ class TaskModal extends Component {
                         <strong>{settings?.researchQuestion}</strong>
                       </p>
                     )}
-                    {settings?.background && <p>{settings?.background}</p>}
+                    {settings?.background && (
+                      <p>{ReactHtmlParser(settings?.background)}</p>
+                    )}
                   </div>
                 </div>
               )}
@@ -107,21 +124,6 @@ class TaskModal extends Component {
                 </div>
               )}
 
-              {aggregateVariables.length > 0 && (
-                <div className="contentBlock">
-                  <h2>Aggregate Variables</h2>
-                  <p>
-                    These data are automatically written to a csv file upon
-                    completion of the task
-                  </p>
-                  <ul>
-                    {aggregateVariables.map((variable, num) => (
-                      <li key={num}>{ReactHtmlParser(variable)}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
               {settings?.descriptionBefore && (
                 <div>
                   <h2>
@@ -142,10 +144,34 @@ class TaskModal extends Component {
             </div>
 
             <div className="rightPanel">
-              {component?.image && (
+              {aggregateVariables.length > 0 && (
                 <div className="contentBlock">
-                  <h2>Task Screenshot</h2>
-                  <img src={component?.image} />
+                  <h2>Aggregate Variables</h2>
+                  <p>
+                    These data are automatically written to a csv file upon
+                    completion of the task
+                  </p>
+                  <Accordion>
+                    <Accordion.Title active={active} onClick={this.handleClick}>
+                      <Icon name="dropdown" />
+                      more info
+                    </Accordion.Title>
+                    <Accordion.Content active={active}>
+                      <p>{ReactHtmlParser(settings?.scoring)}</p>
+                    </Accordion.Content>
+                  </Accordion>
+                  <ul>
+                    {aggregateVariables.map((variable, num) => (
+                      <li key={num}>{ReactHtmlParser(variable)}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {settings?.scoring && (
+                <div className="contentBlock">
+                  <h2>Scoring</h2>
+                  <p>{settings?.scoring}</p>
                 </div>
               )}
 

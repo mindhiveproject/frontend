@@ -29,7 +29,7 @@ export const StyledBoard = styled.div`
 
 export const StyledContent = styled.div`
   display: grid;
-  grid-template-columns: 65% auto;
+  grid-template-columns: 60% auto;
   column-gap: 1px;
   .leftPanel {
     padding 50px 70px 0px 70px;
