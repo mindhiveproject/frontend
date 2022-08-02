@@ -16,6 +16,12 @@ class TaskModal extends Component {
     // get the data
     const { active } = this.state;
     const component = this.props?.component || {};
+    const taskType =
+      component?.taskType === 'TASK'
+        ? 'task'
+        : task?.taskType === 'BLOCK'
+        ? 'block'
+        : 'survey';
     const settings = component?.settings || {};
     const resources =
       (settings?.resources && JSON.parse(settings?.resources)) || [];
@@ -63,7 +69,7 @@ class TaskModal extends Component {
                       this.props.onShowPreview(e, true);
                     }}
                   >
-                    Preview task
+                    Preview {taskType}
                   </button>
                 </div>
               </StyledButtons>
@@ -99,9 +105,9 @@ class TaskModal extends Component {
               {parameters.length > 0 && (
                 <div>
                   <h2>Parameters</h2>
-                  <p>The following features of this task can be tweaked:</p>
+                  <p>The following features of this {taskType} can be tweaked:</p>
                   <p style={{ fontSize: '14px' }}>
-                    * Default values are shown (can clone task and modify these)
+                    * Default values are shown (can clone {taskType} and modify these)
                   </p>
                   <div className="symbolBlock">
                     {parameters.map((parameter, num) => (
@@ -127,7 +133,7 @@ class TaskModal extends Component {
               {settings?.descriptionBefore && (
                 <div>
                   <h2>
-                    What participants see <u>before</u> taking the task
+                    What participants see <u>before</u> taking the {taskType}
                   </h2>
                   <p className="symbolBlock">{settings?.descriptionBefore}</p>
                 </div>
@@ -136,7 +142,7 @@ class TaskModal extends Component {
               {settings?.descriptionAfter && (
                 <div>
                   <h2>
-                    What participants see <u>after</u> taking the task
+                    What participants see <u>after</u> taking the {taskType}
                   </h2>
                   <p className="symbolBlock">{settings?.descriptionAfter}</p>
                 </div>
@@ -149,7 +155,7 @@ class TaskModal extends Component {
                   <h2>Aggregate Variables</h2>
                   <p>
                     These data are automatically written to a csv file upon
-                    completion of the task
+                    completion of the {taskType}
                   </p>
                   <Accordion>
                     <Accordion.Title active={active} onClick={this.handleClick}>
@@ -157,7 +163,7 @@ class TaskModal extends Component {
                       more info
                     </Accordion.Title>
                     <Accordion.Content active={active}>
-                      <p>{ReactHtmlParser(settings?.scoring)}</p>
+                      <p>{ReactHtmlParser(settings?.addInfo)}</p>
                     </Accordion.Content>
                   </Accordion>
                   <ul>
