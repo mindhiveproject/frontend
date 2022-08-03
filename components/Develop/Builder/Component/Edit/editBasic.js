@@ -113,6 +113,7 @@ class EditBasic extends Component {
       format: '',
       resources: '[]',
       aggregateVariables: '[]',
+      addInfo: '',
       ...task.settings,
     };
 

@@ -90,6 +90,7 @@ class SettingBlock extends Component {
               title="Variable"
             />
           </div>
+          {name === 'addInfo' && <p>Additional Information</p>}
         </StyledParameterBlock>
       );
     }
