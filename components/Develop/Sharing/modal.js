@@ -63,7 +63,7 @@ const StyledButtons = styled.div`
   }
 `;
 
-class CollaboratorsModal extends Component {
+class SharingModal extends Component {
   render() {
     const { study, handleSetState, onModalClose, user } = this.props;
 
@@ -137,4 +137,4 @@ class CollaboratorsModal extends Component {
   }
 }
 
-export default CollaboratorsModal;
+export default SharingModal;
