@@ -7,7 +7,7 @@ import { StyledContent, StyledHeader, StyledButtons } from '../styles';
 class TaskModal extends Component {
   state = { active: false };
 
-  handleClick = (e) => {
+  handleClick = e => {
     const { active } = this.state;
     this.setState({ active: !active });
   };
@@ -16,10 +16,11 @@ class TaskModal extends Component {
     // get the data
     const { active } = this.state;
     const component = this.props?.component || {};
+
     const taskType =
       component?.taskType === 'TASK'
         ? 'task'
-        : task?.taskType === 'BLOCK'
+        : component?.taskType === 'BLOCK'
         ? 'block'
         : 'survey';
     const settings = component?.settings || {};
@@ -29,7 +30,19 @@ class TaskModal extends Component {
       (settings?.aggregateVariables &&
         JSON.parse(settings?.aggregateVariables)) ||
       [];
-    const parameters = component?.parameters || [];
+
+    // parameters not from the survey builder
+    const parameters =
+      component?.parameters.filter(p => p?.type !== 'survey') || [];
+
+    // parameters from the survey builder
+    const surveyItems =
+      component?.parameters
+        .filter(param => param?.type === 'survey')
+        .map(param => JSON.parse(param?.value))
+        .flat()
+        .map(page => page?.page)
+        .flat() || [];
 
     return (
       <Modal
@@ -64,7 +77,7 @@ class TaskModal extends Component {
                 <div>
                   <button
                     className="previewBtn"
-                    onClick={(e) => {
+                    onClick={e => {
                       this.props.onModalClose();
                       this.props.onShowPreview(e, true);
                     }}
@@ -105,9 +118,12 @@ class TaskModal extends Component {
               {parameters.length > 0 && (
                 <div>
                   <h2>Parameters</h2>
-                  <p>The following features of this {taskType} can be tweaked:</p>
+                  <p>
+                    The following features of this {taskType} can be tweaked:
+                  </p>
                   <p style={{ fontSize: '14px' }}>
-                    * Default values are shown (can clone {taskType} and modify these)
+                    * Default values are shown (can clone {taskType} and modify
+                    these)
                   </p>
                   <div className="symbolBlock">
                     {parameters.map((parameter, num) => (
@@ -123,6 +139,45 @@ class TaskModal extends Component {
                         </p>
                         <p style={{ fontWeight: 'lighter' }}>
                           {ReactHtmlParser(parameter.value)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {surveyItems.length > 0 && (
+                <div>
+                  <h2>Survey parameters</h2>
+                  <p>
+                    The following features of this {taskType} can be tweaked:
+                  </p>
+                  <p style={{ fontSize: '14px' }}>
+                    * Default values are shown (can clone {taskType} and modify
+                    these)
+                  </p>
+                  <div className="symbolBlock">
+                    {surveyItems.map((item, num) => (
+                      <div style={{ padding: '5px' }} key={num}>
+                        <p>
+                          <Icon
+                            name={item?.icon || 'clipboard outline'}
+                            style={{ color: '#556AEB' }}
+                          />
+                          <span style={{ fontWeight: '600' }}>
+                            {item?.type === 'text' && 'Text'}
+                            {item?.type === 'vas' && 'Visual analogue scale'}
+                            {item?.type === 'likert' && 'Likert scale'}
+                            {item?.type === 'freeinput' && 'Free text input'}
+                            {item?.type === 'select' && 'Select one'}
+                            {item?.type === 'checkbox' && 'Select many'}
+                          </span>
+                        </p>
+                        <p style={{ fontWeight: 'lighter' }}>
+                          {ReactHtmlParser(item?.header)}
+                        </p>
+                        <p style={{ fontWeight: 'lighter' }}>
+                          {ReactHtmlParser(item?.text)}
                         </p>
                       </div>
                     ))}
@@ -159,7 +214,10 @@ class TaskModal extends Component {
                   </p>
                   {settings?.addInfo && (
                     <Accordion>
-                      <Accordion.Title active={active} onClick={this.handleClick}>
+                      <Accordion.Title
+                        active={active}
+                        onClick={this.handleClick}
+                      >
                         <Icon name="dropdown" />
                         more info
                       </Accordion.Title>

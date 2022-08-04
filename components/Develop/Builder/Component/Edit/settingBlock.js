@@ -90,7 +90,6 @@ class SettingBlock extends Component {
               title="Variable"
             />
           </div>
-          {name === 'addInfo' && <p>Additional Information</p>}
         </StyledParameterBlock>
       );
     }
@@ -155,6 +154,7 @@ class SettingBlock extends Component {
             />
           </>
         )}
+        {name === 'addInfo' && <p>Additional Information</p>}
         <div className="input">
           <textarea
             id={name}
