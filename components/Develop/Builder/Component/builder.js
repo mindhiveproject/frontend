@@ -275,7 +275,7 @@ class ComponentBuilder extends Component {
                 <p>
                   {this.state.task?.isOriginal ? 'Original' : 'Cloned'}{' '}
                   {this.state.task?.isExternal ? 'external ' : ''}
-                  {task?.taskType.toLowerCase()}
+                  {task?.taskType?.toLowerCase()}
                 </p>
               </div>
 
@@ -320,7 +320,7 @@ class ComponentBuilder extends Component {
                               >
                                 {loading
                                   ? 'Saving'
-                                  : `Save original ${task?.taskType.toLowerCase()}`}
+                                  : `Save original ${task?.taskType?.toLowerCase()}`}
                               </button>
                             </div>
                           )}
@@ -345,7 +345,7 @@ class ComponentBuilder extends Component {
                               >
                                 {loading
                                   ? 'Saving'
-                                  : `Save your original ${task?.taskType.toLowerCase()}`}
+                                  : `Save your original ${task?.taskType?.toLowerCase()}`}
                               </button>
                             </div>
                           )}
@@ -387,7 +387,7 @@ class ComponentBuilder extends Component {
                               >
                                 {loading
                                   ? 'Saving'
-                                  : `Save ${task?.taskType.toLowerCase()}`}
+                                  : `Save ${task?.taskType?.toLowerCase()}`}
                               </button>
                             </div>
                           )}
@@ -412,7 +412,7 @@ class ComponentBuilder extends Component {
                               >
                                 {loading
                                   ? 'Saving'
-                                  : `Save your ${task?.taskType.toLowerCase()}`}
+                                  : `Save your ${task?.taskType?.toLowerCase()}`}
                               </button>
                             </div>
                           )}
