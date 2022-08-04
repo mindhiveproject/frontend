@@ -157,15 +157,17 @@ class TaskModal extends Component {
                     These data are automatically written to a csv file upon
                     completion of the {taskType}
                   </p>
-                  <Accordion>
-                    <Accordion.Title active={active} onClick={this.handleClick}>
-                      <Icon name="dropdown" />
-                      more info
-                    </Accordion.Title>
-                    <Accordion.Content active={active}>
-                      <p>{ReactHtmlParser(settings?.addInfo)}</p>
-                    </Accordion.Content>
-                  </Accordion>
+                  {settings?.addInfo && (
+                    <Accordion>
+                      <Accordion.Title active={active} onClick={this.handleClick}>
+                        <Icon name="dropdown" />
+                        more info
+                      </Accordion.Title>
+                      <Accordion.Content active={active}>
+                        <p>{ReactHtmlParser(settings?.addInfo)}</p>
+                      </Accordion.Content>
+                    </Accordion>
+                  )}
                   <ul>
                     {aggregateVariables.map((variable, num) => (
                       <li key={num}>{ReactHtmlParser(variable)}</li>
