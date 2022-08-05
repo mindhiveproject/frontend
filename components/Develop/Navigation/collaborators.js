@@ -16,6 +16,9 @@ class Collaborators extends Component {
     const remainingCollaborators = existingCollaborators.filter(
       c => existingCollaborators.indexOf(c) > 2
     );
+    const initialsSize = existingCollaborators.map(
+      c => c.split(" ").length > 1 ?  1.5 : 2
+    );
     let barWidth = '';
     let firstAvatarPosition = '';
     let secondAvatarPosition = '';
@@ -101,7 +104,7 @@ class Collaborators extends Component {
           src={profImages?.length && profImages[0]}
           maxInitials={2}
           size="26px"
-          textSizeRatio={1.5}
+          textSizeRatio={initialsSize[0]}
           round
           style={{
             position: 'absolute',
@@ -114,7 +117,7 @@ class Collaborators extends Component {
             src={profImages[1]}
             maxInitials={2}
             size="26px"
-            textSizeRatio={1.5}
+            textSizeRatio={initialsSize[1]}
             round
             style={{
               position: 'absolute',
@@ -128,7 +131,7 @@ class Collaborators extends Component {
             src={profImages[2]}
             maxInitials={2}
             size="26px"
-            textSizeRatio={1.5}
+            textSizeRatio={initialsSize[2]}
             round
             style={{
               position: 'absolute',
