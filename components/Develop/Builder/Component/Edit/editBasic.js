@@ -107,7 +107,6 @@ class EditBasic extends Component {
       descriptionBefore: '',
       descriptionAfter: '',
       background: '',
-      researchQuestion: '',
       duration: '',
       scoring: '',
       format: '',
