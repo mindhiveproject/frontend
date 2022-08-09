@@ -116,6 +116,8 @@ class EditBasic extends Component {
       ...task.settings,
     };
 
+    if(taskType === 'Task') delete settings.scoring && delete settings.format;
+
     return (
       <StyledBasicPane>
         <label htmlFor="title">
