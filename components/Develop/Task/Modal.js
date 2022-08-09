@@ -94,7 +94,7 @@ class TaskModal extends Component {
             <div className="leftPanel">
               {component?.image && (
                 <div className="contentBlock">
-                  <h2>Task Screenshot</h2>
+                  <h2>Screenshot</h2>
                   <img src={component?.image} />
                 </div>
               )}
