@@ -123,7 +123,6 @@ class SettingBlock extends Component {
             />
           </>
         )}
-        {name === 'researchQuestion' && <p>Research question</p>}
         {name === 'background' && (
           <>
             <p>Background</p>
@@ -133,12 +132,10 @@ class SettingBlock extends Component {
             />
           </>
         )}
-        {name === 'scoring' && (
-          <p>Instructions for scoring (for surveys only)</p>
-        )}
+        {name === 'scoring' && <p>Instructions for scoring (for surveys)</p>}
         {name === 'format' && (
           <>
-            <p>Format (for surveys only)</p>
+            <p>Format (for surveys)</p>
             <Popup
               content={
                 <p>

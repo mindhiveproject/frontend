@@ -113,7 +113,6 @@ class SettingBlock extends Component {
             />
           </>
         )}
-        {name === 'researchQuestion' && <p>Research question</p>}
         {name === 'background' && (
           <>
             <p>Background</p>

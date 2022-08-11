@@ -28,7 +28,7 @@ export const StyledBuilderPage = styled.div`
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 20px;
+    line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
     color: #666666;
@@ -938,6 +938,12 @@ export const StyledParameterBlock = styled.div`
     margin: 2rem 0rem 1rem 0rem;
   }
   .input {
+    label{
+      margin-bottom: 4px;
+    }
+    input {
+      margin-top: 0;
+    }
   }
   textarea {
     height: 120px;
