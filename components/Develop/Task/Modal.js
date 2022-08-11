@@ -7,7 +7,7 @@ import { StyledContent, StyledHeader, StyledButtons } from '../styles';
 class TaskModal extends Component {
   state = { active: false };
 
-  handleClick = e => {
+  handleClick = (e) => {
     const { active } = this.state;
     this.setState({ active: !active });
   };
@@ -33,15 +33,15 @@ class TaskModal extends Component {
 
     // parameters not from the survey builder
     const parameters =
-      component?.parameters.filter(p => p?.type !== 'survey') || [];
+      component?.parameters.filter((p) => p?.type !== 'survey') || [];
 
     // parameters from the survey builder
     const surveyItems =
       component?.parameters
-        .filter(param => param?.type === 'survey')
-        .map(param => JSON.parse(param?.value))
+        .filter((param) => param?.type === 'survey')
+        .map((param) => JSON.parse(param?.value))
         .flat()
-        .map(page => page?.page)
+        .map((page) => page?.page)
         .flat() || [];
 
     return (
@@ -77,7 +77,7 @@ class TaskModal extends Component {
                 <div>
                   <button
                     className="previewBtn"
-                    onClick={e => {
+                    onClick={(e) => {
                       this.props.onModalClose();
                       this.props.onShowPreview(e, true);
                     }}
@@ -94,7 +94,7 @@ class TaskModal extends Component {
             <div className="leftPanel">
               {component?.image && (
                 <div className="contentBlock">
-                  <h2>Task Screenshot</h2>
+                  <h2>Screenshot</h2>
                   <img src={component?.image} />
                 </div>
               )}
@@ -103,11 +103,6 @@ class TaskModal extends Component {
                 <div className="contentBlock">
                   <h2>Background</h2>
                   <div>
-                    {settings?.researchQuestion && (
-                      <p>
-                        <strong>{settings?.researchQuestion}</strong>
-                      </p>
-                    )}
                     {settings?.background && (
                       <p>{ReactHtmlParser(settings?.background)}</p>
                     )}

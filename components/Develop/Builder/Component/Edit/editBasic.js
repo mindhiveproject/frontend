@@ -107,7 +107,6 @@ class EditBasic extends Component {
       descriptionBefore: '',
       descriptionAfter: '',
       background: '',
-      researchQuestion: '',
       duration: '',
       scoring: '',
       format: '',
@@ -116,6 +115,8 @@ class EditBasic extends Component {
       addInfo: '',
       ...task.settings,
     };
+
+    if(taskType === 'Task') delete settings.scoring && delete settings.format;
 
     return (
       <StyledBasicPane>
