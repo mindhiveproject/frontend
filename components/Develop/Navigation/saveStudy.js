@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 
 // query and mutations
+import { Dimmer, Loader } from 'semantic-ui-react';
 import { STUDY_DEVELOPMENT_QUERY } from '../../Queries/Study';
 
 import { CREATE_NEW_STUDY, UPDATE_STUDY } from '../../Mutations/Study';
@@ -59,17 +60,25 @@ class SaveStudy extends Component {
                   'Oops! this link has already be taken: please pick another.'
                 );
               }
+              if (loading) {
+                return (
+                  <Dimmer active>
+                    <Loader>Saving</Loader>
+                  </Dimmer>
+                );
+              }
               return (
                 <SaveButton
-                  className="secondaryBtn"
                   onClick={() => {
-                    updateMyStudy(updateStudy);
-                    if (callback) {
-                      callback();
+                    if (!loading) {
+                      updateMyStudy(updateStudy);
+                      if (callback) {
+                        callback();
+                      }
                     }
                   }}
                 >
-                  {buttonTitle || (loading ? 'Saving' : 'Save')}
+                  {this.props.children}
                 </SaveButton>
               );
             }}
@@ -84,7 +93,6 @@ class SaveStudy extends Component {
           >
             {(createStudy, { loading, error }) => (
               <SaveButton
-                className="secondaryBtn"
                 onClick={() => {
                   createNewStudy(createStudy);
                   if (callback) {
@@ -92,7 +100,7 @@ class SaveStudy extends Component {
                   }
                 }}
               >
-                {buttonTitle || (loading ? 'Saving' : 'Save your study')}
+                {this.props.children}
               </SaveButton>
             )}
           </Mutation>

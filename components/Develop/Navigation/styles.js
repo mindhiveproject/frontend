@@ -1,19 +1,23 @@
 import styled from 'styled-components';
 
 export const SaveButton = styled.div`
-  background: #556aeb;
-  border-radius: 100px;
-  padding: 8px 20px;
+  .navigationSaveButton {
+    background: #556aeb;
+    border: 1px solid #556aeb;
 
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  text-align: center;
-  color: #ffffff;
+    border-radius: 100px;
+    padding: 8px 20px;
 
-  cursor: pointer;
-  width: 82px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+
+    cursor: pointer;
+    width: 82px;
+  }
 `;
 
 export const StyledNavigation = styled.div`

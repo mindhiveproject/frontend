@@ -265,6 +265,7 @@ export default class Controller extends Component {
           handlePageChange={this.handlePageChange}
           proposalId={proposalId}
           isAuthor={isAuthor}
+          updateStudyState={this.updateStudyState}
         />
         <Page
           {...this.state}

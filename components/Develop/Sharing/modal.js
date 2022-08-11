@@ -69,7 +69,7 @@ class SharingModal extends Component {
 
     return (
       <Modal
-        open={open}
+        open
         closeOnDimmerClick={false}
         size="small"
         onClose={() => onModalClose()}
@@ -102,7 +102,7 @@ class SharingModal extends Component {
               <h2>Add collaborators</h2>
               <FindCollaborator
                 study={study}
-                handleSetState={this.props.handleSetState}
+                handleSetState={this.props.updateStudyState}
               />
             </StyledModal>
           </Modal.Description>
@@ -129,7 +129,9 @@ class SharingModal extends Component {
               proposalId={this.props.proposalId}
               buttonTitle="Save & close"
               callback={() => onModalClose()}
-            />
+            >
+              <button className="primary">Save & close</button>
+            </SaveStudy>
           </StyledButtons>
         </Modal.Actions>
       </Modal>
