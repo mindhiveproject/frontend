@@ -237,14 +237,14 @@ class TaskModal extends Component {
               {settings?.scoring && (
                 <div className="contentBlock">
                   <h2>Scoring</h2>
-                  <p>{settings?.scoring}</p>
+                  <p>{ReactHtmlParser(settings?.scoring)}</p>
                 </div>
               )}
 
               {settings?.format && (
                 <div className="contentBlock">
                   <h2>Format</h2>
-                  <p>{settings?.format}</p>
+                  <p>{ReactHtmlParser(settings?.format)}</p>
                 </div>
               )}
 

@@ -8,30 +8,15 @@ import { NodesFactory } from './components/NodesFactory';
 import { MyCreatorWidget } from './components/my-creator-widget/MyCreatorWidget';
 
 import { StyledDigram } from './styles';
-import { StyledBoard } from '../../styles';
 import Settings from '../Settings/index';
 
 import { MyNodeModel } from './components/MyNodeModel';
-
-import ComponentModal from '../Component/modal.js';
 
 const Diagram = React.memo(props => {
   // force update canvas
   const forceUpdate = React.useReducer(bool => !bool)[1];
 
   const [engine, setEngine] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [componentModalID, setComponentModalID] = useState(null);
-
-  const openComponentModal = ({ componentID }) => {
-    setIsModalOpen(true);
-    setComponentModalID(componentID);
-  };
-
-  const closeComponentModal = () => {
-    setIsModalOpen(false);
-    setComponentModalID(null);
-  };
 
   useEffect(() => {
     const handleMouseUp = () => {
@@ -48,7 +33,7 @@ const Diagram = React.memo(props => {
       if (!engine) {
         const newEngine = createEngine();
         newEngine.setModel(new DiagramModel());
-        newEngine.openComponentModal = openComponentModal;
+        newEngine.openComponentModal = props.openComponentModal;
         // Create custom node
         newEngine.getNodeFactories().registerFactory(new NodesFactory());
         setEngine(newEngine);
@@ -64,7 +49,7 @@ const Diagram = React.memo(props => {
     return () => {
       // console.log('closing diagram');
     };
-  }, [engine, props.diagram]); // Only re-subscribe if props.diagram
+  }, [engine, props.diagram, props.openComponentModal]); // Only re-subscribe if props.diagram
 
   const findChildren = node => {
     let children = [];
@@ -169,24 +154,17 @@ const Diagram = React.memo(props => {
   };
 
   return (
-    <StyledBoard>
+    <>
       <StyledDigram>
         {engine && (
           <MyCreatorWidget
             engine={engine}
-            openComponentModal={openComponentModal}
+            openComponentModal={props.openComponentModal}
           />
         )}
       </StyledDigram>
       <Settings {...props} addComponentToCanvas={addComponentToCanvas} />
-      {isModalOpen && (
-        <ComponentModal
-          {...props}
-          componentID={componentModalID}
-          closeModal={closeComponentModal}
-        />
-      )}
-    </StyledBoard>
+    </>
   );
 });
 

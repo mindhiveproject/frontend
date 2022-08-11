@@ -17,8 +17,13 @@ const makeCloneNames = title => {
 };
 
 class ComponentModal extends Component {
+  state = {
+    needToClone: false,
+  };
+
   render() {
-    const { user, componentID, adminMode, needToClone } = this.props;
+    const { user, componentID, adminMode } = this.props;
+    const { needToClone } = this.state;
 
     return (
       <div className="modal">
@@ -28,6 +33,7 @@ class ComponentModal extends Component {
             if (!data || !data.task)
               return <p>No task found for id {this.props.componentID}</p>;
 
+            // check whether the current user is the author of the task or the collaborator on the task
             const isAuthor =
               user.id === data.task?.author?.id ||
               data.task?.collaborators.map(c => c.id).includes(user.id);
@@ -36,6 +42,11 @@ class ComponentModal extends Component {
             const isTemplateAuthor =
               user.id === data.task?.template?.author?.id ||
               data.task?.collaborators.map(c => c.id).includes(user.id);
+
+            console.log('isAuthor', isAuthor);
+            console.log('isTemplateAuthor', isTemplateAuthor);
+            console.log('needToClone', needToClone);
+            console.log('adminMode', adminMode);
 
             let task;
             if (needToClone && !adminMode) {
@@ -65,6 +76,8 @@ class ComponentModal extends Component {
                 ...makeCloneNames(data.task.title),
               };
             }
+
+            console.log('task', task);
 
             return <ComponentBuilder {...this.props} task={task} />;
           }}

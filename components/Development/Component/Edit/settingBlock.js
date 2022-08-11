@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { StyledParameterBlock } from '../styles';
 import { Popup, Icon } from 'semantic-ui-react';
+import { StyledParameterBlock } from '../styles';
 
 import ArrayBuilder from './Builder/arrayBuilder';
 
@@ -99,7 +99,12 @@ class SettingBlock extends Component {
           <>
             <p>{taskType} card description (pre-participation)</p>
             <Popup
-              content={<p>This is what participants will see before taking the {taskType}.</p>}
+              content={
+                <p>
+                  This is what participants will see before taking the{' '}
+                  {taskType}.
+                </p>
+              }
               trigger={<Icon name="question circle outline" />}
             />
           </>
@@ -108,7 +113,12 @@ class SettingBlock extends Component {
           <>
             <p>{taskType} card description (post-participation)</p>
             <Popup
-              content={<p>This is what participants will see after taking the {taskType}.</p>}
+              content={
+                <p>
+                  This is what participants will see after taking the {taskType}
+                  .
+                </p>
+              }
               trigger={<Icon name="question circle outline" />}
             />
           </>
@@ -130,11 +140,21 @@ class SettingBlock extends Component {
           <>
             <p>Format (for surveys only)</p>
             <Popup
-              content={<p>For example: <i>10 questions in a 5-point Likert scale format. Questions fall into 2 categories (negative and positive affect). 4 of the questions are reverse-scored.</i></p>}
+              content={
+                <p>
+                  For example:{' '}
+                  <i>
+                    10 questions in a 5-point Likert scale format. Questions
+                    fall into 2 categories (negative and positive affect). 4 of
+                    the questions are reverse-scored.
+                  </i>
+                </p>
+              }
               trigger={<Icon name="question circle outline" />}
             />
           </>
         )}
+        {name === 'addInfo' && <p>Additional Information</p>}
         <div className="input">
           <textarea
             id={name}
