@@ -56,7 +56,7 @@ class TaskWrapper extends Component {
                       <button
                         className="previewBtn"
                         onClick={e => {
-                          this.props.onModalClose();
+                          // this.props.onModalClose();
                           this.props.onShowPreview(component);
                         }}
                       >
