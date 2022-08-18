@@ -5,11 +5,7 @@ export const MyNodeWidget = props => (
   <>
     <button
       onClick={() => {
-        // console.log('props', props);
-        props.engine.openComponentModal({
-          componentID: props.node.options.componentID,
-        });
-        // props.node.options.name = 'HACKED';
+        props.engine.openComponentModal(props);
       }}
     >
       Edit

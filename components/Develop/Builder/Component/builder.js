@@ -1,38 +1,13 @@
 import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
 
-import { BuilderNav, StyledBuilderPage } from './styles';
+import { StyledBuilderPage } from './styles';
 
-import PreviewInBuilder from '../../../Task/PreviewInBuilder/index';
+import Navigation from './navigation';
 import EditPane from './editPane';
-
-import { USER_DASHBOARD_QUERY } from '../../../Queries/User';
-import {
-  COMPONENT_QUERY,
-  COMPONENT_TO_CLONE_QUERY,
-} from '../../../Queries/Component';
-
-import {
-  CREATE_COMPONENT_WITH_TEMPLATE,
-  UPDATE_COMPONENT_WITH_TEMPLATE,
-  CREATE_COMPONENT,
-  UPDATE_COMPONENT,
-} from '../../../Mutations/Task';
 
 class ComponentBuilder extends Component {
   state = {
     task: { ...this.props.task },
-    needToClone: this.props.needToClone,
-    showPreview: false,
-    adminMode: this.props.adminMode,
-  };
-
-  togglePreview = e => {
-    e.target.blur();
-    e.preventDefault();
-    this.setState({
-      showPreview: !this.state.showPreview,
-    });
   };
 
   handleComponentChange = e => {
@@ -146,7 +121,6 @@ class ComponentBuilder extends Component {
     });
     const myTask = res.data[name];
     this.setState({
-      needToClone: false,
       task: {
         ...myTask,
         consent: myTask?.consent?.id,
@@ -155,6 +129,7 @@ class ComponentBuilder extends Component {
           myTask.collaborators.map(c => c.username)) || [''],
       },
     });
+    this.props.updateCanvas(myTask);
   };
 
   updateMyComponent = async (updateComponentMutation, name) => {
@@ -173,6 +148,7 @@ class ComponentBuilder extends Component {
         },
       },
     });
+    this.props.updateCanvas(myTask);
   };
 
   // handle lab.js JSON file script upload
@@ -248,214 +224,34 @@ class ComponentBuilder extends Component {
   };
 
   render() {
-    const { user } = this.props;
-    const { task, needToClone, adminMode } = this.state;
-    const isAuthor =
-      user.id === task?.author?.id ||
-      task?.collaborators?.includes(user.username);
-    const taskType =
-      task?.taskType === 'TASK'
-        ? 'Task'
-        : task?.taskType === 'BLOCK'
-        ? 'Block'
-        : 'Survey';
-
     return (
-      <>
-        {!this.state.showPreview && (
-          <StyledBuilderPage>
-            <BuilderNav>
-              <div className="goBackBtn" onClick={this.props.closeModal}>
-                ❌
-              </div>
-              <div className="taskTitle">
-                <p>{this.state.task?.title}</p>
-              </div>
-              <div className="taskLabel">
-                <p>
-                  {this.state.task?.isOriginal ? 'Original' : 'Cloned'}{' '}
-                  {this.state.task?.isExternal ? 'external ' : ''}
-                  {task?.taskType?.toLowerCase()}
-                </p>
-              </div>
+      <StyledBuilderPage>
+        <Navigation
+          task={this.state.task}
+          isAuthor={this.props.isAuthor}
+          closeModal={this.props.closeModal}
+          onShowPreview={this.props.onShowPreview}
+          createNewComponent={this.createNewComponent}
+          updateMyComponent={this.updateMyComponent}
+        />
 
-              <div className="rightButtons">
-                {this.state.task?.template?.script && (
-                  <button onClick={this.togglePreview}>
-                    Fullscreen Preview
-                  </button>
-                )}
-
-                {this.props.templateEditor && !needToClone ? (
-                  <>
-                    {isAuthor || adminMode ? (
-                      <div>
-                        <Mutation
-                          mutation={UPDATE_COMPONENT_WITH_TEMPLATE}
-                          refetchQueries={[
-                            {
-                              query: COMPONENT_QUERY,
-                              variables: {
-                                id: this.state.task.id,
-                              },
-                            },
-                            {
-                              query: COMPONENT_TO_CLONE_QUERY,
-                              variables: {
-                                id: this.state.task.id,
-                              },
-                            },
-                          ]}
-                        >
-                          {(updateTask, { loading, error }) => (
-                            <div>
-                              <button
-                                className="secondaryBtn"
-                                onClick={() => {
-                                  this.updateMyComponent(
-                                    updateTask,
-                                    'updateTaskWithTemplate'
-                                  );
-                                }}
-                              >
-                                {loading
-                                  ? 'Saving'
-                                  : `Save original ${task?.taskType?.toLowerCase()}`}
-                              </button>
-                            </div>
-                          )}
-                        </Mutation>
-                      </div>
-                    ) : (
-                      <div>
-                        <Mutation
-                          mutation={CREATE_COMPONENT_WITH_TEMPLATE}
-                          refetchQueries={[{ query: USER_DASHBOARD_QUERY }]}
-                        >
-                          {(createTask, { loading, error }) => (
-                            <div>
-                              <button
-                                className="secondaryBtn"
-                                onClick={() => {
-                                  this.createNewComponent(
-                                    createTask,
-                                    'createTaskWithTemplate'
-                                  );
-                                }}
-                              >
-                                {loading
-                                  ? 'Saving'
-                                  : `Save your original ${task?.taskType?.toLowerCase()}`}
-                              </button>
-                            </div>
-                          )}
-                        </Mutation>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {(isAuthor || adminMode) && !needToClone ? (
-                      <div>
-                        <Mutation
-                          mutation={UPDATE_COMPONENT}
-                          refetchQueries={[
-                            {
-                              query: COMPONENT_QUERY,
-                              variables: {
-                                id: this.state.task.id,
-                              },
-                            },
-                            {
-                              query: COMPONENT_TO_CLONE_QUERY,
-                              variables: {
-                                id: this.state.task.id,
-                              },
-                            },
-                          ]}
-                        >
-                          {(updateTask, { loading, error }) => (
-                            <div>
-                              <button
-                                className="secondaryBtn"
-                                onClick={() => {
-                                  this.updateMyComponent(
-                                    updateTask,
-                                    'updateTask'
-                                  );
-                                }}
-                              >
-                                {loading
-                                  ? 'Saving'
-                                  : `Save ${task?.taskType?.toLowerCase()}`}
-                              </button>
-                            </div>
-                          )}
-                        </Mutation>
-                      </div>
-                    ) : (
-                      <div>
-                        <Mutation
-                          mutation={CREATE_COMPONENT}
-                          refetchQueries={[{ query: USER_DASHBOARD_QUERY }]}
-                        >
-                          {(createTask, { loading, error }) => (
-                            <div>
-                              <button
-                                className="secondaryBtn"
-                                onClick={() => {
-                                  this.createNewComponent(
-                                    createTask,
-                                    'createTask'
-                                  );
-                                }}
-                              >
-                                {loading
-                                  ? 'Saving'
-                                  : `Save your ${task?.taskType?.toLowerCase()}`}
-                              </button>
-                            </div>
-                          )}
-                        </Mutation>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            </BuilderNav>
-
-            <EditPane
-              handleTaskChange={this.handleComponentChange}
-              handleParameterChange={this.handleParamChange}
-              handleTemplateParamChange={this.handleTemplateParamChange}
-              deleteTemplateParameter={this.deleteTemplateParameter}
-              handleSettingsChange={this.handleSettingsChange}
-              handleCollaboratorsChange={this.handleCollaboratorsChange}
-              handleSetState={this.handleSetState}
-              task={this.state.task}
-              handleSetMultipleValuesInState={
-                this.handleSetMultipleValuesInState
-              }
-              user={this.props.user}
-              templateEditor={this.props.templateEditor && !needToClone}
-              handleScriptUpload={this.handleScriptUpload}
-              deleteTemplateLocally={this.deleteTemplateLocally}
-              adminMode={this.props.adminMode}
-              uploadImage={this.uploadImage}
-            />
-          </StyledBuilderPage>
-        )}
-
-        {this.state.showPreview && (
-          <PreviewInBuilder
-            user={this.props.user.id}
-            parameters={this.state.task.parameters}
-            template={this.props.task?.template || this.state.task?.template}
-            handleFinish={() => this.setState({ showPreview: false })}
-            showPreview={this.state.showPreview}
-          />
-        )}
-      </>
+        <EditPane
+          handleTaskChange={this.handleComponentChange}
+          handleParameterChange={this.handleParamChange}
+          handleTemplateParamChange={this.handleTemplateParamChange}
+          deleteTemplateParameter={this.deleteTemplateParameter}
+          handleSettingsChange={this.handleSettingsChange}
+          handleCollaboratorsChange={this.handleCollaboratorsChange}
+          handleSetState={this.handleSetState}
+          task={this.state.task}
+          handleSetMultipleValuesInState={this.handleSetMultipleValuesInState}
+          user={this.props.user}
+          templateEditor={this.props.templateEditor}
+          handleScriptUpload={this.handleScriptUpload}
+          deleteTemplateLocally={this.deleteTemplateLocally}
+          uploadImage={this.uploadImage}
+        />
+      </StyledBuilderPage>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
 
-import ComponentModal from './Component/modal.js';
+import ComponentWrapper from './Component/wrapper.js';
 
 import { StyledBoard } from '../styles';
 
@@ -18,12 +18,17 @@ export default class Builder extends Component {
   state = {
     isModalOpen: false,
     componentModalID: null,
+    engine: null, // use as a way to modify the nodes
+    node: null,
   };
 
-  openComponentModal = ({ componentID }) => {
+  openComponentModal = ({ engine, node }) => {
+    const componentID = node?.options?.componentID;
     this.setState({
       isModalOpen: true,
       componentModalID: componentID,
+      engine,
+      node,
     });
   };
 
@@ -32,6 +37,25 @@ export default class Builder extends Component {
       isModalOpen: false,
       componentModalID: null,
     });
+  };
+
+  updateCanvas = task => {
+    const { engine, node } = this.state;
+    const { model } = engine;
+    const nodes = model.getNodes() || [];
+    const componentID = node?.options?.componentID;
+    // use componentID to filter the nodes
+    // that allows to update multiple nodes with the same task
+    nodes.forEach(n => {
+      if (n?.options?.componentID === componentID) {
+        n.updateOptions({
+          componentID: task?.id,
+          name: task?.title,
+          details: task?.description,
+        });
+      }
+    });
+    engine.repaintCanvas();
   };
 
   render() {
@@ -46,10 +70,11 @@ export default class Builder extends Component {
           {...this.props}
         />
         {this.state.isModalOpen && (
-          <ComponentModal
+          <ComponentWrapper
             {...this.props}
             componentID={this.state.componentModalID}
             closeModal={this.closeComponentModal}
+            updateCanvas={this.updateCanvas}
           />
         )}
       </StyledBoard>

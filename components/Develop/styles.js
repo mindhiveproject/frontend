@@ -20,10 +20,12 @@ export const StyledBoard = styled.div`
     top: 0;
     right: 0;
     min-width: 800px;
+    max-width: 1000px;
     bottom: 0;
     transition: all 0.3s;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     z-index: 5;
+    overflow-y: auto;
   }
 `;
 

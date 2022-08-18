@@ -238,8 +238,7 @@ export const UPDATE_COMPONENT = gql`
     ) {
       id
       title
-      image
-      largeImage
+      description
     }
   }
 `;

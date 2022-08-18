@@ -116,7 +116,7 @@ class EditBasic extends Component {
       ...task.settings,
     };
 
-    if(taskType === 'Task') delete settings.scoring && delete settings.format;
+    if (taskType === 'Task') delete settings.scoring && delete settings.format;
 
     return (
       <StyledBasicPane>
@@ -170,7 +170,7 @@ class EditBasic extends Component {
           ))}
         </StyledSettingBlock>
 
-        {(this.props.templateEditor || this.props.adminMode) && (
+        {(true || this.props.templateEditor || this.props.adminMode) && (
           <div>
             <label htmlFor="description">
               {taskType} card description (for Develop mode)

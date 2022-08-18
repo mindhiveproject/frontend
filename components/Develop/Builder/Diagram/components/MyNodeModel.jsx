@@ -28,6 +28,10 @@ export class MyNodeModel extends NodeModel {
     );
   }
 
+  updateOptions(options) {
+    this.options = { ...this.options, ...options };
+  }
+
   serialize() {
     return {
       ...super.serialize(),
