@@ -3,11 +3,7 @@ import slugify from 'slugify';
 import uniqid from 'uniqid';
 
 import InfoTabs from './infoTabs';
-import {
-  StyledBuilder,
-  StyledPreviewPane,
-  UploadImageContainer,
-} from '../styles';
+import { StyledPage, StyledPreviewPane, UploadImageContainer } from '../styles';
 
 class PreviewPane extends Component {
   state = {
@@ -66,107 +62,71 @@ class PreviewPane extends Component {
     }
 
     return (
-      <StyledBuilder>
+      <StyledPage>
         <StyledPreviewPane>
-          <UploadImageContainer>
-            <div
-              className={
-                study.image
-                  ? 'upload-btn-wrapper-with-image'
-                  : 'upload-btn-wrapper'
-              }
-            >
-              <button className="btn">
-                {study.image ? 'Update study image' : 'Upload study image'}
-              </button>
-              <input
-                type="file"
-                id="file"
-                name="file"
-                value={study.file}
-                onChange={e => this.props.uploadImage(e)}
-              />
-              <div>
-                {study.image && (
-                  <img width="300" src={study.image} alt="Upload preview" />
-                )}
-              </div>
-            </div>
-          </UploadImageContainer>
-
-          <div>
-            <label htmlFor="title">
-              <input
-                type="text"
-                id="title"
-                name="title"
-                placeholder="Title"
-                value={study.title}
-                onChange={this.handleTitleChange}
-                required
-                className="title"
-              />
-            </label>
-          </div>
-
-          <div>
-            <label htmlFor="description">
-              <textarea
-                id="description"
-                name="description"
-                placeholder="Description"
-                value={study.description}
-                onChange={this.props.handleStudyChange}
-                rows="7"
-                className="description"
-              />
-            </label>
-          </div>
-
-          <div>
-            <button onClick={this.props.toggleStudyPreview}>
-              Study preview
-            </button>
-          </div>
-
-          <div className="timeInformationBlock">
-            <div>
-              <label htmlFor="time">
-                Time to complete
-                <div className="completeTimeLine">
-                  <img
-                    src="/static/assets/study-builder-complete-time.svg"
-                    alt="icon"
-                    width="24"
-                  />
-                  <input
-                    type="text"
-                    id="time"
-                    name="time"
-                    value={infoBlocks.time}
-                    onChange={this.props.handleParameterChange}
-                    className="text"
-                  />
-                </div>
-              </label>
-            </div>
-            <div>
-              <label htmlFor="frequency">
-                Frequency
+          <div className="studyInformation">
+            <UploadImageContainer>
+              <div
+                className={
+                  study.image
+                    ? 'upload-btn-wrapper-with-image'
+                    : 'upload-btn-wrapper'
+                }
+              >
+                <button className="btn">
+                  {study.image ? 'Update study image' : 'Upload study image'}
+                </button>
                 <input
-                  type="text"
-                  id="frequency"
-                  name="frequency"
-                  value={infoBlocks.frequency}
-                  onChange={this.props.handleParameterChange}
-                  className="text"
+                  type="file"
+                  id="file"
+                  name="file"
+                  value={study.file}
+                  onChange={e => this.props.uploadImage(e)}
+                />
+                <div>
+                  {study.image && (
+                    <img width="213" src={study.image} alt="Upload preview" />
+                  )}
+                </div>
+              </div>
+            </UploadImageContainer>
+            <div>
+              <label htmlFor="title">
+                <textarea
+                  id="title"
+                  name="title"
+                  placeholder="Title"
+                  value={study.title}
+                  onChange={this.handleTitleChange}
+                  required
+                  className="title"
                 />
               </label>
             </div>
+
+            <div>
+              <label htmlFor="description">
+                <textarea
+                  id="description"
+                  name="description"
+                  placeholder="Description"
+                  value={study.description}
+                  onChange={this.props.handleStudyChange}
+                  rows="7"
+                  className="description"
+                />
+              </label>
+            </div>
+
+            <div className="participateBtn">
+              <button onClick={this.props.toggleStudyPreview}>
+                Participate
+              </button>
+            </div>
           </div>
 
-          <div>
-            <div>
+          <div className="details">
+            <div className="leftPanel">
               <InfoTabs
                 infoBlocks={infoBlocks}
                 handleParameterChange={this.props.handleParameterChange}
@@ -174,11 +134,50 @@ class PreviewPane extends Component {
                 study={study}
               />
             </div>
+
+            <div className="rightPanel">
+              <div className="timeInformationBlock">
+                <div>
+                  <label htmlFor="time">
+                    Time to complete
+                    <div className="completeTimeLine">
+                      <img
+                        src="/static/assets/study-builder-complete-time.svg"
+                        alt="icon"
+                        width="24"
+                      />
+                      <input
+                        type="text"
+                        id="time"
+                        name="time"
+                        value={infoBlocks.time}
+                        onChange={this.props.handleParameterChange}
+                        className="text"
+                      />
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </StyledPreviewPane>
-      </StyledBuilder>
+      </StyledPage>
     );
   }
 }
 
 export default PreviewPane;
+
+// <div>
+//   <label htmlFor="frequency">
+//     Frequency
+//     <input
+//       type="text"
+//       id="frequency"
+//       name="frequency"
+//       value={infoBlocks.frequency}
+//       onChange={this.props.handleParameterChange}
+//       className="text"
+//     />
+//   </label>
+// </div>

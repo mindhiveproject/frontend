@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const UserPage = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Lato');
   @import url('https://fonts.googleapis.com/css?family=Roboto');
+  @import url('https://fonts.googleapis.com/css?family=Inconsolata');
   background: #f6f9f8;
   color: ${props => props.theme.grey};
   font-family: 'Lato';
@@ -16,10 +17,10 @@ export const UserPage = styled.div`
   height: 100%;
   grid-template-columns: 225px auto;
   button:hover {
-    opacity: .6;
+    opacity: 0.6;
   }
   a:hover {
-    opacity: .6;
+    opacity: 0.6;
   }
 `;
 
@@ -29,10 +30,12 @@ export const UserInner = styled.div`
   height: 101%;
   max-height: 100vh;
   overflow-y: auto;
-  mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+  mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 17px, black 17px);
   mask-size: 100% 20000px;
   mask-position: left bottom;
-  -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 17px, black 17px);
+  -webkit-mask-image: linear-gradient(to top, transparent, black),
+    linear-gradient(to left, transparent 17px, black 17px);
   -webkit-mask-size: 100% 20000px;
   -webkit-mask-position: left bottom;
   transition: mask-position 0.3s, -webkit-mask-position 0.3s;
@@ -56,6 +59,8 @@ export const UserNav = styled.div`
 
 export const StyledPage = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Lato');
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
+  @import url('https://fonts.googleapis.com/css?family=Inconsolata');
   background: white;
   color: ${props => props.theme.grey};
   font-family: 'Lato';
