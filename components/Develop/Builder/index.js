@@ -33,6 +33,9 @@ export default class Builder extends Component {
   };
 
   closeComponentModal = () => {
+    // unlock the model
+    const { engine } = this.state;
+    engine.getModel().setLocked(false);
     this.setState({
       isModalOpen: false,
       componentModalID: null,

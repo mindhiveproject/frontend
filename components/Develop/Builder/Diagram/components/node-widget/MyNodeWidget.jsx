@@ -4,7 +4,10 @@ import { PortWidget } from '@projectstorm/react-diagrams-core';
 export const MyNodeWidget = props => (
   <>
     <button
-      onClick={() => {
+      onClick={e => {
+        // lock the model
+        props.engine.getModel().setLocked(true);
+        // open modal
         props.engine.openComponentModal(props);
       }}
     >

@@ -6,6 +6,8 @@ import TaskContent from './Content';
 
 import { StyledHeader, StyledButtons } from '../styles';
 
+import { CloseButton } from '../../Preview/styles';
+
 class TaskWrapper extends Component {
   render() {
     return (
@@ -29,6 +31,10 @@ class TaskWrapper extends Component {
 
           return (
             <>
+              <CloseButton onClick={() => this.props.onModalClose()}>
+                &times;
+              </CloseButton>
+
               <StyledHeader>
                 <div>
                   <h1>{component?.title}</h1>
@@ -40,12 +46,6 @@ class TaskWrapper extends Component {
                       <button
                         className="addBtn"
                         onClick={() => {
-                          // this.props.addComponentToCanvas({
-                          //   name: component?.title,
-                          //   details: component?.description,
-                          //   componentID: component?.id,
-                          // });
-                          // this.props.onModalClose();
                           this.props.openEditor();
                         }}
                       >
@@ -67,14 +67,6 @@ class TaskWrapper extends Component {
                 </div>
               </StyledHeader>
               <TaskContent {...this.props} component={component} />
-              <StyledButtons>
-                <button
-                  className="closeBtn"
-                  onClick={() => this.props.onModalClose()}
-                >
-                  Close
-                </button>
-              </StyledButtons>
             </>
           );
         }}

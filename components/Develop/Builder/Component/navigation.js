@@ -16,12 +16,6 @@ class Navigation extends Component {
 
     return (
       <BuilderNav>
-        <div className="goBackBtn" onClick={this.props.closeModal}>
-          ❌
-        </div>
-        <div className="taskTitle">
-          <p>{task?.title}</p>
-        </div>
         {false && (
           <div className="taskLabel">
             <p>
@@ -97,6 +91,10 @@ class Navigation extends Component {
               </Mutation>
             </div>
           )}
+        </div>
+
+        <div className="taskTitle">
+          <p>{task?.title}</p>
         </div>
       </BuilderNav>
     );

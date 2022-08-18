@@ -5,6 +5,8 @@ import { StyledBuilderPage } from './styles';
 import Navigation from './navigation';
 import EditPane from './editPane';
 
+import { CloseButton } from '../../../Preview/styles';
+
 class ComponentBuilder extends Component {
   state = {
     task: { ...this.props.task },
@@ -225,33 +227,38 @@ class ComponentBuilder extends Component {
 
   render() {
     return (
-      <StyledBuilderPage>
-        <Navigation
-          task={this.state.task}
-          isAuthor={this.props.isAuthor}
-          closeModal={this.props.closeModal}
-          onShowPreview={this.props.onShowPreview}
-          createNewComponent={this.createNewComponent}
-          updateMyComponent={this.updateMyComponent}
-        />
+      <>
+        <CloseButton onClick={() => this.props.closeModal()}>
+          &times;
+        </CloseButton>
+        <StyledBuilderPage>
+          <Navigation
+            task={this.state.task}
+            isAuthor={this.props.isAuthor}
+            closeModal={this.props.closeModal}
+            onShowPreview={this.props.onShowPreview}
+            createNewComponent={this.createNewComponent}
+            updateMyComponent={this.updateMyComponent}
+          />
 
-        <EditPane
-          handleTaskChange={this.handleComponentChange}
-          handleParameterChange={this.handleParamChange}
-          handleTemplateParamChange={this.handleTemplateParamChange}
-          deleteTemplateParameter={this.deleteTemplateParameter}
-          handleSettingsChange={this.handleSettingsChange}
-          handleCollaboratorsChange={this.handleCollaboratorsChange}
-          handleSetState={this.handleSetState}
-          task={this.state.task}
-          handleSetMultipleValuesInState={this.handleSetMultipleValuesInState}
-          user={this.props.user}
-          templateEditor={this.props.templateEditor}
-          handleScriptUpload={this.handleScriptUpload}
-          deleteTemplateLocally={this.deleteTemplateLocally}
-          uploadImage={this.uploadImage}
-        />
-      </StyledBuilderPage>
+          <EditPane
+            handleTaskChange={this.handleComponentChange}
+            handleParameterChange={this.handleParamChange}
+            handleTemplateParamChange={this.handleTemplateParamChange}
+            deleteTemplateParameter={this.deleteTemplateParameter}
+            handleSettingsChange={this.handleSettingsChange}
+            handleCollaboratorsChange={this.handleCollaboratorsChange}
+            handleSetState={this.handleSetState}
+            task={this.state.task}
+            handleSetMultipleValuesInState={this.handleSetMultipleValuesInState}
+            user={this.props.user}
+            templateEditor={this.props.templateEditor}
+            handleScriptUpload={this.handleScriptUpload}
+            deleteTemplateLocally={this.deleteTemplateLocally}
+            uploadImage={this.uploadImage}
+          />
+        </StyledBuilderPage>
+      </>
     );
   }
 }

@@ -25,15 +25,15 @@ export const CloseButton = styled.span`
   position: absolute;
   top: 1%;
   right: 1%;
-  width: 3.3rem;
-  line-height: 3rem;
+  width: 2.2em;
+  line-height: 2em;
   text-align: center;
   cursor: pointer;
-  border-radius: 2.25rem;
+  border-radius: 2.25em;
   background-color: #4fbf1f;
   color: white;
   padding-bottom: 5px;
-  font-size: 2rem;
+  font-size: 2em;
   :hover {
     background-color: #ea0707;
     transform: scale(1.1);
