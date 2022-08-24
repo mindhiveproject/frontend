@@ -6,16 +6,34 @@ export const StyledDigram = styled.div`
     text-align: center;
   }
 
-  .my-node {
+  .node {
+    display: grid;
     width: 378px;
     height: 128px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    position: relative;
     background-color: white;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
     border-radius: 8px;
+  }
+
+  .node-header-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 0px 20px 0px 20px;
+    align-items: center;
+    height: 58px;
+    border-radius: 8px;
+    border-bottom: 1px solid #efefef;
+  }
+
+  .node-header-text {
+    color: #1a1a1a;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+  }
+
+  .node-header-icons {
   }
 
   .my-port {
@@ -29,29 +47,9 @@ export const StyledDigram = styled.div`
     cursor: pointer;
   }
 
-  .my-node-header-container {
-    width: 100%;
-    height: 58px;
-    text-align: left;
-    font-weight: bold;
-    position: absolute;
-    top: 0;
-    display: flex;
-    border-radius: 8px;
-    border-bottom: 1px solid #efefef;
-  }
-
-  .my-node-header-text {
-    color: #1a1a1a;
-    font-size: 16px;
-    margin: 15px 0px 0 10px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%;
-  }
-
-  .my-node-content {
-    margin: 80px 0 0 10px;
+  .node-content {
+    display: grid;
+    padding: 0px 20px 0px 20px;
     color: #666666;
     font-size: 16px;
     font-weight: 400;
@@ -76,10 +74,5 @@ export const StyledDigram = styled.div`
     bottom: 0;
     margin-top: 87px;
     margin-left: 179px;
-  }
-
-  .my-icon {
-    margin-top: 3px;
-    margin-left: 4px;
   }
 `;

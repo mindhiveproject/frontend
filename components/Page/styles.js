@@ -4,6 +4,7 @@ export const UserPage = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Lato');
   @import url('https://fonts.googleapis.com/css?family=Roboto');
   @import url('https://fonts.googleapis.com/css?family=Inconsolata');
+  @import url('https://fonts.googleapis.com/css?family=Inter');
   background: #f6f9f8;
   color: ${props => props.theme.grey};
   font-family: 'Lato';
@@ -61,6 +62,7 @@ export const StyledPage = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Lato');
   @import url('https://fonts.googleapis.com/css?family=Roboto');
   @import url('https://fonts.googleapis.com/css?family=Inconsolata');
+  @import url('https://fonts.googleapis.com/css?family=Inter');
   background: white;
   color: ${props => props.theme.grey};
   font-family: 'Lato';

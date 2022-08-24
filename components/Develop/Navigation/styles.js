@@ -26,7 +26,7 @@ export const StyledNavigation = styled.div`
     display: grid;
     grid-template-columns: 1fr auto;
     grid-gap: 20px;
-    padding: 7px;
+    padding: 7px 10px;
     background: #ffffff;
     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
     .leftPanel {
@@ -46,6 +46,7 @@ export const StyledNavigation = styled.div`
         cursor: pointer;
       }
       .studyTitle {
+        font-family: Inter;
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
@@ -77,7 +78,7 @@ export const StyledNavigation = styled.div`
     .discoverMenu {
       display: grid;
       grid-gap: 5px;
-      grid-template-columns: repeat(auto-fill, 165px);
+      grid-template-columns: repeat(auto-fill, 175px);
       margin: 10px 0px 0px 0px !important;
       cursor: pointer;
 
@@ -91,6 +92,9 @@ export const StyledNavigation = styled.div`
         justify-items: center;
         border-bottom: 2px solid #e8ebef;
         p {
+          font-family: Inter;
+          font-style: normal;
+          font-weight: 400;
           color: #1a1a1a;
           font-size: 14px;
           line-height: 23px;
@@ -99,8 +103,11 @@ export const StyledNavigation = styled.div`
       .selectedMenuTitle {
         border-bottom: 4px solid #556aeb !important;
         p {
-          color: #1a1a1a;
+          font-family: Inter;
+          font-style: normal;
           font-weight: 700;
+          color: #1a1a1a;
+          font-size: 14px;
           line-height: 23px;
         }
       }

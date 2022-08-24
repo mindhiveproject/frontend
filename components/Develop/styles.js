@@ -2,13 +2,15 @@ import styled from 'styled-components';
 
 export const StyledDevelopWrapper = styled.div`
   display: grid;
+  height: 100vh;
+  grid-template-rows: auto 1fr;
 `;
 
 export const StyledBoard = styled.div`
   display: grid;
   grid-template-columns: 5fr 3fr;
   padding: 0px;
-  height: 85vh;
+  height: 100%;
   .modal {
     display: grid;
     align-content: baseline;
