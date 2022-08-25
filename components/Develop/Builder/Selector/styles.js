@@ -110,17 +110,15 @@ export const StyledBuilder = styled.div`
 export const StyledEditPane = styled.div`
   display: grid;
   width: 100%;
-  min-height: 500px;
   align-content: baseline;
 
   resize: horizontal;
-  overflow: auto;
 
   .header {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
-    margin: 0px 1px 20px 0px;
+    padding: 0px 1px 20px 0px;
   }
 
   .createdByDropdown {
@@ -133,7 +131,7 @@ export const StyledEditPane = styled.div`
     .blocksMenuTitle {
       display: grid;
       grid-template-columns: 1fr auto;
-      margin: 20px 25px 0px 30px;
+      padding: 20px 25px 0px 30px;
       p {
         font-family: Inter;
         font-style: normal;
@@ -144,7 +142,9 @@ export const StyledEditPane = styled.div`
       }
     }
     .blocksMenuContent {
-      margin: 0px 25px 0px 30px;
+      padding: 10px 25px 0px 30px;
+      overflow-y: auto;
+      max-height: 40vh;
     }
   }
 
@@ -768,7 +768,7 @@ export const StyledTaskCard = styled.div`
   grid-template-columns: 30px 4fr 1fr;
   grid-gap: 10px;
   background: #ffffff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.09), 0px 5px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
   border-radius: 8px;
   margin-bottom: 10px;
   .addBlock {

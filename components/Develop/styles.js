@@ -4,11 +4,12 @@ export const StyledDevelopWrapper = styled.div`
   display: grid;
   height: 100vh;
   grid-template-rows: auto 1fr;
+  overflow: overlay;
 `;
 
 export const StyledBoard = styled.div`
   display: grid;
-  grid-template-columns: 5fr 3fr;
+  grid-template-columns: 1fr;
   padding: 0px;
   height: 100%;
   .modal {

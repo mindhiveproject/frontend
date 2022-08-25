@@ -7,7 +7,7 @@ import generate from 'project-name-generator';
 import { NodesFactory } from './components/NodesFactory';
 import { MyCreatorWidget } from './components/my-creator-widget/MyCreatorWidget';
 
-import { StyledDigram } from './styles';
+import { StyledDigram, StyledWrapper } from './styles';
 import Settings from '../Settings/index';
 
 import { MyNodeModel } from './components/MyNodeModel';
@@ -154,7 +154,7 @@ const Diagram = React.memo(props => {
   };
 
   return (
-    <>
+    <StyledWrapper>
       <StyledDigram>
         {engine && (
           <MyCreatorWidget
@@ -164,7 +164,7 @@ const Diagram = React.memo(props => {
         )}
       </StyledDigram>
       <Settings {...props} addComponentToCanvas={addComponentToCanvas} />
-    </>
+    </StyledWrapper>
   );
 });
 

@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const StyledWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 5fr 3fr;
+`;
+
 export const StyledDigram = styled.div`
   .App {
     font-family: sans-serif;
