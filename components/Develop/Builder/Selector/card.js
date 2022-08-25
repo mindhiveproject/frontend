@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser';
-import { Icon, Popup } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
+
 import { StyledTaskCard } from './styles';
 
-import ExperimentPreview from '../../../../Task/Preview/index';
-import { ContainerOnlyForAuthorsOrCollaborators } from '../../../../Permissions/Author/index';
+import ExperimentPreview from '../../../Task/Preview/index';
 
-import ManageFavoriteComponents from '../../../../Favorite/ManageComponents';
+import ManageFavoriteComponents from '../../../Favorite/ManageComponents';
 
-import { NodesTypesContainer } from '../../Diagram/components/nodes-types-container/NodesTypesContainer';
-import { NodeTypeLabel } from '../../Diagram/components/node-type-label/NodeTypeLabel';
+import { NodesTypesContainer } from '../Diagram/components/nodes-types-container/NodesTypesContainer';
+import { NodeTypeLabel } from '../Diagram/components/node-type-label/NodeTypeLabel';
 
-import TaskModal from '../../../Task/Modal';
+import TaskModal from '../../Task/Modal';
 
 class Card extends Component {
   state = {
@@ -47,6 +46,22 @@ class Card extends Component {
     return (
       <>
         <StyledTaskCard taskType={component.taskType}>
+          <div className="addBlock">
+            <Icon
+              name="plus circle"
+              size="big"
+              color="grey"
+              link
+              onClick={() => {
+                this.props.addComponentToCanvas({
+                  name: component?.title,
+                  details: component?.description,
+                  componentID: component?.id,
+                });
+              }}
+            />
+          </div>
+
           <div className="movableCard">
             <NodesTypesContainer>
               <NodeTypeLabel
@@ -63,6 +78,10 @@ class Card extends Component {
           <div className="icons">
             <ManageFavoriteComponents id={component?.id} />
 
+            <div className="icon" onClick={() => this.toggleModal()}>
+              <img src="/content/icons/info-2.svg" />
+            </div>
+
             {!component.link && (
               <div className="icon" onClick={e => this.togglePreview(e, false)}>
                 <img src="/content/icons/Eye.svg" />
@@ -76,10 +95,6 @@ class Card extends Component {
                 </div>
               </a>
             )}
-
-            <div className="icon" onClick={() => this.toggleModal()}>
-              <img src="/content/icons/info-2.svg" />
-            </div>
           </div>
         </StyledTaskCard>
         {this.state.showPreview && (

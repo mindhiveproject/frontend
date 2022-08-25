@@ -116,12 +116,42 @@ export const StyledEditPane = styled.div`
   resize: horizontal;
   overflow: auto;
 
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin: 0px 1px 20px 0px;
+  }
+
+  .createdByDropdown {
+    display: grid !important;
+    align-items: center !important;
+    border: 1px solid #cccccc !important;
+  }
+
+  .blocksMenu {
+    .blocksMenuTitle {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      margin: 20px 25px 0px 30px;
+      p {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 150%;
+        color: #1a1a1a;
+      }
+    }
+    .blocksMenuContent {
+      margin: 0px 25px 0px 30px;
+    }
+  }
+
   label {
     display: block;
   }
-  input {
-    margin-top: 10px;
-  }
+
   input,
   select {
     width: 100%;
@@ -194,9 +224,6 @@ export const StyledEditPane = styled.div`
       transform: scale(1.2);
       transition: transform 0.5s;
     }
-  }
-  .createdByDropdown {
-    margin-bottom: 30px;
   }
 `;
 
@@ -734,3 +761,47 @@ export const StyledSelectionScreen = styled.div`
     }
   }
 `;
+
+export const StyledTaskCard = styled.div`
+  display: grid;
+  align-items: center;
+  grid-template-columns: 30px 4fr 1fr;
+  grid-gap: 10px;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.09), 0px 5px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  .addBlock {
+    margin: 0px 10px;
+  }
+  .movableCard {
+    display: grid;
+    width: 100%;
+    height: 100%;
+  }
+  .icons {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    padding: 16px;
+    .icon {
+      display: grid;
+      align-items: center;
+      justify-items: center;
+      background: #f3f5f6;
+      width: 42px;
+      height: 42px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+  }
+`;
+
+// border-top: 14px solid;
+// border-top-color: ${props =>
+//   props.taskType === 'TASK'
+//     ? '#64c9e2'
+//     : props.taskType === 'SURVEY'
+//     ? '#28619e'
+//     : '#ffc7c3'};

@@ -80,3 +80,37 @@ export const COMPONENT_TO_CLONE_QUERY = gql`
     }
   }
 `;
+
+export const COMPONENTS_QUERY = gql`
+  query COMPONENTS_QUERY {
+    myAndAllTasks {
+      id
+      title
+      subtitle
+      slug
+      author {
+        id
+      }
+      collaborators {
+        id
+        username
+      }
+      public
+      description
+      descriptionForParticipants
+      taskType
+      parameters
+      settings
+      template {
+        id
+        title
+        description
+        parameters
+        script
+        style
+      }
+      link
+      image
+    }
+  }
+`;
