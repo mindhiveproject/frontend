@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
+import uniqid from 'uniqid';
 
 import { StyledTaskCard } from './styles';
 
@@ -57,6 +58,7 @@ class Card extends Component {
                   name: component?.title,
                   details: component?.description,
                   componentID: component?.id,
+                  testId: uniqid.time(),
                 });
               }}
             />

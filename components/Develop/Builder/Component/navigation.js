@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import { BuilderNav } from './styles';
+import { StyledNavigation } from './styles';
 
 import { USER_DASHBOARD_QUERY } from '../../../Queries/User';
 import {
@@ -12,91 +12,112 @@ import { CREATE_COMPONENT, UPDATE_COMPONENT } from '../../../Mutations/Task';
 
 class Navigation extends Component {
   render() {
-    const { task, isAuthor } = this.props;
+    const { task, isAuthor, testId } = this.props;
+
+    const taskType =
+      task?.taskType === 'TASK'
+        ? 'Task'
+        : task?.taskType === 'BLOCK'
+        ? 'Block'
+        : 'Survey';
 
     return (
-      <BuilderNav>
-        {false && (
-          <div className="taskLabel">
-            <p>
-              {task?.isOriginal ? 'Original' : 'Cloned'}{' '}
-              {task?.isExternal ? 'external ' : ''}
-              {task?.taskType?.toLowerCase()}
-            </p>
+      <StyledNavigation>
+        <div className="firstLine">
+          <div className="taskTitle">
+            <h1>{task?.title}</h1>
           </div>
-        )}
 
-        <div className="rightButtons">
-          {task?.template?.script && (
-            <button onClick={() => this.props.onShowPreview(task)}>
-              Preview
+          <div className="navButtons">
+            {task?.template?.script && (
+              <button
+                className="secondaryBtn"
+                onClick={() => this.props.onShowPreview(task)}
+              >
+                Preview
+              </button>
+            )}
+
+            {isAuthor ? (
+              <div>
+                <Mutation
+                  mutation={UPDATE_COMPONENT}
+                  refetchQueries={[
+                    {
+                      query: COMPONENT_QUERY,
+                      variables: {
+                        id: task.id,
+                      },
+                    },
+                    {
+                      query: COMPONENT_TO_CLONE_QUERY,
+                      variables: {
+                        id: task.id,
+                      },
+                    },
+                  ]}
+                >
+                  {(updateTask, { loading, error }) => (
+                    <div>
+                      <button
+                        className="primaryBtn"
+                        onClick={() => {
+                          this.props.updateMyComponent(
+                            updateTask,
+                            'updateTask'
+                          );
+                        }}
+                      >
+                        {loading
+                          ? 'Saving'
+                          : `Save ${task?.taskType?.toLowerCase()}`}
+                      </button>
+                    </div>
+                  )}
+                </Mutation>
+              </div>
+            ) : (
+              <div>
+                <Mutation
+                  mutation={CREATE_COMPONENT}
+                  refetchQueries={[{ query: USER_DASHBOARD_QUERY }]}
+                >
+                  {(createTask, { loading, error }) => (
+                    <div>
+                      <button
+                        className="primaryBtn"
+                        onClick={() => {
+                          this.props.createNewComponent(
+                            createTask,
+                            'createTask'
+                          );
+                        }}
+                      >
+                        {loading
+                          ? 'Saving'
+                          : `Customize ${task?.taskType?.toLowerCase()}`}
+                      </button>
+                    </div>
+                  )}
+                </Mutation>
+              </div>
+            )}
+
+            <button
+              className="primaryBtn"
+              onClick={() => this.props.closeModal()}
+            >
+              Done
             </button>
-          )}
-
-          {isAuthor ? (
-            <div>
-              <Mutation
-                mutation={UPDATE_COMPONENT}
-                refetchQueries={[
-                  {
-                    query: COMPONENT_QUERY,
-                    variables: {
-                      id: task.id,
-                    },
-                  },
-                  {
-                    query: COMPONENT_TO_CLONE_QUERY,
-                    variables: {
-                      id: task.id,
-                    },
-                  },
-                ]}
-              >
-                {(updateTask, { loading, error }) => (
-                  <div>
-                    <button
-                      className="secondaryBtn"
-                      onClick={() => {
-                        this.props.updateMyComponent(updateTask, 'updateTask');
-                      }}
-                    >
-                      {loading
-                        ? 'Saving'
-                        : `Save ${task?.taskType?.toLowerCase()}`}
-                    </button>
-                  </div>
-                )}
-              </Mutation>
-            </div>
-          ) : (
-            <div>
-              <Mutation
-                mutation={CREATE_COMPONENT}
-                refetchQueries={[{ query: USER_DASHBOARD_QUERY }]}
-              >
-                {(createTask, { loading, error }) => (
-                  <div>
-                    <button
-                      className="secondaryBtn"
-                      onClick={() => {
-                        this.props.createNewComponent(createTask, 'createTask');
-                      }}
-                    >
-                      {loading
-                        ? 'Saving'
-                        : `Customize ${task?.taskType?.toLowerCase()}`}
-                    </button>
-                  </div>
-                )}
-              </Mutation>
-            </div>
-          )}
+          </div>
         </div>
 
-        <div className="taskTitle">
-          <p>{task?.title}</p>
+        <div className="secondLine">
+          <p>
+            {taskType} ID: {testId}
+          </p>
         </div>
-      </BuilderNav>
+      </StyledNavigation>
     );
   }
 }

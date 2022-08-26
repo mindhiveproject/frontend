@@ -79,7 +79,7 @@ const Diagram = React.memo(props => {
           {
             id: node?.options?.componentID,
             title: node?.options?.name,
-            testId: uniqid.time(),
+            testId: node?.options?.testId,
             level: 0,
           },
         ];
@@ -88,7 +88,7 @@ const Diagram = React.memo(props => {
         blockTests.push({
           id: node?.options?.componentID,
           title: node?.options?.name,
-          testId: uniqid.time(),
+          testId: node?.options?.testId,
           level,
         });
       }
@@ -144,6 +144,7 @@ const Diagram = React.memo(props => {
       name,
       details: shorten(details),
       componentID,
+      testId: uniqid.time(),
     });
     // change X and Y later to be in the centre of the canvas
     const event = { clientX: 200, clientY: 200 };

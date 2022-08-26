@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
 
-import ComponentWrapper from './Component/wrapper.js';
+import ComponentViewer from './Component/index.js';
 
 import { StyledBoard } from '../styles';
 
@@ -18,15 +18,18 @@ export default class Builder extends Component {
   state = {
     isModalOpen: false,
     componentModalID: null,
+    testModalId: null,
     engine: null, // use as a way to modify the nodes
     node: null,
   };
 
   openComponentModal = ({ engine, node }) => {
     const componentID = node?.options?.componentID;
+    const testId = node?.options?.testId;
     this.setState({
       isModalOpen: true,
       componentModalID: componentID,
+      testModalId: testId,
       engine,
       node,
     });
@@ -39,6 +42,7 @@ export default class Builder extends Component {
     this.setState({
       isModalOpen: false,
       componentModalID: null,
+      testModalId: null,
     });
   };
 
@@ -73,9 +77,10 @@ export default class Builder extends Component {
           {...this.props}
         />
         {this.state.isModalOpen && (
-          <ComponentWrapper
+          <ComponentViewer
             {...this.props}
             componentID={this.state.componentModalID}
+            testId={this.state.testModalId}
             closeModal={this.closeComponentModal}
             updateCanvas={this.updateCanvas}
           />

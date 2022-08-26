@@ -12,11 +12,18 @@ export const StyledBoard = styled.div`
   grid-template-columns: 1fr;
   padding: 0px;
   height: 100%;
+  .background {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    background: rgba(188, 188, 188, 0.7);
+    backdrop-filter: blur(4px);
+  }
   .modal {
     display: grid;
     align-content: baseline;
-    padding: 20px;
-    position: relative;
     background: white;
     position: fixed;
     height: 100%;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
+import uniqid from 'uniqid';
 
 import { DiagramCanvas } from '../DiagramCanvas';
 import { MyNodeModel } from '../MyNodeModel';
@@ -31,6 +32,7 @@ export const MyCreatorWidget = props => {
       name: data?.name,
       details: shorten(data?.details),
       componentID: data?.componentID,
+      testId: uniqid.time(),
     });
 
     const point = diagramEngine.getRelativeMousePoint(event);

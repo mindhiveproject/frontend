@@ -38,6 +38,7 @@ export class MyNodeModel extends NodeModel {
       name: this.options.name,
       details: this.options.details,
       componentID: this.options.componentID,
+      testId: this.options.testId,
     };
   }
 
@@ -46,5 +47,6 @@ export class MyNodeModel extends NodeModel {
     this.options.name = ob.data.name;
     this.options.details = ob.data.details;
     this.options.componentID = ob.data.componentID;
+    this.options.testId = ob.data.testId;
   }
 }

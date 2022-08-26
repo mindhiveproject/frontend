@@ -7,12 +7,12 @@ import TaskWrapper from '../../Task/Wrapper';
 import FullScreenPreview from '../../../Preview/fullscreen';
 
 // modify the task (for editing)
-import ComponentModal from './modal.js';
+import EditorWrapper from './editorWrapper.js';
 
 // ToDo: decide what to show based on whether the user is the author or
 // collaborator on the task
 
-class ComponentWrapper extends Component {
+class ComponentViewer extends Component {
   state = {
     page: 'description',
     showComponentPreview: false,
@@ -46,26 +46,30 @@ class ComponentWrapper extends Component {
 
     if (page === 'editor') {
       return (
-        <div className="modal">
-          <ComponentModal
-            {...this.props}
-            onShowPreview={this.toggleComponentPreview}
-          />
+        <div className="background">
+          <div className="modal">
+            <EditorWrapper
+              {...this.props}
+              onShowPreview={this.toggleComponentPreview}
+            />
+          </div>
         </div>
       );
     }
 
     return (
-      <div className="modal">
-        <TaskWrapper
-          onModalClose={this.props.closeModal}
-          componentID={this.props.componentID}
-          onShowPreview={this.toggleComponentPreview}
-          openEditor={this.openEditor}
-        />
+      <div className="background">
+        <div className="modal">
+          <TaskWrapper
+            onModalClose={this.props.closeModal}
+            componentID={this.props.componentID}
+            onShowPreview={this.toggleComponentPreview}
+            openEditor={this.openEditor}
+          />
+        </div>
       </div>
     );
   }
 }
 
-export default ComponentWrapper;
+export default ComponentViewer;

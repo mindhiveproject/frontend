@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import slugify from 'slugify';
-import ComponentBuilder from './builder';
+import ComponentEditor from './editor';
 
 import { COMPONENT_TO_CLONE_QUERY } from '../../../Queries/Component';
 
@@ -32,8 +32,6 @@ class ComponentModal extends Component {
             user.id === data.task?.author?.id ||
             data.task?.collaborators.map(c => c.id).includes(user.id);
 
-          // console.log('isAuthor', isAuthor);
-
           let task;
 
           if (isAuthor) {
@@ -56,10 +54,8 @@ class ComponentModal extends Component {
             };
           }
 
-          // console.log('task', task);
-
           return (
-            <ComponentBuilder {...this.props} task={task} isAuthor={isAuthor} />
+            <ComponentEditor {...this.props} task={task} isAuthor={isAuthor} />
           );
         }}
       </Query>
