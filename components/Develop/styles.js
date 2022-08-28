@@ -23,8 +23,9 @@ export const StyledBoard = styled.div`
   }
   .modal {
     display: grid;
+    background: #f4f5f5;
     align-content: baseline;
-    background: white;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
     position: fixed;
     height: 100%;
     top: 0;
@@ -78,6 +79,7 @@ export const StyledHeader = styled.div`
   grid-template-columns: 70% auto;
   grid-gap: 20px;
   padding: 50px;
+  background: #ffffff;
   .rightPanel {
     padding-top: 50px;
   }
@@ -86,6 +88,7 @@ export const StyledHeader = styled.div`
 export const StyledButtons = styled.div`
   width: 100%;
   display: grid;
+  grid-gap: 10px;
   justify-items: end;
   button {
     cursor: pointer;
@@ -100,17 +103,11 @@ export const StyledButtons = styled.div`
     letter-spacing: 0.05em;
     text-align: center;
   }
-  .closeBtn {
-    background: #ffffff;
-    color: #666666;
-    border: 2px solid #b3b3b3;
-  }
   .addBtn {
     background: #556aeb;
     color: white;
     border-radius: 100px;
     border: 0px;
-    margin-bottom: 15px;
   }
   .previewBtn {
     background: #e9ecef;

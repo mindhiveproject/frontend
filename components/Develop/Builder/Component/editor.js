@@ -5,8 +5,6 @@ import { StyledEditor } from './styles';
 import Navigation from './navigation';
 import EditPane from './editPane';
 
-import { CloseButton } from '../../../Preview/styles';
-
 class ComponentEditor extends Component {
   state = {
     task: { ...this.props.task },

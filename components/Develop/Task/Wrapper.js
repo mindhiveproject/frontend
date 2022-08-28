@@ -31,10 +31,6 @@ class TaskWrapper extends Component {
 
           return (
             <>
-              <CloseButton onClick={() => this.props.onModalClose()}>
-                &times;
-              </CloseButton>
-
               <StyledHeader>
                 <div>
                   <h1>{component?.title}</h1>
@@ -45,6 +41,14 @@ class TaskWrapper extends Component {
                     <div>
                       <button
                         className="addBtn"
+                        onClick={() => this.props.onModalClose()}
+                      >
+                        Done
+                      </button>
+                    </div>
+                    <div>
+                      <button
+                        className="previewBtn"
                         onClick={() => {
                           this.props.openEditor();
                         }}

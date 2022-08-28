@@ -2,16 +2,37 @@ import styled from 'styled-components';
 
 export const StyledEditor = styled.div`
   display: grid;
-
   font-family: Inter;
-
   background: #f4f5f5;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
 
   align-content: baseline;
-
-  resize: horizontal;
   overflow: auto;
+
+  p {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666666;
+  }
+
+  h1 {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #1a1a1a;
+  }
+
+  h2 {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    color: #1a1a1a;
+  }
 
   label {
     display: block;
@@ -55,23 +76,6 @@ export const StyledNavigation = styled.div`
   align-items: center;
   margin: 20px 22.5px 10px 42px;
 
-  p {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    color: #666666;
-  }
-
-  h1 {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    color: #1a1a1a;
-  }
-
   .firstLine {
     display: grid;
     align-items: center;
@@ -112,74 +116,55 @@ export const StyledNavigation = styled.div`
 
 export const StyledEditPane = styled.div`
   display: grid;
-  align-content: baseline;
-
+  grid-gap: 18px;
   margin-top: 10px;
   padding: 10px 48px 0px 42px;
 
-  resize: horizontal;
-  overflow: auto;
-
-  label {
-    display: block;
-  }
-  input {
-    margin-top: 10px;
-  }
-  input,
-  select {
-    width: 100%;
-    height: 46px;
-    font-family: Lato;
-    font-size: 16px;
+  .block {
     background: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    padding: 0px 0px 0px 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 8px;
+    padding: 20px 25px 20px 30px;
   }
-  input[type='checkbox'] {
-    width: 24px;
-    height: 24px;
-  }
+`;
+
+export const StyledParameters = styled.div`
+  display: grid;
+  grid-gap: 18px;
+`;
+
+export const StyledTaskBlock = styled.div`
+  display: grid;
+
   textarea {
-    width: 100%;
-    font-family: Lato;
-    font-size: 16px;
-    border: 1px solid #e6e6e6;
-    border-radius: 4px;
-    &:focus {
-      outline: 0;
-      background: mintcream;
-      border-color: ${props => props.theme.red};
-    }
+    height: 300px;
   }
-
-  .consentSelector {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .closeBtnContainerEdit {
-    display: grid;
-    justify-self: end;
-  }
-
-  .closeBtnEdit {
-    display: grid;
-    justify-self: end;
+  .addButton {
     cursor: pointer;
-    color: #5f6871;
-    margin: 0px -35px 0px 0px;
-    font-size: 2.5rem;
+    width: 5.5rem;
+    text-align: center;
+    border-radius: 6rem;
+    background-color: #4fbf1f;
+    color: white;
+    font-size: 3rem;
     :hover {
-      transform: scale(1.2);
+      background-color: #3cb906;
+      transform: scale(1.1);
       transition: transform 0.5s;
     }
   }
-  .createdByDropdown {
-    margin-bottom: 30px;
+  .activePageButton {
+    border-radius: 10rem;
+  }
+  .notActivePageButton {
+    border-radius: 10rem;
+    background-color: white;
+    color: darkgreen;
   }
 `;
+
+// resize: horizontal;
+// overflow: auto;
 
 // export const StyledEditorPage = styled.div`
 //   display: grid;
@@ -849,60 +834,6 @@ export const StyledPageButtons = styled.div`
 export const StyledPageHeader = styled.div`
   display: grid;
   grid-template-columns: 4fr 1fr;
-`;
-
-export const StyledTaskBlock = styled.div`
-  /* background: #fbfbfb; */
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-column-gap: 20px;
-  /* grid-row-gap: 20px; */
-  /* margin-top: 25px; */
-  margin-bottom: 15px;
-  /* border: 1px solid #eceaea; */
-  border-radius: 5px;
-  /* padding: 20px; */
-  .help {
-    font-size: 2rem;
-    font-weight: 500;
-  }
-  .example {
-    /* color: #554e4e;
-    font-weight: 400; */
-  }
-  .name {
-    color: lightslategrey;
-    font-weight: 400;
-    justify-self: end;
-  }
-  .input {
-    /* grid-column: 1/3; */
-  }
-  textarea {
-    height: 300px;
-  }
-  .addButton {
-    cursor: pointer;
-    width: 5.5rem;
-    text-align: center;
-    border-radius: 6rem;
-    background-color: #4fbf1f;
-    color: white;
-    font-size: 3rem;
-    :hover {
-      background-color: #3cb906;
-      transform: scale(1.1);
-      transition: transform 0.5s;
-    }
-  }
-  .activePageButton {
-    border-radius: 10rem;
-  }
-  .notActivePageButton {
-    border-radius: 10rem;
-    background-color: white;
-    color: darkgreen;
-  }
 `;
 
 export const StyledParameterBlock = styled.div`

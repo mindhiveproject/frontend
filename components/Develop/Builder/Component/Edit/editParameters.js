@@ -7,7 +7,7 @@ import ArrayBuilder from './Builder/arrayBuilder';
 
 import EditTemplateParameters from './editTemplateParameters';
 
-import { StyledTaskBlock } from '../styles';
+import { StyledParameters, StyledTaskBlock } from '../styles';
 
 class EditParameters extends Component {
   renderInput(type, name, value, options, array) {
@@ -90,26 +90,28 @@ class EditParameters extends Component {
     }
 
     return (
-      <div>
+      <StyledParameters>
         {parameters.map(
           ({ name, value, type, help, example, options, array }) => (
             <StyledTaskBlock key={name} htmlFor={name}>
-              <div className="help">
-                <p>{help}</p>
-              </div>
-              {example && (
-                <div className="example">
-                  <p>{example}</p>
+              <div className="block">
+                <div className="help">
+                  <h2>{help}</h2>
                 </div>
-              )}
+                {example && (
+                  <div className="example">
+                    <p>{example}</p>
+                  </div>
+                )}
 
-              <div className="input">
-                {this.renderInput(type, name, value, options, array)}
+                <div className="input">
+                  {this.renderInput(type, name, value, options, array)}
+                </div>
               </div>
             </StyledTaskBlock>
           )
         )}
-      </div>
+      </StyledParameters>
     );
   }
 }
