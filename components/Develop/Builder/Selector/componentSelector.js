@@ -40,6 +40,12 @@ class ComponentSelector extends Component {
             value={this.state.keyword}
             onChange={this.saveToState}
             placeholder="🔍 Search"
+            onFocus={() => {
+              this.props.engine.getModel().setLocked(true);
+            }}
+            onBlur={() => {
+              this.props.engine.getModel().setLocked(false);
+            }}
           />
 
           <Dropdown

@@ -164,7 +164,11 @@ const Diagram = React.memo(props => {
           />
         )}
       </StyledDigram>
-      <Settings {...props} addComponentToCanvas={addComponentToCanvas} />
+      <Settings
+        {...props}
+        addComponentToCanvas={addComponentToCanvas}
+        engine={engine}
+      />
     </StyledWrapper>
   );
 });
