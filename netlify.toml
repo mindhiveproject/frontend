@@ -63,8 +63,14 @@
   force = true
 
 [[redirects]]
-  from = "/dashboard/overview/*/*"
+  from = "/dashboard/overview/*"
   to = "/dashboard/overview/[item]/[page].html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/dashboard/overview/users/*"
+  to = "/dashboard/overview/users/[page].html"
   status = 200
   force = true
 

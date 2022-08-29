@@ -13,7 +13,7 @@ import OverviewClasses from './Classes/index';
 import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
 import ComponentBuilderWrapper from '../../Development/Component/builderWrapper';
 
-import { StyledDasboard, StyledDevelopDasboard } from '../styles';
+import { StyledDasboard, StyledOverviewDasboard } from '../styles';
 
 class DashboardOverview extends Component {
   state = {
@@ -58,7 +58,7 @@ class DashboardOverview extends Component {
       return (
         <AuthorizedPage>
           <StyledDasboard>
-            <StyledDevelopDasboard>
+            <StyledOverviewDasboard>
               <h1>Overview</h1>
               <div className="navigationHeader">
                 <p>Admin overview of the platform MindHive.</p>
@@ -183,7 +183,7 @@ class DashboardOverview extends Component {
               {tab === 'classes' && (
                 <OverviewClasses pagination={this.props.pagination} />
               )}
-            </StyledDevelopDasboard>
+            </StyledOverviewDasboard>
           </StyledDasboard>
         </AuthorizedPage>
       );

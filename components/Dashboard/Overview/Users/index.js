@@ -131,7 +131,7 @@ class OverviewUsers extends Component {
                   <div>Username</div>
                   <div>Email</div>
                   <div>Role</div>
-                  <div>Created at</div>
+                  <div>Date created</div>
                 </StyledHeader>
 
                 {users.map((person, i) => {
