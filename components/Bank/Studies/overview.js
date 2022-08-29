@@ -12,6 +12,10 @@ import PaginationStudies from '../../Pagination/allStudies';
 export const StyledOverview = styled.div`
   display: grid;
   grid-gap: 1rem;
+  .topRow {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
   .searchArea {
     display: grid;
     justify-content: start;

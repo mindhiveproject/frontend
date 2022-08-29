@@ -52,6 +52,7 @@ const StyledRow = styled.div`
 
 class OverviewUsers extends Component {
   state = {
+    pagination: this.props.pagination || 1,
     page: this.props.page || 'list',
     id: null,
     keyword: '',
@@ -100,19 +101,38 @@ class OverviewUsers extends Component {
 
     return (
       <StyledOverview>
-        <div className="searchArea">
-          <span>Search</span>
-          <input
-            type="text"
-            name="keyword"
-            value={this.state.keyword}
-            onChange={this.saveToState}
-          />
+        <div className="topRow">
+          <div className="searchArea">
+            <span>Search</span>
+            <input
+              type="text"
+              name="keyword"
+              value={this.state.keyword}
+              onChange={this.saveToState}
+            />
+          </div>
+          <div className="searchArea">
+            <span>Page</span>
+            <input
+              type="number"
+              name="pagination"
+              value={this.state.pagination}
+              min={1}
+              onChange={e => {
+                const { value } = e?.target;
+                if (value > 0) {
+                  this.setState({
+                    pagination: value,
+                  });
+                }
+              }}
+            />
+          </div>
         </div>
         <Query
           query={ALL_USERS_QUERY}
           variables={{
-            skip: this.props.pagination * perPage - perPage,
+            skip: this.state.pagination * perPage - perPage,
             first: perPage,
             search: this.state.search,
           }}
@@ -169,7 +189,7 @@ class OverviewUsers extends Component {
                 })}
 
                 <PaginationUsers
-                  pagination={this.props.pagination}
+                  pagination={this.state.pagination}
                   perPage={perPage}
                   search={this.state.search}
                 />
