@@ -25,7 +25,7 @@ const PAGINATION_USERS_QUERY = gql`
 
 class PaginationStudies extends Component {
   render() {
-    const { perPage, pagination, search } = this.props;
+    const { perPage, pagination, search, goToPage } = this.props;
     return (
       <Query query={PAGINATION_USERS_QUERY} variables={{ search }}>
         {({ data, error, loading }) => {
@@ -36,18 +36,24 @@ class PaginationStudies extends Component {
           const page = pagination || 1;
           return (
             <StyledPagination>
-              <Link href={`/dashboard/overview/users/${page - 1}`}>
+              <button
+                disabled={page <= 1}
+                onClick={() => goToPage(parseInt(page) - 1)}
+              >
                 <a aria-disabled={page <= 1}>Prev</a>
-              </Link>
+              </button>
               <p>
                 Page {page} of {pageCount}{' '}
               </p>
               <p>{countUsers} users total</p>
-              <Link href={`/dashboard/overview/users/${page + 1}`}>
+              <button
+                disabled={page >= pageCount}
+                onClick={() => goToPage(parseInt(page) + 1)}
+              >
                 <a aria-disabled={page >= pageCount} className="next">
                   Next
                 </a>
-              </Link>
+              </button>
             </StyledPagination>
           );
         }}

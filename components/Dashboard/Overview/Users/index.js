@@ -86,6 +86,14 @@ class OverviewUsers extends Component {
     this.debouncedSearch(e.target.value);
   };
 
+  goToPage = page => {
+    if (page > 0) {
+      this.setState({
+        pagination: page,
+      });
+    }
+  };
+
   render() {
     const perPage = 30;
     const { page } = this.state;
@@ -120,11 +128,7 @@ class OverviewUsers extends Component {
               min={1}
               onChange={e => {
                 const { value } = e?.target;
-                if (value > 0) {
-                  this.setState({
-                    pagination: value,
-                  });
-                }
+                this.goToPage(value);
               }}
             />
           </div>
@@ -192,6 +196,7 @@ class OverviewUsers extends Component {
                   pagination={this.state.pagination}
                   perPage={perPage}
                   search={this.state.search}
+                  goToPage={this.goToPage}
                 />
               </div>
             );

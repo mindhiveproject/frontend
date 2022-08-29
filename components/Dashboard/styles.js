@@ -236,7 +236,6 @@ export const StyledDevelopDasboard = styled.div`
 export const StyledOverviewDasboard = styled.div`
   width: 100%;
   display: grid;
-  font-size: 14px;
 
   .navigationHeader {
     display: grid;

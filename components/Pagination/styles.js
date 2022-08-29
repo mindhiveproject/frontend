@@ -32,4 +32,8 @@ export const StyledPagination = styled.div`
   .next {
     text-align: end;
   }
+  button {
+    background: white;
+    border: 0px white;
+  }
 `;
