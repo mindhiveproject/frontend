@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Query } from '@apollo/client/react/components';
+import moment from 'moment';
 import gql from 'graphql-tag';
 import debounce from 'lodash.debounce';
 import FetchStudentPage from '../../Classes/ClassPage/StudentPage/index';
@@ -28,6 +29,8 @@ const ALL_USERS_QUERY = gql`
       authEmail {
         email
       }
+      permissions
+      createdAt
     }
   }
 `;
@@ -35,7 +38,7 @@ const ALL_USERS_QUERY = gql`
 const StyledHeader = styled.div`
   display: grid;
   padding: 10px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   font-weight: bold;
 `;
 
@@ -43,7 +46,7 @@ const StyledRow = styled.div`
   display: grid;
   padding: 10px;
   margin-bottom: 2px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   background: white;
 `;
 
@@ -127,6 +130,8 @@ class OverviewUsers extends Component {
                   <div>Readable ID</div>
                   <div>Username</div>
                   <div>Email</div>
+                  <div>Role</div>
+                  <div>Created at</div>
                 </StyledHeader>
 
                 {users.map((person, i) => {
@@ -148,6 +153,16 @@ class OverviewUsers extends Component {
                       <div>
                         {person?.authEmail?.length &&
                           person?.authEmail[0]?.email}
+                      </div>
+                      <div>
+                        {person?.permissions.map(permission => (
+                          <span>{permission} </span>
+                        ))}
+                      </div>
+                      <div>
+                        {moment(person?.createdAt).format(
+                          'MMMM D, YY, h:mm:ss'
+                        )}
                       </div>
                     </StyledRow>
                   );
