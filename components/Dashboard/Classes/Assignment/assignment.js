@@ -3,29 +3,13 @@ import styled from 'styled-components';
 import moment from 'moment';
 
 import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
 import ReactHtmlParser from 'react-html-parser';
 
-import Homework from '../Homework/homework';
+import HomeworkWrapper from '../Homework/wrapper';
 
-const GET_ASSIGNMENT_HOMEWORKS = gql`
-  query GET_ASSIGNMENT_HOMEWORKS($id: ID!) {
-    assignment(where: { id: $id }) {
-      id
-      title
-      content
-      homework {
-        id
-        title
-        author {
-          username
-        }
-        createdAt
-      }
-    }
-  }
-`;
+import { GET_ONE_ASSIGNMENT } from '../../../Queries/Assignment';
+import { GET_ASSIGNMENT_HOMEWORKS } from '../../../Queries/Homework';
 
 const StyledEditor = styled.div`
   .header {
@@ -124,18 +108,13 @@ class Assignment extends Component {
             <div onClick={this.props.goBack}>&times;</div>
           </div>
         </div>
-        <Query
-          query={GET_ASSIGNMENT_HOMEWORKS}
-          variables={{ id: this.props.assignmentId }}
-        >
-          {({ data, loading }) => {
-            if (loading) return <p>Loading ... </p>;
-            if (!data || !data.assignment)
-              return (
-                <p>No assignment found for id {this.props.assignmentId}</p>
-              );
-            const { assignment } = data;
-            const { homework } = assignment;
+        <Query query={GET_ONE_ASSIGNMENT} variables={{ id: assignmentId }}>
+          {({ data: assignmentData, loading: assignmentLoading }) => {
+            if (assignmentLoading) return <p>Loading ... </p>;
+            if (!assignmentData || !assignmentData.assignment)
+              return <h2>No assignment found</h2>;
+            const { assignment } = assignmentData;
+
             return (
               <StyledAssignment>
                 <StyledPost>
@@ -146,28 +125,57 @@ class Assignment extends Component {
                     {ReactHtmlParser(assignment.content)}
                   </div>
                 </StyledPost>
-                <StyledHomeworkList>
-                  <h2>Submitted homework</h2>
-                  {page === 'homework' && (
-                    <Homework goBack={this.goBack} homeworkId={homeworkId} />
-                  )}
-                  {page === 'assignment' && (
-                    <div>
-                      {homework.map(work => (
-                        <div
-                          className="homeworkTab"
-                          onClick={() => this.openHomework(work?.id)}
-                        >
-                          <div>{work?.title}</div>
+
+                <Query
+                  query={GET_ASSIGNMENT_HOMEWORKS}
+                  variables={{ id: assignmentId }}
+                >
+                  {({ data: homeworkData, loading: homeworkLoading }) => {
+                    if (homeworkLoading) return <p>Loading ... </p>;
+                    if (
+                      !homeworkData ||
+                      !homeworkData.homeworks ||
+                      !homeworkData?.homeworks?.length
+                    )
+                      return (
+                        <h2>
+                          No homework submitted for assignment{' '}
+                          <i>{assignment.title}</i>
+                        </h2>
+                      );
+                    const { homeworks } = homeworkData;
+                    return (
+                      <StyledHomeworkList>
+                        <h2>Submitted homework</h2>
+                        {page === 'homework' && (
+                          <HomeworkWrapper
+                            assignmentTitle={assignment?.title}
+                            homeworkId={homeworkId}
+                            goBack={this.goBack}
+                          />
+                        )}
+                        {page === 'assignment' && (
                           <div>
-                            {moment(work?.createdAt).format('MMM D, YYYY')}
+                            {homeworks.map(work => (
+                              <div
+                                className="homeworkTab"
+                                onClick={() => this.openHomework(work?.id)}
+                              >
+                                <div>{work?.title}</div>
+                                <div>
+                                  {moment(work?.createdAt).format(
+                                    'MMM D, YYYY'
+                                  )}
+                                </div>
+                                <div>{work?.author?.username}</div>
+                              </div>
+                            ))}
                           </div>
-                          <div>{work?.author?.username}</div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </StyledHomeworkList>
+                        )}
+                      </StyledHomeworkList>
+                    );
+                  }}
+                </Query>
               </StyledAssignment>
             );
           }}

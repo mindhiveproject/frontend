@@ -1,21 +1,9 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
 import ClassPage from '../classpage';
 
-export const GET_ONE_ASSIGNMENT = gql`
-  query GET_ONE_ASSIGNMENT($id: ID!) {
-    assignment(where: { id: $id }) {
-      id
-      title
-      content
-      classes {
-        id
-      }
-    }
-  }
-`;
+import { GET_ONE_ASSIGNMENT } from '../../../Queries/Assignment';
 
 class AssignmentPage extends Component {
   render() {

@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 
 import Note from '../../Jodit/note';
 
-import { MY_ASSIGNMENT_HOMEWORKS } from './assignmentTab';
+import { MY_ASSIGNMENT_HOMEWORKS } from '../../../Queries/Homework';
 
 const GET_ASSIGNMENT = gql`
   query GET_ASSIGNMENT($id: ID!) {

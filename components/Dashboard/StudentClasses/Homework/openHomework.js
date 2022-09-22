@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Mutation, Query } from '@apollo/client/react/components';
+import { Query } from '@apollo/client/react/components';
 import styled from 'styled-components';
+import ReactHtmlParser from 'react-html-parser';
 
-import Note from '../../Jodit/note';
-
-import { UPDATE_HOMEWORK } from '../../../Mutations/Homework';
 import { GET_HOMEWORK } from '../../../Queries/Homework';
 
 const StyledEditor = styled.div`
@@ -30,10 +28,15 @@ const StyledEditor = styled.div`
 
 const StyledSelectionScreen = styled.div`
   display: grid;
+  grid-gap: 15px;
   background: #f7f9f8;
+  .content {
+    background: white;
+    padding: 10px;
+  }
 `;
 
-class EditHomework extends Component {
+class OpenHomework extends Component {
   state = {
     id: this.props.homeworkId,
   };
@@ -70,34 +73,22 @@ class EditHomework extends Component {
             const { homework } = data;
             return (
               <StyledSelectionScreen>
-                <Mutation
-                  mutation={UPDATE_HOMEWORK}
-                  variables={this.state}
-                  refetchQueries={[
-                    {
-                      query: GET_HOMEWORK,
-                      variables: { id: this.props.homeworkId },
-                    },
-                  ]}
-                >
-                  {(updateHomework, { loading, error }) => (
-                    <>
-                      <Note
-                        onSubmit={async e => {
-                          e.preventDefault();
-                          const res = await updateHomework();
-                          this.props.goBack();
-                        }}
-                        loading={loading}
-                        title={this.state.title || homework.title}
-                        onTitleChange={this.handleTitleChange}
-                        content={this.state.content || homework.content}
-                        onContentChange={this.handleContentChange}
-                        btnName="Save"
-                      />
-                    </>
-                  )}
-                </Mutation>
+                <h2>{homework?.title}</h2>
+                <div className="content">
+                  {ReactHtmlParser(homework?.content)}
+                </div>
+                {homework?.settings?.status && (
+                  <div>
+                    <h3>Status</h3>
+                    <p>{homework?.settings?.status}</p>
+                  </div>
+                )}
+                {homework?.settings?.comment && (
+                  <div>
+                    <h3>Comment</h3>
+                    <p>{homework?.settings?.comment}</p>
+                  </div>
+                )}
               </StyledSelectionScreen>
             );
           }}
@@ -107,4 +98,4 @@ class EditHomework extends Component {
   }
 }
 
-export default EditHomework;
+export default OpenHomework;

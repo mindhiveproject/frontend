@@ -1,31 +1,11 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
 import styled from 'styled-components';
 import Note from '../../Jodit/note';
 
-import { CLASS_ASSIGNMENTS } from './wrapper';
-
-const CREATE_NEW_ASSIGNMENT = gql`
-  mutation CREATE_NEW_ASSIGNMENT(
-    $title: String
-    $content: String
-    $settings: Json
-    $classId: ID
-    $public: Boolean
-  ) {
-    createAssignment(
-      title: $title
-      content: $content
-      settings: $settings
-      classId: $classId
-      public: $public
-    ) {
-      id
-    }
-  }
-`;
+import { CLASS_ASSIGNMENTS } from '../../../Queries/Assignment';
+import { CREATE_NEW_ASSIGNMENT } from '../../../Mutations/Assignment';
 
 const StyledSelectionScreen = styled.div`
   display: grid;

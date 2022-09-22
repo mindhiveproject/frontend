@@ -1,24 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-
-import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 
 import HomeworkTab from '../Homework/homeworkTab';
 
-export const MY_ASSIGNMENT_HOMEWORKS = gql`
-  query MY_ASSIGNMENT_HOMEWORKS($id: ID!) {
-    myHomeworks(where: { assignment: { id: $id } }) {
-      id
-      title
-      content
-      settings
-      createdAt
-      updatedAt
-    }
-  }
-`;
+import { MY_ASSIGNMENT_HOMEWORKS } from '../../../Queries/Homework';
 
 const StyledAssignmentTab = styled.div`
   display: grid;
@@ -118,6 +105,7 @@ class AssignmentTab extends Component {
                       key={homework.id}
                       homework={homework}
                       openHomework={this.props.openHomework}
+                      editHomework={this.props.editHomework}
                       assignmentId={assignment.id}
                     />
                   ))}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import Error from '../../../ErrorMessage/index';
 
@@ -9,18 +8,7 @@ import AddAssignment from './addAssignment';
 import AssignmentTab from './assignmentTab';
 import EditAssignment from './editAssignment';
 
-export const CLASS_ASSIGNMENTS = gql`
-  query CLASS_ASSIGNMENTS($id: ID!) {
-    assignments(where: { classes_some: { id: $id } }) {
-      id
-      title
-      settings
-      public
-      createdAt
-      updatedAt
-    }
-  }
-`;
+import { CLASS_ASSIGNMENTS } from '../../../Queries/Assignment';
 
 class ClassAssignments extends Component {
   state = {

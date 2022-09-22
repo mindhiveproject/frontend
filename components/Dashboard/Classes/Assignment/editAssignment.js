@@ -1,40 +1,14 @@
 import React, { Component, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Mutation, Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
 import Note from '../../Jodit/note';
 
-import { CLASS_ASSIGNMENTS } from './wrapper';
-
-export const GET_ASSIGNMENT = gql`
-  query GET_ASSIGNMENT($id: ID!) {
-    assignment(where: { id: $id }) {
-      id
-      title
-      content
-      public
-    }
-  }
-`;
-
-export const UPDATE_ASSIGNMENT = gql`
-  mutation UPDATE_ASSIGNMENT(
-    $id: ID!
-    $title: String
-    $content: String
-    $public: Boolean
-  ) {
-    updateAssignment(
-      id: $id
-      title: $title
-      content: $content
-      public: $public
-    ) {
-      id
-    }
-  }
-`;
+import {
+  CLASS_ASSIGNMENTS,
+  GET_ONE_ASSIGNMENT,
+} from '../../../Queries/Assignment';
+import { UPDATE_ASSIGNMENT } from '../../../Mutations/Assignment';
 
 const StyledSelectionScreen = styled.div`
   display: grid;
@@ -84,7 +58,7 @@ class EditAssignment extends Component {
     return (
       <>
         <Query
-          query={GET_ASSIGNMENT}
+          query={GET_ONE_ASSIGNMENT}
           variables={{ id: this.props.assignmentId }}
         >
           {({ data, loading }) => {
@@ -111,7 +85,7 @@ class EditAssignment extends Component {
                       variables: { id: this.props.classId },
                     },
                     {
-                      query: GET_ASSIGNMENT,
+                      query: GET_ONE_ASSIGNMENT,
                       variables: { id: this.props.assignmentId },
                     },
                   ]}

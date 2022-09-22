@@ -8,8 +8,11 @@ import { Mutation } from '@apollo/client/react/components';
 import ReactHtmlParser from 'react-html-parser';
 import DeleteAssignment from './deleteAssignment';
 
-import { GET_ASSIGNMENT, UPDATE_ASSIGNMENT } from './editAssignment';
-import { CLASS_ASSIGNMENTS } from './wrapper';
+import { UPDATE_ASSIGNMENT } from '../../../Mutations/Assignment';
+import {
+  CLASS_ASSIGNMENTS,
+  GET_ONE_ASSIGNMENT,
+} from '../../../Queries/Assignment';
 
 const StyledPost = styled.div`
   display: grid;
@@ -142,14 +145,17 @@ class AssignmentTab extends Component {
 
           <div className="headerInfo">
             {assignment.public ? (
-              <button onClick={() => this.props.openAssignment(assignment.id)}>
-                Homework
-              </button>
+              <a onClick={() => this.props.openAssignment(assignment?.id)}>
+                <p>
+                  {assignment?.homework?.filter(h => h?.public)?.length || 0}{' '}
+                  submitted
+                </p>
+              </a>
             ) : (
               <div className="buttons">
                 <button
                   className="secondary"
-                  onClick={() => this.props.editAssignment(assignment.id)}
+                  onClick={() => this.props.editAssignment(assignment?.id)}
                 >
                   Edit
                 </button>
@@ -163,7 +169,7 @@ class AssignmentTab extends Component {
                       variables: { id: this.props.classId },
                     },
                     {
-                      query: GET_ASSIGNMENT,
+                      query: GET_ONE_ASSIGNMENT,
                       variables: { id: this.props.assignment.id },
                     },
                   ]}
@@ -190,8 +196,6 @@ class AssignmentTab extends Component {
             )}
           </div>
         </div>
-
-        <div className="content">{ReactHtmlParser(assignment.content)}</div>
       </StyledPost>
     );
   }

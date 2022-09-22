@@ -5,23 +5,17 @@ import styled from 'styled-components';
 
 const StyledTools = styled.div`
   display: grid;
-  /* align-content: baseline; */
-  /* background: #ffffff; */
-  /* margin-top: 10px; */
-  /* padding: 10px 48px 0px 42px; */
 
   .toolsMenu {
     display: grid;
     width: 100%;
     grid-template-columns: repeat(6, auto);
-    /* margin: 20px 6px 29px 6px !important; */
     cursor: pointer;
 
     .toolsMenuTitle {
       padding-bottom: 10px !important;
       display: grid;
       justify-content: center;
-      /* border-bottom: 2px solid #e6e6e6; */
       width: auto;
       p {
         font-size: 18px;

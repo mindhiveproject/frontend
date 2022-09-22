@@ -1,23 +1,9 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import styled from 'styled-components';
 import moment from 'moment';
 
-export const TEMPLATE_ASSIGNMENTS = gql`
-  query TEMPLATE_ASSIGNMENTS {
-    assignments(where: { isTemplate: true }) {
-      id
-      title
-      content
-      createdAt
-      updatedAt
-      author {
-        username
-      }
-    }
-  }
-`;
+import { TEMPLATE_ASSIGNMENTS } from '../../../Queries/Assignment';
 
 const StyledSelectionScreen = styled.div`
   display: grid;

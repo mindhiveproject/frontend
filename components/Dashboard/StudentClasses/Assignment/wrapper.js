@@ -9,6 +9,7 @@ import AssignmentTab from './assignmentTab';
 import Homework from './homework';
 
 import EditHomework from '../Homework/editHomework';
+import OpenHomework from '../Homework/openHomework';
 
 export const CLASS_ASSIGNMENTS = gql`
   query CLASS_ASSIGNMENTS($id: ID!) {
@@ -60,6 +61,13 @@ class ClassAssignments extends Component {
 
   openHomework = homeworkId => {
     this.setState({
+      page: 'openhomework',
+      homeworkId,
+    });
+  };
+
+  editHomework = homeworkId => {
+    this.setState({
       page: 'edithomework',
       homeworkId,
     });
@@ -91,6 +99,10 @@ class ClassAssignments extends Component {
           assignmentId={assignmentId}
         />
       );
+    }
+
+    if (page === 'openhomework') {
+      return <OpenHomework goBack={this.goBack} homeworkId={homeworkId} />;
     }
 
     if (page === 'edithomework') {
@@ -131,6 +143,7 @@ class ClassAssignments extends Component {
                         workOnAssignment={this.workOnAssignment}
                         viewAssignment={this.viewAssignment}
                         openHomework={this.openHomework}
+                        editHomework={this.editHomework}
                         featuredAssignmentId={this.props.featuredAssignmentId}
                       />
                     ))}

@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
-import { CLASS_ASSIGNMENTS } from './wrapper';
-
-const DELETE_ASSIGNMENT_MUTATION = gql`
-  mutation DELETE_ASSIGNMENT_MUTATION($id: ID!) {
-    deleteAssignment(id: $id) {
-      id
-    }
-  }
-`;
+import { CLASS_ASSIGNMENTS } from '../../../Queries/Assignment';
+import { DELETE_ASSIGNMENT_MUTATION } from '../../../Mutations/Assignment';
 
 class DeleteAssignment extends Component {
   render() {
