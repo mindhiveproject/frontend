@@ -21,10 +21,18 @@ class Message extends Component {
         <div className="header">
           <div className="nameDate">
             <div>
-              <span>{message?.author?.username} </span>
-              <span className="date">
-                | {moment(message?.createdAt).format('MMMM D, YYYY HH:MM')}
-              </span>
+              <div>
+                <span>{message?.author?.username} </span>
+                <span className="date">
+                  | {moment(message?.createdAt).format('MMMM Do YYYY, h:mm a')}
+                </span>
+              </div>
+              {message?.updatedAt !== message?.createdAt && (
+                <div className="date">
+                  Edited on:{' '}
+                  {moment(message?.updatedAt).format('MMMM Do YYYY, h:mm a')}
+                </div>
+              )}
             </div>
             {isMessageAuthor && (
               <div className="editLinks">

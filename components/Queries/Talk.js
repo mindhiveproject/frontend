@@ -72,6 +72,7 @@ export const GET_MAIN_MESSAGES_OF_CHAT = gql`
         id
       }
       createdAt
+      updatedAt
     }
   }
 `;
@@ -95,6 +96,7 @@ export const GET_MESSAGE = gql`
         id
       }
       createdAt
+      updatedAt
     }
   }
 `;

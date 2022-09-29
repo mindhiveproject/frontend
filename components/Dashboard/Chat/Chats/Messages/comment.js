@@ -16,6 +16,7 @@ import { StyledComment } from '../../styles';
 class Comment extends Component {
   render() {
     const { userId, chatId, message } = this.props;
+
     return (
       <Query query={GET_MESSAGE} variables={{ id: message?.id }}>
         {({ error, loading, data }) => {
@@ -28,12 +29,22 @@ class Comment extends Component {
           return (
             <StyledComment>
               <div className="header">
+                {message?.id}
                 <div className="nameDate">
                   <div>
-                    <span>{word?.author?.username} </span>
-                    <span className="date">
-                      | {moment(word?.createdAt).format('MMMM D, YYYY HH:MM')}
-                    </span>
+                    <div>
+                      <span>{word?.author?.username} </span>
+                      <span className="date">
+                        |{' '}
+                        {moment(word?.createdAt).format('MMMM Do YYYY, h:mm a')}
+                      </span>
+                    </div>
+                    {word?.updatedAt !== word?.createdAt && (
+                      <div className="date">
+                        Edited on:{' '}
+                        {moment(word?.updatedAt).format('MMMM Do YYYY, h:mm a')}
+                      </div>
+                    )}
                   </div>
                   {isMessageAuthor && (
                     <div className="editLinks">
