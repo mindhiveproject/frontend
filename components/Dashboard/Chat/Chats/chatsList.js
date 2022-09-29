@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
 import styled from 'styled-components';
 import ChatRow from './chatRow';
 import { StyledDasboard, StyledClassesDasboard } from '../../styles';
+
+import { MY_TALKS_QUERY } from '../../../Queries/Talk';
 
 const StyledChatHeader = styled.div`
   display: grid;
@@ -13,25 +14,6 @@ const StyledChatHeader = styled.div`
   grid-template-columns: 1fr 2fr 1fr;
   cursor: pointer;
   font-weight: bold;
-`;
-
-// query my chats
-const MY_TALKS_QUERY = gql`
-  query MY_TALKS_QUERY {
-    myTalks {
-      id
-      author {
-        id
-        publicReadableId
-      }
-      members {
-        id
-        username
-      }
-      settings
-      createdAt
-    }
-  }
 `;
 
 class ChatsList extends Component {
@@ -98,4 +80,3 @@ class ChatsList extends Component {
 }
 
 export default ChatsList;
-export { MY_TALKS_QUERY };

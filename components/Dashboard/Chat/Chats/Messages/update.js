@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
 import styled from 'styled-components';
+import { Icon, Modal } from 'semantic-ui-react';
 
-import { Modal } from 'semantic-ui-react';
-
-import { CREATE_NEW_MESSAGE } from '../../../../Mutations/Talk';
-
+import { UPDATE_MESSAGE } from '../../../../Mutations/Talk';
 import Note from '../../../Jodit/note';
 
 const StyledModalWrapper = styled.div`
@@ -13,13 +11,16 @@ const StyledModalWrapper = styled.div`
   margin: 2rem;
 `;
 
-class CreateMessage extends Component {
+const StyledEditButton = styled.div`
+  color: tile;
+  cursor: pointer;
+`;
+
+class UpdateMessage extends Component {
   state = {
-    talk: this.props.chatId,
-    parent: this.props.parentMessageId,
-    isMain: this.props.isMain,
-    message: '',
-    settings: {},
+    id: this.props.message?.id,
+    message: this.props.message?.message,
+    settings: this.props.message?.settings || {},
   };
 
   handleChange = e => {
@@ -51,13 +52,13 @@ class CreateMessage extends Component {
   render() {
     return (
       <Mutation
-        mutation={CREATE_NEW_MESSAGE}
+        mutation={UPDATE_MESSAGE}
         variables={this.state}
         refetchQueries={this.props.refetchQueries}
       >
-        {(createMessage, { loading, error }) => (
+        {(updateMessage, { loading, error }) => (
           <ModalExampleModal
-            createMessage={createMessage}
+            createMessage={updateMessage}
             loading={loading}
             title={this.state?.settings?.title}
             message={this.state.message}
@@ -88,7 +89,11 @@ function ModalExampleModal({
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<button>{btnName}</button>}
+      trigger={
+        <StyledEditButton>
+          <Icon name="edit" />
+        </StyledEditButton>
+      }
     >
       <StyledModalWrapper>
         <Note
@@ -109,4 +114,4 @@ function ModalExampleModal({
   );
 }
 
-export default CreateMessage;
+export default UpdateMessage;

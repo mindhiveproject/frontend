@@ -445,3 +445,67 @@ export const StyledSubmitForm = styled.form`
     margin: 2rem 0rem;
   }
 `;
+
+export const StyledCreateChatForm = styled.form`
+  display: grid;
+  justify-self: center;
+  justify-content: center;
+  align-content: center;
+  grid-row-gap: 5px;
+  font-family: Lato;
+  .membersBlock {
+    width: 100%;
+    margin: 10px 0rem;
+  }
+  label {
+    width: 100%;
+    display: block;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  input,
+  textarea,
+  select {
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    width: -webkit-fill-available;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 12px;
+    &:focus {
+      outline: 0;
+      border-color: ${props => props.theme.red};
+    }
+  }
+  button,
+  input[type='submit'] {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    background: #007c70;
+    color: white;
+    padding: 1.5rem 0.5rem;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 100%;
+    border: 2px solid #007c70;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  fieldset {
+    display: grid;
+    justify-self: center;
+    justify-items: center;
+    grid-gap: 5px;
+    width: 100%;
+    max-width: 500px;
+    border: 0;
+    padding: 0;
+    &[disabled] {
+      opacity: 0.5;
+    }
+  }
+`;

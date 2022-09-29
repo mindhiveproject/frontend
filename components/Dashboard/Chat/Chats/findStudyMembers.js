@@ -1,7 +1,7 @@
 import React, { useState, Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
-import { Dropdown, Icon } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 const MY_STUDIES = gql`
   query MY_STUDIES {
@@ -59,12 +59,7 @@ const DropdownExampleMultipleSelection = ({
   handleSetState,
 }) => {
   const onChange = (event, data) => {
-    const members = classOptions
-      .filter(c => data.value.includes(c.value))
-      .map(c => c.members)
-      .flat();
-    const uniqueMembers = [...new Set(members)];
-    handleSetState('studies', data.value, uniqueMembers);
+    handleSetState('studies', data.value);
   };
 
   return (

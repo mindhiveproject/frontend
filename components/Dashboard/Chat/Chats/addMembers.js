@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Mutation } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 
-import { MY_TALKS_QUERY } from './chatsList';
+import { MY_TALKS_QUERY } from '../../../Queries/Talk';
 
-import { StyledSubmitForm } from '../../../Styles/Forms';
+import { StyledCreateChatForm } from '../../../Styles/Forms';
 import FindMember from './findMember';
 
 const ADD_NEW_MEMBERS_TO_TALK = gql`
@@ -78,7 +78,7 @@ class AddMembersToTalk extends Component {
                 </div>
               </div>
 
-              <StyledSubmitForm
+              <StyledCreateChatForm
                 onSubmit={async e => {
                   e.preventDefault();
                   const res = await addMembersToTalk();
@@ -98,7 +98,7 @@ class AddMembersToTalk extends Component {
                   </div>
                   <button type="submit">Add</button>
                 </fieldset>
-              </StyledSubmitForm>
+              </StyledCreateChatForm>
             </>
           )}
         </Mutation>

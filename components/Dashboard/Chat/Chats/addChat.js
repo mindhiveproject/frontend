@@ -1,26 +1,18 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
-import { MY_TALKS_QUERY } from './chatsList';
+import { MY_TALKS_QUERY } from '../../../Queries/Talk';
+import { CREATE_NEW_TALK } from '../../../Mutations/Talk';
 
-import { StyledSubmitForm } from '../../../Styles/Forms';
+import { StyledCreateChatForm } from '../../../Styles/Forms';
 import FindMember from './findMember';
 import FindClassMembers from './findClassMembers';
 import FindStudyMembers from './findStudyMembers';
 
-const CREATE_NEW_TALK = gql`
-  mutation CREATE_NEW_TALK($members: [ID]!, $settings: Json) {
-    createTalk(members: $members, settings: $settings) {
-      id
-    }
-  }
-`;
-
 const StyledSelectionScreen = styled.div`
   display: grid;
-  height: 100vh;
+  height: 90vh;
   background: #f7f9f8;
   grid-template-rows: 0px auto;
   .header {
@@ -37,7 +29,7 @@ const StyledSelectionScreen = styled.div`
     padding-bottom: 5px;
     font-size: 2rem;
     :hover {
-      transform: scale(1.1);
+      transform: scale(1.3);
       transition: transform 0.5s;
     }
   }
@@ -45,10 +37,10 @@ const StyledSelectionScreen = styled.div`
 
 class AddChat extends Component {
   state = {
+    settings: {},
     members: [],
     classes: [],
     studies: [],
-    settings: {},
   };
 
   handleSettingsChange = e => {
@@ -62,22 +54,6 @@ class AddChat extends Component {
   handleSetState = (name, value) => {
     this.setState({
       [name]: value,
-    });
-  };
-
-  handleClassChange = (name, value, members) => {
-    const updatedMembers = [...new Set([...this.state.members, ...members])];
-    this.setState({
-      classes: value,
-      members: updatedMembers,
-    });
-  };
-
-  handleStudyChange = (name, value, members) => {
-    const updatedMembers = [...new Set([...this.state.members, ...members])];
-    this.setState({
-      studies: value,
-      members: updatedMembers,
     });
   };
 
@@ -98,7 +74,7 @@ class AddChat extends Component {
                 </div>
               </div>
 
-              <StyledSubmitForm
+              <StyledCreateChatForm
                 onSubmit={async e => {
                   e.preventDefault();
                   const res = await createTalk();
@@ -123,7 +99,7 @@ class AddChat extends Component {
                     <p>Add by class</p>
                     <FindClassMembers
                       classes={this.state.classes}
-                      handleClassChange={this.handleClassChange}
+                      handleClassChange={this.handleSetState}
                     />
                   </div>
 
@@ -131,12 +107,12 @@ class AddChat extends Component {
                     <p>Add by study</p>
                     <FindStudyMembers
                       studies={this.state.studies}
-                      handleStudyChange={this.handleStudyChange}
+                      handleStudyChange={this.handleSetState}
                     />
                   </div>
 
                   <div className="membersBlock">
-                    <p>The following MinHive members will be invited</p>
+                    <p>Add by members</p>
                     <FindMember
                       members={this.state.members}
                       handleSetState={this.handleSetState}
@@ -144,7 +120,7 @@ class AddChat extends Component {
                   </div>
                   <button type="submit">Create</button>
                 </fieldset>
-              </StyledSubmitForm>
+              </StyledCreateChatForm>
             </>
           )}
         </Mutation>

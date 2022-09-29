@@ -28,7 +28,7 @@ const StyledChatHeader = styled.div`
   }
   .title {
     font-family: Lato;
-    font-size: 48px;
+    font-size: 36px;
     font-style: normal;
     font-weight: 400;
     line-height: 56px;

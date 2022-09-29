@@ -1,58 +1,81 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import styled from 'styled-components';
 import ReactHtmlParser from 'react-html-parser';
 
-const StyledMessage = styled.div`
-  display: grid;
-  background: white;
-  margin: 15px 5px;
-  padding: 1.5rem;
+import CreateMessage from './create';
+import UpdateMessage from './update';
+import DeleteMessage from './delete';
 
-  .header {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr auto;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid lightgrey;
-    .title {
-      font-size: 2rem;
-    }
-    .nameDate {
-      display: grid;
-      grid-gap: 0.5rem;
-      grid-template-columns: 1fr;
-      text-align: end;
-      font-weight: bold;
-      .date {
-        font-size: 1rem;
-        font-weight: 500;
-        color: grey;
-        font-style: italic;
-      }
-    }
-  }
-  .content {
-    display: grid;
-    margin: 1rem 0rem;
-  }
-`;
+import Comment from './comment';
+
+import { StyledMessage } from '../../styles';
+import { GET_MAIN_MESSAGES_OF_CHAT } from '../../../../Queries/Talk';
 
 class Message extends Component {
   render() {
-    const { message } = this.props;
+    const { chatId, message } = this.props;
+    const isMessageAuthor = message?.author?.id === this.props.userId;
+
     return (
       <StyledMessage>
         <div className="header">
-          <div className="title">{message?.settings?.title}</div>
           <div className="nameDate">
-            <div>{message?.author?.username}</div>
-            <div className="date">
-              {moment(message?.createdAt).format('MMMM D, YYYY HH:MM')}
+            <div>
+              <span>{message?.author?.username} </span>
+              <span className="date">
+                | {moment(message?.createdAt).format('MMMM D, YYYY HH:MM')}
+              </span>
             </div>
+            {isMessageAuthor && (
+              <div className="editLinks">
+                <UpdateMessage
+                  message={message}
+                  refetchQueries={[
+                    {
+                      query: GET_MAIN_MESSAGES_OF_CHAT,
+                      variables: { id: chatId },
+                    },
+                  ]}
+                />
+                <DeleteMessage
+                  chatId={chatId}
+                  messageId={message?.id}
+                  refetchQueries={[
+                    {
+                      query: GET_MAIN_MESSAGES_OF_CHAT,
+                      variables: { id: chatId },
+                    },
+                  ]}
+                />
+              </div>
+            )}
           </div>
+          <div className="title">{message?.settings?.title}</div>
         </div>
         <div className="content">{ReactHtmlParser(message?.message)}</div>
+        <div className="replyBtn">
+          <CreateMessage
+            chatId={chatId}
+            parentMessageId={message?.id}
+            btnName="Reply"
+            refetchQueries={[
+              {
+                query: GET_MAIN_MESSAGES_OF_CHAT,
+                variables: { id: chatId },
+              },
+            ]}
+          />
+        </div>
+        <div className="comments">
+          {message.children.map((comment, num) => (
+            <Comment
+              key={num}
+              userId={this.props.userId}
+              chatId={chatId}
+              message={comment}
+            />
+          ))}
+        </div>
       </StyledMessage>
     );
   }
