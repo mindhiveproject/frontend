@@ -29,7 +29,6 @@ class Comment extends Component {
           return (
             <StyledComment>
               <div className="header">
-                {message?.id}
                 <div className="nameDate">
                   <div>
                     <div>
