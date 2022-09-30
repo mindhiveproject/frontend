@@ -92,20 +92,6 @@ export default class Navigation extends Component {
             </Menu.Item>
 
             <Menu.Item
-              name="builder"
-              active={page === 'builder'}
-              onClick={this.props.handlePageChange}
-              className={
-                page === 'builder'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
-              }
-            >
-              <img src="/content/icons/Edit.svg" />
-              <p>Study Builder</p>
-            </Menu.Item>
-
-            <Menu.Item
               name="participant"
               active={page === 'participant'}
               onClick={this.props.handlePageChange}
@@ -117,6 +103,20 @@ export default class Navigation extends Component {
             >
               <img src="/content/icons/Finder.svg" />
               <p>Participant Page</p>
+            </Menu.Item>
+
+            <Menu.Item
+              name="builder"
+              active={page === 'builder'}
+              onClick={this.props.handlePageChange}
+              className={
+                page === 'builder'
+                  ? 'discoverMenuTitle selectedMenuTitle'
+                  : 'discoverMenuTitle'
+              }
+            >
+              <img src="/content/icons/Edit.svg" />
+              <p>Study Builder</p>
             </Menu.Item>
 
             <Menu.Item

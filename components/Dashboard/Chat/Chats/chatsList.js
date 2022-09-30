@@ -55,7 +55,7 @@ class ChatsList extends Component {
                   <div>
                     <StyledChatHeader>
                       <div>Name</div>
-                      <div>Members</div>
+                      <div>Classes / Studies / Members</div>
                       <div>Date created</div>
                     </StyledChatHeader>
 

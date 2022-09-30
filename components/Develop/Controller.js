@@ -8,7 +8,7 @@ import FullScreenPreview from '../Preview/fullscreen';
 
 export default class Controller extends Component {
   state = {
-    page: 'builder',
+    page: 'participant',
     study: { ...this.props.study },
     isTaskSelectorOpen: false,
     isTaskBuilderOpen: false,

@@ -21,20 +21,27 @@ export const StyledGroupChat = styled.div`
     }
   }
   .members {
-    font-size: 1.2rem;
     display: grid;
-    grid-gap: 1rem;
     width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(50px, auto));
     justify-content: end;
+    .title {
+      padding: 1px;
+      margin: 0px 5px 0px 0px;
+      border-radius: 5px;
+      border: 1px solid #007c70;
+    }
+    .item {
+      padding: 0px 5px 0px 0px;
+    }
     .member {
       display: grid;
       background: white;
-      border: 2px solid #007c70;
+      border: 1px solid #007c70;
       width: max-content;
       padding: 0.7rem;
       border-radius: 2rem;
       justify-content: center;
+      align-content: center;
     }
   }
   .replyBtn {
@@ -104,5 +111,56 @@ export const StyledComment = styled.div`
     display: grid;
     padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
+  }
+`;
+
+export const StyledWrapper = styled.div`
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  .controlBtns {
+    display: grid;
+    align-content: space-around;
+    height: 100%;
+  }
+  .addMembersBtn {
+    cursor: pointer;
+  }
+`;
+
+export const StyledChatRow = styled.div`
+  display: grid;
+  grid-gap: 2rem;
+  margin: 1rem 0rem;
+  padding: 1rem;
+  grid-template-columns: 1fr 2fr 1fr;
+  background: white;
+  cursor: pointer;
+  align-items: center;
+  .members {
+    display: grid;
+    width: 100%;
+    justify-content: start;
+    .title  {
+      padding: 1px;
+      margin: 0px 5px 0px 0px;
+      border-radius: 5px;
+      border: 1px solid #007c70;
+    }
+    .item  {
+      background: white;
+      padding: 0px 5px 0px 0px;
+    }
+    .member {
+      display: grid;
+      background: white;
+      border: 1px solid #007c70;
+      width: max-content;
+      padding: 0.7rem;
+      border-radius: 2rem;
+      justify-content: center;
+      align-content: center;
+    }
   }
 `;

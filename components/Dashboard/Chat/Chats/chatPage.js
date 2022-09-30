@@ -9,12 +9,12 @@ import Message from './Messages/message';
 import CreateMessage from './Messages/create';
 import EditChatTitle from './editChatTitle';
 
+import { StyledGroupChat } from '../styles';
+
 import {
   VIEW_TALK_QUERY,
   GET_MAIN_MESSAGES_OF_CHAT,
 } from '../../../Queries/Talk';
-
-import { StyledGroupChat } from '../styles';
 
 class ChatPage extends Component {
   state = {};
@@ -58,11 +58,38 @@ class ChatPage extends Component {
                   />
 
                   <div className="members">
-                    {talk?.members?.map((member, num) => (
-                      <div className="member" key={num}>
-                        {member?.username}
+                    {talk?.classes.length > 0 && (
+                      <div>
+                        <span className="title">Classes</span>
+                        {talk?.classes?.map((theClass, num) => (
+                          <span className="item" key={num}>
+                            {theClass?.title} 
+                          </span>
+                        ))}
                       </div>
-                    ))}
+                    )}
+
+                    {talk?.studies.length > 0 && (
+                      <div>
+                        <span className="title">Studies</span>
+                        {talk?.studies?.map((study, num) => (
+                          <span className="item" key={num}>
+                            {study?.title}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {talk?.members.length > 0 && (
+                      <div>
+                        <span className="title">Members</span>
+                        {talk?.members?.map((member, num) => (
+                          <span className="item" key={num}>
+                            {member?.username}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </>
