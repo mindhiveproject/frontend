@@ -75,7 +75,7 @@ class Message extends Component {
         <div className="content">{ReactHtmlParser(message?.message)}</div>
 
         <div className="comments">
-          <div>
+          <div className="content">
             {message?.children?.length > 0 && (
               <Accordion fluid>
                 <Accordion.Title

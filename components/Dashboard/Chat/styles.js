@@ -50,7 +50,7 @@ export const StyledGroupChat = styled.div`
       grid-template-columns: 1fr;
       align-items: baseline;
       .content {
-        min-height: 50px;
+        min-height: 40px;
       }
       .replyBtn {
         right: 0px;
@@ -59,13 +59,14 @@ export const StyledGroupChat = styled.div`
         display: grid;
         margin-bottom: 5px;
         button {
-          padding: 5px 10px 5px 10px;
+          padding: 3px 10px 3px 10px;
           background: #007c70;
           border: 1px solid #007c70;
           box-sizing: border-box;
           border-radius: 4px;
           color: white;
           cursor: pointer;
+          font-size: 14px;
           font-family: 'Lato';
         }
       }
