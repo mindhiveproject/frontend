@@ -44,21 +44,31 @@ export const StyledGroupChat = styled.div`
       align-content: center;
     }
   }
-  .replyBtn {
-    display: grid;
-    width: 100%;
-    justify-items: end;
-    margin-bottom: 5px;
-    button {
-      padding: 5px 10px 5px 10px;
-      background: #007c70;
-      border: 1px solid #007c70;
-      box-sizing: border-box;
-      border-radius: 4px;
-      color: white;
-      cursor: pointer;
-      font-family: 'Lato';
-    }
+  .comments {
+    position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: baseline;
+      .content {
+        min-height: 50px;
+      }
+      .replyBtn {
+        right: 0px;
+        top: 5px;
+        position: absolute;
+        display: grid;
+        margin-bottom: 5px;
+        button {
+          padding: 5px 10px 5px 10px;
+          background: #007c70;
+          border: 1px solid #007c70;
+          box-sizing: border-box;
+          border-radius: 4px;
+          color: white;
+          cursor: pointer;
+          font-family: 'Lato';
+        }
+      }
   }
   .header {
     display: grid;
@@ -95,10 +105,6 @@ export const StyledMessage = styled.div`
   .content {
     display: grid;
     margin: 1rem 0rem;
-  }
-  .comments {
-    background: white;
-    padding: 10px 0px 0px 0px;
   }
 `;
 
