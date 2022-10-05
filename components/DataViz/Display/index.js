@@ -147,6 +147,42 @@ const DisplayArea = ({
 
   return (
     <div>
+      <button
+        onClick={() =>
+          OperationFunctions.editDislaySpec(
+            spec,
+            {
+              title,
+              mark,
+              width,
+              height,
+              encoding: {
+                x: {
+                  field: encoding_X_field,
+                  type: encoding_X_type,
+                  aggregate: encoding_X_aggregate,
+                  bin: encoding_X_bin,
+                },
+                y: {
+                  field: encoding_Y_field,
+                  type: encoding_Y_type,
+                  aggregate: encoding_Y_aggregate,
+                },
+                detail: {
+                  field: encoding_Detail_field,
+                },
+                color: {
+                  field: encoding_Color_field,
+                  type: encoding_Color_type,
+                },
+              },
+            },
+            updateState
+          )
+        }
+      >
+        Update the graph
+      </button>
       <h3>{header}</h3>
 
       <StyledSelectorLine>
@@ -161,32 +197,6 @@ const DisplayArea = ({
               ))}
             </select>
           </label>
-        </div>
-
-        <div>
-          Width
-          <input
-            value={width}
-            type="number"
-            onChange={e => setWidth(e.target.value)}
-          />
-        </div>
-
-        <div>
-          Height
-          <input
-            value={height}
-            type="number"
-            onChange={e => setHeight(e.target.value)}
-          />
-        </div>
-        <div>
-          Title
-          <input
-            value={title}
-            type="text"
-            onChange={e => setTitle(e.target.value)}
-          />
         </div>
       </StyledSelectorLine>
 
@@ -313,42 +323,33 @@ const DisplayArea = ({
         </select>
       </StyledSelectorLine>
 
-      <button
-        onClick={() =>
-          OperationFunctions.editDislaySpec(
-            spec,
-            {
-              title,
-              mark,
-              width,
-              height,
-              encoding: {
-                x: {
-                  field: encoding_X_field,
-                  type: encoding_X_type,
-                  aggregate: encoding_X_aggregate,
-                  bin: encoding_X_bin,
-                },
-                y: {
-                  field: encoding_Y_field,
-                  type: encoding_Y_type,
-                  aggregate: encoding_Y_aggregate,
-                },
-                detail: {
-                  field: encoding_Detail_field,
-                },
-                color: {
-                  field: encoding_Color_field,
-                  type: encoding_Color_type,
-                },
-              },
-            },
-            updateState
-          )
-        }
-      >
-        Update
-      </button>
+      <StyledSelectorLine>
+        <div>
+          Width
+          <input
+            value={width}
+            type="number"
+            onChange={e => setWidth(e.target.value)}
+          />
+        </div>
+
+        <div>
+          Height
+          <input
+            value={height}
+            type="number"
+            onChange={e => setHeight(e.target.value)}
+          />
+        </div>
+        <div>
+          Title
+          <input
+            value={title}
+            type="text"
+            onChange={e => setTitle(e.target.value)}
+          />
+        </div>
+      </StyledSelectorLine>
     </div>
   );
 };

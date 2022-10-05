@@ -51,6 +51,23 @@ const WorkingDashboard = ({
 
   return (
     <StyledDashboard>
+      <Render data={data} spec={spec} updateState={updateState} />
+
+      <StyledDisplayArea>
+        {spec.mark && (
+          <DisplaySpec
+            data={data}
+            transformedData={transformedData}
+            updateSpec={updateSpec}
+            updateState={updateState}
+            operation={operation}
+            helper={helper}
+            spec={spec}
+            activeTransformationPosition={activeTransformationPosition}
+          />
+        )}
+      </StyledDisplayArea>
+
       <StyledPreprocessingArea>
         <PipelineOperator
           data={data}
@@ -85,22 +102,6 @@ const WorkingDashboard = ({
           )}
         </div>
       </StyledPreprocessingArea>
-
-      <StyledDisplayArea>
-        {spec.mark && (
-          <DisplaySpec
-            data={data}
-            transformedData={transformedData}
-            updateSpec={updateSpec}
-            updateState={updateState}
-            operation={operation}
-            helper={helper}
-            spec={spec}
-            activeTransformationPosition={activeTransformationPosition}
-          />
-        )}
-        <Render data={data} spec={spec} updateState={updateState} />
-      </StyledDisplayArea>
     </StyledDashboard>
   );
 };

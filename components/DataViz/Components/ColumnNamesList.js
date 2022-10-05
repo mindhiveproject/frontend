@@ -1,5 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import Table from './Table';
+
+const StyledArea = styled.div`
+  display: grid;
+  align-content: baseline;
+`;
+
+const StyledTableArea = styled.div`
+  display: grid;
+  width: 100%;
+  height: 80vh;
+  overflow: scroll;
+`;
 
 const StyledColumnNamesList = styled.div`
   display: grid;
@@ -25,7 +38,7 @@ const StyledDatasetHeader = styled.div`
 
 const StyledSwitch = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
   align-items: center;
   justify-items: center;
@@ -62,9 +75,31 @@ const ColumnNamesList = ({
   );
   const columnNames = [...originalColumns, ...newColumns].sort();
 
+  const tableColumns = React.useMemo(
+    () =>
+      columnNames.map(column => ({
+        Header: column,
+        accessor: column,
+      })),
+    [columnNames]
+  );
+
+  const tableData = React.useMemo(() => [...transformedData], [
+    transformedData,
+  ]);
+
   return (
-    <div>
+    <StyledArea>
       <StyledSwitch>
+        {true && (
+          <StyledOperationThumb
+            className="selectionBtns"
+            active={datasetType === 'raw'}
+            onClick={() => onDatasetTypeChange('raw')}
+          >
+            Raw data
+          </StyledOperationThumb>
+        )}
         <StyledOperationThumb
           className="selectionBtns"
           active={datasetType === 'participant'}
@@ -79,15 +114,6 @@ const ColumnNamesList = ({
         >
           By task
         </StyledOperationThumb>
-        {false && (
-          <StyledOperationThumb
-            className="selectionBtns"
-            active={datasetType === 'raw'}
-            onClick={() => onDatasetTypeChange('raw')}
-          >
-            Raw data
-          </StyledOperationThumb>
-        )}
       </StyledSwitch>
       <StyledDatasetHeader>
         <h4>{header}</h4>
@@ -102,44 +128,54 @@ const ColumnNamesList = ({
         </div>
       </StyledDatasetHeader>
 
-      {columnNames.map((name, i) => {
-        // get the length of values and length of unique values for the column
-        const {
-          valuesLength,
-          uniqueValuesLength,
-        } = helper.computeColumnValuesSize(transformedData, name);
-        return (
-          <StyledColumnNamesList empty={valuesLength === 0} key={i}>
-            <label htmlFor={name}>{name}</label>
-            <label>
-              {valuesLength} ({uniqueValuesLength})
-            </label>
-            <span
-              className="infoIcon"
-              onClick={() =>
-                helper.getColumnValues(transformedData, name, true)
-              }
-            >
-              ℹ️
-            </span>
-          </StyledColumnNamesList>
-        );
-      })}
-
-      <StyledDatasetHeader>
-        <h4>{rawDataHeader}</h4>
-        <span>
-          {helper.computeSize(dataRaw, []).columns} columns x{` `}
-          {helper.computeSize(dataRaw, []).rows} rows
-        </span>
-        <div>
-          <button onClick={() => helper.download(dataRaw)}>
-            Download raw data
-          </button>
-        </div>
-      </StyledDatasetHeader>
-    </div>
+      <StyledTableArea>
+        <Table columns={tableColumns} data={tableData} />
+      </StyledTableArea>
+    </StyledArea>
   );
 };
 
 export default ColumnNamesList;
+
+// {false && (
+//   <StyledDatasetHeader>
+//     <h4>{rawDataHeader}</h4>
+//     <span>
+//       {helper.computeSize(dataRaw, []).columns} columns x{` `}
+//       {helper.computeSize(dataRaw, []).rows} rows
+//     </span>
+//     <div>
+//       <button onClick={() => helper.download(dataRaw)}>
+//         Download raw data
+//       </button>
+//     </div>
+//   </StyledDatasetHeader>
+// )}
+
+// {false && (
+//   <>
+//     {columnNames.map((name, i) => {
+//       // get the length of values and length of unique values for the column
+//       const {
+//         valuesLength,
+//         uniqueValuesLength,
+//       } = helper.computeColumnValuesSize(transformedData, name);
+//       return (
+//         <StyledColumnNamesList empty={valuesLength === 0} key={i}>
+//           <label htmlFor={name}>{name}</label>
+//           <label>
+//             {valuesLength} ({uniqueValuesLength})
+//           </label>
+//           <span
+//             className="infoIcon"
+//             onClick={() =>
+//               helper.getColumnValues(transformedData, name, true)
+//             }
+//           >
+//             ℹ️
+//           </span>
+//         </StyledColumnNamesList>
+//       );
+//     })}
+//   </>
+// )}

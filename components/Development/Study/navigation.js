@@ -117,12 +117,11 @@ class Navigation extends Component {
         </div>
 
         <div className="rightButtons">
-
           <Collaborators
             openSharingModal={this.props.openSharingModal}
             study={this.props.study}
           />
-          
+
           <ArchiveDelete study={this.props.study} isHidden={isHidden} />
 
           <SaveStudy

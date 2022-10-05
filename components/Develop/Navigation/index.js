@@ -148,6 +148,20 @@ export default class Navigation extends Component {
             </Menu.Item>
 
             <Menu.Item
+              name="visualize"
+              active={page === 'visualize'}
+              onClick={this.props.handlePageChange}
+              className={
+                page === 'visualize'
+                  ? 'discoverMenuTitle selectedMenuTitle'
+                  : 'discoverMenuTitle'
+              }
+            >
+              <img src="/content/icons/Stats.svg" />
+              <p>Visualize</p>
+            </Menu.Item>
+
+            <Menu.Item
               name="analyze"
               active={page === 'analyze'}
               onClick={this.props.handlePageChange}

@@ -18,8 +18,6 @@ const Runner = ({
   onDatasetTypeChange,
   datasetType,
 }) => {
-  const header = 'Runner';
-
   // transform the data into the current state
   const currentStateData = Processor.processData(data, columnsToFilter);
 

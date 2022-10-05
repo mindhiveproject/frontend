@@ -7,6 +7,7 @@ class Router extends Component {
     specDefault: {
       width: '500',
       height: '400',
+      title: 'My graph',
       mark: 'point',
       transform: [],
       encoding: {

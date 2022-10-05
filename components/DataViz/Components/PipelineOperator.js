@@ -84,8 +84,6 @@ const PipelineOperator = ({
         </div>
       </div>
 
-      <h3>{header}</h3>
-
       <div className="operations">
         {transformPipe.map((operation, position) => {
           const operationName = Object.keys(operation)[0].toUpperCase();

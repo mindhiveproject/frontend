@@ -9,11 +9,12 @@ import WorkingDashboard from './Components/WorkingDashboard';
 const StyledContainer = styled.div`
   margin: 20px;
   display: grid;
+  align-content: baseline;
 `;
 
 const StyledDisplayer = styled.div`
   display: grid;
-  grid-template-columns: 2fr 7fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
   border: 1px solid white;
   width: 90%;
@@ -56,7 +57,7 @@ const Displayer = ({
   onDatasetTypeChange,
   datasetType,
 }) => {
-  const header = 'Data Viz (version 0.0.2)';
+  const header = 'Data Viz (version 0.1.0)';
 
   const [isDisplay, setIsDisplay] = useState(false);
 
@@ -65,41 +66,46 @@ const Displayer = ({
       <h2>{header}</h2>
 
       <StyledDisplayer>
-        <div>
-          <ColumnNamesList
-            dataRaw={dataRaw}
-            data={data}
-            transformedData={transformedData}
-            updateState={updateState}
-            helper={helper}
-            onDatasetTypeChange={onDatasetTypeChange}
-            datasetType={datasetType}
-          />
-          {isDisplay && <SpecEditor spec={spec} updateState={updateState} />}
-        </div>
-        <div>
-          <Button
-            toggle
-            active={isDisplay}
-            onClick={() => setIsDisplay(!isDisplay)}
-          >
-            Data Viz
-          </Button>
-          {isDisplay && (
-            <WorkingDashboard
-              data={data}
-              transformedData={transformedData}
-              updateState={updateState}
-              updateSpec={updateSpec}
-              helper={helper}
-              activeTransformationPosition={activeTransformationPosition}
-              spec={spec}
-            />
-          )}
-        </div>
+        <ColumnNamesList
+          dataRaw={dataRaw}
+          data={data}
+          transformedData={transformedData}
+          updateState={updateState}
+          helper={helper}
+          onDatasetTypeChange={onDatasetTypeChange}
+          datasetType={datasetType}
+        />
+
+        <WorkingDashboard
+          data={data}
+          transformedData={transformedData}
+          updateState={updateState}
+          updateSpec={updateSpec}
+          helper={helper}
+          activeTransformationPosition={activeTransformationPosition}
+          spec={spec}
+        />
       </StyledDisplayer>
     </StyledContainer>
   );
 };
 
 export default Displayer;
+
+// {false && <SpecEditor spec={spec} updateState={updateState} />}
+//
+// <div>
+//   {false && (
+//     <Button
+//       toggle
+//       active={isDisplay}
+//       onClick={() => setIsDisplay(!isDisplay)}
+//     >
+//       Data Viz
+//     </Button>
+//   )}
+//
+//   {isDisplay && (
+//
+//   )}
+// </div>
