@@ -86,6 +86,7 @@ const Displayer = ({
           spec={spec}
         />
       </StyledDisplayer>
+      <SpecEditor spec={spec} updateState={updateState} />
     </StyledContainer>
   );
 };

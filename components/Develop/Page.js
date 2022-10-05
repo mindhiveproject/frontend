@@ -13,7 +13,6 @@ import AnalyzeSection from '../Development/Study/Analyze/index';
 export default class Page extends Component {
   render() {
     const { page } = this.props;
-    console.log('this.props', this.props);
     return (
       <>
         {page === 'proposal' && <Proposal {...this.props} />}

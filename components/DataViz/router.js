@@ -3,7 +3,7 @@ import Manager from './manager';
 
 class Router extends Component {
   state = {
-    datasetTypeDefault: 'participant',
+    datasetTypeDefault: 'raw',
     specDefault: {
       width: '500',
       height: '400',

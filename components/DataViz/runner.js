@@ -20,12 +20,16 @@ const Runner = ({
 }) => {
   // transform the data into the current state
   const currentStateData = Processor.processData(data, columnsToFilter);
+  const currentStateTransformedData = Processor.processData(
+    transformedData,
+    columnsToFilter
+  );
 
   return (
     <Displayer
       dataRaw={dataRaw}
       data={currentStateData} // put the pre-processed data
-      transformedData={transformedData}
+      transformedData={currentStateTransformedData}
       updateState={updateState}
       updateSpec={updateSpec}
       helper={Helper}
