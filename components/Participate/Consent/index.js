@@ -89,7 +89,10 @@ class Consent extends Component {
     joinAsGuest,
     signUpAsGuest
   ) => {
-    if (this.state.activeConsent + 1 < this.state.numberOfConsents) {
+    if (
+      this.props.study?.settings?.consentObtained &&
+      this.state.activeConsent + 1 < this.state.numberOfConsents
+    ) {
       this.setState({
         [`consent-${consentId}`]: decision,
         activeConsent: this.state.activeConsent + 1,
@@ -127,6 +130,9 @@ class Consent extends Component {
       // make new guest account
       const username = generate().dashed;
       const password = uniqid();
+      alert(
+        `Please save this information. Your username ${username} and password ${password}`
+      );
       const res = await signUpAsGuest({
         variables: {
           info: { ...this.state, [`consent-${consentId}`]: decision },
@@ -138,9 +144,6 @@ class Consent extends Component {
         },
       });
       const { signUp } = res.data;
-      alert(
-        `Please save this information. Your username ${username} and password ${password}`
-      );
       joinStudyRedirect(this.props.study, signUp);
     }
   };
