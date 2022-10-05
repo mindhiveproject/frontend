@@ -94,6 +94,9 @@ class Consent extends Component {
         [`consent-${consentId}`]: decision,
         activeConsent: this.state.activeConsent + 1,
       });
+      if (document.querySelector('#OnboardingModal')) {
+        document.querySelector('#OnboardingModal').scrollTo(0, 0);
+      }
     } else if (this.props.user) {
       if (this.props.query.guest === 'true') {
         const res = await joinAsGuest({
