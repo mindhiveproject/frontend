@@ -75,14 +75,20 @@ const ColumnNamesList = ({
   );
   const columnNames = [...originalColumns, ...newColumns].sort();
 
+  console.log('columnNames', columnNames);
+
   const tableColumns = React.useMemo(
     () =>
-      columnNames.map(column => ({
-        Header: column,
-        accessor: column,
-      })),
+      columnNames
+        .filter(column => !!column)
+        .map(column => ({
+          Header: column,
+          accessor: column,
+        })),
     [columnNames]
   );
+
+  console.log('transformedData', transformedData);
 
   const tableData = React.useMemo(() => [...transformedData], [
     transformedData,
