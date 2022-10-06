@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import Error from '../../ErrorMessage/index';
 import { USER_DASHBOARD_QUERY } from '../../Queries/User';

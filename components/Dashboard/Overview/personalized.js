@@ -9,8 +9,10 @@ import OverviewStudiesBank from '../../Bank/Studies/overview';
 import OverviewComponentsBank from '../../Bank/Components/overview';
 import OverviewUsers from './Users/index';
 import OverviewClasses from './Classes/index';
+import OverviewTemplates from './Templates/index';
 
 import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
+import TemplateBuilderWrapper from '../../Development/Template/builderWrapper';
 import ComponentBuilderWrapper from '../../Development/Component/builderWrapper';
 
 import { StyledDasboard, StyledOverviewDasboard } from '../styles';
@@ -31,6 +33,15 @@ class DashboardOverview extends Component {
       page: 'studyBuilder',
       devInfo: {
         studyIdToClone: study.id,
+      },
+    });
+  };
+
+  openTemplateEditor = template => {
+    this.setState({
+      page: 'templateBuilder',
+      devInfo: {
+        templateId: template.id,
       },
     });
   };
@@ -76,6 +87,18 @@ class DashboardOverview extends Component {
                     }
                   >
                     <Link href="/dashboard/overview/studies">Studies</Link>
+                  </Menu.Item>
+
+                  <Menu.Item
+                    name="templates"
+                    active={tab === 'templates'}
+                    className={
+                      tab === 'templates'
+                        ? 'discoverMenuTitle selectedMenuTitle'
+                        : 'discoverMenuTitle'
+                    }
+                  >
+                    <Link href="/dashboard/overview/templates">Templates</Link>
                   </Menu.Item>
 
                   <Menu.Item
@@ -149,6 +172,15 @@ class DashboardOverview extends Component {
                 />
               )}
 
+              {tab === 'templates' && (
+                <OverviewTemplates
+                  user={this.props.user}
+                  pagination={this.props.pagination}
+                  onSelectTemplate={this.openTemplateEditor}
+                  tab={this.props.tab}
+                />
+              )}
+
               {tab === 'tasks' && (
                 <OverviewComponentsBank
                   componentType="TASK"
@@ -198,6 +230,17 @@ class DashboardOverview extends Component {
             user={this.props.user}
             needToClone={false}
             adminMode
+          />
+        </EmptyPage>
+      );
+    }
+    if (page === 'templateBuilder') {
+      return (
+        <EmptyPage>
+          <TemplateBuilderWrapper
+            onLeave={this.switchToBank}
+            templateId={this.state.devInfo.templateId}
+            user={this.props.user}
           />
         </EmptyPage>
       );
