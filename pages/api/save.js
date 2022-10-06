@@ -27,9 +27,42 @@ const SUBMIT_RESULTS_FROM_API_MUTATION = gql`
       version: $version
       guestId: $guestId
     ) {
+      id
+    }
+  }
+`;
+
+const SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION = gql`
+  mutation submitAggregatedResultFromAPI(
+    $userId: ID
+    $guestId: ID
+    $studyId: ID
+    $templateId: ID
+    $taskId: ID
+    $version: String
+    $metadataId: String
+    $dataPolicy: String
+    $fullResultId: ID
+    $data: Json
+  ) {
+    submitAggregatedResultFromAPI(
+      userId: $userId
+      guestId: $guestId
+      studyId: $studyId
+      templateId: $templateId
+      taskId: $taskId
+      version: $version
+      metadataId: $metadataId
+      dataPolicy: $dataPolicy
+      fullResultId: $fullResultId
+      data: $data
+    ) {
       message
     }
   }
 `;
 
-export { SUBMIT_RESULTS_FROM_API_MUTATION };
+export {
+  SUBMIT_RESULTS_FROM_API_MUTATION,
+  SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION,
+};

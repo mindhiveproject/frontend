@@ -35,7 +35,6 @@ class Router extends Component {
     return (
       <Manager
         dataRaw={this.props.data}
-        dataAggregated={this.props.dataAggregated}
         dataParticipant={this.props.dataParticipant}
         datasetTypeDefault={this.state.datasetTypeDefault}
         specDefault={this.state.specDefault}

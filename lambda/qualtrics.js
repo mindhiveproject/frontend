@@ -27269,20 +27269,22 @@ function version(uuid) {
 /*!****************************!*\
   !*** ../pages/api/save.js ***!
   \****************************/
-/*! exports provided: SUBMIT_RESULTS_FROM_API_MUTATION */
+/*! exports provided: SUBMIT_RESULTS_FROM_API_MUTATION, SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SUBMIT_RESULTS_FROM_API_MUTATION", function() { return SUBMIT_RESULTS_FROM_API_MUTATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION", function() { return SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION; });
 /* harmony import */ var _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! graphql-tag */ "../node_modules/graphql-tag/lib/index.js");
 
 
-var _templateObject;
+var _templateObject, _templateObject2;
 
 
-var SUBMIT_RESULTS_FROM_API_MUTATION = Object(graphql_tag__WEBPACK_IMPORTED_MODULE_1__["default"])(_templateObject || (_templateObject = Object(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitResultFromAPI(\n    $userId: ID\n    $templateId: ID\n    $taskId: ID\n    $studyId: ID\n    $data: Json\n    $dataString: String\n    $metadata: Json\n    $dataPolicy: String\n    $resultType: ResultType\n    $version: String\n    $guestId: ID\n  ) {\n    submitResultFromAPI(\n      userId: $userId\n      templateId: $templateId\n      taskId: $taskId\n      studyId: $studyId\n      data: $data\n      dataString: $dataString\n      metadata: $metadata\n      dataPolicy: $dataPolicy\n      resultType: $resultType\n      version: $version\n      guestId: $guestId\n    ) {\n      message\n    }\n  }\n"])));
+var SUBMIT_RESULTS_FROM_API_MUTATION = Object(graphql_tag__WEBPACK_IMPORTED_MODULE_1__["default"])(_templateObject || (_templateObject = Object(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitResultFromAPI(\n    $userId: ID\n    $templateId: ID\n    $taskId: ID\n    $studyId: ID\n    $data: Json\n    $dataString: String\n    $metadata: Json\n    $dataPolicy: String\n    $resultType: ResultType\n    $version: String\n    $guestId: ID\n  ) {\n    submitResultFromAPI(\n      userId: $userId\n      templateId: $templateId\n      taskId: $taskId\n      studyId: $studyId\n      data: $data\n      dataString: $dataString\n      metadata: $metadata\n      dataPolicy: $dataPolicy\n      resultType: $resultType\n      version: $version\n      guestId: $guestId\n    ) {\n      id\n    }\n  }\n"])));
+var SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION = Object(graphql_tag__WEBPACK_IMPORTED_MODULE_1__["default"])(_templateObject2 || (_templateObject2 = Object(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitAggregatedResultFromAPI(\n    $userId: ID\n    $guestId: ID\n    $studyId: ID\n    $templateId: ID\n    $taskId: ID\n    $version: String\n    $metadataId: String\n    $dataPolicy: String\n    $fullResultId: ID\n    $data: Json\n  ) {\n    submitAggregatedResultFromAPI(\n      userId: $userId\n      guestId: $guestId\n      studyId: $studyId\n      templateId: $templateId\n      taskId: $taskId\n      version: $version\n      metadataId: $metadataId\n      dataPolicy: $dataPolicy\n      fullResultId: $fullResultId\n      data: $data\n    ) {\n      message\n    }\n  }\n"])));
 
 
 /***/ }),

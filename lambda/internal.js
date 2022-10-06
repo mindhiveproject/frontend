@@ -158,6 +158,33 @@ function _asyncToGenerator(fn) {
 
 /***/ }),
 
+/***/ "../node_modules/@babel/runtime/helpers/esm/defineProperty.js":
+/*!********************************************************************!*\
+  !*** ../node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _defineProperty; });
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+/***/ }),
+
 /***/ "../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js":
 /*!***************************************************************************!*\
   !*** ../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js ***!
@@ -32173,20 +32200,22 @@ module.exports = __webpack_require__(/*! util */ "util").deprecate;
 /*!****************************!*\
   !*** ../pages/api/save.js ***!
   \****************************/
-/*! exports provided: SUBMIT_RESULTS_FROM_API_MUTATION */
+/*! exports provided: SUBMIT_RESULTS_FROM_API_MUTATION, SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SUBMIT_RESULTS_FROM_API_MUTATION", function() { return SUBMIT_RESULTS_FROM_API_MUTATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION", function() { return SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION; });
 /* harmony import */ var _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral */ "../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteral.js");
 /* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! graphql-tag */ "../node_modules/graphql-tag/lib/index.js");
 
 
-var _templateObject;
+var _templateObject, _templateObject2;
 
 
-var SUBMIT_RESULTS_FROM_API_MUTATION = Object(graphql_tag__WEBPACK_IMPORTED_MODULE_1__["default"])(_templateObject || (_templateObject = Object(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitResultFromAPI(\n    $userId: ID\n    $templateId: ID\n    $taskId: ID\n    $studyId: ID\n    $data: Json\n    $dataString: String\n    $metadata: Json\n    $dataPolicy: String\n    $resultType: ResultType\n    $version: String\n    $guestId: ID\n  ) {\n    submitResultFromAPI(\n      userId: $userId\n      templateId: $templateId\n      taskId: $taskId\n      studyId: $studyId\n      data: $data\n      dataString: $dataString\n      metadata: $metadata\n      dataPolicy: $dataPolicy\n      resultType: $resultType\n      version: $version\n      guestId: $guestId\n    ) {\n      message\n    }\n  }\n"])));
+var SUBMIT_RESULTS_FROM_API_MUTATION = Object(graphql_tag__WEBPACK_IMPORTED_MODULE_1__["default"])(_templateObject || (_templateObject = Object(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitResultFromAPI(\n    $userId: ID\n    $templateId: ID\n    $taskId: ID\n    $studyId: ID\n    $data: Json\n    $dataString: String\n    $metadata: Json\n    $dataPolicy: String\n    $resultType: ResultType\n    $version: String\n    $guestId: ID\n  ) {\n    submitResultFromAPI(\n      userId: $userId\n      templateId: $templateId\n      taskId: $taskId\n      studyId: $studyId\n      data: $data\n      dataString: $dataString\n      metadata: $metadata\n      dataPolicy: $dataPolicy\n      resultType: $resultType\n      version: $version\n      guestId: $guestId\n    ) {\n      id\n    }\n  }\n"])));
+var SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION = Object(graphql_tag__WEBPACK_IMPORTED_MODULE_1__["default"])(_templateObject2 || (_templateObject2 = Object(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  mutation submitAggregatedResultFromAPI(\n    $userId: ID\n    $guestId: ID\n    $studyId: ID\n    $templateId: ID\n    $taskId: ID\n    $version: String\n    $metadataId: String\n    $dataPolicy: String\n    $fullResultId: ID\n    $data: Json\n  ) {\n    submitAggregatedResultFromAPI(\n      userId: $userId\n      guestId: $guestId\n      studyId: $studyId\n      templateId: $templateId\n      taskId: $taskId\n      version: $version\n      metadataId: $metadataId\n      dataPolicy: $dataPolicy\n      fullResultId: $fullResultId\n      data: $data\n    ) {\n      message\n    }\n  }\n"])));
 
 
 /***/ }),
@@ -32200,12 +32229,19 @@ var SUBMIT_RESULTS_FROM_API_MUTATION = Object(graphql_tag__WEBPACK_IMPORTED_MODU
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "../node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/@babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _pages_api_save__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/api/save */ "../pages/api/save.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "../config.js");
+/* harmony import */ var _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/@babel/runtime/helpers/esm/defineProperty */ "../node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/@babel/runtime/helpers/esm/asyncToGenerator */ "../node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../node_modules/@babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _pages_api_save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../pages/api/save */ "../pages/api/save.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../config */ "../config.js");
 
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { Object(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 
 
@@ -32215,14 +32251,14 @@ var axios = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
 var LZUTF8 = __webpack_require__(/*! lzutf8 */ "../node_modules/lzutf8/build/production/lzutf8.js");
 
 exports.handler = /*#__PURE__*/function () {
-  var _ref = Object(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(event, context) {
-    var serverUrl, _event$queryStringPar, user, template, task, study, policy, type, version, guest, _JSON$parse, metadata, url, data, dataRawString, dataString, response;
+  var _ref = Object(_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])( /*#__PURE__*/_Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee(event, context) {
+    var serverUrl, _event$queryStringPar, user, template, task, study, policy, type, version, guest, _JSON$parse, metadata, url, data, dataRawString, dataString, response, _response$data, _response$data$data, _response$data$data$s, fullResultId, aggregated, responseAggregated;
 
-    return _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
+    return _Users_yuryshevchenko_Documents_mindHIVE_frontend_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            serverUrl =  false ? undefined : _config__WEBPACK_IMPORTED_MODULE_3__["endpoint"];
+            serverUrl =  false ? undefined : _config__WEBPACK_IMPORTED_MODULE_4__["endpoint"];
             _event$queryStringPar = event.queryStringParameters, user = _event$queryStringPar.user, template = _event$queryStringPar.template, task = _event$queryStringPar.task, study = _event$queryStringPar.study, policy = _event$queryStringPar.policy, type = _event$queryStringPar.type, version = _event$queryStringPar.version, guest = _event$queryStringPar.guest;
             _JSON$parse = JSON.parse(event.body), metadata = _JSON$parse.metadata, url = _JSON$parse.url, data = _JSON$parse.data;
             dataRawString = JSON.stringify(data);
@@ -32238,7 +32274,7 @@ exports.handler = /*#__PURE__*/function () {
                 'Content-Type': 'application/json'
               },
               data: JSON.stringify({
-                query: _pages_api_save__WEBPACK_IMPORTED_MODULE_2__["SUBMIT_RESULTS_FROM_API_MUTATION"],
+                query: _pages_api_save__WEBPACK_IMPORTED_MODULE_3__["SUBMIT_RESULTS_FROM_API_MUTATION"],
                 operationName: 'submitResultFromAPI',
                 variables: {
                   userId: user === 'null' ? null : user,
@@ -32260,12 +32296,59 @@ exports.handler = /*#__PURE__*/function () {
 
           case 7:
             response = _context.sent;
+
+            if (!((metadata === null || metadata === void 0 ? void 0 : metadata.payload) === 'full')) {
+              _context.next = 14;
+              break;
+            }
+
+            // get the ID of the full results in the database
+            fullResultId = response === null || response === void 0 ? void 0 : (_response$data = response.data) === null || _response$data === void 0 ? void 0 : (_response$data$data = _response$data.data) === null || _response$data$data === void 0 ? void 0 : (_response$data$data$s = _response$data$data.submitResultFromAPI) === null || _response$data$data$s === void 0 ? void 0 : _response$data$data$s.id; // get only the aggregated data
+
+            aggregated = data.filter(function (row) {
+              return row.aggregated;
+            }).map(function (row) {
+              return row.aggregated;
+            }).reduce(function (prev, current) {
+              return _objectSpread(_objectSpread({}, prev), current);
+            }, {}); // send the aggregated data to the server
+
+            _context.next = 13;
+            return axios({
+              method: 'post',
+              url: serverUrl,
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              },
+              data: JSON.stringify({
+                query: _pages_api_save__WEBPACK_IMPORTED_MODULE_3__["SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION"],
+                operationName: 'submitAggregatedResultFromAPI',
+                variables: {
+                  userId: user === 'null' ? null : user,
+                  guestId: guest === 'undefined' ? null : guest,
+                  studyId: study === 'undefined' ? null : study,
+                  templateId: template,
+                  taskId: task === 'undefined' ? null : task,
+                  version: version === 'undefined' ? null : version,
+                  metadataId: metadata.id,
+                  dataPolicy: policy,
+                  fullResultId: fullResultId,
+                  data: aggregated
+                }
+              })
+            });
+
+          case 13:
+            responseAggregated = _context.sent;
+
+          case 14:
             return _context.abrupt("return", {
               statusCode: response.status,
               body: response.statusText
             });
 
-          case 9:
+          case 15:
           case "end":
             return _context.stop();
         }

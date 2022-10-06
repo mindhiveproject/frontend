@@ -10,7 +10,7 @@ const StyledArea = styled.div`
 const StyledTableArea = styled.div`
   display: grid;
   width: 100%;
-  height: 80vh;
+  height: 65vh;
   overflow: scroll;
 `;
 
@@ -38,7 +38,7 @@ const StyledDatasetHeader = styled.div`
 
 const StyledSwitch = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
   align-items: center;
   justify-items: center;
@@ -75,8 +75,6 @@ const ColumnNamesList = ({
   );
   const columnNames = [...originalColumns, ...newColumns].sort();
 
-  console.log('columnNames', columnNames);
-
   const tableColumns = React.useMemo(
     () =>
       columnNames
@@ -88,8 +86,6 @@ const ColumnNamesList = ({
     [columnNames]
   );
 
-  console.log('transformedData', transformedData);
-
   const tableData = React.useMemo(() => [...transformedData], [
     transformedData,
   ]);
@@ -97,15 +93,14 @@ const ColumnNamesList = ({
   return (
     <StyledArea>
       <StyledSwitch>
-        {true && (
-          <StyledOperationThumb
-            className="selectionBtns"
-            active={datasetType === 'raw'}
-            onClick={() => onDatasetTypeChange('raw')}
-          >
-            Raw data
-          </StyledOperationThumb>
-        )}
+        <StyledOperationThumb
+          className="selectionBtns"
+          active={datasetType === 'raw'}
+          onClick={() => onDatasetTypeChange('raw')}
+        >
+          Data
+        </StyledOperationThumb>
+
         <StyledOperationThumb
           className="selectionBtns"
           active={datasetType === 'participant'}
@@ -113,13 +108,15 @@ const ColumnNamesList = ({
         >
           By participant
         </StyledOperationThumb>
-        <StyledOperationThumb
-          className="selectionBtns"
-          active={datasetType === 'aggregated'}
-          onClick={() => onDatasetTypeChange('aggregated')}
-        >
-          By task
-        </StyledOperationThumb>
+        {false && (
+          <StyledOperationThumb
+            className="selectionBtns"
+            active={datasetType === 'aggregated'}
+            onClick={() => onDatasetTypeChange('aggregated')}
+          >
+            By task
+          </StyledOperationThumb>
+        )}
       </StyledSwitch>
       <StyledDatasetHeader>
         <h4>{header}</h4>

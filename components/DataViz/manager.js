@@ -9,15 +9,11 @@ class Manager extends Component {
     data:
       this.props.datasetTypeDefault === 'raw'
         ? this.props.dataRaw
-        : this.props.datasetTypeDefault === 'participant'
-        ? this.props.dataParticipant
-        : this.props.dataAggregated,
+        : this.props.dataParticipant,
     transformedData:
       this.props.datasetTypeDefault === 'raw'
         ? this.props.dataRaw
-        : this.props.datasetTypeDefault === 'participant'
-        ? this.props.dataParticipant
-        : this.props.dataAggregated,
+        : this.props.dataParticipant,
     columnsToFilter: this.props.columnsToFilterDefault,
     spec: this.props.specDefault,
     activeTransformationPosition: this.props
@@ -46,17 +42,9 @@ class Manager extends Component {
     this.setState({
       datasetType,
       data:
-        datasetType === 'raw'
-          ? this.props.dataRaw
-          : datasetType === 'participant'
-          ? this.props.dataParticipant
-          : this.props.dataAggregated,
+        datasetType === 'raw' ? this.props.dataRaw : this.props.dataParticipant,
       transformedData:
-        datasetType === 'raw'
-          ? this.props.dataRaw
-          : datasetType === 'participant'
-          ? this.props.dataParticipant
-          : this.props.dataAggregated,
+        datasetType === 'raw' ? this.props.dataRaw : this.props.dataParticipant,
       columnsToFilter: this.props.columnsToFilterDefault,
       spec: this.props.specDefault,
       activeTransformationPosition: this.props
