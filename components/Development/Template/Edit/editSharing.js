@@ -43,6 +43,8 @@ class EditSharing extends Component {
 
     return (
       <StyledSharingPane>
+        <p>The template author</p>
+        <div>{template?.author?.username}</div>
         <p>Tasks that use this template</p>
         <div>
           {template.tasks.map(task => (

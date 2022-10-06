@@ -3,18 +3,9 @@ import { Mutation } from '@apollo/client/react/components';
 
 import lz from 'lzutf8';
 import EditPane from './editPane';
-// import PreviewPane from './previewPane';
+import PreviewPane from './previewPane';
 
 import PreviewInBuilder from '../../Task/PreviewInBuilder/index';
-
-// import { MY_SURVEYS_QUERY } from '../Study/StudyBuilder/Selector/mySurveys';
-// import { MY_TASKS_QUERY } from '../Study/StudyBuilder/Selector/myTasks';
-// import { USER_DASHBOARD_QUERY } from '../../Queries/User';
-// import {
-//   COMPONENT_QUERY,
-//   COMPONENT_TO_CLONE_QUERY,
-// } from '../../Queries/Component';
-// import { MY_DEVELOPED_COMPONENTS_QUERY } from '../../Bank/Components/developed';
 
 // lab.js script template functions
 import assemble from '../../AddExperiment/assembleDev/index';
@@ -26,9 +17,9 @@ import {
   StyledBuilderPage,
 } from '../styles';
 
-import { CREATE_TEMPLATE, UPDATE_TEMPLATE } from '../../Mutations/Template';
+import { UPDATE_TEMPLATE } from '../../Mutations/Template';
 
-class ComponentBuilder extends Component {
+class TemplateBuilder extends Component {
   state = {
     template: { ...this.props.template },
     showPreview: false,
@@ -49,19 +40,6 @@ class ComponentBuilder extends Component {
       template: {
         ...this.state.template,
         [name]: value,
-      },
-    });
-  };
-
-  handleParamChange = e => {
-    const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
-    this.setState({
-      template: {
-        ...this.state.template,
-        parameters: this.state.template.parameters.map(el =>
-          el.name === name ? { ...el, value: val } : el
-        ),
       },
     });
   };
@@ -107,15 +85,6 @@ class ComponentBuilder extends Component {
     });
   };
 
-  handleSetState = (name, value) => {
-    this.setState({
-      template: {
-        ...this.state.template,
-        [name]: value,
-      },
-    });
-  };
-
   handleSetMultipleValuesInState = values => {
     this.setState({
       template: {
@@ -156,25 +125,15 @@ class ComponentBuilder extends Component {
       const result = await assemble(file, fileName);
       const script = result.files['script.js'].content;
       const compressedString = lz.encodeBase64(lz.compress(script));
+      const fileToSave = lz.compress(fileLoadedEvent.target.result);
       // extract parameters from the task
       this.setState({
         template: {
           ...this.state.template,
           script: compressedString,
           style: result.files['style.css'].content,
-          parameters: [
-            // {
-            //   name: 'instruction',
-            //   type: 'textarea',
-            //   value:
-            //     'When asked how you feel, move the slider to the right when you feel happy and to the left when you feel unhappy.',
-            //   help:
-            //     'These are the instructions for how to answer the question that participants will be asked in-between the trials. The text should correspond to the question content. Make sure the instructions are written in a way that is easy to understand and that leaves no ambiguity.',
-            //   example:
-            //     'The original study asked about participants’ happiness. The corresponding instructions talk explain how participants should answer the question when they feel happy versus unhappy.',
-            // },
-            ...result.files.parameters,
-          ],
+          parameters: [...result.files.parameters],
+          file: fileToSave,
         },
       });
     };
@@ -188,6 +147,7 @@ class ComponentBuilder extends Component {
         ...this.state.template,
         script: null,
         style: null,
+        file: null,
       },
     });
   };
@@ -213,83 +173,53 @@ class ComponentBuilder extends Component {
               </div>
 
               <div className="rightButtons">
-                {this.state.task?.template?.script && (
+                {template?.script && (
                   <button onClick={this.togglePreview}>
                     Fullscreen Preview
                   </button>
                 )}
 
-                <>
-                  {isAuthor ? (
-                    <div>
-                      <Mutation mutation={UPDATE_TEMPLATE}>
-                        {(updateTask, { loading, error }) => (
-                          <div>
-                            <button
-                              className="secondaryBtn"
-                              onClick={() => {
-                                this.updateMyTemplate(
-                                  updateTask,
-                                  'updateTaskWithTemplate'
-                                );
-                              }}
-                            >
-                              {loading ? 'Saving' : `Save original template`}
-                            </button>
-                          </div>
-                        )}
-                      </Mutation>
-                    </div>
-                  ) : (
-                    <div>
-                      <Mutation mutation={CREATE_TEMPLATE}>
-                        {(createTask, { loading, error }) => (
-                          <div>
-                            <button
-                              className="secondaryBtn"
-                              onClick={() => {
-                                this.createNewTemplate(
-                                  createTask,
-                                  'createTaskWithTemplate'
-                                );
-                              }}
-                            >
-                              {loading
-                                ? 'Saving'
-                                : `Save your original template`}
-                            </button>
-                          </div>
-                        )}
-                      </Mutation>
-                    </div>
-                  )}
-                </>
+                <div>
+                  <Mutation mutation={UPDATE_TEMPLATE}>
+                    {(updateTask, { loading, error }) => (
+                      <div>
+                        <button
+                          className="secondaryBtn"
+                          onClick={() => {
+                            this.updateMyTemplate(
+                              updateTask,
+                              'updateTaskWithTemplate'
+                            );
+                          }}
+                        >
+                          {loading ? 'Saving' : `Save template`}
+                        </button>
+                      </div>
+                    )}
+                  </Mutation>
+                </div>
               </div>
             </BuilderNav>
 
             <StyledBuilder isWide>
               <EditPane
                 template={this.state.template}
-                handleTaskChange={this.handleTemplateChange}
-                handleParameterChange={this.handleParamChange}
-                handleTemplateParamChange={this.handleTemplateParamChange}
-                deleteTemplateParameter={this.deleteTemplateParameter}
+                handleTemplateChange={this.handleTemplateChange}
                 handleSettingsChange={this.handleSettingsChange}
-                handleCollaboratorsChange={this.handleCollaboratorsChange}
-                handleSetState={this.handleSetState}
                 handleSetMultipleValuesInState={
                   this.handleSetMultipleValuesInState
                 }
-                user={this.props.user}
-                templateEditor={this.props.templateEditor && !needToClone}
                 handleScriptUpload={this.handleScriptUpload}
                 deleteTemplateLocally={this.deleteTemplateLocally}
+                handleTemplateParamChange={this.handleTemplateParamChange}
+                deleteTemplateParameter={this.deleteTemplateParameter}
               />
 
               <StyledPreviewPane>
-                {false && (
-                  <PreviewPane task={this.state.task} user={this.props.user} />
-                )}
+                <PreviewPane
+                  template={this.state.template}
+                  user={this.props.user}
+                />
               </StyledPreviewPane>
             </StyledBuilder>
           </StyledBuilderPage>
@@ -298,8 +228,8 @@ class ComponentBuilder extends Component {
         {this.state.showPreview && (
           <PreviewInBuilder
             user={this.props.user.id}
-            parameters={this.state.task.parameters}
-            template={this.props.task?.template || this.state.task?.template}
+            parameters={this.state.template.parameters}
+            template={this.props.template || this.state.template}
             handleFinish={() => this.setState({ showPreview: false })}
             showPreview={this.state.showPreview}
           />
@@ -309,4 +239,4 @@ class ComponentBuilder extends Component {
   }
 }
 
-export default ComponentBuilder;
+export default TemplateBuilder;

@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import slugify from 'slugify';
 import styled from 'styled-components';
-import { Select } from 'semantic-ui-react';
 import moment from 'moment';
+import lz from 'lzutf8';
 import SettingsBlock from './settingBlock';
 import { CONSENTS_QUERY } from '../../../Task/Customize/taskForm';
 
 const StyledBasicPane = styled.div`
   display: grid;
   grid-gap: 1rem;
+  a {
+    cursor: pointer;
+  }
 `;
 
 const StyledSettingBlock = styled.div`
@@ -82,6 +85,25 @@ class EditBasic extends Component {
       title: e.target.value,
       slug,
     });
+  };
+
+  downloadJSON = async (file, fileName) => {
+    // create file in browser
+    const fileToOpen = lz.decompress(file);
+    // const json = JSON.stringify(file, null, 2);
+    const blob = new Blob([fileToOpen], { type: 'application/json' });
+    const href = URL.createObjectURL(blob);
+
+    // create "a" HTLM element with href to file
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = `${fileName}.json`;
+    document.body.appendChild(link);
+    link.click();
+
+    // clean up "a" element & remove ObjectURL
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
   };
 
   render() {
@@ -208,45 +230,54 @@ class EditBasic extends Component {
 
         {this.props.templateEditor && (
           <div>
-            <label htmlFor="title">
-              lab.js script (JSON file)
-              {task?.template?.script ? (
-                <div>
-                  {task?.template?.createdAt && (
-                    <div>
-                      Created on{' '}
-                      {moment(task?.template?.createdAt).format(
-                        'MMMM D, YYYY, h:mm'
-                      )}
-                    </div>
-                  )}
-
-                  {task?.template?.updatedAt && (
-                    <div>
-                      Last updated on{' '}
-                      {moment(task?.template?.updatedAt).format(
-                        'MMMM D, YYYY, h:mm'
-                      )}
-                    </div>
-                  )}
-
+            <h2>lab.js script (JSON file)</h2>
+            {task?.template?.file && (
+              <p>
+                <a
+                  onClick={() =>
+                    this.downloadJSON(task.template.file, task?.title)
+                  }
+                >
+                  Download JSON file
+                </a>
+              </p>
+            )}
+            {task?.template?.script ? (
+              <div>
+                {task?.template?.createdAt && (
                   <div>
-                    <button onClick={this.props.deleteTemplateLocally}>
-                      Delete and reupload
-                    </button>
+                    Created on{' '}
+                    {moment(task?.template?.createdAt).format(
+                      'MMMM D, YYYY, h:mm'
+                    )}
                   </div>
+                )}
+
+                {task?.template?.updatedAt && (
+                  <div>
+                    Last updated on{' '}
+                    {moment(task?.template?.updatedAt).format(
+                      'MMMM D, YYYY, h:mm'
+                    )}
+                  </div>
+                )}
+
+                <div>
+                  <button onClick={this.props.deleteTemplateLocally}>
+                    Delete and reupload
+                  </button>
                 </div>
-              ) : (
-                <input
-                  type="file"
-                  id="script"
-                  name="script"
-                  onChange={this.props.handleScriptUpload}
-                  accept=".json"
-                  required
-                />
-              )}
-            </label>
+              </div>
+            ) : (
+              <input
+                type="file"
+                id="script"
+                name="script"
+                onChange={this.props.handleScriptUpload}
+                accept=".json"
+                required
+              />
+            )}
           </div>
         )}
 

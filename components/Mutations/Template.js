@@ -1,32 +1,32 @@
 import gql from 'graphql-tag';
 
-export const CREATE_TEMPLATE = gql`
-  mutation CREATE_TEMPLATE(
-    $title: String!
-    $shortDescription: String!
-    $description: String!
-    $image: String
-    $largeImage: String
-    $parameters: Json
-    $script: String
-    $style: String
-    $settings: Json
-  ) {
-    createTemplate(
-      title: $title
-      shortDescription: $shortDescription
-      description: $description
-      image: $image
-      largeImage: $largeImage
-      parameters: $parameters
-      script: $script
-      style: $style
-      settings: $settings
-    ) {
-      id
-    }
-  }
-`;
+// export const CREATE_TEMPLATE = gql`
+//   mutation CREATE_TEMPLATE(
+//     $title: String!
+//     $shortDescription: String!
+//     $description: String!
+//     $image: String
+//     $largeImage: String
+//     $parameters: Json
+//     $script: String
+//     $style: String
+//     $settings: Json
+//   ) {
+//     createTemplate(
+//       title: $title
+//       shortDescription: $shortDescription
+//       description: $description
+//       image: $image
+//       largeImage: $largeImage
+//       parameters: $parameters
+//       script: $script
+//       style: $style
+//       settings: $settings
+//     ) {
+//       id
+//     }
+//   }
+// `;
 
 export const UPDATE_TEMPLATE = gql`
   mutation UPDATE_TEMPLATE(
@@ -37,6 +37,7 @@ export const UPDATE_TEMPLATE = gql`
     $parameters: Json
     $script: String
     $style: String
+    $file: String
   ) {
     updateTemplate(
       id: $id
@@ -46,6 +47,7 @@ export const UPDATE_TEMPLATE = gql`
       parameters: $parameters
       script: $script
       style: $style
+      file: $file
     ) {
       id
       title

@@ -62,36 +62,26 @@ class EditPane extends Component {
         {this.state.tab === 'basic' && (
           <EditBasic
             template={this.props.template}
-            handleTaskChange={this.props.handleTaskChange}
+            handleTemplateChange={this.props.handleTemplateChange}
             handleSettingsChange={this.props.handleSettingsChange}
             handleSetMultipleValuesInState={
               this.props.handleSetMultipleValuesInState
             }
-            user={this.props.user}
-            templateEditor={this.props.templateEditor}
             handleScriptUpload={this.props.handleScriptUpload}
             deleteTemplateLocally={this.props.deleteTemplateLocally}
-            adminMode={this.props.adminMode}
-            uploadImage={this.props.uploadImage}
           />
         )}
 
         {this.state.tab === 'parameters' && (
           <EditParameters
             template={this.props.template}
-            handleParameterChange={this.props.handleParameterChange}
-            templateEditor={this.props.templateEditor}
             handleTemplateParamChange={this.props.handleTemplateParamChange}
             deleteTemplateParameter={this.props.deleteTemplateParameter}
           />
         )}
 
         {this.state.tab === 'sharing' && (
-          <EditSharing
-            template={this.props.template}
-            handleCollaboratorsChange={this.props.handleCollaboratorsChange}
-            handleSetState={this.props.handleSetState}
-          />
+          <EditSharing template={this.props.template} />
         )}
       </StyledEditPane>
     );

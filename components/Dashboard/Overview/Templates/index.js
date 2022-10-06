@@ -29,7 +29,7 @@ class OverviewTemplates extends Component {
   };
 
   render() {
-    const perPage = 12;
+    const perPage = 36;
 
     return (
       <StyledOverview>

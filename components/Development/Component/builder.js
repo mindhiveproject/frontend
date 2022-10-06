@@ -201,6 +201,7 @@ class ComponentBuilder extends Component {
       const result = await assemble(file, fileName);
       const script = result.files['script.js'].content;
       const compressedString = lz.encodeBase64(lz.compress(script));
+      const fileToSave = lz.compress(fileLoadedEvent.target.result);
       // extract parameters from the task
       this.setState({
         task: {
@@ -209,20 +210,10 @@ class ComponentBuilder extends Component {
             ...this.state.task?.template,
             script: compressedString,
             style: result.files['style.css'].content,
+            parameters: [...result.files.parameters],
+            file: fileToSave,
           },
-          parameters: [
-            // {
-            //   name: 'instruction',
-            //   type: 'textarea',
-            //   value:
-            //     'When asked how you feel, move the slider to the right when you feel happy and to the left when you feel unhappy.',
-            //   help:
-            //     'These are the instructions for how to answer the question that participants will be asked in-between the trials. The text should correspond to the question content. Make sure the instructions are written in a way that is easy to understand and that leaves no ambiguity.',
-            //   example:
-            //     'The original study asked about participants’ happiness. The corresponding instructions talk explain how participants should answer the question when they feel happy versus unhappy.',
-            // },
-            ...result.files.parameters,
-          ],
+          parameters: [...result.files.parameters],
         },
       });
     };
@@ -238,6 +229,7 @@ class ComponentBuilder extends Component {
           ...this.state.task?.template,
           script: null,
           style: null,
+          file: null,
         },
       },
     });

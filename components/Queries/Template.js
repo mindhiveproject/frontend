@@ -46,6 +46,7 @@ export const TEMPLATE_QUERY = gql`
         id
         title
       }
+      file
       createdAt
       updatedAt
     }

@@ -13,7 +13,7 @@ import {
 
 import { TEMPLATE_QUERY } from '../../Queries/Template';
 
-class ComponentBuilderWrapper extends Component {
+class TemplateBuilderWrapper extends Component {
   render() {
     const { onLeave, templateId, user } = this.props;
 
@@ -25,7 +25,6 @@ class ComponentBuilderWrapper extends Component {
             return <p>No template found for id {templateId}</p>;
 
           const { template } = data;
-          console.log('template', template);
 
           return (
             <TemplateBuilder
@@ -40,4 +39,4 @@ class ComponentBuilderWrapper extends Component {
   }
 }
 
-export default ComponentBuilderWrapper;
+export default TemplateBuilderWrapper;

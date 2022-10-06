@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import slugify from 'slugify';
 import styled from 'styled-components';
 import moment from 'moment';
+import lz from 'lzutf8';
 import SettingsBlock from './settingBlock';
 
 const StyledBasicPane = styled.div`
   display: grid;
   grid-gap: 1rem;
+  a {
+    cursor: pointer;
+  }
 `;
 
 const StyledSettingBlock = styled.div`
@@ -28,8 +32,27 @@ class EditBasic extends Component {
     });
   };
 
+  downloadJSON = async (file, fileName) => {
+    // create file in browser
+    const fileToOpen = lz.decompress(file);
+    // const json = JSON.stringify(file, null, 2);
+    const blob = new Blob([fileToOpen], { type: 'application/json' });
+    const href = URL.createObjectURL(blob);
+
+    // create "a" HTLM element with href to file
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = `${fileName}.json`;
+    document.body.appendChild(link);
+    link.click();
+
+    // clean up "a" element & remove ObjectURL
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
+  };
+
   render() {
-    const { template, user } = this.props;
+    const { template } = this.props;
 
     // default settings for each task
     const settings = {
@@ -77,7 +100,7 @@ class EditBasic extends Component {
               id="description"
               name="description"
               value={template.description}
-              onChange={this.props.handleTaskChange}
+              onChange={this.props.handleTemplateChange}
               rows="5"
             />
           </label>
@@ -91,7 +114,7 @@ class EditBasic extends Component {
               id="shortDescription"
               name="shortDescription"
               value={template.shortDescription}
-              onChange={this.props.handleTaskChange}
+              onChange={this.props.handleTemplateChange}
               rows="5"
             />
           </label>
@@ -99,45 +122,54 @@ class EditBasic extends Component {
         </div>
 
         <div>
-          <label htmlFor="title">
-            lab.js script (JSON file)
-            {template?.template?.script ? (
-              <div>
-                {template?.template?.createdAt && (
-                  <div>
-                    Created on{' '}
-                    {moment(template?.template?.createdAt).format(
-                      'MMMM D, YYYY, h:mm'
-                    )}
-                  </div>
-                )}
-
-                {template?.template?.updatedAt && (
-                  <div>
-                    Last updated on{' '}
-                    {moment(template?.template?.updatedAt).format(
-                      'MMMM D, YYYY, h:mm'
-                    )}
-                  </div>
-                )}
-
+          <h2>lab.js script (JSON file)</h2>
+          {template?.file && (
+            <p>
+              <a
+                onClick={() =>
+                  this.downloadJSON(template.file, template?.title)
+                }
+              >
+                Download JSON file
+              </a>
+            </p>
+          )}
+          {template?.script ? (
+            <div>
+              {template?.createdAt && (
                 <div>
-                  <button onClick={this.props.deleteTemplateLocally}>
-                    Delete and reupload
-                  </button>
+                  Created on{' '}
+                  {moment(template?.template?.createdAt).format(
+                    'MMMM D, YYYY, h:mm'
+                  )}
                 </div>
+              )}
+
+              {template?.updatedAt && (
+                <div>
+                  Last updated on{' '}
+                  {moment(template?.template?.updatedAt).format(
+                    'MMMM D, YYYY, h:mm'
+                  )}
+                </div>
+              )}
+
+              <div>
+                <button onClick={this.props.deleteTemplateLocally}>
+                  Delete and reupload
+                </button>
               </div>
-            ) : (
-              <input
-                type="file"
-                id="script"
-                name="script"
-                onChange={this.props.handleScriptUpload}
-                accept=".json"
-                required
-              />
-            )}
-          </label>
+            </div>
+          ) : (
+            <input
+              type="file"
+              id="script"
+              name="script"
+              onChange={this.props.handleScriptUpload}
+              accept=".json"
+              required
+            />
+          )}
         </div>
       </StyledBasicPane>
     );
