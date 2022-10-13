@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
+import { Icon } from 'semantic-ui-react';
 
-import { JOURNAL_POSTS } from '../journalpage';
-import { MY_JOURNALS_QUERY } from '../journals';
-
-const DELETE_POST_MUTATION = gql`
-  mutation DELETE_POST_MUTATION($id: ID!) {
-    deletePost(id: $id) {
-      id
-    }
-  }
-`;
+import { MY_JOURNALS_QUERY, JOURNAL_POSTS } from '../../../Queries/Journal';
+import { DELETE_POST_MUTATION } from '../../../Mutations/Journal';
 
 class DeletePost extends Component {
   render() {
@@ -26,7 +18,7 @@ class DeletePost extends Component {
       >
         {(deletePost, { error }) => (
           <div
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', color: 'red' }}
             onClick={() => {
               if (confirm('Are you sure you want to delete this post?')) {
                 deletePost().catch(err => {
@@ -35,7 +27,7 @@ class DeletePost extends Component {
               }
             }}
           >
-            {this.props.children}
+            <Icon name="trash" />
           </div>
         )}
       </Mutation>

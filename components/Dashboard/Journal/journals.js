@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
 import styled from 'styled-components';
 import JournalRow from './JournalList/index';
 import { StyledDasboard, StyledClassesDasboard } from '../styles';
+
+import { MY_JOURNALS_QUERY } from '../../Queries/Journal';
 
 const StyledRow = styled.div`
   display: grid;
@@ -19,25 +20,6 @@ const StyledJournalHeader = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   cursor: pointer;
   font-weight: bold;
-`;
-
-// write a query here, later refactor it in a separate file if it is used elsewhere
-const MY_JOURNALS_QUERY = gql`
-  query MY_JOURNALS_QUERY {
-    myJournals {
-      id
-      title
-      description
-      creator {
-        id
-        username
-      }
-      createdAt
-      posts {
-        id
-      }
-    }
-  }
 `;
 
 class Journals extends Component {
@@ -147,4 +129,3 @@ class Journals extends Component {
 }
 
 export default Journals;
-export { MY_JOURNALS_QUERY };

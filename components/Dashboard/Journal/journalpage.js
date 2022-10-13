@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import styled from 'styled-components';
 import Head from 'next/head';
 
+import { Tab } from 'semantic-ui-react';
 import Error from '../../ErrorMessage/index';
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
 
@@ -14,24 +14,14 @@ import EditPost from './Post/editpost';
 import { ContainerOnlyForAdmin } from '../../Permissions/Admin/index';
 import AddSketch from './Post/addSketch';
 
+import { JOURNAL_POSTS } from '../../Queries/Journal';
+
 const StyledPosts = styled.div`
   display: grid;
   grid-gap: 20px;
   margin-top: 10px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   cursor: pointer;
-  font-weight: bold;
-`;
-
-const JOURNAL_POSTS = gql`
-  query JOURNAL_POSTS($id: ID!) {
-    posts(where: { journal: { id: $id } }) {
-      id
-      title
-      content
-      createdAt
-    }
-  }
 `;
 
 class JournalPage extends Component {
@@ -109,6 +99,7 @@ class JournalPage extends Component {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
                   gridGap: '10px',
+                  alignItems: 'baseline',
                 }}
               >
                 <button onClick={this.addPost}>Add note</button>
@@ -128,17 +119,23 @@ class JournalPage extends Component {
                   return <p>No journal found for {journal.title}</p>;
                 const { posts } = data;
                 return (
-                  <StyledPosts>
-                    {posts.map(post => (
-                      <Post
-                        key={post.id}
-                        post={post}
-                        journalId={journal.id}
-                        editPost={this.editPost}
-                        teacherMode={this.props.teacherMode}
-                      />
-                    ))}
-                  </StyledPosts>
+                  <Tab
+                    menu={{ fluid: true, vertical: true, tabular: true }}
+                    panes={posts.map(post => ({
+                      menuItem: post.title,
+                      render: () => (
+                        <Tab.Pane>
+                          <Post
+                            key={post.id}
+                            post={post}
+                            journalId={journal.id}
+                            editPost={this.editPost}
+                            teacherMode={this.props.teacherMode}
+                          />
+                        </Tab.Pane>
+                      ),
+                    }))}
+                  />
                 );
               }}
             </Query>
@@ -150,4 +147,3 @@ class JournalPage extends Component {
 }
 
 export default JournalPage;
-export { JOURNAL_POSTS };

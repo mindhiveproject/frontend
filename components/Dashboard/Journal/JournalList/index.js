@@ -7,6 +7,10 @@ const StyledRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 50px;
   align-items: center;
+  .deleteBtn {
+    color: red;
+    cursor: pointer;
+  }
 `;
 
 const StyledClassRow = styled.div`
@@ -30,7 +34,7 @@ class JournalRow extends Component {
         </StyledClassRow>
         {!this.props.teacherMode && (
           <div className="deleteBtn">
-            <DeleteJournal journalId={myjournal.id}>Delete</DeleteJournal>
+            <DeleteJournal journalId={myjournal.id} />
           </div>
         )}
       </StyledRow>

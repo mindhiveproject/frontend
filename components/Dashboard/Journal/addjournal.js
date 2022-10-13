@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
-import { MY_JOURNALS_QUERY } from './journals';
+import { CREATE_NEW_JOURNAL } from '../../Mutations/Journal';
+import { MY_JOURNALS_QUERY } from '../../Queries/Journal';
 
 import { StyledSubmitForm } from '../../Styles/Forms';
-
-const CREATE_NEW_JOURNAL = gql`
-  mutation CREATE_NEW_JOURNAL($title: String!, $description: String) {
-    createJournal(title: $title, description: $description) {
-      id
-    }
-  }
-`;
 
 const StyledSelectionScreen = styled.div`
   display: grid;

@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
-import { MY_JOURNALS_QUERY } from '../journals';
+import { Icon } from 'semantic-ui-react';
 
-const DELETE_JOURNAL_MUTATION = gql`
-  mutation DELETE_JOURNAL_MUTATION($id: ID!) {
-    deleteJournal(id: $id) {
-      id
-    }
-  }
-`;
+import { DELETE_JOURNAL_MUTATION } from '../../../Mutations/Journal';
+import { MY_JOURNALS_QUERY } from '../../../Queries/Journal';
 
 class DeleteJournal extends Component {
   render() {
@@ -35,7 +29,7 @@ class DeleteJournal extends Component {
               }
             }}
           >
-            {this.props.children}
+            <Icon name="trash" />
           </div>
         )}
       </Mutation>

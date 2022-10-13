@@ -41,6 +41,12 @@ export const TEMPLATE_QUERY = gql`
       settings
       tasks {
         id
+        author {
+          username
+        }
+        public
+        createdAt
+        updatedAt
       }
       tasks {
         id

@@ -23,17 +23,9 @@ const StyledSharingPane = styled.div`
     cursor: pointer;
     margin-top: 14px;
   }
-`;
-
-const ResponseButtons = styled.div`
-  display: grid;
-  grid-template-columns: 90px 90px;
-  grid-template-rows: 48px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  .selectedBtn {
-    background: #007c70;
-    color: #ffffff;
+  .task {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 `;
 
@@ -48,7 +40,11 @@ class EditSharing extends Component {
         <p>Tasks that use this template</p>
         <div>
           {template.tasks.map(task => (
-            <div>{task?.title}</div>
+            <div className="task">
+              <div>{task?.title}</div>
+              <div>{task?.author?.username}</div>
+              <div>{task?.public ? 'Public' : 'Private'}</div>
+            </div>
           ))}
         </div>
       </StyledSharingPane>

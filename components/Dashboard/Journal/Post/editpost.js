@@ -1,30 +1,15 @@
 import React, { Component, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Mutation, Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
-import { JOURNAL_POSTS } from '../journalpage';
-import { MY_JOURNALS_QUERY } from '../journals';
+import {
+  GET_POST,
+  MY_JOURNALS_QUERY,
+  JOURNAL_POSTS,
+} from '../../../Queries/Journal';
+import { UPDATE_POST } from '../../../Mutations/Journal';
 
 import Note from '../../Jodit/note';
-
-const GET_POST = gql`
-  query GET_POST($id: ID!) {
-    post(where: { id: $id }) {
-      id
-      title
-      content
-    }
-  }
-`;
-
-const UPDATE_POST = gql`
-  mutation UPDATE_POST($id: ID!, $title: String, $content: String) {
-    updatePost(id: $id, title: $title, content: $content) {
-      id
-    }
-  }
-`;
 
 const StyledSelectionScreen = styled.div`
   display: grid;

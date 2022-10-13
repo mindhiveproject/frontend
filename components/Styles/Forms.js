@@ -364,6 +364,7 @@ export const StyledSubmitForm = styled.form`
   grid-row-gap: 5px;
   font-family: Lato;
   label {
+    width: 100%;
     display: block;
     font-style: normal;
     font-weight: normal;

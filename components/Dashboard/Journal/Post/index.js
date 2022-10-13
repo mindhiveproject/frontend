@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import { Icon } from 'semantic-ui-react';
 
 import ReactHtmlParser from 'react-html-parser';
 import DeletePost from './deletePost';
 
 const StyledPost = styled.div`
   display: grid;
+  width: 100%;
   grid-template-rows: auto 1fr;
   background: white;
   border-radius: 1rem;
-  max-width: 450px;
   .header {
     padding: 15px 20px 20px 20px;
     display: grid;
@@ -22,6 +23,10 @@ const StyledPost = styled.div`
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 1fr auto auto;
+    .date {
+      font-size: 14px;
+      color: grey;
+    }
   }
   .content {
     padding: 15px 20px 20px 20px;
@@ -38,12 +43,23 @@ class Post extends Component {
             <h2>{post.title}</h2>
           </div>
           <div className="headerInfo">
-            <span>{moment(post.createdAt).format('MMMM D, YYYY')}</span>
-            <span onClick={() => this.props.editPost(post.id)}>Edit</span>
+            <div>
+              <div className="date">
+                {moment(post.createdAt).format('MMMM Do YYYY, h:mm a')}
+              </div>
+              {post?.updatedAt !== post?.createdAt && (
+                <div className="date">
+                  Edited on:{' '}
+                  {moment(post?.updatedAt).format('MMMM Do YYYY, h:mm a')}
+                </div>
+              )}
+            </div>
+            <span onClick={() => this.props.editPost(post.id)}>
+              <Icon name="edit" />
+            </span>
+
             {!this.props.teacherMode && (
-              <DeletePost postId={post.id} journalId={journalId}>
-                Delete
-              </DeletePost>
+              <DeletePost postId={post.id} journalId={journalId} />
             )}
           </div>
         </div>
