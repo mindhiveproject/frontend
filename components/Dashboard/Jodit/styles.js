@@ -128,9 +128,15 @@ export const StyledJodit = styled.div`
     }
   }
   button {
-    background: transparent;
     margin: 1px;
     border: 0px solid #e6e6e6;
     cursor: pointer;
+  }
+  .jodit-toolbar-button__button {
+    background: transparent;
+    color: black;
+  }
+  .jodit-ui-button__text {
+    color: black;
   }
 `;
