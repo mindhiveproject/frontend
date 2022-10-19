@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const StyledProposal = styled.div`
-  margin: 10px 0px;
   button {
     display: grid;
     align-content: center;

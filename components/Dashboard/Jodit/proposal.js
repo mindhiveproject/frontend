@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { StyledPost, StyledJodit } from './styles';
 import { Jodit } from './index';
 
-class Note extends Component {
+class JoditProposal extends Component {
   render() {
     const {
       onSubmit,
@@ -15,21 +14,13 @@ class Note extends Component {
     } = this.props;
 
     return (
-      <StyledPost>
-        <fieldset>
-          <StyledJodit>
-            <Jodit
-              readonly
-              externalContent={content}
-              updateContent={onContentChange}
-            />
-          </StyledJodit>
-        </fieldset>
-      </StyledPost>
+      <Jodit
+        readonly
+        externalContent={content}
+        updateContent={onContentChange}
+      />
     );
   }
 }
 
-export default Note;
-
-// <h2>{title}</h2>
+export default JoditProposal;

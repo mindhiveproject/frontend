@@ -56,12 +56,6 @@ class ProposalWrapper extends Component {
       );
     }
 
-    const templates = this.props.templates.map(template => ({
-      key: template.id,
-      text: template.title,
-      value: template.id,
-    }));
-
     if (this.state.page === 'proposal') {
       return (
         <ProposalPage
@@ -74,11 +68,12 @@ class ProposalWrapper extends Component {
     if (this.state.page === 'create') {
       return (
         <CreateProposal
-          templates={templates}
+          templates={this.props.templates}
           study={this.props?.study}
           goToOverview={this.goToOverview}
           isCopy={this.state.isCopy}
           copyProposalId={this.state.copyProposalId}
+          copyProposal={this.state.proposal}
         />
       );
     }

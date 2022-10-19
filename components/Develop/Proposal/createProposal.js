@@ -6,16 +6,23 @@ import { STUDY_DEVELOPMENT_QUERY } from '../../Queries/Study';
 import { COPY_PROPOSAL_MUTATION } from '../../Queries/Proposal';
 import { StyledSubmitForm } from '../../Styles/Forms';
 
-import { StyledEmptyProposalOverview, StyledDropdown } from './styles';
+import { StyledDropdown } from './styles';
+import { StyledDasboard } from '../../Dashboard/styles';
+
+import ProposalPDF from '../../Proposal/pdf';
 
 class CreateProposal extends Component {
   state = {
     id: this.props.isCopy ? this.props.copyProposalId : '',
+    selectedTemplate: this.props.isCopy ? this.props.copyProposal : null,
   };
 
   onTemplateChange = (event, data) => {
     this.setState({
       id: data.value,
+      selectedTemplate: this.props.templates.filter(
+        t => t?.id == data.value
+      )[0],
     });
   };
 
@@ -27,20 +34,26 @@ class CreateProposal extends Component {
       )[0];
     }
 
+    const dropdownTemplates = this.props.templates.map(template => ({
+      key: template.id,
+      text: template.title,
+      value: template.id,
+    }));
+
     return (
-      <Mutation
-        mutation={COPY_PROPOSAL_MUTATION}
-        refetchQueries={[
-          {
-            query: STUDY_DEVELOPMENT_QUERY,
-            variables: {
-              id: this.props.study?.id,
+      <StyledDasboard>
+        <Mutation
+          mutation={COPY_PROPOSAL_MUTATION}
+          refetchQueries={[
+            {
+              query: STUDY_DEVELOPMENT_QUERY,
+              variables: {
+                id: this.props.study?.id,
+              },
             },
-          },
-        ]}
-      >
-        {(copyProposal, { loading, error }) => (
-          <StyledEmptyProposalOverview>
+          ]}
+        >
+          {(copyProposal, { loading, error }) => (
             <StyledSubmitForm
               onSubmit={async e => {
                 e.preventDefault();
@@ -81,7 +94,7 @@ class CreateProposal extends Component {
                       placeholder="Select template"
                       fluid
                       selection
-                      options={this.props.templates}
+                      options={dropdownTemplates}
                       onChange={this.onTemplateChange}
                       value={this.state.id}
                     />
@@ -93,9 +106,18 @@ class CreateProposal extends Component {
                 </button>
               </fieldset>
             </StyledSubmitForm>
-          </StyledEmptyProposalOverview>
-        )}
-      </Mutation>
+          )}
+        </Mutation>
+        <>
+          {this.state?.selectedTemplate && (
+            <StyledDasboard>
+              <h2>Proposal preview</h2>
+              <p>{this.state?.selectedTemplate?.description}</p>
+              <ProposalPDF proposal={this.state?.selectedTemplate} />
+            </StyledDasboard>
+          )}
+        </>
+      </StyledDasboard>
     );
   }
 }

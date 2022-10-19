@@ -35,12 +35,14 @@ class Dashboard extends Component {
       <Composed>
         {({ toggleOpening, localState }) => (
           <StyledOpening open={localState?.data?.openingOpen}>
-            <header>
-              <CloseButton title="close" onClick={toggleOpening}>
-                &times;
-              </CloseButton>
-            </header>
-            <Chat />
+            <div className="inner">
+              <header>
+                <CloseButton title="close" onClick={toggleOpening}>
+                  &times;
+                </CloseButton>
+              </header>
+              <Chat />
+            </div>
           </StyledOpening>
         )}
       </Composed>

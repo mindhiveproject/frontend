@@ -14,14 +14,14 @@ import { StyledDasboard, StyledDevelopDasboard } from '../../Dashboard/styles';
 
 const StyledProposalBoard = styled.div`
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 50px 1fr;
 `;
 
 const StyledPreviewToggle = styled.div`
   display: grid;
   grid-template-columns: auto auto 1fr;
   grid-gap: 1rem;
-  margin: 1rem 0rem;
+  margin: 5px 0rem;
   align-items: center;
   span {
     font-family: Roboto;
@@ -37,6 +37,7 @@ const StyledPreviewToggle = styled.div`
   .preview {
     display: grid;
     grid-template-columns: auto auto;
+    align-items: center;
   }
   .alert {
     background: #fff9e6;
@@ -151,7 +152,7 @@ class ProposalPage extends Component {
                               </span>
                             </div>
                           ) : (
-                            'Edit'
+                            <div className="preview">Edit</div>
                           )}
                         </span>
                       </>
@@ -160,17 +161,12 @@ class ProposalPage extends Component {
                   {this.state.isPDF || proposal?.isSubmitted ? (
                     <ProposalPDF proposal={proposal} />
                   ) : (
-                    <>
-                      <Head>
-                        <title>{proposal?.title}</title>
-                      </Head>
-                      <ProposalContainer
-                        {...this.props}
-                        proposal={proposal}
-                        onClose={this.props.goToOverview}
-                        proposalBuildMode={this.props.proposalBuildMode}
-                      />
-                    </>
+                    <ProposalContainer
+                      {...this.props}
+                      proposal={proposal}
+                      onClose={this.props.goToOverview}
+                      proposalBuildMode={this.props.proposalBuildMode}
+                    />
                   )}
                 </StyledProposalBoard>
               );

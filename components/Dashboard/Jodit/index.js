@@ -19,6 +19,7 @@ export const Jodit = ({ externalContent, updateContent, readonly }) => {
       toolbarButtonSize: 'large',
       buttons: ['print'],
       height: '100%',
+      minHeight: '70vh',
     };
   } else {
     config = {

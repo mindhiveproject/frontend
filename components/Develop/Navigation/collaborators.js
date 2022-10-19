@@ -16,8 +16,8 @@ class Collaborators extends Component {
     const remainingCollaborators = existingCollaborators.filter(
       c => existingCollaborators.indexOf(c) > 2
     );
-    const initialsSize = existingCollaborators.map(
-      c => c.split(" ").length > 1 ?  1.5 : 2
+    const initialsSize = existingCollaborators.map(c =>
+      c.split(' ').length > 1 ? 1.5 : 2
     );
     let barWidth = '';
     let firstAvatarPosition = '';
@@ -69,10 +69,10 @@ class Collaborators extends Component {
           <span
             style={{
               borderRadius: '50%',
-              padding: '6px',
+              padding: '3px',
               position: 'absolute',
               left: '62%',
-              backgroundColor: 'grey',
+              backgroundColor: 'lightgrey',
               width: '24px',
               height: '24px',
               fontSize: '.8em',
@@ -91,8 +91,8 @@ class Collaborators extends Component {
                 simple // causes the dropdown to trigger on hover rather than click
               >
                 <Dropdown.Menu>
-                  {remainingCollaborators.map(c => (
-                    <Dropdown.Item>{c}</Dropdown.Item>
+                  {remainingCollaborators.map((c, num) => (
+                    <Dropdown.Item key={num}>{c}</Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
               </Dropdown>

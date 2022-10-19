@@ -35,7 +35,7 @@ class LeaveGroupChat extends Component {
               }
             }}
           >
-            <Icon name="sign-out" color="teal" />
+            <Icon name="sign-out" color="red" />
           </StyledLeaveButton>
         )}
       </Mutation>

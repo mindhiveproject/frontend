@@ -65,7 +65,7 @@ const StyledButtons = styled.div`
 
 class SharingModal extends Component {
   render() {
-    const { study, handleSetState, onModalClose, user } = this.props;
+    const { study, onModalClose, user } = this.props;
 
     return (
       <Modal
@@ -80,7 +80,7 @@ class SharingModal extends Component {
               <h2>Select the class</h2>
               <LinkClass
                 study={study}
-                handleSetState={this.props.handleSetState}
+                handleSetState={this.props.updateStudyState}
                 user={user}
               />
 

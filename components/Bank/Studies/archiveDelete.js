@@ -204,20 +204,24 @@ class ArchiveDelete extends Component {
             />
             <DeleteModal study={this.props.study} />
 
-            <Dropdown.Item
-              onClick={() => this.props.openNewStudyBuilder(this.props.study)}
-              text={
-                <>
-                  <div className="heading">
-                    <Icon name="settings" className="black" />
-                    <span className="black">Open in the new builder (DEV)</span>
-                  </div>
-                  <p style={{ padding: '5px' }} className="red">
-                    Do not use it, still in development
-                  </p>
-                </>
-              }
-            />
+            {this.props.isOnCard && (
+              <Dropdown.Item
+                onClick={() => this.props.openNewStudyBuilder(this.props.study)}
+                text={
+                  <>
+                    <div className="heading">
+                      <Icon name="settings" className="black" />
+                      <span className="black">
+                        Open in the new builder (DEV)
+                      </span>
+                    </div>
+                    <p style={{ padding: '5px' }} className="red">
+                      Do not use it, still in development
+                    </p>
+                  </>
+                }
+              />
+            )}
           </Dropdown.Menu>
         </Dropdown>
       </ArchiveDeleteDropdown>

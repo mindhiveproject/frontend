@@ -22,6 +22,21 @@ export const PROPOSAL_TEMPLATES_QUERY = gql`
     proposalBoards(where: { isTemplate: true }) {
       id
       title
+      description
+      sections {
+        id
+        title
+        description
+        position
+        cards {
+          id
+          title
+          position
+          section {
+            id
+          }
+        }
+      }
     }
   }
 `;

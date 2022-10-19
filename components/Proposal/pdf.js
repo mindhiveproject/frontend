@@ -6,16 +6,13 @@ import Proposal from '../Dashboard/Jodit/proposal';
 
 const StyledFullProposal = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
   width: 100%;
   height: 100%;
-  padding: 2rem;
-  max-width: 1200px;
 `;
 
 class ProposalPDF extends Component {
   render() {
-    const { title, description, sections, study } = this.props.proposal;
+    const { title, description, sections, study } = this.props?.proposal;
     // order sections by position
     const orderedSections = [...sections].sort(
       (a, b) => a.position - b.position

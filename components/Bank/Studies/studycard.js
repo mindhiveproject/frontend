@@ -111,6 +111,7 @@ function StudyCard({
                   study={study}
                   isHidden={isHidden}
                   openNewStudyBuilder={openNewStudyBuilder}
+                  isOnCard
                 />
               )}
             </>
@@ -123,6 +124,7 @@ function StudyCard({
                   study={study}
                   isHidden={isHidden}
                   openNewStudyBuilder={openNewStudyBuilder}
+                  isOnCard
                 />
               )}
             </>
