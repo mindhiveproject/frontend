@@ -51,6 +51,17 @@ const StyledProposalHeader = styled.div`
     text-align: left;
     color: #666666;
   }
+  .checkboxField {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    input[type='checkbox'] {
+      width: 20px;
+      height: 20px;
+      color: green;
+    }
+  }
 `;
 
 class ProposalHeader extends Component {
@@ -58,6 +69,7 @@ class ProposalHeader extends Component {
     id: this.props.proposal.id,
     title: this.props.proposal.title,
     description: this.props.proposal.description,
+    isTemplate: this.props.proposal.isTemplate,
   };
 
   handleChange = e => {
@@ -65,6 +77,12 @@ class ProposalHeader extends Component {
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({
       [name]: val,
+    });
+  };
+
+  toggleState = e => {
+    this.setState({
+      [e.target.name]: !this.state[e.target.name],
     });
   };
 
@@ -107,9 +125,27 @@ class ProposalHeader extends Component {
                   </label>
                 </div>
 
+                {this.props.proposalBuildMode && (
+                  <div>
+                    <label htmlFor="isTemplate">
+                      <div className="checkboxField">
+                        <input
+                          type="checkbox"
+                          id="isTemplate"
+                          name="isTemplate"
+                          checked={this.state.isTemplate}
+                          onChange={this.toggleState}
+                        />
+                        <span>Template</span>
+                      </div>
+                    </label>
+                  </div>
+                )}
+
                 {(this.state.title !== this.props.proposal?.title ||
-                  this.state.description !==
-                    this.props.proposal?.description) && (
+                  this.state.description !== this.props.proposal?.description ||
+                  this.state.isTemplate !==
+                    this.props.proposal?.isTemplate) && (
                   <div>
                     <button
                       className="secondaryBtn"

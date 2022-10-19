@@ -68,7 +68,7 @@ class Card extends Component {
             )}
           </div>
         </StyledCard>
-        {(true || proposalBuildMode) && (
+        {proposalBuildMode && !this.props.isPreview && (
           <div
             className="deleteBtn"
             onClick={() => {

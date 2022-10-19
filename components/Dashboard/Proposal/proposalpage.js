@@ -45,6 +45,7 @@ const PROPOSAL_BOARD_QUERY = gql`
       }
       isSubmitted
       checklist
+      isTemplate
     }
   }
 `;

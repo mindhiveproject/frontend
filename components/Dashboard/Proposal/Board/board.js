@@ -95,7 +95,7 @@ const DELETE_SECTION = gql`
   }
 `;
 
-const Board = ({ id, openCard, proposalBuildMode, adminMode }) => {
+const Board = ({ id, openCard, proposalBuildMode, adminMode, isPreview }) => {
   const { loading, error, data } = useQuery(BOARD_QUERY, {
     variables: { id },
     pollInterval: 20000, // get new data every 20 seconds
@@ -137,6 +137,7 @@ const Board = ({ id, openCard, proposalBuildMode, adminMode }) => {
       openCard={openCard}
       proposalBuildMode={proposalBuildMode}
       adminMode={adminMode}
+      isPreview={isPreview}
     />
   );
 };

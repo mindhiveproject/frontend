@@ -35,6 +35,7 @@ const MY_PROPOSALS_QUERY = gql`
       sections {
         id
       }
+      isTemplate
       createdAt
     }
   }
@@ -96,6 +97,7 @@ class Proposals extends Component {
                         <div>Proposal name</div>
                         <div>Number of sections</div>
                         <div>Date created</div>
+                        <div>Template</div>
                       </StyledProposalHeader>
                       <div></div>
                     </StyledRow>

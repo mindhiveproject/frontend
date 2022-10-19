@@ -84,6 +84,7 @@ const Section = ({
   openCard,
   proposalBuildMode,
   adminMode,
+  isPreview,
 }) => {
   const { cards } = section;
   const numOfCards = cards.length;
@@ -343,46 +344,49 @@ const Section = ({
       <div className="column-drag-handle">
         <h3>{ReactHTMLParser(section.title)}</h3>
       </div>
-      <div className="infoLine">
-        <div>
-          {numOfCards} card{numOfCards <= 1 ? '' : 's'}
+
+      {!isPreview && (
+        <div className="infoLine">
+          <div>
+            {numOfCards} card{numOfCards <= 1 ? '' : 's'}
+          </div>
+          <div
+            className="deleteBtn"
+            onClick={() => {
+              const title = prompt('Please enter a new title');
+              if (title != null) {
+                onUpdateSection({
+                  variables: {
+                    id: section.id,
+                    boardId,
+                    title,
+                  },
+                });
+              }
+            }}
+          >
+            Edit title
+          </div>
+          <div
+            className="deleteBtn"
+            onClick={() => {
+              if (section?.cards?.length === 0) {
+                deleteSection(section.id);
+                return;
+              }
+              if (
+                confirm(
+                  'Are you sure you want to delete this proposal section? All cards in this section will be deleted as well. This action cannot be undone.'
+                )
+              ) {
+                deleteSection(section.id);
+              }
+            }}
+          >
+            Delete section
+          </div>
         </div>
-        <div
-          className="deleteBtn"
-          onClick={() => {
-            const title = prompt('Please enter a new title');
-            if (title != null) {
-              onUpdateSection({
-                variables: {
-                  id: section.id,
-                  boardId,
-                  title,
-                },
-              });
-            }
-          }}
-        >
-          Edit title
-        </div>
-        <div
-          className="deleteBtn"
-          onClick={() => {
-            if (section?.cards?.length === 0) {
-              deleteSection(section.id);
-              return;
-            }
-            if (
-              confirm(
-                'Are you sure you want to delete this proposal section? All cards in this section will be deleted as well. This action cannot be undone.'
-              )
-            ) {
-              deleteSection(section.id);
-            }
-          }}
-        >
-          Delete section
-        </div>
-      </div>
+      )}
 
       <div>
         <Container
@@ -413,6 +417,7 @@ const Section = ({
                 openCard={openCard}
                 proposalBuildMode={proposalBuildMode}
                 adminMode={adminMode}
+                isPreview={isPreview}
               />
             ))
           ) : (
@@ -420,27 +425,30 @@ const Section = ({
           )}
         </Container>
       </div>
-      <StyledNewInput>
-        <label htmlFor={`input-${section.id}`}>
-          <div>New card</div>
-          <input
-            id={`input-${section.id}`}
-            type="text"
-            name={`input-${section.id}`}
-            value={cardName}
-            onChange={e => setCardName(e.target.value)}
-          />
-        </label>
 
-        <div
-          className="addBtn"
-          onClick={() => {
-            addCardMutation(section.id, cardName);
-          }}
-        >
-          Add card
-        </div>
-      </StyledNewInput>
+      {!isPreview && (
+        <StyledNewInput>
+          <label htmlFor={`input-${section.id}`}>
+            <div>New card</div>
+            <input
+              id={`input-${section.id}`}
+              type="text"
+              name={`input-${section.id}`}
+              value={cardName}
+              onChange={e => setCardName(e.target.value)}
+            />
+          </label>
+
+          <div
+            className="addBtn"
+            onClick={() => {
+              addCardMutation(section.id, cardName);
+            }}
+          >
+            Add card
+          </div>
+        </StyledNewInput>
+      )}
     </StyledSection>
   );
 };

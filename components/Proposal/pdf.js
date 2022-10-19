@@ -13,6 +13,7 @@ const StyledFullProposal = styled.div`
 class ProposalPDF extends Component {
   render() {
     const { title, description, sections, study } = this.props?.proposal;
+
     // order sections by position
     const orderedSections = [...sections].sort(
       (a, b) => a.position - b.position

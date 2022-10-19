@@ -30,6 +30,7 @@ class ProposalRow extends Component {
           <div>{myproposal?.title}</div>
           <div>{myproposal?.sections?.length}</div>
           <div>{moment(myproposal?.createdAt).format('MMMM D, YYYY')}</div>
+          <div>{myproposal?.isTemplate ? 'Yes' : 'No'}</div>
         </StyledClassRow>
         <div className="deleteBtn">
           <DeleteProposal proposalId={myproposal.id}>Delete</DeleteProposal>

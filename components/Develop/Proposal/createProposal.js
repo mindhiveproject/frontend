@@ -9,7 +9,7 @@ import { StyledSubmitForm } from '../../Styles/Forms';
 import { StyledDropdown } from './styles';
 import { StyledDasboard } from '../../Dashboard/styles';
 
-import ProposalPDF from '../../Proposal/pdf';
+import ProposalContainer from '../../Dashboard/Proposal/Board/index';
 
 class CreateProposal extends Component {
   state = {
@@ -111,9 +111,10 @@ class CreateProposal extends Component {
         <>
           {this.state?.selectedTemplate && !this.props.isCopy && (
             <StyledDasboard>
-              <h2>Proposal preview</h2>
-              <p>{this.state?.selectedTemplate?.description}</p>
-              <ProposalPDF proposal={this.state?.selectedTemplate} />
+              <ProposalContainer
+                proposal={this.state?.selectedTemplate}
+                isPreview
+              />
             </StyledDasboard>
           )}
         </>

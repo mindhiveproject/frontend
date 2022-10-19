@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 
-import Head from 'next/head';
 import { Radio, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import Error from '../../ErrorMessage/index';

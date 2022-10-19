@@ -131,6 +131,7 @@ class Sections extends Component {
                 openCard={this.props.openCard}
                 proposalBuildMode={this.props.proposalBuildMode}
                 adminMode={this.props.adminMode}
+                isPreview={this.props.isPreview}
               />
             </Draggable>
           ))}

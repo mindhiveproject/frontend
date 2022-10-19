@@ -22,6 +22,7 @@ class Post extends Component {
       proposal,
       readonly,
       proposalBuildMode,
+      isPreview,
     } = this.props;
 
     // collaborators
@@ -85,56 +86,57 @@ class Post extends Component {
               </StyledJodit>
             </fieldset>
           </div>
-
-          <div className="infoBoard">
-            {!proposalBuildMode && !readonly && (
-              <>
-                <div>
-                  <h4>Assigned to</h4>
-                  <AssignmentForm
-                    usernames={allUsernames}
-                    assignedTo={assignedTo}
-                    onAssignedToChange={onAssignedToChange}
-                  />
-                </div>
-                <div>
-                  <h4>Status</h4>
-                  <StatusForm
-                    settings={settings}
-                    onSettingsChange={onSettingsChange}
-                  />
-                </div>
-              </>
-            )}
-            {!proposalBuildMode && readonly && (
-              <>
-                <div>
-                  <h4>Assigned to</h4>
+          {!isPreview && (
+            <div className="infoBoard">
+              {!proposalBuildMode && !readonly && (
+                <>
                   <div>
-                    {card?.assignedTo.map(
-                      c => c.publicReadableId || 'John Doe'
-                    )}
+                    <h4>Assigned to</h4>
+                    <AssignmentForm
+                      usernames={allUsernames}
+                      assignedTo={assignedTo}
+                      onAssignedToChange={onAssignedToChange}
+                    />
                   </div>
-                </div>
-                <div>
-                  <h4>Status</h4>
-                  <div>{settings?.status}</div>
-                </div>
-              </>
-            )}
+                  <div>
+                    <h4>Status</h4>
+                    <StatusForm
+                      settings={settings}
+                      onSettingsChange={onSettingsChange}
+                    />
+                  </div>
+                </>
+              )}
+              {!proposalBuildMode && readonly && (
+                <>
+                  <div>
+                    <h4>Assigned to</h4>
+                    <div>
+                      {card?.assignedTo.map(
+                        c => c.publicReadableId || 'John Doe'
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <h4>Status</h4>
+                    <div>{settings?.status}</div>
+                  </div>
+                </>
+              )}
 
-            <div className="proposalCardComments">
-              <h4>Comments</h4>
-              <textarea
-                rows="13"
-                type="text"
-                id="comment"
-                name="comment"
-                value={comment}
-                onChange={onChange}
-              />
+              <div className="proposalCardComments">
+                <h4>Comments</h4>
+                <textarea
+                  rows="13"
+                  type="text"
+                  id="comment"
+                  name="comment"
+                  value={comment}
+                  onChange={onChange}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </StyledPost>
     );

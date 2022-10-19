@@ -200,6 +200,7 @@ class CardModal extends Component {
                     proposal={this.props.proposal}
                     card={proposalCard}
                     readonly={adminMode}
+                    isPreview={this.props.isPreview}
                   />
                 );
               }}
@@ -219,7 +220,7 @@ class CardModal extends Component {
                     Close without saving
                   </StyledButton>
                 )}
-                {!adminMode && (
+                {!adminMode && !this.props.isPreview && (
                   <StyledButton
                     className="primary"
                     onClick={() => this.onUpdateCard(updateCard)}

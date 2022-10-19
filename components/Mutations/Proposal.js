@@ -7,6 +7,7 @@ export const UPDATE_PROPOSAL_BOARD = gql`
     $description: String
     $isSubmitted: Boolean
     $checklist: Json
+    $isTemplate: Boolean
   ) {
     updateProposalBoard(
       id: $id
@@ -14,12 +15,14 @@ export const UPDATE_PROPOSAL_BOARD = gql`
       description: $description
       isSubmitted: $isSubmitted
       checklist: $checklist
+      isTemplate: $isTemplate
     ) {
       id
       title
       description
       isSubmitted
       checklist
+      isTemplate
     }
   }
 `;

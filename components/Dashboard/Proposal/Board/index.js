@@ -40,12 +40,24 @@ class ProposalContainer extends Component {
             </>
           )}
 
-          <ProposalHeader proposal={this.props.proposal} />
+          {this.props.isPreview ? (
+            <>
+              <h2>Preview of proposal {this.props.proposal.title}</h2>
+              <p>{this.props.proposal.description}</p>
+            </>
+          ) : (
+            <ProposalHeader
+              proposal={this.props.proposal}
+              proposalBuildMode={this.props.proposalBuildMode}
+            />
+          )}
+
           <Board
             id={this.props.proposal?.id}
             openCard={this.openCard}
             proposalBuildMode={this.props.proposalBuildMode}
             adminMode={this.props.adminMode}
+            isPreview={this.props.isPreview}
           />
         </div>
       );
@@ -61,6 +73,7 @@ class ProposalContainer extends Component {
           proposalBuildMode={this.props.proposalBuildMode}
           proposal={this.props.proposal}
           adminMode={this.props.adminMode}
+          isPreview={this.props.isPreview}
         />
       );
     }
