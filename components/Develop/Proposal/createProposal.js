@@ -109,7 +109,7 @@ class CreateProposal extends Component {
           )}
         </Mutation>
         <>
-          {this.state?.selectedTemplate && (
+          {this.state?.selectedTemplate && !this.props.isCopy && (
             <StyledDasboard>
               <h2>Proposal preview</h2>
               <p>{this.state?.selectedTemplate?.description}</p>
