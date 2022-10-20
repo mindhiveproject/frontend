@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
-import { MY_PROPOSALS_QUERY } from '../proposals';
-
-const DELETE_PROPOSAL_MUTATION = gql`
-  mutation DELETE_PROPOSAL_MUTATION($id: ID!) {
-    deleteProposalBoard(id: $id) {
-      message
-    }
-  }
-`;
+import { MY_PROPOSALS_QUERY } from '../../../Queries/Proposal';
+import { DELETE_PROPOSAL } from '../../../Mutations/Proposal';
 
 class DeleteProposal extends Component {
   render() {
     return (
       <Mutation
-        mutation={DELETE_PROPOSAL_MUTATION}
+        mutation={DELETE_PROPOSAL}
         variables={{ id: this.props.proposalId }}
         refetchQueries={[{ query: MY_PROPOSALS_QUERY }]}
       >

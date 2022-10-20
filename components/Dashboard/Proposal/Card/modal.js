@@ -2,9 +2,22 @@ import React, { Component } from 'react';
 import { Modal } from 'semantic-ui-react';
 
 import { Mutation, Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import styled from 'styled-components';
+import ReactHtmlParser from 'react-html-parser';
 import Post from '../../Jodit/post';
+
+import { GET_CARD_CONTENT } from '../../../Queries/Proposal';
+import { UPDATE_CARD_CONTENT } from '../../../Mutations/Proposal';
+
+const StyledCardPreview = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  .description {
+    background: #fbfaf7;
+    padding: 10px 5px;
+    border-radius: 7px;
+  }
+`;
 
 const StyledButtons = styled.div`
   width: 100%;
@@ -36,50 +49,6 @@ const StyledButton = styled.button`
   line-height: 18px;
   letter-spacing: 0.05em;
   text-align: center;
-`;
-
-const GET_CARD_CONTENT = gql`
-  query GET_CARD_CONTENT($id: ID!) {
-    proposalCard(where: { id: $id }) {
-      id
-      title
-      description
-      content
-      comment
-      settings
-      assignedTo {
-        id
-        username
-        publicReadableId
-      }
-    }
-  }
-`;
-
-const UPDATE_CARD_MUTATION = gql`
-  mutation UPDATE_CARD_MUTATION(
-    $id: ID!
-    $boardId: ID!
-    $title: String
-    $description: String
-    $content: String
-    $comment: String
-    $settings: Json
-    $assignedTo: [String]
-  ) {
-    updateProposalCard(
-      id: $id
-      boardId: $boardId
-      title: $title
-      description: $description
-      content: $content
-      comment: $comment
-      settings: $settings
-      assignedTo: $assignedTo
-    ) {
-      id
-    }
-  }
 `;
 
 class CardModal extends Component {
@@ -174,6 +143,19 @@ class CardModal extends Component {
               {({ data, loading: queryLoading }) => {
                 if (queryLoading) return <p>Loading ... </p>;
                 const { proposalCard } = data;
+                if (this.props.isPreview) {
+                  return (
+                    <StyledCardPreview>
+                      <h2>{proposalCard?.title}</h2>
+                      {proposalCard?.description && (
+                        <div className="description">
+                          {ReactHtmlParser(proposalCard?.description)}
+                        </div>
+                      )}
+                      <div>{ReactHtmlParser(proposalCard?.content)}</div>
+                    </StyledCardPreview>
+                  );
+                }
                 return (
                   <Post
                     proposalBuildMode={this.props.proposalBuildMode}
@@ -208,30 +190,38 @@ class CardModal extends Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Mutation mutation={UPDATE_CARD_MUTATION}>
-            {(updateCard, { loading, error }) => (
-              <StyledButtons>
-                {!loading && (
-                  <StyledButton
-                    disabled={loading}
-                    className="secondary"
-                    onClick={() => onClose()}
-                  >
-                    Close without saving
-                  </StyledButton>
-                )}
-                {!adminMode && !this.props.isPreview && (
-                  <StyledButton
-                    className="primary"
-                    onClick={() => this.onUpdateCard(updateCard)}
-                    disabled={loading}
-                  >
-                    {loading ? 'Saving ...' : 'Save & close'}
-                  </StyledButton>
-                )}
-              </StyledButtons>
-            )}
-          </Mutation>
+          {this.props.isPreview ? (
+            <StyledButtons>
+              <StyledButton className="secondary" onClick={() => onClose()}>
+                Close
+              </StyledButton>
+            </StyledButtons>
+          ) : (
+            <Mutation mutation={UPDATE_CARD_CONTENT}>
+              {(updateCard, { loading, error }) => (
+                <StyledButtons>
+                  {!loading && (
+                    <StyledButton
+                      disabled={loading}
+                      className="secondary"
+                      onClick={() => onClose()}
+                    >
+                      Close without saving
+                    </StyledButton>
+                  )}
+                  {!adminMode && (
+                    <StyledButton
+                      className="primary"
+                      onClick={() => this.onUpdateCard(updateCard)}
+                      disabled={loading}
+                    >
+                      {loading ? 'Saving ...' : 'Save & close'}
+                    </StyledButton>
+                  )}
+                </StyledButtons>
+              )}
+            </Mutation>
+          )}
         </Modal.Actions>
       </Modal>
     );

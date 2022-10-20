@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import { Mutation } from '@apollo/client/react/components';
-
 import { UPDATE_PROPOSAL_BOARD } from '../../../Mutations/Proposal';
 
 const StyledProposalHeader = styled.div`
@@ -70,6 +69,12 @@ class ProposalHeader extends Component {
     title: this.props.proposal.title,
     description: this.props.proposal.description,
     isTemplate: this.props.proposal.isTemplate,
+    settings: this.props.proposal.settings || {
+      allowMovingSections: true,
+      allowMovingCards: true,
+      allowAddingSections: false,
+      allowAddingCards: false,
+    },
   };
 
   handleChange = e => {
@@ -83,6 +88,15 @@ class ProposalHeader extends Component {
   toggleState = e => {
     this.setState({
       [e.target.name]: !this.state[e.target.name],
+    });
+  };
+
+  toggleSettings = e => {
+    this.setState({
+      settings: {
+        ...this.state.settings,
+        [e.target.name]: !this.state?.settings?.[e.target.name],
+      },
     });
   };
 
@@ -127,25 +141,87 @@ class ProposalHeader extends Component {
 
                 {this.props.proposalBuildMode && (
                   <div>
-                    <label htmlFor="isTemplate">
-                      <div className="checkboxField">
-                        <input
-                          type="checkbox"
-                          id="isTemplate"
-                          name="isTemplate"
-                          checked={this.state.isTemplate}
-                          onChange={this.toggleState}
-                        />
-                        <span>Template</span>
-                      </div>
-                    </label>
+                    <div>
+                      <label htmlFor="isTemplate">
+                        <div className="checkboxField">
+                          <input
+                            type="checkbox"
+                            id="isTemplate"
+                            name="isTemplate"
+                            checked={this.state.isTemplate}
+                            onChange={this.toggleState}
+                          />
+                          <span>Template</span>
+                        </div>
+                      </label>
+                    </div>
+
+                    <div>
+                      <label htmlFor="allowMovingSections">
+                        <div className="checkboxField">
+                          <input
+                            type="checkbox"
+                            id="allowMovingSections"
+                            name="allowMovingSections"
+                            checked={this.state?.settings?.allowMovingSections}
+                            onChange={this.toggleSettings}
+                          />
+                          <span>Allow moving sections</span>
+                        </div>
+                      </label>
+                    </div>
+
+                    <div>
+                      <label htmlFor="allowMovingCards">
+                        <div className="checkboxField">
+                          <input
+                            type="checkbox"
+                            id="allowMovingCards"
+                            name="allowMovingCards"
+                            checked={this.state?.settings?.allowMovingCards}
+                            onChange={this.toggleSettings}
+                          />
+                          <span>Allow moving cards</span>
+                        </div>
+                      </label>
+                    </div>
+
+                    <div>
+                      <label htmlFor="allowAddingSections">
+                        <div className="checkboxField">
+                          <input
+                            type="checkbox"
+                            id="allowAddingSections"
+                            name="allowAddingSections"
+                            checked={this.state?.settings?.allowAddingSections}
+                            onChange={this.toggleSettings}
+                          />
+                          <span>Allow adding new sections</span>
+                        </div>
+                      </label>
+                    </div>
+
+                    <div>
+                      <label htmlFor="allowAddingCards">
+                        <div className="checkboxField">
+                          <input
+                            type="checkbox"
+                            id="allowAddingCards"
+                            name="allowAddingCards"
+                            checked={this.state?.settings?.allowAddingCards}
+                            onChange={this.toggleSettings}
+                          />
+                          <span>Allow adding new cards</span>
+                        </div>
+                      </label>
+                    </div>
                   </div>
                 )}
 
                 {(this.state.title !== this.props.proposal?.title ||
                   this.state.description !== this.props.proposal?.description ||
-                  this.state.isTemplate !==
-                    this.props.proposal?.isTemplate) && (
+                  this.state.isTemplate !== this.props.proposal?.isTemplate ||
+                  this.state.settings !== this.props.proposal?.settings) && (
                   <div>
                     <button
                       className="secondaryBtn"

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { v1 as uuidv1 } from 'uuid';
 import Sections from './sections';
-import { BOARD_QUERY } from './board';
+import { BOARD_QUERY } from '../../../Queries/Proposal';
 
 import { StyledNewInput } from './styles';
 
@@ -101,7 +101,7 @@ class Inner extends Component {
   }
 
   render() {
-    const { board, sections, proposalBuildMode } = this.props;
+    const { board, sections, proposalBuildMode, settings } = this.props;
 
     return (
       <StyledGrid>
@@ -116,9 +116,10 @@ class Inner extends Component {
             proposalBuildMode={proposalBuildMode}
             adminMode={this.props.adminMode}
             isPreview={this.props.isPreview}
+            settings={settings}
           />
 
-          {!this.props.isPreview && (
+          {!this.props.isPreview && settings?.allowAddingSections && (
             <StyledNewInput>
               <label htmlFor="sectionTitle">
                 <div>New section</div>

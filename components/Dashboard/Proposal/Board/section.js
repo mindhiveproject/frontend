@@ -1,78 +1,19 @@
 import React, { useState } from 'react';
 import ReactHTMLParser from 'react-html-parser';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import sortBy from 'lodash/sortBy';
-import { Container, Draggable } from 'react-smooth-dnd';
+import { Container } from 'react-smooth-dnd';
 import { v1 as uuidv1 } from 'uuid';
 import { StyledSection, StyledNewInput } from './styles';
 
 import Card from './card';
-import { BOARD_QUERY } from './board';
 
-const CREATE_CARD_MUTATION = gql`
-  mutation CREATE_CARD_MUTATION(
-    $boardId: ID!
-    $title: String!
-    $content: String
-    $sectionId: ID!
-    $position: Float!
-  ) {
-    createProposalCard(
-      boardId: $boardId
-      title: $title
-      content: $content
-      sectionId: $sectionId
-      position: $position
-    ) {
-      id
-      title
-      content
-      position
-      section {
-        id
-      }
-    }
-  }
-`;
-
-const UPDATE_CARD_MUTATION = gql`
-  mutation UPDATE_CARD_MUTATION(
-    $id: ID!
-    $boardId: ID!
-    $title: String
-    $content: String
-    $sectionId: ID
-    $position: Float
-  ) {
-    updateProposalCard(
-      id: $id
-      boardId: $boardId
-      title: $title
-      content: $content
-      sectionId: $sectionId
-      position: $position
-    ) {
-      id
-      title
-      content
-      position
-      section {
-        id
-      }
-    }
-  }
-`;
-
-const DELETE_CARD = gql`
-  mutation DELETE_CARD($id: ID!, $boardId: ID!) {
-    deleteProposalCard(id: $id, boardId: $boardId) {
-      id
-      section {
-        id
-      }
-    }
-  }
-`;
+import { BOARD_QUERY } from '../../../Queries/Proposal';
+import {
+  CREATE_CARD,
+  UPDATE_CARD_POSITION,
+  DELETE_CARD,
+} from '../../../Mutations/Proposal';
 
 const Section = ({
   section,
@@ -85,41 +26,42 @@ const Section = ({
   proposalBuildMode,
   adminMode,
   isPreview,
+  settings,
 }) => {
   const { cards } = section;
   const numOfCards = cards.length;
-  const sortedCards = sortBy(cards, item => item.position);
+  // const sortedCards = sortBy(cards, item => item.position);
 
   const [cardName, setCardName] = useState('');
-  const [createCard, createCardState] = useMutation(CREATE_CARD_MUTATION);
-  const [updateCard, updateCardState] = useMutation(UPDATE_CARD_MUTATION);
+  const [createCard, createCardState] = useMutation(CREATE_CARD);
+  const [updateCard, updateCardState] = useMutation(UPDATE_CARD_POSITION);
   const [deleteCard, deleteCardState] = useMutation(DELETE_CARD);
 
-  const onUpdateCard = (id, boardId, sectionId, position, isDiffColumn) => {
+  const onUpdateCard = (payload, sectionId, position, isDiffColumn) => {
+    const { id } = payload;
     updateCard({
       variables: {
         id,
-        boardId,
         sectionId,
         position,
       },
-      update: (cache, { data: { updateProposalCard } }) => {
-        // Read the data from our cache for this query.
+      update: (cache, { data: { updateProposalCardPosition } }) => {
+        // Read the data from the cache for this query.
         const data = cache.readQuery({
           query: BOARD_QUERY,
           variables: { id: boardId },
         });
         if (data) {
-          let sections;
+          let newSections;
           if (isDiffColumn) {
-            sections = data.proposalBoard.sections.map(section => {
-              if (section.id == sectionId) {
+            newSections = data.proposalBoard.sections.map(section => {
+              if (section.id === sectionId) {
                 if (!section.cards) {
                   section.cards = [];
                 }
                 const newSection = {
                   ...section,
-                  cards: [...section.cards, updateProposalCard],
+                  cards: [...section.cards, updateProposalCardPosition],
                 };
                 return newSection;
               }
@@ -130,18 +72,18 @@ const Section = ({
               return newFilteredSection;
             });
           } else {
-            sections = data.proposalBoard.sections.map(section => {
-              if (section.id == sectionId) {
-                const cards = section.cards.map(card => {
-                  if (card.id == id) {
-                    const newCard = { ...card, ...updateProposalCard };
+            newSections = data.proposalBoard.sections.map(section => {
+              if (section.id === sectionId) {
+                const newCards = section.cards.map(card => {
+                  if (card.id === id) {
+                    const newCard = { ...card, ...updateProposalCardPosition };
                     return newCard;
                   }
                   return card;
                 });
                 const newSection = {
                   ...section,
-                  cards,
+                  cards: newCards,
                 };
                 return newSection;
               }
@@ -155,7 +97,7 @@ const Section = ({
             data: {
               proposalBoard: {
                 ...data?.proposalBoard,
-                sections,
+                sections: newSections,
               },
             },
           });
@@ -163,14 +105,14 @@ const Section = ({
       },
       optimisticResponse: {
         __typename: 'Mutation',
-        updateProposalCard: {
+        updateProposalCardPosition: {
           __typename: 'ProposalCard',
           id,
-          position,
           section: {
             __typename: 'ProposalSection',
             id: sectionId,
           },
+          position,
         },
       },
     });
@@ -195,6 +137,10 @@ const Section = ({
   };
 
   const onCardDrop = (columnId, addedIndex, removedIndex, payload) => {
+    if (isPreview || !settings?.allowMovingCards) {
+      return;
+    }
+
     let updatedPOS;
     if (addedIndex !== null && removedIndex !== null) {
       if (addedIndex === removedIndex) {
@@ -218,10 +164,10 @@ const Section = ({
         return item;
       });
       newCards = sortBy(newCards, item => item.position);
-      const positions = newCards.map(card => card.position);
+      // const positions = newCards.map(card => card.position);
 
       onCardChange(columnId, newCards);
-      onUpdateCard(payload.id, boardId, columnId, updatedPOS, false);
+      onUpdateCard(payload, columnId, updatedPOS, false);
     } else if (removedIndex !== null) {
       const newCards = cards.filter(item => item.id !== payload.id);
       onCardChange(columnId, newCards);
@@ -246,7 +192,7 @@ const Section = ({
 
       newCards = sortBy(newCards, item => item.position);
       onCardChange(columnId, newCards);
-      onUpdateCard(payload.id, boardId, columnId, updatedPOS, true);
+      onUpdateCard(payload, columnId, updatedPOS, true);
     }
   };
 
@@ -313,6 +259,8 @@ const Section = ({
             __typename: 'ProposalSection',
             id: sectionId,
           },
+          assignedTo: [],
+          settings: null,
         },
       },
     });
@@ -406,6 +354,9 @@ const Section = ({
             className: 'drop-preview',
           }}
           dropPlaceholderAnimationDuration={200}
+          lockAxis={
+            isPreview || !settings?.allowMovingCards ? 'undefined' : null
+          }
         >
           {cards && cards.length ? (
             cards.map(card => (
@@ -426,7 +377,7 @@ const Section = ({
         </Container>
       </div>
 
-      {!isPreview && (
+      {!isPreview && settings?.allowAddingCards && (
         <StyledNewInput>
           <label htmlFor={`input-${section.id}`}>
             <div>New card</div>

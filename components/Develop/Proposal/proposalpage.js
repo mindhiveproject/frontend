@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 
 import { Radio, Icon } from 'semantic-ui-react';
@@ -10,6 +9,8 @@ import ProposalContainer from '../../Dashboard/Proposal/Board/index';
 import ProposalPDF from '../../Proposal/pdf';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../../Dashboard/styles';
+
+import { PROPOSAL_BOARD_QUERY } from '../../Queries/Proposal';
 
 const StyledProposalBoard = styled.div`
   display: grid;
@@ -52,48 +53,48 @@ const StyledPreviewToggle = styled.div`
   }
 `;
 
-const PROPOSAL_BOARD_QUERY = gql`
-  query PROPOSAL_BOARD_QUERY($id: ID!) {
-    proposalBoard(where: { id: $id }) {
-      id
-      title
-      slug
-      description
-      sections {
-        id
-        title
-        description
-        position
-        cards {
-          id
-          title
-          content
-          settings
-          position
-          section {
-            id
-          }
-        }
-      }
-      study {
-        id
-        title
-        slug
-        author {
-          id
-          username
-        }
-        collaborators {
-          id
-          username
-          username
-        }
-      }
-      isSubmitted
-      checklist
-    }
-  }
-`;
+// const PROPOSAL_BOARD_QUERY = gql`
+//   query PROPOSAL_BOARD_QUERY($id: ID!) {
+//     proposalBoard(where: { id: $id }) {
+//       id
+//       title
+//       slug
+//       description
+//       sections {
+//         id
+//         title
+//         description
+//         position
+//         cards {
+//           id
+//           title
+//           content
+//           settings
+//           position
+//           section {
+//             id
+//           }
+//         }
+//       }
+//       study {
+//         id
+//         title
+//         slug
+//         author {
+//           id
+//           username
+//         }
+//         collaborators {
+//           id
+//           username
+//           username
+//         }
+//       }
+//       isSubmitted
+//       checklist
+//     }
+//   }
+// `;
 
 class ProposalPage extends Component {
   state = {

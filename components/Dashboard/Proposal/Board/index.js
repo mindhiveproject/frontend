@@ -28,21 +28,21 @@ class ProposalContainer extends Component {
       return (
         <div>
           {this.props.proposalBuildMode && (
-            <>
-              <div className="goBackBtn">
-                <span
-                  style={{ cursor: 'pointer' }}
-                  onClick={this.props.onClose}
-                >
-                  ← Back
-                </span>
-              </div>
-            </>
+            <div className="goBackBtn">
+              <span style={{ cursor: 'pointer' }} onClick={this.props.onClose}>
+                ← Back
+              </span>
+            </div>
           )}
 
           {this.props.isPreview ? (
             <>
-              <h2>Preview of proposal {this.props.proposal.title}</h2>
+              <h2>
+                Preview of proposal template{' '}
+                <span className="templateName">
+                  {this.props.proposal.title}
+                </span>
+              </h2>
               <p>{this.props.proposal.description}</p>
             </>
           ) : (
@@ -58,6 +58,7 @@ class ProposalContainer extends Component {
             proposalBuildMode={this.props.proposalBuildMode}
             adminMode={this.props.adminMode}
             isPreview={this.props.isPreview}
+            settings={this.props.proposal?.settings}
           />
         </div>
       );

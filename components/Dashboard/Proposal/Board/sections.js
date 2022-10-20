@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Draggable } from 'react-smooth-dnd';
 import sortBy from 'lodash/sortBy';
-import { v1 as uuidv1 } from 'uuid';
+
 import Section from './section';
-import { BOARD_QUERY } from './board';
+import { BOARD_QUERY } from '../../../Queries/Proposal';
 
 import { StyledSections } from './styles';
 
@@ -27,6 +27,10 @@ class Sections extends Component {
   };
 
   onColumnDrop = ({ removedIndex, addedIndex, payload }) => {
+    if (this.props.isPreview || !this.props.settings?.allowMovingSections) {
+      return;
+    }
+
     if (this.props.sections) {
       const updatePOS = this.calculatePosition(
         removedIndex,
@@ -83,6 +87,9 @@ class Sections extends Component {
           updateProposalSection: {
             __typename: 'ProposalSection',
             id: payload.id,
+            title: payload.title,
+            description: payload.description,
+            cards: payload.cards,
             boardId: this.props.boardId,
             position: updatePOS,
           },
@@ -104,7 +111,7 @@ class Sections extends Component {
   };
 
   render() {
-    const { sections } = this.props;
+    const { sections, settings } = this.props;
     return (
       <StyledSections>
         <Container
@@ -118,6 +125,11 @@ class Sections extends Component {
           }}
           getChildPayload={index => sections[index]}
           dragHandleSelector=".column-drag-handle"
+          lockAxis={
+            this.props.isPreview || !settings?.allowMovingSections
+              ? 'undefined'
+              : null
+          }
         >
           {sections.map(section => (
             <Draggable key={section.id}>
@@ -132,6 +144,7 @@ class Sections extends Component {
                 proposalBuildMode={this.props.proposalBuildMode}
                 adminMode={this.props.adminMode}
                 isPreview={this.props.isPreview}
+                settings={settings}
               />
             </Draggable>
           ))}

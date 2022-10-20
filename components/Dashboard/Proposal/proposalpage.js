@@ -1,54 +1,14 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 
 import Head from 'next/head';
-import moment from 'moment';
-import { Menu } from 'semantic-ui-react';
 import Error from '../../ErrorMessage/index';
 
 import ProposalContainer from './Board/index';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../styles';
 
-const PROPOSAL_BOARD_QUERY = gql`
-  query PROPOSAL_BOARD_QUERY($id: ID!) {
-    proposalBoard(where: { id: $id }) {
-      id
-      title
-      slug
-      description
-      sections {
-        id
-        title
-        description
-        position
-        cards {
-          id
-          title
-          position
-          section {
-            id
-          }
-        }
-      }
-      study {
-        author {
-          id
-          username
-        }
-        collaborators {
-          id
-          username
-          username
-        }
-      }
-      isSubmitted
-      checklist
-      isTemplate
-    }
-  }
-`;
+import { PROPOSAL_BOARD_QUERY } from '../../Queries/Proposal';
 
 class ProposalPage extends Component {
   state = {};
@@ -88,4 +48,3 @@ class ProposalPage extends Component {
 }
 
 export default ProposalPage;
-export { PROPOSAL_BOARD_QUERY };

@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 
-import { MY_PROPOSALS_QUERY } from './proposals';
+import { MY_PROPOSALS_QUERY } from '../../Queries/Proposal';
+import { CREATE_NEW_PROPOSAL } from '../../Mutations/Proposal';
 
 import { StyledSubmitForm } from '../../Styles/Forms';
-
-const CREATE_NEW_PROPOSAL = gql`
-  mutation CREATE_NEW_PROPOSAL($title: String!, $description: String) {
-    createProposalBoard(title: $title, description: $description) {
-      id
-    }
-  }
-`;
 
 const StyledSelectionScreen = styled.div`
   display: grid;

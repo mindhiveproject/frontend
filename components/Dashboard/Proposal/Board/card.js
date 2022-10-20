@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import { Container, Draggable } from 'react-smooth-dnd';
+import { Draggable } from 'react-smooth-dnd';
 
 import { StyledCard } from './styles';
 

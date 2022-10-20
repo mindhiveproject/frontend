@@ -55,7 +55,6 @@ class OverviewTemplates extends Component {
             if (error) return <p>Error: {error.message}</p>;
             const { templates } = data;
 
-            console.log('templates', templates);
             if (templates.length === 0) {
               return (
                 <StyledZeroState>

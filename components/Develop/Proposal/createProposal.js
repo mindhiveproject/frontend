@@ -7,7 +7,7 @@ import { COPY_PROPOSAL_MUTATION } from '../../Queries/Proposal';
 import { StyledSubmitForm } from '../../Styles/Forms';
 
 import { StyledDropdown } from './styles';
-import { StyledDasboard } from '../../Dashboard/styles';
+import { StyledDasboard, StyledPreviewTemplate } from '../../Dashboard/styles';
 
 import ProposalContainer from '../../Dashboard/Proposal/Board/index';
 
@@ -110,12 +110,12 @@ class CreateProposal extends Component {
         </Mutation>
         <>
           {this.state?.selectedTemplate && !this.props.isCopy && (
-            <StyledDasboard>
+            <StyledPreviewTemplate>
               <ProposalContainer
                 proposal={this.state?.selectedTemplate}
                 isPreview
               />
-            </StyledDasboard>
+            </StyledPreviewTemplate>
           )}
         </>
       </StyledDasboard>

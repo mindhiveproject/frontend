@@ -668,3 +668,19 @@ export const StyledReviewDasboard = styled.div`
     }
   }
 `;
+
+export const StyledPreviewTemplate = styled.div`
+  display: grid;
+  margin: 30px;
+  padding: 30px;
+  background: #fbfaf7;
+  border-radius: 7px;
+  .templateName {
+    padding: 5px 8px;
+    background: #ffffff;
+    border: 1px solid #ced4da;
+    box-shadow: 0px 2px 2px rgba(33, 37, 41, 0.06),
+      0px 0px 1px rgba(33, 37, 41, 0.08);
+    border-radius: 8px;
+  }
+`;

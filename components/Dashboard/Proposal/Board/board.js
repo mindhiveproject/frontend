@@ -1,110 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import sortBy from 'lodash/sortBy';
 
-import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 import Inner from './inner';
 
-export const BOARD_QUERY = gql`
-  query BOARD_QUERY($id: ID!) {
-    proposalBoard(where: { id: $id }) {
-      id
-      title
-      slug
-      description
-      sections {
-        id
-        title
-        description
-        position
-        cards {
-          id
-          title
-          position
-          section {
-            id
-          }
-          settings
-          assignedTo {
-            username
-            publicReadableId
-          }
-        }
-      }
-    }
-  }
-`;
+import { BOARD_QUERY } from '../../../Queries/Proposal';
 
-const CREATE_SECTION_MUTATION = gql`
-  mutation CREATE_SECTION_MUTATION(
-    $boardId: ID!
-    $title: String!
-    $description: String
-    $position: Float!
-  ) {
-    createProposalSection(
-      boardId: $boardId
-      title: $title
-      description: $description
-      position: $position
-    ) {
-      id
-      title
-      description
-      position
-    }
-  }
-`;
+import {
+  CREATE_SECTION,
+  UPDATE_SECTION,
+  DELETE_SECTION,
+} from '../../../Mutations/Proposal';
 
-const UPDATE_SECTION = gql`
-  mutation UPDATE_SECTION(
-    $id: ID!
-    $boardId: ID!
-    $title: String
-    $description: String
-    $position: Float
-    $cards: [ID]
-  ) {
-    updateProposalSection(
-      id: $id
-      boardId: $boardId
-      title: $title
-      description: $description
-      position: $position
-      cards: $cards
-    ) {
-      id
-      title
-      description
-      position
-      cards {
-        id
-        title
-        position
-        content
-      }
-    }
-  }
-`;
-
-const DELETE_SECTION = gql`
-  mutation DELETE_SECTION($id: ID!, $boardId: ID!) {
-    deleteProposalSection(id: $id, boardId: $boardId) {
-      id
-    }
-  }
-`;
-
-const Board = ({ id, openCard, proposalBuildMode, adminMode, isPreview }) => {
+const Board = ({
+  id,
+  openCard,
+  proposalBuildMode,
+  adminMode,
+  isPreview,
+  settings,
+}) => {
   const { loading, error, data } = useQuery(BOARD_QUERY, {
     variables: { id },
     pollInterval: 20000, // get new data every 20 seconds
   });
 
   const [sections, setSections] = useState([]);
-  const [createSection, createSectionState] = useMutation(
-    CREATE_SECTION_MUTATION
-  );
+  const [createSection, createSectionState] = useMutation(CREATE_SECTION);
   const [updateSection, updateSectionState] = useMutation(UPDATE_SECTION);
   const [deleteSection, deleteSectionState] = useMutation(DELETE_SECTION);
 
@@ -138,6 +61,7 @@ const Board = ({ id, openCard, proposalBuildMode, adminMode, isPreview }) => {
       proposalBuildMode={proposalBuildMode}
       adminMode={adminMode}
       isPreview={isPreview}
+      settings={settings}
     />
   );
 };
