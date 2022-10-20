@@ -157,7 +157,7 @@ export default class Navigation extends Component {
                   : 'discoverMenuTitle'
               }
             >
-              <img src="/content/icons/Stats.svg" />
+              <img src="/content/icons/stats2.svg" />
               <p>Visualize</p>
             </Menu.Item>
 
@@ -171,7 +171,7 @@ export default class Navigation extends Component {
                   : 'discoverMenuTitle'
               }
             >
-              <img src="/content/icons/Stats.svg" />
+              <img src="/content/icons/code.svg" />
               <p>Analyze</p>
             </Menu.Item>
           </Menu>
