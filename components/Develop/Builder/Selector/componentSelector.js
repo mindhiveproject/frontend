@@ -5,6 +5,7 @@ import debounce from 'lodash.debounce';
 import { StyledEditPane } from './styles';
 
 import Blocks from './blocks';
+import Templates from './templates';
 
 class ComponentSelector extends Component {
   state = {
@@ -69,6 +70,11 @@ class ComponentSelector extends Component {
           />
         </div>
         <Blocks
+          {...this.props}
+          createdBy={this.state.createdBy}
+          search={this.state.search}
+        />
+        <Templates
           {...this.props}
           createdBy={this.state.createdBy}
           search={this.state.search}

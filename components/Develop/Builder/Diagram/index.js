@@ -154,6 +154,13 @@ const Diagram = React.memo(props => {
     forceUpdate();
   };
 
+  const addStudyTemplateToCanvas = study => {
+    const { diagram } = study;
+    const model = new DiagramModel();
+    model.deserializeModel(JSON.parse(diagram), engine);
+    engine.setModel(model);
+  };
+
   return (
     <StyledWrapper>
       <StyledDigram>
@@ -167,6 +174,7 @@ const Diagram = React.memo(props => {
       <Settings
         {...props}
         addComponentToCanvas={addComponentToCanvas}
+        addStudyTemplateToCanvas={addStudyTemplateToCanvas}
         engine={engine}
       />
     </StyledWrapper>

@@ -8,16 +8,7 @@ export const StyledSettings = styled.div`
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
   padding: 30px;
   overflow-y: scroll;
-  .menuTitle {
-    h1 {
-      color: lightgrey;
-    }
-  }
-  .selectedMenuTitle {
-    h1 {
-      color: black;
-    }
-  }
+
   .card {
     display: grid;
     padding: 20px 30px;
@@ -36,6 +27,33 @@ export const StyledSettings = styled.div`
       color: #1a1a1a;
     }
   }
-  .addStudyBlock {
+
+  .menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 10px 6px 10px 6px !important;
+    cursor: pointer;
+
+    .menuTitle {
+      h1 {
+        color: lightgrey;
+      }
+      padding-bottom: 10px !important;
+      display: grid;
+      justify-content: center;
+      border-bottom: 2px solid #e6e6e6;
+      p {
+        font-size: 18px;
+      }
+    }
+    .selectedMenuTitle {
+      h1 {
+        color: black;
+      }
+      border-bottom: 4px solid #ffc107 !important;
+      p {
+        color: #1a1a1a;
+      }
+    }
   }
 `;

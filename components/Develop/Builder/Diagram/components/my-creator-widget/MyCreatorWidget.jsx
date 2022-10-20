@@ -1,5 +1,6 @@
 import React from 'react';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
+import { DiagramModel } from '@projectstorm/react-diagrams';
 import uniqid from 'uniqid';
 
 import { DiagramCanvas } from '../DiagramCanvas';
@@ -27,19 +28,30 @@ export const MyCreatorWidget = props => {
     const dataString = event.dataTransfer.getData('storm-diagram-node');
     const data = JSON.parse(dataString);
 
-    const node = new MyNodeModel({
-      color: 'white',
-      name: data?.name,
-      details: shorten(data?.details),
-      componentID: data?.componentID,
-      testId: uniqid.time(),
-    });
+    // adding new component
+    if (data.type === 'component') {
+      const node = new MyNodeModel({
+        color: 'white',
+        name: data?.name,
+        details: shorten(data?.details),
+        componentID: data?.componentID,
+        testId: uniqid.time(),
+      });
 
-    const point = diagramEngine.getRelativeMousePoint(event);
-    node.setPosition(point);
+      const point = diagramEngine.getRelativeMousePoint(event);
+      node.setPosition(point);
 
-    diagramEngine.getModel().addNode(node);
-    forceUpdate();
+      diagramEngine.getModel().addNode(node);
+      forceUpdate();
+    }
+
+    // using a template
+    if (data.type === 'study') {
+      const { diagram } = data;
+      const model = new DiagramModel();
+      model.deserializeModel(JSON.parse(diagram), diagramEngine);
+      diagramEngine.setModel(model);
+    }
   };
 
   return (

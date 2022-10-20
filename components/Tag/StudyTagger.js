@@ -26,9 +26,10 @@ export default class StudyTagger extends Component {
           return (
             <div>
               <h2>Study tags</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <p>Choose keywords for your study.</p>
               <Drop
                 study={this.props.study}
+                engine={this.props.engine}
                 tags={tagValues}
                 handleTagsUpdate={this.handleTagsUpdate}
               />

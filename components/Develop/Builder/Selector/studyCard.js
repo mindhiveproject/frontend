@@ -36,17 +36,14 @@ class Card extends Component {
   };
 
   render() {
-    const { component, number, viewing } = this.props;
+    const { study, number, viewing } = this.props;
 
     // get the author and collaborators ids
-    const authIds = [
-      component?.author?.id,
-      ...component?.collaborators.map(c => c.id),
-    ];
+    const authIds = [study?.author?.id, ...study?.collaborators.map(c => c.id)];
 
     return (
       <>
-        <StyledTaskCard taskType={component.taskType}>
+        <StyledTaskCard>
           <div className="addBlock">
             <Icon
               name="plus circle"
@@ -54,12 +51,7 @@ class Card extends Component {
               color="grey"
               link
               onClick={() => {
-                this.props.addComponentToCanvas({
-                  name: component?.title,
-                  details: component?.description,
-                  componentID: component?.id,
-                  testId: uniqid.time(),
-                });
+                this.props.addStudyTemplateToCanvas(study);
               }}
             />
           </div>
@@ -68,31 +60,30 @@ class Card extends Component {
             <NodesTypesContainer>
               <NodeTypeLabel
                 model={{
-                  type: 'component',
-                  ports: 'in',
-                  name: component?.title,
-                  details: component?.description,
-                  componentID: component.id,
+                  type: 'study',
+                  diagram: study?.diagram,
                 }}
-                name={component?.title}
+                name={study?.title}
               ></NodeTypeLabel>
             </NodesTypesContainer>
           </div>
           <div className="icons">
-            {false && <ManageFavoriteComponents id={component?.id} />}
+            {false && <ManageFavoriteComponents id={study?.id} />}
 
-            <div className="icon" onClick={() => this.toggleModal()}>
-              <img src="/content/icons/info-2.svg" />
-            </div>
+            {false && (
+              <div className="icon" onClick={() => this.toggleModal()}>
+                <img src="/content/icons/info-2.svg" />
+              </div>
+            )}
 
-            {!component.link && (
+            {false && !study.link && (
               <div className="icon" onClick={e => this.togglePreview(e, false)}>
                 <img src="/content/icons/Eye.svg" />
               </div>
             )}
 
-            {component.link && (
-              <a target="_blank" href={component.link} rel="noreferrer">
+            {false && study.link && (
+              <a target="_blank" href={study.link} rel="noreferrer">
                 <div className="icon">
                   <img src="/content/icons/Eye.svg" />
                 </div>
@@ -103,8 +94,8 @@ class Card extends Component {
         {this.state.showPreview && (
           <ExperimentPreview
             user={this.props?.user?.id || ''}
-            parameters={component.parameters}
-            template={component.template}
+            parameters={study.parameters}
+            template={study.template}
             handleFinish={() =>
               this.setState({
                 showPreview: false,
@@ -116,7 +107,7 @@ class Card extends Component {
         {this.state.showModal && (
           <TaskModal
             {...this.props}
-            component={component}
+            study={study}
             onModalClose={this.toggleModal}
             onShowPreview={this.togglePreview}
           />

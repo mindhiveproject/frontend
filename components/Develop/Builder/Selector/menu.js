@@ -3,7 +3,7 @@ import { Accordion, Icon } from 'semantic-ui-react';
 import CardWrapper from './cardWrapper';
 
 class Menu extends Component {
-  state = { activeIndex: 0 };
+  state = { activeIndex: -1 };
 
   handleClick = (e, titleProps) => {
     const { index } = titleProps;

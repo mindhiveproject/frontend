@@ -164,6 +164,28 @@ export const ALL_PUBLIC_STUDIES_QUERY = gql`
   }
 `;
 
+// study templates for the study builder
+export const STUDY_TEMPLATES_QUERY = gql`
+  query STUDY_TEMPLATES_QUERY {
+    myAndPublicStudies {
+      id
+      title
+      slug
+      image
+      tasks {
+        id
+      }
+      diagram
+      author {
+        id
+      }
+      collaborators {
+        id
+      }
+    }
+  }
+`;
+
 // export const ALL_PUBLIC_STUDIES_QUERY = gql`
 //   query ALL_PUBLIC_STUDIES_QUERY {
 //     studies {

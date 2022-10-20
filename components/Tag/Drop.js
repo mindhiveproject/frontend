@@ -3,16 +3,15 @@ import { Dropdown } from 'semantic-ui-react';
 
 export default class Drop extends Component {
   render() {
-    const { tags, study } = this.props;
+    const { tags, study, engine } = this.props;
     const values = study?.tags || [];
     return (
-      <div>
-        <DropdownExampleMultipleSelection
-          tags={tags}
-          values={values}
-          handleTagsUpdate={this.props.handleTagsUpdate}
-        />
-      </div>
+      <DropdownExampleMultipleSelection
+        tags={tags}
+        values={values}
+        handleTagsUpdate={this.props.handleTagsUpdate}
+        engine={engine}
+      />
     );
   }
 }
@@ -21,6 +20,7 @@ const DropdownExampleMultipleSelection = ({
   tags,
   values,
   handleTagsUpdate,
+  engine,
 }) => {
   const onChange = (event, data) => {
     handleTagsUpdate(data.value);
@@ -36,6 +36,16 @@ const DropdownExampleMultipleSelection = ({
       options={tags}
       onChange={onChange}
       value={values}
+      onFocus={() => {
+        if (engine) {
+          engine.getModel().setLocked(true);
+        }
+      }}
+      onBlur={() => {
+        if (engine) {
+          engine.getModel().setLocked(false);
+        }
+      }}
     />
   );
 };
