@@ -2,38 +2,14 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Query } from '@apollo/client/react/components';
 import moment from 'moment';
-import gql from 'graphql-tag';
 import debounce from 'lodash.debounce';
-import FetchStudentPage from '../../Classes/ClassPage/StudentPage/index';
 
+import FetchUserPage from '../../Classes/ClassPage/StudentPage/index';
 import PaginationUsers from '../../../Pagination/allUsers';
+
 import { StyledOverview } from '../../../Bank/Studies/overview';
 
-// query to get all users
-const ALL_USERS_QUERY = gql`
-  query ALL_USERS_QUERY($skip: Int, $first: Int, $search: String) {
-    users(
-      skip: $skip
-      first: $first
-      where: {
-        OR: [
-          { username_contains: $search }
-          { publicReadableId_contains: $search }
-        ]
-      }
-    ) {
-      id
-      publicReadableId
-      publicId
-      username
-      authEmail {
-        email
-      }
-      permissions
-      createdAt
-    }
-  }
-`;
+import { ALL_USERS_QUERY } from '../../../Queries/User';
 
 const StyledHeader = styled.div`
   display: grid;
@@ -45,24 +21,29 @@ const StyledHeader = styled.div`
 const StyledRow = styled.div`
   display: grid;
   padding: 10px;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   background: white;
+  box-shadow: 0px 2px 4px 0px #00000026;
+  transition: box-shadow 300ms ease-out;
+  :hover {
+    box-shadow: 0px 2px 24px 0px #0000001a;
+  }
 `;
 
 class OverviewUsers extends Component {
   state = {
     pagination: this.props.pagination || 1,
     page: this.props.page || 'list',
-    id: null,
+    userId: null,
     keyword: '',
     search: '',
   };
 
-  openJournal = id => {
+  openUserInformation = userId => {
     this.setState({
-      page: 'person',
-      id,
+      page: 'user',
+      userId,
     });
   };
 
@@ -96,11 +77,11 @@ class OverviewUsers extends Component {
 
   render() {
     const perPage = 30;
-    const { page } = this.state;
-    if (page === 'person') {
+    const { page, userId } = this.state;
+    if (page === 'user') {
       return (
-        <FetchStudentPage
-          studentId={this.state.id}
+        <FetchUserPage
+          studentId={userId}
           goBackToList={this.goBackToList}
           adminMode
         />
@@ -163,11 +144,12 @@ class OverviewUsers extends Component {
                     (person?.authEmail?.length && person?.authEmail[0].email) ||
                     '';
                   return (
-                    <StyledRow key={i}>
-                      <div
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => this.openJournal(person.id)}
-                      >
+                    <StyledRow
+                      key={i}
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => this.openUserInformation(person.id)}
+                    >
+                      <div>
                         {person.publicReadableId ||
                           person.publicId ||
                           person.id ||

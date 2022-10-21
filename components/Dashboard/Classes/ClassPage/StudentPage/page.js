@@ -8,6 +8,7 @@ import Created from './created';
 import Reviewed from './reviewed';
 import Journal from './journal';
 import Homework from './homework';
+import Settings from './settings';
 
 const StudentHeader = styled.div`
   display: grid;
@@ -64,7 +65,6 @@ class StudentPage extends Component {
               >
                 <p>Participated</p>
               </Menu.Item>
-
               <Menu.Item
                 name="created"
                 active={tab === 'created'}
@@ -77,7 +77,6 @@ class StudentPage extends Component {
               >
                 <p>Created</p>
               </Menu.Item>
-
               <Menu.Item
                 name="reviewed"
                 active={tab === 'reviewed'}
@@ -90,7 +89,6 @@ class StudentPage extends Component {
               >
                 <p>Reviewed</p>
               </Menu.Item>
-
               <Menu.Item
                 name="journal"
                 active={tab === 'journal'}
@@ -103,7 +101,6 @@ class StudentPage extends Component {
               >
                 <p>Journal</p>
               </Menu.Item>
-
               <Menu.Item
                 name="homework"
                 active={tab === 'homework'}
@@ -116,6 +113,20 @@ class StudentPage extends Component {
               >
                 <p>Homework</p>
               </Menu.Item>
+              {adminMode && (
+                <Menu.Item
+                  name="settings"
+                  active={tab === 'settings'}
+                  onClick={this.handleItemClick}
+                  className={
+                    tab === 'settings'
+                      ? 'discoverMenuTitle selectedMenuTitle'
+                      : 'discoverMenuTitle'
+                  }
+                >
+                  <p>Settings</p>
+                </Menu.Item>
+              )}
             </Menu>
           </div>
 
@@ -130,6 +141,8 @@ class StudentPage extends Component {
           {this.state.tab === 'journal' && <Journal studentId={student.id} />}
 
           {this.state.tab === 'homework' && <Homework student={student} />}
+
+          {this.state.tab === 'settings' && <Settings user={student} />}
         </div>
       </>
     );

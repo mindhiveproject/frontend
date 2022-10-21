@@ -16,8 +16,6 @@ class StudyTemplates extends Component {
           if (error) return <p>Error: {error.message}</p>;
           const { myAndPublicStudies } = data;
 
-          console.log('myAndPublicStudies', myAndPublicStudies);
-
           const filteredStudies = myAndPublicStudies
             .filter(study => !!study.diagram)
             .filter(

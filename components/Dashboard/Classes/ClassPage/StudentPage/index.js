@@ -1,71 +1,15 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 
 import StudentPage from './page';
 
 import { StyledDasboard, StyledDevelopDasboard } from '../../../styles';
 
-const STUDENT_QUERY = gql`
-  query STUDENT_QUERY($id: ID!) {
-    student(id: $id) {
-      id
-      publicReadableId
-      publicId
-      username
-      authEmail {
-        email
-      }
-      image
-      studiesInfo
-      participantIn {
-        id
-        title
-        slug
-        components
-      }
-      researcherIn {
-        title
-        slug
-        createdAt
-      }
-      collaboratorInStudy {
-        title
-        slug
-        createdAt
-      }
-      reviews {
-        id
-        createdAt
-        study {
-          slug
-          title
-        }
-        proposal {
-          slug
-        }
-        content
-        stage
-      }
-      authorOfHomework {
-        id
-        title
-      }
-      results {
-        id
-        payload
-        study {
-          id
-        }
-        testVersion
-        createdAt
-      }
-    }
-  }
-`;
+import { STUDENT_QUERY } from '../../../../Queries/User';
 
 class FetchStudentPage extends Component {
   render() {
+    const { studentId } = this.props;
     return (
       <StyledDasboard>
         <StyledDevelopDasboard>
@@ -78,12 +22,11 @@ class FetchStudentPage extends Component {
             </span>
           </div>
 
-          <Query query={STUDENT_QUERY} variables={{ id: this.props.studentId }}>
+          <Query query={STUDENT_QUERY} variables={{ id: studentId }}>
             {({ error, loading, data }) => {
               if (error) return <div>{JSON.stringify(error)}</div>;
               if (loading) return <div>Loading ...</div>;
-              if (!data.student)
-                return <p>No student found for {this.props.studentId}</p>;
+              if (!data.student) return <p>No student found for {studentId}</p>;
               const { student } = data;
 
               return (

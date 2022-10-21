@@ -1,38 +1,18 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-
 import styled from 'styled-components';
+
 import Error from '../../ErrorMessage/index';
 
 import { CreateAccountForm } from '../../Sign/styles';
 
+import { EDIT_ACCOUNT_MUTATION } from '../../Mutations/User';
 import { CURRENT_USER_EMAIL_QUERY } from '../../Queries/User';
 
 const StyledSettingsDasboard = styled.div`
   width: 100%;
   display: grid;
   grid-gap: 1rem;
-`;
-
-const EDIT_ACCOUNT_MUTATION = gql`
-  mutation EDIT_ACCOUNT_MUTATION(
-    $username: String
-    $email: String
-    $password: String
-    $info: Json
-    $isPublic: Boolean
-  ) {
-    editAccount(
-      username: $username
-      email: $email
-      password: $password
-      info: $info
-      isPublic: $isPublic
-    ) {
-      id
-    }
-  }
 `;
 
 class HomeDashboard extends Component {
@@ -155,7 +135,6 @@ class HomeDashboard extends Component {
                 <label htmlFor="password">
                   <p>Retype password to confirm</p>
                   <input
-                    // type="password"
                     name="passwordRepeat"
                     value={passwordRepeat}
                     onChange={this.saveToState}
