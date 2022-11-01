@@ -11,6 +11,10 @@ export const StyledDigram = styled.div`
     text-align: center;
   }
 
+  svg {
+    overflow: visible;
+  }
+
   .node {
     display: grid;
     width: 378px;

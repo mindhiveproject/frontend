@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import createEngine, { DiagramModel } from '@projectstorm/react-diagrams';
+import createEngine, {
+  DiagramModel,
+  DefaultDiagramState,
+} from '@projectstorm/react-diagrams';
 import uniqid from 'uniqid';
 import generate from 'project-name-generator';
 
@@ -11,6 +14,12 @@ import { StyledDigram, StyledWrapper } from './styles';
 import Settings from '../Settings/index';
 
 import { MyNodeModel } from './components/MyNodeModel';
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+}
 
 const Diagram = React.memo(props => {
   // force update canvas
@@ -37,6 +46,13 @@ const Diagram = React.memo(props => {
         // Create custom node
         newEngine.getNodeFactories().registerFactory(new NodesFactory());
         setEngine(newEngine);
+        // disable creating new nodes when clicking on the link
+        newEngine.maxNumberPointsPerLink = 0;
+        // disable loose links
+        const state = newEngine.getStateMachine().getCurrentState();
+        if (state instanceof DefaultDiagramState) {
+          state.dragNewLink.config.allowLooseLinks = false;
+        }
       }
 
       if (engine && props.diagram) {
@@ -147,7 +163,10 @@ const Diagram = React.memo(props => {
       testId: uniqid.time(),
     });
     // change X and Y later to be in the centre of the canvas
-    const event = { clientX: 200, clientY: 200 };
+    const event = {
+      clientX: getRandomIntInclusive(300, 500),
+      clientY: getRandomIntInclusive(300, 500),
+    };
     const point = engine.getRelativeMousePoint(event);
     node.setPosition(point);
     engine.getModel().addNode(node);
