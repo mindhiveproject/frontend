@@ -46,8 +46,8 @@ export const StyledDigram = styled.div`
   }
 
   .my-port {
-    width: 13px;
-    height: 13px;
+    width: 15px;
+    height: 15px;
     border-radius: 10px;
     background-color: #556aeb;
     cursor: pointer;
@@ -76,6 +76,10 @@ export const StyledDigram = styled.div`
     top: 0;
     margin-top: -12px;
     margin-left: 179px;
+    :hover {
+      background-color: lightblue;
+      border-radius: 10px;
+    }
   }
 
   .bottom-port {
