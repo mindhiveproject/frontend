@@ -68,6 +68,7 @@ const Diagram = React.memo(props => {
   }, [engine, props.diagram, props.openComponentModal]); // Only re-subscribe if props.diagram
 
   const findChildren = node => {
+    console.log('node', node);
     let children = [];
     if (
       node?.ports?.out?.links &&
@@ -100,6 +101,7 @@ const Diagram = React.memo(props => {
           },
         ];
       } else {
+        console.log('tests', tests);
         blockTests = [...tests];
         blockTests.push({
           id: node?.options?.componentID,
@@ -123,6 +125,7 @@ const Diagram = React.memo(props => {
     const startingNodes = nodes.filter(
       node => Object.keys(node?.ports?.in?.links).length === 0
     );
+    console.log('startingNodes', startingNodes);
     findChildrenRecursively(startingNodes, 0, blocks, []);
     return { blocks };
   };

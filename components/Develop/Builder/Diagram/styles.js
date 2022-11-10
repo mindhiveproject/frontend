@@ -45,15 +45,51 @@ export const StyledDigram = styled.div`
   .node-header-icons {
   }
 
-  .my-port {
-    width: 15px;
-    height: 15px;
+  .port-container {
+    position: absolute;
+    top: 40px;
+  }
+
+  .up-port {
+    top: 0;
+    margin-top: -20px;
+    margin-left: 0px;
+  }
+
+  .up-port:hover {
+    border: 1px solid lightblue;
     border-radius: 10px;
+  }
+
+  .bottom-port {
+    margin-right: -7px;
+    bottom: 0;
+    margin-top: 87px;
+    margin-left: 170px;
+  }
+
+  .my-out-port {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
     background-color: #556aeb;
     cursor: pointer;
     position: relative;
     z-index: -2;
     cursor: pointer;
+    text-align: center;
+  }
+
+  .my-in-port {
+    width: 380px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    z-index: -2;
+    cursor: pointer;
+    text-align: center;
   }
 
   .node-content {
@@ -65,27 +101,5 @@ export const StyledDigram = styled.div`
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
-  }
-
-  .port-container {
-    position: absolute;
-    top: 40px;
-  }
-
-  .up-port {
-    top: 0;
-    margin-top: -12px;
-    margin-left: 179px;
-    :hover {
-      background-color: lightblue;
-      border-radius: 10px;
-    }
-  }
-
-  .bottom-port {
-    margin-right: -7px;
-    bottom: 0;
-    margin-top: 87px;
-    margin-left: 179px;
   }
 `;
