@@ -90,6 +90,7 @@ export const StyledDigram = styled.div`
     z-index: -2;
     cursor: pointer;
     text-align: center;
+    color: grey;
   }
 
   .node-content {

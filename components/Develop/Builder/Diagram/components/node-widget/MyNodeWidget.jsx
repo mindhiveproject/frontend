@@ -31,7 +31,7 @@ export const MyNodeWidget = props => (
       engine={props.engine}
       port={props.node.getPort('in')}
     >
-      <div className="my-in-port">Drop the connection here</div>
+      <div className="my-in-port">Drop the link here</div>
     </PortWidget>
 
     <div className="node-content">{props.node?.options?.details}</div>
