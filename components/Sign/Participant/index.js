@@ -144,8 +144,8 @@ class ParticipantSignup extends Component {
                       <span>
                         I agree to receive notifications and updates related to
                         the studies I follow. NB: you can change your settings
-                        at any time in the Dashboard > Account Settings. If you
-                        uncheck this box, you will be asked to decide on a
+                        at any time in the Dashboard {'>'} Account Settings. If
+                        you uncheck this box, you will be asked to decide on a
                         case-by-case basis.
                       </span>
                     </div>
@@ -155,13 +155,18 @@ class ParticipantSignup extends Component {
                 <button type="submit">Create account</button>
                 <span>
                   By clicking on “Create account” you agree to MindHive’s{' '}
-                  <a target="_blank" href="https://mindhive.science/docs/terms">
+                  <a
+                    target="_blank"
+                    href="https://mindhive.science/docs/terms"
+                    rel="noreferrer"
+                  >
                     Terms of Service
                   </a>
                   , including our{' '}
                   <a
                     target="_blank"
                     href="https://mindhive.science/docs/privacy"
+                    rel="noreferrer"
                   >
                     Privacy Policy
                   </a>
