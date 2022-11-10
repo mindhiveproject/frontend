@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 
-import StudyMenu from './studyMenu';
+import StudyCard from './studyCard';
 
 import { STUDY_TEMPLATES_QUERY } from '../../../Queries/Study';
 
@@ -30,7 +30,18 @@ class StudyTemplates extends Component {
                         .includes(user?.id))))
             );
 
-          return <StudyMenu {...this.props} studies={filteredStudies} />;
+          return (
+            <div className="blocksMenuContent">
+              {filteredStudies.map(study => (
+                <StudyCard
+                  {...this.props}
+                  key={study.id}
+                  study={study}
+                  redirect="d"
+                />
+              ))}
+            </div>
+          );
         }}
       </Query>
     );

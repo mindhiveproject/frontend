@@ -171,7 +171,6 @@ export const STUDY_TEMPLATES_QUERY = gql`
       id
       title
       slug
-      image
       public
       tasks {
         id

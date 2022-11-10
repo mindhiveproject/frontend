@@ -3,11 +3,11 @@ import { Query } from '@apollo/client/react/components';
 
 import { COMPONENTS_QUERY } from '../../../Queries/Component';
 
-import Menu from './menu';
+import CardWrapper from './cardWrapper';
 
 class Blocks extends Component {
   render() {
-    const { createdBy, search, user } = this.props;
+    const { createdBy, search, user, componentType } = this.props;
 
     return (
       <Query query={COMPONENTS_QUERY}>
@@ -28,7 +28,20 @@ class Blocks extends Component {
                       .includes(user?.id))))
           );
 
-          return <Menu {...this.props} blocks={filteredBlocks} />;
+          return (
+            <div className="blocksMenuContent">
+              {filteredBlocks
+                .filter(task => componentType.includes(task?.taskType))
+                .map(task => (
+                  <CardWrapper
+                    {...this.props}
+                    key={task.id}
+                    component={task}
+                    redirect="d"
+                  />
+                ))}
+            </div>
+          );
         }}
       </Query>
     );

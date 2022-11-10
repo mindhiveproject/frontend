@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Menu } from 'semantic-ui-react';
 
 import Study from './study';
-import ComponentSelector from '../Selector/componentSelector';
+import ComponentSelector from '../Selector/index';
 
 import { StyledSettings } from './styles';
 
