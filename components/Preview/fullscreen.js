@@ -9,7 +9,9 @@ class FullScreenPreview extends Component {
     return (
       <PreviewContainer>
         <Preview>
-          <CloseButton onClick={this.props.handleFinish}>&times;</CloseButton>
+          <CloseButton onClick={() => this.props.handleFinish()}>
+            &times;
+          </CloseButton>
           {this.props.previewOf === 'study' && (
             <StudyWindow study={this.props.study} />
           )}

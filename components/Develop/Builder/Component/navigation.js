@@ -12,7 +12,15 @@ import { CREATE_COMPONENT, UPDATE_COMPONENT } from '../../../Mutations/Task';
 
 class Navigation extends Component {
   render() {
-    const { task, isAuthor, testId } = this.props;
+    const {
+      task,
+      isAuthor,
+      testId,
+      onShowPreview,
+      createNewComponent,
+      updateMyComponent,
+      closeModal,
+    } = this.props;
 
     const taskType =
       task?.taskType === 'TASK'
@@ -32,11 +40,15 @@ class Navigation extends Component {
             {task?.template?.script && (
               <button
                 className="secondaryBtn"
-                onClick={() => this.props.onShowPreview(task)}
+                onClick={() => onShowPreview(task)}
               >
                 Preview
               </button>
             )}
+
+            <button className="secondaryBtn" onClick={() => closeModal()}>
+              Close without saving
+            </button>
 
             {isAuthor ? (
               <div>
@@ -60,17 +72,15 @@ class Navigation extends Component {
                   {(updateTask, { loading, error }) => (
                     <div>
                       <button
+                        type="button"
                         className="primaryBtn"
-                        onClick={() => {
-                          this.props.updateMyComponent(
-                            updateTask,
-                            'updateTask'
-                          );
+                        disabled={loading}
+                        onClick={async () => {
+                          await updateMyComponent(updateTask, 'updateTask');
+                          closeModal();
                         }}
                       >
-                        {loading
-                          ? 'Saving'
-                          : `Save ${task?.taskType?.toLowerCase()}`}
+                        {loading ? 'Saving ...' : `Save & Close`}
                       </button>
                     </div>
                   )}
@@ -85,30 +95,21 @@ class Navigation extends Component {
                   {(createTask, { loading, error }) => (
                     <div>
                       <button
+                        type="button"
                         className="primaryBtn"
-                        onClick={() => {
-                          this.props.createNewComponent(
-                            createTask,
-                            'createTask'
-                          );
+                        disabled={loading}
+                        onClick={async () => {
+                          await createNewComponent(createTask, 'createTask');
+                          closeModal();
                         }}
                       >
-                        {loading
-                          ? 'Saving'
-                          : `Customize ${task?.taskType?.toLowerCase()}`}
+                        {loading ? 'Saving ...' : `Save & Close`}
                       </button>
                     </div>
                   )}
                 </Mutation>
               </div>
             )}
-
-            <button
-              className="primaryBtn"
-              onClick={() => this.props.closeModal()}
-            >
-              Done
-            </button>
           </div>
         </div>
 

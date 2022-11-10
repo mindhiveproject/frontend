@@ -5,9 +5,13 @@ import { StyledEditor } from './styles';
 import Navigation from './navigation';
 import EditPane from './editPane';
 
+// full screen preview
+import FullScreenPreview from '../../../Preview/fullscreen';
+
 class ComponentEditor extends Component {
   state = {
     task: { ...this.props.task },
+    showPreview: false,
   };
 
   handleComponentChange = e => {
@@ -21,15 +25,17 @@ class ComponentEditor extends Component {
     });
   };
 
-  handleParamChange = e => {
+  handleParameterChange = e => {
     const { name, type, value } = e.target;
     const val = type === 'number' ? parseFloat(value) : value;
+    const { task } = this.state;
+    const parameters = task?.parameters.map(el =>
+      el.name === name ? { ...el, value: val } : el
+    );
     this.setState({
       task: {
         ...this.state.task,
-        parameters: this.state.task.parameters.map(el =>
-          el.name === name ? { ...el, value: val } : el
-        ),
+        parameters,
       },
     });
   };
@@ -40,22 +46,26 @@ class ComponentEditor extends Component {
     if (classType === 'array') {
       val = JSON.stringify(val.split('\n'));
     }
+    const { task } = this.state;
+    const parameters = task?.parameters.map(el =>
+      el.name === name ? { ...el, [className]: val } : el
+    );
     this.setState({
       task: {
         ...this.state.task,
-        parameters: this.state.task.parameters.map(el =>
-          el.name === name ? { ...el, [className]: val } : el
-        ),
+        parameters,
       },
     });
   };
 
   deleteTemplateParameter = (e, name) => {
     e.preventDefault();
+    const { task } = this.state;
+    const parameters = task?.parameters.filter(el => el.name !== name);
     this.setState({
       task: {
         ...this.state.task,
-        parameters: this.state.task.parameters.filter(el => el.name !== name),
+        parameters,
       },
     });
   };
@@ -223,7 +233,31 @@ class ComponentEditor extends Component {
     });
   };
 
+  openPreview = () => {
+    this.setState({
+      showPreview: true,
+    });
+  };
+
+  closePreview = () => {
+    this.setState({
+      showPreview: false,
+    });
+  };
+
   render() {
+    if (this.state.showPreview) {
+      return (
+        <FullScreenPreview
+          previewOf="component"
+          user={this.props?.user?.id || ''}
+          parameters={this.state.task.parameters}
+          template={this.state.task.template}
+          handleFinish={() => this.closePreview()}
+        />
+      );
+    }
+
     return (
       <StyledEditor>
         <Navigation
@@ -231,14 +265,14 @@ class ComponentEditor extends Component {
           task={this.state.task}
           isAuthor={this.props.isAuthor}
           closeModal={this.props.closeModal}
-          onShowPreview={this.props.onShowPreview}
+          onShowPreview={this.openPreview}
           createNewComponent={this.createNewComponent}
           updateMyComponent={this.updateMyComponent}
         />
 
         <EditPane
           handleTaskChange={this.handleComponentChange}
-          handleParameterChange={this.handleParamChange}
+          handleParameterChange={this.handleParameterChange}
           handleTemplateParamChange={this.handleTemplateParamChange}
           deleteTemplateParameter={this.deleteTemplateParameter}
           handleSettingsChange={this.handleSettingsChange}

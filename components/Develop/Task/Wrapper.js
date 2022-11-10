@@ -38,14 +38,9 @@ class TaskWrapper extends Component {
                 </div>
                 <div className="rightPanel">
                   <StyledButtons>
-                    <div>
-                      <button
-                        className="addBtn"
-                        onClick={() => this.props.onModalClose()}
-                      >
-                        Done
-                      </button>
-                    </div>
+                    <CloseButton onClick={() => this.props.onModalClose()}>
+                      &times;
+                    </CloseButton>
                     <div>
                       <button
                         className="previewBtn"

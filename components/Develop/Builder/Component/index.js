@@ -15,31 +15,37 @@ import EditorWrapper from './editorWrapper.js';
 class ComponentViewer extends Component {
   state = {
     page: 'description',
-    showComponentPreview: false,
+    showPreview: false,
   };
 
   openEditor = () => {
     this.setState({ page: 'editor' });
   };
 
-  toggleComponentPreview = component => {
+  openPreview = component => {
     this.setState({
-      showComponentPreview: true,
+      showPreview: true,
       component,
+    });
+  };
+
+  closePreview = () => {
+    this.setState({
+      showPreview: false,
     });
   };
 
   render() {
     const { page } = this.state;
 
-    if (this.state.showComponentPreview) {
+    if (this.state.showPreview) {
       return (
         <FullScreenPreview
           previewOf="component"
           user={this.props?.user?.id || ''}
           parameters={this.state.component.parameters}
           template={this.state.component.template}
-          handleFinish={() => this.setState({ showComponentPreview: false })}
+          handleFinish={() => this.closePreview()}
         />
       );
     }
@@ -48,10 +54,7 @@ class ComponentViewer extends Component {
       return (
         <div className="background">
           <div className="modal">
-            <EditorWrapper
-              {...this.props}
-              onShowPreview={this.toggleComponentPreview}
-            />
+            <EditorWrapper {...this.props} />
           </div>
         </div>
       );
@@ -63,7 +66,7 @@ class ComponentViewer extends Component {
           <TaskWrapper
             onModalClose={this.props.closeModal}
             componentID={this.props.componentID}
-            onShowPreview={this.toggleComponentPreview}
+            onShowPreview={this.openPreview}
             openEditor={this.openEditor}
           />
         </div>

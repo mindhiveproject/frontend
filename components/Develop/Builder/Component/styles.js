@@ -86,7 +86,7 @@ export const StyledNavigation = styled.div`
   .navButtons {
     display: grid;
     align-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: auto auto auto;
     grid-gap: 1rem;
     @media only screen and (max-width: 900px) {
       grid-template-columns: 1fr;

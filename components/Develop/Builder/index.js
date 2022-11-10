@@ -11,15 +11,12 @@ const DynamicDiagram = dynamic(Diagram, {
   ssr: false,
 });
 
-// todo How to stop re-rendering the Diagram if the
-// state of the study is updated
-
 export default class Builder extends Component {
   state = {
     isModalOpen: false,
     componentModalID: null,
     testModalId: null,
-    engine: null, // use as a way to modify the nodes
+    engine: null, // used to modify the nodes
     node: null,
   };
 
@@ -36,9 +33,8 @@ export default class Builder extends Component {
   };
 
   closeComponentModal = () => {
-    // unlock the model
     const { engine } = this.state;
-    engine.getModel().setLocked(false);
+    engine.getModel().setLocked(false); // unlock the model
     this.setState({
       isModalOpen: false,
       componentModalID: null,
@@ -66,21 +62,21 @@ export default class Builder extends Component {
   };
 
   render() {
+    const { study, handleSetMultipleValuesInState } = this.props;
+    const { isModalOpen, componentModalID, testModalId } = this.state;
     return (
       <StyledBoard>
         <DynamicDiagram
-          handleSetMultipleValuesInState={
-            this.props.handleSetMultipleValuesInState
-          }
-          diagram={this.props?.study?.diagram}
+          handleSetMultipleValuesInState={handleSetMultipleValuesInState}
+          diagram={study?.diagram}
           openComponentModal={this.openComponentModal}
           {...this.props}
         />
-        {this.state.isModalOpen && (
+        {isModalOpen && (
           <ComponentViewer
             {...this.props}
-            componentID={this.state.componentModalID}
-            testId={this.state.testModalId}
+            componentID={componentModalID}
+            testId={testModalId}
             closeModal={this.closeComponentModal}
             updateCanvas={this.updateCanvas}
           />

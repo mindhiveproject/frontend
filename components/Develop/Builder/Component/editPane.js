@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
 
 import { StyledEditPane } from './styles';
 
@@ -8,14 +7,7 @@ import EditParameters from './Edit/editParameters';
 import EditSharing from './Edit/editSharing';
 
 class EditPane extends Component {
-  state = {
-    tab: this.props.tab || 'basic',
-  };
-
-  handleItemClick = (e, { name }) => this.setState({ tab: name });
-
   render() {
-    const { tab } = this.state;
     return (
       <StyledEditPane>
         <EditBasic
