@@ -91,6 +91,7 @@ export const StyledDigram = styled.div`
     cursor: pointer;
     text-align: center;
     color: grey;
+    opacity: 0.8;
   }
 
   .node-content {
