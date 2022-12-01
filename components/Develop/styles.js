@@ -106,7 +106,7 @@ export const StyledButtons = styled.div`
     text-align: center;
   }
   .addBtn {
-    background: #556aeb;
+    background: #007c70;
     color: white;
     border-radius: 100px;
     border: 0px;

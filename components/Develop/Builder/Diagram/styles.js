@@ -79,7 +79,7 @@ export const StyledDigram = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 20px;
-    background-color: #556aeb;
+    background-color: #007c70;
     cursor: pointer;
     position: relative;
     z-index: -2;

@@ -30,12 +30,11 @@ export const CloseButton = styled.span`
   text-align: center;
   cursor: pointer;
   border-radius: 2.25em;
-  background-color: #556aeb;
+  background-color: #007c70;
   color: white;
   padding-bottom: 5px;
   font-size: 2em;
   :hover {
-    background-color: #2f45d1;
     transform: scale(1.1);
     transition: transform 0.5s;
   }

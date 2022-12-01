@@ -105,7 +105,7 @@ export const StyledNavigation = styled.div`
     line-height: 24px;
   }
   .primaryBtn {
-    background: #556aeb;
+    background: #007c70;
     color: #ffffff;
   }
   .secondaryBtn {

@@ -339,4 +339,8 @@ export const StyledSettingsBlock = styled.div`
   grid-gap: 16px;
   justify-items: start;
   border-radius: 5px;
+  .ui.toggle.checkbox input:checked ~ .box:before,
+  .ui.toggle.checkbox input:checked ~ label:before {
+    background-color: #007c70 !important;
+  }
 `;
