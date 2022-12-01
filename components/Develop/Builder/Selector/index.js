@@ -12,7 +12,7 @@ class ComponentSelector extends Component {
     createdBy: this.props.createdBy || 'anyone',
     keyword: '',
     search: '',
-    activeIndex: -1,
+    activeIndex: [],
   };
 
   handleCreatedBySelect = (event, data) => {
@@ -35,8 +35,12 @@ class ComponentSelector extends Component {
   handleClick = (e, titleProps) => {
     const { index } = titleProps;
     const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-
+    let newIndex;
+    if (activeIndex.includes(index)) {
+      newIndex = activeIndex.filter(i => i !== index);
+    } else {
+      newIndex = [...activeIndex, index];
+    }
     this.setState({ activeIndex: newIndex });
   };
 
@@ -83,16 +87,21 @@ class ComponentSelector extends Component {
 
         <Accordion exclusive={false} fluid styled className="blocksMenu">
           <Accordion.Title
-            active={activeIndex === 0}
+            active={activeIndex.includes(0)}
             index={0}
             onClick={this.handleClick}
           >
             <div className="blocksMenuTitle">
-              <p>Basic Blocks</p>
+              <h3>Basic Blocks</h3>
               <Icon name="dropdown" />
+              <p>
+                Want to include <strong>custom instructions</strong> to your
+                participants or <strong>embed a link and/or video</strong> in
+                your study’s procedure? Select and edit a basic block
+              </p>
             </div>
           </Accordion.Title>
-          <Accordion.Content active={activeIndex === 0}>
+          <Accordion.Content active={activeIndex.includes(0)}>
             <Blocks
               {...this.props}
               createdBy={this.state.createdBy}
@@ -102,35 +111,72 @@ class ComponentSelector extends Component {
           </Accordion.Content>
 
           <Accordion.Title
-            active={activeIndex === 1}
+            active={activeIndex.includes(1)}
             index={1}
             onClick={this.handleClick}
           >
             <div className="blocksMenuTitle">
-              <p>Tasks & Surveys</p>
+              <h3>Tasks</h3>
               <Icon name="dropdown" />
+              <p>
+                Want to <strong>measure a construct or variable</strong> by
+                having participants <strong>complete an activity</strong>?
+                Choose from this bank of validated tasks
+              </p>
             </div>
           </Accordion.Title>
-          <Accordion.Content active={activeIndex === 1}>
+          <Accordion.Content active={activeIndex.includes(1)}>
             <Blocks
               {...this.props}
               createdBy={this.state.createdBy}
               search={this.state.search}
-              componentType={['TASK', 'SURVEY']}
+              componentType={['TASK']}
             />
           </Accordion.Content>
 
           <Accordion.Title
-            active={activeIndex === 2}
+            active={activeIndex.includes(2)}
             index={2}
             onClick={this.handleClick}
           >
             <div className="blocksMenuTitle">
-              <p>Templates</p>
+              <h3>Surveys</h3>
               <Icon name="dropdown" />
+              <p>
+                Want to{' '}
+                <strong>
+                  measure participants’ attitudes, experiences, or opinions
+                </strong>{' '}
+                through <strong>self-report</strong>? Choose from this bank of
+                validated surveys
+              </p>
             </div>
           </Accordion.Title>
-          <Accordion.Content active={activeIndex === 2}>
+          <Accordion.Content active={activeIndex.includes(2)}>
+            <Blocks
+              {...this.props}
+              createdBy={this.state.createdBy}
+              search={this.state.search}
+              componentType={['SURVEY']}
+            />
+          </Accordion.Content>
+
+          <Accordion.Title
+            active={activeIndex.includes(3)}
+            index={3}
+            onClick={this.handleClick}
+          >
+            <div className="blocksMenuTitle">
+              <h3>Templates</h3>
+              <Icon name="dropdown" />
+              <p>
+                Don’t want to start from scratch? Select and edit a{' '}
+                <strong>pre-made study design</strong> using one of the
+                templates in this bank
+              </p>
+            </div>
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex.includes(3)}>
             <Templates
               {...this.props}
               createdBy={this.state.createdBy}

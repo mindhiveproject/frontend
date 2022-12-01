@@ -131,14 +131,22 @@ export const StyledEditPane = styled.div`
     .blocksMenuTitle {
       display: grid;
       grid-template-columns: 1fr auto;
-      padding: 20px 25px 0px 30px;
-      p {
-        font-family: Inter;
+      padding: 20px 25px 15px 30px;
+      h3 {
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
         line-height: 150%;
         color: #1a1a1a;
+      }
+      p {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 150%;
+        color: #666666;
       }
     }
     .blocksMenuContent {

@@ -61,23 +61,25 @@ class EditBasic extends Component {
 
     return (
       <StyledBasicPane>
-        <div className="block">
-          <label htmlFor="title">
-            <h2>Title</h2>
-            <p>
-              The {taskType.toLowerCase()} title is visible to study
-              participants
-            </p>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={task.title}
-              onChange={this.handleTitleChange}
-              placeholder={`Insert ${taskType.toLowerCase()} title`}
-            />
-          </label>
-        </div>
+        {false && (
+          <div className="block">
+            <label htmlFor="title">
+              <h2>Title</h2>
+              <p>
+                The {taskType.toLowerCase()} title is visible to study
+                participants
+              </p>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={task.title}
+                onChange={this.handleTitleChange}
+                placeholder={`Insert ${taskType.toLowerCase()} title`}
+              />
+            </label>
+          </div>
+        )}
 
         <div className="block">
           <label htmlFor="title">

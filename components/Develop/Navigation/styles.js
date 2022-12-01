@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const SaveButton = styled.div`
   .navigationSaveButton {
-    background: #556aeb;
-    border: 1px solid #556aeb;
+    background: #007c70;
+    border: 1px solid #007c70;
 
     border-radius: 100px;
     padding: 8px 20px;
@@ -101,7 +101,7 @@ export const StyledNavigation = styled.div`
         }
       }
       .selectedMenuTitle {
-        border-bottom: 4px solid #556aeb !important;
+        border-bottom: 4px solid #ffc107 !important;
         p {
           font-family: Inter;
           font-style: normal;

@@ -8,7 +8,7 @@ import { StyledSettings } from './styles';
 
 export default class Settings extends Component {
   state = {
-    tab: this.props.tab || 'study',
+    tab: this.props.tab || 'addBlock',
   };
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
@@ -19,17 +19,6 @@ export default class Settings extends Component {
       <StyledSettings>
         <Menu text stackable className="menu">
           <Menu.Item
-            name="study"
-            active={tab === 'study'}
-            onClick={this.handleItemClick}
-            className={
-              tab === 'study' ? 'menuTitle selectedMenuTitle' : 'menuTitle'
-            }
-          >
-            <h1>Study settings</h1>
-          </Menu.Item>
-
-          <Menu.Item
             name="addBlock"
             active={tab === 'addBlock'}
             onClick={this.handleItemClick}
@@ -37,13 +26,24 @@ export default class Settings extends Component {
               tab === 'addBlock' ? 'menuTitle selectedMenuTitle' : 'menuTitle'
             }
           >
-            <h1>Add a study block</h1>
+            <h2>Add a block</h2>
+          </Menu.Item>
+
+          <Menu.Item
+            name="study"
+            active={tab === 'study'}
+            onClick={this.handleItemClick}
+            className={
+              tab === 'study' ? 'menuTitle selectedMenuTitle' : 'menuTitle'
+            }
+          >
+            <h2>Study settings</h2>
           </Menu.Item>
         </Menu>
 
-        {this.state.tab === 'study' && <Study {...this.props} />}
+        {tab === 'addBlock' && <ComponentSelector {...this.props} />}
 
-        {this.state.tab === 'addBlock' && <ComponentSelector {...this.props} />}
+        {tab === 'study' && <Study {...this.props} />}
       </StyledSettings>
     );
   }

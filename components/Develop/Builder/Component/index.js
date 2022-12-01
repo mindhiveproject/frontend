@@ -1,78 +1,75 @@
 import React, { Component } from 'react';
+import { Query } from '@apollo/client/react/components';
 
+import slugify from 'slugify';
 // preview the task (for using)
-import TaskWrapper from '../../Task/Wrapper';
-
-// full screen preview
-import FullScreenPreview from '../../../Preview/fullscreen';
-
-// modify the task (for editing)
-import EditorWrapper from './editorWrapper.js';
+import ComponentContainer from './container.js';
 
 // ToDo: decide what to show based on whether the user is the author or
 // collaborator on the task
 
-class ComponentViewer extends Component {
-  state = {
-    page: 'description',
-    showPreview: false,
-  };
+import { COMPONENT_TO_CLONE_QUERY } from '../../../Queries/Component';
 
-  openEditor = () => {
-    this.setState({ page: 'editor' });
-  };
+const makeCloneNames = title => {
+  const randomNumber = Math.floor(Math.random() * 10000);
+  const newTitle = `Clone of ${title}-${randomNumber}`;
+  const slug = slugify(newTitle, {
+    replacement: '-', // replace spaces with replacement character, defaults to `-`
+    remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
+    lower: true, // convert to lower case, defaults to `false`
+  });
+  return { slug, title: newTitle };
+};
 
-  openPreview = component => {
-    this.setState({
-      showPreview: true,
-      component,
-    });
-  };
-
-  closePreview = () => {
-    this.setState({
-      showPreview: false,
-    });
-  };
-
+class ComponentModal extends Component {
   render() {
-    const { page } = this.state;
-
-    if (this.state.showPreview) {
-      return (
-        <FullScreenPreview
-          previewOf="component"
-          user={this.props?.user?.id || ''}
-          parameters={this.state.component.parameters}
-          template={this.state.component.template}
-          handleFinish={() => this.closePreview()}
-        />
-      );
-    }
-
-    if (page === 'editor') {
-      return (
-        <div className="background">
-          <div className="modal">
-            <EditorWrapper {...this.props} />
-          </div>
-        </div>
-      );
-    }
+    const { user, componentID } = this.props;
 
     return (
-      <div className="background">
-        <div className="modal">
-          <TaskWrapper
-            onModalClose={this.props.closeModal}
-            componentID={this.props.componentID}
-            onShowPreview={this.openPreview}
-            openEditor={this.openEditor}
-          />
-        </div>
-      </div>
+      <Query query={COMPONENT_TO_CLONE_QUERY} variables={{ id: componentID }}>
+        {({ data, loading }) => {
+          if (loading) return <p>Loading ... </p>;
+          if (!data || !data.task)
+            return <p>No task found for id {this.props.componentID}</p>;
+
+          // check whether the current user is the author of the task or the collaborator on the task
+          const isAuthor =
+            user.id === data.task?.author?.id ||
+            data.task?.collaborators.map(c => c.id).includes(user.id);
+
+          let task;
+
+          if (isAuthor) {
+            task = {
+              ...data.task,
+              templateId: data.task.template?.id,
+              consent: data.task.consent?.id,
+              collaborators: (data.task.collaborators &&
+                data.task.collaborators.map(c => c.username).length &&
+                data.task.collaborators.map(c => c.username)) || [''],
+            };
+          } else {
+            task = {
+              ...data.task,
+              templateId: data.task.template.id,
+              consent: null,
+              collaborators: [''],
+              // ...makeCloneNames(data.task.title),
+              isOriginal: false, // switch to false as it should be cloned
+            };
+          }
+
+          return (
+            <ComponentContainer
+              {...this.props}
+              component={task}
+              isAuthor={isAuthor}
+            />
+          );
+        }}
+      </Query>
     );
   }
 }
 
-export default ComponentViewer;
+export default ComponentModal;

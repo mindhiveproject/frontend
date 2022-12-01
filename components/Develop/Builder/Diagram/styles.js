@@ -43,6 +43,13 @@ export const StyledDigram = styled.div`
   }
 
   .node-header-icons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+    align-items: center;
+    .icon {
+      cursor: pointer;
+    }
   }
 
   .port-container {

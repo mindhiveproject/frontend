@@ -4,7 +4,7 @@ export const StyledDevelopWrapper = styled.div`
   display: grid;
   height: 100vh;
   grid-template-rows: auto 1fr;
-  overflow: overlay;
+  overflow-y: hidden;
 `;
 
 export const StyledBoard = styled.div`
@@ -12,6 +12,8 @@ export const StyledBoard = styled.div`
   grid-template-columns: 1fr;
   padding: 0px;
   height: 100%;
+  background: #f4f5f5;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
   .background {
     position: fixed;
     height: 100%;

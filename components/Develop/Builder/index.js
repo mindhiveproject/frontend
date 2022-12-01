@@ -18,9 +18,11 @@ export default class Builder extends Component {
     testModalId: null,
     engine: null, // used to modify the nodes
     node: null,
+    preview: false,
   };
 
-  openComponentModal = ({ engine, node }) => {
+  openComponentModal = ({ engine, node, preview }) => {
+    console.log(preview);
     const componentID = node?.options?.componentID;
     const testId = node?.options?.testId;
     this.setState({
@@ -29,6 +31,7 @@ export default class Builder extends Component {
       testModalId: testId,
       engine,
       node,
+      preview,
     });
   };
 
@@ -39,6 +42,7 @@ export default class Builder extends Component {
       isModalOpen: false,
       componentModalID: null,
       testModalId: null,
+      preview: false,
     });
   };
 
@@ -63,7 +67,7 @@ export default class Builder extends Component {
 
   render() {
     const { study, handleSetMultipleValuesInState } = this.props;
-    const { isModalOpen, componentModalID, testModalId } = this.state;
+    const { isModalOpen, componentModalID, testModalId, preview } = this.state;
     return (
       <StyledBoard>
         <DynamicDiagram
@@ -79,6 +83,7 @@ export default class Builder extends Component {
             testId={testModalId}
             closeModal={this.closeComponentModal}
             updateCanvas={this.updateCanvas}
+            preview={preview}
           />
         )}
       </StyledBoard>

@@ -81,7 +81,6 @@ export default class Controller extends Component {
 
   handleSettingsChange = e => {
     const { name } = e.target;
-    // const value = e.target.checked;
     const settings = { ...this.state.study.settings };
     settings[name] = !this.state.study.settings[name];
     this.setState({
@@ -222,7 +221,7 @@ export default class Controller extends Component {
 
   render() {
     const { user } = this.props;
-    const { study } = this.state;
+    const { study, showStudyPreview, showComponentPreview } = this.state;
 
     const isAuthor =
       user.id === study?.author?.id ||
@@ -231,7 +230,7 @@ export default class Controller extends Component {
     const [proposal] = study?.proposal || [];
     const proposalId = proposal ? proposal.id : undefined;
 
-    if (this.state.showStudyPreview) {
+    if (showStudyPreview) {
       return (
         <FullScreenPreview
           previewOf="study"
@@ -242,7 +241,7 @@ export default class Controller extends Component {
       );
     }
 
-    if (this.state.showComponentPreview) {
+    if (showComponentPreview) {
       return (
         <FullScreenPreview
           previewOf="component"

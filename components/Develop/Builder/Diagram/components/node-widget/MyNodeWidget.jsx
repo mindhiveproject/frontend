@@ -1,8 +1,6 @@
 import React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams-core';
 
-import { Icon } from 'semantic-ui-react';
-
 export const MyNodeWidget = props => (
   <div className="node">
     <div
@@ -11,18 +9,28 @@ export const MyNodeWidget = props => (
     >
       <div className="node-header-text">{props.node?.options?.name}</div>
       <div className="node-header-icons">
-        <Icon
-          link
-          circular
-          color="blue"
-          name="cog"
+        <div
+          className="icon"
           onClick={e => {
             // lock the model
             props.engine.getModel().setLocked(true);
             // open the modal
-            props.engine.openComponentModal(props);
+            props.engine.openComponentModal({ ...props, preview: false });
           }}
-        />
+        >
+          <img src="/content/icons/info-3.svg" />
+        </div>
+        <div
+          className="icon"
+          onClick={e => {
+            // lock the model
+            props.engine.getModel().setLocked(true);
+            // open the preview
+            props.engine.openComponentModal({ ...props, preview: true });
+          }}
+        >
+          <img src="/content/icons/play.svg" />
+        </div>
       </div>
     </div>
 

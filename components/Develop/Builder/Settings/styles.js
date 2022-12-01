@@ -5,8 +5,8 @@ export const StyledSettings = styled.div`
   align-content: baseline;
   grid-gap: 18px;
   background: #f4f5f5;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
   padding: 30px;
+  height: 89vh;
   overflow-y: scroll;
 
   .card {
@@ -30,26 +30,30 @@ export const StyledSettings = styled.div`
 
   .menu {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto auto;
+    grid-column-gap: 40px;
+    width: fit-content;
     margin: 10px 6px 10px 6px !important;
     cursor: pointer;
+    h2  {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      color: #1a1a1a;
+    }
 
     .menuTitle {
-      h1 {
-        color: lightgrey;
-      }
+      width: fit-content;
       padding-bottom: 10px !important;
       display: grid;
-      justify-content: center;
-      border-bottom: 2px solid #e6e6e6;
+      justify-content: start;
       p {
         font-size: 18px;
       }
     }
     .selectedMenuTitle {
-      h1 {
-        color: black;
-      }
       border-bottom: 4px solid #ffc107 !important;
       p {
         color: #1a1a1a;

@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react';
 
 import createEngine, {
@@ -21,7 +22,7 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
 }
 
-const Diagram = React.memo(props => {
+const DiagramWrapper = React.memo(props => {
   // force update canvas
   const forceUpdate = React.useReducer(bool => !bool)[1];
 
@@ -68,7 +69,6 @@ const Diagram = React.memo(props => {
   }, [engine, props.diagram, props.openComponentModal]); // Only re-subscribe if props.diagram
 
   const findChildren = node => {
-    console.log('node', node);
     let children = [];
     if (
       node?.ports?.out?.links &&
@@ -125,7 +125,6 @@ const Diagram = React.memo(props => {
     const startingNodes = nodes.filter(
       node => Object.keys(node?.ports?.in?.links).length === 0
     );
-    console.log('startingNodes', startingNodes);
     findChildrenRecursively(startingNodes, 0, blocks, []);
     return { blocks };
   };
@@ -139,12 +138,12 @@ const Diagram = React.memo(props => {
     props.handleSetMultipleValuesInState({ components, diagram });
   };
 
-  const loadDiagramState = () => {
-    // DESERIALIZING
-    const model2 = new DiagramModel();
-    model2.deserializeModel(JSON.parse(props.study?.diagram), engine);
-    engine.setModel(model2);
-  };
+  // const loadDiagramState = () => {
+  //   // DESERIALIZING
+  //   const model2 = new DiagramModel();
+  //   model2.deserializeModel(JSON.parse(props.study?.diagram), engine);
+  //   engine.setModel(model2);
+  // };
 
   const addComponentToCanvas = ({ name, details, componentID }) => {
     const shorten = text => {
@@ -189,7 +188,7 @@ const Diagram = React.memo(props => {
         {engine && (
           <MyCreatorWidget
             engine={engine}
-            openComponentModal={props.openComponentModal}
+            // openComponentModal={props.openComponentModal}
           />
         )}
       </StyledDigram>
@@ -203,4 +202,4 @@ const Diagram = React.memo(props => {
   );
 });
 
-export default Diagram;
+export default DiagramWrapper;
