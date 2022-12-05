@@ -31,7 +31,6 @@ export default class Controller extends Component {
   };
 
   componentDidMount() {
-    console.log('Component did mount');
     // setup diagram engine
     if (!this.state.engine) {
       const engine = createEngine();
@@ -324,7 +323,6 @@ export default class Controller extends Component {
   };
 
   saveDiagramState = () => {
-    console.log('saving state');
     const model = this.state?.engine?.model;
     // Serializing
     const diagram = JSON.stringify(model.serialize());

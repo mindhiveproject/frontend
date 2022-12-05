@@ -22,9 +22,9 @@ class SurveyBuilder extends Component {
     this.props.onChange(packed);
   };
 
-  updatePages = page => {
+  updatePages = ({ page, timeout }) => {
     const updatedPages = this.state.pages;
-    updatedPages[this.state.currentPage] = { page };
+    updatedPages[this.state.currentPage] = { page, timeout };
     this.updateProps(updatedPages);
   };
 
@@ -99,7 +99,8 @@ class SurveyBuilder extends Component {
         {this.state.pages && this.state.pages.length > 0 && (
           <SurveyPageBuilder
             name={this.props.name}
-            content={this.state.pages[this.state.currentPage] || { page: [] }}
+            items={this.state.pages[this.state.currentPage]?.page || {}}
+            timeout={this.state.pages[this.state.currentPage]?.timeout || {}}
             onChange={this.updatePages}
           />
         )}

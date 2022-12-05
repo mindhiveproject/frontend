@@ -25,7 +25,6 @@ class TemplateBuilderWrapper extends Component {
             return <p>No template found for id {templateId}</p>;
 
           const { template } = data;
-          console.log({ template });
 
           return (
             <TemplateBuilder

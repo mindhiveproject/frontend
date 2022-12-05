@@ -125,14 +125,12 @@ class TemplateBuilder extends Component {
       const result = await assemble(file, fileName);
       const script = result.files['script.js'].content;
       const compressedString = lz.encodeBase64(lz.compress(script));
-      console.log(fileLoadedEvent.target.result);
       const fileToSave = lz.encodeBase64(
         lz.compress(fileLoadedEvent.target.result)
       );
       // const fileToSave = lz.compress(fileLoadedEvent.target.result, [
       //   { outputEncoding: 'StorageBinaryString' },
       // ]);
-      console.log({ fileToSave });
       // extract parameters from the task
       this.setState({
         template: {

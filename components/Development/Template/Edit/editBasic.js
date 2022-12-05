@@ -33,7 +33,6 @@ class EditBasic extends Component {
   };
 
   downloadJSON = async (file, fileName) => {
-    console.log(file);
     // create file in browser
     // const fileToOpen = lz.decompress(file);
     const fileToOpen = lz.decompress(lz.decodeBase64(file));
@@ -141,18 +140,14 @@ class EditBasic extends Component {
               {template?.createdAt && (
                 <div>
                   Created on{' '}
-                  {moment(template?.template?.createdAt).format(
-                    'MMMM D, YYYY, h:mm'
-                  )}
+                  {moment(template?.createdAt).format('MMMM D, YYYY, h:mm')}
                 </div>
               )}
 
               {template?.updatedAt && (
                 <div>
                   Last updated on{' '}
-                  {moment(template?.template?.updatedAt).format(
-                    'MMMM D, YYYY, h:mm'
-                  )}
+                  {moment(template?.updatedAt).format('MMMM D, YYYY, h:mm')}
                 </div>
               )}
 

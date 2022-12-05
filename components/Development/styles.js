@@ -200,6 +200,12 @@ export const StyledEditPane = styled.div`
   .createdByDropdown {
     margin-bottom: 30px;
   }
+  .timeout {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 10px 0px;
+    border-bottom: 3px #e7d6d6 solid;
+  }
 `;
 
 export const StyledPreviewPane = styled.div`

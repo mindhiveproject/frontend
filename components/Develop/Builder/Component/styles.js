@@ -119,12 +119,17 @@ export const StyledEditPane = styled.div`
   grid-gap: 18px;
   margin-top: 10px;
   padding: 10px 48px 0px 42px;
-
   .block {
     background: #ffffff;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
     border-radius: 8px;
     padding: 20px 25px 20px 30px;
+  }
+  .timeout {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 10px 0px;
+    border-bottom: 3px #e7d6d6 solid;
   }
 `;
 

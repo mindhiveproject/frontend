@@ -37,7 +37,6 @@ class ComponentViewer extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { isAuthor } = this.props;
     const { component, page, showInfo, showPreview } = this.state;
 

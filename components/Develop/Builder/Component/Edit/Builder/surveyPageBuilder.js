@@ -3,17 +3,21 @@ import { StyledSurveyBuilderItemLine } from '../../styles';
 
 class SurveyPageBuilder extends Component {
   state = {
-    items: this.props.content.page,
+    items: this.props.items,
+    timeout: this.props.timeout,
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.content !== this.props.content) {
-      this.setState({ items: this.props.content.page });
+    if (prevProps.items !== this.props.items) {
+      this.setState({ items: this.props.items });
+    }
+    if (prevProps.timeout !== this.props.timeout) {
+      this.setState({ timeout: this.props.timeout });
     }
   }
 
-  updateProps = items => {
-    this.props.onChange(items);
+  updateProps = ({ page, timeout }) => {
+    this.props.onChange({ page, timeout });
   };
 
   handleChange = e => {
@@ -37,7 +41,15 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps(updatedItems);
+    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
+  };
+
+  handleTimeoutChange = e => {
+    const { value } = e.target;
+    this.setState({
+      timeout: value,
+    });
+    this.updateProps({ page: this.state.items, timeout: value });
   };
 
   addNewOption = (e, id, className) => {
@@ -54,7 +66,7 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps(updatedItems);
+    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
   };
 
   deleteOption = (e, id, num, className) => {
@@ -72,7 +84,7 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps(updatedItems);
+    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
   };
 
   packTheObject = value => ({
@@ -105,7 +117,7 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps(updatedItems);
+    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
   };
 
   deleteItem = (e, number) => {
@@ -114,7 +126,7 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps(updatedItems);
+    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
   };
 
   moveUp = (e, number) => {
@@ -129,7 +141,7 @@ class SurveyPageBuilder extends Component {
       this.setState({
         items: updatedItems,
       });
-      this.updateProps(updatedItems);
+      this.updateProps({ page: updatedItems, timeout: this.state.timeout });
     }
   };
 
@@ -145,31 +157,45 @@ class SurveyPageBuilder extends Component {
       this.setState({
         items: updatedItems,
       });
-      this.updateProps(updatedItems);
+      this.updateProps({ page: updatedItems, timeout: this.state.timeout });
     }
   };
 
   render() {
-    const { items } = this.state;
+    const { items, timeout } = this.state;
     if (items) {
       return (
         <div>
-          {items &&
-            items.length > 0 &&
-            items.map((item, number) => (
-              <Item
-                item={item}
-                key={number}
-                id={item.id}
-                handleItemChange={this.handleChange}
-                deleteItem={this.deleteItem}
-                moveDown={this.moveDown}
-                moveUp={this.moveUp}
-                number={number}
-                addNewOption={this.addNewOption}
-                deleteOption={this.deleteOption}
-              />
-            ))}
+          {items && items.length > 0 && (
+            <>
+              <div className="timeout">
+                <p>Page timeout (in milliseconds)</p>
+                <input
+                  type="number"
+                  name="timeout"
+                  value={timeout}
+                  onChange={this.handleTimeoutChange}
+                  className="timeout"
+                />
+              </div>
+              <div>
+                {items.map((item, number) => (
+                  <Item
+                    item={item}
+                    key={number}
+                    id={item.id}
+                    handleItemChange={this.handleChange}
+                    deleteItem={this.deleteItem}
+                    moveDown={this.moveDown}
+                    moveUp={this.moveUp}
+                    number={number}
+                    addNewOption={this.addNewOption}
+                    deleteOption={this.deleteOption}
+                  />
+                ))}
+              </div>
+            </>
+          )}
           <button className="addButton" onClick={this.addItem}>
             +
           </button>
