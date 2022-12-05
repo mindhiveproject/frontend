@@ -26,7 +26,7 @@ class EditPane extends Component {
           uploadImage={this.props.uploadImage}
         />
 
-        {(true || this.props.task?.taskType === 'BLOCK') && (
+        {this.props.task?.taskType === 'BLOCK' && (
           <EditBlock
             task={this.props.task}
             handleParameterChange={this.props.handleParameterChange}
