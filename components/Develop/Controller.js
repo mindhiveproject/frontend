@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uniqid from 'uniqid';
 import createEngine, {
   DiagramModel,
   DefaultDiagramState,

@@ -33,8 +33,10 @@ class EditBasic extends Component {
   };
 
   downloadJSON = async (file, fileName) => {
+    console.log(file);
     // create file in browser
-    const fileToOpen = lz.decompress(file);
+    // const fileToOpen = lz.decompress(file);
+    const fileToOpen = lz.decompress(lz.decodeBase64(file));
     // const json = JSON.stringify(file, null, 2);
     const blob = new Blob([fileToOpen], { type: 'application/json' });
     const href = URL.createObjectURL(blob);

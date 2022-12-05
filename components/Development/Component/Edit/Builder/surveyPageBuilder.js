@@ -218,18 +218,21 @@ class Item extends Component {
             <option value="freeinput">Text input</option>
             <option value="vas">Visual scale</option>
             <option value="likert">Likert scale</option>
+            <option value="block">Block</option>
           </select>
 
-          <>
-            <div>Header</div>
-            <input
-              type="text"
-              name={id}
-              value={header}
-              onChange={this.props.handleItemChange}
-              className="header"
-            />
-          </>
+          {type !== 'block' && (
+            <>
+              <div>Header</div>
+              <input
+                type="text"
+                name={id}
+                value={header}
+                onChange={this.props.handleItemChange}
+                className="header"
+              />
+            </>
+          )}
 
           {type === 'text' && (
             <>
@@ -342,6 +345,19 @@ class Item extends Component {
                 value={max_value}
                 onChange={this.props.handleItemChange}
                 className="max_value"
+              />
+            </>
+          )}
+
+          {type === 'block' && (
+            <>
+              <div>Content</div>
+              <textarea
+                type="text"
+                name={id}
+                value={text}
+                onChange={this.props.handleItemChange}
+                className="text"
               />
             </>
           )}

@@ -14,7 +14,7 @@ class EditBlockContent extends Component {
       {
         page: [
           {
-            type: 'text',
+            type: 'block',
             text: content,
           },
         ],
