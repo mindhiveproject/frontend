@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import createEngine, {
+  DiagramModel,
+  DefaultDiagramState,
+} from '@projectstorm/react-diagrams';
+
+import generate from 'project-name-generator';
 import Navigation from './Navigation/index';
 
 import { StyledDevelopWrapper } from './styles';
 
 import Page from './Page';
 import FullScreenPreview from '../Preview/fullscreen';
+
+import { NodesFactory } from './Builder/Diagram/components/NodesFactory';
 
 export default class Controller extends Component {
   state = {
@@ -18,7 +26,35 @@ export default class Controller extends Component {
     showComponentPreview: false,
     showStudyPreview: false,
     modal: null,
+    engine: null,
   };
+
+  componentDidMount() {
+    console.log('Component did mount');
+    // setup diagram engine
+    if (!this.state.engine) {
+      const engine = createEngine();
+      engine.setModel(new DiagramModel());
+      // Create custom node
+      engine.getNodeFactories().registerFactory(new NodesFactory());
+      // disable creating new nodes when clicking on the link
+      engine.maxNumberPointsPerLink = 0;
+      // disable loose links
+      const state = engine.getStateMachine().getCurrentState();
+      if (state instanceof DefaultDiagramState) {
+        state.dragNewLink.config.allowLooseLinks = false;
+      }
+      // load the saved model
+      if (this.state?.study?.diagram) {
+        const model = new DiagramModel();
+        model.deserializeModel(JSON.parse(this.state?.study?.diagram), engine);
+        engine.setModel(model);
+      }
+      this.setState({
+        engine,
+      });
+    }
+  }
 
   // to update the study state
   updateStudyState = (name, value) => {
@@ -191,9 +227,12 @@ export default class Controller extends Component {
   };
 
   createNewStudy = async createStudyMutation => {
+    const { components, diagram } = this.saveDiagramState();
     const res = await createStudyMutation({
       variables: {
         ...this.state.study,
+        components,
+        diagram,
       },
     });
     const myStudy = res.data.createStudy;
@@ -212,11 +251,95 @@ export default class Controller extends Component {
   };
 
   updateMyStudy = async updateStudyMutation => {
-    const res = await updateStudyMutation({
+    const { components, diagram } = this.saveDiagramState();
+    await updateStudyMutation({
       variables: {
         ...this.state.study,
+        components,
+        diagram,
       },
     });
+  };
+
+  // diagram functions
+  findChildren = node => {
+    let children = [];
+    if (
+      node?.ports?.out?.links &&
+      Object.values(node?.ports?.out?.links).length
+    ) {
+      children = Object.values(node?.ports?.out?.links).map(
+        link => link?.targetPort?.parent
+      );
+    }
+    return children;
+  };
+
+  makeBlock = tests => ({
+    blockId: uniqid.time(),
+    title: generate().dashed,
+    tests: [...tests],
+    skip: false,
+  });
+
+  findChildrenRecursively = (nodes, level, blocks, tests) => {
+    nodes.forEach(node => {
+      let blockTests;
+      if (level === 0) {
+        blockTests = [
+          {
+            id: node?.options?.componentID,
+            title: node?.options?.name,
+            testId: node?.options?.testId,
+            level: 0,
+          },
+        ];
+      } else {
+        blockTests = [...tests];
+        blockTests.push({
+          id: node?.options?.componentID,
+          title: node?.options?.name,
+          testId: node?.options?.testId,
+          level,
+        });
+      }
+      const children = this.findChildren(node) || [];
+      if (children.length) {
+        this.findChildrenRecursively(children, level + 1, blocks, blockTests);
+      } else {
+        blocks.push(this.makeBlock(blockTests));
+      }
+    });
+  };
+
+  createStudyDesign = ({ model }) => {
+    const nodes = model.getNodes() || [];
+    const blocks = [];
+    const startingNodes = nodes.filter(
+      node => Object.keys(node?.ports?.in?.links).length === 0
+    );
+    this.findChildrenRecursively(startingNodes, 0, blocks, []);
+    return { blocks };
+  };
+
+  saveDiagramState = () => {
+    console.log('saving state');
+    const model = this.state?.engine?.model;
+    // Serializing
+    const diagram = JSON.stringify(model.serialize());
+    // Get the experiment model
+    const components = this.createStudyDesign({ model });
+    this.setState({
+      study: {
+        ...this.state.study,
+        diagram,
+        components,
+      },
+    });
+    return {
+      diagram,
+      components,
+    };
   };
 
   render() {

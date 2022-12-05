@@ -158,6 +158,7 @@ class ComponentEditor extends Component {
         },
       },
     });
+    console.log(this.props);
     this.props.updateCanvas(myTask);
   };
 

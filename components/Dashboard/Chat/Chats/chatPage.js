@@ -22,6 +22,8 @@ class ChatPage extends Component {
   render() {
     const { chatId } = this.props;
 
+    console.log('re-render');
+
     return (
       <StyledGroupChat>
         <div className="goBackBtn">

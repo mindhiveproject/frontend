@@ -7,7 +7,6 @@ import TaskWrapper from '../../Task/Wrapper';
 import FullScreenPreview from '../../../Preview/fullscreen';
 
 // modify the task (for editing)
-// import EditorWrapper from './editorWrapper.js';
 import ComponentEditor from './editor';
 
 // ToDo: decide what to show based on whether the user is the author or
@@ -16,7 +15,8 @@ import ComponentEditor from './editor';
 class ComponentViewer extends Component {
   state = {
     component: { ...this.props.component } || {},
-    showPreview: this.props.preview || false,
+    showPreview: this.props.isPreviewOpen || false,
+    showInfo: this.props.isInfoOpen || false,
     page: 'description',
   };
 
@@ -37,8 +37,9 @@ class ComponentViewer extends Component {
   };
 
   render() {
+    console.log(this.props);
     const { isAuthor } = this.props;
-    const { component, page, showPreview } = this.state;
+    const { component, page, showInfo, showPreview } = this.state;
 
     if (showPreview) {
       return (
@@ -47,7 +48,10 @@ class ComponentViewer extends Component {
           user={this.props?.user?.id || ''}
           parameters={component.parameters}
           template={component.template}
-          handleFinish={() => this.closePreview()}
+          handleFinish={() => {
+            this.closePreview();
+            if (!showInfo) this.props.closeModal();
+          }}
         />
       );
     }

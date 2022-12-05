@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
 import PropTypes from 'prop-types';
+import dynamic from 'next/dynamic';
 
 import slugify from 'slugify';
 // query and mutations
 import { STUDY_DEVELOPMENT_QUERY } from '../Queries/Study';
 
-import Controller from './Controller';
+const Controller = () => import('./Controller');
+const DynamicController = dynamic(Controller, {
+  ssr: false,
+});
 
 const makeCloneName = title => {
   const randomNumber = Math.floor(Math.random() * 10000);
@@ -78,7 +82,7 @@ export default class DevelopArea extends Component {
           }
 
           return (
-            <Controller
+            <DynamicController
               onLeave={this.props.onLeave}
               newStudyFromScratch={this.props.newStudyFromScratch}
               user={this.props.user}

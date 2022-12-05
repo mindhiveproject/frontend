@@ -5,6 +5,7 @@ import { StyledEditPane } from './styles';
 import EditBasic from './Edit/editBasic';
 import EditParameters from './Edit/editParameters';
 import EditSharing from './Edit/editSharing';
+import EditBlock from './Edit/editBlock';
 
 class EditPane extends Component {
   render() {
@@ -25,13 +26,25 @@ class EditPane extends Component {
           uploadImage={this.props.uploadImage}
         />
 
-        <EditParameters
-          task={this.props.task}
-          handleParameterChange={this.props.handleParameterChange}
-          templateEditor={this.props.templateEditor}
-          handleTemplateParamChange={this.props.handleTemplateParamChange}
-          deleteTemplateParameter={this.props.deleteTemplateParameter}
-        />
+        {(true || this.props.task?.taskType === 'BLOCK') && (
+          <EditBlock
+            task={this.props.task}
+            handleParameterChange={this.props.handleParameterChange}
+            templateEditor={this.props.templateEditor}
+            handleTemplateParamChange={this.props.handleTemplateParamChange}
+            deleteTemplateParameter={this.props.deleteTemplateParameter}
+          />
+        )}
+
+        {this.props.task?.taskType !== 'BLOCK' && (
+          <EditParameters
+            task={this.props.task}
+            handleParameterChange={this.props.handleParameterChange}
+            templateEditor={this.props.templateEditor}
+            handleTemplateParamChange={this.props.handleTemplateParamChange}
+            deleteTemplateParameter={this.props.deleteTemplateParameter}
+          />
+        )}
 
         <EditSharing
           task={this.props.task}

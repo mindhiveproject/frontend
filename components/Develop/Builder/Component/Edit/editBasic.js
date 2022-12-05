@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
 import slugify from 'slugify';
 import styled from 'styled-components';
-import { Select } from 'semantic-ui-react';
-import moment from 'moment';
-import SettingsBlock from './settingBlock';
-import { CONSENTS_QUERY } from '../../../../Task/Customize/taskForm';
 
 const StyledBasicPane = styled.div`
   display: grid;

@@ -12,6 +12,7 @@ export const MyCreatorWidget = props => {
   const forceUpdate = React.useReducer(bool => !bool)[1];
 
   const diagramEngine = props.engine;
+  diagramEngine.openComponentModal = props.openComponentModal;
 
   const shorten = text => {
     if (text && text.split(' ').length > 12) {

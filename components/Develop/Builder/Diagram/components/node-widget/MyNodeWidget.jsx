@@ -15,7 +15,11 @@ export const MyNodeWidget = props => (
             // lock the model
             props.engine.getModel().setLocked(true);
             // open the modal
-            props.engine.openComponentModal({ ...props, preview: false });
+            props.engine.openComponentModal({
+              node: props?.node,
+              isInfoOpen: true,
+              isPreviewOpen: false,
+            });
           }}
         >
           <img src="/content/icons/info-3.svg" />
@@ -26,7 +30,11 @@ export const MyNodeWidget = props => (
             // lock the model
             props.engine.getModel().setLocked(true);
             // open the preview
-            props.engine.openComponentModal({ ...props, preview: true });
+            props.engine.openComponentModal({
+              node: props?.node,
+              isInfoOpen: false,
+              isPreviewOpen: true,
+            });
           }}
         >
           <img src="/content/icons/play.svg" />

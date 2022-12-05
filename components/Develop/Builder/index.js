@@ -1,58 +1,57 @@
-import React, { Component } from 'react';
-import dynamic from 'next/dynamic';
+/* eslint-disable react/display-name */
+import React, { useState } from 'react';
+import { DiagramModel } from '@projectstorm/react-diagrams';
+import uniqid from 'uniqid';
 
-import ComponentViewer from './Component/index.js';
+import { MyCreatorWidget } from './Diagram/components/my-creator-widget/MyCreatorWidget';
+import { MyNodeModel } from './Diagram/components/MyNodeModel';
+import ComponentViewer from './Component/wrapper.js';
+import Settings from './Settings/index';
 
 import { StyledBoard } from '../styles';
+import { StyledDigram, StyledWrapper } from './Diagram/styles';
 
-const Diagram = () => import('./Diagram/index');
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+}
 
-const DynamicDiagram = dynamic(Diagram, {
-  ssr: false,
-});
+const Builder = React.memo(props => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [componentModalID, setComponentModalID] = useState(null);
+  const [testModalId, setTestModalId] = useState(null);
+  const [node, setNode] = useState(null);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
 
-export default class Builder extends Component {
-  state = {
-    isModalOpen: false,
-    componentModalID: null,
-    testModalId: null,
-    engine: null, // used to modify the nodes
-    node: null,
-    preview: false,
+  // force update canvas
+  const forceUpdate = React.useReducer(bool => !bool)[1];
+
+  const openComponentModal = ({ node, isInfoOpen, isPreviewOpen }) => {
+    setComponentModalID(node?.options?.componentID);
+    setTestModalId(node?.options?.testId);
+    setIsModalOpen(true);
+    setNode(node);
+    setIsInfoOpen(isInfoOpen);
+    setIsPreviewOpen(isPreviewOpen);
   };
 
-  openComponentModal = ({ engine, node, preview }) => {
-    console.log(preview);
-    const componentID = node?.options?.componentID;
-    const testId = node?.options?.testId;
-    this.setState({
-      isModalOpen: true,
-      componentModalID: componentID,
-      testModalId: testId,
-      engine,
-      node,
-      preview,
-    });
+  const closeComponentModal = () => {
+    props.engine.getModel().setLocked(false); // unlock the model
+    setComponentModalID(null);
+    setIsModalOpen(false);
+    setNode(null);
+    setTestModalId(null);
+    setIsInfoOpen(false);
+    setIsPreviewOpen(false);
   };
 
-  closeComponentModal = () => {
-    const { engine } = this.state;
-    engine.getModel().setLocked(false); // unlock the model
-    this.setState({
-      isModalOpen: false,
-      componentModalID: null,
-      testModalId: null,
-      preview: false,
-    });
-  };
-
-  updateCanvas = task => {
-    const { engine, node } = this.state;
-    const { model } = engine;
+  const updateCanvas = task => {
+    const model = props?.engine?.model;
     const nodes = model.getNodes() || [];
     const componentID = node?.options?.componentID;
-    // use componentID to filter the nodes
-    // that allows to update multiple nodes with the same task
+    // use componentID to update multiple nodes with the same task
     nodes.forEach(n => {
       if (n?.options?.componentID === componentID) {
         n.updateOptions({
@@ -62,31 +61,74 @@ export default class Builder extends Component {
         });
       }
     });
-    engine.repaintCanvas();
+    props.engine.repaintCanvas();
   };
 
-  render() {
-    const { study, handleSetMultipleValuesInState } = this.props;
-    const { isModalOpen, componentModalID, testModalId, preview } = this.state;
-    return (
-      <StyledBoard>
-        <DynamicDiagram
-          handleSetMultipleValuesInState={handleSetMultipleValuesInState}
-          diagram={study?.diagram}
-          openComponentModal={this.openComponentModal}
-          {...this.props}
+  const addComponentToCanvas = ({ name, details, componentID }) => {
+    const shorten = text => {
+      if (text && text.split(' ').length > 12) {
+        const short = text
+          .split(' ')
+          .slice(0, 12)
+          .join(' ');
+        return `${short} ...`;
+      }
+      return text;
+    };
+    const newNode = new MyNodeModel({
+      color: 'white',
+      name,
+      details: shorten(details),
+      componentID,
+      testId: uniqid.time(),
+    });
+    const event = {
+      clientX: getRandomIntInclusive(300, 500),
+      clientY: getRandomIntInclusive(300, 500),
+    };
+    const point = props.engine.getRelativeMousePoint(event);
+    newNode.setPosition(point);
+    props.engine.getModel().addNode(newNode);
+    forceUpdate();
+  };
+
+  const addStudyTemplateToCanvas = study => {
+    const { diagram } = study;
+    const model = new DiagramModel();
+    model.deserializeModel(JSON.parse(diagram), props.engine);
+    props.engine.setModel(model);
+  };
+
+  return (
+    <StyledBoard>
+      <StyledWrapper>
+        <StyledDigram>
+          {props.engine && (
+            <MyCreatorWidget
+              engine={props.engine}
+              openComponentModal={openComponentModal}
+            />
+          )}
+        </StyledDigram>
+        <Settings
+          {...props}
+          addComponentToCanvas={addComponentToCanvas}
+          addStudyTemplateToCanvas={addStudyTemplateToCanvas}
         />
-        {isModalOpen && (
-          <ComponentViewer
-            {...this.props}
-            componentID={componentModalID}
-            testId={testModalId}
-            closeModal={this.closeComponentModal}
-            updateCanvas={this.updateCanvas}
-            preview={preview}
-          />
-        )}
-      </StyledBoard>
-    );
-  }
-}
+      </StyledWrapper>
+      {isModalOpen && (
+        <ComponentViewer
+          {...props}
+          componentID={componentModalID}
+          testId={testModalId}
+          isInfoOpen={isInfoOpen}
+          isPreviewOpen={isPreviewOpen}
+          closeModal={closeComponentModal}
+          updateCanvas={updateCanvas}
+        />
+      )}
+    </StyledBoard>
+  );
+});
+
+export default Builder;

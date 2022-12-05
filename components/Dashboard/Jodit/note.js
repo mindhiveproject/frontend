@@ -13,6 +13,7 @@ class Note extends Component {
       onContentChange,
       btnName,
       hideTitle,
+      hideSubmitBtn,
     } = this.props;
 
     return (
@@ -35,7 +36,7 @@ class Note extends Component {
           <StyledJodit>
             <Jodit externalContent={content} updateContent={onContentChange} />
           </StyledJodit>
-          <button type="submit">{btnName}</button>
+          {!hideSubmitBtn && <button type="submit">{btnName}</button>}
         </fieldset>
       </StyledPost>
     );
