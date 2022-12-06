@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uniqid from 'uniqid';
 import { StyledSurveyBuilderItemLine } from '../../styles';
 
 class SurveyPageBuilder extends Component {
@@ -26,16 +27,16 @@ class SurveyPageBuilder extends Component {
     let updatedItems;
     if (className === 'options' || className === 'items') {
       const updatedOptions = items
-        .filter(item => item.id === parseInt(name))
+        .filter(item => item.id === name)
         .map(item => item[className]);
       const options = updatedOptions[0];
       options[id] = value;
       updatedItems = items.map(item =>
-        item.id === parseInt(name) ? { ...item, [className]: options } : item
+        item.id === name ? { ...item, [className]: options } : item
       );
     } else {
       updatedItems = items.map(item =>
-        item.id === parseInt(name) ? { ...item, [className]: value } : item
+        item.id === name ? { ...item, [className]: value } : item
       );
     }
     this.setState({
@@ -101,7 +102,7 @@ class SurveyPageBuilder extends Component {
     const updatedItems = [
       ...items,
       {
-        id: items.length,
+        id: uniqid.time(),
         type: 'text',
         header: '',
         text: '',
