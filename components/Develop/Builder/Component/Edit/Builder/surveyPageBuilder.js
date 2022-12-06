@@ -23,7 +23,6 @@ class SurveyPageBuilder extends Component {
 
   handleChange = e => {
     const { id, value, className, name } = e.target;
-    console.log(id, value, className, name);
     const { items } = this.state;
     let updatedItems;
     if (className === 'options' || className === 'items') {
