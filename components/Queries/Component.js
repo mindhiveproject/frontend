@@ -114,3 +114,123 @@ export const COMPONENTS_QUERY = gql`
     }
   }
 `;
+
+export const MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY = gql`
+  query MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY($taskType: TaskType!) {
+    myAndAllTasks(where: { taskType: $taskType }) {
+      id
+      title
+      slug
+      author {
+        id
+      }
+      collaborators {
+        id
+        username
+      }
+      public
+      description
+      taskType
+      parameters
+      template {
+        id
+        title
+        description
+        parameters
+        script
+        style
+      }
+      link
+    }
+  }
+`;
+
+// export const MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY = gql`
+//   query MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY {
+//     myAndAllTasks(where: { taskType: TASK }) {
+//       id
+//       title
+//       slug
+//       author {
+//         id
+//       }
+//       collaborators {
+//         id
+//         username
+//       }
+//       public
+//       description
+//       taskType
+//       parameters
+//       template {
+//         id
+//         title
+//         description
+//         parameters
+//         script
+//         style
+//       }
+//       link
+//     }
+//   }
+// `;
+
+// export const MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
+//   query MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY {
+//     myAndAllTasks(where: { taskType: SURVEY }) {
+//       id
+//       title
+//       slug
+//       author {
+//         id
+//       }
+//       collaborators {
+//         id
+//         username
+//       }
+//       public
+//       description
+//       taskType
+//       parameters
+//       template {
+//         id
+//         title
+//         description
+//         parameters
+//         script
+//         style
+//       }
+//       link
+//     }
+//   }
+// `;
+
+// export const MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY = gql`
+//   query MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY {
+//     myAndAllTasks(where: { taskType: BLOCK }) {
+//       id
+//       title
+//       slug
+//       author {
+//         id
+//       }
+//       collaborators {
+//         id
+//         username
+//       }
+//       public
+//       description
+//       taskType
+//       parameters
+//       template {
+//         id
+//         title
+//         description
+//         parameters
+//         script
+//         style
+//       }
+//       link
+//     }
+//   }
+// `;

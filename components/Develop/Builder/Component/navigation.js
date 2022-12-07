@@ -6,7 +6,9 @@ import { USER_DASHBOARD_QUERY } from '../../../Queries/User';
 import {
   COMPONENT_QUERY,
   COMPONENT_TO_CLONE_QUERY,
+  MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
 } from '../../../Queries/Component';
+import { MY_DEVELOPED_COMPONENTS_QUERY } from '../../../Bank/Components/developed';
 
 import { CREATE_COMPONENT, UPDATE_COMPONENT } from '../../../Mutations/Task';
 
@@ -90,7 +92,17 @@ class Navigation extends Component {
               <div>
                 <Mutation
                   mutation={CREATE_COMPONENT}
-                  refetchQueries={[{ query: USER_DASHBOARD_QUERY }]}
+                  refetchQueries={[
+                    { query: USER_DASHBOARD_QUERY },
+                    {
+                      query: MY_DEVELOPED_COMPONENTS_QUERY,
+                      variables: { taskType: task?.taskType },
+                    },
+                    {
+                      query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+                      variables: { taskType: task?.taskType },
+                    },
+                  ]}
                 >
                   {(createTask, { loading, error }) => (
                     <div>

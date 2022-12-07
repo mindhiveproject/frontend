@@ -6,6 +6,7 @@ import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
+import { MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY } from '../Queries/Component';
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -35,7 +36,21 @@ class Login extends Component {
         <Mutation
           mutation={LOGIN_MUTATION}
           variables={this.state}
-          refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+          refetchQueries={[
+            { query: CURRENT_USER_RESULTS_QUERY },
+            {
+              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+              variables: { taskType: 'TASK' },
+            },
+            {
+              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+              variables: { taskType: 'SURVEY' },
+            },
+            {
+              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+              variables: { taskType: 'BLOCK' },
+            },
+          ]}
         >
           {(emailLogin, { error, loading }) => (
             <SignForm

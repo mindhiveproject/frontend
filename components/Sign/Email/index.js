@@ -5,6 +5,7 @@ import Router from 'next/router';
 import { SignForm } from '../../Styles/Forms';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
+import { MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY } from '../Queries/Component';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -38,7 +39,21 @@ class Signup extends Component {
       <Mutation
         mutation={SIGNUP_MUTATION}
         variables={this.state}
-        refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+        refetchQueries={[
+          { query: CURRENT_USER_RESULTS_QUERY },
+          {
+            query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+            variables: { taskType: 'TASK' },
+          },
+          {
+            query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+            variables: { taskType: 'SURVEY' },
+          },
+          {
+            query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+            variables: { taskType: 'BLOCK' },
+          },
+        ]}
       >
         {(emailSignUp, { error, loading }) => (
           <SignForm

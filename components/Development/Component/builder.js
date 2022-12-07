@@ -13,6 +13,7 @@ import { USER_DASHBOARD_QUERY } from '../../Queries/User';
 import {
   COMPONENT_QUERY,
   COMPONENT_TO_CLONE_QUERY,
+  MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
 } from '../../Queries/Component';
 
 // lab.js script template functions
@@ -312,6 +313,10 @@ class ComponentBuilder extends Component {
                                 id: this.state.task.id,
                               },
                             },
+                            {
+                              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+                              variables: { taskType: task?.taskType },
+                            },
                           ]}
                         >
                           {(updateTask, { loading, error }) => (
@@ -343,6 +348,10 @@ class ComponentBuilder extends Component {
                             { query: USER_DASHBOARD_QUERY },
                             {
                               query: MY_DEVELOPED_COMPONENTS_QUERY,
+                              variables: { taskType: task?.taskType },
+                            },
+                            {
+                              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
                               variables: { taskType: task?.taskType },
                             },
                           ]}
@@ -387,6 +396,10 @@ class ComponentBuilder extends Component {
                                 id: this.state.task.id,
                               },
                             },
+                            {
+                              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+                              variables: { taskType: task?.taskType },
+                            },
                           ]}
                         >
                           {(updateTask, { loading, error }) => (
@@ -418,6 +431,10 @@ class ComponentBuilder extends Component {
                             { query: USER_DASHBOARD_QUERY },
                             {
                               query: MY_DEVELOPED_COMPONENTS_QUERY,
+                              variables: { taskType: task?.taskType },
+                            },
+                            {
+                              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
                               variables: { taskType: task?.taskType },
                             },
                           ]}

@@ -628,7 +628,7 @@ export const UploadImageContainer = styled.div`
 export const StyledSelectionScreen = styled.div`
   display: grid;
   grid-template-rows: minmax(1px, auto) 1fr;
-  height: 100%;
+  height: 100vh;
   background: #f7f9f8;
 
   .selectionHeader {

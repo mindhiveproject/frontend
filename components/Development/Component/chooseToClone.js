@@ -1,110 +1,21 @@
 import React, { Component } from 'react';
 import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Card from './Card/index';
 
 import { StyledSelectionScreen } from '../styles';
 
+import { MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY } from '../../Queries/Component';
+
 const StyledBankToClone = styled.div`
   display: grid;
   justify-content: center;
-  margn: 0 auto;
+  margin: 0 auto;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 20px;
   margin: 10px;
   width: 100vh;
   justify-self: center;
-`;
-
-const MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY = gql`
-  query MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY {
-    myAndAllTasks(where: { taskType: TASK }) {
-      id
-      title
-      slug
-      author {
-        id
-      }
-      collaborators {
-        id
-        username
-      }
-      public
-      description
-      taskType
-      parameters
-      template {
-        id
-        title
-        description
-        parameters
-        script
-        style
-      }
-      link
-    }
-  }
-`;
-
-const MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
-  query MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY {
-    myAndAllTasks(where: { taskType: SURVEY }) {
-      id
-      title
-      slug
-      author {
-        id
-      }
-      collaborators {
-        id
-        username
-      }
-      public
-      description
-      taskType
-      parameters
-      template {
-        id
-        title
-        description
-        parameters
-        script
-        style
-      }
-      link
-    }
-  }
-`;
-
-const MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY = gql`
-  query MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY {
-    myAndAllTasks(where: { taskType: BLOCK }) {
-      id
-      title
-      slug
-      author {
-        id
-      }
-      collaborators {
-        id
-        username
-      }
-      public
-      description
-      taskType
-      parameters
-      template {
-        id
-        title
-        description
-        parameters
-        script
-        style
-      }
-      link
-    }
-  }
 `;
 
 class ChooseComponentToClone extends Component {
@@ -130,20 +41,20 @@ class ChooseComponentToClone extends Component {
         console.error('No data specified');
     }
 
-    let bankQuery;
-    switch (componentType) {
-      case 'BLOCK':
-        bankQuery = MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY;
-        break;
-      case 'SURVEY':
-        bankQuery = MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY;
-        break;
-      case 'TASK':
-        bankQuery = MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY;
-        break;
-      default:
-        console.error('No query specified');
-    }
+    // let bankQuery;
+    // switch (componentType) {
+    //   case 'BLOCK':
+    //     bankQuery = MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY;
+    //     break;
+    //   case 'SURVEY':
+    //     bankQuery = MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY;
+    //     break;
+    //   case 'TASK':
+    //     bankQuery = MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY;
+    //     break;
+    //   default:
+    //     console.error('No query specified');
+    // }
 
     return (
       <StyledSelectionScreen>
@@ -164,7 +75,10 @@ class ChooseComponentToClone extends Component {
             <p>Select which {component} you would like to clone below.</p>
           </div>
 
-          <Query query={bankQuery}>
+          <Query
+            query={MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY}
+            variables={{ taskType: componentType }}
+          >
             {({ data, error, loading }) => {
               if (loading) return <p>Loading ...</p>;
               if (error) return <p>Error: {error.message}</p>;

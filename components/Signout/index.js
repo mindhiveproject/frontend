@@ -8,6 +8,8 @@ import {
   CURRENT_USER_STUDIES_QUERY,
   USER_DASHBOARD_QUERY,
 } from '../Queries/User';
+import { MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY } from '../Queries/Component';
+
 import { MY_DEVELOPED_STUDIES_QUERY } from '../Bank/Studies/developed';
 
 import { SignoutButton } from '../Nav/styles';
@@ -28,6 +30,18 @@ const Signout = props => (
       { query: CURRENT_USER_RESULTS_QUERY },
       { query: CURRENT_USER_STUDIES_QUERY },
       { query: USER_DASHBOARD_QUERY },
+      {
+        query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+        variables: { taskType: 'TASK' },
+      },
+      {
+        query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+        variables: { taskType: 'SURVEY' },
+      },
+      {
+        query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+        variables: { taskType: 'BLOCK' },
+      },
     ]}
   >
     {signout => (

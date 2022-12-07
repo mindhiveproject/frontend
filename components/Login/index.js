@@ -13,6 +13,7 @@ import {
 } from '../Queries/User';
 import { MY_DEVELOPED_STUDIES_QUERY } from '../Bank/Studies/developed';
 import { MY_DEVELOPED_COMPONENTS_QUERY } from '../Bank/Components/developed';
+import { MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY } from '../Queries/Component';
 
 import GoogleLogin from './Google/index';
 
@@ -60,6 +61,18 @@ class Login extends Component {
             },
             {
               query: MY_DEVELOPED_COMPONENTS_QUERY,
+              variables: { taskType: 'BLOCK' },
+            },
+            {
+              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+              variables: { taskType: 'TASK' },
+            },
+            {
+              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
+              variables: { taskType: 'SURVEY' },
+            },
+            {
+              query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
               variables: { taskType: 'BLOCK' },
             },
           ]}
