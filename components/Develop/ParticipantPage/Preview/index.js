@@ -117,12 +117,13 @@ class PreviewPane extends Component {
                 />
               </label>
             </div>
-
-            <div className="participateBtn">
-              <button onClick={this.props.toggleStudyPreview}>
-                Participate
-              </button>
-            </div>
+            {false && (
+              <div className="participateBtn">
+                <button onClick={this.props.toggleStudyPreview}>
+                  Participate
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="details">
