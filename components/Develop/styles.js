@@ -40,6 +40,27 @@ export const StyledBoard = styled.div`
     z-index: 5;
     overflow-y: auto;
   }
+  .addNoteButton {
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    margin: 5px;
+    background: #007c70;
+    border: 1px solid #007c70;
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+    :hover {
+      transform: scale(1.1);
+      transition: transform 0.5s;
+    }
+  }
 `;
 
 export const StyledContent = styled.div`

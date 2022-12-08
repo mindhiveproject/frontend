@@ -5,6 +5,8 @@ import uniqid from 'uniqid';
 
 import { MyCreatorWidget } from './Diagram/components/my-creator-widget/MyCreatorWidget';
 import { MyNodeModel } from './Diagram/components/MyNodeModel';
+import { MyCommentModel } from './Diagram/components/MyCommentModel';
+
 import ComponentViewer from './Component/wrapper.js';
 import Settings from './Settings/index';
 
@@ -99,8 +101,27 @@ const Builder = React.memo(props => {
     props.engine.setModel(model);
   };
 
+  const addNote = () => {
+    const note = new MyCommentModel({
+      author: props?.user?.username,
+      time: Date.now(),
+      content: '',
+    });
+    const event = {
+      clientX: getRandomIntInclusive(300, 500),
+      clientY: getRandomIntInclusive(300, 500),
+    };
+    const point = props.engine.getRelativeMousePoint(event);
+    note.setPosition(point);
+    props.engine.getModel().addNode(note);
+    forceUpdate();
+  };
+
   return (
     <StyledBoard>
+      <button className="addNoteButton" onClick={addNote}>
+        Add a note
+      </button>
       <StyledWrapper>
         <StyledDigram>
           {props.engine && (

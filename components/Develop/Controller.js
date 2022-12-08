@@ -14,6 +14,7 @@ import Page from './Page';
 import FullScreenPreview from '../Preview/fullscreen';
 
 import { NodesFactory } from './Builder/Diagram/components/NodesFactory';
+import { CommentsFactory } from './Builder/Diagram/components/CommentsFactory';
 
 export default class Controller extends Component {
   state = {
@@ -37,6 +38,8 @@ export default class Controller extends Component {
       engine.setModel(new DiagramModel());
       // Create custom node
       engine.getNodeFactories().registerFactory(new NodesFactory());
+      // Create custom comment
+      engine.getNodeFactories().registerFactory(new CommentsFactory());
       // disable creating new nodes when clicking on the link
       engine.maxNumberPointsPerLink = 0;
       // disable loose links
@@ -284,6 +287,7 @@ export default class Controller extends Component {
 
   findChildrenRecursively = (nodes, level, blocks, tests) => {
     nodes.forEach(node => {
+      console.log({ node });
       let blockTests;
       if (level === 0) {
         blockTests = [
@@ -313,7 +317,8 @@ export default class Controller extends Component {
   };
 
   createStudyDesign = ({ model }) => {
-    const nodes = model.getNodes() || [];
+    const allNodes = model.getNodes() || [];
+    const nodes = allNodes.filter(node => node?.options?.type === 'my-node');
     const blocks = [];
     const startingNodes = nodes.filter(
       node => Object.keys(node?.ports?.in?.links).length === 0

@@ -111,4 +111,54 @@ export const StyledDigram = styled.div`
     letter-spacing: 0em;
     text-align: left;
   }
+
+  .comment {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 30px;
+  }
+
+  .comment-header-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 10px 20px 10px 20px;
+    align-items: center;
+    height: 100%;
+    border-radius: 8px;
+    border-bottom: 1px solid #efefef;
+    background-color: #ffc107 !important;
+  }
+
+  .comment-header-text {
+    color: #1a1a1a;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+  }
+
+  .comment-content {
+    display: grid;
+    padding: 10px 20px 10px 20px;
+    color: #666666;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    height: 100%;
+
+    textarea {
+      min-height: 100px;
+      padding: 0px;
+      font-size: 18px;
+      resize: none;
+      border: solid 0px;
+      border-radius: 0px;
+      outline: none;
+    }
+  }
 `;
