@@ -118,7 +118,7 @@ export const StyledDigram = styled.div`
     height: 100%;
     background-color: white;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
-    border-radius: 30px;
+    border-radius: 8px;
   }
 
   .comment-header-container {
@@ -126,10 +126,11 @@ export const StyledDigram = styled.div`
     grid-template-columns: 1fr auto;
     padding: 10px 20px 10px 20px;
     align-items: center;
-    height: 100%;
-    border-radius: 8px;
+    height: 100%
     border-bottom: 1px solid #efefef;
     background-color: #ffc107 !important;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
   }
 
   .comment-header-text {
@@ -142,7 +143,6 @@ export const StyledDigram = styled.div`
 
   .comment-content {
     display: grid;
-    padding: 10px 20px 10px 20px;
     color: #666666;
     font-size: 16px;
     font-weight: 400;
@@ -152,13 +152,14 @@ export const StyledDigram = styled.div`
     height: 100%;
 
     textarea {
+      padding: 10px 20px 10px 20px;
       min-height: 100px;
-      padding: 0px;
       font-size: 18px;
       resize: none;
-      border: solid 0px;
-      border-radius: 0px;
+      border: solid 1px #ffc107;
       outline: none;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
     }
   }
 `;

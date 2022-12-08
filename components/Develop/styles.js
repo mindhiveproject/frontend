@@ -40,7 +40,7 @@ export const StyledBoard = styled.div`
     z-index: 5;
     overflow-y: auto;
   }
-  .addNoteButton {
+  .addCommentButton {
     position: absolute;
     z-index: 2;
     left: 10px;

@@ -287,7 +287,6 @@ export default class Controller extends Component {
 
   findChildrenRecursively = (nodes, level, blocks, tests) => {
     nodes.forEach(node => {
-      console.log({ node });
       let blockTests;
       if (level === 0) {
         blockTests = [

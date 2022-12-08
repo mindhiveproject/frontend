@@ -101,7 +101,7 @@ const Builder = React.memo(props => {
     props.engine.setModel(model);
   };
 
-  const addNote = () => {
+  const addComment = () => {
     const note = new MyCommentModel({
       author: props?.user?.username,
       time: Date.now(),
@@ -119,8 +119,8 @@ const Builder = React.memo(props => {
 
   return (
     <StyledBoard>
-      <button className="addNoteButton" onClick={addNote}>
-        Add a note
+      <button className="addCommentButton" onClick={addComment}>
+        Add a comment
       </button>
       <StyledWrapper>
         <StyledDigram>

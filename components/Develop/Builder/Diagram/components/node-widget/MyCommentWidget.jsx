@@ -25,6 +25,7 @@ export const MyCommentWidget = props => {
 
       <div className="comment-content">
         <textarea
+          disabled={false}
           ref={ref}
           rows={1}
           placeholder="Enter text here..."
@@ -33,8 +34,11 @@ export const MyCommentWidget = props => {
             props.engine.getModel().setLocked(true); // lock the model
           }}
           onBlur={() => {
+            if (props.node.options.content != ref.current.value) {
+              props.node.options.time = Date.now();
+            }
+            console.log(props);
             props.node.options.content = ref.current.value;
-            props.node.options.time = Date.now();
             props.engine.getModel().setLocked(false); // unlock the model
           }}
           defaultValue={props.node?.options?.content}
