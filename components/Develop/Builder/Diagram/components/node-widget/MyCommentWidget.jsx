@@ -37,7 +37,6 @@ export const MyCommentWidget = props => {
             if (props.node.options.content != ref.current.value) {
               props.node.options.time = Date.now();
             }
-            console.log(props);
             props.node.options.content = ref.current.value;
             props.engine.getModel().setLocked(false); // unlock the model
           }}
