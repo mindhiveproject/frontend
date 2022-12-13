@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import uniqid from 'uniqid';
 import generate from 'project-name-generator';
 import { TokenForm } from '../../Styles/Forms';
@@ -8,32 +7,34 @@ import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
 
-const GUEST_PARTICIPANT_SIGNUP_MUTATION = gql`
-  mutation GUEST_PARTICIPANT_SIGNUP_MUTATION(
-    $email: String
-    $username: String!
-    $password: String!
-    $user: Json
-    $study: Json
-    $info: Json
-    $permissions: [Permission]
-  ) {
-    signUp(
-      email: $email
-      username: $username
-      password: $password
-      user: $user
-      study: $study
-      info: $info
-      permissions: $permissions
-    ) {
-      id
-      username
-      permissions
-      studiesInfo
-    }
-  }
-`;
+import { SIGNUP_MUTATION } from '../../Mutations/User';
+
+// const GUEST_PARTICIPANT_SIGNUP_MUTATION = gql`
+//   mutation GUEST_PARTICIPANT_SIGNUP_MUTATION(
+//     $email: String
+//     $username: String!
+//     $password: String!
+//     $user: Json
+//     $study: Json
+//     $info: Json
+//     $permissions: [Permission]
+//   ) {
+//     signUp(
+//       email: $email
+//       username: $username
+//       password: $password
+//       user: $user
+//       study: $study
+//       info: $info
+//       permissions: $permissions
+//     ) {
+//       id
+//       username
+//       permissions
+//       studiesInfo
+//     }
+//   }
+// `;
 
 class GuestParticipantSignup extends Component {
   state = {
@@ -59,7 +60,7 @@ class GuestParticipantSignup extends Component {
   render() {
     return (
       <Mutation
-        mutation={GUEST_PARTICIPANT_SIGNUP_MUTATION}
+        mutation={SIGNUP_MUTATION}
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
@@ -80,13 +81,18 @@ class GuestParticipantSignup extends Component {
                     continue without an account
                   </a>{' '}
                   you agree to MindHive’s{' '}
-                  <a target="_blank" href="https://mindhive.science/docs/terms">
+                  <a
+                    target="_blank"
+                    href="https://mindhive.science/docs/terms"
+                    rel="noreferrer"
+                  >
                     Terms or Service
                   </a>{' '}
                   and{' '}
                   <a
                     target="_blank"
                     href="https://mindhive.science/docs/privacy"
+                    rel="noreferrer"
                   >
                     Privacy Policy
                   </a>

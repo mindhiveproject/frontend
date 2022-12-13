@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import Router from 'next/router';
 import { Query, Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import {
   CURRENT_USER_EMAIL_QUERY,
   CURRENT_USER_RESULTS_QUERY,
 } from '../../Queries/User';
 
-const JOIN_CLASS_MUTATION = gql`
-  mutation JOIN_CLASS_MUTATION($id: ID!, $email: String) {
-    joinClassAsMentorWithProfile(id: $id, email: $email) {
-      message
-    }
-  }
-`;
+import { JOIN_CLASS_AS_MENTOR_MUTATION } from '../../Mutations/Class';
 
 class WithProfile extends Component {
   state = {
@@ -52,7 +45,7 @@ class WithProfile extends Component {
             return (
               <>
                 <Mutation
-                  mutation={JOIN_CLASS_MUTATION}
+                  mutation={JOIN_CLASS_AS_MENTOR_MUTATION}
                   variables={this.state}
                   refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
                 >

@@ -1,43 +1,15 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import Router from 'next/router';
-import generate from 'project-name-generator';
+
 import { SignupForm, CreateAccountForm } from '../styles';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
 
-const PARTICIPANT_SIGNUP_MUTATION = gql`
-  mutation PARTICIPANT_SIGNUP_MUTATION(
-    $email: String
-    $username: String!
-    $password: String!
-    $user: Json
-    $study: Json
-    $info: Json
-    $permissions: [Permission]
-  ) {
-    signUp(
-      email: $email
-      username: $username
-      password: $password
-      user: $user
-      study: $study
-      info: $info
-      permissions: $permissions
-    ) {
-      id
-      username
-      permissions
-      studiesInfo
-    }
-  }
-`;
+import { SIGNUP_MUTATION } from '../../Mutations/User';
 
 class ParticipantSignup extends Component {
   state = {
-    // username: generate().dashed,
     username: '',
     email: '',
     password: '',
@@ -72,7 +44,7 @@ class ParticipantSignup extends Component {
   render() {
     return (
       <Mutation
-        mutation={PARTICIPANT_SIGNUP_MUTATION}
+        mutation={SIGNUP_MUTATION}
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >

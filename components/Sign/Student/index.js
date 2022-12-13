@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import { SignupForm, Dialog } from '../styles';
 
 import JoinClass from './joinClass';
 
-const CLASS_QUERY = gql`
-  query CLASS_QUERY($code: String!) {
-    class(where: { code: $code }) {
-      id
-      title
-      description
-      image
-      code
-      creator {
-        id
-        username
-      }
-    }
-  }
-`;
+import { CLASS_QUERY } from '../../Queries/Class';
 
 class SignUp extends Component {
   state = {

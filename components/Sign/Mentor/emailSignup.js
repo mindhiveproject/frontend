@@ -1,38 +1,11 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import Router from 'next/router';
 import { SignupForm, CreateAccountForm } from '../styles';
 import Error from '../../ErrorMessage/index';
 import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 
-const STUDENT_SIGNUP_MUTATION = gql`
-  mutation STUDENT_SIGNUP_MUTATION(
-    $email: String
-    $username: String!
-    $password: String!
-    $user: Json
-    $study: Json
-    $class: Json
-    $info: Json
-    $permissions: [Permission]
-  ) {
-    signUp(
-      email: $email
-      username: $username
-      password: $password
-      user: $user
-      study: $study
-      class: $class
-      info: $info
-      permissions: $permissions
-    ) {
-      id
-      username
-      permissions
-    }
-  }
-`;
+import { SIGNUP_MUTATION } from '../../Mutations/User';
 
 class MentorEmailSignup extends Component {
   state = {
@@ -42,12 +15,6 @@ class MentorEmailSignup extends Component {
     user: this.props.user,
     study: this.props.study,
     class: this.props.class,
-    // info: {
-    //   age: '',
-    //   zipcode: this.props.user && this.props.user.zipcode,
-    //   under18: this.props.user && this.props.user.under18,
-    //   useTeacherEmail: false,
-    // },
   };
 
   saveToState = e => {
@@ -68,7 +35,7 @@ class MentorEmailSignup extends Component {
   render() {
     return (
       <Mutation
-        mutation={STUDENT_SIGNUP_MUTATION}
+        mutation={SIGNUP_MUTATION}
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
       >
@@ -139,13 +106,18 @@ class MentorEmailSignup extends Component {
                 <button type="submit">Create account</button>
                 <p>
                   By clicking on “Create account” you agree to MindHive’s{' '}
-                  <a target="_blank" href="https://mindhive.science/docs/terms">
+                  <a
+                    target="_blank"
+                    href="https://mindhive.science/docs/terms"
+                    rel="noreferrer"
+                  >
                     Terms of Service
                   </a>
                   , including our{' '}
                   <a
                     target="_blank"
                     href="https://mindhive.science/docs/privacy"
+                    rel="noreferrer"
                   >
                     Privacy Policy
                   </a>
@@ -161,4 +133,3 @@ class MentorEmailSignup extends Component {
 }
 
 export default MentorEmailSignup;
-export { STUDENT_SIGNUP_MUTATION };

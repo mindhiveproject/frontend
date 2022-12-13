@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
 import Router from 'next/router';
 import { SignupForm, CreateAccountForm } from '../styles';
 import Error from '../../ErrorMessage/index';
@@ -8,25 +7,7 @@ import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
 
 import GoogleSignup from '../Google/index';
 
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION(
-    $email: String!
-    $username: String!
-    $password: String!
-    $permissions: [Permission]
-  ) {
-    signUp(
-      email: $email
-      username: $username
-      password: $password
-      permissions: $permissions
-    ) {
-      id
-      username
-      permissions
-    }
-  }
-`;
+import { SIGNUP_MUTATION } from '../../Mutations/User';
 
 class Signup extends Component {
   state = {

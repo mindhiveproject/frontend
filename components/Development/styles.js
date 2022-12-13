@@ -206,6 +206,12 @@ export const StyledEditPane = styled.div`
     margin: 10px 0px;
     border-bottom: 3px #e7d6d6 solid;
   }
+  .hideContinueBtn {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 10px;
+    align-items: center;
+  }
 `;
 
 export const StyledPreviewPane = styled.div`

@@ -6,6 +6,7 @@ class SurveyPageBuilder extends Component {
   state = {
     items: this.props.items,
     timeout: this.props.timeout,
+    hideContinueBtn: this.props.hideContinueBtn,
   };
 
   componentDidUpdate(prevProps) {
@@ -15,10 +16,13 @@ class SurveyPageBuilder extends Component {
     if (prevProps.timeout !== this.props.timeout) {
       this.setState({ timeout: this.props.timeout });
     }
+    if (prevProps.hideContinueBtn !== this.props.hideContinueBtn) {
+      this.setState({ hideContinueBtn: this.props.hideContinueBtn });
+    }
   }
 
-  updateProps = ({ page, timeout }) => {
-    this.props.onChange({ page, timeout });
+  updateProps = ({ page, timeout, hideContinueBtn }) => {
+    this.props.onChange({ page, timeout, hideContinueBtn });
   };
 
   handleChange = e => {
@@ -42,7 +46,11 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
+    this.updateProps({
+      page: updatedItems,
+      timeout: this.state.timeout,
+      hideContinueBtn: this.state.hideContinueBtn,
+    });
   };
 
   handleTimeoutChange = e => {
@@ -50,7 +58,23 @@ class SurveyPageBuilder extends Component {
     this.setState({
       timeout: value,
     });
-    this.updateProps({ page: this.state.items, timeout: value });
+    this.updateProps({
+      page: this.state.items,
+      timeout: value,
+      hideContinueBtn: this.state.hideContinueBtn,
+    });
+  };
+
+  handleHideContinueBtnChange = e => {
+    const value = e.target.checked;
+    this.setState({
+      hideContinueBtn: value,
+    });
+    this.updateProps({
+      page: this.state.items,
+      timeout: this.state.timeout,
+      hideContinueBtn: value,
+    });
   };
 
   addNewOption = (e, id, className) => {
@@ -67,7 +91,11 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
+    this.updateProps({
+      page: updatedItems,
+      timeout: this.state.timeout,
+      hideContinueBtn: this.state.hideContinueBtn,
+    });
   };
 
   deleteOption = (e, id, num, className) => {
@@ -85,7 +113,11 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
+    this.updateProps({
+      page: updatedItems,
+      timeout: this.state.timeout,
+      hideContinueBtn: this.state.hideContinueBtn,
+    });
   };
 
   packTheObject = value => ({
@@ -118,7 +150,11 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
+    this.updateProps({
+      page: updatedItems,
+      timeout: this.state.timeout,
+      hideContinueBtn: this.state.hideContinueBtn,
+    });
   };
 
   deleteItem = (e, number) => {
@@ -127,7 +163,11 @@ class SurveyPageBuilder extends Component {
     this.setState({
       items: updatedItems,
     });
-    this.updateProps({ page: updatedItems, timeout: this.state.timeout });
+    this.updateProps({
+      page: updatedItems,
+      timeout: this.state.timeout,
+      hideContinueBtn: this.state.hideContinueBtn,
+    });
   };
 
   moveUp = (e, number) => {
@@ -142,7 +182,11 @@ class SurveyPageBuilder extends Component {
       this.setState({
         items: updatedItems,
       });
-      this.updateProps({ page: updatedItems, timeout: this.state.timeout });
+      this.updateProps({
+        page: updatedItems,
+        timeout: this.state.timeout,
+        hideContinueBtn: this.state.hideContinueBtn,
+      });
     }
   };
 
@@ -158,17 +202,35 @@ class SurveyPageBuilder extends Component {
       this.setState({
         items: updatedItems,
       });
-      this.updateProps({ page: updatedItems, timeout: this.state.timeout });
+      this.updateProps({
+        page: updatedItems,
+        timeout: this.state.timeout,
+        hideContinueBtn: this.state.hideContinueBtn,
+      });
     }
   };
 
   render() {
-    const { items, timeout } = this.state;
+    const { items, timeout, hideContinueBtn } = this.state;
     if (items) {
       return (
         <div>
           {items && items.length > 0 && (
             <>
+              <div className="hideContinueBtn">
+                <div>
+                  <input
+                    type="checkbox"
+                    id="hideContinueBtn"
+                    name="hideContinueBtn"
+                    checked={hideContinueBtn}
+                    onChange={this.handleHideContinueBtnChange}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="hideContinueBtn">Hide Continue button</label>
+                </div>
+              </div>
               <div className="timeout">
                 <p>Page timeout (in milliseconds)</p>
                 <input

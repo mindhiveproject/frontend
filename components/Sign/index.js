@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
-import Router from 'next/router';
 import { SignupForm, SignupButton } from './styles';
 
 class Signup extends Component {
