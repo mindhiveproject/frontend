@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+export const StyledReviewPage = styled.div`
+  display: grid;
+  width: 100%;
+  overflow-y: scroll;
+`;
+
 export const StyledReviewSection = styled.div`
   background: #e5e5e5;
   display: grid;

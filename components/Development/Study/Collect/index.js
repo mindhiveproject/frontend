@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import InDev from '../inDev';
 
 import CollectWrapper from './wrapper';
+
+export const StyledCollectPage = styled.div`
+  display: grid;
+  width: 100%;
+  overflow-y: scroll;
+`;
 
 class CollectSection extends Component {
   render() {
@@ -16,7 +23,11 @@ class CollectSection extends Component {
       );
     }
 
-    return <CollectWrapper study={study} />;
+    return (
+      <StyledCollectPage>
+        <CollectWrapper study={study} />;
+      </StyledCollectPage>
+    );
   }
 }
 

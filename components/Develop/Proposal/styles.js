@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const StyledProposal = styled.div`
+  display: grid;
+  width: 100%;
+  overflow-y: scroll;
+
   button {
     display: grid;
     align-content: center;

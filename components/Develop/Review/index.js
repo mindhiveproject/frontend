@@ -6,6 +6,7 @@ import ReviewsContainer from './container';
 import InDev from '../inDev';
 
 import { PROPOSAL_REVIEWS_QUERY } from '../../Queries/Review';
+import { StyledReviewPage } from './styles';
 
 class ReviewSection extends Component {
   state = {
@@ -43,7 +44,7 @@ class ReviewSection extends Component {
     }
 
     return (
-      <div>
+      <StyledReviewPage>
         <Query
           query={PROPOSAL_REVIEWS_QUERY}
           variables={{ id: this.state.proposalId }}
@@ -72,7 +73,7 @@ class ReviewSection extends Component {
             );
           }}
         </Query>
-      </div>
+      </StyledReviewPage>
     );
   }
 }

@@ -83,10 +83,10 @@ export default class DevelopArea extends Component {
 
           return (
             <DynamicController
-              onLeave={this.props.onLeave}
-              newStudyFromScratch={this.props.newStudyFromScratch}
               user={this.props.user}
               study={study}
+              onLeave={this.props.onLeave}
+              newStudyFromScratch={this.props.newStudyFromScratch}
               needToClone={needToClone}
               adminMode={adminMode}
             />
