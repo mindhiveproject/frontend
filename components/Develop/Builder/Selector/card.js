@@ -59,6 +59,7 @@ class Card extends Component {
                   details: component?.description,
                   componentID: component?.id,
                   testId: uniqid.time(),
+                  taskType: component?.taskType,
                 });
               }}
             />
@@ -73,6 +74,7 @@ class Card extends Component {
                   name: component?.title,
                   details: component?.description,
                   componentID: component.id,
+                  taskType: component?.taskType,
                 }}
                 name={component?.title}
               ></NodeTypeLabel>

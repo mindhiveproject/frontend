@@ -779,6 +779,17 @@ export const StyledTaskCard = styled.div`
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
   border-radius: 8px;
   margin-bottom: 10px;
+
+  border-top: 8px solid;
+  border-top-color: ${props =>
+    props.taskType === 'TASK'
+      ? '#64c9e2'
+      : props.taskType === 'SURVEY'
+      ? '#28619e'
+      : props.taskType === 'BLOCK'
+      ? '#ffc7c3'
+      : '#007c70'};
+
   .addBlock {
     margin: 0px 10px;
   }

@@ -1,8 +1,9 @@
 import React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams-core';
+import { StyledNode } from '../../styles';
 
 export const MyNodeWidget = props => (
-  <div className="node">
+  <StyledNode taskType={props.node?.options?.taskType}>
     <div
       className="node-header-container"
       style={{ backgroundColor: props.node.color }}
@@ -59,5 +60,5 @@ export const MyNodeWidget = props => (
     >
       <div className="my-out-port"></div>
     </PortWidget>
-  </div>
+  </StyledNode>
 );

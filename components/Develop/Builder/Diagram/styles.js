@@ -5,24 +5,23 @@ export const StyledWrapper = styled.div`
   grid-template-columns: 5fr 3fr;
 `;
 
-export const StyledDigram = styled.div`
-  .App {
-    font-family: sans-serif;
-    text-align: center;
-  }
+export const StyledNode = styled.div`
+  display: grid;
+  width: 378px;
+  height: 128px;
+  background-color: white;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
+  border-radius: 8px;
 
-  svg {
-    overflow: visible;
-  }
-
-  .node {
-    display: grid;
-    width: 378px;
-    height: 128px;
-    background-color: white;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
-    border-radius: 8px;
-  }
+  border-top: 8px solid;
+  border-top-color: ${props =>
+    props.taskType === 'TASK'
+      ? '#64c9e2'
+      : props.taskType === 'SURVEY'
+      ? '#28619e'
+      : props.taskType === 'BLOCK'
+      ? '#ffc7c3'
+      : '#007c70'};
 
   .node-header-container {
     display: grid;
@@ -94,7 +93,7 @@ export const StyledDigram = styled.div`
     background-color: white;
     cursor: pointer;
     position: relative;
-    z-index: -2;
+    /* z-index: -2; */
     cursor: pointer;
     text-align: center;
     color: grey;
@@ -111,6 +110,19 @@ export const StyledDigram = styled.div`
     letter-spacing: 0em;
     text-align: left;
   }
+`;
+
+export const StyledDigram = styled.div`
+  .App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+
+  svg {
+    overflow: visible;
+  }
+
+  
 
   .comment {
     display: grid;

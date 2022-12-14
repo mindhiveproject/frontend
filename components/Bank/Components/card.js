@@ -124,24 +124,3 @@ class TaskCard extends Component {
 }
 
 export default TaskCard;
-
-// {false && this.props.onSelectComponent && (
-//   <div>
-//     <a
-//       onClick={() => {
-//         this.props.onSelectComponent(component);
-//       }}
-//     >
-//       Open Editor
-//     </a>
-//   </div>
-// )}
-//
-// {false && developingMode && isAuthor && (
-//   <DeleteComponent
-//     id={component.id}
-//     taskType={component.taskType}
-//   >
-//     Delete
-//   </DeleteComponent>
-// )}

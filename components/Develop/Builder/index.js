@@ -66,7 +66,7 @@ const Builder = React.memo(props => {
     props.engine.repaintCanvas();
   };
 
-  const addComponentToCanvas = ({ name, details, componentID }) => {
+  const addComponentToCanvas = ({ name, details, componentID, taskType }) => {
     const shorten = text => {
       if (text && text.split(' ').length > 12) {
         const short = text
@@ -83,6 +83,7 @@ const Builder = React.memo(props => {
       details: shorten(details),
       componentID,
       testId: uniqid.time(),
+      taskType,
     });
     const event = {
       clientX: getRandomIntInclusive(300, 500),
