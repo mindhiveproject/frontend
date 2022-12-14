@@ -78,6 +78,11 @@ class ComponentSelector extends Component {
                 text: 'Owned by me',
                 value: 'me',
               },
+              {
+                key: 'favorite',
+                text: 'My favorite',
+                value: 'favorite',
+              },
             ]}
             onChange={this.handleCreatedBySelect}
             value={this.state.createdBy}

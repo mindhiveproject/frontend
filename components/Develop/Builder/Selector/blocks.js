@@ -25,12 +25,32 @@ class Blocks extends Component {
                   (block?.author?.id === user?.id ||
                     block?.collaborators
                       ?.map(collaborator => collaborator?.id)
-                      .includes(user?.id))))
+                      .includes(user?.id))) ||
+                (createdBy === 'favorite' &&
+                  user?.favoriteTasks
+                    .map(task => task?.id)
+                    .includes(block?.id)))
           );
+
+          const orderedBlocks = filteredBlocks.sort((a, b) => {
+            if (
+              user?.favoriteTasks.map(task => task?.id).includes(a?.id) &&
+              !user?.favoriteTasks.map(task => task?.id).includes(b?.id)
+            ) {
+              return -1;
+            }
+            if (
+              !user?.favoriteTasks.map(task => task?.id).includes(a?.id) &&
+              user?.favoriteTasks.map(task => task?.id).includes(b?.id)
+            ) {
+              return 1;
+            }
+            return 0;
+          });
 
           return (
             <div className="blocksMenuContent">
-              {filteredBlocks
+              {orderedBlocks
                 .filter(task => componentType.includes(task?.taskType))
                 .map(task => (
                   <CardWrapper

@@ -93,7 +93,6 @@ export const StyledNode = styled.div`
     background-color: white;
     cursor: pointer;
     position: relative;
-    /* z-index: -2; */
     cursor: pointer;
     text-align: center;
     color: grey;

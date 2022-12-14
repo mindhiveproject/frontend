@@ -81,7 +81,7 @@ class Card extends Component {
             </NodesTypesContainer>
           </div>
           <div className="icons">
-            {false && <ManageFavoriteComponents id={component?.id} />}
+            <ManageFavoriteComponents id={component?.id} />
 
             <div className="icon" onClick={() => this.toggleModal()}>
               <img src="/content/icons/info-2.svg" />

@@ -81,6 +81,9 @@ const USER_DASHBOARD_QUERY = gql`
         title
         taskType
       }
+      favoriteTasks {
+        id
+      }
       image
       info
       publicId
