@@ -21,7 +21,7 @@ export default class Page extends Component {
         {page === 'review' && <Review {...this.props} />}
         {page === 'collect' && <CollectSection {...this.props} />}
         {page === 'visualize' && (
-          <VisualizeSection id={this.props?.study?.id} />
+          <VisualizeSection id={this.props?.study?.id} {...this.props} />
         )}
         {page === 'analyze' && <AnalyzeSection {...this.props} />}
       </>

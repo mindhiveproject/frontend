@@ -9,6 +9,10 @@ export const MY_STUDY_SUMMARY_RESULTS_QUERY = gql`
         publicId
         publicReadableId
         generalInfo
+        studentIn {
+          id
+          code
+        }
       }
       guest {
         id

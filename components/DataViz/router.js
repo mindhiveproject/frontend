@@ -34,6 +34,7 @@ class Router extends Component {
   render() {
     return (
       <Manager
+        user={this.props.user}
         dataRaw={this.props.data}
         dataParticipant={this.props.dataParticipant}
         datasetTypeDefault={this.state.datasetTypeDefault}

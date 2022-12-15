@@ -46,7 +46,7 @@ class Result extends Component {
     });
 
     const userID =
-      user.publicReadableId || user.publicId || user.id || 'john-doe';
+      user?.publicReadableId || user?.publicId || user?.id || 'john-doe';
 
     const studyTitle =
       (study &&
