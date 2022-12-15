@@ -25,11 +25,10 @@ class CarouselComponent extends Component {
             <img src="/content/about/MindHive_About_carousel4.png" />
           </div>
           <div>
-            <img src="/content/about/MindHive_About_carousel5.jpeg" />
+            <img src="/content/about/MindHive_About_carousel5.png" />
           </div>
           <div>
-            <img src="/content/about/MindHive_About_carousel6.jpeg" />
-            <p className="legend">Legend 7</p>
+            <img src="/content/about/MindHive_About_carousel6.png" />
           </div>
         </Carousel>
       </div>
