@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import { Component } from 'react';
-import Link from 'next/link';
 import ReactHtmlParser from 'react-html-parser';
 
 import { StyledDocumentPage } from './styles';
+
+import Carousel from './carousel';
 
 class Document extends Component {
   render() {
@@ -16,6 +17,7 @@ class Document extends Component {
 
         <StyledDocumentPage>
           <h1>{title}</h1>
+          {title === 'About' && <Carousel />}
           {ReactHtmlParser(content)}
         </StyledDocumentPage>
       </>

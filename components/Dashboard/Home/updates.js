@@ -17,6 +17,9 @@ class Updates extends Component {
           return (
             <div className="updatesBoard">
               <h2>Latest updates</h2>
+              {data?.myUpdates.length === 0 && (
+                <p>There are no updates at the moment.</p>
+              )}
               <div className="updates">
                 {data?.myUpdates.map((update, num) => (
                   <UpdateCard key={num} update={update} />

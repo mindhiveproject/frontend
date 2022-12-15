@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyledHomeDasboard } from '../styles';
 import Updates from './updates';
+import Links from './links';
 
 class HomeDashboard extends Component {
   render() {
@@ -41,6 +42,7 @@ class HomeDashboard extends Component {
         </div>
 
         <Updates />
+        <Links />
       </StyledHomeDasboard>
     );
   }
