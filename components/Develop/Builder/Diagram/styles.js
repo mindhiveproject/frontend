@@ -124,26 +124,16 @@ export const StyledDigram = styled.div`
   svg {
     overflow: visible;
   }
+`;
 
-  .comment {
-    display: grid;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
-    border-radius: 8px;
-  }
-
+export const StyledComment = styled.div`
   .comment-header-container {
     display: grid;
     grid-template-columns: 1fr auto;
     padding: 10px 20px 10px 20px;
     align-items: center;
-    height: 100%
-    border-bottom: 1px solid #efefef;
-    background-color: #ffc107 !important;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    height: 100%;
+    background-color: #ffc107;
   }
 
   .comment-header-text {
@@ -169,10 +159,85 @@ export const StyledDigram = styled.div`
       min-height: 100px;
       font-size: 18px;
       resize: none;
-      border: solid 1px #ffc107;
+      border: solid 0px #fff799;
       outline: none;
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
+      background-color: #fff799;
     }
+  }
+
+  .post-it {
+    font-size: 20px;
+    position: absolute;
+    width: 300px;
+    margin: 20px;
+    -webkit-transform: rotate(1deg);
+    -moz-transform: rotate(1deg);
+    -ms-transform: rotate(1deg);
+    -o-transform: rotate(1deg);
+    transform: rotate(1deg);
+  }
+
+  .post-it:before,
+  .post-it:after {
+    content: ' ';
+    position: absolute;
+    z-index: 100;
+  }
+
+  .post-it:before {
+    background: rgba(0, 0, 0, 0.3);
+    bottom: 2px;
+    left: 4px;
+    max-height: 60px;
+    max-width: 180px;
+    height: 70%;
+    width: 90%;
+
+    -webkit-box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.3);
+    -ms-box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.3);
+    -o-box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.3);
+
+    -webkit-transform: skew(-8deg, -2deg) rotate(-1deg) translate3d(0, 0, 0);
+    -moz-transform: skew(-8deg, -2deg) rotate(-1deg) translate3d(0, 0, 0);
+    -ms-transform: skew(-8deg, -2deg) rotate(-1deg) translate3d(0, 0, 0);
+    -o-transform: skew(-8deg, -2deg) rotate(-1deg) translate3d(0, 0, 0);
+    transform: skew(-8deg, -2deg) rotate(-1deg) translate3d(0, 0, 0);
+  }
+
+  .post-it:after {
+    background: rgba(0, 0, 0, 0.1);
+    height: 30%;
+    max-height: 30px;
+    max-width: 60px;
+    right: 1px;
+    top: 0px;
+    width: 30%;
+
+    -webkit-box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.2);
+
+    -webkit-transform: skew(-10deg, -5deg) rotate(-1deg) translate3d(0, 0, 0);
+    -moz-transform: skew(-10deg, -5deg) rotate(-1deg) translate3d(0, 0, 0);
+    -ms-transform: skew(-10deg, -5deg) rotate(-1deg) translate3d(0, 0, 0);
+    -o-transform: skew(-10deg, -5deg) rotate(-1deg) translate3d(0, 0, 0);
+    transform: skew(-10deg, -5deg) rotate(-1deg) translate3d(0, 0, 0);
+  }
+
+  .post-it .inner {
+    /* padding: 10px; */
+    min-height: 100px;
+    background: #fff799;
+    z-index: 1000;
+    position: relative;
+    -webkit-transform: rotate(-1deg);
+    -moz-transform: rotate(-1deg);
+    -ms-transform: rotate(-1deg);
+    -o-transform: rotate(-1deg);
+    transform: rotate(-1deg);
   }
 `;
