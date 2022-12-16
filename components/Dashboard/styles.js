@@ -4,6 +4,8 @@ export const StyledDasboard = styled.div`
   display: grid;
   padding: 20px;
   width: 100%;
+  /* height: 100vh;
+  align-content: baseline; */
 
   h1 {
     font-family: Lato;

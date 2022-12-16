@@ -6,6 +6,7 @@ import uniqid from 'uniqid';
 import { MyCreatorWidget } from './Diagram/components/my-creator-widget/MyCreatorWidget';
 import { MyNodeModel } from './Diagram/components/MyNodeModel';
 import { MyCommentModel } from './Diagram/components/MyCommentModel';
+import { MyAnchorModel } from './Diagram/components/MyAnchorModel';
 
 import ComponentViewer from './Component/wrapper.js';
 import Settings from './Settings/index';
@@ -49,6 +50,17 @@ const Builder = React.memo(props => {
     setIsPreviewOpen(false);
   };
 
+  const shorten = text => {
+    if (text && text.split(' ').length > 12) {
+      const short = text
+        .split(' ')
+        .slice(0, 12)
+        .join(' ');
+      return `${short} ...`;
+    }
+    return text;
+  };
+
   const updateCanvas = task => {
     const model = props?.engine?.model;
     const nodes = model.getNodes() || [];
@@ -59,7 +71,7 @@ const Builder = React.memo(props => {
         n.updateOptions({
           componentID: task?.id,
           name: task?.title,
-          details: task?.description,
+          details: shorten(task?.description),
         });
       }
     });
@@ -67,16 +79,6 @@ const Builder = React.memo(props => {
   };
 
   const addComponentToCanvas = ({ name, details, componentID, taskType }) => {
-    const shorten = text => {
-      if (text && text.split(' ').length > 12) {
-        const short = text
-          .split(' ')
-          .slice(0, 12)
-          .join(' ');
-        return `${short} ...`;
-      }
-      return text;
-    };
     const newNode = new MyNodeModel({
       color: 'white',
       name,
@@ -118,12 +120,31 @@ const Builder = React.memo(props => {
     forceUpdate();
   };
 
+  const addAnchor = () => {
+    const anchor = new MyAnchorModel({});
+    const event = {
+      clientX: getRandomIntInclusive(300, 500),
+      clientY: getRandomIntInclusive(300, 500),
+    };
+    const point = props.engine.getRelativeMousePoint(event);
+    anchor.setPosition(point);
+    props.engine.getModel().addNode(anchor);
+    forceUpdate();
+  };
+
   return (
     <StyledBoard>
-      <button className="addCommentButton" onClick={addComment}>
-        Add a comment
-      </button>
       <StyledWrapper>
+        <button className="addCommentButton" onClick={addComment}>
+          Add a comment
+        </button>
+        {!props.engine.model
+          .getNodes()
+          .filter(node => node?.options?.type === 'my-anchor').length && (
+          <button className="addAnchorButton" onClick={addAnchor}>
+            Add starting point
+          </button>
+        )}
         <StyledDigram>
           {props.engine && (
             <MyCreatorWidget

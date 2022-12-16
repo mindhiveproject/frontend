@@ -15,6 +15,14 @@ import FullScreenPreview from '../Preview/fullscreen';
 
 import { NodesFactory } from './Builder/Diagram/components/NodesFactory';
 import { CommentsFactory } from './Builder/Diagram/components/CommentsFactory';
+import { AnchorFactory } from './Builder/Diagram/components/AnchorFactory';
+import { MyAnchorModel } from './Builder/Diagram/components/MyAnchorModel';
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+}
 
 export default class Controller extends Component {
   state = {
@@ -40,6 +48,8 @@ export default class Controller extends Component {
       engine.getNodeFactories().registerFactory(new NodesFactory());
       // Create custom comment
       engine.getNodeFactories().registerFactory(new CommentsFactory());
+      // Create custom anchor
+      engine.getNodeFactories().registerFactory(new AnchorFactory());
       // disable creating new nodes when clicking on the link
       engine.maxNumberPointsPerLink = 0;
       // disable loose links
@@ -52,6 +62,9 @@ export default class Controller extends Component {
         const model = new DiagramModel();
         model.deserializeModel(JSON.parse(this.state?.study?.diagram), engine);
         engine.setModel(model);
+      } else {
+        const anchor = new MyAnchorModel({});
+        engine.getModel().addNode(anchor);
       }
       this.setState({
         engine,
@@ -287,17 +300,8 @@ export default class Controller extends Component {
 
   findChildrenRecursively = (nodes, level, blocks, tests) => {
     nodes.forEach(node => {
-      let blockTests;
-      if (level === 0) {
-        blockTests = [
-          {
-            id: node?.options?.componentID,
-            title: node?.options?.name,
-            testId: node?.options?.testId,
-            level: 0,
-          },
-        ];
-      } else {
+      let blockTests = [];
+      if (level > 0) {
         blockTests = [...tests];
         blockTests.push({
           id: node?.options?.componentID,
@@ -317,12 +321,11 @@ export default class Controller extends Component {
 
   createStudyDesign = ({ model }) => {
     const allNodes = model.getNodes() || [];
-    const nodes = allNodes.filter(node => node?.options?.type === 'my-node');
-    const blocks = [];
-    const startingNodes = nodes.filter(
-      node => Object.keys(node?.ports?.in?.links).length === 0
+    const startingNode = allNodes.filter(
+      node => node?.options?.type === 'my-anchor'
     );
-    this.findChildrenRecursively(startingNodes, 0, blocks, []);
+    const blocks = [];
+    this.findChildrenRecursively(startingNode, 0, blocks, []);
     return { blocks };
   };
 

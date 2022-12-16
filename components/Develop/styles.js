@@ -22,6 +22,7 @@ export const StyledBoard = styled.div`
     right: 0;
     background: rgba(188, 188, 188, 0.7);
     backdrop-filter: blur(4px);
+    z-index: 2;
   }
   .modal {
     display: grid;
@@ -42,7 +43,7 @@ export const StyledBoard = styled.div`
   }
   .addCommentButton {
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     left: 10px;
     margin: 5px;
     background: #007c70;
@@ -55,6 +56,27 @@ export const StyledBoard = styled.div`
     line-height: 24px;
     text-align: center;
     color: #ffffff;
+    cursor: pointer;
+    :hover {
+      transform: scale(1.1);
+      transition: transform 0.5s;
+    }
+  }
+  .addAnchorButton {
+    position: absolute;
+    z-index: 1;
+    left: 170px;
+    margin: 5px;
+    background: #e9ecef;
+    border: 1px solid #e9ecef;
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: black;
     cursor: pointer;
     :hover {
       transform: scale(1.1);

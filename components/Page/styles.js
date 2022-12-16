@@ -15,7 +15,7 @@ export const UserPage = styled.div`
   display: grid;
   margin: 0;
   grid-gap: 10px;
-  height: 100%;
+  height: 100vh;
   grid-template-columns: 225px auto;
   button:hover {
     opacity: 0.6;

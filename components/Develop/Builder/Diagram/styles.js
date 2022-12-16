@@ -109,6 +109,10 @@ export const StyledNode = styled.div`
     letter-spacing: 0em;
     text-align: left;
   }
+
+  .anchoredArea {
+    /* background: brown; */
+  }
 `;
 
 export const StyledDigram = styled.div`
@@ -120,8 +124,6 @@ export const StyledDigram = styled.div`
   svg {
     overflow: visible;
   }
-
-  
 
   .comment {
     display: grid;
