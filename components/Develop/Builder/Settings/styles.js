@@ -1,5 +1,37 @@
 import styled from 'styled-components';
 
+export const StyledStudyFlow = styled.div`
+  display: grid;
+  grid-gap: 10px;
+
+  .block {
+    display: grid;
+    grid-gap: 5px;
+    padding: 20px 30px;
+    background: #ffffff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 8px;
+    .blockHeader {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-column-gap: 5px;
+    }
+  }
+
+  .test {
+    display: grid;
+    padding: 20px 30px;
+    background: #ffffff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
+    border-radius: 8px;
+    .testHeader {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-column-gap: 5px;
+    }
+  }
+`;
+
 export const StyledSettings = styled.div`
   display: grid;
   align-content: baseline;

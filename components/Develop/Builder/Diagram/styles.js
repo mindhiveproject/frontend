@@ -45,10 +45,7 @@ export const StyledNode = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 2px;
-    align-items: center;
-    .icon {
-      cursor: pointer;
-    }
+    align-items: end;
   }
 
   .port-container {
@@ -108,6 +105,10 @@ export const StyledNode = styled.div`
     line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
+  }
+
+  .icon {
+    cursor: pointer;
   }
 
   .anchoredArea {
