@@ -13,6 +13,7 @@ export const MyCreatorWidget = props => {
 
   const diagramEngine = props.engine;
   diagramEngine.openComponentModal = props.openComponentModal;
+  diagramEngine.openStudyPreview = props.openStudyPreview;
 
   const shorten = text => {
     if (text && text.split(' ').length > 12) {

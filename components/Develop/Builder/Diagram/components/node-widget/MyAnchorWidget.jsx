@@ -4,22 +4,23 @@ import { StyledNode } from '../../styles';
 
 export const MyAnchorWidget = props => (
   <StyledNode taskType="ANCHOR">
-    <div
-      className="anchoredArea"
-      // onMouseDown={() => {
-      //   console.log('Mouse enter');
-      //   props.engine.getModel().setLocked(true); // lock the model
-      // }}
-      // onMouseUp={() => {
-      //   console.log('Mouse leaves');
-      //   props.engine.getModel().setLocked(false); // unlock the model
-      // }}
-    >
+    <div className="anchoredArea">
       <div
         className="node-header-container"
         style={{ backgroundColor: 'white' }}
       >
         <div className="node-header-text">Participant registration</div>
+
+        <div
+          className="icon"
+          aria-hidden="true"
+          onClick={() => {
+            // open the preview
+            props.engine.openStudyPreview();
+          }}
+        >
+          <img src="/content/icons/play.svg" />
+        </div>
       </div>
 
       <div className="node-content">Start buiding your study from here</div>

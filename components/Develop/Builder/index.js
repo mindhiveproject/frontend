@@ -166,6 +166,7 @@ const Builder = React.memo(props => {
             <MyCreatorWidget
               engine={props.engine}
               openComponentModal={openComponentModal}
+              openStudyPreview={props.toggleStudyPreview}
             />
           )}
         </StyledDigram>
