@@ -27,7 +27,7 @@ class PostPrompt extends Component {
   checkConsent = () => {
     const { consent } = this.props.task;
     let isConsentGiven = false;
-    if (consent && consent.id) {
+    if (consent && consent.id && this.props.participant?.consentGivenFor) {
       const participantConsents = this.props.participant?.consentGivenFor.map(
         c => c.id
       );
