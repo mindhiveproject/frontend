@@ -43,8 +43,8 @@ export const StyledNode = styled.div`
 
   .node-header-icons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 5px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2px;
     align-items: center;
     .icon {
       cursor: pointer;

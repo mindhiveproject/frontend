@@ -6,10 +6,11 @@ const ComponentWrapper = React.memo(props => (
   <ComponentModal
     user={props.user}
     componentID={props.componentID}
-    isPreviewOpen={props.isPreviewOpen}
-    isInfoOpen={props.isInfoOpen}
     closeModal={props.closeModal}
     updateCanvas={props.updateCanvas}
+    isPreviewOpen={props.isPreviewOpen}
+    isInfoOpen={props.isInfoOpen}
+    isEditorOpen={props.isEditorOpen}
   />
 ));
 

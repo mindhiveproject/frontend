@@ -36,6 +36,7 @@ export const CREATE_COMPONENT_WITH_TEMPLATE = gql`
     ) {
       id
       title
+      subtitle
       slug
       description
       parameters
@@ -109,6 +110,7 @@ export const UPDATE_COMPONENT_WITH_TEMPLATE = gql`
     ) {
       id
       title
+      subtitle
       template {
         id
         title
@@ -165,6 +167,7 @@ export const CREATE_COMPONENT = gql`
     ) {
       id
       title
+      subtitle
       slug
       description
       parameters
@@ -239,6 +242,7 @@ export const UPDATE_COMPONENT = gql`
       id
       title
       description
+      subtitle
     }
   }
 `;

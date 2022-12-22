@@ -126,9 +126,7 @@ class Navigation extends Component {
         </div>
 
         <div className="secondLine">
-          <p>
-            {taskType} ID: {testId}
-          </p>
+          {isAuthor ? `Customized ${taskType}` : `Original ${taskType}`}
         </div>
       </StyledNavigation>
     );
@@ -136,3 +134,9 @@ class Navigation extends Component {
 }
 
 export default Navigation;
+
+{
+  /* <p>
+   {taskType} ID: {testId}
+</p> */
+}

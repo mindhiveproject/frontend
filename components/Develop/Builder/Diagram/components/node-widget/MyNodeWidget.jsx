@@ -9,15 +9,36 @@ export const MyNodeWidget = props => (
       style={{ backgroundColor: props.node.color }}
     >
       <div className="node-header-text">{props.node?.options?.name}</div>
+
       <div className="node-header-icons">
         <div
           className="icon"
-          onClick={e => {
+          aria-hidden="true"
+          onClick={() => {
             // lock the model
             props.engine.getModel().setLocked(true);
             // open the modal
             props.engine.openComponentModal({
               node: props?.node,
+              isEditorOpen: true,
+              isInfoOpen: false,
+              isPreviewOpen: false,
+            });
+          }}
+        >
+          <img src="/content/icons/settings-2.svg" />
+        </div>
+
+        <div
+          className="icon"
+          aria-hidden="true"
+          onClick={() => {
+            // lock the model
+            props.engine.getModel().setLocked(true);
+            // open the modal
+            props.engine.openComponentModal({
+              node: props?.node,
+              isEditorOpen: false,
               isInfoOpen: true,
               isPreviewOpen: false,
             });
@@ -25,14 +46,17 @@ export const MyNodeWidget = props => (
         >
           <img src="/content/icons/info-3.svg" />
         </div>
+
         <div
           className="icon"
-          onClick={e => {
+          aria-hidden="true"
+          onClick={() => {
             // lock the model
             props.engine.getModel().setLocked(true);
             // open the preview
             props.engine.openComponentModal({
               node: props?.node,
+              isEditorOpen: false,
               isInfoOpen: false,
               isPreviewOpen: true,
             });
@@ -51,7 +75,9 @@ export const MyNodeWidget = props => (
       <div className="my-in-port">Drop the link here</div>
     </PortWidget>
 
-    <div className="node-content">{props.node?.options?.details}</div>
+    <div className="node-content">
+      {props.node?.options?.subtitle || props.node?.options?.details}
+    </div>
 
     <PortWidget
       className="port-container bottom-port"

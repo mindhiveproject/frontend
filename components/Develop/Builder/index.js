@@ -27,17 +27,24 @@ const Builder = React.memo(props => {
   const [node, setNode] = useState(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
 
   // force update canvas
   const forceUpdate = React.useReducer(bool => !bool)[1];
 
-  const openComponentModal = ({ node, isInfoOpen, isPreviewOpen }) => {
+  const openComponentModal = ({
+    node,
+    isInfoOpen,
+    isPreviewOpen,
+    isEditorOpen,
+  }) => {
     setComponentModalID(node?.options?.componentID);
     setTestModalId(node?.options?.testId);
     setIsModalOpen(true);
     setNode(node);
     setIsInfoOpen(isInfoOpen);
     setIsPreviewOpen(isPreviewOpen);
+    setIsEditorOpen(isEditorOpen);
   };
 
   const closeComponentModal = () => {
@@ -48,6 +55,7 @@ const Builder = React.memo(props => {
     setTestModalId(null);
     setIsInfoOpen(false);
     setIsPreviewOpen(false);
+    setIsEditorOpen(false);
   };
 
   const shorten = text => {
@@ -72,13 +80,20 @@ const Builder = React.memo(props => {
           componentID: task?.id,
           name: task?.title,
           details: shorten(task?.description),
+          subtitle: task?.subtitle,
         });
       }
     });
     props.engine.repaintCanvas();
   };
 
-  const addComponentToCanvas = ({ name, details, componentID, taskType }) => {
+  const addComponentToCanvas = ({
+    name,
+    details,
+    componentID,
+    taskType,
+    subtitle,
+  }) => {
     const newNode = new MyNodeModel({
       color: 'white',
       name,
@@ -86,6 +101,7 @@ const Builder = React.memo(props => {
       componentID,
       testId: uniqid.time(),
       taskType,
+      subtitle,
     });
     const event = {
       clientX: getRandomIntInclusive(300, 500),
@@ -164,10 +180,11 @@ const Builder = React.memo(props => {
           {...props}
           componentID={componentModalID}
           testId={testModalId}
-          isInfoOpen={isInfoOpen}
-          isPreviewOpen={isPreviewOpen}
           closeModal={closeComponentModal}
           updateCanvas={updateCanvas}
+          isInfoOpen={isInfoOpen}
+          isPreviewOpen={isPreviewOpen}
+          isEditorOpen={isEditorOpen}
         />
       )}
     </StyledBoard>

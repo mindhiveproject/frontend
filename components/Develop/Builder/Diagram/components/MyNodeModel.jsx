@@ -40,6 +40,7 @@ export class MyNodeModel extends NodeModel {
       componentID: this.options.componentID,
       testId: this.options.testId,
       taskType: this.options.taskType,
+      subtitle: this.options.subtitle,
     };
   }
 
@@ -50,5 +51,6 @@ export class MyNodeModel extends NodeModel {
     this.options.componentID = ob.data.componentID;
     this.options.testId = ob.data.testId;
     this.options.taskType = ob.data.taskType;
+    this.options.subtitle = ob.data.subtitle;
   }
 }

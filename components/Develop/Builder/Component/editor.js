@@ -271,6 +271,7 @@ class ComponentEditor extends Component {
         />
 
         <EditPane
+          isAuthor={this.props.isAuthor}
           handleTaskChange={this.handleComponentChange}
           handleParameterChange={this.handleParameterChange}
           handleTemplateParamChange={this.handleTemplateParamChange}

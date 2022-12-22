@@ -17,11 +17,11 @@ class ComponentViewer extends Component {
     component: { ...this.props.component } || {},
     showPreview: this.props.isPreviewOpen || false,
     showInfo: this.props.isInfoOpen || false,
-    page: 'description',
+    showEditor: this.props.isEditorOpen || false,
   };
 
   openEditor = () => {
-    this.setState({ page: 'editor' });
+    this.setState({ showEditor: true });
   };
 
   openPreview = () => {
@@ -38,7 +38,7 @@ class ComponentViewer extends Component {
 
   render() {
     const { isAuthor } = this.props;
-    const { component, page, showInfo, showPreview } = this.state;
+    const { component, showInfo, showPreview, showEditor } = this.state;
 
     if (showPreview) {
       return (
@@ -55,7 +55,7 @@ class ComponentViewer extends Component {
       );
     }
 
-    if (page === 'editor') {
+    if (showEditor) {
       return (
         <div className="background">
           <div className="modal">

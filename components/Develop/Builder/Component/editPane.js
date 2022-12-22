@@ -45,12 +45,13 @@ class EditPane extends Component {
             deleteTemplateParameter={this.props.deleteTemplateParameter}
           />
         )}
-
-        <EditSharing
-          task={this.props.task}
-          handleCollaboratorsChange={this.props.handleCollaboratorsChange}
-          handleSetState={this.props.handleSetState}
-        />
+        {this.props.isAuthor && (
+          <EditSharing
+            task={this.props.task}
+            handleCollaboratorsChange={this.props.handleCollaboratorsChange}
+            handleSetState={this.props.handleSetState}
+          />
+        )}
       </StyledEditPane>
     );
   }
