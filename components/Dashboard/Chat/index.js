@@ -18,7 +18,7 @@ class Chat extends Component {
 
           return (
             <StyledDasboard>
-              <ChatWrapper me={data?.me} />
+              <ChatWrapper user={data?.me} />
             </StyledDasboard>
           );
         }}

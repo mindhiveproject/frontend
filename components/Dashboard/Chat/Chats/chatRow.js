@@ -65,7 +65,11 @@ class ChatRow extends Component {
             <Icon name="user plus" />
           </div>
           {isChatMember && <LeaveGroupChat id={chat?.id} />}
-          {chat?.author?.id === user?.id && <DeleteGroupChat id={chat?.id} />}
+          {(chat?.author?.id === user?.id ||
+            user?.permissions.includes('ADMIN') ||
+            user?.permissions.includes('TEACHER')) && (
+            <DeleteGroupChat id={chat?.id} />
+          )}
         </div>
       </StyledWrapper>
     );

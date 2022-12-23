@@ -24,9 +24,9 @@ class Message extends Component {
   };
 
   render() {
-    const { chatId, message } = this.props;
+    const { user, chatId, message } = this.props;
     const { activeIndex } = this.state;
-    const isMessageAuthor = message?.author?.id === this.props.userId;
+    const isMessageAuthor = message?.author?.id === user?.id;
 
     return (
       <StyledMessage>
@@ -46,8 +46,8 @@ class Message extends Component {
                 </div>
               )}
             </div>
-            {isMessageAuthor && (
-              <div className="editLinks">
+            <div className="editLinks">
+              {isMessageAuthor && (
                 <UpdateMessage
                   message={message}
                   refetchQueries={[
@@ -57,6 +57,11 @@ class Message extends Component {
                     },
                   ]}
                 />
+              )}
+
+              {(isMessageAuthor ||
+                user?.permissions.includes('ADMIN') ||
+                user?.permissions.includes('TEACHER')) && (
                 <DeleteMessage
                   chatId={chatId}
                   messageId={message?.id}
@@ -67,8 +72,8 @@ class Message extends Component {
                     },
                   ]}
                 />
-              </div>
-            )}
+              )}
+            </div>
           </div>
           <div className="title">{message?.settings?.title}</div>
         </div>

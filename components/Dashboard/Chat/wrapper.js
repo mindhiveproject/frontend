@@ -45,10 +45,10 @@ class ChatWrapper extends Component {
     if (page === 'chats') {
       return (
         <Chats
+          user={this.props.user}
           addChat={this.addChat}
           openChat={this.openChat}
           openAddMembers={this.openAddMembers}
-          user={this.props.me}
         />
       );
     }
@@ -60,9 +60,9 @@ class ChatWrapper extends Component {
     if (page === 'chatpage') {
       return (
         <ChatPage
+          user={this.props.user}
           chatId={this.state.chatId}
           goBack={this.goBack}
-          me={this.props.me}
         />
       );
     }

@@ -203,6 +203,7 @@ const CURRENT_USER_EMAIL_QUERY = gql`
       }
       generalInfo
       isPublic
+      publicReadableId
     }
   }
 `;

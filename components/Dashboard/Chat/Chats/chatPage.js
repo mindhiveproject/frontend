@@ -22,8 +22,6 @@ class ChatPage extends Component {
   render() {
     const { chatId } = this.props;
 
-    console.log('re-render');
-
     return (
       <StyledGroupChat>
         <div className="goBackBtn">
@@ -122,7 +120,7 @@ class ChatPage extends Component {
                 {messages.map(message => (
                   <Message
                     key={message.id}
-                    userId={this.props?.me?.id}
+                    user={this.props?.user}
                     chatId={chatId}
                     message={message}
                   />

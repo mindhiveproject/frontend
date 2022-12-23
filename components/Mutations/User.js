@@ -8,6 +8,7 @@ export const EDIT_ACCOUNT_MUTATION = gql`
     $password: String
     $info: Json
     $isPublic: Boolean
+    $publicReadableId: String
   ) {
     editAccount(
       username: $username
@@ -15,6 +16,7 @@ export const EDIT_ACCOUNT_MUTATION = gql`
       password: $password
       info: $info
       isPublic: $isPublic
+      publicReadableId: $publicReadableId
     ) {
       id
     }

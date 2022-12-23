@@ -27,6 +27,7 @@ class HomeDashboard extends Component {
     password: '',
     passwordRepeat: '',
     isPublic: this.props?.me?.isPublic,
+    publicReadableId: this.props?.me?.publicReadableId,
   };
 
   saveToState = e => {
@@ -58,6 +59,7 @@ class HomeDashboard extends Component {
       password,
       passwordRepeat,
       isPublic,
+      publicReadableId,
     } = this.state;
     return (
       <Mutation
@@ -67,6 +69,7 @@ class HomeDashboard extends Component {
           info: this.state.info,
           email: this.state.email,
           isPublic: this.state.isPublic,
+          publicReadableId: this.state.publicReadableId,
         }}
         refetchQueries={[{ query: CURRENT_USER_EMAIL_QUERY }]}
       >
@@ -105,12 +108,19 @@ class HomeDashboard extends Component {
                     value={username}
                     onChange={this.saveToState}
                   />
-                  {false && (
-                    <div className="helpText">
-                      Proceed with the name we suggest or choose your own.
-                    </div>
-                  )}
                 </label>
+
+                <label htmlFor="publicReadableId">
+                  <p>Public readable ID</p>
+                  <input
+                    type="text"
+                    name="publicReadableId"
+                    placeholder="Enter your public readable ID"
+                    value={publicReadableId}
+                    onChange={this.saveToState}
+                  />
+                </label>
+
                 <label htmlFor="email">
                   <p>Email address</p>
                   <input
