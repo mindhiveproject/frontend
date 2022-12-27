@@ -39,7 +39,7 @@ export const MyCreatorWidget = props => {
         componentID: data?.componentID,
         testId: uniqid.time(),
         taskType: data?.taskType,
-        subtitle: data?.subtitle,
+        subtitle: shorten(data?.subtitle),
       });
 
       const point = diagramEngine.getRelativeMousePoint(event);

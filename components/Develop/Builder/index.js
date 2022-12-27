@@ -80,7 +80,7 @@ const Builder = React.memo(props => {
           componentID: task?.id,
           name: task?.title,
           details: shorten(task?.description),
-          subtitle: task?.subtitle,
+          subtitle: shorten(task?.subtitle),
         });
       }
     });
@@ -101,7 +101,7 @@ const Builder = React.memo(props => {
       componentID,
       testId: uniqid.time(),
       taskType,
-      subtitle,
+      subtitle: shorten(subtitle),
     });
     const event = {
       clientX: getRandomIntInclusive(300, 500),
