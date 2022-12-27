@@ -218,6 +218,17 @@ const SidebarNav = ({ user }) => {
           </NavLink>
         </Link>
 
+        {false && user?.permissions.includes('TEACHER') && (
+          <Link href="/dashboard/analyze">
+            <NavLink selected={router.pathname === '/dashboard/analyze'}>
+              <div>
+                <img src="/content/icons/Stats.svg" />
+              </div>
+              <div>Analyze</div>
+            </NavLink>
+          </Link>
+        )}
+
         {user?.permissions.includes('ADMIN') && (
           <>
             <div className="workspaceHeader">ADMIN</div>
