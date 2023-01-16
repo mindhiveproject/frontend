@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import { Dropdown } from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import gql from "graphql-tag";
+import { Dropdown } from "semantic-ui-react";
 
-import { StyledBank, StyledZeroState, StyledDropdown } from '../styles';
-import StudyCard from './studycard';
+import { StyledBank, StyledZeroState, StyledDropdown } from "../styles";
+import StudyCard from "./studycard";
 
 const MY_DEVELOPED_STUDIES_QUERY = gql`
   query MY_DEVELOPED_STUDIES_QUERY {
@@ -37,28 +37,28 @@ const MY_DEVELOPED_STUDIES_QUERY = gql`
 
 const filterOptions = [
   {
-    key: 'All',
-    text: 'All studies',
-    value: 'All',
+    key: "All",
+    text: "All studies",
+    value: "All",
     content: <p>All</p>,
   },
   {
-    key: 'Active',
-    text: 'Active studies',
-    value: 'Active',
+    key: "Active",
+    text: "Active studies",
+    value: "Active",
     content: <p>Active</p>,
   },
   {
-    key: 'Archived',
-    text: 'Archived studies',
-    value: 'Archived',
+    key: "Archived",
+    text: "Archived studies",
+    value: "Archived",
     content: <p>Archived</p>,
   },
 ];
 
 class DevelopedStudiesBank extends Component {
   state = {
-    filter: 'All',
+    filter: "All",
   };
 
   filterStudies = (event, data) => {
@@ -93,19 +93,19 @@ class DevelopedStudiesBank extends Component {
             if (this.props.user?.studiesInfo) {
               studiesIDsToHide = studies
                 .filter(
-                  st => this.props.user?.studiesInfo[st?.id]?.hideInDevelop
+                  (st) => this.props.user?.studiesInfo[st?.id]?.hideInDevelop
                 )
-                .map(study => study.id);
+                .map((study) => study.id);
             }
 
             switch (this.state.filter) {
-              case 'Active':
+              case "Active":
                 filteredStudies = studies.filter(
-                  study => !studiesIDsToHide.includes(study?.id)
+                  (study) => !studiesIDsToHide.includes(study?.id)
                 );
                 break;
-              case 'Archived':
-                filteredStudies = studies.filter(study =>
+              case "Archived":
+                filteredStudies = studies.filter((study) =>
                   studiesIDsToHide.includes(study?.id)
                 );
                 break;
@@ -124,12 +124,13 @@ class DevelopedStudiesBank extends Component {
                 </StyledDropdown>
                 <StyledBank>
                   <div className="studies">
-                    {filteredStudies.map(study => (
+                    {filteredStudies.map((study) => (
                       <StudyCard
                         key={study.id}
                         study={study}
-                        onSelectStudy={this.props.onSelectStudy}
-                        openNewStudyBuilder={this.props.openNewStudyBuilder}
+                        // onSelectStudy={this.props.onSelectStudy}
+                        onSelectStudy={this.props.openNewStudyBuilder}
+                        openOldStudyBuilder={this.props.onSelectStudy}
                         user={this.props.user}
                         developingMode
                         showAllStudies={this.props.showAllStudies}

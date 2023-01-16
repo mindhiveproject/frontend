@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Mutation } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Mutation } from "@apollo/client/react/components";
 
-import { MY_TALKS_QUERY } from '../../../Queries/Talk';
-import { CREATE_NEW_TALK } from '../../../Mutations/Talk';
+import { MY_TALKS_QUERY } from "../../../Queries/Talk";
+import { CREATE_NEW_TALK } from "../../../Mutations/Talk";
 
-import { StyledCreateChatForm } from '../../../Styles/Forms';
-import FindMember from './findMember';
-import FindClassMembers from './findClassMembers';
-import FindStudyMembers from './findStudyMembers';
+import { StyledCreateChatForm } from "../../../Styles/Forms";
+import FindMember from "./findMember";
+import FindClassMembers from "./findClassMembers";
+import FindStudyMembers from "./findStudyMembers";
 
 const StyledSelectionScreen = styled.div`
   display: grid;
@@ -43,9 +43,9 @@ class AddChat extends Component {
     studies: [],
   };
 
-  handleSettingsChange = e => {
+  handleSettingsChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       settings: { ...this.state.settings, [name]: val },
     });
@@ -75,7 +75,7 @@ class AddChat extends Component {
               </div>
 
               <StyledCreateChatForm
-                onSubmit={async e => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   const res = await createTalk();
                   this.props.goBack();

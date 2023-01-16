@@ -1,22 +1,22 @@
-import { useMemo } from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import { useMemo } from "react";
+import ReactHtmlParser from "react-html-parser";
 
-import { StyledStudyCard } from '../styles';
+import { StyledStudyCard } from "../styles";
 
-import ArchiveDelete from './archiveDelete';
-import ManageStudy from './manage';
+import ArchiveDelete from "./archiveDelete";
+import ManageStudy from "./manage";
 
 // compute the number of different types of permissions in author and collaborators
 // excluding admin
 const computeNumberExceptAdmin = ({ study, role }) => {
   const collaborators =
     study?.collaborators
-      .filter(person => person?.id !== study?.author?.id) // not the study author
-      .map(person => person?.permissions)
-      .filter(permissions => !permissions?.includes('ADMIN')) // not an admin
-      .filter(permissions => permissions?.includes(role)).length || 0;
+      .filter((person) => person?.id !== study?.author?.id) // not the study author
+      .map((person) => person?.permissions)
+      .filter((permissions) => !permissions?.includes("ADMIN")) // not an admin
+      .filter((permissions) => permissions?.includes(role)).length || 0;
   const author =
-    !study?.author?.permissions?.includes('ADMIN') &&
+    !study?.author?.permissions?.includes("ADMIN") &&
     study?.author?.permissions?.includes(role)
       ? 1
       : 0;
@@ -27,9 +27,9 @@ const computeNumberExceptAdmin = ({ study, role }) => {
 const computeNumber = ({ study, role }) => {
   const collaborators =
     study?.collaborators
-      .filter(person => person?.id !== study?.author?.id) // not the study author
-      .map(person => person?.permissions)
-      .filter(permissions => permissions?.includes(role)).length || 0;
+      .filter((person) => person?.id !== study?.author?.id) // not the study author
+      .map((person) => person?.permissions)
+      .filter((permissions) => permissions?.includes(role)).length || 0;
   const author = study?.author?.permissions?.includes(role) ? 1 : 0;
   return collaborators + author;
 };
@@ -38,21 +38,21 @@ function StudyCard({
   study,
   user,
   onSelectStudy,
-  openNewStudyBuilder,
+  openOldStudyBuilder,
   overviewMode,
   developingMode,
 }) {
   const numberOfStudents = useMemo(
-    () => computeNumberExceptAdmin({ study, role: 'STUDENT' }),
+    () => computeNumberExceptAdmin({ study, role: "STUDENT" }),
     [study]
   );
   // count scientists if they are also admins
   const numberOfScientists = useMemo(
-    () => computeNumber({ study, role: 'SCIENTIST' }),
+    () => computeNumber({ study, role: "SCIENTIST" }),
     [study]
   );
   const numberOfTeachers = useMemo(
-    () => computeNumberExceptAdmin({ study, role: 'TEACHER' }),
+    () => computeNumberExceptAdmin({ study, role: "TEACHER" }),
     [study]
   );
 
@@ -65,16 +65,16 @@ function StudyCard({
 
   const isAuthor =
     user?.id === study?.author?.id ||
-    study?.collaborators.map(c => c.id).includes(user?.id);
+    study?.collaborators.map((c) => c.id).includes(user?.id);
 
   const { shortDescription } = study;
   let cardDescription;
   if (shortDescription) {
-    if (shortDescription.split(' ').length > 20) {
+    if (shortDescription.split(" ").length > 20) {
       cardDescription = `${shortDescription
-        .split(' ')
+        .split(" ")
         .slice(0, 20)
-        .join(' ')} ...`;
+        .join(" ")} ...`;
     } else {
       cardDescription = shortDescription;
     }
@@ -83,11 +83,11 @@ function StudyCard({
   const { description } = study;
   let publicCardDescription;
   if (description) {
-    if (description.split(' ').length > 20) {
+    if (description.split(" ").length > 20) {
       publicCardDescription = `${description
-        .split(' ')
+        .split(" ")
         .slice(0, 20)
-        .join(' ')} ...`;
+        .join(" ")} ...`;
     } else {
       publicCardDescription = description;
     }
@@ -110,7 +110,7 @@ function StudyCard({
                   className="archiveButton"
                   study={study}
                   isHidden={isHidden}
-                  openNewStudyBuilder={openNewStudyBuilder}
+                  openOldStudyBuilder={openOldStudyBuilder}
                   isOnCard
                 />
               )}
@@ -123,7 +123,7 @@ function StudyCard({
                   className="archiveButton"
                   study={study}
                   isHidden={isHidden}
-                  openNewStudyBuilder={openNewStudyBuilder}
+                  openOldStudyBuilder={openOldStudyBuilder}
                   isOnCard
                 />
               )}
@@ -136,7 +136,7 @@ function StudyCard({
             {false && (
               <div className="studyParticipants">
                 {numberOfParticipants} study participant
-                {numberOfParticipants === 1 ? '' : 's'}
+                {numberOfParticipants === 1 ? "" : "s"}
               </div>
             )}
 
@@ -155,27 +155,27 @@ function StudyCard({
               {numberOfStudents > 0 && (
                 <div className="studyCreatedBySection">
                   <div className="studyCreatedByNumber">
-                    {numberOfStudents || '--'}
+                    {numberOfStudents || "--"}
                   </div>
-                  <p>Student{numberOfStudents === 1 ? '' : 's'}</p>
+                  <p>Student{numberOfStudents === 1 ? "" : "s"}</p>
                 </div>
               )}
 
               {numberOfScientists > 0 && (
                 <div className="studyCreatedBySection">
                   <div className="studyCreatedByNumber">
-                    {numberOfScientists || '--'}
+                    {numberOfScientists || "--"}
                   </div>
-                  <p>Scientist{numberOfScientists === 1 ? '' : 's'}</p>
+                  <p>Scientist{numberOfScientists === 1 ? "" : "s"}</p>
                 </div>
               )}
 
               {numberOfTeachers > 0 && (
                 <div className="studyCreatedBySection">
                   <div className="studyCreatedByNumber">
-                    {numberOfTeachers || '--'}
+                    {numberOfTeachers || "--"}
                   </div>
-                  <p>Teacher{numberOfTeachers === 1 ? '' : 's'}</p>
+                  <p>Teacher{numberOfTeachers === 1 ? "" : "s"}</p>
                 </div>
               )}
             </div>

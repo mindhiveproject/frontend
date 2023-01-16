@@ -1,10 +1,10 @@
-import React, { Component, useState } from 'react';
-import { Dropdown, Icon, Modal, Button } from 'semantic-ui-react';
+import React, { Component, useState } from "react";
+import { Dropdown, Icon, Modal, Button } from "semantic-ui-react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import DeleteStudy from './delete';
-import ToggleUserStudyHide from './toggleUserStudyHide';
+import DeleteStudy from "./delete";
+import ToggleUserStudyHide from "./toggleUserStudyHide";
 
 const ArchiveDeleteDropdown = styled.div`
   .archiveDropdown {
@@ -61,17 +61,17 @@ function ArchiveModal({ study, isHidden }) {
             <>
               <div className="heading">
                 <Icon name="archive" />
-                <span>{isHidden ? 'Unarchive study' : 'Archive Study'}</span>
+                <span>{isHidden ? "Unarchive study" : "Archive Study"}</span>
               </div>
               {isHidden ? (
-                <p style={{ padding: '5px' }}>
+                <p style={{ padding: "5px" }}>
                   Unarchiving a study will return it
                   <br /> to the "Active" section in your
                   <br /> develop area. It will not impact <br />
                   how others see the study
                 </p>
               ) : (
-                <p style={{ padding: '5px' }}>
+                <p style={{ padding: "5px" }}>
                   Archiving a study moves it to the <br />
                   "Archived" section in your <br />
                   Develop area. It will not impact <br />
@@ -87,8 +87,8 @@ function ArchiveModal({ study, isHidden }) {
         <Modal.Description>
           <StyledModal>
             <h3>
-              Are you sure you want to{' '}
-              <strong>{isHidden ? 'unarchive' : 'archive'}</strong> this study?
+              Are you sure you want to{" "}
+              <strong>{isHidden ? "unarchive" : "archive"}</strong> this study?
             </h3>
             {isHidden ? (
               <p>
@@ -123,7 +123,7 @@ function DeleteModal({ study }) {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState({});
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setInputValue(e.target.value);
   };
 
@@ -141,12 +141,12 @@ function DeleteModal({ study }) {
                 <Icon name="trash" className="red" />
                 <span className="red">Delete Study</span>
               </div>
-              <p style={{ padding: '5px' }} className="red">
-                Deleting a study deletes it for{' '}
+              <p style={{ padding: "5px" }} className="red">
+                Deleting a study deletes it for{" "}
                 <em>
                   all <br />
                   collaborators
-                </em>{' '}
+                </em>{" "}
                 on that study.
               </p>
             </>
@@ -161,12 +161,12 @@ function DeleteModal({ study }) {
               Are you sure you want to <strong>delete</strong> this study?
             </h3>
             <p>
-              Deleting a study will{' '}
+              Deleting a study will{" "}
               <strong>permanently delete the study and all its data</strong> for
               you and all study collaborators. If you would like to keep your
               data you can archive the study. Archiving will move the study to
               an "Archived" section within your Develop area and keep the study
-              active for all study collaborators.{' '}
+              active for all study collaborators.{" "}
               <span className="red">
                 <strong>This action cannot be undone.</strong>
               </span>
@@ -198,30 +198,24 @@ class ArchiveDelete extends Component {
           trigger={<img src="/content/icons/Settings.svg" />}
         >
           <Dropdown.Menu className="archiveDropdown">
+            {this.props.isOnCard && (
+              <Dropdown.Item
+                onClick={() => this.props.openOldStudyBuilder(this.props.study)}
+                text={
+                  <>
+                    <div className="heading">
+                      <Icon name="settings" className="black" />
+                      <span className="black">Open in the old builder</span>
+                    </div>
+                  </>
+                }
+              />
+            )}
             <ArchiveModal
               study={this.props.study}
               isHidden={this.props.isHidden}
             />
             <DeleteModal study={this.props.study} />
-
-            {this.props.isOnCard && (
-              <Dropdown.Item
-                onClick={() => this.props.openNewStudyBuilder(this.props.study)}
-                text={
-                  <>
-                    <div className="heading">
-                      <Icon name="settings" className="black" />
-                      <span className="black">
-                        Open in the new builder (DEV)
-                      </span>
-                    </div>
-                    <p style={{ padding: '5px' }} className="red">
-                      Do not use it, still in development
-                    </p>
-                  </>
-                }
-              />
-            )}
           </Dropdown.Menu>
         </Dropdown>
       </ArchiveDeleteDropdown>
