@@ -105,26 +105,28 @@ function StudyCard({
           {study.image ? (
             <>
               <img src={study.image} alt={study.title} />
-              {developingMode && (
+              {(developingMode || overviewMode) && (
                 <ArchiveDelete
                   className="archiveButton"
                   study={study}
                   isHidden={isHidden}
                   openOldStudyBuilder={openOldStudyBuilder}
                   isOnCard
+                  overviewMode
                 />
               )}
             </>
           ) : (
             <>
               <div className="noImage"></div>
-              {developingMode && (
+              {(developingMode || overviewMode) && (
                 <ArchiveDelete
                   className="archiveButton"
                   study={study}
                   isHidden={isHidden}
                   openOldStudyBuilder={openOldStudyBuilder}
                   isOnCard
+                  overviewMode
                 />
               )}
             </>

@@ -211,11 +211,15 @@ class ArchiveDelete extends Component {
                 }
               />
             )}
-            <ArchiveModal
-              study={this.props.study}
-              isHidden={this.props.isHidden}
-            />
-            <DeleteModal study={this.props.study} />
+            {!this.props.overviewMode && (
+              <>
+                <ArchiveModal
+                  study={this.props.study}
+                  isHidden={this.props.isHidden}
+                />
+                <DeleteModal study={this.props.study} />
+              </>
+            )}
           </Dropdown.Menu>
         </Dropdown>
       </ArchiveDeleteDropdown>

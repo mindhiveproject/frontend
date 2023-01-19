@@ -1,13 +1,13 @@
-import { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
+import { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import gql from "graphql-tag";
+import styled from "styled-components";
 
-import debounce from 'lodash.debounce';
-import { StyledBank, StyledZeroState } from '../styles';
-import StudyCard from './studycard';
+import debounce from "lodash.debounce";
+import { StyledBank, StyledZeroState } from "../styles";
+import StudyCard from "./studycard";
 
-import PaginationStudies from '../../Pagination/allStudies';
+import PaginationStudies from "../../Pagination/allStudies";
 
 export const StyledOverview = styled.div`
   display: grid;
@@ -32,7 +32,7 @@ export const StyledOverview = styled.div`
       padding: 12px;
       &:focus {
         outline: 0;
-        border-color: ${props => props.theme.red};
+        border-color: ${(props) => props.theme.red};
       }
     }
   }
@@ -75,17 +75,17 @@ const OVERVIEW_STUDIES_QUERY = gql`
 
 class OverviewStudiesBank extends Component {
   state = {
-    keyword: '',
-    search: '',
+    keyword: "",
+    search: "",
   };
 
-  debouncedSearch = debounce(value => {
+  debouncedSearch = debounce((value) => {
     this.setState({
       search: value,
     });
   }, 1000);
 
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -130,11 +130,13 @@ class OverviewStudiesBank extends Component {
             return (
               <StyledBank>
                 <div className="studies">
-                  {studies.map(study => (
+                  {studies.map((study) => (
                     <StudyCard
                       key={study.id}
                       study={study}
-                      onSelectStudy={this.props.onSelectStudy}
+                      // onSelectStudy={this.props.onSelectStudy}
+                      onSelectStudy={this.props.openNewStudyBuilder}
+                      openOldStudyBuilder={this.props.onSelectStudy}
                       user={this.props.user}
                       overviewMode
                     />
