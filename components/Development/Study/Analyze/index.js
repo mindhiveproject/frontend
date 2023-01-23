@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
-// import Data from '../../../DataViz/index';
-import InDev from '../inDev';
+import React, { Component } from "react";
+import styled from "styled-components";
+import InDev from "../inDev";
 
-import NotebookWrapper from '../../../Starboard/wrapper';
+import NotebookWrapper from "../../../Starboard/wrapper";
+
+const StyledNotebookBoard = styled.div`
+  display: grid;
+  width: 100%;
+  overflow-y: scroll;
+`;
 
 class AnalyzeSection extends Component {
   render() {
@@ -16,8 +22,11 @@ class AnalyzeSection extends Component {
       );
     }
 
-    // return <Data id={this.props.studyId} />;
-    return <NotebookWrapper study={study} user={user} />;
+    return (
+      <StyledNotebookBoard>
+        <NotebookWrapper study={study} user={user} />;
+      </StyledNotebookBoard>
+    );
   }
 }
 

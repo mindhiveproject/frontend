@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import Table from './Table';
+import React from "react";
+import styled from "styled-components";
+import Table from "./Table";
 
 const StyledArea = styled.div`
   display: grid;
@@ -22,7 +22,7 @@ const StyledColumnNamesList = styled.div`
   grid-gap: 10px;
   border: 1px solid lightgrey;
   border-radius: 5px;
-  color: ${props => (props.empty ? 'lightgrey' : 'black')};
+  color: ${(props) => (props.empty ? "lightgrey" : "black")};
   .infoIcon {
     cursor: pointer;
   }
@@ -52,8 +52,8 @@ const StyledOperationThumb = styled.div`
   border: 1px solid grey;
   align-items: center;
   cursor: pointer;
-  background: ${props => (props.active ? '#007c70' : 'white')};
-  color: ${props => (props.active ? 'white' : 'black')};
+  background: ${(props) => (props.active ? "#007c70" : "white")};
+  color: ${(props) => (props.active ? "white" : "black")};
 `;
 
 // display the processed data in currentStateData
@@ -66,20 +66,20 @@ const ColumnNamesList = ({
   datasetType,
   onDatasetTypeChange,
 }) => {
-  const header = 'Dataset';
-  const rawDataHeader = 'Raw data';
+  const header = "Dataset";
+  const rawDataHeader = "Raw data";
   const originalColumns = helper.getColumnNames(data);
   const transformeColumns = helper.getColumnNames(transformedData);
   const newColumns = transformeColumns.filter(
-    column => !originalColumns.includes(column)
+    (column) => !originalColumns.includes(column)
   );
   const columnNames = [...originalColumns, ...newColumns].sort();
 
   const tableColumns = React.useMemo(
     () =>
       columnNames
-        .filter(column => !!column)
-        .map(column => ({
+        .filter((column) => !!column)
+        .map((column) => ({
           Header: column,
           accessor: column,
         })),
@@ -95,24 +95,24 @@ const ColumnNamesList = ({
       <StyledSwitch>
         <StyledOperationThumb
           className="selectionBtns"
-          active={datasetType === 'raw'}
-          onClick={() => onDatasetTypeChange('raw')}
+          active={datasetType === "raw"}
+          onClick={() => onDatasetTypeChange("raw")}
         >
-          Data
+          By task
         </StyledOperationThumb>
 
         <StyledOperationThumb
           className="selectionBtns"
-          active={datasetType === 'participant'}
-          onClick={() => onDatasetTypeChange('participant')}
+          active={datasetType === "participant"}
+          onClick={() => onDatasetTypeChange("participant")}
         >
           By participant
         </StyledOperationThumb>
         {false && (
           <StyledOperationThumb
             className="selectionBtns"
-            active={datasetType === 'aggregated'}
-            onClick={() => onDatasetTypeChange('aggregated')}
+            active={datasetType === "aggregated"}
+            onClick={() => onDatasetTypeChange("aggregated")}
           >
             By task
           </StyledOperationThumb>
