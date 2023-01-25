@@ -1,6 +1,6 @@
 ---
 title: About
-date: 2020-09-09T22:41:14.705Z
+date: 2023-01-24T23:41:14.705Z
 ---
 MindHive is a **community neuroscience** platform for:
 
