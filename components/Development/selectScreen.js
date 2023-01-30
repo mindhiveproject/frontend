@@ -1,47 +1,54 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import styled from "styled-components";
+import dynamic from "next/dynamic";
 
-import ChooseStudyToClone from './Study/chooseToClone';
-import StudyBuilderWrapper from './Study/builderWrapper';
-import StudyBuilder from './Study/builder';
+import ChooseStudyToClone from "./Study/chooseToClone";
+import StudyBuilderWrapper from "./Study/builderWrapper";
+import NewStudyBuilderWrapper from "../Develop/index";
+import StudyBuilder from "./Study/builder";
 
-import ChooseComponentToClone from './Component/chooseToClone';
-import ComponentBuilderWrapper from './Component/builderWrapper';
-import ComponentBuilder from './Component/builder';
+import ChooseComponentToClone from "./Component/chooseToClone";
+import ComponentBuilderWrapper from "./Component/builderWrapper";
+import ComponentBuilder from "./Component/builder";
 
-import { StyledSelectionScreen } from './styles';
-import ActionSelector from './actionSelector';
+import { StyledSelectionScreen } from "./styles";
+import ActionSelector from "./actionSelector";
+
+const Controller = () => import("../Develop/Controller");
+const DynamicController = dynamic(Controller, {
+  ssr: false,
+});
 
 class DevelopmentSelectScreen extends Component {
   state = {
-    stage: this.props?.devInfo?.stage || 'selection-first-question',
+    stage: this.props?.devInfo?.stage || "selection-first-question",
     choice: this.props?.devInfo?.choice || null,
     action: this.props?.devInfo?.action || null,
     studyIdToClone: this.props?.devInfo?.studyIdToClone || null,
     componentId: this.props?.devInfo?.componentId || null,
   };
 
-  handleTypeChoice = choice =>
-    this.setState({ stage: 'selection-second-question', choice });
+  handleTypeChoice = (choice) =>
+    this.setState({ stage: "selection-second-question", choice });
 
-  handleActionChoice = action =>
-    this.setState({ stage: 'development', action });
+  handleActionChoice = (action) =>
+    this.setState({ stage: "development", action });
 
-  returnToStage = stage => this.setState({ stage });
+  returnToStage = (stage) => this.setState({ stage });
 
-  chooseStudyToClone = study =>
-    this.setState({ action: 'create', studyIdToClone: study.id });
+  chooseStudyToClone = (study) =>
+    this.setState({ action: "create", studyIdToClone: study.id });
 
-  chooseComponentToClone = component => {
+  chooseComponentToClone = (component) => {
     this.setState({
-      stage: 'development',
-      action: 'create',
+      stage: "development",
+      action: "create",
       componentId: component.id,
     });
   };
 
   render() {
-    if (this.state.stage === 'selection-first-question') {
+    if (this.state.stage === "selection-first-question") {
       return (
         <StyledSelectionScreen>
           <div className="selectionHeader">
@@ -59,7 +66,7 @@ class DevelopmentSelectScreen extends Component {
             <div className="options">
               <div
                 className="option"
-                onClick={() => this.handleTypeChoice('study')}
+                onClick={() => this.handleTypeChoice("study")}
               >
                 <div className="iconSelect">
                   <img
@@ -76,7 +83,7 @@ class DevelopmentSelectScreen extends Component {
               </div>
               <div
                 className="option"
-                onClick={() => this.handleTypeChoice('task')}
+                onClick={() => this.handleTypeChoice("task")}
               >
                 <div className="iconSelect">
                   <img
@@ -93,7 +100,7 @@ class DevelopmentSelectScreen extends Component {
               </div>
               <div
                 className="option"
-                onClick={() => this.handleTypeChoice('survey')}
+                onClick={() => this.handleTypeChoice("survey")}
               >
                 <div className="iconSelect">
                   <img
@@ -110,7 +117,7 @@ class DevelopmentSelectScreen extends Component {
               </div>
               <div
                 className="option"
-                onClick={() => this.handleTypeChoice('block')}
+                onClick={() => this.handleTypeChoice("block")}
               >
                 <div className="iconSelect">
                   <img
@@ -127,8 +134,8 @@ class DevelopmentSelectScreen extends Component {
         </StyledSelectionScreen>
       );
     }
-    if (this.state.stage === 'selection-second-question') {
-      if (this.state.choice === 'study') {
+    if (this.state.stage === "selection-second-question") {
+      if (this.state.choice === "study") {
         return (
           <ActionSelector
             returnToStage={this.returnToStage}
@@ -137,24 +144,24 @@ class DevelopmentSelectScreen extends Component {
             title="Develop a study"
             options={[
               {
-                header: 'Clone & modify a study',
+                header: "Clone & modify a study",
                 description:
-                  'Build a study based on a pre-existing MindHive study.',
-                icon: '/static/assets/develop-clone-study.svg',
-                action: 'clone',
+                  "Build a study based on a pre-existing MindHive study.",
+                icon: "/static/assets/develop-clone-study.svg",
+                action: "clone",
               },
               {
-                header: 'Start a study from scratch',
+                header: "Start a study from scratch",
                 description:
-                  'Select this option if you would prefer to build a study from the ground up.',
-                icon: '/static/assets/develop-study-from-scratch.svg',
-                action: 'create',
+                  "Select this option if you would prefer to build a study from the ground up.",
+                icon: "/static/assets/develop-study-from-scratch.svg",
+                action: "create",
               },
             ]}
           />
         );
       }
-      if (this.state.choice === 'task') {
+      if (this.state.choice === "task") {
         return (
           <ActionSelector
             returnToStage={this.returnToStage}
@@ -163,31 +170,31 @@ class DevelopmentSelectScreen extends Component {
             title="Develop a task"
             options={[
               {
-                header: 'Clone & modify a task',
+                header: "Clone & modify a task",
                 description:
-                  'Build a task based on a pre-existing MindHive task.',
-                icon: '/static/assets/develop-clone-study.svg',
-                action: 'clone',
+                  "Build a task based on a pre-existing MindHive task.",
+                icon: "/static/assets/develop-clone-study.svg",
+                action: "clone",
               },
               {
-                header: 'Upload a task from lab.js',
+                header: "Upload a task from lab.js",
                 description:
-                  'Select this option if you would prefer to upload your own task script from lab.js.',
-                icon: '/static/assets/develop-study-from-scratch.svg',
-                action: 'upload',
+                  "Select this option if you would prefer to upload your own task script from lab.js.",
+                icon: "/static/assets/develop-study-from-scratch.svg",
+                action: "upload",
               },
               {
-                header: 'Add an external task with a web link',
+                header: "Add an external task with a web link",
                 description:
-                  'Select this option if you would prefer to add an external link',
-                icon: '/static/assets/develop-task.svg',
-                action: 'link',
+                  "Select this option if you would prefer to add an external link",
+                icon: "/static/assets/develop-task.svg",
+                action: "link",
               },
             ]}
           />
         );
       }
-      if (this.state.choice === 'survey') {
+      if (this.state.choice === "survey") {
         return (
           <ActionSelector
             returnToStage={this.returnToStage}
@@ -196,42 +203,42 @@ class DevelopmentSelectScreen extends Component {
             title="Develop a survey"
             options={[
               {
-                header: 'Clone & modify a survey',
+                header: "Clone & modify a survey",
                 description:
-                  'Duplicate and edit a pre-existing MindHive survey and its parameters.',
-                icon: '/static/assets/develop-clone-survey.svg',
-                action: 'clone',
+                  "Duplicate and edit a pre-existing MindHive survey and its parameters.",
+                icon: "/static/assets/develop-clone-survey.svg",
+                action: "clone",
               },
               {
-                header: 'Use the Survey Builder',
+                header: "Use the Survey Builder",
                 description:
-                  'Select this option if you would prefer to build a survey entirely from scratch.',
-                icon: '/static/assets/develop-survey-builder.svg',
-                action: 'create',
+                  "Select this option if you would prefer to build a survey entirely from scratch.",
+                icon: "/static/assets/develop-survey-builder.svg",
+                action: "create",
               },
               {
-                header: 'Upload a survey from lab.js',
+                header: "Upload a survey from lab.js",
                 description:
-                  'Select this option if you would prefer to upload your own survey script from lab.js.',
-                icon: '/static/assets/develop-study-from-scratch.svg',
-                action: 'upload',
+                  "Select this option if you would prefer to upload your own survey script from lab.js.",
+                icon: "/static/assets/develop-study-from-scratch.svg",
+                action: "upload",
               },
               {
-                header: 'Add an external survey with a web link',
+                header: "Add an external survey with a web link",
                 description:
-                  'Select this option if you would prefer to add an external link',
-                icon: '/static/assets/develop-task.svg',
-                action: 'link',
+                  "Select this option if you would prefer to add an external link",
+                icon: "/static/assets/develop-task.svg",
+                action: "link",
               },
             ]}
           />
         );
       }
-      if (this.state.choice === 'block') {
+      if (this.state.choice === "block") {
         return (
           <ChooseComponentToClone
             componentType="BLOCK"
-            onReturn={() => this.returnToStage('selection-first-question')}
+            onReturn={() => this.returnToStage("selection-first-question")}
             onClose={this.props.onClose}
             onChoiceToClone={this.chooseComponentToClone}
             user={this.props.user}
@@ -240,22 +247,22 @@ class DevelopmentSelectScreen extends Component {
       }
       return <div>To do</div>;
     }
-    if (this.state.stage === 'development') {
-      if (this.state.choice === 'study') {
-        if (this.state.action === 'clone') {
+    if (this.state.stage === "development") {
+      if (this.state.choice === "study") {
+        if (this.state.action === "clone") {
           return (
             <ChooseStudyToClone
-              onReturn={() => this.returnToStage('selection-second-question')}
+              onReturn={() => this.returnToStage("selection-second-question")}
               onClose={this.props.onClose}
               onChoiceToClone={this.chooseStudyToClone}
               user={this.props.user}
             />
           );
         }
-        if (this.state.action === 'create') {
+        if (this.state.action === "create") {
           if (this.state.studyIdToClone) {
             return (
-              <StudyBuilderWrapper
+              <NewStudyBuilderWrapper
                 onLeave={this.props.onClose}
                 studyId={this.state.studyIdToClone}
                 user={this.props.user}
@@ -264,11 +271,11 @@ class DevelopmentSelectScreen extends Component {
             );
           }
           return (
-            <StudyBuilder
-              onLeave={this.props.onClose}
+            <DynamicController
+              user={this.props.user}
               study={{
                 title: `Untitled study - ${Math.floor(Math.random() * 10000)}`,
-                description: 'Add in a description here',
+                description: "Add in a description here",
                 settings: {
                   consentObtained: false,
                   guestParticipation: true,
@@ -283,33 +290,33 @@ class DevelopmentSelectScreen extends Component {
                 collaborators: [this.props.user?.username],
                 info: [
                   {
-                    name: 'what',
+                    name: "what",
                     text:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.',
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porta lorem id dui volutpat tempor. Praesent luctus porta velit cursus congue. Nullam et faucibus tellus, a tristique elit.",
                   },
                   {
-                    name: 'frequency',
-                    text: 'Once',
+                    name: "frequency",
+                    text: "Once",
                   },
                   {
-                    name: 'time',
-                    text: '5 minutes',
+                    name: "time",
+                    text: "5 minutes",
                   },
                 ],
               }}
-              user={this.props.user}
+              onLeave={this.props.onClose}
               newStudyFromScratch
             />
           );
         }
       }
 
-      if (this.state.choice === 'task') {
-        if (this.state.action === 'clone') {
+      if (this.state.choice === "task") {
+        if (this.state.action === "clone") {
           return (
             <ChooseComponentToClone
               componentType="TASK"
-              onReturn={() => this.returnToStage('selection-second-question')}
+              onReturn={() => this.returnToStage("selection-second-question")}
               onClose={this.props.onClose}
               onChoiceToClone={this.chooseComponentToClone}
               user={this.props.user}
@@ -317,7 +324,7 @@ class DevelopmentSelectScreen extends Component {
           );
         }
 
-        if (this.state.action === 'create') {
+        if (this.state.action === "create") {
           if (this.state.componentId) {
             return (
               <ComponentBuilderWrapper
@@ -331,17 +338,17 @@ class DevelopmentSelectScreen extends Component {
           return <div>No task to clone</div>;
         }
 
-        if (this.state.action === 'upload') {
+        if (this.state.action === "upload") {
           return (
             <ComponentBuilder
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled task - ${Math.floor(Math.random() * 10000)}`,
-                subtitle: '',
-                description: 'Add in a description here',
+                subtitle: "",
+                description: "Add in a description here",
                 shortDescription:
-                  'Add in a description for researchers (short description)',
-                taskType: 'TASK',
+                  "Add in a description for researchers (short description)",
+                taskType: "TASK",
                 isOriginal: true,
               }}
               user={this.props.user}
@@ -350,17 +357,17 @@ class DevelopmentSelectScreen extends Component {
           );
         }
 
-        if (this.state.action === 'link') {
+        if (this.state.action === "link") {
           return (
             <ComponentBuilder
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled task - ${Math.floor(Math.random() * 10000)}`,
-                subtitle: '',
-                description: 'Add in a description here',
+                subtitle: "",
+                description: "Add in a description here",
                 shortDescription:
-                  'Add in a description for researchers (short description)',
-                taskType: 'TASK',
+                  "Add in a description for researchers (short description)",
+                taskType: "TASK",
                 isOriginal: true,
                 isExternal: true,
               }}
@@ -370,12 +377,12 @@ class DevelopmentSelectScreen extends Component {
         }
       }
 
-      if (this.state.choice === 'survey') {
-        if (this.state.action === 'clone') {
+      if (this.state.choice === "survey") {
+        if (this.state.action === "clone") {
           return (
             <ChooseComponentToClone
               componentType="SURVEY"
-              onReturn={() => this.returnToStage('selection-second-question')}
+              onReturn={() => this.returnToStage("selection-second-question")}
               onClose={this.props.onClose}
               onChoiceToClone={this.chooseComponentToClone}
               user={this.props.user}
@@ -383,32 +390,32 @@ class DevelopmentSelectScreen extends Component {
           );
         }
         // there are different ids of the survey builder for the development and production
-        if (this.state.action === 'create') {
+        if (this.state.action === "create") {
           return (
             <ComponentBuilderWrapper
               onLeave={this.props.onClose}
               componentId={
                 this.state.componentId ||
-                (process.env.NODE_ENV === 'production'
-                  ? 'ckdps2aw300i60743ge85gtb1'
-                  : 'ckdps2aw300i60743ge85gtb1')
+                (process.env.NODE_ENV === "production"
+                  ? "ckdps2aw300i60743ge85gtb1"
+                  : "ckdps2aw300i60743ge85gtb1")
               }
               user={this.props.user}
               needToClone
             />
           );
         }
-        if (this.state.action === 'upload') {
+        if (this.state.action === "upload") {
           return (
             <ComponentBuilder
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled survey - ${Math.floor(Math.random() * 10000)}`,
-                subtitle: '',
-                description: 'Add in a description here',
+                subtitle: "",
+                description: "Add in a description here",
                 shortDescription:
-                  'Add in a description for researchers (short description)',
-                taskType: 'SURVEY',
+                  "Add in a description for researchers (short description)",
+                taskType: "SURVEY",
                 isOriginal: true,
               }}
               user={this.props.user}
@@ -416,17 +423,17 @@ class DevelopmentSelectScreen extends Component {
             />
           );
         }
-        if (this.state.action === 'link') {
+        if (this.state.action === "link") {
           return (
             <ComponentBuilder
               onLeave={this.props.onClose}
               task={{
                 title: `Untitled survey - ${Math.floor(Math.random() * 10000)}`,
-                subtitle: '',
-                description: 'Add in a description here',
+                subtitle: "",
+                description: "Add in a description here",
                 shortDescription:
-                  'Add in a description for researchers (short description)',
-                taskType: 'SURVEY',
+                  "Add in a description for researchers (short description)",
+                taskType: "SURVEY",
                 isOriginal: true,
                 isExternal: true,
               }}
@@ -435,8 +442,8 @@ class DevelopmentSelectScreen extends Component {
           );
         }
       }
-      if (this.state.choice === 'block') {
-        if (this.state.action === 'create') {
+      if (this.state.choice === "block") {
+        if (this.state.action === "create") {
           if (this.state.componentId) {
             return (
               <ComponentBuilderWrapper

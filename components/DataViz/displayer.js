@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
-import { Button } from 'semantic-ui-react';
-import SpecEditor from './Components/SpecEditor';
-import ColumnNamesList from './Components/ColumnNamesList';
-import WorkingDashboard from './Components/WorkingDashboard';
+import { Button } from "semantic-ui-react";
+import SpecEditor from "./Components/SpecEditor";
+import ColumnNamesList from "./Components/ColumnNamesList";
+import WorkingDashboard from "./Components/WorkingDashboard";
 
 const StyledContainer = styled.div`
   margin: 20px;
@@ -57,7 +57,7 @@ const Displayer = ({
   onDatasetTypeChange,
   datasetType,
 }) => {
-  const header = 'Data Viz (version 0.1.0)';
+  const header = "Data Viz (version 0.1.0)";
 
   const [isDisplay, setIsDisplay] = useState(false);
 
@@ -92,21 +92,3 @@ const Displayer = ({
 };
 
 export default Displayer;
-
-// {false && <SpecEditor spec={spec} updateState={updateState} />}
-//
-// <div>
-//   {false && (
-//     <Button
-//       toggle
-//       active={isDisplay}
-//       onClick={() => setIsDisplay(!isDisplay)}
-//     >
-//       Data Viz
-//     </Button>
-//   )}
-//
-//   {isDisplay && (
-//
-//   )}
-// </div>
