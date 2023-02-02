@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledInDev = styled.div`
   background: #e5e5e5;
   display: grid;
   width: 100%;
-  height: 85vh;
+  height: 100vh;
   justify-content: center;
   align-content: center;
   text-align: center;

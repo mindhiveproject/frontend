@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledPagination = styled.div`
   display: grid;
@@ -25,12 +25,15 @@ export const StyledPagination = styled.div`
       border-right: 0;
     }
   }
-  a[aria-disabled='true'] {
-    color: grey;
+  a[aria-disabled="true"] {
+    color: lightgrey;
     pointer-events: none;
   }
   .next {
     text-align: end;
+  }
+  .inactive {
+    text-decoration: none;
   }
   button {
     background: white;

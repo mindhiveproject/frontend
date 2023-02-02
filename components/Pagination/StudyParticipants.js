@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
+import { Query } from "@apollo/client/react/components";
+import gql from "graphql-tag";
 
-import { StyledPagination } from './styles';
+import { StyledPagination } from "./styles";
 
 const PAGINATION_USERS_QUERY = gql`
   query PAGINATION_USERS_QUERY($search: String, $studyId: ID!) {
@@ -40,22 +40,30 @@ class PaginationStudyParticipants extends Component {
             <StyledPagination>
               <div
                 onClick={() => {
-                  if (page > 1) this.props.changeToPage('page', page - 1);
+                  if (page > 1) this.props.changeToPage("page", page - 1);
                 }}
               >
-                <a aria-disabled={page <= 1}>Prev</a>
+                <a
+                  aria-disabled={page <= 1}
+                  className={page <= 1 && "inactive"}
+                >
+                  Prev
+                </a>
               </div>
               <p>
-                Page {page} of {pageCount}{' '}
+                Page {page} of {pageCount}{" "}
               </p>
               <p>{countStudyParticipants} participants total</p>
               <div
                 onClick={() => {
                   if (page < pageCount)
-                    this.props.changeToPage('page', page + 1);
+                    this.props.changeToPage("page", page + 1);
                 }}
               >
-                <a aria-disabled={page >= pageCount} className="next">
+                <a
+                  aria-disabled={page >= pageCount}
+                  className={page >= pageCount ? "next inactive" : "next"}
+                >
                   Next
                 </a>
               </div>

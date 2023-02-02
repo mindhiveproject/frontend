@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import InDev from '../inDev';
+import React, { Component } from "react";
+import styled from "styled-components";
+import InDev from "../inDev";
 
-import CollectWrapper from './wrapper';
+import CollectWrapper from "./wrapper";
 
 export const StyledCollectPage = styled.div`
   display: grid;
@@ -25,7 +25,7 @@ class CollectSection extends Component {
 
     return (
       <StyledCollectPage>
-        <CollectWrapper study={study} />;
+        <CollectWrapper study={study} />
       </StyledCollectPage>
     );
   }

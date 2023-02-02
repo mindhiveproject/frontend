@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import debounce from 'lodash.debounce';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import gql from "graphql-tag";
+import debounce from "lodash.debounce";
 
-import PaginationStudyParticipants from '../../../Pagination/StudyParticipants';
-import PaginationStudyGuestParticipants from '../../../Pagination/StudyGuestParticipants';
+import PaginationStudyParticipants from "../../../Pagination/StudyParticipants";
+import PaginationStudyGuestParticipants from "../../../Pagination/StudyGuestParticipants";
 
-import ParticipantsOverview from './Participants/overview';
-import SinglePage from './Participants/Single/index';
-import SingleGuestPage from './Participants/Single/guest';
+import ParticipantsOverview from "./Participants/overview";
+import SinglePage from "./Participants/Single/index";
+import SingleGuestPage from "./Participants/Single/guest";
 
-import StyledMenu from '../../../Styles/StyledMenu';
+import StyledMenu from "../../../Styles/StyledMenu";
 
 import {
   StyledCollectSection,
   StyledCollectBoard,
-} from './Participants/styles';
+} from "./Participants/styles";
 
 // query to get all participants in the study
 const PARTICIPANTS_IN_STUDY = gql`
@@ -85,14 +85,14 @@ const GUEST_PARTICIPANTS_IN_STUDY = gql`
 
 class CollectWrapper extends Component {
   state = {
-    view: this.props.view || 'participants',
+    view: this.props.view || "participants",
     page: this.props.page || 1,
     guestPage: this.props.guestPage || 1,
-    keyword: '',
+    keyword: "",
     participantId: null,
   };
 
-  debouncedSearch = debounce(value => {
+  debouncedSearch = debounce((value) => {
     this.setState({
       search: value,
       page: 1,
@@ -100,7 +100,7 @@ class CollectWrapper extends Component {
     });
   }, 1000);
 
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -113,21 +113,21 @@ class CollectWrapper extends Component {
     });
   };
 
-  openParticipant = participantId => {
+  openParticipant = (participantId) => {
     this.setState({
-      view: 'participant',
+      view: "participant",
       participantId,
     });
   };
 
-  openGuestParticipant = participantId => {
+  openGuestParticipant = (participantId) => {
     this.setState({
-      view: 'guestParticipant',
+      view: "guestParticipant",
       participantId,
     });
   };
 
-  goBack = view => {
+  goBack = (view) => {
     this.setState({
       view,
       participantId: null,
@@ -139,7 +139,7 @@ class CollectWrapper extends Component {
     const { study } = this.props;
     const perPage = 20;
 
-    if (view === 'participant') {
+    if (view === "participant") {
       return (
         <SinglePage
           participantId={this.state.participantId}
@@ -149,7 +149,7 @@ class CollectWrapper extends Component {
       );
     }
 
-    if (view === 'guestParticipant') {
+    if (view === "guestParticipant") {
       return (
         <SingleGuestPage
           participantId={this.state.participantId}
@@ -185,22 +185,22 @@ class CollectWrapper extends Component {
           <StyledMenu>
             <div className="menu">
               <div
-                onClick={() => this.setState({ view: 'participants' })}
+                onClick={() => this.setState({ view: "participants" })}
                 className={
-                  view === 'participants'
-                    ? 'menuTitle selectedMenuTitle'
-                    : 'menuTitle'
+                  view === "participants"
+                    ? "menuTitle selectedMenuTitle"
+                    : "menuTitle"
                 }
               >
                 <p>Participants</p>
               </div>
 
               <div
-                onClick={() => this.setState({ view: 'guests' })}
+                onClick={() => this.setState({ view: "guests" })}
                 className={
-                  view === 'guests'
-                    ? 'menuTitle selectedMenuTitle'
-                    : 'menuTitle'
+                  view === "guests"
+                    ? "menuTitle selectedMenuTitle"
+                    : "menuTitle"
                 }
               >
                 <p>Guests</p>
@@ -208,15 +208,8 @@ class CollectWrapper extends Component {
             </div>
           </StyledMenu>
 
-          {view === 'participants' && (
+          {view === "participants" && (
             <>
-              <PaginationStudyParticipants
-                page={page}
-                perPage={perPage}
-                search={this.state.search}
-                studyId={this.props.study.id}
-                changeToPage={this.changeToPage}
-              />
               <Query
                 query={PARTICIPANTS_IN_STUDY}
                 variables={{
@@ -235,6 +228,15 @@ class CollectWrapper extends Component {
                   }
                   return (
                     <div>
+                      {participantsInStudy.length > 0 && (
+                        <PaginationStudyParticipants
+                          page={page}
+                          perPage={perPage}
+                          search={this.state.search}
+                          studyId={this.props.study.id}
+                          changeToPage={this.changeToPage}
+                        />
+                      )}
                       <ParticipantsOverview
                         participants={participantsInStudy}
                         studyId={this.props.study.id}
@@ -242,6 +244,15 @@ class CollectWrapper extends Component {
                         openGuestParticipant={this.openGuestParticipant}
                         consents={this.props.study.consent}
                       />
+                      {participantsInStudy.length > 5 && (
+                        <PaginationStudyParticipants
+                          page={page}
+                          perPage={perPage}
+                          search={this.state.search}
+                          studyId={this.props.study.id}
+                          changeToPage={this.changeToPage}
+                        />
+                      )}
                     </div>
                   );
                 }}
@@ -249,15 +260,8 @@ class CollectWrapper extends Component {
             </>
           )}
 
-          {view === 'guests' && (
+          {view === "guests" && (
             <>
-              <PaginationStudyGuestParticipants
-                guestPage={guestPage}
-                perPage={perPage}
-                search={this.state.search}
-                studyId={this.props.study.id}
-                changeToPage={this.changeToPage}
-              />
               <Query
                 query={GUEST_PARTICIPANTS_IN_STUDY}
                 variables={{
@@ -278,6 +282,15 @@ class CollectWrapper extends Component {
                   }
                   return (
                     <div>
+                      {guestParticipantsInStudy.length > 0 && (
+                        <PaginationStudyGuestParticipants
+                          guestPage={guestPage}
+                          perPage={perPage}
+                          search={this.state.search}
+                          studyId={this.props.study.id}
+                          changeToPage={this.changeToPage}
+                        />
+                      )}
                       <ParticipantsOverview
                         participants={guestParticipantsInStudy}
                         studyId={this.props.study.id}
@@ -285,6 +298,15 @@ class CollectWrapper extends Component {
                         openGuestParticipant={this.openGuestParticipant}
                         consents={this.props.study.consent}
                       />
+                      {guestParticipantsInStudy.length > 5 && (
+                        <PaginationStudyGuestParticipants
+                          guestPage={guestPage}
+                          perPage={perPage}
+                          search={this.state.search}
+                          studyId={this.props.study.id}
+                          changeToPage={this.changeToPage}
+                        />
+                      )}
                     </div>
                   );
                 }}
