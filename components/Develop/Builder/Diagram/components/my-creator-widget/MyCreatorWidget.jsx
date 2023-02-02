@@ -15,6 +15,15 @@ export const MyCreatorWidget = props => {
   diagramEngine.openComponentModal = props.openComponentModal;
   diagramEngine.openStudyPreview = props.openStudyPreview;
 
+  // disable touchpad zooming
+  const scrollRef = React.useRef();
+  React.useEffect(() => {
+    const scrollEl = scrollRef.current;
+    scrollEl?.addEventListener('wheel', stopScroll);
+    return () => scrollEl?.removeEventListener('wheel', stopScroll);
+  }, [scrollRef]);
+  const stopScroll = e => e.preventDefault();
+
   const shorten = text => {
     if (text && text.split(' ').length > 12) {
       const short = text
@@ -68,6 +77,7 @@ export const MyCreatorWidget = props => {
             onDragOver={event => {
               event.preventDefault();
             }}
+            ref={scrollRef}
           >
             <DiagramCanvas>
               <CanvasWidget {...props} />
