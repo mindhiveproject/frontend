@@ -111,8 +111,8 @@ function StudyCard({
                   study={study}
                   isHidden={isHidden}
                   openOldStudyBuilder={openOldStudyBuilder}
+                  overviewMode={overviewMode}
                   isOnCard
-                  overviewMode
                 />
               )}
             </>
@@ -125,8 +125,8 @@ function StudyCard({
                   study={study}
                   isHidden={isHidden}
                   openOldStudyBuilder={openOldStudyBuilder}
+                  overviewMode={overviewMode}
                   isOnCard
-                  overviewMode
                 />
               )}
             </>

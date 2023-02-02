@@ -128,12 +128,11 @@ class DevelopedStudiesBank extends Component {
                       <StudyCard
                         key={study.id}
                         study={study}
-                        // onSelectStudy={this.props.onSelectStudy}
                         onSelectStudy={this.props.openNewStudyBuilder}
                         openOldStudyBuilder={this.props.onSelectStudy}
                         user={this.props.user}
-                        developingMode
                         showAllStudies={this.props.showAllStudies}
+                        developingMode
                       />
                     ))}
                   </div>
