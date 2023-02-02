@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
+import { Mutation } from "@apollo/client/react/components";
+import gql from "graphql-tag";
 
 const StyledClassHeader = styled.div`
   display: grid;
@@ -38,7 +38,7 @@ const StyledClassHeader = styled.div`
     letter-spacing: 0em;
     text-align: left;
     color: #1a1a1a;
-    margin-bottom: 23px;
+    margin-bottom: 10px;
   }
   .description {
     font-family: Lato;
@@ -49,17 +49,23 @@ const StyledClassHeader = styled.div`
     letter-spacing: 0em;
     text-align: left;
     color: #666666;
+    margin-bottom: 10px;
+  }
+  .teacher {
+    font-family: Lato;
   }
 `;
 
 class ClassHeader extends Component {
   render() {
+    const { schoolclass } = this.props;
     return (
       <StyledClassHeader>
         <div>
-          <div className="title">{this.props.schoolclass.title}</div>
-          <div className="description">
-            {this.props.schoolclass.description}
+          <div className="title">{schoolclass?.title}</div>
+          <div className="description">{schoolclass?.description}</div>
+          <div className="teacher">
+            Teacher {schoolclass?.creator?.username}
           </div>
         </div>
       </StyledClassHeader>

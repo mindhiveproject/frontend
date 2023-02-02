@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import moment from "moment";
+import styled from "styled-components";
 
 const StyledClassRow = styled.div`
   display: grid;
@@ -26,8 +26,9 @@ class ClassRow extends Component {
       <div onClick={() => this.props.openClass(myclass.id)}>
         <StyledClassRow>
           <div>{myclass.title}</div>
+          <div>{myclass?.creator?.username}</div>
           <div>{myclass.students.length}</div>
-          <div>{moment(myclass.createdAt).format('MMMM D, YYYY')}</div>
+          <div>{moment(myclass.createdAt).format("MMMM D, YYYY")}</div>
         </StyledClassRow>
       </div>
     );

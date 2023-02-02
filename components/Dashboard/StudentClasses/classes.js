@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import Link from 'next/link';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import gql from "graphql-tag";
+import Link from "next/link";
 
-import styled from 'styled-components';
-import ClassRow from './ClassList/index';
-import { StyledDasboard, StyledClassesDasboard } from '../styles';
+import styled from "styled-components";
+import ClassRow from "./ClassList/index";
+import { StyledDasboard, StyledClassesDasboard } from "../styles";
 
 const StyledClassHeader = styled.div`
   display: grid;
@@ -55,7 +55,7 @@ class Classes extends Component {
                     <div className="navigationHeader">
                       <Link
                         href={{
-                          pathname: '/signup/student',
+                          pathname: "/signup/student",
                         }}
                       >
                         <button>Join a class</button>
@@ -69,7 +69,7 @@ class Classes extends Component {
                   <div className="navigationHeader">
                     <Link
                       href={{
-                        pathname: '/signup/student',
+                        pathname: "/signup/student",
                       }}
                     >
                       <button>Join a class</button>
@@ -78,11 +78,12 @@ class Classes extends Component {
                   <div>
                     <StyledClassHeader>
                       <div>Class name</div>
+                      <div>Teacher</div>
                       <div>Number of students</div>
                       <div>Date created</div>
                     </StyledClassHeader>
 
-                    {myStudentClasses.map(myclass => (
+                    {myStudentClasses.map((myclass) => (
                       <ClassRow
                         myclass={myclass}
                         key={myclass.id}

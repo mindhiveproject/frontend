@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
+import { Mutation } from "@apollo/client/react/components";
+import gql from "graphql-tag";
 
 const StyledClassHeader = styled.div`
   display: grid;
@@ -38,7 +38,7 @@ const StyledClassHeader = styled.div`
     letter-spacing: 0em;
     text-align: left;
     color: #1a1a1a;
-    margin-bottom: 23px;
+    margin-bottom: 10px;
   }
   .description {
     font-family: Lato;
@@ -49,6 +49,10 @@ const StyledClassHeader = styled.div`
     letter-spacing: 0em;
     text-align: left;
     color: #666666;
+    margin-bottom: 10px;
+  }
+  .teacher {
+    font-family: Lato;
   }
 `;
 
@@ -70,9 +74,9 @@ class ClassHeader extends Component {
     description: this.props.schoolclass.description,
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       [name]: val,
     });
@@ -84,7 +88,7 @@ class ClassHeader extends Component {
         {(updateClass, { loading, error }) => {
           if (error) {
             alert(
-              'Oops! this class title has already be taken: please pick another.'
+              "Oops! this class title has already be taken: please pick another."
             );
           }
           return (
@@ -111,7 +115,7 @@ class ClassHeader extends Component {
                       name="description"
                       value={this.state.description}
                       onChange={this.handleChange}
-                      rows="5"
+                      rows="2"
                       className="description"
                     />
                   </label>
@@ -127,10 +131,14 @@ class ClassHeader extends Component {
                         const res = await updateClass();
                       }}
                     >
-                      {loading ? 'Saving' : 'Save'}
+                      {loading ? "Saving" : "Save"}
                     </button>
                   </div>
                 )}
+
+                <div className="teacher">
+                  Teacher {this.props.schoolclass?.creator?.username}
+                </div>
               </div>
             </StyledClassHeader>
           );

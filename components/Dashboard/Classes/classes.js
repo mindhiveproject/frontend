@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import gql from "graphql-tag";
 
-import styled from 'styled-components';
-import ClassRow from './ClassList/index';
-import { StyledDasboard, StyledClassesDasboard } from '../styles';
+import styled from "styled-components";
+import ClassRow from "./ClassList/index";
+import { StyledDasboard, StyledClassesDasboard } from "../styles";
 
 const StyledClassHeader = styled.div`
   display: grid;
@@ -73,11 +73,12 @@ class Classes extends Component {
                   <div>
                     <StyledClassHeader>
                       <div>Class name</div>
+                      <div>Teacher</div>
                       <div>Number of students</div>
                       <div>Date created</div>
                     </StyledClassHeader>
 
-                    {myClasses.map(myclass => (
+                    {myClasses.map((myclass) => (
                       <ClassRow
                         myclass={myclass}
                         key={myclass.id}
