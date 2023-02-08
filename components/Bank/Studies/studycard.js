@@ -150,38 +150,39 @@ function StudyCard({
               {ReactHtmlParser(publicCardDescription)}
             </div>
           </div>
-
-          <div className="studyCreatedBy">
-            <div className="studyCreatedByHeader">Created by</div>
-            <div className="studyCreatedByPanel">
-              {numberOfStudents > 0 && (
-                <div className="studyCreatedBySection">
-                  <div className="studyCreatedByNumber">
-                    {numberOfStudents || "--"}
+          {false && (
+            <div className="studyCreatedBy">
+              <div className="studyCreatedByHeader">Created by</div>
+              <div className="studyCreatedByPanel">
+                {numberOfStudents > 0 && (
+                  <div className="studyCreatedBySection">
+                    <div className="studyCreatedByNumber">
+                      {numberOfStudents || "--"}
+                    </div>
+                    <p>Student{numberOfStudents === 1 ? "" : "s"}</p>
                   </div>
-                  <p>Student{numberOfStudents === 1 ? "" : "s"}</p>
-                </div>
-              )}
+                )}
 
-              {numberOfScientists > 0 && (
-                <div className="studyCreatedBySection">
-                  <div className="studyCreatedByNumber">
-                    {numberOfScientists || "--"}
+                {numberOfScientists > 0 && (
+                  <div className="studyCreatedBySection">
+                    <div className="studyCreatedByNumber">
+                      {numberOfScientists || "--"}
+                    </div>
+                    <p>Scientist{numberOfScientists === 1 ? "" : "s"}</p>
                   </div>
-                  <p>Scientist{numberOfScientists === 1 ? "" : "s"}</p>
-                </div>
-              )}
+                )}
 
-              {numberOfTeachers > 0 && (
-                <div className="studyCreatedBySection">
-                  <div className="studyCreatedByNumber">
-                    {numberOfTeachers || "--"}
+                {numberOfTeachers > 0 && (
+                  <div className="studyCreatedBySection">
+                    <div className="studyCreatedByNumber">
+                      {numberOfTeachers || "--"}
+                    </div>
+                    <p>Teacher{numberOfTeachers === 1 ? "" : "s"}</p>
                   </div>
-                  <p>Teacher{numberOfTeachers === 1 ? "" : "s"}</p>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
