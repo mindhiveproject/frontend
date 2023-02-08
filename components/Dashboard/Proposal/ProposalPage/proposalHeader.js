@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { Mutation } from '@apollo/client/react/components';
-import { UPDATE_PROPOSAL_BOARD } from '../../../Mutations/Proposal';
+import { Mutation } from "@apollo/client/react/components";
+import { UPDATE_PROPOSAL_BOARD } from "../../../Mutations/Proposal";
 
 const StyledProposalHeader = styled.div`
   display: grid;
@@ -55,7 +55,7 @@ const StyledProposalHeader = styled.div`
     grid-template-columns: 30px 1fr;
     grid-gap: 10px;
     align-items: center;
-    input[type='checkbox'] {
+    input[type="checkbox"] {
       width: 20px;
       height: 20px;
       color: green;
@@ -72,26 +72,26 @@ class ProposalHeader extends Component {
     settings: this.props.proposal.settings || {
       allowMovingSections: true,
       allowMovingCards: true,
-      allowAddingSections: false,
-      allowAddingCards: false,
+      allowAddingSections: true,
+      allowAddingCards: true,
     },
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       [name]: val,
     });
   };
 
-  toggleState = e => {
+  toggleState = (e) => {
     this.setState({
       [e.target.name]: !this.state[e.target.name],
     });
   };
 
-  toggleSettings = e => {
+  toggleSettings = (e) => {
     this.setState({
       settings: {
         ...this.state.settings,
@@ -101,12 +101,13 @@ class ProposalHeader extends Component {
   };
 
   render() {
+    const { user } = this.props;
     return (
       <Mutation mutation={UPDATE_PROPOSAL_BOARD} variables={this.state}>
         {(updateProposal, { loading, error }) => {
           if (error) {
             alert(
-              'Oops! this title has already be taken: please pick another.'
+              "Oops! this title has already be taken: please pick another."
             );
           }
           return (
@@ -141,20 +142,22 @@ class ProposalHeader extends Component {
 
                 {this.props.proposalBuildMode && (
                   <div>
-                    <div>
-                      <label htmlFor="isTemplate">
-                        <div className="checkboxField">
-                          <input
-                            type="checkbox"
-                            id="isTemplate"
-                            name="isTemplate"
-                            checked={this.state.isTemplate}
-                            onChange={this.toggleState}
-                          />
-                          <span>Template</span>
-                        </div>
-                      </label>
-                    </div>
+                    {user?.permissions.includes("ADMIN") && (
+                      <div>
+                        <label htmlFor="isTemplate">
+                          <div className="checkboxField">
+                            <input
+                              type="checkbox"
+                              id="isTemplate"
+                              name="isTemplate"
+                              checked={this.state.isTemplate}
+                              onChange={this.toggleState}
+                            />
+                            <span>Public template</span>
+                          </div>
+                        </label>
+                      </div>
+                    )}
 
                     <div>
                       <label htmlFor="allowMovingSections">
@@ -229,7 +232,7 @@ class ProposalHeader extends Component {
                         const res = await updateProposal();
                       }}
                     >
-                      {loading ? 'Saving' : 'Save'}
+                      {loading ? "Saving" : "Save"}
                     </button>
                   </div>
                 )}

@@ -1,8 +1,16 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const CREATE_NEW_PROPOSAL = gql`
-  mutation CREATE_NEW_PROPOSAL($title: String!, $description: String) {
-    createProposalBoard(title: $title, description: $description) {
+  mutation CREATE_NEW_PROPOSAL(
+    $title: String!
+    $description: String
+    $settings: Json
+  ) {
+    createProposalBoard(
+      title: $title
+      description: $description
+      settings: $settings
+    ) {
       id
     }
   }

@@ -1,35 +1,35 @@
-import React, { Component } from 'react';
-import Board from './board';
-import CardModal from '../Card/modal';
-import ProposalHeader from '../ProposalPage/proposalHeader';
+import React, { Component } from "react";
+import Board from "./board";
+import CardModal from "../Card/modal";
+import ProposalHeader from "../ProposalPage/proposalHeader";
 
 class ProposalContainer extends Component {
   state = {
-    page: 'board',
+    page: "board",
     cardId: null,
   };
 
-  openCard = cardId => {
+  openCard = (cardId) => {
     this.setState({
-      page: 'card',
+      page: "card",
       cardId,
     });
   };
 
   closeCard = () => {
     this.setState({
-      page: 'board',
+      page: "board",
       cardId: null,
     });
   };
 
   render() {
-    if (this.state.page === 'board') {
+    if (this.state.page === "board") {
       return (
         <div>
           {this.props.proposalBuildMode && (
             <div className="goBackBtn">
-              <span style={{ cursor: 'pointer' }} onClick={this.props.onClose}>
+              <span style={{ cursor: "pointer" }} onClick={this.props.onClose}>
                 ← Back
               </span>
             </div>
@@ -38,7 +38,7 @@ class ProposalContainer extends Component {
           {this.props.isPreview ? (
             <>
               <h2>
-                Preview of proposal template{' '}
+                Preview of proposal template{" "}
                 <span className="templateName">
                   {this.props.proposal.title}
                 </span>
@@ -47,6 +47,7 @@ class ProposalContainer extends Component {
             </>
           ) : (
             <ProposalHeader
+              user={this.props.user}
               proposal={this.props.proposal}
               proposalBuildMode={this.props.proposalBuildMode}
             />
@@ -64,12 +65,12 @@ class ProposalContainer extends Component {
       );
     }
 
-    if (this.state.page === 'card') {
+    if (this.state.page === "card") {
       return (
         <CardModal
           cardId={this.state.cardId}
           boardId={this.props.proposal.id}
-          open={this.state.page === 'card'}
+          open={this.state.page === "card"}
           onClose={() => this.closeCard()}
           proposalBuildMode={this.props.proposalBuildMode}
           proposal={this.props.proposal}

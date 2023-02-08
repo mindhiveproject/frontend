@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Mutation } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Mutation } from "@apollo/client/react/components";
 
-import { MY_PROPOSALS_QUERY } from '../../Queries/Proposal';
-import { CREATE_NEW_PROPOSAL } from '../../Mutations/Proposal';
+import { MY_PROPOSALS_QUERY } from "../../Queries/Proposal";
+import { CREATE_NEW_PROPOSAL } from "../../Mutations/Proposal";
 
-import { StyledSubmitForm } from '../../Styles/Forms';
+import { StyledSubmitForm } from "../../Styles/Forms";
 
 const StyledSelectionScreen = styled.div`
   display: grid;
@@ -34,14 +34,20 @@ const StyledSelectionScreen = styled.div`
 
 class AddProposal extends Component {
   state = {
-    title: '',
-    description: '',
+    title: "",
+    description: "",
     isTemplate: true,
+    settings: {
+      allowMovingSections: true,
+      allowMovingCards: true,
+      allowAddingSections: true,
+      allowAddingCards: true,
+    },
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       [name]: val,
     });
@@ -53,7 +59,14 @@ class AddProposal extends Component {
         <Mutation
           mutation={CREATE_NEW_PROPOSAL}
           variables={this.state}
-          refetchQueries={[{ query: MY_PROPOSALS_QUERY }]}
+          refetchQueries={[
+            {
+              query: MY_PROPOSALS_QUERY,
+              variables: {
+                creatorId: this.props.user?.id,
+              },
+            },
+          ]}
         >
           {(createProposal, { loading, error }) => (
             <>
@@ -65,16 +78,16 @@ class AddProposal extends Component {
               </div>
 
               <StyledSubmitForm
-                onSubmit={async e => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   const res = await createProposal();
                   this.props.goBack();
                 }}
               >
-                <h1>Create a new proposal</h1>
+                <h1>Create a new proposal template</h1>
                 <fieldset disabled={loading} aria-busy={loading}>
                   <label htmlFor="title">
-                    <p>Proposal title</p>
+                    <p>Proposal template title</p>
                     <input
                       type="text"
                       id="title"

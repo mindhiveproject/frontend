@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
 
-import { MY_PROPOSALS_QUERY } from '../../../Queries/Proposal';
-import { DELETE_PROPOSAL } from '../../../Mutations/Proposal';
+import { MY_PROPOSALS_QUERY } from "../../../Queries/Proposal";
+import { DELETE_PROPOSAL } from "../../../Mutations/Proposal";
 
 class DeleteProposal extends Component {
   render() {
@@ -10,18 +10,25 @@ class DeleteProposal extends Component {
       <Mutation
         mutation={DELETE_PROPOSAL}
         variables={{ id: this.props.proposalId }}
-        refetchQueries={[{ query: MY_PROPOSALS_QUERY }]}
+        refetchQueries={[
+          {
+            query: MY_PROPOSALS_QUERY,
+            variables: {
+              creatorId: this.props.user?.id,
+            },
+          },
+        ]}
       >
         {(deleteProposalBoard, { error }) => (
           <div
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
             onClick={() => {
               if (
                 confirm(
-                  'Are you sure you want to delete this proposal template? All sections and cards in this proposal will be deleted as well.'
+                  "Are you sure you want to delete this proposal template? All sections and cards in this proposal will be deleted as well."
                 )
               ) {
-                deleteProposalBoard().catch(err => {
+                deleteProposalBoard().catch((err) => {
                   alert(err.message);
                 });
               }

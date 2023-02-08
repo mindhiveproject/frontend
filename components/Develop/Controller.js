@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import uniqid from 'uniqid';
+import React, { Component } from "react";
+import uniqid from "uniqid";
 import createEngine, {
   DiagramModel,
   DefaultDiagramState,
-} from '@projectstorm/react-diagrams';
+} from "@projectstorm/react-diagrams";
 
-import generate from 'project-name-generator';
-import Navigation from './Navigation/index';
+import generate from "project-name-generator";
+import Navigation from "./Navigation/index";
 
-import { StyledDevelopWrapper } from './styles';
+import { StyledDevelopWrapper } from "./styles";
 
-import Page from './Page';
-import FullScreenPreview from '../Preview/fullscreen';
+import Page from "./Page";
+import FullScreenPreview from "../Preview/fullscreen";
 
-import { NodesFactory } from './Builder/Diagram/components/NodesFactory';
-import { CommentsFactory } from './Builder/Diagram/components/CommentsFactory';
-import { AnchorFactory } from './Builder/Diagram/components/AnchorFactory';
-import { MyAnchorModel } from './Builder/Diagram/components/MyAnchorModel';
+import { NodesFactory } from "./Builder/Diagram/components/NodesFactory";
+import { CommentsFactory } from "./Builder/Diagram/components/CommentsFactory";
+import { AnchorFactory } from "./Builder/Diagram/components/AnchorFactory";
+import { MyAnchorModel } from "./Builder/Diagram/components/MyAnchorModel";
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -26,7 +26,7 @@ function getRandomIntInclusive(min, max) {
 
 export default class Controller extends Component {
   state = {
-    page: 'participant',
+    page: "participant",
     study: { ...this.props.study },
     isTaskSelectorOpen: false,
     isTaskBuilderOpen: false,
@@ -83,7 +83,7 @@ export default class Controller extends Component {
   };
 
   // to update many values of the study state
-  handleSetMultipleValuesInState = values => {
+  handleSetMultipleValuesInState = (values) => {
     this.setState({
       study: {
         ...this.state.study,
@@ -92,9 +92,9 @@ export default class Controller extends Component {
     });
   };
 
-  handleStudyChange = e => {
+  handleStudyChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       study: {
         ...this.state.study,
@@ -105,12 +105,12 @@ export default class Controller extends Component {
 
   handleParameterChange = (e, classType) => {
     const { name, type, value, className } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     const currentInfo = [...this.state.study.info];
-    if (currentInfo.filter(el => el.name === name).length === 0) {
+    if (currentInfo.filter((el) => el.name === name).length === 0) {
       currentInfo.push({ name });
     }
-    const info = currentInfo.map(el =>
+    const info = currentInfo.map((el) =>
       el.name === name ? { ...el, [className]: val } : el
     );
     this.setState({
@@ -121,8 +121,8 @@ export default class Controller extends Component {
     });
   };
 
-  deleteParameter = name => {
-    const info = this.state.study.info.filter(p => p.name !== name);
+  deleteParameter = (name) => {
+    const info = this.state.study.info.filter((p) => p.name !== name);
     this.setState({
       study: {
         ...this.state.study,
@@ -131,7 +131,7 @@ export default class Controller extends Component {
     });
   };
 
-  handleSettingsChange = e => {
+  handleSettingsChange = (e) => {
     const { name } = e.target;
     const settings = { ...this.state.study.settings };
     settings[name] = !this.state.study.settings[name];
@@ -143,14 +143,14 @@ export default class Controller extends Component {
     });
   };
 
-  uploadImage = async e => {
+  uploadImage = async (e) => {
     const { files } = e.target;
     const data = new FormData();
-    data.append('file', files[0]);
-    data.append('upload_preset', 'studies');
+    data.append("file", files[0]);
+    data.append("upload_preset", "studies");
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/mindhive-science/image/upload',
-      { method: 'POST', body: data }
+      "https://api.cloudinary.com/v1_1/mindhive-science/image/upload",
+      { method: "POST", body: data }
     );
     const file = await res.json();
     this.setState({
@@ -162,7 +162,7 @@ export default class Controller extends Component {
     });
   };
 
-  updateComponents = components => {
+  updateComponents = (components) => {
     this.setState({
       study: {
         ...this.state.study,
@@ -171,7 +171,7 @@ export default class Controller extends Component {
     });
   };
 
-  addComponent = component => {
+  addComponent = (component) => {
     let updatedBlocks;
 
     if (this.state.study?.components?.blocks) {
@@ -183,7 +183,7 @@ export default class Controller extends Component {
     if (updatedBlocks.length === 0) {
       updatedBlocks.push({
         blockId: uniqid.time(),
-        title: 'Main experiment sequence',
+        title: "Main experiment sequence",
         tests: [],
       });
     }
@@ -207,7 +207,7 @@ export default class Controller extends Component {
     });
   };
 
-  toggleComponentPreview = component => {
+  toggleComponentPreview = (component) => {
     this.setState({
       showComponentPreview: true,
       component,
@@ -222,13 +222,13 @@ export default class Controller extends Component {
 
   handlePageChange = (e, { name }) => this.setState({ page: name });
 
-  toggleTaskSelector = newState => {
+  toggleTaskSelector = (newState) => {
     this.setState({
       isTaskSelectorOpen: newState,
     });
   };
 
-  openTaskBuilder = componentId => {
+  openTaskBuilder = (componentId) => {
     this.setState({
       isTaskBuilderOpen: true,
       componentId,
@@ -242,7 +242,7 @@ export default class Controller extends Component {
     });
   };
 
-  createNewStudy = async createStudyMutation => {
+  createNewStudy = async (createStudyMutation) => {
     const { components, diagram } = this.saveDiagramState();
     const res = await createStudyMutation({
       variables: {
@@ -257,16 +257,16 @@ export default class Controller extends Component {
       newStudyFromScratch: false,
       study: {
         ...myStudy,
-        consentId: myStudy.consent.map(consent => consent.id),
+        consentId: myStudy.consent.map((consent) => consent.id),
         collaborators: (myStudy.collaborators &&
-          myStudy.collaborators.map(c => c.username).length &&
-          myStudy.collaborators.map(c => c.username)) || [''],
-        classes: myStudy.classes.map(cl => cl?.id),
+          myStudy.collaborators.map((c) => c.username).length &&
+          myStudy.collaborators.map((c) => c.username)) || [""],
+        classes: myStudy.classes.map((cl) => cl?.id),
       },
     });
   };
 
-  updateMyStudy = async updateStudyMutation => {
+  updateMyStudy = async (updateStudyMutation) => {
     const { components, diagram } = this.saveDiagramState();
     await updateStudyMutation({
       variables: {
@@ -278,20 +278,20 @@ export default class Controller extends Component {
   };
 
   // diagram functions
-  findChildren = node => {
+  findChildren = (node) => {
     let children = [];
     if (
       node?.ports?.out?.links &&
       Object.values(node?.ports?.out?.links).length
     ) {
       children = Object.values(node?.ports?.out?.links).map(
-        link => link?.targetPort?.parent
+        (link) => link?.targetPort?.parent
       );
     }
     return children;
   };
 
-  makeBlock = tests => ({
+  makeBlock = (tests) => ({
     blockId: uniqid.time(),
     title: generate().dashed,
     tests: [...tests],
@@ -299,7 +299,7 @@ export default class Controller extends Component {
   });
 
   findChildrenRecursively = (nodes, level, blocks, tests) => {
-    nodes.forEach(node => {
+    nodes.forEach((node) => {
       let blockTests = [];
       if (level > 0) {
         blockTests = [...tests];
@@ -322,7 +322,7 @@ export default class Controller extends Component {
   createStudyDesign = ({ model }) => {
     const allNodes = model.getNodes() || [];
     const startingNode = allNodes.filter(
-      node => node?.options?.type === 'my-anchor'
+      (node) => node?.options?.type === "my-anchor"
     );
     const blocks = [];
     this.findChildrenRecursively(startingNode, 0, blocks, []);
@@ -363,7 +363,7 @@ export default class Controller extends Component {
       return (
         <FullScreenPreview
           previewOf="study"
-          user={this.props?.user?.id || ''}
+          user={this.props?.user?.id || ""}
           study={study}
           handleFinish={() => this.setState({ showStudyPreview: false })}
         />
@@ -374,7 +374,7 @@ export default class Controller extends Component {
       return (
         <FullScreenPreview
           previewOf="component"
-          user={this.props?.user?.id || ''}
+          user={this.props?.user?.id || ""}
           parameters={this.state.component.parameters}
           template={this.state.component.template}
           handleFinish={() => this.setState({ showComponentPreview: false })}

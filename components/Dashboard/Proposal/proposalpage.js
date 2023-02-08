@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import Head from 'next/head';
-import Error from '../../ErrorMessage/index';
+import Head from "next/head";
+import Error from "../../ErrorMessage/index";
 
-import ProposalContainer from './Board/index';
+import ProposalContainer from "./Board/index";
 
-import { StyledDasboard, StyledDevelopDasboard } from '../styles';
+import { StyledDasboard, StyledDevelopDasboard } from "../styles";
 
-import { PROPOSAL_BOARD_QUERY } from '../../Queries/Proposal';
+import { PROPOSAL_BOARD_QUERY } from "../../Queries/Proposal";
 
 class ProposalPage extends Component {
   state = {};
@@ -33,6 +33,7 @@ class ProposalPage extends Component {
                     <title>mindHIVE | {proposal.title}</title>
                   </Head>
                   <ProposalContainer
+                    user={this.props.user}
                     proposal={proposal}
                     onClose={this.props.goBack}
                     proposalBuildMode={this.props.proposalBuildMode}

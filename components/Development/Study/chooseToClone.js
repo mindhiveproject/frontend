@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
-import StudyCard from './card';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import gql from "graphql-tag";
+import styled from "styled-components";
+import StudyCard from "./card";
 
-import { StyledSelectionScreen } from '../selectScreen';
+import { StyledSelectionScreen } from "../selectScreen";
 
 const StyledBankToClone = styled.div`
   display: grid;
   justify-content: center;
-  margn: 0 auto;
+  margin: 0 auto;
   grid-template-columns: repeat(auto-fill, minmax(315px, 1fr));
   grid-gap: 20px;
   margin: 20px;
@@ -60,7 +60,7 @@ const MY_AND_PUBLIC_STUDIES_TO_CLONE_QUERY = gql`
 `;
 
 class ChooseStudyToClone extends Component {
-  onSelectStudy = study => {
+  onSelectStudy = (study) => {
     this.props.onChoiceToClone(study);
   };
 
@@ -91,7 +91,7 @@ class ChooseStudyToClone extends Component {
               const studies = data?.myAndPublicStudies || [];
               return (
                 <StyledBankToClone>
-                  {studies.map(study => (
+                  {studies.map((study) => (
                     <StudyCard
                       key={study.id}
                       study={study}

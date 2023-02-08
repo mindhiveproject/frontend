@@ -1,7 +1,26 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const MY_PROPOSALS_QUERY = gql`
-  query MY_PROPOSALS_QUERY {
+  query MY_PROPOSALS_QUERY($creatorId: ID!) {
+    proposalBoards(where: { creator: { id: $creatorId } }) {
+      id
+      title
+      description
+      creator {
+        id
+        username
+      }
+      sections {
+        id
+      }
+      isTemplate
+      createdAt
+    }
+  }
+`;
+
+export const ALL_PROPOSALS_QUERY = gql`
+  query ALL_PROPOSALS_QUERY {
     proposalBoards {
       id
       title

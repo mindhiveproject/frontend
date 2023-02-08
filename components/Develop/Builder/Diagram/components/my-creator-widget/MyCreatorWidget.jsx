@@ -17,12 +17,12 @@ export const MyCreatorWidget = props => {
 
   // disable touchpad zooming
   const scrollRef = React.useRef();
+  const stopScroll = e => e.preventDefault();
   React.useEffect(() => {
     const scrollEl = scrollRef.current;
     scrollEl?.addEventListener('wheel', stopScroll);
     return () => scrollEl?.removeEventListener('wheel', stopScroll);
   }, [scrollRef]);
-  const stopScroll = e => e.preventDefault();
 
   const shorten = text => {
     if (text && text.split(' ').length > 12) {

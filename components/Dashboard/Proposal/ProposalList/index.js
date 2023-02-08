@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import styled from 'styled-components';
-import DeleteProposal from './deleteProposal';
+import React, { Component } from "react";
+import moment from "moment";
+import styled from "styled-components";
+import DeleteProposal from "./deleteProposal";
 
 const StyledRow = styled.div`
   display: grid;
@@ -29,11 +29,13 @@ class ProposalRow extends Component {
         <StyledClassRow onClick={() => this.props.openProposal(myproposal)}>
           <div>{myproposal?.title}</div>
           <div>{myproposal?.sections?.length}</div>
-          <div>{moment(myproposal?.createdAt).format('MMMM D, YYYY')}</div>
-          <div>{myproposal?.isTemplate ? 'Yes' : 'No'}</div>
+          <div>{moment(myproposal?.createdAt).format("MMMM D, YYYY")}</div>
+          <div>{myproposal?.isTemplate ? "Yes" : "No"}</div>
         </StyledClassRow>
         <div className="deleteBtn">
-          <DeleteProposal proposalId={myproposal.id}>Delete</DeleteProposal>
+          <DeleteProposal user={this.props.user} proposalId={myproposal.id}>
+            Delete
+          </DeleteProposal>
         </div>
       </StyledRow>
     );

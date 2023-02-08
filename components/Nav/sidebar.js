@@ -233,6 +233,30 @@ const SidebarNav = ({ user }) => {
           <>
             <div className="workspaceHeader">ADMIN</div>
 
+            <Link href="/dashboard/allproposals">
+              <NavLink selected={router.pathname === "/dashboard/allproposals"}>
+                <div>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M18.0952 0H1.90476C0.854286 0 0 0.854286 0 1.90476V18.0952C0 19.1457 0.854286 20 1.90476 20H18.0952C19.1452 20 20 19.1457 20 18.0952V1.90476C20 0.854286 19.1452 0 18.0952 0ZM18.0952 7.61905H9.52381V1.90476H18.0952V7.61905ZM1.90476 1.90476H7.61905V18.0952H1.90476V1.90476ZM9.52381 18.0952V9.52381H18.0957L18.0962 18.0952H9.52381Z"
+                      fill={
+                        router.pathname === "/dashboard/allproposals"
+                          ? "#ffc107"
+                          : "#666666"
+                      }
+                    />
+                  </svg>
+                </div>
+                <div>All proposals</div>
+              </NavLink>
+            </Link>
+
             <Link href="/dashboard/overview/studies">
               <NavLink selected={router.pathname === "/dashboard/overview"}>
                 <div>
@@ -256,29 +280,7 @@ const SidebarNav = ({ user }) => {
                 <div>Overview</div>
               </NavLink>
             </Link>
-            <Link href="/dashboard/proposal">
-              <NavLink selected={router.pathname === "/dashboard/proposal"}>
-                <div>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M18.0952 0H1.90476C0.854286 0 0 0.854286 0 1.90476V18.0952C0 19.1457 0.854286 20 1.90476 20H18.0952C19.1452 20 20 19.1457 20 18.0952V1.90476C20 0.854286 19.1452 0 18.0952 0ZM18.0952 7.61905H9.52381V1.90476H18.0952V7.61905ZM1.90476 1.90476H7.61905V18.0952H1.90476V1.90476ZM9.52381 18.0952V9.52381H18.0957L18.0962 18.0952H9.52381Z"
-                      fill={
-                        router.pathname === "/dashboard/proposal"
-                          ? "#ffc107"
-                          : "#666666"
-                      }
-                    />
-                  </svg>
-                </div>
-                <div>Proposal</div>
-              </NavLink>
-            </Link>
+
             <Link href="/dashboard/management">
               <NavLink selected={router.pathname === "/dashboard/management"}>
                 <div>
@@ -449,6 +451,32 @@ const SidebarNav = ({ user }) => {
               </NavLink>
             </Link>
           </>
+        )}
+
+        {user?.permissions.includes("TEACHER") && (
+          <Link href="/dashboard/proposal">
+            <NavLink selected={router.pathname === "/dashboard/proposal"}>
+              <div>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M18.0952 0H1.90476C0.854286 0 0 0.854286 0 1.90476V18.0952C0 19.1457 0.854286 20 1.90476 20H18.0952C19.1452 20 20 19.1457 20 18.0952V1.90476C20 0.854286 19.1452 0 18.0952 0ZM18.0952 7.61905H9.52381V1.90476H18.0952V7.61905ZM1.90476 1.90476H7.61905V18.0952H1.90476V1.90476ZM9.52381 18.0952V9.52381H18.0957L18.0962 18.0952H9.52381Z"
+                    fill={
+                      router.pathname === "/dashboard/proposal"
+                        ? "#ffc107"
+                        : "#666666"
+                    }
+                  />
+                </svg>
+              </div>
+              <div>Proposal</div>
+            </NavLink>
+          </Link>
         )}
 
         <Link href="/dashboard/settings">

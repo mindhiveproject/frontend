@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import styled from 'styled-components';
-import ProposalRow from './ProposalList/index';
-import { StyledDasboard, StyledClassesDasboard } from '../styles';
+import styled from "styled-components";
+import ProposalRow from "./ProposalList/index";
+import { StyledDasboard, StyledClassesDasboard } from "../styles";
 
-import { MY_PROPOSALS_QUERY } from '../../Queries/Proposal';
+import {
+  MY_PROPOSALS_QUERY,
+  ALL_PROPOSALS_QUERY,
+} from "../../Queries/Proposal";
 
 const StyledRow = styled.div`
   display: grid;
@@ -27,9 +30,16 @@ class Proposals extends Component {
     return (
       <StyledDasboard>
         <StyledClassesDasboard>
-          <h1>My proposals</h1>
+          <h1>
+            {this.props.adminMode ? `All proposals` : `My proposal templates`}
+          </h1>
 
-          <Query query={MY_PROPOSALS_QUERY}>
+          <Query
+            query={
+              this.props.adminMode ? ALL_PROPOSALS_QUERY : MY_PROPOSALS_QUERY
+            }
+            variables={{ creatorId: this.props.user?.id }}
+          >
             {({ data, error, loading }) => {
               if (loading) return <p>Loading ...</p>;
               if (error) return <p>Error: {error.message}</p>;
@@ -37,8 +47,10 @@ class Proposals extends Component {
               if (proposalBoards.length === 0) {
                 return (
                   <>
-                    <h3>You haven’t created any proposals yet.</h3>
-                    <p>Once you create a proposal, it will appear here.</p>
+                    <h3>You haven’t created any proposal templates yet.</h3>
+                    <p>
+                      Once you create a proposal template, it will appear here.
+                    </p>
                     <div className="navigationHeader">
                       <div></div>
                       <div>
@@ -61,7 +73,7 @@ class Proposals extends Component {
                     <div></div>
                     <div>
                       <button onClick={this.props.addProposal}>
-                        Create Proposal Board
+                        Create Proposal Template
                       </button>
                     </div>
                   </div>
@@ -75,7 +87,7 @@ class Proposals extends Component {
                   <div>
                     <StyledRow>
                       <StyledProposalHeader>
-                        <div>Proposal name</div>
+                        <div>Template name</div>
                         <div>Number of sections</div>
                         <div>Date created</div>
                         <div>Template</div>
@@ -83,8 +95,9 @@ class Proposals extends Component {
                       <div></div>
                     </StyledRow>
 
-                    {proposalBoards.map(myproposal => (
+                    {proposalBoards.map((myproposal) => (
                       <ProposalRow
+                        user={this.props.user}
                         myproposal={myproposal}
                         key={myproposal.id}
                         openProposal={this.props.openProposal}
