@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { Icon } from 'semantic-ui-react';
-import uniqid from 'uniqid';
+import React, { Component } from "react";
+import { Icon } from "semantic-ui-react";
+import uniqid from "uniqid";
 
-import { StyledTaskCard } from './styles';
+import { StyledTaskCard } from "./styles";
 
-import ExperimentPreview from '../../../Task/Preview/index';
+import ExperimentPreview from "../../../Task/Preview/index";
 
-import ManageFavoriteComponents from '../../../Favorite/ManageComponents';
+import ManageFavoriteComponents from "../../../Favorite/ManageComponents";
 
-import { NodesTypesContainer } from '../Diagram/components/nodes-types-container/NodesTypesContainer';
-import { NodeTypeLabel } from '../Diagram/components/node-type-label/NodeTypeLabel';
+import { NodesTypesContainer } from "../Diagram/components/nodes-types-container/NodesTypesContainer";
+import { NodeTypeLabel } from "../Diagram/components/node-type-label/NodeTypeLabel";
 
-import TaskModal from '../../Task/Modal';
+import TaskModal from "../../Task/Modal";
 
 class Card extends Component {
   state = {
@@ -41,7 +41,7 @@ class Card extends Component {
     // get the author and collaborators ids
     const authIds = [
       component?.author?.id,
-      ...component?.collaborators.map(c => c.id),
+      ...component?.collaborators.map((c) => c.id),
     ];
 
     return (
@@ -58,9 +58,9 @@ class Card extends Component {
                   name: component?.title,
                   details: component?.description,
                   componentID: component?.id,
-                  testId: uniqid.time(),
                   taskType: component?.taskType,
                   subtitle: component?.subtitle,
+                  // testId: uniqid.time(),
                 });
               }}
             />
@@ -70,8 +70,8 @@ class Card extends Component {
             <NodesTypesContainer>
               <NodeTypeLabel
                 model={{
-                  type: 'component',
-                  ports: 'in',
+                  type: "component",
+                  // ports: "in",
                   name: component?.title,
                   details: component?.description,
                   componentID: component.id,
@@ -90,7 +90,10 @@ class Card extends Component {
             </div>
 
             {!component.link && (
-              <div className="icon" onClick={e => this.togglePreview(e, false)}>
+              <div
+                className="icon"
+                onClick={(e) => this.togglePreview(e, false)}
+              >
                 <img src="/content/icons/Eye.svg" />
               </div>
             )}
@@ -106,7 +109,7 @@ class Card extends Component {
         </StyledTaskCard>
         {this.state.showPreview && (
           <ExperimentPreview
-            user={this.props?.user?.id || ''}
+            user={this.props?.user?.id || ""}
             parameters={component.parameters}
             template={component.template}
             handleFinish={() =>

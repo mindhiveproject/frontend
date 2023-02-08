@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import { Modal } from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Modal } from "semantic-ui-react";
 
-import { StyledHeader, StyledButtons } from '../styles';
+import { StyledHeader, StyledButtons } from "../styles";
 
-import TaskContent from './Content';
+import TaskContent from "./Content";
 
 class TaskModal extends Component {
   render() {
     const component = this.props?.component || {};
 
     const taskType =
-      component?.taskType === 'TASK'
-        ? 'task'
-        : component?.taskType === 'BLOCK'
-        ? 'block'
-        : 'survey';
+      component?.taskType === "TASK"
+        ? "task"
+        : component?.taskType === "BLOCK"
+        ? "block"
+        : "survey";
 
     return (
       <Modal
@@ -39,6 +39,8 @@ class TaskModal extends Component {
                         name: component?.title,
                         details: component?.description,
                         componentID: component?.id,
+                        taskType: component?.taskType,
+                        subtitle: component?.subtitle,
                       });
                       this.props.onModalClose();
                     }}
@@ -49,7 +51,7 @@ class TaskModal extends Component {
                 <div>
                   <button
                     className="previewBtn"
-                    onClick={e => {
+                    onClick={(e) => {
                       this.props.onModalClose();
                       this.props.onShowPreview(e, true);
                     }}
@@ -62,7 +64,7 @@ class TaskModal extends Component {
           </StyledHeader>
         </Modal.Header>
 
-        <Modal.Content style={{ padding: '0px', backgroundColor: '#E6E6E6' }}>
+        <Modal.Content style={{ padding: "0px", backgroundColor: "#E6E6E6" }}>
           <TaskContent component={component} />
         </Modal.Content>
 
