@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Query } from "@apollo/client/react/components";
 
-import Head from 'next/head';
-import { Radio, Icon } from 'semantic-ui-react';
-import styled from 'styled-components';
-import Error from '../../../ErrorMessage/index';
+import Head from "next/head";
+import { Radio, Icon } from "semantic-ui-react";
+import styled from "styled-components";
+import Error from "../../../ErrorMessage/index";
 
-import ProposalContainer from '../../../Dashboard/Proposal/Board/index';
-import ProposalPDF from '../../../Proposal/pdf';
+import ProposalContainer from "../../../Dashboard/Proposal/Board/index";
+import ProposalPDF from "../../../Proposal/pdf";
 
 import {
   StyledDasboard,
   StyledDevelopDasboard,
-} from '../../../Dashboard/styles';
+} from "../../../Dashboard/styles";
 
 const StyledProposalBoard = styled.div`
   display: grid;
@@ -42,11 +42,12 @@ const StyledPreviewToggle = styled.div`
     grid-template-columns: auto auto;
   }
   .alert {
-    background: #FFF9E6;
+    background: #fff9e6;
     padding: 5px 10px 5px 10px;
     margin-left: 5px;
     border-radius: 4px;
-    span, .icon {
+    span,
+    .icon {
       font-weight: 400;
       font-size: 13px;
       color: #666666;
@@ -139,15 +140,22 @@ class ProposalPage extends Component {
                             });
                           }}
                         />
-                        <span>{this.state.isPDF ? 
-                          <div className="preview">
-                            Preview
-                            <span className="alert">
-                              <Icon name='info circle'/>
-                              <span>Content from cards marked as "complete" in edit mode will appear here, in preview mode, displaying what your reviewers will see.</span>
-                            </span>
-                          </div>
-                          : 'Edit'}
+                        <span>
+                          {this.state.isPDF ? (
+                            <div className="preview">
+                              Preview
+                              <span className="alert">
+                                <Icon name="info circle" />
+                                <span>
+                                  Content from cards marked as "complete" in
+                                  edit mode will appear here, in preview mode,
+                                  displaying what your reviewers will see.
+                                </span>
+                              </span>
+                            </div>
+                          ) : (
+                            "Edit"
+                          )}
                         </span>
                       </>
                     )}

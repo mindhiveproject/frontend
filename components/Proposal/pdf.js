@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import Head from 'next/head';
-import styled from 'styled-components';
-import Proposal from '../Dashboard/Jodit/proposal';
+import React, { Component } from "react";
+import moment from "moment";
+import Head from "next/head";
+import styled from "styled-components";
+import Proposal from "../Dashboard/Jodit/proposal";
 
 const StyledFullProposal = styled.div`
   display: grid;
@@ -18,24 +18,24 @@ class ProposalPDF extends Component {
     const orderedSections = [...sections].sort(
       (a, b) => a.position - b.position
     );
-    const allCardsContent = orderedSections.map(section => {
+    const allCardsContent = orderedSections.map((section) => {
       // order cards inside each section
       const orderedCards = [...section.cards].sort(
         (a, b) => a.position - b.position
       );
       // get the content of completed cards together with titles
       const completedCardsWithTitles = orderedCards
-        .filter(card => card?.settings?.status === 'Completed')
-        .map(card => `<h3>${card?.title}</h3>${card?.content}`);
+        .filter((card) => card?.settings?.status === "Completed")
+        .map((card) => `<h3>${card?.title}</h3>${card?.content}`);
       // append the section title
       const cardsWithSectionTitles = `<h2>${
         section?.title
-      }</h2>${completedCardsWithTitles.join('')}`;
+      }</h2>${completedCardsWithTitles.join("")}`;
       return cardsWithSectionTitles;
     });
     // put all cards content together
-    const cardsContent = allCardsContent.flat().join('');
-    let studyURL = '';
+    const cardsContent = allCardsContent.flat().join("");
+    let studyURL = "";
     if (study?.slug) {
       studyURL = `<h3>Study URL: https://mindhive.science/studies/${study?.slug}</h3>`;
     }
@@ -44,7 +44,7 @@ class ProposalPDF extends Component {
 
     // extracting the study title is problematic as there are several classes
     const studyTitle = study?.title;
-    const date = moment().format('MM-D-YYYY');
+    const date = moment().format("MM-D-YYYY");
 
     return (
       <>
@@ -55,17 +55,17 @@ class ProposalPDF extends Component {
         </Head>
         <StyledFullProposal>
           <Proposal
-            onSubmit={async e => {
+            onSubmit={async (e) => {
               e.preventDefault();
             }}
             loading={this.props.loading}
             title={title}
             onTitleChange={() => {
-              console.log('title change');
+              console.log("title change");
             }}
             content={content}
             onContentChange={() => {
-              console.log('content change');
+              console.log("content change");
             }}
             btnName="Save"
             readonly

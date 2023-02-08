@@ -53,10 +53,12 @@ export const PROPOSAL_BOARD_QUERY = gql`
         cards {
           id
           title
+          content
           position
           section {
             id
           }
+          settings
         }
       }
       study {
