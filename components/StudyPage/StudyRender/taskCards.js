@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import React, { Component } from 'react';
+import styled from "styled-components";
+import React, { Component } from "react";
 
-import TaskCard from './taskCard';
+import TaskCard from "./taskCard";
 
 const StyledTaskList = styled.div`
   display: grid;
@@ -12,7 +12,7 @@ const StyledTaskList = styled.div`
 class TaskCards extends Component {
   render() {
     const { user, study } = this.props;
-    const studyIds = user?.participantIn?.map(study => study.id) || [];
+    const studyIds = user?.participantIn?.map((study) => study.id) || [];
 
     // check whether there is a user and blocks, if yes, assign correct block of tasks to the user
     let components = [];
@@ -29,7 +29,7 @@ class TaskCards extends Component {
           const userBlock = userStudyInfo.blockId;
           if (userBlock) {
             const studyBlock = study.components.blocks.filter(
-              block => block.blockId === userBlock
+              (block) => block.blockId === userBlock
             );
             if (studyBlock && studyBlock.length && studyBlock[0].tests) {
               components = studyBlock[0].tests;
@@ -55,20 +55,20 @@ class TaskCards extends Component {
     const fullResultsInThisStudy =
       user?.results
         ?.filter(
-          result =>
+          (result) =>
             result.study &&
             result.study.id === study.id &&
-            result.payload === 'full'
+            result.payload === "full"
         )
-        .map(result => result.task.id) || [];
+        .map((result) => result.task.id) || [];
 
     return (
       <StyledTaskList>
-        {components.map((task, num) => (
+        {components.map((component, num) => (
           <TaskCard
             key={num}
-            task={task}
-            completed={fullResultsInThisStudy.includes(task.id)}
+            component={component}
+            completed={fullResultsInThisStudy.includes(component.id)}
             onStartTask={this.props.onStartTask}
           />
         ))}

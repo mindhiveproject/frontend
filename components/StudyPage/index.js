@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
-import Error from '../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../Queries/User';
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Query } from "@apollo/client/react/components";
+import Error from "../ErrorMessage/index";
+import { CURRENT_USER_RESULTS_QUERY } from "../Queries/User";
 
-import StudyContainer from './container';
+import StudyContainer from "./container";
 
 const GET_STUDY = gql`
   query GET_STUDY($id: ID!) {
@@ -26,16 +26,16 @@ class StudyPage extends Component {
   render() {
     return (
       <Query query={CURRENT_USER_RESULTS_QUERY}>
-        {userPayload => {
+        {(userPayload) => {
           const userPayloadError = userPayload.error;
           const userPayloadLoading = userPayload.loading;
           const userPayloadData = userPayload.data && userPayload.data.me;
-          if (userPayloadError) return <Error error={error} />;
+          if (userPayloadError) return <Error error={userPayloadError} />;
           if (userPayloadLoading) return <p>Loading</p>;
 
           return (
             <Query query={GET_STUDY} variables={{ id: this.props.id }}>
-              {studyPayload => {
+              {(studyPayload) => {
                 const studyPayloadError = studyPayload.error;
                 const studyPayloadLoading = studyPayload.loading;
                 const studyPayloadData =
