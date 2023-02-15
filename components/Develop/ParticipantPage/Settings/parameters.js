@@ -1,10 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import SettingsBlock from './settingBlock';
+import SettingsBlock from "./settingBlock";
 
 class Parameters extends Component {
   render() {
-    const { study } = this.props;
+    const { study, user } = this.props;
+
+    const hasIRBAccess =
+      user &&
+      user?.permissions &&
+      (user.permissions.includes("TEACHER") ||
+        user.permissions.includes("SCIENTIST") ||
+        user.permissions.includes("ADMIN"));
+
     const settings = {
       forbidRetake: false,
       hideParticipateButton: false,
@@ -15,16 +23,16 @@ class Parameters extends Component {
 
     // settings that are shown only to students
     const settingsOnlyStudents = [
-      'hideParticipateButton',
-      'guestParticipation',
-      'consentObtained',
-      'zipCode',
-      'proceedToFirstTask',
-      'forbidRetake',
+      "hideParticipateButton",
+      "guestParticipation",
+      "consentObtained",
+      "zipCode",
+      "proceedToFirstTask",
+      "forbidRetake",
     ];
 
     // scales that should be reversed because of the naming and description
-    const reverseScales = ['hideParticipateButton', 'forbidRetake'];
+    const reverseScales = ["hideParticipateButton", "forbidRetake"];
 
     return (
       <div>
@@ -32,7 +40,7 @@ class Parameters extends Component {
 
         <div>
           {Object.keys(settings)
-            .filter(name => settingsOnlyStudents.includes(name))
+            .filter((name) => settingsOnlyStudents.includes(name))
             .map((name, i) => (
               <SettingsBlock
                 key={i}
@@ -40,6 +48,9 @@ class Parameters extends Component {
                 value={study.settings[name]}
                 handleSettingsChange={this.props.handleSettingsChange}
                 isReverse={reverseScales.includes(name)}
+                study={study}
+                hasIRBAccess={hasIRBAccess}
+                updateStudyState={this.props.updateStudyState}
               />
             ))}
         </div>

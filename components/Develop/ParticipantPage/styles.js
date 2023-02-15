@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledParticipantPage = styled.div`
   display: grid;
@@ -28,7 +28,7 @@ export const StyledPreviewPane = styled.div`
     justify-items: center;
     grid-gap: 1rem;
     .title {
-      font-family: 'Inconsolata';
+      font-family: "Inconsolata";
       font-style: normal;
       font-weight: 400;
       font-size: 48px;
@@ -39,7 +39,7 @@ export const StyledPreviewPane = styled.div`
     }
 
     .description {
-      font-family: 'Inconsolata';
+      font-family: "Inconsolata";
       font-style: normal;
       font-weight: 400;
       font-size: 24px;
@@ -58,7 +58,7 @@ export const StyledPreviewPane = styled.div`
         border: 2px solid #ffc107;
         border-radius: 4px;
 
-        font-family: 'Inconsolata';
+        font-family: "Inconsolata";
         font-style: normal;
         font-weight: 700;
         font-size: 18px;
@@ -252,14 +252,14 @@ export const UploadImageContainer = styled.div`
     text-align: center;
   }
 
-  .upload-btn-wrapper input[type='file'] {
+  .upload-btn-wrapper input[type="file"] {
     font-size: 100px;
     position: absolute;
     left: 0;
     top: 0;
     opacity: 0;
   }
-  .upload-btn-wrapper-with-image input[type='file'] {
+  .upload-btn-wrapper-with-image input[type="file"] {
     font-size: 100px;
     position: absolute;
     left: 0;
@@ -342,5 +342,8 @@ export const StyledSettingsBlock = styled.div`
   .ui.toggle.checkbox input:checked ~ .box:before,
   .ui.toggle.checkbox input:checked ~ label:before {
     background-color: #007c70 !important;
+  }
+  .consentArea {
+    margin: 10px 0px;
   }
 `;
