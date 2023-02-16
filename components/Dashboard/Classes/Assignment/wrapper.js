@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import Error from '../../../ErrorMessage/index';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import Error from "../../../ErrorMessage/index";
 
-import Assignment from './assignment';
-import SelectAssignment from './selectAssignment';
-import AddAssignment from './addAssignment';
-import AssignmentTab from './assignmentTab';
-import EditAssignment from './editAssignment';
+import Assignment from "./assignment";
+import SelectAssignment from "./selectAssignment";
+import AddAssignment from "./addAssignment";
+import AssignmentTab from "./assignmentTab";
+import EditAssignment from "./editAssignment";
 
-import { CLASS_ASSIGNMENTS } from '../../../Queries/Assignment';
+import { CLASS_ASSIGNMENTS } from "../../../Queries/Assignment";
 
 class ClassAssignments extends Component {
   state = {
-    page: this.props.page || 'assignments',
+    page: this.props.page || "assignments",
     assignmentId: null,
     template: null,
     featuredAssignmentId: this.props.featuredAssignmentId || null,
@@ -21,35 +21,35 @@ class ClassAssignments extends Component {
   // selecting an assignment template from the list or creating a new one
   selectAssignment = () => {
     this.setState({
-      page: 'selectassignment',
+      page: "selectassignment",
     });
   };
 
   // adding a new assignment (based on the template or a new one)
-  addAssignment = assignment => {
+  addAssignment = (assignment) => {
     this.setState({
-      page: 'addassignment',
+      page: "addassignment",
       template: assignment,
     });
   };
 
-  editAssignment = assignmentId => {
+  editAssignment = (assignmentId) => {
     this.setState({
-      page: 'editassignment',
+      page: "editassignment",
       assignmentId,
     });
   };
 
-  openAssignment = assignmentId => {
+  openAssignment = (assignmentId) => {
     this.setState({
-      page: 'assignment',
+      page: "assignment",
       assignmentId,
     });
   };
 
   goBack = () => {
     this.setState({
-      page: 'assignments',
+      page: "assignments",
       assignmentId: null,
       template: null,
     });
@@ -59,27 +59,30 @@ class ClassAssignments extends Component {
     const { schoolclass } = this.props;
     const { page, assignmentId, featuredAssignmentId } = this.state;
 
-    if (page === 'selectassignment') {
+    if (page === "selectassignment") {
       return (
         <SelectAssignment
           goBack={this.goBack}
           classId={schoolclass?.id}
           addAssignment={this.addAssignment}
+          editAssignment={this.editAssignment}
+          user={this.props.user}
         />
       );
     }
 
-    if (page === 'addassignment') {
+    if (page === "addassignment") {
       return (
         <AddAssignment
           goBack={this.goBack}
           classId={schoolclass?.id}
           template={this.state.template}
+          user={this.props.user}
         />
       );
     }
 
-    if (page === 'assignment') {
+    if (page === "assignment") {
       return (
         <Assignment
           goBack={this.goBack}
@@ -89,17 +92,18 @@ class ClassAssignments extends Component {
       );
     }
 
-    if (page === 'editassignment') {
+    if (page === "editassignment") {
       return (
         <EditAssignment
           goBack={this.goBack}
           classId={schoolclass?.id}
           assignmentId={assignmentId}
+          user={this.props.user}
         />
       );
     }
 
-    if (page === 'assignments') {
+    if (page === "assignments") {
       return (
         <>
           {!this.props.featuredAssignmentId && (
@@ -115,7 +119,7 @@ class ClassAssignments extends Component {
               if (!data.assignments || data.assignments.length === 0)
                 return (
                   <p>
-                    No assignments found for{' '}
+                    No assignments found for{" "}
                     <strong>{schoolclass?.title}</strong>.
                   </p>
                 );
@@ -123,12 +127,12 @@ class ClassAssignments extends Component {
               return (
                 <>
                   {assignments
-                    .filter(assignment =>
+                    .filter((assignment) =>
                       featuredAssignmentId
                         ? assignment.id === featuredAssignmentId
                         : true
                     )
-                    .map(assignment => (
+                    .map((assignment) => (
                       <AssignmentTab
                         key={assignment.id}
                         assignment={assignment}
@@ -136,6 +140,7 @@ class ClassAssignments extends Component {
                         editAssignment={this.editAssignment}
                         openAssignment={this.openAssignment}
                         featuredAssignmentId={this.props.featuredAssignmentId}
+                        user={this.props.user}
                       />
                     ))}
                 </>

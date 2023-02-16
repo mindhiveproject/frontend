@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const CLASS_ASSIGNMENTS = gql`
   query CLASS_ASSIGNMENTS($id: ID!) {
@@ -13,6 +13,21 @@ export const CLASS_ASSIGNMENTS = gql`
       }
       createdAt
       updatedAt
+    }
+  }
+`;
+
+export const MY_ASSIGNMENTS = gql`
+  query MY_ASSIGNMENTS($id: ID!) {
+    assignments(where: { author: { id: $id } }) {
+      id
+      title
+      content
+      createdAt
+      updatedAt
+      author {
+        username
+      }
     }
   }
 `;

@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import Classes from './classes';
-import ClassPage from './classpage';
-import AddClass from './addclass';
+import React, { Component } from "react";
+import Classes from "./classes";
+import ClassPage from "./classpage";
+import AddClass from "./addclass";
 
-import AuthorizedPage from '../../Page/userpage';
-import EmptyPage from '../../Page/empty';
+import AuthorizedPage from "../../Page/userpage";
+import EmptyPage from "../../Page/empty";
 
-import StudyBuilderWrapper from '../../Development/Study/builderWrapper';
-import AssignmentPage from './Assignment/assignmentPage';
+import StudyBuilderWrapper from "../../Development/Study/builderWrapper";
+import AssignmentPage from "./Assignment/assignmentPage";
 
 class DashboardClasses extends Component {
   state = {
-    page: this.props.page || 'classes', // classes: all classes, classpage: page of the class, addclass: page to add a new class
+    page: this.props.page || "classes", // classes: all classes, classpage: page of the class, addclass: page to add a new class
     classId: null,
     assignmentId: this.props.assignmentId || null,
     tab: null,
@@ -28,13 +28,13 @@ class DashboardClasses extends Component {
 
   addClass = () => {
     this.setState({
-      page: 'addclass',
+      page: "addclass",
     });
   };
 
-  openClass = classId => {
+  openClass = (classId) => {
     this.setState({
-      page: 'classpage',
+      page: "classpage",
       classId,
       assignmentId: null,
     });
@@ -42,7 +42,7 @@ class DashboardClasses extends Component {
 
   openClassTab = (classId, tab) => {
     this.setState({
-      page: 'classpage',
+      page: "classpage",
       classId,
       assignmentId: null,
       tab,
@@ -52,15 +52,15 @@ class DashboardClasses extends Component {
 
   goBack = () => {
     this.setState({
-      page: 'classes',
+      page: "classes",
       classId: null,
       assignmentId: null,
     });
   };
 
-  openStudyBuilder = studyId => {
+  openStudyBuilder = (studyId) => {
     this.setState({
-      page: 'studyBuilder',
+      page: "studyBuilder",
       studyId,
     });
   };
@@ -69,11 +69,11 @@ class DashboardClasses extends Component {
     const page = this.state.assignmentId ? this.props.page : this.state.page;
 
     const userClassesIds = [
-      ...this.props.user?.teacherIn.map(c => c?.id),
-      ...this.props.user?.mentorIn.map(c => c?.id),
+      ...this.props.user?.teacherIn.map((c) => c?.id),
+      ...this.props.user?.mentorIn.map((c) => c?.id),
     ];
 
-    if (page === 'classes') {
+    if (page === "classes") {
       return (
         <AuthorizedPage>
           <Classes addClass={this.addClass} openClass={this.openClass} />
@@ -81,7 +81,7 @@ class DashboardClasses extends Component {
       );
     }
 
-    if (page === 'classpage') {
+    if (page === "classpage") {
       return (
         <AuthorizedPage>
           <ClassPage
@@ -89,16 +89,17 @@ class DashboardClasses extends Component {
             tab={this.state.tab}
             goBack={this.goBack}
             openStudyBuilder={this.openStudyBuilder}
+            user={this.props.user}
           />
         </AuthorizedPage>
       );
     }
 
-    if (page === 'addclass') {
+    if (page === "addclass") {
       return <AddClass goBack={this.goBack} />;
     }
 
-    if (page === 'assignment') {
+    if (page === "assignment") {
       return (
         <AuthorizedPage>
           <AssignmentPage
@@ -112,11 +113,11 @@ class DashboardClasses extends Component {
       );
     }
 
-    if (page === 'studyBuilder') {
+    if (page === "studyBuilder") {
       return (
         <EmptyPage>
           <StudyBuilderWrapper
-            onLeave={() => this.openClassTab(this.state.classId, 'studies')}
+            onLeave={() => this.openClassTab(this.state.classId, "studies")}
             studyId={this.state.studyId}
             user={this.props.user}
             needToClone={false}

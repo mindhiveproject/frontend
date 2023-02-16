@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
 
-import { CLASS_ASSIGNMENTS } from '../../../Queries/Assignment';
-import { DELETE_ASSIGNMENT_MUTATION } from '../../../Mutations/Assignment';
+import { MY_ASSIGNMENTS, CLASS_ASSIGNMENTS } from "../../../Queries/Assignment";
+import { DELETE_ASSIGNMENT_MUTATION } from "../../../Mutations/Assignment";
 
 class DeleteAssignment extends Component {
   render() {
@@ -15,14 +15,18 @@ class DeleteAssignment extends Component {
             query: CLASS_ASSIGNMENTS,
             variables: { id: this.props.classId },
           },
+          {
+            query: MY_ASSIGNMENTS,
+            variables: { id: this.props.user.id },
+          },
         ]}
       >
         {(deleteAssignment, { error }) => (
           <div
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
             onClick={() => {
-              if (confirm('Are you sure you want to delete this assignment?')) {
-                deleteAssignment().catch(err => {
+              if (confirm("Are you sure you want to delete this assignment?")) {
+                deleteAssignment().catch((err) => {
                   alert(err.message);
                 });
               }

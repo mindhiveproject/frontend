@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import moment from 'moment';
-import { Icon, Popup } from 'semantic-ui-react';
+import React, { Component } from "react";
+import styled from "styled-components";
+import moment from "moment";
+import { Icon, Popup } from "semantic-ui-react";
 
-import { Mutation } from '@apollo/client/react/components';
+import { Mutation } from "@apollo/client/react/components";
 
-import ReactHtmlParser from 'react-html-parser';
-import DeleteAssignment from './deleteAssignment';
+import DeleteAssignment from "./deleteAssignment";
 
-import { UPDATE_ASSIGNMENT } from '../../../Mutations/Assignment';
+import { UPDATE_ASSIGNMENT } from "../../../Mutations/Assignment";
 import {
+  MY_ASSIGNMENTS,
   CLASS_ASSIGNMENTS,
   GET_ONE_ASSIGNMENT,
-} from '../../../Queries/Assignment';
+} from "../../../Queries/Assignment";
 
 const StyledPost = styled.div`
   display: grid;
@@ -46,7 +46,7 @@ const StyledPost = styled.div`
       border-radius: 4px;
       color: white;
       cursor: pointer;
-      font-family: 'Lato';
+      font-family: "Lato";
       max-width: 300px;
     }
     .closeBtn {
@@ -94,13 +94,13 @@ class AssignmentTab extends Component {
 
   copyLink = () => {
     const copyLink = `https://mindhive.science/dashboard/myclasses/assignments/${this.props.assignment.id}`;
-    const temp = document.createElement('input');
+    const temp = document.createElement("input");
     document.body.append(temp);
     temp.value = copyLink;
     temp.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     temp.remove();
-    alert('The link is copied');
+    alert("The link is copied");
   };
 
   render() {
@@ -125,7 +125,7 @@ class AssignmentTab extends Component {
                   />
                 )}
               </div>
-              <em>{moment(assignment.createdAt).format('MMM D, YYYY')}</em>
+              <em>{moment(assignment.createdAt).format("MMM D, YYYY")}</em>
             </div>
 
             <div className="title">
@@ -137,7 +137,11 @@ class AssignmentTab extends Component {
                 <div></div>
               )}
 
-              <DeleteAssignment assignmentId={assignment?.id} classId={classId}>
+              <DeleteAssignment
+                assignmentId={assignment?.id}
+                classId={classId}
+                user={this.props.user}
+              >
                 <button className="secondary">Delete</button>
               </DeleteAssignment>
             </div>
@@ -147,7 +151,7 @@ class AssignmentTab extends Component {
             {assignment.public ? (
               <a onClick={() => this.props.openAssignment(assignment?.id)}>
                 <p>
-                  {assignment?.homework?.filter(h => h?.public)?.length || 0}{' '}
+                  {assignment?.homework?.filter((h) => h?.public)?.length || 0}{" "}
                   submitted
                 </p>
               </a>
@@ -169,6 +173,10 @@ class AssignmentTab extends Component {
                       variables: { id: this.props.classId },
                     },
                     {
+                      query: MY_ASSIGNMENTS,
+                      variables: { id: this.props.user.id },
+                    },
+                    {
                       query: GET_ONE_ASSIGNMENT,
                       variables: { id: this.props.assignment.id },
                     },
@@ -179,10 +187,10 @@ class AssignmentTab extends Component {
                       onClick={() => {
                         if (
                           confirm(
-                            'Are you sure you want to submit this assignment? The assignment can no longer be edited after it has been submitted.'
+                            "Are you sure you want to submit this assignment? The assignment can no longer be edited after it has been submitted."
                           )
                         ) {
-                          submitAssignment().catch(err => {
+                          submitAssignment().catch((err) => {
                             alert(err.message);
                           });
                         }

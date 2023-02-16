@@ -1,11 +1,11 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const CREATE_NEW_ASSIGNMENT = gql`
   mutation CREATE_NEW_ASSIGNMENT(
     $title: String
     $content: String
     $settings: Json
-    $classId: ID
+    $classId: [ID]
     $public: Boolean
   ) {
     createAssignment(
@@ -25,12 +25,14 @@ export const UPDATE_ASSIGNMENT = gql`
     $id: ID!
     $title: String
     $content: String
+    $classId: [ID]
     $public: Boolean
   ) {
     updateAssignment(
       id: $id
       title: $title
       content: $content
+      classId: $classId
       public: $public
     ) {
       id

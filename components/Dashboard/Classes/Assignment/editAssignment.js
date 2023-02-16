@@ -1,14 +1,15 @@
-import React, { Component, useState, useRef } from 'react';
-import styled from 'styled-components';
-import { Mutation, Query } from '@apollo/client/react/components';
+import React, { Component, useState, useRef } from "react";
+import styled from "styled-components";
+import { Mutation, Query } from "@apollo/client/react/components";
 
-import Note from '../../Jodit/note';
+import Note from "../../Jodit/note";
 
 import {
   CLASS_ASSIGNMENTS,
   GET_ONE_ASSIGNMENT,
-} from '../../../Queries/Assignment';
-import { UPDATE_ASSIGNMENT } from '../../../Mutations/Assignment';
+} from "../../../Queries/Assignment";
+import { UPDATE_ASSIGNMENT } from "../../../Mutations/Assignment";
+import ClassSelector from "./ClassSelector";
 
 const StyledSelectionScreen = styled.div`
   display: grid;
@@ -35,18 +36,18 @@ const StyledSelectionScreen = styled.div`
 class EditAssignment extends Component {
   state = {
     id: this.props.assignmentId,
-    classId: this.props.classId,
+    classId: undefined,
   };
 
-  handleTitleChange = e => {
+  handleTitleChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       [name]: val,
     });
   };
 
-  handleContentChange = content => {
+  handleContentChange = (content) => {
     if (content) {
       this.setState({
         content,
@@ -54,7 +55,18 @@ class EditAssignment extends Component {
     }
   };
 
+  handleClassChange = ({ classId }) => {
+    this.setState({
+      classId,
+    });
+  };
+
   render() {
+    const classQueries = this.props.user.teacherIn.map((myclass) => ({
+      query: CLASS_ASSIGNMENTS,
+      variables: { id: myclass?.id },
+    }));
+
     return (
       <>
         <Query
@@ -76,24 +88,27 @@ class EditAssignment extends Component {
                     <div onClick={this.props.goBack}>&times;</div>
                   </div>
                 </div>
+                <ClassSelector
+                  classId={
+                    this.state.classId || assignment.classes.map((c) => c?.id)
+                  }
+                  handleClassChange={this.handleClassChange}
+                />
                 <Mutation
                   mutation={UPDATE_ASSIGNMENT}
                   variables={this.state}
                   refetchQueries={[
                     {
-                      query: CLASS_ASSIGNMENTS,
-                      variables: { id: this.props.classId },
-                    },
-                    {
                       query: GET_ONE_ASSIGNMENT,
                       variables: { id: this.props.assignmentId },
                     },
+                    ...classQueries,
                   ]}
                 >
                   {(updatePost, { loading, error }) => (
                     <>
                       <Note
-                        onSubmit={async e => {
+                        onSubmit={async (e) => {
                           e.preventDefault();
                           const res = await updatePost();
                           this.props.goBack();

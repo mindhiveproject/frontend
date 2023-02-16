@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Query } from "@apollo/client/react/components";
-import gql from "graphql-tag";
 
 import styled from "styled-components";
 import ClassRow from "./ClassList/index";
 import { StyledDasboard, StyledClassesDasboard } from "../styles";
+
+import { MY_CLASSES_QUERY } from "../../Queries/Class";
 
 const StyledClassHeader = styled.div`
   display: grid;
@@ -13,25 +14,6 @@ const StyledClassHeader = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   cursor: pointer;
   font-weight: bold;
-`;
-
-// write a query here, later refactor it in a separate file if it is used elsewhere
-const MY_CLASSES_QUERY = gql`
-  query MY_CLASSES_QUERY {
-    myClasses {
-      id
-      title
-      description
-      creator {
-        id
-        username
-      }
-      createdAt
-      students {
-        id
-      }
-    }
-  }
 `;
 
 class Classes extends Component {

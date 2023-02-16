@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Query } from "@apollo/client/react/components";
 
-import Head from 'next/head';
-import { Menu } from 'semantic-ui-react';
-import Error from '../../ErrorMessage/index';
+import Head from "next/head";
+import { Menu } from "semantic-ui-react";
+import Error from "../../ErrorMessage/index";
 
-import ClassHeader from './ClassPage/classHeader';
-import ClassStudents from './ClassPage/students';
-import ClassMentors from './ClassPage/mentors';
-import ClassStudies from './ClassPage/studies';
-import ClassAssignments from './Assignment/wrapper';
-import ClassSettings from './ClassPage/settings';
+import ClassHeader from "./ClassPage/classHeader";
+import ClassStudents from "./ClassPage/students";
+import ClassMentors from "./ClassPage/mentors";
+import ClassStudies from "./ClassPage/studies";
+import ClassAssignments from "./Assignment/wrapper";
+import ClassSettings from "./ClassPage/settings";
 
-import FetchStudentPage from './ClassPage/StudentPage/index';
+import FetchStudentPage from "./ClassPage/StudentPage/index";
 
-import { StyledDasboard, StyledDevelopDasboard } from '../styles';
+import { StyledDasboard, StyledDevelopDasboard } from "../styles";
 
 const REVIEW_CLASS_QUERY = gql`
   query REVIEW_CLASS_QUERY($id: ID!) {
@@ -51,23 +51,23 @@ const REVIEW_CLASS_QUERY = gql`
 
 class ClassPage extends Component {
   state = {
-    classPage: this.props.classPage || 'list',
+    classPage: this.props.classPage || "list",
     studentId: null,
-    tab: this.props.tab || 'students',
+    tab: this.props.tab || "students",
   };
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
 
-  openStudentPage = studentId => {
+  openStudentPage = (studentId) => {
     this.setState({
-      classPage: 'student',
+      classPage: "student",
       studentId,
     });
   };
 
   goBackToList = () => {
     this.setState({
-      classPage: 'list',
+      classPage: "list",
       studentId: null,
     });
   };
@@ -76,21 +76,21 @@ class ClassPage extends Component {
     const { classId } = this.props;
     const { classPage, tab } = this.state;
 
-    if (classPage === 'list') {
+    if (classPage === "list") {
       return (
         <StyledDasboard>
           <StyledDevelopDasboard>
             <>
               <div className="goBackBtn">
                 <span
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                   onClick={
                     // this.props.featuredAssignmentId
                     //   ? this.props.goBackTo('assignments') :
                     this.props.goBack
                   }
                 >
-                  {this.props.backButtonText || '← Back'}
+                  {this.props.backButtonText || "← Back"}
                 </span>
               </div>
             </>
@@ -116,12 +116,12 @@ class ClassPage extends Component {
                           <Menu text stackable className="discoverMenu">
                             <Menu.Item
                               name="students"
-                              active={tab === 'students'}
+                              active={tab === "students"}
                               onClick={this.handleItemClick}
                               className={
-                                tab === 'students'
-                                  ? 'discoverMenuTitle selectedMenuTitle'
-                                  : 'discoverMenuTitle'
+                                tab === "students"
+                                  ? "discoverMenuTitle selectedMenuTitle"
+                                  : "discoverMenuTitle"
                               }
                             >
                               <p>Students</p>
@@ -129,12 +129,12 @@ class ClassPage extends Component {
 
                             <Menu.Item
                               name="mentors"
-                              active={tab === 'mentors'}
+                              active={tab === "mentors"}
                               onClick={this.handleItemClick}
                               className={
-                                tab === 'mentors'
-                                  ? 'discoverMenuTitle selectedMenuTitle'
-                                  : 'discoverMenuTitle'
+                                tab === "mentors"
+                                  ? "discoverMenuTitle selectedMenuTitle"
+                                  : "discoverMenuTitle"
                               }
                             >
                               <p>Mentors</p>
@@ -142,12 +142,12 @@ class ClassPage extends Component {
 
                             <Menu.Item
                               name="studies"
-                              active={tab === 'studies'}
+                              active={tab === "studies"}
                               onClick={this.handleItemClick}
                               className={
-                                tab === 'studies'
-                                  ? 'discoverMenuTitle selectedMenuTitle'
-                                  : 'discoverMenuTitle'
+                                tab === "studies"
+                                  ? "discoverMenuTitle selectedMenuTitle"
+                                  : "discoverMenuTitle"
                               }
                             >
                               <p>Studies</p>
@@ -155,12 +155,12 @@ class ClassPage extends Component {
 
                             <Menu.Item
                               name="assignments"
-                              active={tab === 'assignments'}
+                              active={tab === "assignments"}
                               onClick={this.handleItemClick}
                               className={
-                                tab === 'assignments'
-                                  ? 'discoverMenuTitle selectedMenuTitle'
-                                  : 'discoverMenuTitle'
+                                tab === "assignments"
+                                  ? "discoverMenuTitle selectedMenuTitle"
+                                  : "discoverMenuTitle"
                               }
                             >
                               <p>Assignments</p>
@@ -168,12 +168,12 @@ class ClassPage extends Component {
 
                             <Menu.Item
                               name="settings"
-                              active={tab === 'settings'}
+                              active={tab === "settings"}
                               onClick={this.handleItemClick}
                               className={
-                                tab === 'settings'
-                                  ? 'discoverMenuTitle selectedMenuTitle'
-                                  : 'discoverMenuTitle'
+                                tab === "settings"
+                                  ? "discoverMenuTitle selectedMenuTitle"
+                                  : "discoverMenuTitle"
                               }
                             >
                               <p>Settings</p>
@@ -182,35 +182,36 @@ class ClassPage extends Component {
                         </div>
                       )}
 
-                      {this.state.tab === 'students' && (
+                      {this.state.tab === "students" && (
                         <ClassStudents
                           schoolclass={schoolclass}
                           openStudentPage={this.openStudentPage}
                         />
                       )}
 
-                      {this.state.tab === 'mentors' && (
+                      {this.state.tab === "mentors" && (
                         <ClassMentors
                           schoolclass={schoolclass}
                           openStudentPage={this.openStudentPage}
                         />
                       )}
 
-                      {this.state.tab === 'studies' && (
+                      {this.state.tab === "studies" && (
                         <ClassStudies
                           schoolclass={schoolclass}
                           openStudyBuilder={this.props.openStudyBuilder}
                         />
                       )}
 
-                      {this.state.tab === 'assignments' && (
+                      {this.state.tab === "assignments" && (
                         <ClassAssignments
                           schoolclass={schoolclass}
                           featuredAssignmentId={this.props.featuredAssignmentId}
+                          user={this.props.user}
                         />
                       )}
 
-                      {this.state.tab === 'settings' && (
+                      {this.state.tab === "settings" && (
                         <ClassSettings
                           schoolclass={schoolclass}
                           onClose={this.props.goBack}
@@ -226,7 +227,7 @@ class ClassPage extends Component {
       );
     }
 
-    if (classPage === 'student') {
+    if (classPage === "student") {
       return (
         <FetchStudentPage
           studentId={this.state.studentId}
