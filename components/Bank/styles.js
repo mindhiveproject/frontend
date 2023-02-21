@@ -1,8 +1,29 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledBank = styled.div`
   display: grid;
   padding-top: 10px;
+  .header {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr auto;
+    margin: 20px 0px;
+  }
+  button {
+    background: #ffffff;
+    color: #007c70;
+    cursor: pointer;
+    border-radius: 4px;
+    align-items: center;
+    padding: 14px 24px;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
 `;
 
 export const StyledDropdown = styled.div`
@@ -167,15 +188,16 @@ export const StyledStudyCard = styled.div`
 `;
 
 export const StyledTaskCard = styled.div`
+  height: 100%;
   background: #ffffff;
   border-radius: 4px;
   border-top: 14px solid;
-  border-top-color: ${props =>
-    props.taskType === 'TASK'
-      ? '#64c9e2'
-      : props.taskType === 'SURVEY'
-      ? '#28619e'
-      : '#ffc7c3'};
+  border-top-color: ${(props) =>
+    props.taskType === "TASK"
+      ? "#64c9e2"
+      : props.taskType === "SURVEY"
+      ? "#28619e"
+      : "#ffc7c3"};
 
   box-shadow: 0px 2px 4px 0px #00000026;
   transition: box-shadow 300ms ease-out;
