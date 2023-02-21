@@ -107,8 +107,9 @@ function StudyCard({
               <img src={study.image} alt={study.title} />
               {(developingMode || overviewMode) && (
                 <ArchiveDelete
-                  className="archiveButton"
+                  user={user}
                   study={study}
+                  className="archiveButton"
                   isHidden={isHidden}
                   openOldStudyBuilder={openOldStudyBuilder}
                   overviewMode={overviewMode}
@@ -121,8 +122,9 @@ function StudyCard({
               <div className="noImage"></div>
               {(developingMode || overviewMode) && (
                 <ArchiveDelete
-                  className="archiveButton"
+                  user={user}
                   study={study}
+                  className="archiveButton"
                   isHidden={isHidden}
                   openOldStudyBuilder={openOldStudyBuilder}
                   overviewMode={overviewMode}

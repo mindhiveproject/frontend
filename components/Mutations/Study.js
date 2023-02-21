@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const CREATE_NEW_STUDY = gql`
   mutation CREATE_NEW_STUDY(
@@ -185,6 +185,22 @@ export const UPDATE_STUDY = gql`
         id
       }
       diagram
+    }
+  }
+`;
+
+export const DELETE_STUDY_MUTATION = gql`
+  mutation DELETE_STUDY_MUTATION($id: ID!) {
+    preDeleteStudy(id: $id) {
+      id
+    }
+  }
+`;
+
+export const CHANGE_STUDY_AUTHOR = gql`
+  mutation CHANGE_STUDY_AUTHOR($id: ID!, $username: String) {
+    changeStudyAuthor(id: $id, username: $username) {
+      id
     }
   }
 `;

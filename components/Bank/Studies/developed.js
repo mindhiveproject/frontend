@@ -16,6 +16,7 @@ const MY_DEVELOPED_STUDIES_QUERY = gql`
       author {
         id
         permissions
+        username
       }
       collaborators {
         id

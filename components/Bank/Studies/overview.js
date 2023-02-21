@@ -52,6 +52,7 @@ const OVERVIEW_STUDIES_QUERY = gql`
       author {
         id
         permissions
+        username
       }
       collaborators {
         id

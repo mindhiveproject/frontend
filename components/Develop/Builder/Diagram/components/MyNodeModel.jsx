@@ -1,4 +1,6 @@
 import { NodeModel, DefaultPortModel } from '@projectstorm/react-diagrams';
+import { InCustomPort } from './ports/InPortModal';
+import { OutCustomPort } from './ports/OutPortModal';
 
 export class MyNodeModel extends NodeModel {
   constructor(options) {
@@ -13,19 +15,35 @@ export class MyNodeModel extends NodeModel {
 
     // setup an in and out port
     this.addPort(
-      new DefaultPortModel({
+      new InCustomPort({
         in: true,
         name: 'in',
         alignment: 'top',
       })
     );
     this.addPort(
-      new DefaultPortModel({
+      new OutCustomPort({
         in: false,
         name: 'out',
         alignment: 'down',
       })
     );
+
+    // setup an in and out port
+    // this.addPort(
+    //   new DefaultPortModel({
+    //     in: true,
+    //     name: 'in',
+    //     alignment: 'top',
+    //   })
+    // );
+    // this.addPort(
+    //   new DefaultPortModel({
+    //     in: false,
+    //     name: 'out',
+    //     alignment: 'down',
+    //   })
+    // );
   }
 
   updateOptions(options) {

@@ -17,6 +17,8 @@ import { NodesFactory } from "./Builder/Diagram/components/NodesFactory";
 import { CommentsFactory } from "./Builder/Diagram/components/CommentsFactory";
 import { AnchorFactory } from "./Builder/Diagram/components/AnchorFactory";
 import { MyAnchorModel } from "./Builder/Diagram/components/MyAnchorModel";
+import { InPortFactory } from "./Builder/Diagram/components/ports/InPortFactory";
+import { OutPortFactory } from "./Builder/Diagram/components/ports/OutPortFactory";
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -50,6 +52,9 @@ export default class Controller extends Component {
       engine.getNodeFactories().registerFactory(new CommentsFactory());
       // Create custom anchor
       engine.getNodeFactories().registerFactory(new AnchorFactory());
+      // Register ports
+      engine.getPortFactories().registerFactory(new InPortFactory());
+      engine.getPortFactories().registerFactory(new OutPortFactory());
       // disable creating new nodes when clicking on the link
       engine.maxNumberPointsPerLink = 0;
       // disable loose links

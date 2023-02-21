@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Modal } from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Modal } from "semantic-ui-react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import LinkClass from './linkClass';
-import FindCollaborator from '../../Development/Study/StudyBuilder/Edit/findCollaborator';
-import SaveStudy from '../Navigation/saveStudy';
+import LinkClass from "./linkClass";
+import FindCollaborator from "../../Development/Study/StudyBuilder/Edit/findCollaborator";
+import SaveStudy from "../Navigation/saveStudy";
 
 const StyledModal = styled.div`
   display: grid;
@@ -83,27 +83,30 @@ class SharingModal extends Component {
                 handleSetState={this.props.updateStudyState}
                 user={user}
               />
-
-              {user?.permissions.includes('ADMIN') &&
-                study.collaborators.length > 0 && (
-                  <div className="collaboratorUsernamesForAdmin">
-                    <span>
-                      <em>This information is visible only for ADMIN</em>
-                    </span>
-                    <h2>Collaborators</h2>
-                    {study.collaborators.map((collaborator, num) => (
-                      <span key={num} className="collaboratorUsername">
-                        {collaborator}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
               <h2>Add collaborators</h2>
               <FindCollaborator
                 study={study}
                 handleSetState={this.props.updateStudyState}
               />
+
+              {user?.permissions.includes("ADMIN") && (
+                <div className="collaboratorUsernamesForAdmin">
+                  <span>
+                    <em>This information is visible only for ADMIN</em>
+                  </span>
+                  <h2>Study Author</h2>
+                  {study?.author?.username || "No Author"}
+                  <h2>Collaborators</h2>
+                  {study?.collaborators?.length === 0 && (
+                    <span>No Collaborators</span>
+                  )}
+                  {study.collaborators.map((collaborator, num) => (
+                    <span key={num} className="collaboratorUsername">
+                      {collaborator}
+                    </span>
+                  ))}
+                </div>
+              )}
             </StyledModal>
           </Modal.Description>
         </Modal.Content>

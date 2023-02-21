@@ -1,50 +1,12 @@
 import React, { Component, useState } from "react";
 import { Dropdown, Icon, Modal, Button } from "semantic-ui-react";
 
-import styled from "styled-components";
-
 import DeleteStudy from "./delete";
 import ToggleUserStudyHide from "./toggleUserStudyHide";
 
-const ArchiveDeleteDropdown = styled.div`
-  .archiveDropdown {
-    width: 270px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7);
-    span {
-      font-size: 16px;
-      font-weight: bold;
-    }
-    p {
-      color: #666666;
-      line-height: 150%;
-      font-size: 16px;
-    }
-    .heading {
-      line-height: 200%;
-    }
-    .red {
-      color: #d53533;
-    }
-  }
-`;
+import AuthorshipModal from "./manageAuthor";
 
-const StyledModal = styled.div`
-  display: grid;
-  margin: 43px 51px;
-  h3 {
-    font-family: Roboto;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 30px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #1a1a1a;
-  }
-  .red {
-    color: #d53533;
-  }
-`;
+import { StyledModal, ArchiveDeleteDropdown } from "../styles";
 
 function ArchiveModal({ study, isHidden }) {
   const [open, setOpen] = useState(false);
@@ -171,10 +133,12 @@ function DeleteModal({ study }) {
                 <strong>This action cannot be undone.</strong>
               </span>
             </p>
-            <p>
-              <strong>Type "DELETE" to confirm</strong>
-            </p>
-            <input type="text" onChange={handleChange} />
+            <div>
+              <p>
+                <strong>Type "DELETE" to confirm</strong>
+              </p>
+              <input type="text" onChange={handleChange} />
+            </div>
           </StyledModal>
         </Modal.Description>
       </Modal.Content>
@@ -188,6 +152,8 @@ function DeleteModal({ study }) {
 
 class ArchiveDelete extends Component {
   render() {
+    const isAuthor = this.props.user?.id === this.props.study?.author?.id;
+
     return (
       <ArchiveDeleteDropdown className={this.props.className}>
         <Dropdown
@@ -209,6 +175,12 @@ class ArchiveDelete extends Component {
                     </div>
                   </>
                 }
+              />
+            )}
+            {(isAuthor || this.props.overviewMode) && (
+              <AuthorshipModal
+                user={this.props.user}
+                study={this.props.study}
               />
             )}
             {!this.props.overviewMode && (

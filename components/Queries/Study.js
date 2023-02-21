@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 // query used to get study information during its development
 export const STUDY_DEVELOPMENT_QUERY = gql`
@@ -27,6 +27,7 @@ export const STUDY_DEVELOPMENT_QUERY = gql`
       info
       author {
         id
+        username
       }
       collaborators {
         id

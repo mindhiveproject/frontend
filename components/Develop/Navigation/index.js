@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
-import { Mutation } from '@apollo/client/react/components';
-import { StyledNavigation } from './styles';
-import SaveStudy from './saveStudy';
+import React, { Component } from "react";
+import { Menu } from "semantic-ui-react";
+import { Mutation } from "@apollo/client/react/components";
+import { StyledNavigation } from "./styles";
+import SaveStudy from "./saveStudy";
 
-import { TOGGLE_OPENING_MUTATION } from '../../Opening/index';
+import { TOGGLE_OPENING_MUTATION } from "../../Opening/index";
 
-import Collaborators from './collaborators';
-import ArchiveDelete from '../../Bank/Studies/archiveDelete';
-import SharingModal from '../Sharing/modal';
+import Collaborators from "./collaborators";
+import ArchiveDelete from "../../Bank/Studies/archiveDelete";
+import SharingModal from "../Sharing/modal";
 
 export default class Navigation extends Component {
   state = {
     modal: null,
   };
 
-  openModal = modal => {
+  openModal = (modal) => {
     this.setState({
       modal,
     });
@@ -29,6 +29,7 @@ export default class Navigation extends Component {
 
   render() {
     const { study, page, user } = this.props;
+
     const isHidden =
       user?.studiesInfo &&
       user?.studiesInfo[this.props.study?.id]?.hideInDevelop;
@@ -47,12 +48,12 @@ export default class Navigation extends Component {
 
           <div className="rightPanel">
             <Collaborators
-              openSharingModal={() => this.openModal('sharing')}
+              openSharingModal={() => this.openModal("sharing")}
               study={study}
             />
 
             <Mutation mutation={TOGGLE_OPENING_MUTATION}>
-              {toggleOpening => (
+              {(toggleOpening) => (
                 <div className="chatButton" onClick={toggleOpening}>
                   <img src="/content/icons/chat.svg" />
                 </div>
@@ -79,12 +80,12 @@ export default class Navigation extends Component {
           <Menu text stackable className="discoverMenu">
             <Menu.Item
               name="proposal"
-              active={page === 'proposal'}
+              active={page === "proposal"}
               onClick={this.props.handlePageChange}
               className={
-                page === 'proposal'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
+                page === "proposal"
+                  ? "discoverMenuTitle selectedMenuTitle"
+                  : "discoverMenuTitle"
               }
             >
               <img src="/content/icons/Loading.svg" />
@@ -93,12 +94,12 @@ export default class Navigation extends Component {
 
             <Menu.Item
               name="participant"
-              active={page === 'participant'}
+              active={page === "participant"}
               onClick={this.props.handlePageChange}
               className={
-                page === 'participant'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
+                page === "participant"
+                  ? "discoverMenuTitle selectedMenuTitle"
+                  : "discoverMenuTitle"
               }
             >
               <img src="/content/icons/Finder.svg" />
@@ -107,12 +108,12 @@ export default class Navigation extends Component {
 
             <Menu.Item
               name="builder"
-              active={page === 'builder'}
+              active={page === "builder"}
               onClick={this.props.handlePageChange}
               className={
-                page === 'builder'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
+                page === "builder"
+                  ? "discoverMenuTitle selectedMenuTitle"
+                  : "discoverMenuTitle"
               }
             >
               <img src="/content/icons/Edit.svg" />
@@ -121,12 +122,12 @@ export default class Navigation extends Component {
 
             <Menu.Item
               name="review"
-              active={page === 'review'}
+              active={page === "review"}
               onClick={this.props.handlePageChange}
               className={
-                page === 'review'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
+                page === "review"
+                  ? "discoverMenuTitle selectedMenuTitle"
+                  : "discoverMenuTitle"
               }
             >
               <img src="/content/icons/Eye.svg" />
@@ -135,12 +136,12 @@ export default class Navigation extends Component {
 
             <Menu.Item
               name="collect"
-              active={page === 'collect'}
+              active={page === "collect"}
               onClick={this.props.handlePageChange}
               className={
-                page === 'collect'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
+                page === "collect"
+                  ? "discoverMenuTitle selectedMenuTitle"
+                  : "discoverMenuTitle"
               }
             >
               <img src="/content/icons/Briefcase.svg" />
@@ -149,12 +150,12 @@ export default class Navigation extends Component {
 
             <Menu.Item
               name="visualize"
-              active={page === 'visualize'}
+              active={page === "visualize"}
               onClick={this.props.handlePageChange}
               className={
-                page === 'visualize'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
+                page === "visualize"
+                  ? "discoverMenuTitle selectedMenuTitle"
+                  : "discoverMenuTitle"
               }
             >
               <img src="/content/icons/stats2.svg" />
@@ -163,12 +164,12 @@ export default class Navigation extends Component {
 
             <Menu.Item
               name="analyze"
-              active={page === 'analyze'}
+              active={page === "analyze"}
               onClick={this.props.handlePageChange}
               className={
-                page === 'analyze'
-                  ? 'discoverMenuTitle selectedMenuTitle'
-                  : 'discoverMenuTitle'
+                page === "analyze"
+                  ? "discoverMenuTitle selectedMenuTitle"
+                  : "discoverMenuTitle"
               }
             >
               <img src="/content/icons/code.svg" />
@@ -176,7 +177,7 @@ export default class Navigation extends Component {
             </Menu.Item>
           </Menu>
         </div>
-        {this.state.modal === 'sharing' && (
+        {this.state.modal === "sharing" && (
           <SharingModal {...this.props} onModalClose={this.onModalClose} />
         )}
       </StyledNavigation>

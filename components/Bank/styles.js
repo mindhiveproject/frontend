@@ -312,3 +312,45 @@ export const StyledZeroState = styled.div`
     text-align: center !important;
   }
 `;
+
+export const StyledModal = styled.div`
+  display: grid;
+  grid-gap: 20px;
+  margin: 43px 51px;
+  font-size: 20px;
+  h3 {
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1a1a1a;
+  }
+  .red {
+    color: #d53533;
+  }
+`;
+
+export const ArchiveDeleteDropdown = styled.div`
+  .archiveDropdown {
+    width: 270px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7);
+    span {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    p {
+      color: #666666;
+      line-height: 150%;
+      font-size: 16px;
+    }
+    .heading {
+      line-height: 200%;
+    }
+    .red {
+      color: #d53533;
+    }
+  }
+`;

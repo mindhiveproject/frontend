@@ -1,18 +1,10 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import { Button } from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
+import { Button } from "semantic-ui-react";
 
-import { MY_DEVELOPED_STUDIES_QUERY } from './developed';
-import { USER_DASHBOARD_QUERY } from '../../Queries/User';
-
-const DELETE_STUDY_MUTATION = gql`
-  mutation DELETE_STUDY_MUTATION($id: ID!) {
-    preDeleteStudy(id: $id) {
-      id
-    }
-  }
-`;
+import { MY_DEVELOPED_STUDIES_QUERY } from "./developed";
+import { USER_DASHBOARD_QUERY } from "../../Queries/User";
+import { DELETE_STUDY_MUTATION } from "../../Mutations/Study";
 
 class DeleteStudy extends Component {
   update = (cache, payload) => {
@@ -21,7 +13,7 @@ class DeleteStudy extends Component {
     const data = cache.readQuery({ query: MY_DEVELOPED_STUDIES_QUERY });
     // 2. Filter the deleted items out of the page
     const myStudies = [...data.myStudies].filter(
-      study => study.id !== payload.data.preDeleteStudy.id
+      (study) => study.id !== payload.data.preDeleteStudy.id
     );
     // 3. Put the items back
     cache.writeQuery({
@@ -44,15 +36,15 @@ class DeleteStudy extends Component {
           }
           return (
             <Button
-              style={{ background: '#D53533', color: '#FFFFFF' }}
+              style={{ background: "#D53533", color: "#FFFFFF" }}
               content="Delete"
               onClick={() => {
-                if (this.props.inputValue === 'DELETE') {
-                  deleteStudy().catch(err => {
+                if (this.props.inputValue === "DELETE") {
+                  deleteStudy().catch((err) => {
                     alert(err.message);
                   });
                 } else {
-                  return alert('Please type DELETE to delete your study');
+                  return alert("Please type DELETE to delete your study");
                 }
                 this.props.setOpen(false);
               }}

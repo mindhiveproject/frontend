@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import PropTypes from 'prop-types';
-import dynamic from 'next/dynamic';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import PropTypes from "prop-types";
+import dynamic from "next/dynamic";
 
-import slugify from 'slugify';
+import slugify from "slugify";
 // query and mutations
-import { STUDY_DEVELOPMENT_QUERY } from '../Queries/Study';
+import { STUDY_DEVELOPMENT_QUERY } from "../Queries/Study";
 
-const Controller = () => import('./Controller');
+const Controller = () => import("./Controller");
 const DynamicController = dynamic(Controller, {
   ssr: false,
 });
 
-const makeCloneName = title => {
+const makeCloneName = (title) => {
   const randomNumber = Math.floor(Math.random() * 10000);
   const newTitle = `Clone of ${title}-${randomNumber}`;
   const slug = slugify(newTitle, {
-    replacement: '-', // replace spaces with replacement character, defaults to `-`
+    replacement: "-", // replace spaces with replacement character, defaults to `-`
     remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
     lower: true, // convert to lower case, defaults to `false`
   });
@@ -41,7 +41,7 @@ export default class DevelopArea extends Component {
 
           const isAuthorOrCollaborator =
             user.id === data.study?.author?.id ||
-            data.study?.collaborators.map(c => c.id).includes(user.id);
+            data.study?.collaborators.map((c) => c.id).includes(user.id);
 
           let study;
           if (needToClone && !adminMode) {
@@ -59,13 +59,15 @@ export default class DevelopArea extends Component {
           } else if (isAuthorOrCollaborator || adminMode) {
             study = {
               ...data.study,
-              consentId: data.study.consent.map(consent => consent?.id),
-              collaborators: (data.study.collaborators &&
-                data.study.collaborators.map(c => c.username).length &&
-                data.study.collaborators.map(c => c.username)) || [''],
+              consentId: data.study.consent.map((consent) => consent?.id),
+              collaborators:
+                (data.study.collaborators &&
+                  data.study.collaborators.map((c) => c.username).length &&
+                  data.study.collaborators.map((c) => c.username)) ||
+                [],
               collaboratorProfiles: data.study.collaborators, // complete collaborator profiles
-              classes: data.study.classes.map(cl => cl?.id),
-              tags: data.study.tags.map(tag => tag?.id),
+              classes: data.study.classes.map((cl) => cl?.id),
+              tags: data.study.tags.map((tag) => tag?.id),
             };
           } else {
             study = {

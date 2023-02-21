@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const PUBLIC_PROFILE_QUERY = gql`
   query PUBLIC_PROFILE_QUERY($username: String!) {
@@ -61,6 +61,15 @@ export const PUBLIC_PROFILE_QUERY = gql`
       publicId
       publicReadableId
       studiesInfo
+    }
+  }
+`;
+
+export const ALL_PUBLIC_USERNAMES = gql`
+  query ALL_PUBLIC_USERNAMES($usernames: [String]) {
+    allPublicUsernames(usernames: $usernames) {
+      username
+      permissions
     }
   }
 `;
