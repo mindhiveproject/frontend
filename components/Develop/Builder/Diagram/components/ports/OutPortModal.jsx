@@ -10,7 +10,7 @@ export class OutCustomPort extends DefaultPortModel {
       ...options,
     });
     // one link is already included by default
-    this.maximumLinks = 2;
+    this.maximumLinks = 10;
     // console.log('this.getOptions', this.getOptions().in);
     // if (this.getOptions().in) this.setMaximumLinks(1);
   }
@@ -30,9 +30,9 @@ export class OutCustomPort extends DefaultPortModel {
   }
 
   canLinkToPort(port) {
-    console.log('out-port-modal', port);
-    console.log('this.isNewLinkAllowed()', this.isNewLinkAllowed());
-    console.log('port.isNewLinkAllowed()', port.isNewLinkAllowed());
+    // console.log('out-port-modal', port);
+    // console.log('this.isNewLinkAllowed()', this.isNewLinkAllowed());
+    // console.log('port.isNewLinkAllowed()', port.isNewLinkAllowed());
     // debugger;
     return (
       this.isNewLinkAllowed() && // do not allow more than one outgoing link from out-port

@@ -30,7 +30,7 @@ export class InCustomPort extends DefaultPortModel {
   }
 
   canLinkToPort(port) {
-    console.log('in-port-modal', port);
+    // console.log('in-port-modal', port);
     // it should be not allowed to create links from this port
     // do not allow outgoing connections from the in-port
     return false;

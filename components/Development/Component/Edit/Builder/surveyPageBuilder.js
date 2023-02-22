@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import uniqid from 'uniqid';
-import { StyledSurveyBuilderItemLine } from '../../styles';
+import React, { Component } from "react";
+import uniqid from "uniqid";
+import { StyledSurveyBuilderItemLine } from "../../styles";
 
 class SurveyPageBuilder extends Component {
   state = {
@@ -25,21 +25,21 @@ class SurveyPageBuilder extends Component {
     this.props.onChange({ page, timeout, hideContinueBtn });
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { id, value, className, name } = e.target;
     const { items } = this.state;
     let updatedItems;
-    if (className === 'options' || className === 'items') {
+    if (className === "options" || className === "items") {
       const updatedOptions = items
-        .filter(item => item.id == name)
-        .map(item => item[className]);
+        .filter((item) => item.id == name)
+        .map((item) => item[className]);
       const options = updatedOptions[0];
       options[id] = value;
-      updatedItems = items.map(item =>
+      updatedItems = items.map((item) =>
         item.id == name ? { ...item, [className]: options } : item
       );
     } else {
-      updatedItems = items.map(item =>
+      updatedItems = items.map((item) =>
         item.id == name ? { ...item, [className]: value } : item
       );
     }
@@ -53,7 +53,7 @@ class SurveyPageBuilder extends Component {
     });
   };
 
-  handleTimeoutChange = e => {
+  handleTimeoutChange = (e) => {
     const { value } = e.target;
     this.setState({
       timeout: value,
@@ -65,7 +65,7 @@ class SurveyPageBuilder extends Component {
     });
   };
 
-  handleHideContinueBtnChange = e => {
+  handleHideContinueBtnChange = (e) => {
     const value = e.target.checked;
     this.setState({
       hideContinueBtn: value,
@@ -81,12 +81,12 @@ class SurveyPageBuilder extends Component {
     e.preventDefault();
     const { items } = this.state;
     const updatedOptions = items
-      .filter(item => item.id === parseInt(id))
-      .map(item => item[className])
-      .map(opts => opts.concat(['']));
+      .filter((item) => item.id == id)
+      .map((item) => item[className])
+      .map((opts) => opts.concat([""]));
     const options = updatedOptions[0];
-    const updatedItems = items.map(item =>
-      item.id === parseInt(id) ? { ...item, [className]: options } : item
+    const updatedItems = items.map((item) =>
+      item.id == id ? { ...item, [className]: options } : item
     );
     this.setState({
       items: updatedItems,
@@ -102,13 +102,13 @@ class SurveyPageBuilder extends Component {
     e.preventDefault();
     const { items } = this.state;
     const updatedOptions = items
-      .filter(item => item.id === parseInt(id))
-      .map(item => item[className]);
+      .filter((item) => item.id == id)
+      .map((item) => item[className]);
     const options = updatedOptions[0].filter(
       (opts, number) => number !== parseInt(num)
     );
-    const updatedItems = items.map(item =>
-      item.id === parseInt(id) ? { ...item, [className]: options } : item
+    const updatedItems = items.map((item) =>
+      item.id == id ? { ...item, [className]: options } : item
     );
     this.setState({
       items: updatedItems,
@@ -120,31 +120,31 @@ class SurveyPageBuilder extends Component {
     });
   };
 
-  packTheObject = value => ({
+  packTheObject = (value) => ({
     target: {
       name: this.props.name,
-      type: 'survey',
+      type: "survey",
       value: JSON.stringify(value),
     },
   });
 
-  addItem = e => {
+  addItem = (e) => {
     e.preventDefault();
     const { items } = this.state;
     const updatedItems = [
       ...items,
       {
         id: uniqid.time(),
-        type: 'text',
-        header: '',
-        text: '',
-        question: '',
-        min_rating_label: '',
-        max_rating_label: '',
-        min_value: '',
-        max_value: '',
-        options: [''],
-        items: [''],
+        type: "text",
+        header: "",
+        text: "",
+        question: "",
+        min_rating_label: "",
+        max_rating_label: "",
+        min_value: "",
+        max_value: "",
+        options: [""],
+        items: [""],
       },
     ];
     this.setState({
@@ -311,7 +311,7 @@ class Item extends Component {
             <option value="block">Block</option>
           </select>
 
-          {type !== 'block' && (
+          {type !== "block" && (
             <>
               <div>Header</div>
               <input
@@ -324,7 +324,7 @@ class Item extends Component {
             </>
           )}
 
-          {type === 'text' && (
+          {type === "text" && (
             <>
               <div>Text</div>
               <textarea
@@ -337,7 +337,7 @@ class Item extends Component {
             </>
           )}
 
-          {(type === 'select' || type === 'checkbox' || type === 'likert') && (
+          {(type === "select" || type === "checkbox" || type === "likert") && (
             <>
               <div>Options</div>
               {options.map((option, num) => (
@@ -352,8 +352,8 @@ class Item extends Component {
                     className="options"
                   />
                   <button
-                    onClick={e =>
-                      this.props.deleteOption(e, id, num, 'options')
+                    onClick={(e) =>
+                      this.props.deleteOption(e, id, num, "options")
                     }
                   >
                     &times;
@@ -361,7 +361,7 @@ class Item extends Component {
                 </div>
               ))}
               <button
-                onClick={e => this.props.addNewOption(e, id, 'options')}
+                onClick={(e) => this.props.addNewOption(e, id, "options")}
                 className="addOptionButton"
               >
                 + option
@@ -369,7 +369,7 @@ class Item extends Component {
             </>
           )}
 
-          {type === 'likert' && (
+          {type === "likert" && (
             <>
               <div>Items for the Likert Scale</div>
               {items.map((item, num) => (
@@ -384,14 +384,16 @@ class Item extends Component {
                     className="items"
                   />
                   <button
-                    onClick={e => this.props.deleteOption(e, id, num, 'items')}
+                    onClick={(e) =>
+                      this.props.deleteOption(e, id, num, "items")
+                    }
                   >
                     &times;
                   </button>
                 </div>
               ))}
               <button
-                onClick={e => this.props.addNewOption(e, id, 'items')}
+                onClick={(e) => this.props.addNewOption(e, id, "items")}
                 className="addOptionButton"
               >
                 + item
@@ -399,7 +401,7 @@ class Item extends Component {
             </>
           )}
 
-          {type === 'vas' && (
+          {type === "vas" && (
             <>
               <div>Minimum value label</div>
               <input
@@ -439,7 +441,7 @@ class Item extends Component {
             </>
           )}
 
-          {type === 'block' && (
+          {type === "block" && (
             <>
               <div>Content</div>
               <textarea
@@ -454,15 +456,17 @@ class Item extends Component {
         </div>
         <div className="controlButtons">
           <div className="deleteDiv">
-            <button onClick={e => this.props.deleteItem(e, this.props.number)}>
+            <button
+              onClick={(e) => this.props.deleteItem(e, this.props.number)}
+            >
               &times;
             </button>
           </div>
           <div className="moveButtons">
-            <button onClick={e => this.props.moveUp(e, this.props.number)}>
+            <button onClick={(e) => this.props.moveUp(e, this.props.number)}>
               ↑
             </button>
-            <button onClick={e => this.props.moveDown(e, this.props.number)}>
+            <button onClick={(e) => this.props.moveDown(e, this.props.number)}>
               ↓
             </button>
           </div>
