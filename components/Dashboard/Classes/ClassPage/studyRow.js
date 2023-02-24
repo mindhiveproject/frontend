@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import moment from 'moment';
-import Link from 'next/link';
+import React, { Component } from "react";
+import styled from "styled-components";
+import moment from "moment";
 
 const StyledStudiesRow = styled.div`
   display: grid;
@@ -17,14 +16,14 @@ class StudyRow extends Component {
     const { study } = this.props;
     const authors = [
       study?.author?.username,
-      ...study.collaborators.map(c => c.username),
-    ].join(', ');
+      ...study.collaborators.map((c) => c.username),
+    ].join(", ");
     return (
       <StyledStudiesRow>
         <div>{study.title}</div>
         <div>{authors}</div>
         <div>{study.participants.length}</div>
-        <div>{moment(study.createdAt).format('MMMM D, YYYY')}</div>
+        <div>{moment(study.createdAt).format("MMMM D, YYYY")}</div>
         <div>
           <a target="_blank" href={`/studies/${study.slug}`} rel="noreferrer">
             Study page
