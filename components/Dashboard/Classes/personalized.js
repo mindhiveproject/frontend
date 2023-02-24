@@ -6,7 +6,7 @@ import AddClass from "./addclass";
 import AuthorizedPage from "../../Page/userpage";
 import EmptyPage from "../../Page/empty";
 
-import StudyBuilderWrapper from "../../Development/Study/builderWrapper";
+import DevelopArea from "../../Develop";
 import AssignmentPage from "./Assignment/assignmentPage";
 
 class DashboardClasses extends Component {
@@ -116,7 +116,7 @@ class DashboardClasses extends Component {
     if (page === "studyBuilder") {
       return (
         <EmptyPage>
-          <StudyBuilderWrapper
+          <DevelopArea
             onLeave={() => this.openClassTab(this.state.classId, "studies")}
             studyId={this.state.studyId}
             user={this.props.user}
