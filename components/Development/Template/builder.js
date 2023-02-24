@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
 
-import lz from 'lzutf8';
-import EditPane from './editPane';
-import PreviewPane from './previewPane';
+import lz from "lzutf8";
+import EditPane from "./editPane";
+import PreviewPane from "./previewPane";
 
-import PreviewInBuilder from '../../Task/PreviewInBuilder/index';
+import PreviewInBuilder from "../../Task/PreviewInBuilder/index";
 
 // lab.js script template functions
-import assemble from '../../AddExperiment/assembleDev/index';
+import assemble from "../../AddExperiment/assembleDev/index";
 
 import {
   StyledBuilder,
   BuilderNav,
   StyledPreviewPane,
   StyledBuilderPage,
-} from '../styles';
+} from "../styles";
 
-import { UPDATE_TEMPLATE } from '../../Mutations/Template';
+import { UPDATE_TEMPLATE } from "../../Mutations/Template";
 
 class TemplateBuilder extends Component {
   state = {
@@ -25,7 +25,7 @@ class TemplateBuilder extends Component {
     showPreview: false,
   };
 
-  togglePreview = e => {
+  togglePreview = (e) => {
     e.target.blur();
     e.preventDefault();
     this.setState({
@@ -33,9 +33,9 @@ class TemplateBuilder extends Component {
     });
   };
 
-  handleTemplateChange = e => {
+  handleTemplateChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       template: {
         ...this.state.template,
@@ -46,14 +46,14 @@ class TemplateBuilder extends Component {
 
   handleTemplateParamChange = (e, classType) => {
     const { name, type, value, className } = e.target;
-    let val = type === 'number' ? parseFloat(value) : value;
-    if (classType === 'array') {
-      val = JSON.stringify(val.split('\n'));
+    let val = type === "number" ? parseFloat(value) : value;
+    if (classType === "array") {
+      val = JSON.stringify(val.split("\n"));
     }
     this.setState({
       template: {
         ...this.state.template,
-        parameters: this.state.template.parameters.map(el =>
+        parameters: this.state.template.parameters.map((el) =>
           el.name === name ? { ...el, [className]: val } : el
         ),
       },
@@ -66,15 +66,15 @@ class TemplateBuilder extends Component {
       template: {
         ...this.state.template,
         parameters: this.state.template.parameters.filter(
-          el => el.name !== name
+          (el) => el.name !== name
         ),
       },
     });
   };
 
-  handleSettingsChange = e => {
+  handleSettingsChange = (e) => {
     const { name, type } = e.target;
-    const value = type === 'checkbox' ? e.target.checked : e.target.value;
+    const value = type === "checkbox" ? e.target.checked : e.target.value;
     const settings = { ...this.state.template.settings };
     settings[name] = value;
     this.setState({
@@ -85,7 +85,7 @@ class TemplateBuilder extends Component {
     });
   };
 
-  handleSetMultipleValuesInState = values => {
+  handleSetMultipleValuesInState = (values) => {
     this.setState({
       template: {
         ...this.state.template,
@@ -94,9 +94,9 @@ class TemplateBuilder extends Component {
     });
   };
 
-  createNewTemplate = async createTemplateMutation => {
+  createNewTemplate = async (createTemplateMutation) => {
     if (!this.state.template?.script) {
-      alert('Please upload a lab.js script');
+      alert("Please upload a lab.js script");
       return;
     }
     await createTemplateMutation({
@@ -106,7 +106,7 @@ class TemplateBuilder extends Component {
     });
   };
 
-  updateMyTemplate = async updateTemplateMutation => {
+  updateMyTemplate = async (updateTemplateMutation) => {
     await updateTemplateMutation({
       variables: {
         ...this.state.template,
@@ -116,14 +116,14 @@ class TemplateBuilder extends Component {
 
   // handle lab.js JSON file script upload
   // put the template in the state
-  handleScriptUpload = async e => {
+  handleScriptUpload = async (e) => {
     const fileReader = new FileReader();
     const fileName =
-      e.target.files[0].name && e.target.files[0].name.split('.')[0];
-    fileReader.onload = async fileLoadedEvent => {
+      e.target.files[0].name && e.target.files[0].name.split(".")[0];
+    fileReader.onload = async (fileLoadedEvent) => {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
-      const script = result.files['script.js'].content;
+      const script = result.files["script.js"].content;
       const compressedString = lz.encodeBase64(lz.compress(script));
       const fileToSave = lz.encodeBase64(
         lz.compress(fileLoadedEvent.target.result)
@@ -136,7 +136,7 @@ class TemplateBuilder extends Component {
         template: {
           ...this.state.template,
           script: compressedString,
-          style: result.files['style.css'].content,
+          style: result.files["style.css"].content,
           parameters: [...result.files.parameters],
           file: fileToSave,
         },
@@ -193,11 +193,11 @@ class TemplateBuilder extends Component {
                           onClick={() => {
                             this.updateMyTemplate(
                               updateTask,
-                              'updateTaskWithTemplate'
+                              "updateTaskWithTemplate"
                             );
                           }}
                         >
-                          {loading ? 'Saving' : `Save template`}
+                          {loading ? "Saving" : `Save template`}
                         </button>
                       </div>
                     )}
@@ -234,7 +234,7 @@ class TemplateBuilder extends Component {
           <PreviewInBuilder
             user={this.props.user.id}
             parameters={this.state.template.parameters}
-            template={this.props.template || this.state.template}
+            template={this.state.template}
             handleFinish={() => this.setState({ showPreview: false })}
             showPreview={this.state.showPreview}
           />
