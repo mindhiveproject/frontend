@@ -1,17 +1,20 @@
-import React, { Component } from 'react';
-import { Dropdown, Accordion, Icon } from 'semantic-ui-react';
-import debounce from 'lodash.debounce';
+import React, { Component } from "react";
+import { Dropdown, Accordion, Icon } from "semantic-ui-react";
+import debounce from "lodash.debounce";
 
-import { StyledEditPane } from './styles';
+import { StyledEditPane, StyledTaskCard } from "./styles";
 
-import Blocks from './blocks';
-import Templates from './templates';
+import Blocks from "./blocks";
+import Templates from "./templates";
+
+import { NodesTypesContainer } from "../Diagram/components/nodes-types-container/NodesTypesContainer";
+import { NodeTypeLabel } from "../Diagram/components/node-type-label/NodeTypeLabel";
 
 class ComponentSelector extends Component {
   state = {
-    createdBy: this.props.createdBy || 'anyone',
-    keyword: '',
-    search: '',
+    createdBy: this.props.createdBy || "anyone",
+    keyword: "",
+    search: "",
     activeIndex: [],
   };
 
@@ -19,13 +22,13 @@ class ComponentSelector extends Component {
     this.setState({ createdBy: data.value });
   };
 
-  debouncedSearch = debounce(value => {
+  debouncedSearch = debounce((value) => {
     this.setState({
       search: value,
     });
   }, 1000);
 
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -37,7 +40,7 @@ class ComponentSelector extends Component {
     const { activeIndex } = this.state;
     let newIndex;
     if (activeIndex.includes(index)) {
-      newIndex = activeIndex.filter(i => i !== index);
+      newIndex = activeIndex.filter((i) => i !== index);
     } else {
       newIndex = [...activeIndex, index];
     }
@@ -69,19 +72,19 @@ class ComponentSelector extends Component {
             selection
             options={[
               {
-                key: 'anyone',
-                text: 'Created by anyone',
-                value: 'anyone',
+                key: "anyone",
+                text: "Created by anyone",
+                value: "anyone",
               },
               {
-                key: 'me',
-                text: 'Owned by me',
-                value: 'me',
+                key: "me",
+                text: "Owned by me",
+                value: "me",
               },
               {
-                key: 'favorite',
-                text: 'My favorite',
-                value: 'favorite',
+                key: "favorite",
+                text: "My favorite",
+                value: "favorite",
               },
             ]}
             onChange={this.handleCreatedBySelect}
@@ -111,7 +114,7 @@ class ComponentSelector extends Component {
               {...this.props}
               createdBy={this.state.createdBy}
               search={this.state.search}
-              componentType={['BLOCK']}
+              componentType={["BLOCK"]}
             />
           </Accordion.Content>
 
@@ -135,7 +138,7 @@ class ComponentSelector extends Component {
               {...this.props}
               createdBy={this.state.createdBy}
               search={this.state.search}
-              componentType={['TASK']}
+              componentType={["TASK"]}
             />
           </Accordion.Content>
 
@@ -148,10 +151,10 @@ class ComponentSelector extends Component {
               <h3>Surveys</h3>
               <Icon name="dropdown" />
               <p>
-                Want to{' '}
+                Want to{" "}
                 <strong>
                   measure participants’ attitudes, experiences, or opinions
-                </strong>{' '}
+                </strong>{" "}
                 through <strong>self-report</strong>? Choose from this bank of
                 validated surveys
               </p>
@@ -162,7 +165,7 @@ class ComponentSelector extends Component {
               {...this.props}
               createdBy={this.state.createdBy}
               search={this.state.search}
-              componentType={['SURVEY']}
+              componentType={["SURVEY"]}
             />
           </Accordion.Content>
 
@@ -175,7 +178,7 @@ class ComponentSelector extends Component {
               <h3>Templates</h3>
               <Icon name="dropdown" />
               <p>
-                Don’t want to start from scratch? Select and edit a{' '}
+                Don’t want to start from scratch? Select and edit a{" "}
                 <strong>pre-made study design</strong> using one of the
                 templates in this bank
               </p>
@@ -188,17 +191,51 @@ class ComponentSelector extends Component {
               search={this.state.search}
             />
           </Accordion.Content>
-        </Accordion>
 
-        {false && (
-          <>
-            <Blocks
-              {...this.props}
-              createdBy={this.state.createdBy}
-              search={this.state.search}
-            />
-          </>
-        )}
+          <Accordion.Title
+            active={activeIndex.includes(4)}
+            index={4}
+            onClick={this.handleClick}
+          >
+            <div className="blocksMenuTitle">
+              <h3>Study design</h3>
+              <Icon name="dropdown" />
+              <p>Create between-subjects design</p>
+            </div>
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex.includes(4)}>
+            <StyledTaskCard taskType="DESIGN">
+              <div className="addBlock">
+                <Icon
+                  name="plus circle"
+                  size="big"
+                  color="grey"
+                  link
+                  onClick={() => {
+                    this.props.addDesignToCanvas({
+                      name: "Between-subjects design",
+                      details: "Create new design",
+                    });
+                  }}
+                />
+              </div>
+
+              <div className="movableCard">
+                <NodesTypesContainer>
+                  <NodeTypeLabel
+                    model={{
+                      type: "design",
+                      name: "Between-subjects design",
+                      details: "Create new design",
+                    }}
+                    name="Between-subjects design"
+                  ></NodeTypeLabel>
+                </NodesTypesContainer>
+              </div>
+              <div className="icons"></div>
+            </StyledTaskCard>
+          </Accordion.Content>
+        </Accordion>
       </StyledEditPane>
     );
   }

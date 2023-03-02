@@ -9,68 +9,35 @@ const StyledTaskList = styled.div`
   grid-area: tasks;
 `;
 
+const StyledCondition = styled.div`
+  display: grid;
+  grid-gap: 20px;
+  border-radius: 10px;
+  background: ${(props) => (props.isMoreThanOne ? "white" : "#f7f9f8")}
+  padding: ${(props) => (props.isMoreThanOne ? "20px" : "0px")}
+`;
+
 class TaskCards extends Component {
   render() {
-    const { user, study } = this.props;
-    const studyIds = user?.participantIn?.map((study) => study.id) || [];
-
-    // check whether there is a user and blocks, if yes, assign correct block of tasks to the user
-    let components = [];
-    if (
-      study.components &&
-      study.components.blocks &&
-      study.components.blocks.length &&
-      study.components.blocks[0].tests
-    ) {
-      if (user) {
-        // select the blocks for the specific user
-        const userStudyInfo = user.studiesInfo && user.studiesInfo[study.id];
-        if (userStudyInfo) {
-          const userBlock = userStudyInfo.blockId;
-          if (userBlock) {
-            const studyBlock = study.components.blocks.filter(
-              (block) => block.blockId === userBlock
-            );
-            if (studyBlock && studyBlock.length && studyBlock[0].tests) {
-              components = studyBlock[0].tests;
-            }
-          } else {
-            // assign a random between-subjects block to the user in case if the user does not have any info saved
-            const { blocks } = study.components;
-            const randomBlock =
-              blocks[Math.floor(Math.random() * blocks.length)];
-            components = randomBlock.tests;
-          }
-        } else {
-          components = study.components.blocks[0].tests;
-        }
-      } else {
-        // if there is no user logged in, show always the tests from the first block
-        components = study.components.blocks[0].tests;
-      }
-    } else {
-      components = study.components || [];
-    }
-
-    const fullResultsInThisStudy =
-      user?.results
-        ?.filter(
-          (result) =>
-            result.study &&
-            result.study.id === study.id &&
-            result.payload === "full"
-        )
-        .map((result) => result.task.id) || [];
+    const { study } = this.props;
+    const blocks = study?.components?.blocks || [];
 
     return (
       <StyledTaskList>
-        {components.map((component, num) => (
-          <TaskCard
-            key={num}
-            component={component}
-            completed={fullResultsInThisStudy.includes(component.id)}
-            onStartTask={this.props.onStartTask}
-          />
+        {blocks.map((block, number) => (
+          <StyledCondition isMoreThanOne={blocks.length > 1}>
+            {blocks.length > 1 && (
+              <h2>Between-subjects condition {number + 1}</h2>
+            )}
+
+            {block?.tests.map((component, num) => (
+              <TaskCard
+                key={num}
+                component={component}
+                onStartTask={this.props.onStartTask}
+              />
+            ))}
+          </StyledCondition>
         ))}
       </StyledTaskList>
     );
