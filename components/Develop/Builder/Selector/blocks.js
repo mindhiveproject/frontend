@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import { COMPONENTS_QUERY } from '../../../Queries/Component';
+import { COMPONENTS_QUERY } from "../../../Queries/Component";
 
-import CardWrapper from './cardWrapper';
+import CardWrapper from "./cardWrapper";
 
 class Blocks extends Component {
   render() {
@@ -17,31 +17,30 @@ class Blocks extends Component {
           const { myAndAllTasks } = data;
 
           const filteredBlocks = myAndAllTasks.filter(
-            block =>
-              (block?.slug?.includes(search) ||
-                block?.title?.includes(search)) &&
-              ((createdBy === 'anyone' && block?.public) ||
-                (createdBy === 'me' &&
+            (block) =>
+              block?.title?.toLowerCase().includes(search) &&
+              ((createdBy === "anyone" && block?.public) ||
+                (createdBy === "me" &&
                   (block?.author?.id === user?.id ||
                     block?.collaborators
-                      ?.map(collaborator => collaborator?.id)
+                      ?.map((collaborator) => collaborator?.id)
                       .includes(user?.id))) ||
-                (createdBy === 'favorite' &&
+                (createdBy === "favorite" &&
                   user?.favoriteTasks
-                    .map(task => task?.id)
+                    .map((task) => task?.id)
                     .includes(block?.id)))
           );
 
           const orderedBlocks = filteredBlocks.sort((a, b) => {
             if (
-              user?.favoriteTasks.map(task => task?.id).includes(a?.id) &&
-              !user?.favoriteTasks.map(task => task?.id).includes(b?.id)
+              user?.favoriteTasks.map((task) => task?.id).includes(a?.id) &&
+              !user?.favoriteTasks.map((task) => task?.id).includes(b?.id)
             ) {
               return -1;
             }
             if (
-              !user?.favoriteTasks.map(task => task?.id).includes(a?.id) &&
-              user?.favoriteTasks.map(task => task?.id).includes(b?.id)
+              !user?.favoriteTasks.map((task) => task?.id).includes(a?.id) &&
+              user?.favoriteTasks.map((task) => task?.id).includes(b?.id)
             ) {
               return 1;
             }
@@ -51,8 +50,8 @@ class Blocks extends Component {
           return (
             <div className="blocksMenuContent">
               {orderedBlocks
-                .filter(task => componentType.includes(task?.taskType))
-                .map(task => (
+                .filter((task) => componentType.includes(task?.taskType))
+                .map((task) => (
                   <CardWrapper
                     {...this.props}
                     key={task.id}

@@ -24,7 +24,7 @@ class ComponentSelector extends Component {
 
   debouncedSearch = debounce((value) => {
     this.setState({
-      search: value,
+      search: value.toLowerCase(),
     });
   }, 1000);
 
