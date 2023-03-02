@@ -203,38 +203,40 @@ class ComponentSelector extends Component {
               <p>Create between-subjects design</p>
             </div>
           </Accordion.Title>
-          <Accordion.Content active={activeIndex.includes(4)}>
-            <StyledTaskCard taskType="DESIGN">
-              <div className="addBlock">
-                <Icon
-                  name="plus circle"
-                  size="big"
-                  color="grey"
-                  link
-                  onClick={() => {
-                    this.props.addDesignToCanvas({
-                      name: "Between-subjects design",
-                      details: "Create new design",
-                    });
-                  }}
-                />
-              </div>
-
-              <div className="movableCard">
-                <NodesTypesContainer>
-                  <NodeTypeLabel
-                    model={{
-                      type: "design",
-                      name: "Between-subjects design",
-                      details: "Create new design",
+          {false && (
+            <Accordion.Content active={activeIndex.includes(4)}>
+              <StyledTaskCard taskType="DESIGN">
+                <div className="addBlock">
+                  <Icon
+                    name="plus circle"
+                    size="big"
+                    color="grey"
+                    link
+                    onClick={() => {
+                      this.props.addDesignToCanvas({
+                        name: "Between-subjects design",
+                        details: "Create new design",
+                      });
                     }}
-                    name="Between-subjects design"
-                  ></NodeTypeLabel>
-                </NodesTypesContainer>
-              </div>
-              <div className="icons"></div>
-            </StyledTaskCard>
-          </Accordion.Content>
+                  />
+                </div>
+
+                <div className="movableCard">
+                  <NodesTypesContainer>
+                    <NodeTypeLabel
+                      model={{
+                        type: "design",
+                        name: "Between-subjects design",
+                        details: "Create new design",
+                      }}
+                      name="Between-subjects design"
+                    ></NodeTypeLabel>
+                  </NodesTypesContainer>
+                </div>
+                <div className="icons"></div>
+              </StyledTaskCard>
+            </Accordion.Content>
+          )}
         </Accordion>
       </StyledEditPane>
     );
