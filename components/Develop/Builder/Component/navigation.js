@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
-import { StyledNavigation } from './styles';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
+import { StyledNavigation } from "./styles";
 
-import { USER_DASHBOARD_QUERY } from '../../../Queries/User';
+import { USER_DASHBOARD_QUERY } from "../../../Queries/User";
 import {
   COMPONENT_QUERY,
   COMPONENT_TO_CLONE_QUERY,
   MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
-} from '../../../Queries/Component';
-import { MY_DEVELOPED_COMPONENTS_QUERY } from '../../../Bank/Components/developed';
+  COMPONENTS_QUERY,
+} from "../../../Queries/Component";
+import { MY_DEVELOPED_COMPONENTS_QUERY } from "../../../Bank/Components/developed";
 
-import { CREATE_COMPONENT, UPDATE_COMPONENT } from '../../../Mutations/Task';
+import { CREATE_COMPONENT, UPDATE_COMPONENT } from "../../../Mutations/Task";
 
 class Navigation extends Component {
   render() {
@@ -25,11 +26,11 @@ class Navigation extends Component {
     } = this.props;
 
     const taskType =
-      task?.taskType === 'TASK'
-        ? 'Task'
-        : task?.taskType === 'BLOCK'
-        ? 'Block'
-        : 'Survey';
+      task?.taskType === "TASK"
+        ? "Task"
+        : task?.taskType === "BLOCK"
+        ? "Block"
+        : "Survey";
 
     return (
       <StyledNavigation>
@@ -78,11 +79,11 @@ class Navigation extends Component {
                         className="primaryBtn"
                         disabled={loading}
                         onClick={async () => {
-                          await updateMyComponent(updateTask, 'updateTask');
+                          await updateMyComponent(updateTask, "updateTask");
                           closeModal();
                         }}
                       >
-                        {loading ? 'Saving ...' : `Save & Close`}
+                        {loading ? "Saving ..." : `Save & Close`}
                       </button>
                     </div>
                   )}
@@ -102,6 +103,9 @@ class Navigation extends Component {
                       query: MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
                       variables: { taskType: task?.taskType },
                     },
+                    {
+                      query: COMPONENTS_QUERY,
+                    },
                   ]}
                 >
                   {(createTask, { loading, error }) => (
@@ -111,11 +115,11 @@ class Navigation extends Component {
                         className="primaryBtn"
                         disabled={loading}
                         onClick={async () => {
-                          await createNewComponent(createTask, 'createTask');
+                          await createNewComponent(createTask, "createTask");
                           closeModal();
                         }}
                       >
-                        {loading ? 'Saving ...' : `Save & Close`}
+                        {loading ? "Saving ..." : `Save & Close`}
                       </button>
                     </div>
                   )}

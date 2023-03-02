@@ -15,7 +15,10 @@ export const NodeTypeLabel = props => (
         );
       }}
     >
-      {props.name}
+      {props?.name}
+      <div className="subtitle">
+        {props?.createdBy === 'me' && props?.subtitle}
+      </div>
     </div>
   </StyledNodeTypeLabel>
 );

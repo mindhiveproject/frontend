@@ -58,24 +58,30 @@ const Builder = React.memo(props => {
     setIsEditorOpen(false);
   };
 
-  const shorten = text => {
-    if (text && text.split(' ').length > 12) {
+  const shorten = (text) => {
+    if (text && text.split(" ").length > 12) {
       const short = text
-        .split(' ')
+        .split(" ")
         .slice(0, 12)
-        .join(' ');
+        .join(" ");
       return `${short} ...`;
     }
     return text;
   };
 
-  const updateCanvas = task => {
+  const updateCanvas = ({ task, operation }) => {
     const model = props?.engine?.model;
     const nodes = model.getNodes() || [];
     const componentID = node?.options?.componentID;
+    const testId = node?.options?.testId;
     // use componentID to update multiple nodes with the same task
-    nodes.forEach(n => {
-      if (n?.options?.componentID === componentID) {
+    nodes.forEach((n) => {
+      if (
+        (operation === "create" &&
+          n?.options?.componentID === componentID &&
+          n?.options?.testId === testId) ||
+        (operation === "update" && n?.options?.componentID === componentID)
+      ) {
         n.updateOptions({
           componentID: task?.id,
           name: task?.title,

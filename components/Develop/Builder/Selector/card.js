@@ -35,7 +35,7 @@ class Card extends Component {
   };
 
   render() {
-    const { component, number, viewing } = this.props;
+    const { createdBy, component, number, viewing } = this.props;
 
     // get the author and collaborators ids
     const authIds = [
@@ -78,6 +78,8 @@ class Card extends Component {
                   subtitle: component?.subtitle,
                 }}
                 name={component?.title}
+                subtitle={component?.subtitle}
+                createdBy={createdBy}
               ></NodeTypeLabel>
             </NodesTypesContainer>
           </div>

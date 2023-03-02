@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Card from './card';
+import Card from "./card";
 
 class CardWrapper extends Component {
   render() {
@@ -12,6 +12,7 @@ class CardWrapper extends Component {
         component={component}
         openModal={this.props.openModal}
         addComponentToCanvas={this.props.addComponentToCanvas}
+        createdBy={this.props.createdBy}
       />
     );
   }

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { StyledEditor } from './styles';
+import { StyledEditor } from "./styles";
 
-import Navigation from './navigation';
-import EditPane from './editPane';
+import Navigation from "./navigation";
+import EditPane from "./editPane";
 
 // full screen preview
-import FullScreenPreview from '../../../Preview/fullscreen';
+import FullScreenPreview from "../../../Preview/fullscreen";
 
 class ComponentEditor extends Component {
   state = {
@@ -14,9 +14,9 @@ class ComponentEditor extends Component {
     showPreview: false,
   };
 
-  handleComponentChange = e => {
+  handleComponentChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       task: {
         ...this.state.task,
@@ -25,11 +25,11 @@ class ComponentEditor extends Component {
     });
   };
 
-  handleParameterChange = e => {
+  handleParameterChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     const { task } = this.state;
-    const parameters = task?.parameters.map(el =>
+    const parameters = task?.parameters.map((el) =>
       el.name === name ? { ...el, value: val } : el
     );
     this.setState({
@@ -42,12 +42,12 @@ class ComponentEditor extends Component {
 
   handleTemplateParamChange = (e, classType) => {
     const { name, type, value, className } = e.target;
-    let val = type === 'number' ? parseFloat(value) : value;
-    if (classType === 'array') {
-      val = JSON.stringify(val.split('\n'));
+    let val = type === "number" ? parseFloat(value) : value;
+    if (classType === "array") {
+      val = JSON.stringify(val.split("\n"));
     }
     const { task } = this.state;
-    const parameters = task?.parameters.map(el =>
+    const parameters = task?.parameters.map((el) =>
       el.name === name ? { ...el, [className]: val } : el
     );
     this.setState({
@@ -61,7 +61,7 @@ class ComponentEditor extends Component {
   deleteTemplateParameter = (e, name) => {
     e.preventDefault();
     const { task } = this.state;
-    const parameters = task?.parameters.filter(el => el.name !== name);
+    const parameters = task?.parameters.filter((el) => el.name !== name);
     this.setState({
       task: {
         ...this.state.task,
@@ -70,9 +70,9 @@ class ComponentEditor extends Component {
     });
   };
 
-  handleSettingsChange = e => {
+  handleSettingsChange = (e) => {
     const { name, type } = e.target;
-    const value = type === 'checkbox' ? e.target.checked : e.target.value;
+    const value = type === "checkbox" ? e.target.checked : e.target.value;
     const settings = { ...this.state.task.settings };
     settings[name] = value;
     this.setState({
@@ -92,7 +92,7 @@ class ComponentEditor extends Component {
     });
   };
 
-  handleSetMultipleValuesInState = values => {
+  handleSetMultipleValuesInState = (values) => {
     this.setState({
       task: {
         ...this.state.task,
@@ -101,12 +101,12 @@ class ComponentEditor extends Component {
     });
   };
 
-  handleCollaboratorsChange = e => {
+  handleCollaboratorsChange = (e) => {
     const { name, value } = e.target;
     const collaborators = [...this.state.task.collaborators];
     collaborators[name] = value;
     if (name == collaborators.length - 1) {
-      collaborators.push('');
+      collaborators.push("");
     }
     this.setState({
       task: {
@@ -118,10 +118,10 @@ class ComponentEditor extends Component {
 
   createNewComponent = async (createComponentMutation, name) => {
     if (
-      name === 'createTaskWithTemplate' &&
+      name === "createTaskWithTemplate" &&
       !this.state.task?.template?.script
     ) {
-      alert('Please upload a lab.js script');
+      alert("Please upload a lab.js script");
       return;
     }
     const res = await createComponentMutation({
@@ -135,11 +135,11 @@ class ComponentEditor extends Component {
         ...myTask,
         consent: myTask?.consent?.id,
         collaborators: (myTask?.collaborators &&
-          myTask.collaborators.map(c => c.username).length &&
-          myTask.collaborators.map(c => c.username)) || [''],
+          myTask.collaborators.map((c) => c.username).length &&
+          myTask.collaborators.map((c) => c.username)) || [""],
       },
     });
-    this.props.updateCanvas(myTask);
+    this.props.updateCanvas({ task: myTask, operation: "create" });
   };
 
   updateMyComponent = async (updateComponentMutation, name) => {
@@ -158,19 +158,19 @@ class ComponentEditor extends Component {
         },
       },
     });
-    this.props.updateCanvas(myTask);
+    this.props.updateCanvas({ task: myTask, operation: "update" });
   };
 
   // handle lab.js JSON file script upload
   // put the template in the state
-  handleScriptUpload = async e => {
+  handleScriptUpload = async (e) => {
     const fileReader = new FileReader();
     const fileName =
-      e.target.files[0].name && e.target.files[0].name.split('.')[0];
-    fileReader.onload = async fileLoadedEvent => {
+      e.target.files[0].name && e.target.files[0].name.split(".")[0];
+    fileReader.onload = async (fileLoadedEvent) => {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
-      const script = result.files['script.js'].content;
+      const script = result.files["script.js"].content;
       const compressedString = lz.encodeBase64(lz.compress(script));
       // extract parameters from the task
       this.setState({
@@ -179,7 +179,7 @@ class ComponentEditor extends Component {
           template: {
             ...this.state.task?.template,
             script: compressedString,
-            style: result.files['style.css'].content,
+            style: result.files["style.css"].content,
           },
           parameters: [
             // {
@@ -214,14 +214,14 @@ class ComponentEditor extends Component {
     });
   };
 
-  uploadImage = async e => {
+  uploadImage = async (e) => {
     const { files } = e.target;
     const data = new FormData();
-    data.append('file', files[0]);
-    data.append('upload_preset', 'studies');
+    data.append("file", files[0]);
+    data.append("upload_preset", "studies");
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/mindhive-science/image/upload',
-      { method: 'POST', body: data }
+      "https://api.cloudinary.com/v1_1/mindhive-science/image/upload",
+      { method: "POST", body: data }
     );
     const file = await res.json();
     this.setState({
@@ -250,7 +250,7 @@ class ComponentEditor extends Component {
       return (
         <FullScreenPreview
           previewOf="component"
-          user={this.props?.user?.id || ''}
+          user={this.props?.user?.id || ""}
           parameters={this.state.task.parameters}
           template={this.state.task.template}
           handleFinish={() => this.closePreview()}

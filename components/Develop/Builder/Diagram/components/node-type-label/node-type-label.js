@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledNodeTypeLabel = styled.div`
   .node-type-label {
@@ -12,5 +12,10 @@ export const StyledNodeTypeLabel = styled.div`
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
+  }
+  .subtitle {
+    font-size: 14px;
+    font-style: italic;
+    font-family: "Lato";
   }
 `;
