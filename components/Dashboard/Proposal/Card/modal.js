@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Modal } from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Modal } from "semantic-ui-react";
 
-import { Mutation, Query } from '@apollo/client/react/components';
-import styled from 'styled-components';
-import ReactHtmlParser from 'react-html-parser';
-import Post from '../../Jodit/post';
+import { Mutation, Query } from "@apollo/client/react/components";
+import styled from "styled-components";
+import ReactHtmlParser from "react-html-parser";
+import Post from "../../Jodit/post";
 
-import { GET_CARD_CONTENT } from '../../../Queries/Proposal';
-import { UPDATE_CARD_CONTENT } from '../../../Mutations/Proposal';
+import { GET_CARD_CONTENT } from "../../../Queries/Proposal";
+import { UPDATE_CARD_CONTENT } from "../../../Mutations/Proposal";
 
 const StyledCardPreview = styled.div`
   display: grid;
@@ -55,16 +55,16 @@ class CardModal extends Component {
   state = {};
 
   // update title in the local state
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       [name]: val,
     });
   };
 
   // update card content in the local state
-  handleContentChange = content => {
+  handleContentChange = (content) => {
     if (content) {
       this.setState({
         content,
@@ -73,7 +73,7 @@ class CardModal extends Component {
   };
 
   // update the assignedTo in the local state
-  handleAssignedToChange = assignedTo => {
+  handleAssignedToChange = (assignedTo) => {
     this.setState({
       assignedTo,
     });
@@ -87,7 +87,7 @@ class CardModal extends Component {
   };
 
   // update card on the server
-  onUpdateCard = async updateCardMutation => {
+  onUpdateCard = async (updateCardMutation) => {
     const {
       title,
       description,
@@ -160,21 +160,25 @@ class CardModal extends Component {
                   <Post
                     proposalBuildMode={this.props.proposalBuildMode}
                     title={
-                      typeof title === 'undefined' ? proposalCard.title : title
+                      typeof title === "undefined" ? proposalCard.title : title
                     }
                     onChange={this.handleChange}
                     content={content || proposalCard.content}
-                    comment={comment || proposalCard.comment}
+                    comment={
+                      typeof comment === "undefined"
+                        ? proposalCard.comment
+                        : comment
+                    }
                     onContentChange={this.handleContentChange}
                     description={description || proposalCard.description}
                     assignedTo={
-                      typeof assignedTo === 'undefined'
-                        ? proposalCard.assignedTo.map(c => c.username)
+                      typeof assignedTo === "undefined"
+                        ? proposalCard.assignedTo.map((c) => c.username)
                         : assignedTo
                     }
                     onAssignedToChange={this.handleAssignedToChange}
                     settings={
-                      typeof settings === 'undefined'
+                      typeof settings === "undefined"
                         ? proposalCard.settings
                         : settings
                     }
@@ -215,7 +219,7 @@ class CardModal extends Component {
                       onClick={() => this.onUpdateCard(updateCard)}
                       disabled={loading}
                     >
-                      {loading ? 'Saving ...' : 'Save & close'}
+                      {loading ? "Saving ..." : "Save & close"}
                     </StyledButton>
                   )}
                 </StyledButtons>
