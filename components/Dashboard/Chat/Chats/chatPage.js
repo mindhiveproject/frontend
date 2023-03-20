@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { Query } from '@apollo/client/react/components';
+import { Query } from "@apollo/client/react/components";
 
-import Head from 'next/head';
-import Error from '../../../ErrorMessage/index';
+import Head from "next/head";
+import Error from "../../../ErrorMessage/index";
 
-import Message from './Messages/message';
-import CreateMessage from './Messages/create';
-import EditChatTitle from './editChatTitle';
+import Message from "./Messages/message";
+import CreateMessage from "./Messages/create";
+import EditChatTitle from "./editChatTitle";
 
-import { StyledGroupChat } from '../styles';
+import { StyledGroupChat } from "../styles";
 
 import {
   VIEW_TALK_QUERY,
   GET_MAIN_MESSAGES_OF_CHAT,
-} from '../../../Queries/Talk';
+} from "../../../Queries/Talk";
 
 class ChatPage extends Component {
   state = {};
@@ -25,7 +25,7 @@ class ChatPage extends Component {
     return (
       <StyledGroupChat>
         <div className="goBackBtn">
-          <span style={{ cursor: 'pointer' }} onClick={this.props.goBack}>
+          <span style={{ cursor: "pointer" }} onClick={this.props.goBack}>
             ← Back
           </span>
         </div>
@@ -117,7 +117,7 @@ class ChatPage extends Component {
 
             return (
               <div>
-                {messages.map(message => (
+                {messages.map((message) => (
                   <Message
                     key={message.id}
                     user={this.props?.user}

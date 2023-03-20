@@ -91,3 +91,9 @@
   to = "/users/[username].html"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/dashboard/chat/*"
+  to = "/dashboard/chat/[id].html"
+  status = 200
+  force = true

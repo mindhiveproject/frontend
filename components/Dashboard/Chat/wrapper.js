@@ -1,39 +1,39 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Chats from './Chats/chatsList';
-import AddChat from './Chats/addChat';
-import ChatPage from './Chats/chatPage';
-import AddMembersToChat from './Chats/addMembers';
+import Chats from "./Chats/chatsList";
+import AddChat from "./Chats/addChat";
+import ChatPage from "./Chats/chatPage";
+import AddMembersToChat from "./Chats/addMembers";
 
 class ChatWrapper extends Component {
   state = {
-    page: this.props.page || 'chats',
-    chatId: null,
+    page: this.props.page || "chats",
+    chatId: this.props.chatId || null,
   };
 
   addChat = () => {
     this.setState({
-      page: 'addchat',
+      page: "addchat",
     });
   };
 
-  openChat = chatId => {
+  openChat = (chatId) => {
     this.setState({
-      page: 'chatpage',
+      page: "chatpage",
       chatId,
     });
   };
 
   goBack = () => {
     this.setState({
-      page: 'chats',
+      page: "chats",
       chatId: null,
     });
   };
 
   openAddMembers = (chatId, chatTitle) => {
     this.setState({
-      page: 'addmemberstochat',
+      page: "addmemberstochat",
       chatId,
       chatTitle,
     });
@@ -42,7 +42,7 @@ class ChatWrapper extends Component {
   render() {
     const { page } = this.state;
 
-    if (page === 'chats') {
+    if (page === "chats") {
       return (
         <Chats
           user={this.props.user}
@@ -53,11 +53,11 @@ class ChatWrapper extends Component {
       );
     }
 
-    if (page === 'addchat') {
+    if (page === "addchat") {
       return <AddChat goBack={this.goBack} />;
     }
 
-    if (page === 'chatpage') {
+    if (page === "chatpage") {
       return (
         <ChatPage
           user={this.props.user}
@@ -67,7 +67,7 @@ class ChatWrapper extends Component {
       );
     }
 
-    if (page === 'addmemberstochat') {
+    if (page === "addmemberstochat") {
       return (
         <AddMembersToChat
           chatId={this.state.chatId}

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_EMAIL_QUERY } from '../../Queries/User';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import Error from "../../ErrorMessage/index";
+import { CURRENT_USER_EMAIL_QUERY } from "../../Queries/User";
 
-import ChatWrapper from './wrapper';
+import ChatWrapper from "./wrapper";
 
-import { StyledDasboard } from '../styles';
+import { StyledDasboard } from "../styles";
 
 class Chat extends Component {
   render() {
@@ -18,7 +18,11 @@ class Chat extends Component {
 
           return (
             <StyledDasboard>
-              <ChatWrapper user={data?.me} />
+              <ChatWrapper
+                page={this.props.chatId ? "chatpage" : null}
+                {...this.props}
+                user={data?.me}
+              />
             </StyledDasboard>
           );
         }}

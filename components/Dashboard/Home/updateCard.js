@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import Link from 'next/link';
-import ReactHtmlParser from 'react-html-parser';
-import moment from 'moment';
-import { Mutation } from '@apollo/client/react/components';
-import { StyledUpdateCard } from './styles';
+import React, { Component } from "react";
+import Link from "next/link";
+import ReactHtmlParser from "react-html-parser";
+import moment from "moment";
+import { Mutation } from "@apollo/client/react/components";
+import { StyledUpdateCard } from "./styles";
 
 // import mutation for openning and deleting an update
-import { OPEN_UPDATE, DELETE_UPDATE } from '../../Mutations/Update';
-import { MY_UPDATES_QUERY } from '../../Queries/Update';
+import { OPEN_UPDATE, DELETE_UPDATE } from "../../Mutations/Update";
+import { MY_UPDATES_QUERY } from "../../Queries/Update";
 
 class UpdateCard extends Component {
   render() {
@@ -15,7 +15,7 @@ class UpdateCard extends Component {
     return (
       <StyledUpdateCard>
         <div className="infoMessage">
-          <h2>{update?.content?.message}</h2>
+          <div>{ReactHtmlParser(update?.content?.message)}</div>
           <div className="contextInfo">
             {moment(update.createdAt).fromNow()}
           </div>
@@ -29,7 +29,7 @@ class UpdateCard extends Component {
             }}
             refetchQueries={[{ query: MY_UPDATES_QUERY }]}
           >
-            {openUpdate => (
+            {(openUpdate) => (
               <div onClick={() => openUpdate()}>
                 <Link href={`${update.link}`} as={`${update.link}`}>
                   <a>
@@ -48,7 +48,9 @@ class UpdateCard extends Component {
             }}
             refetchQueries={[{ query: MY_UPDATES_QUERY }]}
           >
-            {deleteUpdate => <div onClick={() => deleteUpdate()}>&times;</div>}
+            {(deleteUpdate) => (
+              <div onClick={() => deleteUpdate()}>&times;</div>
+            )}
           </Mutation>
         </div>
       </StyledUpdateCard>
