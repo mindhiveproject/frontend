@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledSections = styled.div``;
 
@@ -42,7 +42,7 @@ export const StyledSection = styled.div`
   background: #ffffff;
   border: 1px solid #e6e6e6;
   border-radius: 4px;
-  max-width: 300px;
+  /* max-width: 300px; */
   min-width: 250px;
   margin: 10px;
   .infoLine {
@@ -153,19 +153,19 @@ export const StyledCard = styled.div`
       background: rgba(254, 210, 79, 0.18);
     }
     .status-started {
-      color: #0063CE;
+      color: #0063ce;
       background: rgba(0, 117, 224, 0.12);
     }
     .status-needs-feedback {
-      color: #C92927;
+      color: #c92927;
       background: rgba(224, 103, 102, 0.12);
     }
     .status-feedback-given {
-      color: #6F25CE !important;
+      color: #6f25ce !important;
       background: rgba(111, 37, 206, 0.12) !important;
     }
     .status-completed {
-      color: #00635A;
+      color: #00635a;
       background: rgba(0, 124, 112, 0.12);
     }
   }
