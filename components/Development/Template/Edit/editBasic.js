@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import slugify from 'slugify';
-import styled from 'styled-components';
-import moment from 'moment';
-import lz from 'lzutf8';
-import SettingsBlock from './settingBlock';
+import React, { Component } from "react";
+import slugify from "slugify";
+import styled from "styled-components";
+import moment from "moment";
+import lz from "lzutf8";
+import SettingsBlock from "./settingBlock";
 
 const StyledBasicPane = styled.div`
   display: grid;
@@ -20,9 +20,9 @@ const StyledSettingBlock = styled.div`
 `;
 
 class EditBasic extends Component {
-  handleTitleChange = e => {
+  handleTitleChange = (e) => {
     const slug = slugify(e.target.value, {
-      replacement: '-', // replace spaces with replacement character, defaults to `-`
+      replacement: "-", // replace spaces with replacement character, defaults to `-`
       remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
       lower: true, // convert to lower case, defaults to `false`
     });
@@ -37,11 +37,11 @@ class EditBasic extends Component {
     // const fileToOpen = lz.decompress(file);
     const fileToOpen = lz.decompress(lz.decodeBase64(file));
     // const json = JSON.stringify(file, null, 2);
-    const blob = new Blob([fileToOpen], { type: 'application/json' });
+    const blob = new Blob([fileToOpen], { type: "application/json" });
     const href = URL.createObjectURL(blob);
 
     // create "a" HTLM element with href to file
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = href;
     link.download = `${fileName}.json`;
     document.body.appendChild(link);
@@ -58,15 +58,15 @@ class EditBasic extends Component {
     // default settings for each task
     const settings = {
       mobileCompatible: false,
-      descriptionBefore: '',
-      descriptionAfter: '',
-      background: '',
-      duration: '',
-      scoring: '',
-      format: '',
-      resources: '[]',
-      aggregateVariables: '[]',
-      addInfo: '',
+      descriptionBefore: "",
+      descriptionAfter: "",
+      background: "",
+      duration: "",
+      scoring: "",
+      format: "",
+      resources: "[]",
+      aggregateVariables: "[]",
+      addInfo: "",
       ...template.settings,
     };
 
@@ -139,15 +139,15 @@ class EditBasic extends Component {
             <div>
               {template?.createdAt && (
                 <div>
-                  Created on{' '}
-                  {moment(template?.createdAt).format('MMMM D, YYYY, h:mm')}
+                  Created on{" "}
+                  {moment(template?.createdAt).format("MMMM D, YYYY, h:mm")}
                 </div>
               )}
 
               {template?.updatedAt && (
                 <div>
-                  Last updated on{' '}
-                  {moment(template?.updatedAt).format('MMMM D, YYYY, h:mm')}
+                  Last updated on{" "}
+                  {moment(template?.updatedAt).format("MMMM D, YYYY, h:mm")}
                 </div>
               )}
 

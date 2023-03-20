@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import slugify from 'slugify';
-import styled from 'styled-components';
-import moment from 'moment';
-import lz from 'lzutf8';
-import SettingsBlock from './settingBlock';
-import { CONSENTS_QUERY } from '../../../Task/Customize/taskForm';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import slugify from "slugify";
+import styled from "styled-components";
+import moment from "moment";
+import lz from "lzutf8";
+import SettingsBlock from "./settingBlock";
+import { CONSENTS_QUERY } from "../../../Task/Customize/taskForm";
 
 const StyledBasicPane = styled.div`
   display: grid;
@@ -54,14 +54,14 @@ const UploadImageContainer = styled.div`
     text-align: center;
   }
 
-  .upload-btn-wrapper input[type='file'] {
+  .upload-btn-wrapper input[type="file"] {
     font-size: 100px;
     position: absolute;
     left: 0;
     top: 0;
     opacity: 0;
   }
-  .upload-btn-wrapper-with-image input[type='file'] {
+  .upload-btn-wrapper-with-image input[type="file"] {
     font-size: 100px;
     position: absolute;
     left: 0;
@@ -75,9 +75,9 @@ const UploadImageContainer = styled.div`
 `;
 
 class EditBasic extends Component {
-  handleTitleChange = e => {
+  handleTitleChange = (e) => {
     const slug = slugify(e.target.value, {
-      replacement: '-', // replace spaces with replacement character, defaults to `-`
+      replacement: "-", // replace spaces with replacement character, defaults to `-`
       remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
       lower: true, // convert to lower case, defaults to `false`
     });
@@ -89,13 +89,14 @@ class EditBasic extends Component {
 
   downloadJSON = async (file, fileName) => {
     // create file in browser
-    const fileToOpen = lz.decompress(file);
+    // const fileToOpen = lz.decompress(file);
+    const fileToOpen = lz.decompress(lz.decodeBase64(file));
     // const json = JSON.stringify(file, null, 2);
-    const blob = new Blob([fileToOpen], { type: 'application/json' });
+    const blob = new Blob([fileToOpen], { type: "application/json" });
     const href = URL.createObjectURL(blob);
 
     // create "a" HTLM element with href to file
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = href;
     link.download = `${fileName}.json`;
     document.body.appendChild(link);
@@ -109,32 +110,34 @@ class EditBasic extends Component {
   render() {
     const { task, user } = this.props;
 
+    console.log({ task });
+
     const taskType =
-      task?.taskType === 'TASK'
-        ? 'Task'
-        : task?.taskType === 'BLOCK'
-        ? 'Block'
-        : 'Survey';
+      task?.taskType === "TASK"
+        ? "Task"
+        : task?.taskType === "BLOCK"
+        ? "Block"
+        : "Survey";
 
     const hasIRBAccess =
       user &&
       user?.permissions &&
-      (user.permissions.includes('TEACHER') ||
-        user.permissions.includes('SCIENTIST') ||
-        user.permissions.includes('ADMIN'));
+      (user.permissions.includes("TEACHER") ||
+        user.permissions.includes("SCIENTIST") ||
+        user.permissions.includes("ADMIN"));
 
     // default settings for each task
     const settings = {
       mobileCompatible: false,
-      descriptionBefore: '',
-      descriptionAfter: '',
-      background: '',
-      duration: '',
-      scoring: '',
-      format: '',
-      resources: '[]',
-      aggregateVariables: '[]',
-      addInfo: '',
+      descriptionBefore: "",
+      descriptionAfter: "",
+      background: "",
+      duration: "",
+      scoring: "",
+      format: "",
+      resources: "[]",
+      aggregateVariables: "[]",
+      addInfo: "",
       ...task.settings,
     };
 
@@ -163,14 +166,14 @@ class EditBasic extends Component {
         </label>
 
         {task?.isExternal && (
-          <div style={{ paddingTop: '10px' }}>
+          <div style={{ paddingTop: "10px" }}>
             <label htmlFor="link">
               {taskType} link
               <input
                 type="text"
                 id="link"
                 name="link"
-                value={task.link || ''}
+                value={task.link || ""}
                 onChange={this.props.handleTaskChange}
               />
             </label>
@@ -246,18 +249,18 @@ class EditBasic extends Component {
               <div>
                 {task?.template?.createdAt && (
                   <div>
-                    Created on{' '}
+                    Created on{" "}
                     {moment(task?.template?.createdAt).format(
-                      'MMMM D, YYYY, h:mm'
+                      "MMMM D, YYYY, h:mm"
                     )}
                   </div>
                 )}
 
                 {task?.template?.updatedAt && (
                   <div>
-                    Last updated on{' '}
+                    Last updated on{" "}
                     {moment(task?.template?.updatedAt).format(
-                      'MMMM D, YYYY, h:mm'
+                      "MMMM D, YYYY, h:mm"
                     )}
                   </div>
                 )}
@@ -297,7 +300,7 @@ class EditBasic extends Component {
                     onChange={this.props.handleTaskChange}
                   >
                     <option value="no">Choose the consent form</option>
-                    {consents.map(consent => (
+                    {consents.map((consent) => (
                       <option key={consent.id} value={consent.id}>
                         {consent.title}
                       </option>
@@ -315,21 +318,21 @@ class EditBasic extends Component {
             <div
               className={
                 task.image
-                  ? 'upload-btn-wrapper-with-image'
-                  : 'upload-btn-wrapper'
+                  ? "upload-btn-wrapper-with-image"
+                  : "upload-btn-wrapper"
               }
             >
               <button className="btn">
                 {task.image
-                  ? 'Update task screenshot'
-                  : 'Upload task screenshot'}
+                  ? "Update task screenshot"
+                  : "Upload task screenshot"}
               </button>
               <input
                 type="file"
                 id="file"
                 name="file"
                 value={task.file}
-                onChange={e => this.props.uploadImage(e)}
+                onChange={(e) => this.props.uploadImage(e)}
               />
               <div>
                 {task.image && (

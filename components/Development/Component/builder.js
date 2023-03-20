@@ -1,39 +1,39 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
 
-import lz from 'lzutf8';
-import EditPane from './editPane';
-import PreviewPane from './previewPane';
+import lz from "lzutf8";
+import EditPane from "./editPane";
+import PreviewPane from "./previewPane";
 
-import PreviewInBuilder from '../../Task/PreviewInBuilder/index';
+import PreviewInBuilder from "../../Task/PreviewInBuilder/index";
 
-import { MY_SURVEYS_QUERY } from '../Study/StudyBuilder/Selector/mySurveys';
-import { MY_TASKS_QUERY } from '../Study/StudyBuilder/Selector/myTasks';
-import { USER_DASHBOARD_QUERY } from '../../Queries/User';
+import { MY_SURVEYS_QUERY } from "../Study/StudyBuilder/Selector/mySurveys";
+import { MY_TASKS_QUERY } from "../Study/StudyBuilder/Selector/myTasks";
+import { USER_DASHBOARD_QUERY } from "../../Queries/User";
 import {
   COMPONENT_QUERY,
   COMPONENT_TO_CLONE_QUERY,
   MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY,
-} from '../../Queries/Component';
+} from "../../Queries/Component";
 
 // lab.js script template functions
-import assemble from '../../AddExperiment/assembleDev/index';
+import assemble from "../../AddExperiment/assembleDev/index";
 
-import { MY_DEVELOPED_COMPONENTS_QUERY } from '../../Bank/Components/developed';
+import { MY_DEVELOPED_COMPONENTS_QUERY } from "../../Bank/Components/developed";
 
 import {
   StyledBuilder,
   BuilderNav,
   StyledPreviewPane,
   StyledBuilderPage,
-} from '../styles';
+} from "../styles";
 
 import {
   CREATE_COMPONENT_WITH_TEMPLATE,
   UPDATE_COMPONENT_WITH_TEMPLATE,
   CREATE_COMPONENT,
   UPDATE_COMPONENT,
-} from '../../Mutations/Task';
+} from "../../Mutations/Task";
 
 class ComponentBuilder extends Component {
   state = {
@@ -43,7 +43,7 @@ class ComponentBuilder extends Component {
     adminMode: this.props.adminMode,
   };
 
-  togglePreview = e => {
+  togglePreview = (e) => {
     e.target.blur();
     e.preventDefault();
     this.setState({
@@ -51,9 +51,9 @@ class ComponentBuilder extends Component {
     });
   };
 
-  handleComponentChange = e => {
+  handleComponentChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       task: {
         ...this.state.task,
@@ -62,13 +62,13 @@ class ComponentBuilder extends Component {
     });
   };
 
-  handleParamChange = e => {
+  handleParamChange = (e) => {
     const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
+    const val = type === "number" ? parseFloat(value) : value;
     this.setState({
       task: {
         ...this.state.task,
-        parameters: this.state.task.parameters.map(el =>
+        parameters: this.state.task.parameters.map((el) =>
           el.name === name ? { ...el, value: val } : el
         ),
       },
@@ -77,14 +77,14 @@ class ComponentBuilder extends Component {
 
   handleTemplateParamChange = (e, classType) => {
     const { name, type, value, className } = e.target;
-    let val = type === 'number' ? parseFloat(value) : value;
-    if (classType === 'array') {
-      val = JSON.stringify(val.split('\n'));
+    let val = type === "number" ? parseFloat(value) : value;
+    if (classType === "array") {
+      val = JSON.stringify(val.split("\n"));
     }
     this.setState({
       task: {
         ...this.state.task,
-        parameters: this.state.task.parameters.map(el =>
+        parameters: this.state.task.parameters.map((el) =>
           el.name === name ? { ...el, [className]: val } : el
         ),
       },
@@ -96,14 +96,14 @@ class ComponentBuilder extends Component {
     this.setState({
       task: {
         ...this.state.task,
-        parameters: this.state.task.parameters.filter(el => el.name !== name),
+        parameters: this.state.task.parameters.filter((el) => el.name !== name),
       },
     });
   };
 
-  handleSettingsChange = e => {
+  handleSettingsChange = (e) => {
     const { name, type } = e.target;
-    const value = type === 'checkbox' ? e.target.checked : e.target.value;
+    const value = type === "checkbox" ? e.target.checked : e.target.value;
     const settings = { ...this.state.task.settings };
     settings[name] = value;
     this.setState({
@@ -123,7 +123,7 @@ class ComponentBuilder extends Component {
     });
   };
 
-  handleSetMultipleValuesInState = values => {
+  handleSetMultipleValuesInState = (values) => {
     this.setState({
       task: {
         ...this.state.task,
@@ -132,12 +132,12 @@ class ComponentBuilder extends Component {
     });
   };
 
-  handleCollaboratorsChange = e => {
+  handleCollaboratorsChange = (e) => {
     const { name, value } = e.target;
     const collaborators = [...this.state.task.collaborators];
     collaborators[name] = value;
     if (name == collaborators.length - 1) {
-      collaborators.push('');
+      collaborators.push("");
     }
     this.setState({
       task: {
@@ -149,10 +149,10 @@ class ComponentBuilder extends Component {
 
   createNewComponent = async (createComponentMutation, name) => {
     if (
-      name === 'createTaskWithTemplate' &&
+      name === "createTaskWithTemplate" &&
       !this.state.task?.template?.script
     ) {
-      alert('Please upload a lab.js script');
+      alert("Please upload a lab.js script");
       return;
     }
     const res = await createComponentMutation({
@@ -167,8 +167,8 @@ class ComponentBuilder extends Component {
         ...myTask,
         consent: myTask?.consent?.id,
         collaborators: (myTask?.collaborators &&
-          myTask.collaborators.map(c => c.username).length &&
-          myTask.collaborators.map(c => c.username)) || [''],
+          myTask.collaborators.map((c) => c.username).length &&
+          myTask.collaborators.map((c) => c.username)) || [""],
       },
     });
   };
@@ -193,16 +193,19 @@ class ComponentBuilder extends Component {
 
   // handle lab.js JSON file script upload
   // put the template in the state
-  handleScriptUpload = async e => {
+  handleScriptUpload = async (e) => {
     const fileReader = new FileReader();
     const fileName =
-      e.target.files[0].name && e.target.files[0].name.split('.')[0];
-    fileReader.onload = async fileLoadedEvent => {
+      e.target.files[0].name && e.target.files[0].name.split(".")[0];
+    fileReader.onload = async (fileLoadedEvent) => {
       const file = JSON.parse(fileLoadedEvent.target.result);
       const result = await assemble(file, fileName);
-      const script = result.files['script.js'].content;
+      const script = result.files["script.js"].content;
       const compressedString = lz.encodeBase64(lz.compress(script));
-      const fileToSave = lz.compress(fileLoadedEvent.target.result);
+      // const fileToSave = lz.compress(fileLoadedEvent.target.result);
+      const fileToSave = lz.encodeBase64(
+        lz.compress(fileLoadedEvent.target.result)
+      );
       // extract parameters from the task
       this.setState({
         task: {
@@ -210,7 +213,7 @@ class ComponentBuilder extends Component {
           template: {
             ...this.state.task?.template,
             script: compressedString,
-            style: result.files['style.css'].content,
+            style: result.files["style.css"].content,
             parameters: [...result.files.parameters],
             file: fileToSave,
           },
@@ -236,14 +239,14 @@ class ComponentBuilder extends Component {
     });
   };
 
-  uploadImage = async e => {
+  uploadImage = async (e) => {
     const { files } = e.target;
     const data = new FormData();
-    data.append('file', files[0]);
-    data.append('upload_preset', 'studies');
+    data.append("file", files[0]);
+    data.append("upload_preset", "studies");
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/mindhive-science/image/upload',
-      { method: 'POST', body: data }
+      "https://api.cloudinary.com/v1_1/mindhive-science/image/upload",
+      { method: "POST", body: data }
     );
     const file = await res.json();
     this.setState({
@@ -262,11 +265,11 @@ class ComponentBuilder extends Component {
       user.id === task?.author?.id ||
       task?.collaborators?.includes(user.username);
     const taskType =
-      task?.taskType === 'TASK'
-        ? 'Task'
-        : task?.taskType === 'BLOCK'
-        ? 'Block'
-        : 'Survey';
+      task?.taskType === "TASK"
+        ? "Task"
+        : task?.taskType === "BLOCK"
+        ? "Block"
+        : "Survey";
 
     return (
       <>
@@ -278,8 +281,8 @@ class ComponentBuilder extends Component {
               </div>
               <div className="taskLabel">
                 <p>
-                  {this.state.task?.isOriginal ? 'Original' : 'Cloned'}{' '}
-                  {this.state.task?.isExternal ? 'external ' : ''}
+                  {this.state.task?.isOriginal ? "Original" : "Cloned"}{" "}
+                  {this.state.task?.isExternal ? "external " : ""}
                   {task?.taskType.toLowerCase()}
                 </p>
               </div>
@@ -326,12 +329,12 @@ class ComponentBuilder extends Component {
                                 onClick={() => {
                                   this.updateMyComponent(
                                     updateTask,
-                                    'updateTaskWithTemplate'
+                                    "updateTaskWithTemplate"
                                   );
                                 }}
                               >
                                 {loading
-                                  ? 'Saving'
+                                  ? "Saving"
                                   : `Save original ${task?.taskType.toLowerCase()}`}
                               </button>
                             </div>
@@ -363,12 +366,12 @@ class ComponentBuilder extends Component {
                                 onClick={() => {
                                   this.createNewComponent(
                                     createTask,
-                                    'createTaskWithTemplate'
+                                    "createTaskWithTemplate"
                                   );
                                 }}
                               >
                                 {loading
-                                  ? 'Saving'
+                                  ? "Saving"
                                   : `Save your original ${task?.taskType.toLowerCase()}`}
                               </button>
                             </div>
@@ -409,12 +412,12 @@ class ComponentBuilder extends Component {
                                 onClick={() => {
                                   this.updateMyComponent(
                                     updateTask,
-                                    'updateTask'
+                                    "updateTask"
                                   );
                                 }}
                               >
                                 {loading
-                                  ? 'Saving'
+                                  ? "Saving"
                                   : `Save ${task?.taskType.toLowerCase()}`}
                               </button>
                             </div>
@@ -446,12 +449,12 @@ class ComponentBuilder extends Component {
                                 onClick={() => {
                                   this.createNewComponent(
                                     createTask,
-                                    'createTask'
+                                    "createTask"
                                   );
                                 }}
                               >
                                 {loading
-                                  ? 'Saving'
+                                  ? "Saving"
                                   : `Save your ${task?.taskType.toLowerCase()}`}
                               </button>
                             </div>

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const COMPONENT_QUERY = gql`
   query COMPONENT_QUERY($id: ID!) {
@@ -55,6 +55,7 @@ export const COMPONENT_TO_CLONE_QUERY = gql`
         parameters
         script
         style
+        file
         author {
           id
         }
