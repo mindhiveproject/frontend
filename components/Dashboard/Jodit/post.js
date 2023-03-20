@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { StyledPost, StyledJodit } from './styles';
-import { Jodit } from './index';
-import AssignmentForm from './Forms/assignmentForm';
-import StatusForm from './Forms/statusForm';
+import React, { Component } from "react";
+import ReactHtmlParser from "react-html-parser";
+import { StyledPost, StyledJodit } from "./styles";
+import { Jodit } from "./index";
+import AssignmentForm from "./Forms/assignmentForm";
+import StatusForm from "./Forms/statusForm";
 
 class Post extends Component {
   render() {
@@ -34,7 +35,7 @@ class Post extends Component {
       value: study?.author?.username,
     };
     const usernames =
-      study?.collaborators.map(user => ({
+      study?.collaborators.map((user) => ({
         key: user.username,
         text: user.username,
         value: user.username,
@@ -75,7 +76,9 @@ class Post extends Component {
               )}
               {!proposalBuildMode && <div className="cardHeader">{title}</div>}
               {!proposalBuildMode && (
-                <div className="cardDescription">{description}</div>
+                <div className="cardDescription">
+                  {ReactHtmlParser(description)}
+                </div>
               )}
               <StyledJodit>
                 <Jodit
@@ -113,7 +116,7 @@ class Post extends Component {
                     <h4>Assigned to</h4>
                     <div>
                       {card?.assignedTo.map(
-                        c => c.publicReadableId || 'John Doe'
+                        (c) => c.publicReadableId || "John Doe"
                       )}
                     </div>
                   </div>
