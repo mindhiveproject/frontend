@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import ReactStars from 'react-rating-stars-component'; // https://www.npmjs.com/package/react-rating-stars-component
+import React, { Component } from "react";
+import styled from "styled-components";
+import ReactStars from "react-rating-stars-component"; // https://www.npmjs.com/package/react-rating-stars-component
 
 const StyledReviewItem = styled.div`
   display: grid;
@@ -14,19 +14,25 @@ class SingleQuestion extends Component {
       <StyledReviewItem>
         <div>
           <h2>{item.question}</h2>
+          {item.subQuestionA && (
+            <ol type="a">
+              <li>{item.subQuestionA}</li>
+              <li>{item.subQuestionB}</li>
+            </ol>
+          )}
           <p>{item.text}</p>
         </div>
 
-        {stage === 'INDIVIDUAL' && (
+        {stage === "INDIVIDUAL" && (
           <div>
             <ReactStars
               count={5}
-              onChange={value =>
+              onChange={(value) =>
                 this.props.handleChange({
                   target: {
                     id: item.name,
                     value,
-                    className: 'rating',
+                    className: "rating",
                     name: item.name,
                   },
                 })

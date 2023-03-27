@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import Board from './board';
+import React, { Component } from "react";
+import moment from "moment";
+import Board from "./board";
 
 class IndividualReviewsWrapper extends Component {
   render() {
     const { reviews, view } = this.props;
 
     const byReviewers = reviews.map((review, num) => ({
-      content: review.content.map(content => ({
+      content: review.content.map((content) => ({
         ...content,
         title: content.question,
       })),
@@ -18,8 +18,8 @@ class IndividualReviewsWrapper extends Component {
     }));
 
     // rearrange array
-    const sections = reviews.map(review =>
-      review.content.map(question => ({
+    const sections = reviews.map((review) =>
+      review.content.map((question) => ({
         ...question,
         author: review.author.id,
         authorUsername: review.author?.username,
@@ -28,12 +28,12 @@ class IndividualReviewsWrapper extends Component {
       }))
     );
 
-    const byQuestions = [1, 2, 3, 4, 5, 6].map(name => {
+    const byQuestions = [1, 2, 3, 4, 5, 6, 7].map((name) => {
       const content = sections
         .map((section, num) =>
           section
-            .filter(section => section.name == name)
-            .map(section => ({
+            .filter((section) => section.name == name)
+            .map((section) => ({
               answer: section.answer,
               title: `Reviewer ${num + 1}`,
               hiddenTitle: section.authorUsername,
@@ -54,7 +54,7 @@ class IndividualReviewsWrapper extends Component {
 
     return (
       <Board
-        sections={view === 'byQuestion' ? byQuestions : byReviewers}
+        sections={view === "byQuestion" ? byQuestions : byReviewers}
         user={this.props.user}
       />
     );
