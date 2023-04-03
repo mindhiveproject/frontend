@@ -48,6 +48,15 @@ class DashboardOverview extends Component {
     });
   };
 
+  openStudyBuilderWithId = (studyId) => {
+    this.setState({
+      page: "studyBuilderNew",
+      devInfo: {
+        studyIdToClone: studyId,
+      },
+    });
+  };
+
   openTemplateEditor = (template) => {
     this.setState({
       page: "templateBuilder",
@@ -225,7 +234,11 @@ class DashboardOverview extends Component {
               )}
 
               {tab === "classes" && (
-                <OverviewClasses pagination={this.props.pagination} />
+                <OverviewClasses
+                  pagination={this.props.pagination}
+                  user={this.props.user}
+                  openStudyBuilder={this.openStudyBuilderWithId}
+                />
               )}
             </StyledOverviewDasboard>
           </StyledDasboard>

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import moment from 'moment';
-import debounce from 'lodash.debounce';
-import ClassPage from '../../Classes/classpage';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Query } from "@apollo/client/react/components";
+import gql from "graphql-tag";
+import moment from "moment";
+import debounce from "lodash.debounce";
+import ClassPage from "../../Classes/classpage";
 
-import PaginationClasses from '../../../Pagination/allClasses';
-import { StyledOverview } from '../../../Bank/Studies/overview';
+import PaginationClasses from "../../../Pagination/allClasses";
+import { StyledOverview } from "../../../Bank/Studies/overview";
 
 // query to get all classes
 const ALL_CLASSES_QUERY = gql`
@@ -60,33 +60,33 @@ const StyledRow = styled.div`
 
 class OverviewClasses extends Component {
   state = {
-    page: this.props.page || 'classes',
+    page: this.props.page || "classes",
     classId: null,
-    keyword: '',
-    search: '',
+    keyword: "",
+    search: "",
   };
 
-  openClass = classId => {
+  openClass = (classId) => {
     this.setState({
-      page: 'classpage',
+      page: "classpage",
       classId,
     });
   };
 
   goBack = () => {
     this.setState({
-      page: 'classes',
+      page: "classes",
       classId: null,
     });
   };
 
-  debouncedSearch = debounce(value => {
+  debouncedSearch = debounce((value) => {
     this.setState({
       search: value,
     });
   }, 1000);
 
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -96,12 +96,13 @@ class OverviewClasses extends Component {
   render() {
     const perPage = 10;
     const { page } = this.state;
-    if (page === 'classpage') {
+    if (page === "classpage") {
       return (
         <ClassPage
           classId={this.state.classId}
           goBack={this.goBack}
           adminMode
+          openStudyBuilder={this.props.openStudyBuilder}
         />
       );
     }
@@ -150,11 +151,11 @@ class OverviewClasses extends Component {
                     <div>{theclass.title}</div>
                     <div>{theclass.students.length} students</div>
                     <div>
-                      {moment(theclass.createdAt).format('MMMM D, YYYY')}
+                      {moment(theclass.createdAt).format("MMMM D, YYYY")}
                     </div>
                     <div>{theclass.creator.username}</div>
                     <div>
-                      {theclass.mentors.map(mentor => (
+                      {theclass.mentors.map((mentor) => (
                         <span>{mentor.username}</span>
                       ))}
                     </div>
