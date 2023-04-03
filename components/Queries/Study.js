@@ -187,6 +187,42 @@ export const STUDY_TEMPLATES_QUERY = gql`
   }
 `;
 
+export const OVERVIEW_STUDIES_QUERY = gql`
+  query OVERVIEW_STUDIES_QUERY($skip: Int, $first: Int, $search: String) {
+    allStudies(
+      skip: $skip
+      first: $first
+      where: { OR: [{ title_contains: $search }, { slug_contains: $search }] }
+    ) {
+      id
+      title
+      slug
+      image
+      author {
+        id
+        permissions
+        username
+      }
+      collaborators {
+        id
+        username
+        permissions
+      }
+      participants {
+        id
+      }
+      guests {
+        id
+      }
+      public
+      featured
+      shortDescription
+      submitForPublishing
+      isHidden
+    }
+  }
+`;
+
 // export const ALL_PUBLIC_STUDIES_QUERY = gql`
 //   query ALL_PUBLIC_STUDIES_QUERY {
 //     studies {

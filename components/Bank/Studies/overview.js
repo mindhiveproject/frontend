@@ -1,9 +1,9 @@
 import { Component } from "react";
 import { Query } from "@apollo/client/react/components";
-import gql from "graphql-tag";
 import styled from "styled-components";
 
 import debounce from "lodash.debounce";
+import { OVERVIEW_STUDIES_QUERY } from "../../Queries/Study";
 import { StyledBank, StyledZeroState } from "../styles";
 import StudyCard from "./studycard";
 
@@ -38,42 +38,6 @@ export const StyledOverview = styled.div`
   }
 `;
 
-const OVERVIEW_STUDIES_QUERY = gql`
-  query OVERVIEW_STUDIES_QUERY($skip: Int, $first: Int, $search: String) {
-    allStudies(
-      skip: $skip
-      first: $first
-      where: { OR: [{ title_contains: $search }, { slug_contains: $search }] }
-    ) {
-      id
-      title
-      slug
-      image
-      author {
-        id
-        permissions
-        username
-      }
-      collaborators {
-        id
-        username
-        permissions
-      }
-      participants {
-        id
-      }
-      guests {
-        id
-      }
-      public
-      featured
-      shortDescription
-      submitForPublishing
-      isHidden
-    }
-  }
-`;
-
 class OverviewStudiesBank extends Component {
   state = {
     keyword: "",
@@ -94,7 +58,7 @@ class OverviewStudiesBank extends Component {
   };
 
   render() {
-    const perPage = 12;
+    const perPage = 48;
     return (
       <StyledOverview>
         <div className="searchArea">
@@ -158,4 +122,3 @@ class OverviewStudiesBank extends Component {
 }
 
 export default OverviewStudiesBank;
-export { OVERVIEW_STUDIES_QUERY };
