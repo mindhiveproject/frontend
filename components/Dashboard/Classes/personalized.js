@@ -121,6 +121,7 @@ class DashboardClasses extends Component {
             studyId={this.state.studyId}
             user={this.props.user}
             needToClone={false}
+            adminMode
           />
         </EmptyPage>
       );

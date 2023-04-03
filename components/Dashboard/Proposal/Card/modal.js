@@ -185,7 +185,7 @@ class CardModal extends Component {
                     onSettingsChange={this.handleSettingsChange}
                     proposal={this.props.proposal}
                     card={proposalCard}
-                    readonly={adminMode}
+                    readonly={false}
                     isPreview={this.props.isPreview}
                   />
                 );
@@ -213,15 +213,13 @@ class CardModal extends Component {
                       Close without saving
                     </StyledButton>
                   )}
-                  {!adminMode && (
-                    <StyledButton
-                      className="primary"
-                      onClick={() => this.onUpdateCard(updateCard)}
-                      disabled={loading}
-                    >
-                      {loading ? "Saving ..." : "Save & close"}
-                    </StyledButton>
-                  )}
+                  <StyledButton
+                    className="primary"
+                    onClick={() => this.onUpdateCard(updateCard)}
+                    disabled={loading}
+                  >
+                    {loading ? "Saving ..." : "Save & close"}
+                  </StyledButton>
                 </StyledButtons>
               )}
             </Mutation>
