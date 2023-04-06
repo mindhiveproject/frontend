@@ -66,6 +66,17 @@ const SidebarNav = ({ user }) => {
           </NavLink>
         </Link>
 
+        {false && (
+          <Link href="/dashboard/visualize">
+            <NavLink selected={router.pathname === "/dashboard/visualize"}>
+              <div>
+                <img width="20" height="20" src="/content/icons/stats2.svg" />
+              </div>
+              <div>Visualize</div>
+            </NavLink>
+          </Link>
+        )}
+
         <div className="workspaceHeader">WORKSPACE</div>
 
         {(user?.permissions.includes("ADMIN") ||

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import styled from 'styled-components';
-import Error from '../ErrorMessage/index';
-import FunctionalWrapper from './wrapper';
-import InDev from '../Development/Study/inDev';
+import styled from "styled-components";
+import Error from "../ErrorMessage/index";
+import Wrapper from "./wrapper";
+import InDev from "../Development/Study/inDev";
 
-import { MY_STUDY_SUMMARY_RESULTS_QUERY } from '../Queries/Result';
+import { MY_STUDY_SUMMARY_RESULTS_QUERY } from "../Queries/Result";
 
 export const StyledVisualizer = styled.div`
   display: grid;
@@ -36,7 +36,7 @@ class StudyResults extends Component {
               );
             }
 
-            return <FunctionalWrapper results={summaryResults} user={user} />;
+            return <Wrapper results={summaryResults} user={user} />;
           }}
         </Query>
       </StyledVisualizer>

@@ -1,8 +1,18 @@
 import { useMemo } from "react";
-import Router from "./router";
+import StateManager from "./StateManager";
 
-const processData = (results) => {
-  const data = results.map((result) => {
+// get all column names of the dataset
+const getColumnNames = (data) => {
+  const allKeys = data
+    .map((line) => Object.keys(line))
+    .reduce((a, b) => a.concat(b), []);
+  const keys = Array.from(new Set(allKeys)).sort();
+  return keys;
+};
+
+// pre-process and aggregate data on the subject level
+const process = (results) => {
+  const res = results.map((result) => {
     const userID =
       result?.user?.publicReadableId ||
       result?.user?.publicId ||
@@ -16,7 +26,6 @@ const processData = (results) => {
       "john-doe";
 
     const participantId = result?.guest ? guestID : userID;
-
     const classCode = result?.user?.studentIn?.map((c) => c?.code) || undefined;
     const userType = result?.guest ? "guest" : "user";
 
@@ -32,20 +41,18 @@ const processData = (results) => {
     };
   });
 
-  return data;
-};
-
-const aggregateByParticipant = (results) => {
-  const allParticipants = results.map((row) => row?.participant);
+  const allParticipants = res.map((row) => row?.participant);
   const participants = [...new Set(allParticipants)];
   const dataByParticipant = participants.map((participant) => {
     const data = {};
-    const participantData = results.filter(
+    const participantData = res.filter(
       (row) => row?.participant === participant
     );
     participantData.map((row) => {
       Object.keys(row).map((key) => {
-        const newKey = `${row?.task}-${row?.testVersion}-${key}`;
+        const newKey = `${row?.task.replace(/\s/g, "_")}_${
+          row?.testVersion
+        }_${key}`;
         data[newKey] = row[key];
       });
     });
@@ -54,19 +61,19 @@ const aggregateByParticipant = (results) => {
       ...data,
     };
   });
-  return dataByParticipant;
+  const variables = getColumnNames(dataByParticipant);
+  return { dataByParticipant, variables };
 };
 
-export default function Wrapper({ results, user }) {
-  const processedData = useMemo(() => processData(results), [results]);
-  const dataParticipant = useMemo(() => aggregateByParticipant(processedData), [
-    processedData,
-  ]);
+export default function Preprocessor({ data, user, scripts }) {
+  const { dataByParticipant, variables } = useMemo(() => process(data), [data]);
+
   return (
-    <Router
+    <StateManager
+      data={dataByParticipant}
+      variables={variables}
       user={user}
-      data={processedData}
-      dataParticipant={dataParticipant}
+      scripts={scripts}
     />
   );
 }

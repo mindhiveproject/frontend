@@ -1,9 +1,9 @@
 // https://github.com/vega/react-vega/tree/master/packages/react-vega
 // https://vega.github.io/vega-lite/
-import React, { Component } from 'react';
-import { Vega } from 'react-vega';
+import React, { Component } from "react";
+import { Vega } from "react-vega";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledRender = styled.div`
   display: grid;
@@ -22,7 +22,7 @@ class Render extends Component {
     const specWithData = {
       ...spec,
       data: {
-        name: 'values',
+        name: "values",
         values: [...this.props.data],
       },
     };
@@ -36,11 +36,11 @@ class Render extends Component {
             compiled: false,
             editor: false,
           }}
-          onParseError={error => {
-            console.log('error', error);
+          onParseError={(error) => {
+            console.log("error", error);
           }}
-          onNewView={view => {
-            const newData = view.data('data_0');
+          onNewView={(view) => {
+            const newData = view.data("values");
             if (
               newData &&
               newData.length &&
@@ -50,7 +50,7 @@ class Render extends Component {
               this.setState({
                 transformedData: [...newData],
               });
-              this.props.updateState('transformedData', newData);
+              this.props.updateState("transformedData", newData);
             }
           }}
         />

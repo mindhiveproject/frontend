@@ -136,6 +136,9 @@ export const ALL_FEATURED_STUDIES_QUERY = gql`
       slug
       image
       description
+      scripts {
+        id
+      }
     }
   }
 `;

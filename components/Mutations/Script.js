@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const CREATE_SCRIPT = gql`
   mutation CREATE_SCRIPT(
@@ -8,6 +8,7 @@ export const CREATE_SCRIPT = gql`
     $isPublic: Boolean
     $isTemplate: Boolean
     $isFeatured: Boolean
+    $studyId: ID
   ) {
     createScript(
       title: $title
@@ -16,6 +17,7 @@ export const CREATE_SCRIPT = gql`
       isPublic: $isPublic
       isTemplate: $isTemplate
       isFeatured: $isFeatured
+      studyId: $studyId
     ) {
       id
     }
@@ -42,6 +44,15 @@ export const UPDATE_SCRIPT = gql`
       isFeatured: $isFeatured
     ) {
       id
+    }
+  }
+`;
+
+// delete script
+export const DELETE_SCRIPT = gql`
+  mutation DELETE_SCRIPT($id: ID!) {
+    deleteScript(id: $id) {
+      message
     }
   }
 `;

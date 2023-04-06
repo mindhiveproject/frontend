@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import Manager from './manager';
+import React, { Component } from "react";
+import Manager from "./manager";
 
 class Router extends Component {
   state = {
-    datasetTypeDefault: 'raw',
+    datasetTypeDefault: "raw",
     specDefault: {
-      width: '500',
-      height: '400',
-      title: 'My graph',
-      mark: 'point',
+      width: "500",
+      height: "400",
+      title: "My graph",
+      mark: "point",
       transform: [],
       encoding: {
-        x: { field: 'task', type: 'nominal' },
-        y: { field: 'participantId', type: 'nominal', aggregate: '' },
+        x: { field: "task", type: "nominal" },
+        y: { field: "participantId", type: "nominal", aggregate: "" },
       },
-      data: { name: 'values' },
+      data: { name: "values" },
     },
     columnsToFilterDefault: [
-      'url',
-      'meta',
-      'sender_id',
-      'ended_on',
-      'time_run',
-      'time_render',
-      'time_show',
-      'time_end',
-      'time_commit',
-      'time_switch',
+      "url",
+      "meta",
+      "sender_id",
+      "ended_on",
+      "time_run",
+      "time_render",
+      "time_show",
+      "time_end",
+      "time_commit",
+      "time_switch",
     ],
     activeTransformationPositionDefault: -1,
   };

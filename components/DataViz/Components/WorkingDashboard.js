@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import PipelineOperator from './PipelineOperator';
+import React from "react";
+import styled from "styled-components";
+import PipelineOperator from "./PipelineOperator";
 
-import FilterArea from '../Operations/FilterArea';
-import CalculateArea from '../Operations/CalculateArea';
+import FilterArea from "../Operations/FilterArea";
+import CalculateArea from "../Operations/CalculateArea";
 
-import DisplaySpec from '../Display/index';
+import DisplaySpec from "../Display/index";
 
-import Render from './Render';
+import Render from "./Render";
 
 const StyledDashboard = styled.div`
   display: grid;
@@ -44,6 +44,7 @@ const WorkingDashboard = ({
   activeTransformationPosition,
   spec,
 }) => {
+  console.log({ spec });
   const transformPipe = spec.transform || [];
   const operation = transformPipe[activeTransformationPosition] || {};
   const operationType =
@@ -80,7 +81,7 @@ const WorkingDashboard = ({
         />
 
         <div className="operationBoard">
-          {operationType === 'FILTER' && (
+          {operationType === "FILTER" && (
             <FilterArea
               transformedData={transformedData}
               updateSpec={updateSpec}
@@ -90,7 +91,7 @@ const WorkingDashboard = ({
               activeTransformationPosition={activeTransformationPosition}
             />
           )}
-          {operationType === 'CALCULATE' && (
+          {operationType === "CALCULATE" && (
             <CalculateArea
               transformedData={transformedData}
               updateSpec={updateSpec}

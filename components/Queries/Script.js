@@ -1,4 +1,20 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
+
+export const STUDY_SCRIPTS = gql`
+  query STUDY_SCRIPTS($id: ID!) {
+    scripts(where: { studies_some: { id: $id } }) {
+      id
+      title
+      description
+      content
+      createdAt
+      updatedAt
+      studies {
+        id
+      }
+    }
+  }
+`;
 
 export const MY_SCRIPTS = gql`
   query MY_SCRIPTS {

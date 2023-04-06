@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Runner from './runner';
+import Runner from "./runner";
 
 // this component manages the state with the actual version of data
 class Manager extends Component {
   // main state
   state = {
     data:
-      this.props.datasetTypeDefault === 'raw'
+      this.props.datasetTypeDefault === "raw"
         ? this.props.dataRaw
         : this.props.dataParticipant,
     transformedData:
-      this.props.datasetTypeDefault === 'raw'
+      this.props.datasetTypeDefault === "raw"
         ? this.props.dataRaw
         : this.props.dataParticipant,
     columnsToFilter: this.props.columnsToFilterDefault,
@@ -38,13 +38,13 @@ class Manager extends Component {
     });
   };
 
-  onDatasetTypeChange = datasetType => {
+  onDatasetTypeChange = (datasetType) => {
     this.setState({
       datasetType,
       data:
-        datasetType === 'raw' ? this.props.dataRaw : this.props.dataParticipant,
+        datasetType === "raw" ? this.props.dataRaw : this.props.dataParticipant,
       transformedData:
-        datasetType === 'raw' ? this.props.dataRaw : this.props.dataParticipant,
+        datasetType === "raw" ? this.props.dataRaw : this.props.dataParticipant,
       columnsToFilter: this.props.columnsToFilterDefault,
       spec: this.props.specDefault,
       activeTransformationPosition: this.props
