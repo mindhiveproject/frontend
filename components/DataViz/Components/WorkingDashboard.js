@@ -44,7 +44,6 @@ const WorkingDashboard = ({
   activeTransformationPosition,
   spec,
 }) => {
-  console.log({ spec });
   const transformPipe = spec.transform || [];
   const operation = transformPipe[activeTransformationPosition] || {};
   const operationType =

@@ -70,14 +70,11 @@ export default function Preprocessor({ studyId, data, user }) {
   // get the username of the active user
   // const username = user?.publicReadableId || user?.publicId || user?.id;
   const username = "decent-gullible-downtown";
-  console.log(username);
-
   const { dataByParticipant, variables } = useMemo(
     () => process({ data, username }),
     [data, username]
   );
 
-  console.log(dataByParticipant);
   return (
     <StateManager
       studyId={studyId}

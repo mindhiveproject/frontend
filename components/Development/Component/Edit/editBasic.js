@@ -110,8 +110,6 @@ class EditBasic extends Component {
   render() {
     const { task, user } = this.props;
 
-    console.log({ task });
-
     const taskType =
       task?.taskType === "TASK"
         ? "Task"

@@ -206,6 +206,7 @@ class ComponentBuilder extends Component {
       const fileToSave = lz.encodeBase64(
         lz.compress(fileLoadedEvent.target.result)
       );
+      const fileSize = new Blob([fileToSave]).size;
       // extract parameters from the task
       this.setState({
         task: {
@@ -215,7 +216,7 @@ class ComponentBuilder extends Component {
             script: compressedString,
             style: result.files["style.css"].content,
             parameters: [...result.files.parameters],
-            file: fileToSave,
+            file: fileSize < 10000 ? fileToSave : undefined,
           },
           parameters: [...result.files.parameters],
         },
