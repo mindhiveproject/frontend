@@ -11,7 +11,7 @@ export default function Editor({
 }) {
   return (
     <div>
-      <h2>Editor</h2>
+      <SpecEditor spec={spec} setSpec={setSpec} />
       <ScriptEditor
         studyId={studyId}
         user={user}
@@ -19,7 +19,6 @@ export default function Editor({
         setSpec={setSpec}
         defaultSpec={defaultSpec}
       />
-      <SpecEditor spec={spec} setSpec={setSpec} />
     </div>
   );
 }

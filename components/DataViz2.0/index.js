@@ -7,6 +7,7 @@ const StyledDataViz = styled.div`
   display: grid;
   width: 100%;
   overflow-y: scroll;
+  margin: 20px;
 `;
 
 // get the data from the server

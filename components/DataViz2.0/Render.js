@@ -1,3 +1,5 @@
+// https://vega.github.io/vega/docs/api/view/
+// https://vega.github.io/vega-lite/docs/
 import { Vega } from "react-vega";
 
 export default function Render({ data, spec }) {

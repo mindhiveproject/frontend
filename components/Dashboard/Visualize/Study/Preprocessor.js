@@ -11,8 +11,8 @@ const getColumnNames = (data) => {
 };
 
 // pre-process and aggregate data on the subject level
-const process = (results) => {
-  const res = results.map((result) => {
+const process = ({ data, username }) => {
+  const res = data.map((result) => {
     const userID =
       result?.user?.publicReadableId ||
       result?.user?.publicId ||
@@ -59,6 +59,7 @@ const process = (results) => {
     return {
       participant,
       ...data,
+      isMine: participant === username,
     };
   });
   const variables = getColumnNames(dataByParticipant);
@@ -66,8 +67,13 @@ const process = (results) => {
 };
 
 export default function Preprocessor({ data, user, scripts }) {
-  const { dataByParticipant, variables } = useMemo(() => process(data), [data]);
+  // get the username of the active user
+  const username = user?.publicReadableId || user?.publicId || user?.id;
 
+  const { dataByParticipant, variables } = useMemo(
+    () => process({ data, username }),
+    [data, username]
+  );
   return (
     <StateManager
       data={dataByParticipant}

@@ -25,8 +25,9 @@ export default function SpecEditor({ spec, setSpec }) {
         <button onClick={(e) => evaluate()}>Update</button>
       </p>
       <JSONInput
+        width={600}
         placeholder={spec}
-        onChange={(value) => {
+        onBlur={(value) => {
           setLocalSpec(value.jsObject);
         }}
         locale={locale}

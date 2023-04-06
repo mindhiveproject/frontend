@@ -1,7 +1,14 @@
 import { useState } from "react";
+import styled from "styled-components";
 import Render from "./Render";
 import Editor from "./Editor/Wrapper";
 import Selector from "./Controller/Selector";
+
+const StyledStateManager = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+`;
 
 const defaultSpec = {
   width: "500",
@@ -26,10 +33,7 @@ export default function StateManager({ studyId, data, variables, user }) {
   const [spec, setSpec] = useState(defaultSpec);
 
   return (
-    <div>
-      State manager of data of the length {data.length}
-      <Selector spec={spec} setSpec={setSpec} variables={variables} />
-      <Render data={data} spec={spec} />
+    <StyledStateManager>
       <Editor
         studyId={studyId}
         user={user}
@@ -37,6 +41,10 @@ export default function StateManager({ studyId, data, variables, user }) {
         setSpec={setSpec}
         defaultSpec={defaultSpec}
       />
-    </div>
+      <div>
+        <Render data={data} spec={spec} />
+        <Selector spec={spec} setSpec={setSpec} variables={variables} />
+      </div>
+    </StyledStateManager>
   );
 }

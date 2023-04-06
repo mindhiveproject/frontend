@@ -8,6 +8,8 @@ import {
 } from "../../Mutations/Script";
 import { STUDY_SCRIPTS } from "../../Queries/Script";
 
+import StyledStarboard, { VisualizeStyledForm } from "../../Styles/Script";
+
 export default function ScriptEditor({
   studyId,
   user,
@@ -86,58 +88,60 @@ export default function ScriptEditor({
   };
 
   return (
-    <div>
-      Script editor
-      <div>
-        <h2>Saved scripts</h2>
-        <button onClick={() => newScript()}>New Script</button>
-        {scripts.map((script) => (
-          <div>
-            {script?.title}
-            {script?.description}
+    <StyledStarboard>
+      <VisualizeStyledForm>
+        <fieldset disabled={loading} aria-busy={loading}>
+          <label htmlFor="title">
+            Title
+            <input
+              type="text"
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </label>
+          <label htmlFor="description">
+            Description
+            <textarea
+              id="description"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </label>
 
-            <button onClick={() => openScript(script)}>Open Script</button>
+          {scriptId ? (
             <button
-              onClick={() => deleteScript({ variables: { id: script?.id } })}
+              onClick={() => updateScript({ variables: { id: scriptId } })}
+              disabled={updateScriptLoading}
             >
-              Delete Script
+              Update
             </button>
-          </div>
-        ))}
-      </div>
-      <fieldset disabled={loading} aria-busy={loading}>
-        <label htmlFor="title">
-          Title
-          <input
-            type="text"
-            name="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </label>
-        <label htmlFor="description">
-          Description
-          <textarea
-            id="description"
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
-
-        {scriptId ? (
-          <button
-            onClick={() => updateScript({ variables: { id: scriptId } })}
-            disabled={updateScriptLoading}
-          >
-            Update
-          </button>
-        ) : (
-          <button onClick={() => createScript()} disabled={createScriptLoading}>
-            Save
-          </button>
-        )}
-      </fieldset>
-    </div>
+          ) : (
+            <button
+              onClick={() => createScript()}
+              disabled={createScriptLoading}
+            >
+              Save
+            </button>
+          )}
+        </fieldset>
+        <div className="visualizeScripts">
+          {scripts.map((script) => (
+            <div className="visualizeScript">
+              <div>{script?.title}</div>
+              <div>{script?.description}</div>
+              <button onClick={() => openScript(script)}>Open</button>
+              <button
+                onClick={() => deleteScript({ variables: { id: script?.id } })}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
+        <button onClick={() => newScript()}>New Script</button>
+      </VisualizeStyledForm>
+    </StyledStarboard>
   );
 }
