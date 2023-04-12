@@ -1,93 +1,23 @@
 import React, { Component } from "react";
 import { Query } from "@apollo/client/react/components";
-import gql from "graphql-tag";
 import debounce from "lodash.debounce";
 
 import PaginationStudyParticipants from "../../../Pagination/StudyParticipants";
-import PaginationStudyGuestParticipants from "../../../Pagination/StudyGuestParticipants";
-
 import ParticipantsOverview from "./Participants/overview";
 import SinglePage from "./Participants/Single/index";
 import SingleGuestPage from "./Participants/Single/guest";
-
-import StyledMenu from "../../../Styles/StyledMenu";
 
 import {
   StyledCollectSection,
   StyledCollectBoard,
 } from "./Participants/styles";
 
-// query to get all participants in the study
-const PARTICIPANTS_IN_STUDY = gql`
-  query PARTICIPANTS_IN_STUDY(
-    $skip: Int
-    $first: Int
-    $search: String
-    $studyId: ID!
-  ) {
-    participantsInStudy(
-      skip: $skip
-      first: $first
-      where: {
-        participantIn_some: { id: $studyId }
-        OR: [
-          { publicId_contains: $search }
-          { publicReadableId_contains: $search }
-        ]
-      }
-    ) {
-      id
-      publicReadableId
-      publicId
-      studiesInfo
-      tasksInfo
-      consentsInfo
-      generalInfo
-      consentGivenFor {
-        id
-        title
-        description
-        organization
-      }
-    }
-  }
-`;
-
-// query to get all users
-const GUEST_PARTICIPANTS_IN_STUDY = gql`
-  query GUEST_PARTICIPANTS_IN_STUDY(
-    $skip: Int
-    $first: Int
-    $search: String
-    $studyId: ID!
-  ) {
-    guestParticipantsInStudy(
-      skip: $skip
-      first: $first
-      where: {
-        guestParticipantIn_some: { id: $studyId }
-        OR: [
-          { publicId_contains: $search }
-          { publicReadableId_contains: $search }
-        ]
-      }
-    ) {
-      id
-      publicReadableId
-      publicId
-      studiesInfo
-      tasksInfo
-      consentsInfo
-      generalInfo
-    }
-  }
-`;
+import { STUDY_PARTICIPANTS } from "../../../Queries/Profile";
 
 class CollectWrapper extends Component {
   state = {
     view: this.props.view || "participants",
     page: this.props.page || 1,
-    guestPage: this.props.guestPage || 1,
     keyword: "",
     participantId: null,
   };
@@ -135,7 +65,7 @@ class CollectWrapper extends Component {
   };
 
   render() {
-    const { page, guestPage, view } = this.state;
+    const { page, view } = this.state;
     const { study } = this.props;
     const perPage = 20;
 
@@ -167,9 +97,7 @@ class CollectWrapper extends Component {
               Share the link below with your participants to invite them to join
               your study
             </p>
-            <p>
-              <h3>https://mindhive.science/studies/{this.props.study.slug}</h3>
-            </p>
+            <h3>https://mindhive.science/studies/{this.props.study.slug}</h3>
           </div>
 
           <div className="searchArea">
@@ -182,137 +110,67 @@ class CollectWrapper extends Component {
             />
           </div>
 
-          <StyledMenu>
-            <div className="menu">
-              <div
-                onClick={() => this.setState({ view: "participants" })}
-                className={
-                  view === "participants"
-                    ? "menuTitle selectedMenuTitle"
-                    : "menuTitle"
-                }
-              >
-                <p>Participants</p>
-              </div>
+          <Query
+            query={STUDY_PARTICIPANTS}
+            variables={{
+              studyId: this.props.study.id,
+              search: this.state.search,
+            }}
+          >
+            {({ data, error, loading }) => {
+              if (loading) return <p>Loading ...</p>;
+              if (error) return <p>Error: {error.message}</p>;
+              const { participantsInStudy } = data;
+              if (participantsInStudy.length === 0) {
+                return <h3>There are no participants in this study</h3>;
+              }
+              const count = participantsInStudy.length;
+              let orderedParticipants = participantsInStudy;
+              const consents = this.props.study.consent || [];
 
-              <div
-                onClick={() => this.setState({ view: "guests" })}
-                className={
-                  view === "guests"
-                    ? "menuTitle selectedMenuTitle"
-                    : "menuTitle"
-                }
-              >
-                <p>Guests</p>
-              </div>
-            </div>
-          </StyledMenu>
+              if (consents.length && consents[0].id) {
+                const consentId = consents[0].id;
+                orderedParticipants = [...participantsInStudy].sort((a, b) => {
+                  const timeA = a?.consentsInfo[consentId]?.createdAt || 0;
+                  const timeB = b?.consentsInfo[consentId]?.createdAt || 0;
+                  return timeA > timeB ? -1 : 1;
+                });
+              }
 
-          {view === "participants" && (
-            <>
-              <Query
-                query={PARTICIPANTS_IN_STUDY}
-                variables={{
-                  skip: page * perPage - perPage,
-                  first: perPage,
-                  search: this.state.search,
-                  studyId: this.props.study.id,
-                }}
-              >
-                {({ data, error, loading }) => {
-                  if (loading) return <p>Loading ...</p>;
-                  if (error) return <p>Error: {error.message}</p>;
-                  const { participantsInStudy } = data;
-                  if (participantsInStudy.length === 0) {
-                    return <h3>There are no participants in this study</h3>;
-                  }
-                  return (
-                    <div>
-                      {participantsInStudy.length > 0 && (
-                        <PaginationStudyParticipants
-                          page={page}
-                          perPage={perPage}
-                          search={this.state.search}
-                          studyId={this.props.study.id}
-                          changeToPage={this.changeToPage}
-                        />
-                      )}
-                      <ParticipantsOverview
-                        participants={participantsInStudy}
-                        studyId={this.props.study.id}
-                        openParticipant={this.openParticipant}
-                        openGuestParticipant={this.openGuestParticipant}
-                        consents={this.props.study.consent}
-                      />
-                      {participantsInStudy.length > 5 && (
-                        <PaginationStudyParticipants
-                          page={page}
-                          perPage={perPage}
-                          search={this.state.search}
-                          studyId={this.props.study.id}
-                          changeToPage={this.changeToPage}
-                        />
-                      )}
-                    </div>
-                  );
-                }}
-              </Query>
-            </>
-          )}
+              const participants = orderedParticipants.slice(
+                page * perPage - perPage,
+                page * perPage
+              );
 
-          {view === "guests" && (
-            <>
-              <Query
-                query={GUEST_PARTICIPANTS_IN_STUDY}
-                variables={{
-                  skip: guestPage * perPage - perPage,
-                  first: perPage,
-                  search: this.state.search,
-                  studyId: this.props.study.id,
-                }}
-              >
-                {({ data, error, loading }) => {
-                  if (loading) return <p>Loading ...</p>;
-                  if (error) return <p>Error: {error.message}</p>;
-                  const { guestParticipantsInStudy } = data;
-                  if (guestParticipantsInStudy.length === 0) {
-                    return (
-                      <h3>There are no guest participants in this study</h3>
-                    );
-                  }
-                  return (
-                    <div>
-                      {guestParticipantsInStudy.length > 0 && (
-                        <PaginationStudyGuestParticipants
-                          guestPage={guestPage}
-                          perPage={perPage}
-                          search={this.state.search}
-                          studyId={this.props.study.id}
-                          changeToPage={this.changeToPage}
-                        />
-                      )}
-                      <ParticipantsOverview
-                        participants={guestParticipantsInStudy}
-                        studyId={this.props.study.id}
-                        openParticipant={this.openParticipant}
-                        openGuestParticipant={this.openGuestParticipant}
-                        consents={this.props.study.consent}
-                      />
-                      {guestParticipantsInStudy.length > 5 && (
-                        <PaginationStudyGuestParticipants
-                          guestPage={guestPage}
-                          perPage={perPage}
-                          search={this.state.search}
-                          studyId={this.props.study.id}
-                          changeToPage={this.changeToPage}
-                        />
-                      )}
-                    </div>
-                  );
-                }}
-              </Query>
-            </>
-          )}
+              return (
+                <div>
+                  {count > 0 && (
+                    <PaginationStudyParticipants
+                      page={page}
+                      perPage={perPage}
+                      changeToPage={this.changeToPage}
+                      count={count}
+                    />
+                  )}
+                  <ParticipantsOverview
+                    participants={participants}
+                    studyId={this.props.study.id}
+                    openParticipant={this.openParticipant}
+                    openGuestParticipant={this.openGuestParticipant}
+                    consents={this.props.study.consent}
+                  />
+                  {count > 5 && (
+                    <PaginationStudyParticipants
+                      page={page}
+                      perPage={perPage}
+                      changeToPage={this.changeToPage}
+                      count={count}
+                    />
+                  )}
+                </div>
+              );
+            }}
+          </Query>
         </StyledCollectBoard>
       </StyledCollectSection>
     );

@@ -73,3 +73,17 @@ export const ALL_PUBLIC_USERNAMES = gql`
     }
   }
 `;
+
+export const STUDY_PARTICIPANTS = gql`
+  query PARTICIPANTS_IN_STUDY($studyId: ID!, $search: String) {
+    participantsInStudy(studyId: $studyId, search: $search) {
+      id
+      publicReadableId
+      info
+      generalInfo
+      tasksInfo
+      studiesInfo
+      consentsInfo
+    }
+  }
+`;

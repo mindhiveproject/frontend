@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Icon } from 'semantic-ui-react';
-import ParticipantTable from './table';
-import { StyledParticipantsBoard } from './styles';
+import React, { Component } from "react";
+import { Icon } from "semantic-ui-react";
+import ParticipantTable from "./table";
+import { StyledParticipantsBoard } from "./styles";
 
 class ParticipantsOverview extends Component {
   state = {
-    sortBy: 'username',
+    sortBy: "username",
     isDirectSorting: true,
   };
 
-  sortBy = sortBy => {
+  sortBy = (sortBy) => {
     this.setState({
       sortBy,
       isDirectSorting: !this.state.isDirectSorting,
@@ -24,30 +24,33 @@ class ParticipantsOverview extends Component {
       <div className="participants">
         <StyledParticipantsBoard>
           <div className="tableHeader">
-            <p onClick={() => this.sortBy('publicReadableId')}>
-              Readable ID{' '}
-              {this.state.sortBy === 'publicReadableId' &&
+            {/* <p onClick={() => this.sortBy("publicReadableId")}>
+              Readable ID{" "}
+              {this.state.sortBy === "publicReadableId" &&
               !this.state.isDirectSorting ? (
                 <Icon name="arrow up" />
               ) : (
                 <Icon name="arrow down" />
               )}
-            </p>
+            </p> */}
+            <p>Public ID</p>
             <p>Duration</p>
-            <p>Task Completion</p>
-            <p>Created</p>
-            <p onClick={() => this.sortBy('condition')}>
-              Condition{' '}
-              {this.state.sortBy === 'condition' &&
+            <p>Number of completed tasks</p>
+            <p>Condition name</p>
+            {/* <p onClick={() => this.sortBy("condition")}>
+              Condition{" "}
+              {this.state.sortBy === "condition" &&
               !this.state.isDirectSorting ? (
                 <Icon name="arrow up" />
               ) : (
                 <Icon name="arrow down" />
               )}
-            </p>
-            <p>Actions</p>
-            <p>Consent</p>
+            </p> */}
+
+            <p>Consent decision</p>
+            <p>Timestamp of consent decision</p>
             <p>Account</p>
+            <p>Include in analysis</p>
           </div>
           <ParticipantTable
             studyId={this.props.studyId}

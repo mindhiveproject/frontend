@@ -31,7 +31,7 @@ class Collaborators extends Component {
       >
         <div className="icons">
           {collaborators.map((collaborator, num) => (
-            <div>
+            <div key={num}>
               <Avatar name={collaborator} maxInitials={2} size="26px" round />
             </div>
           ))}

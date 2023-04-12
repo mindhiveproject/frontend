@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
-import moment from 'moment';
-import Error from '../../../../ErrorMessage/index';
+import gql from "graphql-tag";
+import { Query } from "@apollo/client/react/components";
+import moment from "moment";
+import Error from "../../../../ErrorMessage/index";
 
-import ChangeResultsStatus from './changeResultsStatus';
+import ChangeResultsStatus from "./changeResultsStatus";
 
 export const PARTICIPANT_STUDY_RESULTS_QUERY = gql`
   query PARTICIPANT_STUDY_RESULTS_QUERY($participantId: ID!, $studyId: ID!) {
@@ -54,21 +54,34 @@ class ParticipantRow extends Component {
 
           // calculate the statistics for the participant
           const numberFull = participantStudyResults.filter(
-            result => result.fullData?.id
+            (result) => result.fullData?.id
           ).length;
           const numberIncremental = participantStudyResults.filter(
-            result => result.incrementalData?.length
+            (result) => result.incrementalData?.length
           ).length;
 
           const timestampsCreated = participantStudyResults
-            .map(result => result.createdAt)
+            .map((result) => result.createdAt)
             .sort((a, b) => new Date(a) - new Date(b));
-          const started = timestampsCreated.length
-            ? moment(timestampsCreated[0]).format('MMMM D, YYYY, h:mma')
-            : '';
+
+          // const started = timestampsCreated.length
+          //   ? moment(timestampsCreated[0]).format("MMMM D, YYYY, h:mma")
+          //   : "";
+
+          let started = "";
+          if (
+            consents.length &&
+            consents[0].id &&
+            participant?.consentsInfo[consents[0].id]?.createdAt
+          ) {
+            const consentId = consents[0].id;
+            started = moment(
+              participant?.consentsInfo[consentId]?.createdAt
+            ).format("MMMM D, YYYY, h:mma");
+          }
 
           const timestampsUpdated = participantStudyResults
-            .map(result => result.createdAt)
+            .map((result) => result.createdAt)
             .sort((a, b) => new Date(a) - new Date(b));
           const sortedTimestamps = [
             ...timestampsCreated,
@@ -83,22 +96,22 @@ class ParticipantRow extends Component {
                       moment(timestampsCreated[0])
                     )
                   )
-                  .format('HH:mm:ss')
-              : '';
+                  .format("HH:mm:ss")
+              : "";
 
           const resultTypes = participantStudyResults.map(
-            result => result.resultType
+            (result) => result.resultType
           );
           const isTypesPresent = !!resultTypes.length;
           const isTest =
-            !(resultTypes.includes('MAIN') || resultTypes.includes('REVIEW')) &&
-            resultTypes.includes('TEST');
+            !(resultTypes.includes("MAIN") || resultTypes.includes("REVIEW")) &&
+            resultTypes.includes("TEST");
 
           return (
             <div className="tableRow">
               <div
                 onClick={() => {
-                  if (participant.__typename === 'Guest') {
+                  if (participant?.info?.type === "Guest") {
                     this.props.openGuestParticipant(participant.id);
                   } else {
                     this.props.openParticipant(participant.id);
@@ -108,26 +121,41 @@ class ParticipantRow extends Component {
                 <a>
                   {participant.publicReadableId ||
                     participant.publicId ||
-                    participant.id ||
-                    'John Doe'}
+                    `${participant.id.slice(0, 10)}...` ||
+                    "John Doe"}
                 </a>
               </div>
 
-              <p>{duration}</p>
-              <p>{numberFull}</p>
-              <p>{started}</p>
-              <p>{participant.condition}</p>
+              <div>{duration}</div>
+              <div>{numberFull}</div>
+
+              <div>{participant?.condition}</div>
+
+              <div>
+                {consents.map((consent, i) => (
+                  <div key={i}>
+                    <span>
+                      {(participant?.consentsInfo &&
+                        participant?.consentsInfo[consent?.id] &&
+                        participant?.consentsInfo[consent?.id]?.decision) ||
+                        "No info"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div>{started}</div>
+              <div>{participant?.info?.type}</div>
               {isTypesPresent ? (
                 isTest ? (
                   <ChangeResultsStatus
-                    type={participant.__typename}
+                    type={participant?.info?.type}
                     participantId={participant.id}
                     studyId={studyId}
                     status="MAIN"
                   />
                 ) : (
                   <ChangeResultsStatus
-                    type={participant.__typename}
+                    type={participant?.info?.type}
                     participantId={participant.id}
                     studyId={studyId}
                     status="TEST"
@@ -136,19 +164,6 @@ class ParticipantRow extends Component {
               ) : (
                 <div></div>
               )}
-              <p>
-                {consents.map(consent => (
-                  <div>
-                    <span>
-                      {(participant?.consentsInfo &&
-                        participant?.consentsInfo[consent] &&
-                        participant?.consentsInfo[consent]?.decision) ||
-                        'No info'}
-                    </span>
-                  </div>
-                ))}
-              </p>
-              <p>{participant.__typename === 'Guest' ? 'Guest' : 'User'}</p>
             </div>
           );
         }}

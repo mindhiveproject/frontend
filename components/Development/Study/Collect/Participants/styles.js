@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledCollectSection = styled.div`
   background: #e5e5e5;
@@ -55,8 +55,8 @@ export const StyledCollectBoard = styled.div`
   justify-self: center;
   grid-template-columns: 1fr;
   grid-template-areas:
-    'general'
-    'participants';
+    "general"
+    "participants";
   grid-gap: 20px;
   align-content: baseline;
 
@@ -87,7 +87,7 @@ export const StyledCollectBoard = styled.div`
       padding: 12px;
       &:focus {
         outline: 0;
-        border-color: ${props => props.theme.red};
+        border-color: ${(props) => props.theme.red};
       }
     }
   }
@@ -100,7 +100,6 @@ export const StyledParticipantsBoard = styled.div`
     padding: 10px;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1rem;
-    cursor: pointer;
     p {
       font-weight: bold;
     }
@@ -108,11 +107,16 @@ export const StyledParticipantsBoard = styled.div`
   .tableRow {
     display: grid;
     margin: 5px 0px;
-    padding: 15px 10px;
+    padding: 10px 10px;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1rem;
     background: white;
-    /* cursor: pointer; */
+    align-items: center;
+  }
+
+  .ui.toggle.checkbox input:checked ~ .box:before,
+  .ui.toggle.checkbox input:checked ~ label:before {
+    background-color: #007c70 !important;
   }
 `;
 
@@ -128,7 +132,6 @@ export const StyledParticipantPage = styled.div`
     padding: 10px;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     background: white;
-    /* cursor: pointer; */
   }
 
   .resultItem {
@@ -137,5 +140,10 @@ export const StyledParticipantPage = styled.div`
     padding: 10px;
     grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
     background: white;
+  }
+
+  .ui.toggle.checkbox input:checked ~ .box:before,
+  .ui.toggle.checkbox input:checked ~ label:before {
+    background-color: #007c70 !important;
   }
 `;

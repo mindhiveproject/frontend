@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import ParticipantRow from './row';
+import React, { Component } from "react";
+import ParticipantRow from "./row";
 
 class ParticipantsTable extends Component {
   render() {
     const { studyId, participants, sortBy, isDirectSorting } = this.props;
 
-    const updatedParticipants = participants.map(participant => {
+    const updatedParticipants = participants.map((participant) => {
       const studyInfo =
         (participant?.studiesInfo && participant?.studiesInfo[studyId]) || {};
       const condition = studyInfo?.blockName;
@@ -18,16 +18,16 @@ class ParticipantsTable extends Component {
       };
     });
 
-    const sortedParticipants = [...updatedParticipants].sort((a, b) => {
-      if (isDirectSorting) {
-        return a[sortBy] > b[sortBy] ? 1 : -1;
-      }
-      return a[sortBy] > b[sortBy] ? -1 : 1;
-    });
+    // const sortedParticipants = [...updatedParticipants].sort((a, b) => {
+    //   if (isDirectSorting) {
+    //     return a[sortBy] > b[sortBy] ? 1 : -1;
+    //   }
+    //   return a[sortBy] > b[sortBy] ? -1 : 1;
+    // });
 
     return (
       <div>
-        {sortedParticipants.map((participant, num) => (
+        {updatedParticipants.map((participant, num) => (
           <ParticipantRow
             key={num}
             num={num}

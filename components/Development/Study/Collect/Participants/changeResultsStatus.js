@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import gql from 'graphql-tag';
-import { Query, Mutation } from '@apollo/client/react/components';
+import gql from "graphql-tag";
+import { Mutation } from "@apollo/client/react/components";
 
-import { PARTICIPANT_STUDY_RESULTS_QUERY } from './row';
-import { MY_STUDY_RESULTS_QUERY } from '../../../../DataViz/index';
+import { Checkbox } from "semantic-ui-react";
+import { PARTICIPANT_STUDY_RESULTS_QUERY } from "./row";
+import { MY_STUDY_RESULTS_QUERY } from "../../../../DataViz/index";
 
 const CHANGE_STATUS_OF_DATA_MUTATION = gql`
   mutation CHANGE_STATUS_OF_DATA_MUTATION(
@@ -45,7 +46,7 @@ class ChangeResultsStatus extends Component {
     return (
       <Mutation
         mutation={
-          type === 'Guest'
+          type === "Guest"
             ? CHANGE_GUEST_STATUS_OF_DATA_MUTATION
             : CHANGE_STATUS_OF_DATA_MUTATION
         }
@@ -67,17 +68,19 @@ class ChangeResultsStatus extends Component {
         ]}
       >
         {(changeStatus, { loading, error }) => (
-          <p
+          <div
             onClick={() => {
-              changeStatus();
+              if (!loading) changeStatus();
             }}
           >
-            <a>
-              {status === 'TEST' ? 'Exclud' : 'Includ'}
-              {loading ? 'ing' : 'e'} {status === 'TEST' ? 'from' : 'in'}{' '}
-              analysis
-            </a>
-          </p>
+            {loading ? (
+              <p>Wait ...</p>
+            ) : (
+              <a>
+                <Checkbox toggle checked={status === "TEST"} />
+              </a>
+            )}
+          </div>
         )}
       </Mutation>
     );
