@@ -14,6 +14,7 @@ const StyledClassRow = styled.div`
   margin: 5px;
   padding: 10px;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 10px;
   background: white;
   cursor: pointer;
   :hover {
@@ -28,6 +29,7 @@ class ProposalRow extends Component {
       <StyledRow>
         <StyledClassRow onClick={() => this.props.openProposal(myproposal)}>
           <div>{myproposal?.title}</div>
+          <div>{myproposal?.author?.publicReadableId}</div>
           <div>{myproposal?.sections?.length}</div>
           <div>{moment(myproposal?.createdAt).format("MMMM D, YYYY")}</div>
           <div>{myproposal?.isTemplate ? "Yes" : "No"}</div>

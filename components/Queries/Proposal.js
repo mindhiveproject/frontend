@@ -25,6 +25,9 @@ export const ALL_PROPOSALS_QUERY = gql`
       id
       title
       description
+      author {
+        publicReadableId
+      }
       creator {
         id
         username

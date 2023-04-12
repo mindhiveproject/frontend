@@ -69,6 +69,7 @@ class ProposalHeader extends Component {
     title: this.props.proposal.title,
     description: this.props.proposal.description,
     isTemplate: this.props.proposal.isTemplate,
+    isSubmitted: this.props.proposal.isSubmitted,
     settings: this.props.proposal.settings || {
       allowMovingSections: true,
       allowMovingCards: true,
@@ -143,20 +144,36 @@ class ProposalHeader extends Component {
                 {this.props.proposalBuildMode && (
                   <div>
                     {user?.permissions.includes("ADMIN") && (
-                      <div>
-                        <label htmlFor="isTemplate">
-                          <div className="checkboxField">
-                            <input
-                              type="checkbox"
-                              id="isTemplate"
-                              name="isTemplate"
-                              checked={this.state.isTemplate}
-                              onChange={this.toggleState}
-                            />
-                            <span>Public template</span>
-                          </div>
-                        </label>
-                      </div>
+                      <>
+                        <div>
+                          <label htmlFor="isTemplate">
+                            <div className="checkboxField">
+                              <input
+                                type="checkbox"
+                                id="isTemplate"
+                                name="isTemplate"
+                                checked={this.state.isTemplate}
+                                onChange={this.toggleState}
+                              />
+                              <span>Public template</span>
+                            </div>
+                          </label>
+                        </div>
+                        <div>
+                          <label htmlFor="isSubmitted">
+                            <div className="checkboxField">
+                              <input
+                                type="checkbox"
+                                id="isSubmitted"
+                                name="isSubmitted"
+                                checked={this.state.isSubmitted}
+                                onChange={this.toggleState}
+                              />
+                              <span>Is submitted</span>
+                            </div>
+                          </label>
+                        </div>
+                      </>
                     )}
 
                     <div>
@@ -224,7 +241,9 @@ class ProposalHeader extends Component {
                 {(this.state.title !== this.props.proposal?.title ||
                   this.state.description !== this.props.proposal?.description ||
                   this.state.isTemplate !== this.props.proposal?.isTemplate ||
-                  this.state.settings !== this.props.proposal?.settings) && (
+                  this.state.settings !== this.props.proposal?.settings ||
+                  this.state.isSubmitted !==
+                    this.props.proposal?.isSubmitted) && (
                   <div>
                     <button
                       className="secondaryBtn"

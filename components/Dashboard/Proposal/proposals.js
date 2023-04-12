@@ -21,6 +21,7 @@ const StyledProposalHeader = styled.div`
   margin: 5px;
   padding: 10px;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 10px;
   cursor: pointer;
   font-weight: bold;
 `;
@@ -88,6 +89,7 @@ class Proposals extends Component {
                     <StyledRow>
                       <StyledProposalHeader>
                         <div>Template name</div>
+                        <div>Author</div>
                         <div>Number of sections</div>
                         <div>Date created</div>
                         <div>Template</div>
