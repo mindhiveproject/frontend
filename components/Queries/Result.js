@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const MY_STUDY_SUMMARY_RESULTS_QUERY = gql`
   query MY_STUDY_SUMMARY_RESULTS_QUERY($id: ID!) {
@@ -34,6 +34,50 @@ export const MY_STUDY_SUMMARY_RESULTS_QUERY = gql`
       data
       createdAt
       updatedAt
+    }
+  }
+`;
+
+export const MY_STUDY_RESULTS_QUERY = gql`
+  query MY_STUDY_RESULTS_QUERY($id: ID!) {
+    myStudyResults(where: { id: $id }) {
+      id
+      study {
+        id
+        title
+        components
+      }
+      task {
+        id
+        title
+        subtitle
+      }
+      user {
+        id
+        publicId
+        publicReadableId
+        generalInfo
+      }
+      guest {
+        id
+        publicId
+        publicReadableId
+        generalInfo
+      }
+      quantity
+      data
+      createdAt
+      updatedAt
+      fullData {
+        id
+        content
+      }
+      incrementalData {
+        id
+        content
+      }
+      testVersion
+      resultType
     }
   }
 `;

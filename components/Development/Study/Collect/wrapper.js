@@ -7,6 +7,9 @@ import ParticipantsOverview from "./Participants/overview";
 import SinglePage from "./Participants/Single/index";
 import SingleGuestPage from "./Participants/Single/guest";
 
+import DownloadRawData from "./Download/RawData";
+import DownloadSummaryData from "./Download/Summary";
+
 import {
   StyledCollectSection,
   StyledCollectBoard,
@@ -92,22 +95,32 @@ class CollectWrapper extends Component {
     return (
       <StyledCollectSection>
         <StyledCollectBoard>
-          <div className="general">
-            <p>
-              Share the link below with your participants to invite them to join
-              your study
-            </p>
-            <h3>https://mindhive.science/studies/{this.props.study.slug}</h3>
-          </div>
-
-          <div className="searchArea">
-            <span>Search</span>
-            <input
-              type="text"
-              name="keyword"
-              value={this.state.keyword}
-              onChange={this.saveToState}
-            />
+          <div className="header">
+            <div className="study">
+              <div>
+                <p>
+                  Share the link below with your participants to invite them to
+                  join your study
+                </p>
+                <h3>
+                  https://mindhive.science/studies/{this.props.study.slug}
+                </h3>
+              </div>
+              <div className="downloadOptions">
+                {false && <DownloadRawData study={study} />}
+                <DownloadSummaryData by="task" study={study} />
+                <DownloadSummaryData by="participant" study={study} />
+              </div>
+            </div>
+            <div className="searchArea">
+              <input
+                type="text"
+                name="keyword"
+                value={this.state.keyword}
+                onChange={this.saveToState}
+                placeholder="Search for participants"
+              />
+            </div>
           </div>
 
           <Query
@@ -143,7 +156,7 @@ class CollectWrapper extends Component {
               );
 
               return (
-                <div>
+                <div className="participants">
                   {count > 0 && (
                     <PaginationStudyParticipants
                       page={page}

@@ -21,10 +21,9 @@ class ParticipantsOverview extends Component {
     const { sortBy, isDirectSorting } = this.state;
 
     return (
-      <div className="participants">
-        <StyledParticipantsBoard>
-          <div className="tableHeader">
-            {/* <p onClick={() => this.sortBy("publicReadableId")}>
+      <StyledParticipantsBoard>
+        <div className="tableHeader">
+          {/* <p onClick={() => this.sortBy("publicReadableId")}>
               Readable ID{" "}
               {this.state.sortBy === "publicReadableId" &&
               !this.state.isDirectSorting ? (
@@ -33,11 +32,11 @@ class ParticipantsOverview extends Component {
                 <Icon name="arrow down" />
               )}
             </p> */}
-            <p>Public ID</p>
-            <p>Duration</p>
-            <p>Number of completed tasks</p>
-            <p>Condition name</p>
-            {/* <p onClick={() => this.sortBy("condition")}>
+          <p>Public ID</p>
+          <p>Duration</p>
+          <p>Number of completed tasks</p>
+          <p>Condition name</p>
+          {/* <p onClick={() => this.sortBy("condition")}>
               Condition{" "}
               {this.state.sortBy === "condition" &&
               !this.state.isDirectSorting ? (
@@ -47,22 +46,21 @@ class ParticipantsOverview extends Component {
               )}
             </p> */}
 
-            <p>Consent decision</p>
-            <p>Timestamp of consent decision</p>
-            <p>Account</p>
-            <p>Include in analysis</p>
-          </div>
-          <ParticipantTable
-            studyId={this.props.studyId}
-            participants={participants}
-            sortBy={this.state.sortBy}
-            isDirectSorting={this.state.isDirectSorting}
-            openParticipant={this.props.openParticipant}
-            openGuestParticipant={this.props.openGuestParticipant}
-            consents={this.props.consents}
-          />
-        </StyledParticipantsBoard>
-      </div>
+          <p>Consent decision</p>
+          <p>Timestamp of consent decision</p>
+          <p>Account</p>
+          <p>Include in analysis</p>
+        </div>
+        <ParticipantTable
+          studyId={this.props.studyId}
+          participants={participants}
+          sortBy={this.state.sortBy}
+          isDirectSorting={this.state.isDirectSorting}
+          openParticipant={this.props.openParticipant}
+          openGuestParticipant={this.props.openGuestParticipant}
+          consents={this.props.consents}
+        />
+      </StyledParticipantsBoard>
     );
   }
 }

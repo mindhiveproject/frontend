@@ -55,25 +55,46 @@ export const StyledCollectBoard = styled.div`
   justify-self: center;
   grid-template-columns: 1fr;
   grid-template-areas:
-    "general"
+    "header"
     "participants";
   grid-gap: 20px;
   align-content: baseline;
 
-  .general {
-    grid-area: general;
-    background: #ffffff;
-    padding: 2rem;
+  .header {
+    display: grid;
+    grid-area: header;
+    grid-gap: 10px;
   }
   .participants {
     grid-area: participants;
   }
   .noresponses {
   }
+
+  .study {
+    background: #ffffff;
+    padding: 2rem;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 2fr 1fr;
+    border-radius: 4px;
+
+    .downloadOptions {
+      display: grid;
+      grid-gap: 15px;
+      grid-template-columns: 1fr;
+      .downloadArea {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+      }
+    }
+  }
+
   .searchArea {
     display: grid;
-    justify-content: start;
-    align-items: center;
+
     span {
       font-size: 18px;
       margin-bottom: 0.5rem;
