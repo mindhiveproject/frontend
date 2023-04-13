@@ -99,7 +99,7 @@ export default function DownloadSummaryData({ by, study }) {
       ) : (
         <div className="downloadArea" onClick={() => download()}>
           <Icon color="teal" size="large" name="download" />
-          <a>Download aggreated data by {by}</a>
+          <a>Download aggregated data by {by}</a>
         </div>
       )}
     </>
