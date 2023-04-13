@@ -90,6 +90,23 @@ export const StyledCollectBoard = styled.div`
         align-items: center;
       }
     }
+    .buttons {
+      display: grid;
+      grid-gap: 5px;
+      grid-template-columns: auto auto;
+      justify-content: start;
+    }
+    button {
+      font-size: 18px;
+      line-height: 100%;
+      letter-spacing: 0.05em;
+      color: #007c70;
+      border: 2px solid #007c70;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 1rem 3rem;
+      background: none;
+    }
   }
 
   .searchArea {

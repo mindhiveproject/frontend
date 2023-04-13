@@ -1,4 +1,5 @@
 import { useLazyQuery } from "@apollo/client";
+import { Icon } from "semantic-ui-react";
 import { MY_STUDY_RESULTS_QUERY } from "../../../../Queries/Result";
 
 export default function DownloadRawData({ studyId }) {
@@ -19,5 +20,16 @@ export default function DownloadRawData({ studyId }) {
     console.log({ data });
   }
 
-  return <button onClick={() => download()}>Download raw data</button>;
+  return (
+    <>
+      {loading ? (
+        <div>Wait ...</div>
+      ) : (
+        <div className="downloadArea" onClick={() => download()}>
+          <Icon color="teal" size="large" name="download" />
+          <a>Download raw data</a>
+        </div>
+      )}
+    </>
+  );
 }

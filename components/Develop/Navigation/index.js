@@ -145,7 +145,7 @@ export default class Navigation extends Component {
               }
             >
               <img src="/content/icons/Briefcase.svg" />
-              <p>Test & Collect</p>
+              <p>Share & Collect</p>
             </Menu.Item>
 
             <Menu.Item

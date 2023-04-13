@@ -67,6 +67,17 @@ class CollectWrapper extends Component {
     });
   };
 
+  copyLink = () => {
+    const copyLink = `https://mindhive.science/studies/${this.props.study.slug}`;
+    const temp = document.createElement("input");
+    document.body.append(temp);
+    temp.value = copyLink;
+    temp.select();
+    document.execCommand("copy");
+    temp.remove();
+    alert("The link is copied");
+  };
+
   render() {
     const { page, view } = this.state;
     const { study } = this.props;
@@ -105,9 +116,26 @@ class CollectWrapper extends Component {
                 <h3>
                   https://mindhive.science/studies/{this.props.study.slug}
                 </h3>
+
+                <div className="buttons">
+                  <div>
+                    <button onClick={() => this.copyLink()}>
+                      Copy study link
+                    </button>
+                  </div>
+                  <div>
+                    <a
+                      target="_blank"
+                      href={`https://mindhive.science/studies/${this.props.study.slug}`}
+                      rel="noreferrer"
+                    >
+                      <button>Test your study</button>
+                    </a>
+                  </div>
+                </div>
               </div>
               <div className="downloadOptions">
-                {false && <DownloadRawData study={study} />}
+                <DownloadRawData study={study} />
                 <DownloadSummaryData by="task" study={study} />
                 <DownloadSummaryData by="participant" study={study} />
               </div>
