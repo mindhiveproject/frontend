@@ -31,6 +31,7 @@ const REVIEW_CLASS_QUERY = gql`
       createdAt
       students {
         id
+        publicReadableId
         username
         image
         authEmail {
@@ -82,14 +83,7 @@ class ClassPage extends Component {
           <StyledDevelopDasboard>
             <>
               <div className="goBackBtn">
-                <span
-                  style={{ cursor: "pointer" }}
-                  onClick={
-                    // this.props.featuredAssignmentId
-                    //   ? this.props.goBackTo('assignments') :
-                    this.props.goBack
-                  }
-                >
+                <span style={{ cursor: "pointer" }} onClick={this.props.goBack}>
                   {this.props.backButtonText || "← Back"}
                 </span>
               </div>
@@ -106,8 +100,18 @@ class ClassPage extends Component {
                     <Head>
                       <title>mindHIVE | {schoolclass.title}</title>
                     </Head>
-                    {!this.props.featuredAssignmentId && (
-                      <ClassHeader schoolclass={schoolclass} />
+                    {!this.props.featuredAssignmentId &&
+                      !this.props.isEducationalResearcher && (
+                        <ClassHeader schoolclass={schoolclass} />
+                      )}
+
+                    {this.props.isEducationalResearcher && (
+                      <div>
+                        <br />
+                        <h2>{schoolclass.title}</h2>
+                        <p>{schoolclass.description}</p>
+                        <br />
+                      </div>
                     )}
 
                     <div>
@@ -166,18 +170,20 @@ class ClassPage extends Component {
                               <p>Assignments</p>
                             </Menu.Item>
 
-                            <Menu.Item
-                              name="settings"
-                              active={tab === "settings"}
-                              onClick={this.handleItemClick}
-                              className={
-                                tab === "settings"
-                                  ? "discoverMenuTitle selectedMenuTitle"
-                                  : "discoverMenuTitle"
-                              }
-                            >
-                              <p>Settings</p>
-                            </Menu.Item>
+                            {!this.props.isEducationalResearcher && (
+                              <Menu.Item
+                                name="settings"
+                                active={tab === "settings"}
+                                onClick={this.handleItemClick}
+                                className={
+                                  tab === "settings"
+                                    ? "discoverMenuTitle selectedMenuTitle"
+                                    : "discoverMenuTitle"
+                                }
+                              >
+                                <p>Settings</p>
+                              </Menu.Item>
+                            )}
                           </Menu>
                         </div>
                       )}
@@ -186,6 +192,10 @@ class ClassPage extends Component {
                         <ClassStudents
                           schoolclass={schoolclass}
                           openStudentPage={this.openStudentPage}
+                          isAdmin={this.props.isAdmin}
+                          isEducationalResearcher={
+                            this.props.isEducationalResearcher
+                          }
                         />
                       )}
 
@@ -193,6 +203,10 @@ class ClassPage extends Component {
                         <ClassMentors
                           schoolclass={schoolclass}
                           openStudentPage={this.openStudentPage}
+                          isAdmin={this.props.isAdmin}
+                          isEducationalResearcher={
+                            this.props.isEducationalResearcher
+                          }
                         />
                       )}
 
@@ -200,6 +214,10 @@ class ClassPage extends Component {
                         <ClassStudies
                           schoolclass={schoolclass}
                           openStudyBuilder={this.props.openStudyBuilder}
+                          isAdmin={this.props.isAdmin}
+                          isEducationalResearcher={
+                            this.props.isEducationalResearcher
+                          }
                         />
                       )}
 
@@ -208,6 +226,10 @@ class ClassPage extends Component {
                           schoolclass={schoolclass}
                           featuredAssignmentId={this.props.featuredAssignmentId}
                           user={this.props.user}
+                          isAdmin={this.props.isAdmin}
+                          isEducationalResearcher={
+                            this.props.isEducationalResearcher
+                          }
                         />
                       )}
 

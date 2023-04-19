@@ -17,7 +17,7 @@ class DeleteAssignment extends Component {
           },
           {
             query: MY_ASSIGNMENTS,
-            variables: { id: this.props.user.id },
+            variables: { id: this.props.user?.id },
           },
         ]}
       >

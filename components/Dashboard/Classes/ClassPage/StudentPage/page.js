@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import Head from 'next/head';
-import { Menu } from 'semantic-ui-react';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import Head from "next/head";
+import { Menu } from "semantic-ui-react";
+import styled from "styled-components";
 
-import Participated from './participated';
-import Created from './created';
-import Reviewed from './reviewed';
-import Journal from './journal';
-import Homework from './homework';
-import Settings from './settings';
+import Participated from "./participated";
+import Created from "./created";
+import Reviewed from "./reviewed";
+import Journal from "./journal";
+import Homework from "./homework";
+import Settings from "./settings";
 
 const StudentHeader = styled.div`
   display: grid;
@@ -23,16 +23,17 @@ const StudentHeader = styled.div`
 
 class StudentPage extends Component {
   state = {
-    tab: this.props.tab || 'participated',
+    tab: this.props.tab || "participated",
   };
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
 
   render() {
     const { tab } = this.state;
-    const { student, adminMode } = this.props;
+    const { student, isAdmin, isEducationalResearcher } = this.props;
+
     const id =
-      student.publicReadableId || student.publicId || student.id || 'John Doe';
+      student.publicReadableId || student.publicId || student.id || "John Doe";
     return (
       <>
         <Head>
@@ -40,7 +41,7 @@ class StudentPage extends Component {
         </Head>
 
         <StudentHeader>
-          {adminMode ? (
+          {isAdmin || isEducationalResearcher ? (
             <div>{id}</div>
           ) : (
             <div>
@@ -55,73 +56,73 @@ class StudentPage extends Component {
             <Menu text stackable className="discoverMenu">
               <Menu.Item
                 name="participated"
-                active={tab === 'participated'}
+                active={tab === "participated"}
                 onClick={this.handleItemClick}
                 className={
-                  tab === 'participated'
-                    ? 'discoverMenuTitle selectedMenuTitle'
-                    : 'discoverMenuTitle'
+                  tab === "participated"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
                 }
               >
                 <p>Participated</p>
               </Menu.Item>
               <Menu.Item
                 name="created"
-                active={tab === 'created'}
+                active={tab === "created"}
                 onClick={this.handleItemClick}
                 className={
-                  tab === 'created'
-                    ? 'discoverMenuTitle selectedMenuTitle'
-                    : 'discoverMenuTitle'
+                  tab === "created"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
                 }
               >
                 <p>Created</p>
               </Menu.Item>
               <Menu.Item
                 name="reviewed"
-                active={tab === 'reviewed'}
+                active={tab === "reviewed"}
                 onClick={this.handleItemClick}
                 className={
-                  tab === 'reviewed'
-                    ? 'discoverMenuTitle selectedMenuTitle'
-                    : 'discoverMenuTitle'
+                  tab === "reviewed"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
                 }
               >
                 <p>Reviewed</p>
               </Menu.Item>
               <Menu.Item
                 name="journal"
-                active={tab === 'journal'}
+                active={tab === "journal"}
                 onClick={this.handleItemClick}
                 className={
-                  tab === 'journal'
-                    ? 'discoverMenuTitle selectedMenuTitle'
-                    : 'discoverMenuTitle'
+                  tab === "journal"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
                 }
               >
                 <p>Journal</p>
               </Menu.Item>
               <Menu.Item
                 name="homework"
-                active={tab === 'homework'}
+                active={tab === "homework"}
                 onClick={this.handleItemClick}
                 className={
-                  tab === 'homework'
-                    ? 'discoverMenuTitle selectedMenuTitle'
-                    : 'discoverMenuTitle'
+                  tab === "homework"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
                 }
               >
                 <p>Homework</p>
               </Menu.Item>
-              {adminMode && (
+              {isAdmin && (
                 <Menu.Item
                   name="settings"
-                  active={tab === 'settings'}
+                  active={tab === "settings"}
                   onClick={this.handleItemClick}
                   className={
-                    tab === 'settings'
-                      ? 'discoverMenuTitle selectedMenuTitle'
-                      : 'discoverMenuTitle'
+                    tab === "settings"
+                      ? "discoverMenuTitle selectedMenuTitle"
+                      : "discoverMenuTitle"
                   }
                 >
                   <p>Settings</p>
@@ -130,19 +131,19 @@ class StudentPage extends Component {
             </Menu>
           </div>
 
-          {this.state.tab === 'participated' && (
+          {this.state.tab === "participated" && (
             <Participated student={student} />
           )}
 
-          {this.state.tab === 'created' && <Created student={student} />}
+          {this.state.tab === "created" && <Created student={student} />}
 
-          {this.state.tab === 'reviewed' && <Reviewed student={student} />}
+          {this.state.tab === "reviewed" && <Reviewed student={student} />}
 
-          {this.state.tab === 'journal' && <Journal studentId={student.id} />}
+          {this.state.tab === "journal" && <Journal studentId={student.id} />}
 
-          {this.state.tab === 'homework' && <Homework student={student} />}
+          {this.state.tab === "homework" && <Homework student={student} />}
 
-          {this.state.tab === 'settings' && <Settings user={student} />}
+          {this.state.tab === "settings" && <Settings user={student} />}
         </div>
       </>
     );

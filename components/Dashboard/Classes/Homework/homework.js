@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Post from './post';
+import React, { Component } from "react";
+import Post from "./post";
 
-import { StyledEditor, StyledSelectionScreen, StyledPost } from './styles';
+import { StyledEditor, StyledSelectionScreen, StyledPost } from "./styles";
 
 class Homework extends Component {
   render() {
@@ -22,6 +22,8 @@ class Homework extends Component {
             updatedAt={homework?.updatedAt}
             onContentChange={onContentChange}
             onSettingsChange={onSettingsChange}
+            isAdmin={this.props.isAdmin}
+            isEducationalResearcher={this.props.isEducationalResearcher}
           />
         </StyledPost>
       </StyledEditor>

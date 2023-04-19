@@ -1,28 +1,30 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Query } from '@apollo/client/react/components';
-import moment from 'moment';
-import debounce from 'lodash.debounce';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Query } from "@apollo/client/react/components";
+import moment from "moment";
+import debounce from "lodash.debounce";
 
-import FetchUserPage from '../../Classes/ClassPage/StudentPage/index';
-import PaginationUsers from '../../../Pagination/allUsers';
+import FetchUserPage from "../../Classes/ClassPage/StudentPage/index";
+import PaginationUsers from "../../../Pagination/allUsers";
 
-import { StyledOverview } from '../../../Bank/Studies/overview';
+import { StyledOverview } from "../../../Bank/Studies/overview";
 
-import { ALL_USERS_QUERY } from '../../../Queries/User';
+import { ALL_USERS_QUERY } from "../../../Queries/User";
 
 const StyledHeader = styled.div`
   display: grid;
+  width: 100%;
   padding: 10px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   font-weight: bold;
 `;
 
 const StyledRow = styled.div`
   display: grid;
+  width: 100%;
   padding: 10px;
   margin-bottom: 5px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   background: white;
   box-shadow: 0px 2px 4px 0px #00000026;
   transition: box-shadow 300ms ease-out;
@@ -34,40 +36,40 @@ const StyledRow = styled.div`
 class OverviewUsers extends Component {
   state = {
     pagination: this.props.pagination || 1,
-    page: this.props.page || 'list',
+    page: this.props.page || "list",
     userId: null,
-    keyword: '',
-    search: '',
+    keyword: "",
+    search: "",
   };
 
-  openUserInformation = userId => {
+  openUserInformation = (userId) => {
     this.setState({
-      page: 'user',
+      page: "user",
       userId,
     });
   };
 
   goBackToList = () => {
     this.setState({
-      page: 'list',
+      page: "list",
       id: null,
     });
   };
 
-  debouncedSearch = debounce(value => {
+  debouncedSearch = debounce((value) => {
     this.setState({
       search: value,
     });
   }, 1000);
 
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
     this.debouncedSearch(e.target.value);
   };
 
-  goToPage = page => {
+  goToPage = (page) => {
     if (page > 0) {
       this.setState({
         pagination: page,
@@ -76,14 +78,17 @@ class OverviewUsers extends Component {
   };
 
   render() {
+    const isAdmin = this.props.user?.permissions.includes("ADMIN");
+    const isEducationalResearcher = this.props.user?.permissions.includes("IT");
     const perPage = 30;
     const { page, userId } = this.state;
-    if (page === 'user') {
+    if (page === "user") {
       return (
         <FetchUserPage
           studentId={userId}
           goBackToList={this.goBackToList}
-          adminMode
+          isAdmin={isAdmin}
+          isEducationalResearcher={isEducationalResearcher}
         />
       );
     }
@@ -107,7 +112,7 @@ class OverviewUsers extends Component {
               name="pagination"
               value={this.state.pagination}
               min={1}
-              onChange={e => {
+              onChange={(e) => {
                 const { value } = e?.target;
                 this.goToPage(value);
               }}
@@ -133,8 +138,8 @@ class OverviewUsers extends Component {
               <div>
                 <StyledHeader>
                   <div>Readable ID</div>
-                  <div>Username</div>
-                  <div>Email</div>
+                  {isAdmin && <div>Username</div>}
+                  {isAdmin && <div>Email</div>}
                   <div>Role</div>
                   <div>Date created</div>
                 </StyledHeader>
@@ -142,33 +147,34 @@ class OverviewUsers extends Component {
                 {users.map((person, i) => {
                   const email =
                     (person?.authEmail?.length && person?.authEmail[0].email) ||
-                    '';
+                    "";
                   return (
                     <StyledRow
                       key={i}
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: "pointer" }}
                       onClick={() => this.openUserInformation(person.id)}
                     >
                       <div>
                         {person.publicReadableId ||
                           person.publicId ||
                           person.id ||
-                          'John Doe'}
+                          "John Doe"}
                       </div>
-                      <div>{person?.username}</div>
+                      {isAdmin && <div>{person?.username}</div>}
+
+                      {isAdmin && (
+                        <div>
+                          {person?.authEmail?.length &&
+                            person?.authEmail[0]?.email}
+                        </div>
+                      )}
                       <div>
-                        {person?.authEmail?.length &&
-                          person?.authEmail[0]?.email}
-                      </div>
-                      <div>
-                        {person?.permissions.map(permission => (
-                          <span>{permission} </span>
+                        {person?.permissions.map((permission, i) => (
+                          <span key={i}>{permission} </span>
                         ))}
                       </div>
                       <div>
-                        {moment(person?.createdAt).format(
-                          'MMMM D, YY, h:mm:ss'
-                        )}
+                        {moment(person?.createdAt).format("MM.DD.YY, h:mm:ss")}
                       </div>
                     </StyledRow>
                   );

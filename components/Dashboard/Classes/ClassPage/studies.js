@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Query } from "@apollo/client/react/components";
+import styled from "styled-components";
 
-import StudyRow from './studyRow';
+import StudyRow from "./studyRow";
 
 const StyledStudiesTop = styled.div`
   display: grid;
@@ -35,7 +35,7 @@ const StyledStudiesHeader = styled.div`
   display: grid;
   grid-gap: 10px;
   padding: 10px;
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   font-weight: bold;
 `;
 
@@ -64,13 +64,13 @@ class ClassStudies extends Component {
     randomizeStudiesOrder: false,
   };
 
-  randomizeStudiesOrder = state => {
+  randomizeStudiesOrder = (state) => {
     this.setState({
       randomizeStudiesOrder: state,
     });
   };
 
-  shuffleArray = array => {
+  shuffleArray = (array) => {
     const newArray = [...array];
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -82,6 +82,8 @@ class ClassStudies extends Component {
   };
 
   render() {
+    const { isAdmin, isEducationalResearcher } = this.props;
+
     return (
       <div>
         <StyledStudiesTop>
@@ -95,14 +97,14 @@ class ClassStudies extends Component {
           <div>
             <span>Study title </span>
             <span
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               onClick={() => this.randomizeStudiesOrder(false)}
             >
-              {' '}
+              {" "}
               ↓
             </span>
           </div>
-          <div>Collaborator(s)</div>
+          {!isEducationalResearcher && <div>Collaborator(s)</div>}
           <div>Participants</div>
           <div>Date created</div>
           <div></div>
@@ -138,11 +140,13 @@ class ClassStudies extends Component {
               );
             }
 
-            return orderedStudies.map(study => (
+            return orderedStudies.map((study) => (
               <StudyRow
                 key={study.id}
                 study={study}
                 openStudyBuilder={this.props.openStudyBuilder}
+                isAdmin={isAdmin}
+                isEducationalResearcher={isEducationalResearcher}
               />
             ));
           }}

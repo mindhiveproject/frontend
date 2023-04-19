@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import moment from 'moment';
+import React, { Component } from "react";
+import styled from "styled-components";
+import moment from "moment";
 
-import { Query } from '@apollo/client/react/components';
+import { Query } from "@apollo/client/react/components";
 
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser from "react-html-parser";
 
-import HomeworkWrapper from '../Homework/wrapper';
+import HomeworkWrapper from "../Homework/wrapper";
 
-import { GET_ONE_ASSIGNMENT } from '../../../Queries/Assignment';
-import { GET_ASSIGNMENT_HOMEWORKS } from '../../../Queries/Homework';
+import { GET_ONE_ASSIGNMENT } from "../../../Queries/Assignment";
+import { GET_ASSIGNMENT_HOMEWORKS } from "../../../Queries/Homework";
 
 const StyledEditor = styled.div`
   .header {
@@ -79,26 +79,26 @@ const StyledAssignment = styled.div`
 
 class Assignment extends Component {
   state = {
-    page: this.props.page || 'assignment',
+    page: this.props.page || "assignment",
     assignmentId: null,
   };
 
-  openHomework = homeworkId => {
+  openHomework = (homeworkId) => {
     this.setState({
-      page: 'homework',
+      page: "homework",
       homeworkId,
     });
   };
 
   goBack = () => {
     this.setState({
-      page: 'assignment',
+      page: "assignment",
       homeworkId: null,
     });
   };
 
   render() {
-    const { assignmentId } = this.props;
+    const { assignmentId, isAdmin, isEducationalResearcher } = this.props;
     const { page, homeworkId } = this.state;
 
     return (
@@ -139,7 +139,7 @@ class Assignment extends Component {
                     )
                       return (
                         <h2>
-                          No homework submitted for assignment{' '}
+                          No homework submitted for assignment{" "}
                           <i>{assignment.title}</i>
                         </h2>
                       );
@@ -147,16 +147,18 @@ class Assignment extends Component {
                     return (
                       <StyledHomeworkList>
                         <h2>Submitted homework</h2>
-                        {page === 'homework' && (
+                        {page === "homework" && (
                           <HomeworkWrapper
                             assignmentTitle={assignment?.title}
                             homeworkId={homeworkId}
                             goBack={this.goBack}
+                            isAdmin={isAdmin}
+                            isEducationalResearcher={isEducationalResearcher}
                           />
                         )}
-                        {page === 'assignment' && (
+                        {page === "assignment" && (
                           <div>
-                            {homeworks.map(work => (
+                            {homeworks.map((work) => (
                               <div
                                 className="homeworkTab"
                                 onClick={() => this.openHomework(work?.id)}
@@ -164,10 +166,15 @@ class Assignment extends Component {
                                 <div>{work?.title}</div>
                                 <div>
                                   {moment(work?.createdAt).format(
-                                    'MMM D, YYYY'
+                                    "MMM D, YYYY"
                                   )}
                                 </div>
-                                <div>{work?.author?.username}</div>
+                                <div>
+                                  {isEducationalResearcher
+                                    ? work?.author?.publicReadableId ||
+                                      work?.author?.id
+                                    : work?.author?.username}
+                                </div>
                               </div>
                             ))}
                           </div>

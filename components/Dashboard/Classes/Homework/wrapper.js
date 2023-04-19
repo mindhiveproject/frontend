@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import { GET_HOMEWORK } from '../../../Queries/Homework';
+import { GET_HOMEWORK } from "../../../Queries/Homework";
 
-import HomeworkModal from './modal';
+import HomeworkModal from "./modal";
 
 class HomeworkWrapper extends Component {
   render() {
@@ -19,6 +19,8 @@ class HomeworkWrapper extends Component {
               homework={homework}
               assignmentTitle={this.props.assignmentTitle}
               goBack={this.props.goBack}
+              isAdmin={this.props.isAdmin}
+              isEducationalResearcher={this.props.isEducationalResearcher}
             />
           );
         }}

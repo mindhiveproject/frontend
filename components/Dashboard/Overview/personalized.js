@@ -84,6 +84,7 @@ class DashboardOverview extends Component {
   render() {
     const { page } = this.state;
     const { user, tab } = this.props;
+    const isAdmin = user?.permissions.includes("ADMIN");
 
     if (page === "bank") {
       return (
@@ -91,71 +92,81 @@ class DashboardOverview extends Component {
           <StyledDasboard>
             <StyledOverviewDasboard>
               <h1>Overview</h1>
-              <div className="navigationHeader">
-                <p>Admin overview of the platform MindHive.</p>
-              </div>
+              {isAdmin && (
+                <div className="navigationHeader">
+                  <p>Admin overview of the platform MindHive.</p>
+                </div>
+              )}
 
               <div>
                 <Menu text stackable className="discoverMenu">
-                  <Menu.Item
-                    name="studies"
-                    active={tab === "studies"}
-                    className={
-                      tab === "studies"
-                        ? "discoverMenuTitle selectedMenuTitle"
-                        : "discoverMenuTitle"
-                    }
-                  >
-                    <Link href="/dashboard/overview/studies">Studies</Link>
-                  </Menu.Item>
-
-                  <Menu.Item
-                    name="templates"
-                    active={tab === "templates"}
-                    className={
-                      tab === "templates"
-                        ? "discoverMenuTitle selectedMenuTitle"
-                        : "discoverMenuTitle"
-                    }
-                  >
-                    <Link href="/dashboard/overview/templates">Templates</Link>
-                  </Menu.Item>
-
-                  <Menu.Item
-                    name="tasks"
-                    active={tab === "tasks"}
-                    className={
-                      tab === "tasks"
-                        ? "discoverMenuTitle selectedMenuTitle"
-                        : "discoverMenuTitle"
-                    }
-                  >
-                    <Link href="/dashboard/overview/tasks">Tasks</Link>
-                  </Menu.Item>
-
-                  <Menu.Item
-                    name="surveys"
-                    active={tab === "surveys"}
-                    className={
-                      tab === "surveys"
-                        ? "discoverMenuTitle selectedMenuTitle"
-                        : "discoverMenuTitle"
-                    }
-                  >
-                    <Link href="/dashboard/overview/surveys">Surveys</Link>
-                  </Menu.Item>
-
-                  <Menu.Item
-                    name="blocks"
-                    active={tab === "blocks"}
-                    className={
-                      tab === "blocks"
-                        ? "discoverMenuTitle selectedMenuTitle"
-                        : "discoverMenuTitle"
-                    }
-                  >
-                    <Link href="/dashboard/overview/blocks">Blocks</Link>
-                  </Menu.Item>
+                  {isAdmin && (
+                    <Menu.Item
+                      name="studies"
+                      active={tab === "studies"}
+                      className={
+                        tab === "studies"
+                          ? "discoverMenuTitle selectedMenuTitle"
+                          : "discoverMenuTitle"
+                      }
+                    >
+                      <Link href="/dashboard/overview/studies">Studies</Link>
+                    </Menu.Item>
+                  )}
+                  {isAdmin && (
+                    <Menu.Item
+                      name="templates"
+                      active={tab === "templates"}
+                      className={
+                        tab === "templates"
+                          ? "discoverMenuTitle selectedMenuTitle"
+                          : "discoverMenuTitle"
+                      }
+                    >
+                      <Link href="/dashboard/overview/templates">
+                        Templates
+                      </Link>
+                    </Menu.Item>
+                  )}
+                  {isAdmin && (
+                    <Menu.Item
+                      name="tasks"
+                      active={tab === "tasks"}
+                      className={
+                        tab === "tasks"
+                          ? "discoverMenuTitle selectedMenuTitle"
+                          : "discoverMenuTitle"
+                      }
+                    >
+                      <Link href="/dashboard/overview/tasks">Tasks</Link>
+                    </Menu.Item>
+                  )}
+                  {isAdmin && (
+                    <Menu.Item
+                      name="surveys"
+                      active={tab === "surveys"}
+                      className={
+                        tab === "surveys"
+                          ? "discoverMenuTitle selectedMenuTitle"
+                          : "discoverMenuTitle"
+                      }
+                    >
+                      <Link href="/dashboard/overview/surveys">Surveys</Link>
+                    </Menu.Item>
+                  )}
+                  {isAdmin && (
+                    <Menu.Item
+                      name="blocks"
+                      active={tab === "blocks"}
+                      className={
+                        tab === "blocks"
+                          ? "discoverMenuTitle selectedMenuTitle"
+                          : "discoverMenuTitle"
+                      }
+                    >
+                      <Link href="/dashboard/overview/blocks">Blocks</Link>
+                    </Menu.Item>
+                  )}
 
                   <Menu.Item
                     name="users"
@@ -230,7 +241,10 @@ class DashboardOverview extends Component {
               )}
 
               {tab === "users" && (
-                <OverviewUsers pagination={this.props.pagination} />
+                <OverviewUsers
+                  pagination={this.props.pagination}
+                  user={this.props.user}
+                />
               )}
 
               {tab === "classes" && (

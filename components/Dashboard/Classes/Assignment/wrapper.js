@@ -56,7 +56,7 @@ class ClassAssignments extends Component {
   };
 
   render() {
-    const { schoolclass } = this.props;
+    const { schoolclass, isAdmin, isEducationalResearcher } = this.props;
     const { page, assignmentId, featuredAssignmentId } = this.state;
 
     if (page === "selectassignment") {
@@ -88,6 +88,8 @@ class ClassAssignments extends Component {
           goBack={this.goBack}
           classId={schoolclass?.id}
           assignmentId={assignmentId}
+          isAdmin={isAdmin}
+          isEducationalResearcher={isEducationalResearcher}
         />
       );
     }
@@ -106,7 +108,7 @@ class ClassAssignments extends Component {
     if (page === "assignments") {
       return (
         <>
-          {!this.props.featuredAssignmentId && (
+          {!this.props.featuredAssignmentId && !isEducationalResearcher && (
             <div className="navigationHeader">
               <div></div>
               <button onClick={this.selectAssignment}>Add assignment</button>
@@ -141,6 +143,8 @@ class ClassAssignments extends Component {
                         openAssignment={this.openAssignment}
                         featuredAssignmentId={this.props.featuredAssignmentId}
                         user={this.props.user}
+                        isAdmin={isAdmin}
+                        isEducationalResearcher={isEducationalResearcher}
                       />
                     ))}
                 </>

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_ASSIGNMENT_HOMEWORKS = gql`
   query GET_ASSIGNMENT_HOMEWORKS($id: ID!) {
@@ -6,7 +6,9 @@ export const GET_ASSIGNMENT_HOMEWORKS = gql`
       id
       title
       author {
+        id
         username
+        publicReadableId
       }
       createdAt
       updatedAt

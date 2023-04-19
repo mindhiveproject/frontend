@@ -104,7 +104,13 @@ class AssignmentTab extends Component {
   };
 
   render() {
-    const { assignment, classId } = this.props;
+    const {
+      assignment,
+      classId,
+      isAdmin,
+      isEducationalResearcher,
+    } = this.props;
+
     return (
       <StyledPost>
         <div className="header">
@@ -128,23 +134,25 @@ class AssignmentTab extends Component {
               <em>{moment(assignment.createdAt).format("MMM D, YYYY")}</em>
             </div>
 
-            <div className="title">
-              {assignment.public ? (
-                <button className="secondary" onClick={() => this.copyLink()}>
-                  Copy link
-                </button>
-              ) : (
-                <div></div>
-              )}
+            {!isEducationalResearcher && (
+              <div className="title">
+                {assignment.public ? (
+                  <button className="secondary" onClick={() => this.copyLink()}>
+                    Copy link
+                  </button>
+                ) : (
+                  <div></div>
+                )}
 
-              <DeleteAssignment
-                assignmentId={assignment?.id}
-                classId={classId}
-                user={this.props.user}
-              >
-                <button className="secondary">Delete</button>
-              </DeleteAssignment>
-            </div>
+                <DeleteAssignment
+                  assignmentId={assignment?.id}
+                  classId={classId}
+                  user={this.props.user}
+                >
+                  <button className="secondary">Delete</button>
+                </DeleteAssignment>
+              </div>
+            )}
           </div>
 
           <div className="headerInfo">
@@ -156,51 +164,55 @@ class AssignmentTab extends Component {
                 </p>
               </a>
             ) : (
-              <div className="buttons">
-                <button
-                  className="secondary"
-                  onClick={() => this.props.editAssignment(assignment?.id)}
-                >
-                  Edit
-                </button>
-
-                <Mutation
-                  mutation={UPDATE_ASSIGNMENT}
-                  variables={this.state}
-                  refetchQueries={[
-                    {
-                      query: CLASS_ASSIGNMENTS,
-                      variables: { id: this.props.classId },
-                    },
-                    {
-                      query: MY_ASSIGNMENTS,
-                      variables: { id: this.props.user.id },
-                    },
-                    {
-                      query: GET_ONE_ASSIGNMENT,
-                      variables: { id: this.props.assignment.id },
-                    },
-                  ]}
-                >
-                  {(submitAssignment, { loading, error }) => (
+              <>
+                {!isEducationalResearcher && (
+                  <div className="buttons">
                     <button
-                      onClick={() => {
-                        if (
-                          confirm(
-                            "Are you sure you want to submit this assignment? The assignment can no longer be edited after it has been submitted."
-                          )
-                        ) {
-                          submitAssignment().catch((err) => {
-                            alert(err.message);
-                          });
-                        }
-                      }}
+                      className="secondary"
+                      onClick={() => this.props.editAssignment(assignment?.id)}
                     >
-                      Submit
+                      Edit
                     </button>
-                  )}
-                </Mutation>
-              </div>
+
+                    <Mutation
+                      mutation={UPDATE_ASSIGNMENT}
+                      variables={this.state}
+                      refetchQueries={[
+                        {
+                          query: CLASS_ASSIGNMENTS,
+                          variables: { id: this.props.classId },
+                        },
+                        {
+                          query: MY_ASSIGNMENTS,
+                          variables: { id: this.props.user?.id },
+                        },
+                        {
+                          query: GET_ONE_ASSIGNMENT,
+                          variables: { id: this.props.assignment?.id },
+                        },
+                      ]}
+                    >
+                      {(submitAssignment, { loading, error }) => (
+                        <button
+                          onClick={() => {
+                            if (
+                              confirm(
+                                "Are you sure you want to submit this assignment? The assignment can no longer be edited after it has been submitted."
+                              )
+                            ) {
+                              submitAssignment().catch((err) => {
+                                alert(err.message);
+                              });
+                            }
+                          }}
+                        >
+                          Submit
+                        </button>
+                      )}
+                    </Mutation>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

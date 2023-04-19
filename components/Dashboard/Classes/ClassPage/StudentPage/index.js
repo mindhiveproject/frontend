@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import StudentPage from './page';
+import StudentPage from "./page";
 
-import { StyledDasboard, StyledDevelopDasboard } from '../../../styles';
+import { StyledDasboard, StyledDevelopDasboard } from "../../../styles";
 
-import { STUDENT_QUERY } from '../../../../Queries/User';
+import { STUDENT_QUERY } from "../../../../Queries/User";
 
 class FetchStudentPage extends Component {
   render() {
@@ -15,7 +15,7 @@ class FetchStudentPage extends Component {
         <StyledDevelopDasboard>
           <div className="goBackBtn">
             <span
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               onClick={this.props.goBackToList}
             >
               ← Back
@@ -33,7 +33,8 @@ class FetchStudentPage extends Component {
                 <StudentPage
                   student={student}
                   classId={this.props.classId}
-                  adminMode={this.props.adminMode}
+                  isAdmin={this.props.isAdmin}
+                  isEducationalResearcher={this.props.isEducationalResearcher}
                 />
               );
             }}

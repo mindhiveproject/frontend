@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import styled from 'styled-components';
-import { Dropdown } from 'semantic-ui-react';
-import { Mutation, Query } from '@apollo/client/react/components';
-import Error from '../../../ErrorMessage/index';
+import React, { Component } from "react";
+import moment from "moment";
+import styled from "styled-components";
+import { Dropdown } from "semantic-ui-react";
+import { Mutation, Query } from "@apollo/client/react/components";
+import Error from "../../../ErrorMessage/index";
 
-import { EXPEL_CLASS_MUTATION } from '../../../Class/Leave/remove';
-import { MOVE_TO_CLASS_MUTATION } from '../../../Class/Leave/move';
-import { REVIEW_CLASS_QUERY } from '../classpage';
-import { MY_CLASSES_QUERY } from '../classes';
+import { EXPEL_CLASS_MUTATION } from "../../../Class/Leave/remove";
+import { MOVE_TO_CLASS_MUTATION } from "../../../Class/Leave/move";
+import { REVIEW_CLASS_QUERY } from "../classpage";
+import { MY_CLASSES_QUERY } from "../classes";
 
 const StyledStudentsTop = styled.div`
   display: grid;
@@ -41,7 +41,7 @@ const StyledStudentsTop = styled.div`
 const StyledStudentHeader = styled.div`
   display: grid;
   padding: 10px;
-  grid-template-columns: 100px 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   font-weight: bold;
 `;
 
@@ -49,7 +49,7 @@ const StyledStudentRow = styled.div`
   display: grid;
   padding: 1.5rem 1rem;
   margin-bottom: 2px;
-  grid-template-columns: 100px 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   background: white;
   box-shadow: 0px 2px 4px 0px #00000026;
   transition: box-shadow 300ms ease-out;
@@ -88,17 +88,18 @@ class ClassStudents extends Component {
 
   copyLink = () => {
     const copyLink = `https://mindhive.science/signup/student/${this.props.schoolclass.code}`;
-    const temp = document.createElement('input');
+    const temp = document.createElement("input");
     document.body.append(temp);
     temp.value = copyLink;
     temp.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     temp.remove();
-    alert('The link is copied');
+    alert("The link is copied");
   };
 
   render() {
     const { students } = this.props.schoolclass;
+    const { isAdmin, isEducationalResearcher } = this.props;
 
     return (
       <Mutation
@@ -134,7 +135,7 @@ class ClassStudents extends Component {
                   if (error) return <p>Error: {error.message}</p>;
                   const { myClasses } = data;
                   const otherClasses = myClasses.filter(
-                    myClass => myClass.id !== this.props.schoolclass.id
+                    (myClass) => myClass.id !== this.props.schoolclass.id
                   );
                   return (
                     <div>
@@ -163,17 +164,31 @@ class ClassStudents extends Component {
                         </div>
                       </StyledStudentsTop>
 
-                      <StyledStudentHeader>
-                        <div>Actions</div>
-                        <div>Student/Username</div>
-                        <div>Email address</div>
-                      </StyledStudentHeader>
+                      {isEducationalResearcher ? (
+                        <StyledStudentHeader>
+                          <div>ID</div>
+                        </StyledStudentHeader>
+                      ) : (
+                        <StyledStudentHeader>
+                          <div>Actions</div>
+                          <div>Student/Username</div>
+                          <div>Email address</div>
+                        </StyledStudentHeader>
+                      )}
 
                       {students.map((student, i) => {
                         const email =
                           (student.authEmail.length &&
                             student.authEmail[0].email) ||
-                          '';
+                          "";
+
+                        if (isEducationalResearcher) {
+                          return (
+                            <StyledStudentRow key={i}>
+                              {student.publicReadableId || student.id}
+                            </StyledStudentRow>
+                          );
+                        }
                         return (
                           <StyledStudentRow key={i}>
                             <Dropdown className="dropdownMenu" simple>
@@ -196,10 +211,10 @@ class ClassStudents extends Component {
                                   simple
                                   text="Move to class"
                                   className="dropdownItem"
-                                  options={otherClasses.map(myClass => ({
+                                  options={otherClasses.map((myClass) => ({
                                     key: myClass.id,
                                     text: myClass.title,
-                                    className: 'dropdownItem',
+                                    className: "dropdownItem",
                                     onClick: () =>
                                       this.changeTheClass(
                                         moveToClass,
@@ -212,7 +227,7 @@ class ClassStudents extends Component {
                               </Dropdown.Menu>
                             </Dropdown>
                             <div
-                              style={{ cursor: 'pointer' }}
+                              style={{ cursor: "pointer" }}
                               onClick={() =>
                                 this.props.openStudentPage(student.id)
                               }

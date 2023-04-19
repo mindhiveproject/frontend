@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Modal } from 'semantic-ui-react';
-import { Mutation } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Modal } from "semantic-ui-react";
+import { Mutation } from "@apollo/client/react/components";
 
-import { StyledButtons, StyledButton } from './styles';
+import { StyledButtons, StyledButton } from "./styles";
 
-import { CREATE_UPDATE } from '../../../Mutations/Update';
-import { UPDATE_HOMEWORK } from '../../../Mutations/Homework';
-import { GET_HOMEWORK } from '../../../Queries/Homework';
+import { CREATE_UPDATE } from "../../../Mutations/Update";
+import { UPDATE_HOMEWORK } from "../../../Mutations/Homework";
+import { GET_HOMEWORK } from "../../../Queries/Homework";
 
-import Homework from './homework';
+import Homework from "./homework";
 
 class HomeworkModal extends Component {
   state = {
@@ -16,11 +16,11 @@ class HomeworkModal extends Component {
     content: this.props.homework?.content,
     settings: this.props.homework?.settings || {
       status: null,
-      comment: '',
+      comment: "",
     },
   };
 
-  handleContentChange = content => {
+  handleContentChange = (content) => {
     if (content) {
       this.setState({
         content,
@@ -38,6 +38,7 @@ class HomeworkModal extends Component {
   };
 
   render() {
+    const { isAdmin, isEducationalResearcher } = this.props;
     return (
       <Modal
         open
@@ -54,62 +55,66 @@ class HomeworkModal extends Component {
               settings={this.state.settings}
               onContentChange={this.handleContentChange}
               onSettingsChange={this.handleSettingsChange}
+              isAdmin={isAdmin}
+              isEducationalResearcher={isEducationalResearcher}
             />
           </Modal.Description>
         </Modal.Content>
-        <Modal.Actions>
-          <Mutation
-            mutation={UPDATE_HOMEWORK}
-            variables={this.state}
-            refetchQueries={[
-              {
-                query: GET_HOMEWORK,
-                variables: { id: this.props.homework?.id },
-              },
-            ]}
-          >
-            {(updateHomework, { loading, error }) => (
-              <>
-                <Mutation
-                  mutation={CREATE_UPDATE}
-                  variables={{
-                    forUsers: [this.props.homework?.author?.id],
-                    updateArea: 'ASSIGNMENT',
-                    link: `/dashboard/myclasses/assignments/${this.props.homework?.assignment?.id}`,
-                    content: {
-                      message: 'The teacher has commented on your assignment',
-                    },
-                  }}
-                >
-                  {(createUpdate, { loading, error }) => (
-                    <StyledButtons>
-                      {!loading && (
+        {!isEducationalResearcher && (
+          <Modal.Actions>
+            <Mutation
+              mutation={UPDATE_HOMEWORK}
+              variables={this.state}
+              refetchQueries={[
+                {
+                  query: GET_HOMEWORK,
+                  variables: { id: this.props.homework?.id },
+                },
+              ]}
+            >
+              {(updateHomework, { loading, error }) => (
+                <>
+                  <Mutation
+                    mutation={CREATE_UPDATE}
+                    variables={{
+                      forUsers: [this.props.homework?.author?.id],
+                      updateArea: "ASSIGNMENT",
+                      link: `/dashboard/myclasses/assignments/${this.props.homework?.assignment?.id}`,
+                      content: {
+                        message: "The teacher has commented on your assignment",
+                      },
+                    }}
+                  >
+                    {(createUpdate, { loading, error }) => (
+                      <StyledButtons>
+                        {!loading && (
+                          <StyledButton
+                            disabled={loading}
+                            className="secondary"
+                            onClick={() => this.props.goBack()}
+                          >
+                            Close without saving
+                          </StyledButton>
+                        )}
                         <StyledButton
+                          className="primary"
+                          onClick={() => {
+                            updateHomework();
+                            createUpdate();
+                            this.props.goBack();
+                          }}
                           disabled={loading}
-                          className="secondary"
-                          onClick={() => this.props.goBack()}
                         >
-                          Close without saving
+                          {loading ? "Saving ..." : "Save & close"}
                         </StyledButton>
-                      )}
-                      <StyledButton
-                        className="primary"
-                        onClick={() => {
-                          updateHomework();
-                          createUpdate();
-                          this.props.goBack();
-                        }}
-                        disabled={loading}
-                      >
-                        {loading ? 'Saving ...' : 'Save & close'}
-                      </StyledButton>
-                    </StyledButtons>
-                  )}
-                </Mutation>
-              </>
-            )}
-          </Mutation>
-        </Modal.Actions>
+                      </StyledButtons>
+                    )}
+                  </Mutation>
+                </>
+              )}
+            </Mutation>
+          </Modal.Actions>
+        )}
       </Modal>
     );
   }

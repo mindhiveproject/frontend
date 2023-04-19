@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { StyledHomeDasboard } from '../styles';
-import Updates from './updates';
-import Links from './links';
+import React, { Component } from "react";
+import { StyledHomeDasboard } from "../styles";
+import Updates from "./updates";
+import Links from "./links";
 
 class HomeDashboard extends Component {
   render() {
@@ -24,7 +24,7 @@ class HomeDashboard extends Component {
             <div>
               {publicReadableId && (
                 <div>
-                  Public readable ID{' '}
+                  Public readable ID{" "}
                   <div className="code">{publicReadableId}</div>
                 </div>
               )}
@@ -35,7 +35,7 @@ class HomeDashboard extends Component {
             Permissions
             {me?.permissions.map((permission, num) => (
               <div key={num} className="code">
-                {permission}
+                {permission === "IT" ? "EDUCATIONAL RESEARCHER" : permission}
               </div>
             ))}
           </div>

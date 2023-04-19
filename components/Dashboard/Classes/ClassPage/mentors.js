@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
-import { Dropdown } from 'semantic-ui-react';
-import { Mutation, Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import styled from "styled-components";
+import { Dropdown } from "semantic-ui-react";
+import { Mutation, Query } from "@apollo/client/react/components";
 
-import uniqid from 'uniqid';
-import { REVIEW_CLASS_QUERY } from '../classpage';
+import uniqid from "uniqid";
+import { REVIEW_CLASS_QUERY } from "../classpage";
 
 const REMOVE_MENTOR_FROM_CLASS_MUTATION = gql`
   mutation REMOVE_MENTOR_FROM_CLASS_MUTATION($classId: ID!, $mentorId: ID!) {
@@ -89,21 +89,22 @@ class ClassMentors extends Component {
     });
   };
 
-  copyLink = mentorInvitationCode => {
+  copyLink = (mentorInvitationCode) => {
     const copyLink = `https://mindhive.science/signup/mentor/${this.props.schoolclass.code}/${mentorInvitationCode}`;
-    const temp = document.createElement('input');
+    const temp = document.createElement("input");
     document.body.append(temp);
     temp.value = copyLink;
     temp.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     temp.remove();
-    alert('The link is copied');
+    alert("The link is copied");
   };
 
   render() {
     const { mentors } = this.props.schoolclass;
     const mentorInvitationCode = this.props.schoolclass?.settings
       ?.mentorInvitationCode;
+    const { isAdmin, isEducationalResearcher } = this.props;
 
     return (
       <Mutation
@@ -119,106 +120,114 @@ class ClassMentors extends Component {
       >
         {(removeMentorFromClass, { error }) => (
           <div>
-            <StyledMentorsTop>
-              {mentorInvitationCode && (
-                <div>
-                  <p>
-                    Share the link below with mentors to invite them to join
-                    your class
-                  </p>
-                  <div className="copyArea">
-                    <div className="link">
-                      https://mindhive.science/signup/mentor/
-                      {this.props.schoolclass.code}/{mentorInvitationCode}
+            {!isEducationalResearcher && (
+              <StyledMentorsTop>
+                {mentorInvitationCode && (
+                  <div>
+                    <p>
+                      Share the link below with mentors to invite them to join
+                      your class
+                    </p>
+                    <div className="copyArea">
+                      <div className="link">
+                        https://mindhive.science/signup/mentor/
+                        {this.props.schoolclass.code}/{mentorInvitationCode}
+                      </div>
+                      <div
+                        className="copyButton"
+                        onClick={() => this.copyLink(mentorInvitationCode)}
+                      >
+                        Copy
+                      </div>
                     </div>
-                    <div
-                      className="copyButton"
-                      onClick={() => this.copyLink(mentorInvitationCode)}
-                    >
-                      Copy
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div>
-                {mentorInvitationCode ? (
-                  <div className="infoText">
-                    ⚠️ Creating a new link will invalidate the current one
-                  </div>
-                ) : (
-                  <div className="infoText">
-                    👋 Create a new invitation link for mentors to join your
-                    class
                   </div>
                 )}
-                <Mutation
-                  mutation={UPDATE_CLASS_SETTINGS}
-                  refetchQueries={[
-                    {
-                      query: REVIEW_CLASS_QUERY,
-                      variables: {
-                        id: this.props.schoolclass.id,
-                      },
-                    },
-                  ]}
-                >
-                  {(updateClassSettings, { loading, error }) => (
-                    <button
-                      className="copyButton"
-                      onClick={async () => {
-                        const res = await updateClassSettings({
-                          variables: {
-                            id: this.props.schoolclass.id,
-                            settings: {
-                              ...this.props.schoolclass?.settings,
-                              mentorInvitationCode: uniqid.time(),
-                            },
-                          },
-                        });
-                      }}
-                    >
-                      {loading ? 'Creating ...' : 'Create link'}
-                    </button>
+
+                <div>
+                  {mentorInvitationCode ? (
+                    <div className="infoText">
+                      ⚠️ Creating a new link will invalidate the current one
+                    </div>
+                  ) : (
+                    <div className="infoText">
+                      👋 Create a new invitation link for mentors to join your
+                      class
+                    </div>
                   )}
-                </Mutation>
-              </div>
-            </StyledMentorsTop>
+                  <Mutation
+                    mutation={UPDATE_CLASS_SETTINGS}
+                    refetchQueries={[
+                      {
+                        query: REVIEW_CLASS_QUERY,
+                        variables: {
+                          id: this.props.schoolclass.id,
+                        },
+                      },
+                    ]}
+                  >
+                    {(updateClassSettings, { loading, error }) => (
+                      <button
+                        className="copyButton"
+                        onClick={async () => {
+                          const res = await updateClassSettings({
+                            variables: {
+                              id: this.props.schoolclass.id,
+                              settings: {
+                                ...this.props.schoolclass?.settings,
+                                mentorInvitationCode: uniqid.time(),
+                              },
+                            },
+                          });
+                        }}
+                      >
+                        {loading ? "Creating ..." : "Create link"}
+                      </button>
+                    )}
+                  </Mutation>
+                </div>
+              </StyledMentorsTop>
+            )}
 
             <StyledMentorHeader>
               <div>Mentor/Username</div>
-              <div>Email address</div>
-              <div>Actions</div>
+              {!isEducationalResearcher && <div>Email address</div>}
+              {!isEducationalResearcher && <div>Actions</div>}
             </StyledMentorHeader>
 
             {mentors.map((mentor, i) => {
               const email =
-                (mentor.authEmail.length && mentor.authEmail[0].email) || '';
+                (mentor.authEmail.length && mentor.authEmail[0].email) || "";
               return (
                 <StyledMentorRow key={i}>
-                  <div
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => this.props.openStudentPage(mentor.id)}
-                  >
-                    {mentor.username}
-                  </div>
-                  <div>{email}</div>
-                  <Dropdown text="...">
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        name="remove"
-                        onClick={() =>
-                          this.removeFromClass(
-                            removeMentorFromClass,
-                            this.props.schoolclass.id,
-                            mentor.id
-                          )
-                        }
-                      >
-                        Remove from this class
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  {isEducationalResearcher ? (
+                    <div>{mentor.username}</div>
+                  ) : (
+                    <div
+                      style={{ cursor: "pointer" }}
+                      onClick={() => this.props.openStudentPage(mentor.id)}
+                    >
+                      {mentor.username}
+                    </div>
+                  )}
+                  {!isEducationalResearcher && <div>{email}</div>}
+                  {!isEducationalResearcher && (
+                    <Dropdown text="...">
+                      <Dropdown.Menu>
+                        <Dropdown.Item
+                          name="remove"
+                          onClick={() =>
+                            this.removeFromClass(
+                              removeMentorFromClass,
+                              this.props.schoolclass.id,
+                              mentor.id
+                            )
+                          }
+                        >
+                          Remove from this class
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  )}
                 </StyledMentorRow>
               );
             })}

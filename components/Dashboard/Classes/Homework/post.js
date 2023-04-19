@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import { StyledPost, StyledJodit } from './styles';
-import { Jodit } from '../../Jodit/index';
-import StatusForm from '../../Jodit/Forms/statusForm';
+import React, { Component } from "react";
+import moment from "moment";
+import { StyledPost, StyledJodit } from "./styles";
+import { Jodit } from "../../Jodit/index";
+import StatusForm from "../../Jodit/Forms/statusForm";
 
 class Post extends Component {
   render() {
@@ -13,6 +13,8 @@ class Post extends Component {
       updatedAt,
       onContentChange,
       onSettingsChange,
+      isAdmin,
+      isEducationalResearcher,
     } = this.props;
 
     return (
@@ -28,36 +30,46 @@ class Post extends Component {
           </div>
 
           <div className="infoBoard">
-            <div>
-              <h4>Assigned to</h4>
-              <p>{author}</p>
-            </div>
+            {!isEducationalResearcher && (
+              <div>
+                <h4>Assigned to</h4>
+                <p>{author}</p>
+              </div>
+            )}
 
             <div>
               <h4>Last updated</h4>
-              <p>{moment(updatedAt).format('MMM D, YYYY, h:mm a')}</p>
+              <p>{moment(updatedAt).format("MMM D, YYYY, h:mm a")}</p>
             </div>
 
             <div>
               <h4>Status</h4>
-              <StatusForm
-                settings={settings}
-                onSettingsChange={onSettingsChange}
-              />
+              {isEducationalResearcher ? (
+                <div>{settings?.status}</div>
+              ) : (
+                <StatusForm
+                  settings={settings}
+                  onSettingsChange={onSettingsChange}
+                />
+              )}
             </div>
 
             <div className="proposalCardComments">
               <h4>Comments</h4>
-              <textarea
-                rows="13"
-                type="text"
-                id="comment"
-                name="comment"
-                value={settings?.comment}
-                onChange={e =>
-                  onSettingsChange(e?.target?.name, e?.target?.value)
-                }
-              />
+              {isEducationalResearcher ? (
+                <div>{settings?.comment}</div>
+              ) : (
+                <textarea
+                  rows="13"
+                  type="text"
+                  id="comment"
+                  name="comment"
+                  value={settings?.comment}
+                  onChange={(e) =>
+                    onSettingsChange(e?.target?.name, e?.target?.value)
+                  }
+                />
+              )}
             </div>
           </div>
         </div>

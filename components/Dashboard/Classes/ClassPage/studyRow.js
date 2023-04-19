@@ -7,13 +7,15 @@ const StyledStudiesRow = styled.div`
   grid-gap: 10px;
   padding: 10px;
   margin-bottom: 2px;
-  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   background: white;
 `;
 
 class StudyRow extends Component {
   render() {
     const { study } = this.props;
+    const { isAdmin, isEducationalResearcher } = this.props;
+
     const authors = [
       study?.author?.username,
       ...study.collaborators.map((c) => c.username),
@@ -21,7 +23,7 @@ class StudyRow extends Component {
     return (
       <StyledStudiesRow>
         <div>{study.title}</div>
-        <div>{authors}</div>
+        {!isEducationalResearcher && <div>{authors}</div>}
         <div>{study.participants.length}</div>
         <div>{moment(study.createdAt).format("MMMM D, YYYY")}</div>
         <div>
@@ -29,15 +31,17 @@ class StudyRow extends Component {
             Study page
           </a>
         </div>
-        <div>
-          <a
-            onClick={() => {
-              this.props.openStudyBuilder(study?.id);
-            }}
-          >
-            Study builder
-          </a>
-        </div>
+        {!isEducationalResearcher && (
+          <div>
+            <a
+              onClick={() => {
+                this.props.openStudyBuilder(study?.id);
+              }}
+            >
+              Study builder
+            </a>
+          </div>
+        )}
       </StyledStudiesRow>
     );
   }

@@ -4,6 +4,7 @@ import { Query } from "@apollo/client/react/components";
 import gql from "graphql-tag";
 import moment from "moment";
 import debounce from "lodash.debounce";
+import { createKey } from "next/dist/shared/lib/router/router";
 import ClassPage from "../../Classes/classpage";
 
 import PaginationClasses from "../../../Pagination/allClasses";
@@ -94,6 +95,9 @@ class OverviewClasses extends Component {
   };
 
   render() {
+    const isAdmin = this.props.user?.permissions.includes("ADMIN");
+    const isEducationalResearcher = this.props.user?.permissions.includes("IT");
+
     const perPage = 10;
     const { page } = this.state;
     if (page === "classpage") {
@@ -101,8 +105,9 @@ class OverviewClasses extends Component {
         <ClassPage
           classId={this.state.classId}
           goBack={this.goBack}
-          adminMode
           openStudyBuilder={this.props.openStudyBuilder}
+          isAdmin={isAdmin}
+          isEducationalResearcher={isEducationalResearcher}
         />
       );
     }
@@ -155,8 +160,8 @@ class OverviewClasses extends Component {
                     </div>
                     <div>{theclass.creator.username}</div>
                     <div>
-                      {theclass.mentors.map((mentor) => (
-                        <span>{mentor.username}</span>
+                      {theclass.mentors.map((mentor, i) => (
+                        <span key={i}>{mentor.username}</span>
                       ))}
                     </div>
                   </StyledRow>

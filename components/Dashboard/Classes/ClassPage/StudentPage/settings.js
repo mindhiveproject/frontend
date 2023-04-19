@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
+import styled from "styled-components";
 
-import Error from '../../../../ErrorMessage/index';
-import { CreateAccountForm } from '../../../../Sign/styles';
+import Error from "../../../../ErrorMessage/index";
+import { CreateAccountForm } from "../../../../Sign/styles";
 
-import { UPDATE_USER_ACCOUNT } from '../../../../Mutations/User';
-import { STUDENT_QUERY } from '../../../../Queries/User';
+import { UPDATE_USER_ACCOUNT } from "../../../../Mutations/User";
+import { STUDENT_QUERY } from "../../../../Queries/User";
 
 const StyledSettingsDasboard = styled.div`
   width: 100%;
@@ -19,11 +19,11 @@ class Settings extends Component {
     permissions: this.props?.user?.permissions,
   };
 
-  setPermissions = e => {
+  setPermissions = (e) => {
     const { name } = e?.target;
     let permissions;
     if (this.state.permissions.includes(name)) {
-      permissions = this.state.permissions.filter(p => p !== name);
+      permissions = this.state.permissions.filter((p) => p !== name);
     } else {
       permissions = [...this.state.permissions, name];
     }
@@ -48,14 +48,14 @@ class Settings extends Component {
           <StyledSettingsDasboard>
             <CreateAccountForm
               method="post"
-              onSubmit={async e => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 await editAccount({
                   variables: {
                     permissions: this.state.permissions,
                   },
                 });
-                alert('The account information was updated');
+                alert("The account information was updated");
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
@@ -63,13 +63,14 @@ class Settings extends Component {
                 <Error error={error} />
 
                 {[
-                  'PARTICIPANT',
-                  'STUDENT',
-                  'TEACHER',
-                  'MENTOR',
-                  'SCIENTIST',
-                  'ADMIN',
-                ].map(role => (
+                  "PARTICIPANT",
+                  "STUDENT",
+                  "TEACHER",
+                  "MENTOR",
+                  "SCIENTIST",
+                  "ADMIN",
+                  "IT",
+                ].map((role) => (
                   <div>
                     <label htmlFor={role}>
                       <div className="checkboxField">
@@ -80,7 +81,9 @@ class Settings extends Component {
                           checked={permissions.includes(role)}
                           onChange={this.setPermissions}
                         />
-                        <span>{role}</span>
+                        <span>
+                          {role === "IT" ? "EDUCATIONAL RESEARCHER" : role}
+                        </span>
                       </div>
                     </label>
                   </div>
