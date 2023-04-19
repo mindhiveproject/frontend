@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { Mutation } from "@apollo/client/react/components";
 
 import { Checkbox } from "semantic-ui-react";
-import { PARTICIPANT_STUDY_RESULTS_QUERY } from "./row";
+import { PARTICIPANT_STUDY_RESULTS_QUERY } from "../../../../Queries/Result";
 import { MY_STUDY_RESULTS_QUERY } from "../../../../DataViz/index";
 
 const CHANGE_STATUS_OF_DATA_MUTATION = gql`
@@ -41,7 +41,8 @@ const CHANGE_GUEST_STATUS_OF_DATA_MUTATION = gql`
 
 class ChangeResultsStatus extends Component {
   render() {
-    const { type, participantId, studyId, status } = this.props;
+    const { type, participantId, studyId, isIncluded } = this.props;
+    const newStatus = isIncluded ? "TEST" : "MAIN";
 
     return (
       <Mutation
@@ -50,7 +51,7 @@ class ChangeResultsStatus extends Component {
             ? CHANGE_GUEST_STATUS_OF_DATA_MUTATION
             : CHANGE_STATUS_OF_DATA_MUTATION
         }
-        variables={this.props}
+        variables={{ ...this.props, status: newStatus }}
         refetchQueries={[
           {
             query: PARTICIPANT_STUDY_RESULTS_QUERY,
@@ -77,7 +78,7 @@ class ChangeResultsStatus extends Component {
               <p>Wait ...</p>
             ) : (
               <a>
-                <Checkbox toggle checked={status === "TEST"} />
+                <Checkbox toggle checked={isIncluded} />
               </a>
             )}
           </div>

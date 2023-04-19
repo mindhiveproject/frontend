@@ -83,3 +83,32 @@ export const MY_STUDY_RESULTS_QUERY = gql`
     }
   }
 `;
+
+export const PARTICIPANT_STUDY_RESULTS_QUERY = gql`
+  query PARTICIPANT_STUDY_RESULTS_QUERY($participantId: ID!, $studyId: ID!) {
+    participantStudyResults(participantId: $participantId, studyId: $studyId) {
+      id
+      task {
+        title
+      }
+      quantity
+      data
+      dataPolicy
+      token
+      createdAt
+      updatedAt
+      payload
+      study {
+        title
+      }
+      info
+      incrementalData {
+        id
+      }
+      fullData {
+        id
+      }
+      resultType
+    }
+  }
+`;

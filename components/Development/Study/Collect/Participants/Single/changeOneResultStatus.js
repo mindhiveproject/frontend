@@ -15,12 +15,13 @@ const CHANGE_RESULT_STATUS_MUTATION = gql`
 
 class ChangeOneResultStatus extends Component {
   render() {
-    const { id, status, participantId, studyId } = this.props;
+    const { id, isIncluded, participantId, studyId } = this.props;
+    const newStatus = isIncluded ? "TEST" : "MAIN";
 
     return (
       <Mutation
         mutation={CHANGE_RESULT_STATUS_MUTATION}
-        variables={this.props}
+        variables={{ ...this.props, status: newStatus }}
         refetchQueries={[
           {
             query: PARTICIPANT_RESULTS_QUERY,
@@ -41,7 +42,7 @@ class ChangeOneResultStatus extends Component {
               <p>Wait ...</p>
             ) : (
               <a>
-                <Checkbox toggle checked={status === "TEST"} />
+                <Checkbox toggle checked={isIncluded} />
               </a>
             )}
           </div>

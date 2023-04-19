@@ -1,40 +1,12 @@
 import React, { Component } from "react";
 
-import gql from "graphql-tag";
 import { Query } from "@apollo/client/react/components";
 import moment from "moment";
 import Error from "../../../../ErrorMessage/index";
 
 import ChangeResultsStatus from "./changeResultsStatus";
 
-export const PARTICIPANT_STUDY_RESULTS_QUERY = gql`
-  query PARTICIPANT_STUDY_RESULTS_QUERY($participantId: ID!, $studyId: ID!) {
-    participantStudyResults(participantId: $participantId, studyId: $studyId) {
-      id
-      task {
-        title
-      }
-      quantity
-      data
-      dataPolicy
-      token
-      createdAt
-      updatedAt
-      payload
-      study {
-        title
-      }
-      info
-      incrementalData {
-        id
-      }
-      fullData {
-        id
-      }
-      resultType
-    }
-  }
-`;
+import { PARTICIPANT_STUDY_RESULTS_QUERY } from "../../../../Queries/Result";
 
 class ParticipantRow extends Component {
   render() {
@@ -102,10 +74,8 @@ class ParticipantRow extends Component {
           const resultTypes = participantStudyResults.map(
             (result) => result.resultType
           );
-          const isTypesPresent = !!resultTypes.length;
-          const isTest =
-            !(resultTypes.includes("MAIN") || resultTypes.includes("REVIEW")) &&
-            resultTypes.includes("TEST");
+          const doResultsExist = !!resultTypes.length;
+          const isIncluded = resultTypes.every((type) => type === "MAIN");
 
           return (
             <div className="tableRow">
@@ -145,22 +115,13 @@ class ParticipantRow extends Component {
               </div>
               <div>{started}</div>
               <div>{participant?.info?.type}</div>
-              {isTypesPresent ? (
-                isTest ? (
-                  <ChangeResultsStatus
-                    type={participant?.info?.type}
-                    participantId={participant.id}
-                    studyId={studyId}
-                    status="MAIN"
-                  />
-                ) : (
-                  <ChangeResultsStatus
-                    type={participant?.info?.type}
-                    participantId={participant.id}
-                    studyId={studyId}
-                    status="TEST"
-                  />
-                )
+              {doResultsExist ? (
+                <ChangeResultsStatus
+                  type={participant?.info?.type}
+                  participantId={participant.id}
+                  studyId={studyId}
+                  isIncluded={isIncluded}
+                />
               ) : (
                 <div></div>
               )}
