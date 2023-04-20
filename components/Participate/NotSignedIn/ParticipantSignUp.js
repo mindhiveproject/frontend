@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import Router from 'next/router';
-import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
+import React, { Component } from "react";
+import Router from "next/router";
+import { Mutation } from "@apollo/client/react/components";
+import gql from "graphql-tag";
 
-import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
+import Error from "../../ErrorMessage/index";
+import { CURRENT_USER_RESULTS_QUERY } from "../../Queries/User";
 
-import { SignupForm, CreateAccountForm } from '../../Sign/styles';
+import { SignupForm, CreateAccountForm } from "../../Sign/styles";
+import TermsConditions from "../../Sign/TermsConditions";
 
 const PARTICIPANT_SIGNUP_MUTATION = gql`
   mutation PARTICIPANT_SIGNUP_MUTATION(
@@ -37,12 +38,12 @@ const PARTICIPANT_SIGNUP_MUTATION = gql`
 
 class ParticipantSignup extends Component {
   state = {
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   };
 
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -59,16 +60,16 @@ class ParticipantSignup extends Component {
           <SignupForm>
             <CreateAccountForm
               method="post"
-              onSubmit={async e => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 await participantSignUp({
-                  variables: { permissions: ['PARTICIPANT'] },
+                  variables: { permissions: ["PARTICIPANT"] },
                 });
-                this.setState({ username: '', password: '', email: '' });
+                this.setState({ username: "", password: "", email: "" });
                 // if login happens inside of "participate" flow
                 if (this.props.proceedTo) {
                   Router.push({
-                    pathname: '/participate/details',
+                    pathname: "/participate/details",
                     query: { id: this.props.proceedTo, guest: false },
                   });
                 }
@@ -115,6 +116,7 @@ class ParticipantSignup extends Component {
                 </label>
 
                 <button type="submit">Create account</button>
+                <TermsConditions btnName={`"Create account"`} />
               </fieldset>
             </CreateAccountForm>
           </SignupForm>

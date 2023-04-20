@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const loading = keyframes`
   from {
@@ -38,11 +38,11 @@ export const Dialog = styled.div`
     padding: 12px;
     &:focus {
       outline: 0;
-      border-color: ${props => props.theme.red};
+      border-color: ${(props) => props.theme.red};
     }
   }
   button,
-  input[type='submit'] {
+  input[type="submit"] {
     font-family: Lato;
     margin-top: 3rem;
     margin-bottom: 3rem;
@@ -142,10 +142,10 @@ export const SignupForm = styled.div`
       }
       &::before {
         height: 10px;
-        content: '';
+        content: "";
         display: block;
       }
-      &[aria-busy='true']::before {
+      &[aria-busy="true"]::before {
         background-size: 50% auto;
         animation: ${loading} 0.5s linear infinite;
       }
@@ -233,11 +233,11 @@ export const CreateAccountForm = styled.form`
     padding: 12px;
     &:focus {
       outline: 0;
-      border-color: ${props => props.theme.red};
+      border-color: ${(props) => props.theme.red};
     }
   }
   button,
-  input[type='submit'] {
+  input[type="submit"] {
     font-family: Lato;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -274,7 +274,7 @@ export const CreateAccountForm = styled.form`
     line-height: 18px;
     color: #666666;
   }
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     width: 24px;
     height: 24px;
     color: green;
@@ -321,5 +321,13 @@ export const InputBlock = styled.div`
     border: 1px solid #cccccc;
     box-sizing: border-box;
     border-radius: 4px;
+  }
+`;
+
+export const StyledTermsConditions = styled.div`
+  span {
+    font-size: 14px;
+    line-height: 18px;
+    color: #666666;
   }
 `;

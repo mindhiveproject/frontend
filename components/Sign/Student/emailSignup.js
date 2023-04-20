@@ -1,35 +1,36 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
-import Router from 'next/router';
-import { SignupForm, CreateAccountForm } from '../styles';
-import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
+import Router from "next/router";
+import { SignupForm, CreateAccountForm } from "../styles";
+import Error from "../../ErrorMessage/index";
+import { CURRENT_USER_RESULTS_QUERY } from "../../Queries/User";
 
-import { SIGNUP_MUTATION } from '../../Mutations/User';
+import { SIGNUP_MUTATION } from "../../Mutations/User";
+import TermsConditions from "../TermsConditions";
 
 class StudentSignup extends Component {
   state = {
-    username: '',
-    password: '',
-    email: '',
+    username: "",
+    password: "",
+    email: "",
     user: this.props.user,
     study: this.props.study,
     class: this.props.class,
     info: {
-      age: '',
+      age: "",
       zipcode: this.props.user && this.props.user.zipcode,
       under18: this.props.user && this.props.user.under18,
       useTeacherEmail: false,
     },
   };
 
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  saveToInfoState = e => {
+  saveToInfoState = (e) => {
     this.setState({
       info: {
         ...this.state.info,
@@ -49,15 +50,15 @@ class StudentSignup extends Component {
           <SignupForm>
             <CreateAccountForm
               method="post"
-              onSubmit={async e => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 const res = await studentSignUp({
-                  variables: { permissions: ['STUDENT'] },
+                  variables: { permissions: ["STUDENT"] },
                 });
-                this.setState({ username: '', password: '', email: '' });
+                this.setState({ username: "", password: "", email: "" });
                 if (this.props.redirect) {
                   Router.push(
-                    '/studies/[slug]',
+                    "/studies/[slug]",
                     `/studies/${this.props.redirect}`
                   );
                 } else {
@@ -91,7 +92,7 @@ class StudentSignup extends Component {
                     type="email"
                     name="email"
                     placeholder={
-                      !this.state.info.useTeacherEmail && 'Enter your email'
+                      !this.state.info.useTeacherEmail && "Enter your email"
                     }
                     value={this.state.email}
                     onChange={this.saveToState}
@@ -166,25 +167,7 @@ class StudentSignup extends Component {
                 )}
 
                 <button type="submit">Create account</button>
-                <p>
-                  By clicking on “Create account” you agree to MindHive’s{' '}
-                  <a
-                    target="_blank"
-                    href="https://mindhive.science/docs/terms"
-                    rel="noreferrer"
-                  >
-                    Terms of Service
-                  </a>
-                  , including our{' '}
-                  <a
-                    target="_blank"
-                    href="https://mindhive.science/docs/privacy"
-                    rel="noreferrer"
-                  >
-                    Privacy Policy
-                  </a>
-                  .
-                </p>
+                <TermsConditions btnName={`"Create account"`} />
               </fieldset>
             </CreateAccountForm>
           </SignupForm>

@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import StudentSignup from './emailSignup';
-import GoogleSignup from '../Google/index';
+import StudentSignup from "./emailSignup";
+import GoogleSignup from "../Google/index";
 
-import { SignupButton } from '../styles';
+import { SignupButton } from "../styles";
 
-import { ContainerOnlyForProfile } from '../../Permissions/Profile/index';
-import { ContainerOnlyForNoProfile } from '../../Permissions/NoProfile/index';
+import { ContainerOnlyForProfile } from "../../Permissions/Profile/index";
+import { ContainerOnlyForNoProfile } from "../../Permissions/NoProfile/index";
 
-import WithProfile from './withProfile';
+import WithProfile from "./withProfile";
+import TermsConditions from "../TermsConditions";
 
 class JoinClass extends Component {
   state = {
-    activePage: 'choose',
+    activePage: "choose",
     classCode: this.props.classCode,
     classId: this.props.classId,
   };
 
-  updateState = e => {
+  updateState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -31,18 +32,13 @@ class JoinClass extends Component {
         </ContainerOnlyForProfile>
 
         <ContainerOnlyForNoProfile>
-          {this.state.activePage === 'choose' && (
+          {this.state.activePage === "choose" && (
             <>
               <h1>How would you like to join MindHive?</h1>
               <div className="studentSignupOptions">
-                <GoogleSignup
-                  class={{ code: this.state.classCode }}
-                  permissions={['STUDENT']}
-                />
-
                 <SignupButton
                   onClick={() => {
-                    this.setState({ activePage: 'createAccount' });
+                    this.setState({ activePage: "createAccount" });
                   }}
                 >
                   <div>
@@ -54,11 +50,16 @@ class JoinClass extends Component {
                   </div>
                   <div>Sign up with email/username</div>
                 </SignupButton>
+                <GoogleSignup
+                  class={{ code: this.state.classCode }}
+                  permissions={["STUDENT"]}
+                />
+                <TermsConditions btnName={`"Sign up with Google"`} />
               </div>
             </>
           )}
 
-          {this.state.activePage === 'createAccount' && (
+          {this.state.activePage === "createAccount" && (
             <>
               <StudentSignup class={{ code: this.state.classCode }} />
             </>

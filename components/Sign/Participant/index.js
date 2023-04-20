@@ -1,29 +1,30 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
 
-import { SignupForm, CreateAccountForm } from '../styles';
-import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
-import joinStudyRedirect from '../../SignFlow/JoinStudyRedirect';
+import { SignupForm, CreateAccountForm } from "../styles";
+import Error from "../../ErrorMessage/index";
+import { CURRENT_USER_RESULTS_QUERY } from "../../Queries/User";
+import joinStudyRedirect from "../../SignFlow/JoinStudyRedirect";
 
-import { SIGNUP_MUTATION } from '../../Mutations/User';
+import { SIGNUP_MUTATION } from "../../Mutations/User";
+import TermsConditions from "../TermsConditions";
 
 class ParticipantSignup extends Component {
   state = {
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
     info: { ...this.props.info, updates: true }, // all information that is coming from the registration forms
     study: this.props.study,
   };
 
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  saveToInfoState = e => {
+  saveToInfoState = (e) => {
     this.setState({
       info: {
         ...this.state.info,
@@ -32,7 +33,7 @@ class ParticipantSignup extends Component {
     });
   };
 
-  toggleState = e => {
+  toggleState = (e) => {
     this.setState({
       info: {
         ...this.state.info,
@@ -52,13 +53,13 @@ class ParticipantSignup extends Component {
           <SignupForm>
             <CreateAccountForm
               method="post"
-              onSubmit={async e => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 const res = await participantSignUp({
-                  variables: { permissions: ['PARTICIPANT'] },
+                  variables: { permissions: ["PARTICIPANT"] },
                 });
                 const { signUp } = res.data;
-                this.setState({ username: '', password: '', email: '' });
+                this.setState({ username: "", password: "", email: "" });
                 joinStudyRedirect(this.props.study, signUp);
               }}
             >
@@ -116,7 +117,7 @@ class ParticipantSignup extends Component {
                       <span>
                         I agree to receive notifications and updates related to
                         the studies I follow. NB: you can change your settings
-                        at any time in the Dashboard {'>'} Account Settings. If
+                        at any time in the Dashboard {">"} Account Settings. If
                         you uncheck this box, you will be asked to decide on a
                         case-by-case basis.
                       </span>
@@ -125,25 +126,7 @@ class ParticipantSignup extends Component {
                 </div>
 
                 <button type="submit">Create account</button>
-                <span>
-                  By clicking on “Create account” you agree to MindHive’s{' '}
-                  <a
-                    target="_blank"
-                    href="https://mindhive.science/docs/terms"
-                    rel="noreferrer"
-                  >
-                    Terms of Service
-                  </a>
-                  , including our{' '}
-                  <a
-                    target="_blank"
-                    href="https://mindhive.science/docs/privacy"
-                    rel="noreferrer"
-                  >
-                    Privacy Policy
-                  </a>
-                  .
-                </span>
+                <TermsConditions btnName={`"Create account"`} />
               </fieldset>
             </CreateAccountForm>
           </SignupForm>

@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
-import Router from 'next/router';
-import { SignupForm, CreateAccountForm } from '../styles';
-import Error from '../../ErrorMessage/index';
-import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
-import GoogleSignup from '../Google/index';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
+import Router from "next/router";
+import { SignupForm, CreateAccountForm } from "../styles";
+import Error from "../../ErrorMessage/index";
+import { CURRENT_USER_RESULTS_QUERY } from "../../Queries/User";
+import GoogleSignup from "../Google/index";
 
-import { SIGNUP_MUTATION } from '../../Mutations/User';
+import { SIGNUP_MUTATION } from "../../Mutations/User";
+import TermsConditions from "../TermsConditions";
 
 class Signup extends Component {
   state = {
-    username: '',
-    password: '',
-    email: '',
+    username: "",
+    password: "",
+    email: "",
   };
 
-  saveToState = e => {
+  saveToState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -32,16 +33,16 @@ class Signup extends Component {
           <SignupForm>
             <CreateAccountForm
               method="post"
-              onSubmit={async e => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 const res = await emailSignUp({
-                  variables: { permissions: ['TEACHER'] },
+                  variables: { permissions: ["TEACHER"] },
                 });
                 this.setState({
-                  username: '',
-                  password: '',
-                  email: '',
-                  permissions: '',
+                  username: "",
+                  password: "",
+                  email: "",
+                  permissions: "",
                 });
                 Router.push({
                   pathname: `/dashboard`,
@@ -85,7 +86,10 @@ class Signup extends Component {
                   />
                 </label>
                 <button type="submit">Sign up</button>
-                <GoogleSignup permissions={['TEACHER']} />
+                <GoogleSignup permissions={["TEACHER"]} />
+                <TermsConditions
+                  btnName={`"Sign up" or "Sign up with Google"`}
+                />
               </fieldset>
             </CreateAccountForm>
           </SignupForm>
