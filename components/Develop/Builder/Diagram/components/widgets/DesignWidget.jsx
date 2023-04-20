@@ -2,8 +2,8 @@ import React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams-core';
 import { StyledNode } from '../../styles';
 
-export const MyNodeWidget = props => (
-  <StyledNode taskType={props.node?.options?.taskType}>
+export const DesignWidget = props => (
+  <StyledNode taskType="DESIGN">
     <div
       className="node-header-container"
       style={{ backgroundColor: props.node.color }}
@@ -28,42 +28,6 @@ export const MyNodeWidget = props => (
         >
           <img src="/content/icons/settings-2.svg" />
         </div>
-
-        <div
-          className="icon"
-          aria-hidden="true"
-          onClick={() => {
-            // lock the model
-            props.engine.getModel().setLocked(true);
-            // open the modal
-            props.engine.openComponentModal({
-              node: props?.node,
-              isEditorOpen: false,
-              isInfoOpen: true,
-              isPreviewOpen: false,
-            });
-          }}
-        >
-          <img src="/content/icons/info-3.svg" />
-        </div>
-
-        <div
-          className="icon"
-          aria-hidden="true"
-          onClick={() => {
-            // lock the model
-            props.engine.getModel().setLocked(true);
-            // open the preview
-            props.engine.openComponentModal({
-              node: props?.node,
-              isEditorOpen: false,
-              isInfoOpen: false,
-              isPreviewOpen: true,
-            });
-          }}
-        >
-          <img src="/content/icons/play.svg" />
-        </div>
       </div>
     </div>
 
@@ -75,9 +39,7 @@ export const MyNodeWidget = props => (
       <div className="my-in-port">Drop the link here</div>
     </PortWidget>
 
-    <div className="node-content">
-      {props.node?.options?.subtitle || props.node?.options?.details}
-    </div>
+    <div className="node-content">{props.node?.options?.details}</div>
 
     <PortWidget
       className="port-container bottom-port"

@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
-import { MyCommentModel } from './MyCommentModel';
-import { MyCommentWidget } from './node-widget/MyCommentWidget';
+import { CommentModel } from '../models/CommentModel';
+import { CommentWidget } from '../widgets/CommentWidget';
 
 export class CommentsFactory extends AbstractReactFactory {
   constructor() {
@@ -9,10 +9,10 @@ export class CommentsFactory extends AbstractReactFactory {
   }
 
   generateModel(initialConfig) {
-    return new MyCommentModel();
+    return new CommentModel();
   }
 
   generateReactWidget(event) {
-    return <MyCommentWidget engine={this.engine} node={event.model} />;
+    return <CommentWidget engine={this.engine} node={event.model} />;
   }
 }

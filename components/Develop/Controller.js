@@ -13,12 +13,14 @@ import { StyledDevelopWrapper } from "./styles";
 import Page from "./Page";
 import FullScreenPreview from "../Preview/fullscreen";
 
-import { NodesFactory } from "./Builder/Diagram/components/NodesFactory";
-import { CommentsFactory } from "./Builder/Diagram/components/CommentsFactory";
-import { AnchorFactory } from "./Builder/Diagram/components/AnchorFactory";
-import { MyAnchorModel } from "./Builder/Diagram/components/MyAnchorModel";
-import { InPortFactory } from "./Builder/Diagram/components/ports/InPortFactory";
-import { OutPortFactory } from "./Builder/Diagram/components/ports/OutPortFactory";
+import { TasksFactory } from "./Builder/Diagram/components/factories/TasksFactory";
+import { AnchorFactory } from "./Builder/Diagram/components/factories/AnchorFactory";
+import { CommentsFactory } from "./Builder/Diagram/components/factories/CommentsFactory";
+import { DesignFactory } from "./Builder/Diagram/components/factories/DesignFactory";
+import { InPortFactory } from "./Builder/Diagram/components/factories/InPortFactory";
+import { OutPortFactory } from "./Builder/Diagram/components/factories/OutPortFactory";
+
+import { AnchorModel } from "./Builder/Diagram/components/models/AnchorModel";
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -47,11 +49,13 @@ export default class Controller extends Component {
       const engine = createEngine();
       engine.setModel(new DiagramModel());
       // Create custom node
-      engine.getNodeFactories().registerFactory(new NodesFactory());
+      engine.getNodeFactories().registerFactory(new TasksFactory());
       // Create custom comment
       engine.getNodeFactories().registerFactory(new CommentsFactory());
       // Create custom anchor
       engine.getNodeFactories().registerFactory(new AnchorFactory());
+      // Create custom study design node
+      engine.getNodeFactories().registerFactory(new DesignFactory());
       // Register ports
       engine.getPortFactories().registerFactory(new InPortFactory());
       engine.getPortFactories().registerFactory(new OutPortFactory());
@@ -68,7 +72,7 @@ export default class Controller extends Component {
         model.deserializeModel(JSON.parse(this.state?.study?.diagram), engine);
         engine.setModel(model);
       } else {
-        const anchor = new MyAnchorModel({});
+        const anchor = new AnchorModel({});
         engine.getModel().addNode(anchor);
       }
       this.setState({

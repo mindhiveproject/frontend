@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
-import { MyAnchorModel } from './MyAnchorModel';
-import { MyAnchorWidget } from './node-widget/MyAnchorWidget';
+import { AnchorModel } from '../models/AnchorModel';
+import { AnchorWidget } from '../widgets/AnchorWidget';
 
 export class AnchorFactory extends AbstractReactFactory {
   constructor() {
@@ -9,10 +9,10 @@ export class AnchorFactory extends AbstractReactFactory {
   }
 
   generateModel(initialConfig) {
-    return new MyAnchorModel();
+    return new AnchorModel();
   }
 
   generateReactWidget(event) {
-    return <MyAnchorWidget engine={this.engine} node={event.model} />;
+    return <AnchorWidget engine={this.engine} node={event.model} />;
   }
 }

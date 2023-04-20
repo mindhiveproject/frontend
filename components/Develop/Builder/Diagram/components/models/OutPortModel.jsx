@@ -10,7 +10,7 @@ export class OutCustomPort extends DefaultPortModel {
       ...options,
     });
     // one link is already included by default
-    this.maximumLinks = 10;
+    this.maximumLinks = 20;
     // console.log('this.getOptions', this.getOptions().in);
     // if (this.getOptions().in) this.setMaximumLinks(1);
   }

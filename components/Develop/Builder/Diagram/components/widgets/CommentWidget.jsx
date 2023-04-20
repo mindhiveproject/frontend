@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { StyledComment } from '../../styles';
 
-export const MyCommentWidget = props => {
+export const CommentWidget = props => {
   const ref = React.useRef(null);
 
   const handleInput = e => {

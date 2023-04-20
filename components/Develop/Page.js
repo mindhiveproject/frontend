@@ -7,6 +7,7 @@ import ParticipantPage from "./ParticipantPage/index";
 import Review from "./Review/index";
 import CollectSection from "../Development/Study/Collect/index";
 // import DownloadSection from '../Development/Study/Download/index';
+// import VisualizeSection from "../DataViz2.0/index";
 import VisualizeSection from "../DataViz/index";
 import AnalyzeSection from "../Development/Study/Analyze/index";
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams-core';
 import { StyledNode } from '../../styles';
 
-export const MyAnchorWidget = props => (
+export const AnchorWidget = props => (
   <StyledNode taskType="ANCHOR">
     <div className="anchoredArea">
       <div

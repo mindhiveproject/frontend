@@ -1,6 +1,7 @@
 import { NodeModel, DefaultPortModel } from '@projectstorm/react-diagrams';
+import { OutCustomPort } from './OutPortModel';
 
-export class MyAnchorModel extends NodeModel {
+export class AnchorModel extends NodeModel {
   constructor(options) {
     super({
       ...options,
@@ -12,8 +13,16 @@ export class MyAnchorModel extends NodeModel {
     }
 
     // setup out port
+    // this.addPort(
+    //   new DefaultPortModel({
+    //     in: false,
+    //     name: 'out',
+    //     alignment: 'down',
+    //   })
+    // );
+
     this.addPort(
-      new DefaultPortModel({
+      new OutCustomPort({
         in: false,
         name: 'out',
         alignment: 'down',

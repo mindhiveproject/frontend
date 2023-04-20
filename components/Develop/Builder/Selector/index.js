@@ -192,17 +192,19 @@ class ComponentSelector extends Component {
             />
           </Accordion.Content>
 
-          <Accordion.Title
-            active={activeIndex.includes(4)}
-            index={4}
-            onClick={this.handleClick}
-          >
-            <div className="blocksMenuTitle">
-              <h3>Study design</h3>
-              <Icon name="dropdown" />
-              <p>Create between-subjects design</p>
-            </div>
-          </Accordion.Title>
+          {false && (
+            <Accordion.Title
+              active={activeIndex.includes(4)}
+              index={4}
+              onClick={this.handleClick}
+            >
+              <div className="blocksMenuTitle">
+                <h3>Study design</h3>
+                <Icon name="dropdown" />
+                <p>Create between-subjects design</p>
+              </div>
+            </Accordion.Title>
+          )}
           {false && (
             <Accordion.Content active={activeIndex.includes(4)}>
               <StyledTaskCard taskType="DESIGN">

@@ -1,6 +1,6 @@
-import { NodeModel, DefaultPortModel } from '@projectstorm/react-diagrams';
+import { NodeModel } from '@projectstorm/react-diagrams';
 
-export class MyCommentModel extends NodeModel {
+export class CommentModel extends NodeModel {
   constructor(options) {
     super({
       ...options,

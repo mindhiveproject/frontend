@@ -4,7 +4,8 @@ import { DiagramModel } from '@projectstorm/react-diagrams';
 import uniqid from 'uniqid';
 
 import { DiagramCanvas } from '../DiagramCanvas';
-import { MyNodeModel } from '../MyNodeModel';
+import { TaskModel } from '../models/TaskModel';
+import { DesignModel } from '../models/DesignModel';
 import { StyledCreatorWidget } from './my-creator-widget';
 
 export const MyCreatorWidget = props => {
@@ -41,7 +42,7 @@ export const MyCreatorWidget = props => {
 
     // adding new component
     if (data.type === 'component') {
-      const node = new MyNodeModel({
+      const node = new TaskModel({
         color: 'white',
         name: data?.name,
         details: shorten(data?.details),
@@ -64,6 +65,17 @@ export const MyCreatorWidget = props => {
       const model = new DiagramModel();
       model.deserializeModel(JSON.parse(diagram), diagramEngine);
       diagramEngine.setModel(model);
+    }
+
+    if (data.type === 'design') {
+      const node = new DesignModel({
+        name: data?.name,
+        details: data?.details,
+      });
+      const point = diagramEngine.getRelativeMousePoint(event);
+      node.setPosition(point);
+      diagramEngine.getModel().addNode(node);
+      forceUpdate();
     }
   };
 

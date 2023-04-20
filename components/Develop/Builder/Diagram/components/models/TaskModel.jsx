@@ -1,8 +1,8 @@
-import { NodeModel, DefaultPortModel } from '@projectstorm/react-diagrams';
-import { InCustomPort } from './ports/InPortModal';
-import { OutCustomPort } from './ports/OutPortModal';
+import { NodeModel } from '@projectstorm/react-diagrams';
+import { InCustomPort } from './InPortModel';
+import { OutCustomPort } from './OutPortModel';
 
-export class MyNodeModel extends NodeModel {
+export class TaskModel extends NodeModel {
   constructor(options) {
     super({
       ...options,
