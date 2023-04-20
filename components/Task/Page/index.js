@@ -1,30 +1,14 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
-import Head from 'next/head';
-import Error from '../../ErrorMessage/index';
-import TaskPage from './page';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import Error from "../../ErrorMessage/index";
+import TaskPage from "./page";
 
-import { StyledTask } from '../styles';
-
-const REVIEW_TASK_QUERY = gql`
-  query REVIEW_TASK_QUERY($id: ID!) {
-    task(where: { id: $id }) {
-      id
-      title
-      description
-      parameters
-      template {
-        id
-      }
-    }
-  }
-`;
+import { REVIEW_TASK_QUERY_BY_ID } from "../../Queries/Component";
 
 class ReviewTask extends Component {
   render() {
     return (
-      <Query query={REVIEW_TASK_QUERY} variables={{ id: this.props.id }}>
+      <Query query={REVIEW_TASK_QUERY_BY_ID} variables={{ id: this.props.id }}>
         {({ error, loading, data }) => {
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading</p>;
@@ -38,4 +22,3 @@ class ReviewTask extends Component {
 }
 
 export default ReviewTask;
-export { REVIEW_TASK_QUERY };

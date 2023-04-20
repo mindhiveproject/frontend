@@ -1,25 +1,17 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
-import Error from '../../ErrorMessage/index';
-import TaskPage from './page';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import Error from "../../ErrorMessage/index";
+import TaskPage from "./page";
 
-const REVIEW_TASK_QUERY = gql`
-  query REVIEW_TASK_QUERY($slug: String!) {
-    task(where: { slug: $slug }) {
-      id
-      title
-      slug
-      description
-      parameters
-    }
-  }
-`;
+import { REVIEW_TASK_QUERY_BY_SLUG } from "../../Queries/Component";
 
 class TaskParticipantPage extends Component {
   render() {
     return (
-      <Query query={REVIEW_TASK_QUERY} variables={{ slug: this.props.slug }}>
+      <Query
+        query={REVIEW_TASK_QUERY_BY_SLUG}
+        variables={{ slug: this.props.slug }}
+      >
         {({ error, loading, data }) => {
           if (error) return <Error error={error} />;
           if (loading) return <p></p>;
@@ -34,4 +26,3 @@ class TaskParticipantPage extends Component {
 }
 
 export default TaskParticipantPage;
-export { REVIEW_TASK_QUERY };

@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import Link from 'next/link';
-import Error from '../../ErrorMessage/index';
-import StudyWrapper from './studyWrapper';
-import Page from '../../Page/index';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import Link from "next/link";
+import Error from "../../ErrorMessage/index";
+import StudyWrapper from "./studyWrapper";
+import Page from "../../Page/index";
 
-import { CURRENT_USER_RESULTS_QUERY } from '../../Queries/User';
-import { STUDY_QUERY } from '../../Queries/Study';
+import { CURRENT_USER_RESULTS_QUERY } from "../../Queries/User";
+import { STUDY_QUERY } from "../../Queries/Study";
 
 class StudyLanding extends Component {
   render() {
     return (
       <Query query={CURRENT_USER_RESULTS_QUERY}>
-        {userPayload => {
+        {(userPayload) => {
           const userPayloadError = userPayload.error;
           const userPayloadLoading = userPayload.loading;
           const userPayloadData = userPayload.data && userPayload.data.me;
@@ -21,11 +21,12 @@ class StudyLanding extends Component {
 
           return (
             <Query query={STUDY_QUERY} variables={{ slug: this.props.slug }}>
-              {studyPayload => {
+              {(studyPayload) => {
                 const studyPayloadError = studyPayload.error;
                 const studyPayloadLoading = studyPayload.loading;
                 const studyPayloadData =
                   studyPayload.data && studyPayload.data.study;
+
                 if (studyPayloadError)
                   return <Error error={studyPayloadError} />;
                 if (studyPayloadLoading) return <p>Loading</p>;
@@ -35,7 +36,7 @@ class StudyLanding extends Component {
                       <h1>No study found</h1>
                       <Link
                         href={{
-                          pathname: '/',
+                          pathname: "/",
                         }}
                       >
                         <a>

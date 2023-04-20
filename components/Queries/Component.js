@@ -146,92 +146,41 @@ export const MY_AND_ALL_PUBLIC_COMPONENTS_TO_CLONE_QUERY = gql`
   }
 `;
 
-// export const MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY = gql`
-//   query MY_AND_ALL_PUBLIC_TASKS_TO_CLONE_QUERY {
-//     myAndAllTasks(where: { taskType: TASK }) {
-//       id
-//       title
-//       slug
-//       author {
-//         id
-//       }
-//       collaborators {
-//         id
-//         username
-//       }
-//       public
-//       description
-//       taskType
-//       parameters
-//       template {
-//         id
-//         title
-//         description
-//         parameters
-//         script
-//         style
-//       }
-//       link
-//     }
-//   }
-// `;
-
-// export const MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY = gql`
-//   query MY_AND_ALL_PUBLIC_SURVEYS_TO_CLONE_QUERY {
-//     myAndAllTasks(where: { taskType: SURVEY }) {
-//       id
-//       title
-//       slug
-//       author {
-//         id
-//       }
-//       collaborators {
-//         id
-//         username
-//       }
-//       public
-//       description
-//       taskType
-//       parameters
-//       template {
-//         id
-//         title
-//         description
-//         parameters
-//         script
-//         style
-//       }
-//       link
-//     }
-//   }
-// `;
-
-// export const MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY = gql`
-//   query MY_AND_ALL_PUBLIC_BLOCKS_TO_CLONE_QUERY {
-//     myAndAllTasks(where: { taskType: BLOCK }) {
-//       id
-//       title
-//       slug
-//       author {
-//         id
-//       }
-//       collaborators {
-//         id
-//         username
-//       }
-//       public
-//       description
-//       taskType
-//       parameters
-//       template {
-//         id
-//         title
-//         description
-//         parameters
-//         script
-//         style
-//       }
-//       link
-//     }
-//   }
-// `;
+export const REVIEW_TASK_QUERY_BY_ID = gql`
+  query REVIEW_TASK_QUERY_BY_ID($id: ID!) {
+    task(where: { id: $id }) {
+      id
+      title
+      description
+      parameters
+      template {
+        id
+      }
+    }
+  }
+`;
+export const REVIEW_TASK_QUERY_BY_SLUG = gql`
+  query REVIEW_TASK_QUERY_BY_SLUG($slug: String!) {
+    task(where: { slug: $slug }) {
+      id
+      title
+      slug
+      description
+      descriptionForParticipants
+      taskType
+      public
+      isOriginal
+      isExternal
+      author {
+        username
+      }
+      collaborators {
+        username
+      }
+      createdAt
+      updatedAt
+      settings
+      parameters
+    }
+  }
+`;

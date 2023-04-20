@@ -1,9 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledSidebar = styled.div`
   display: grid;
   margin-top: 33px;
-  /* grid-template-rows: 100px 4fr 1fr; */
   grid-template-columns: 1fr;
   grid-gap: 40px;
   justify-items: left;
@@ -35,6 +34,22 @@ export const StyledSidebar = styled.div`
     color: #b3b3b3;
     margin-top: 7px;
   }
+
+  .headerWithUpdateCounter {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    .updateCounter {
+      display: grid;
+      align-items: center;
+      background: red;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 0px 12px;
+      border: 0;
+      border-radius: 20px;
+    }
+  }
 `;
 
 export const NavLink = styled.div`
@@ -50,9 +65,9 @@ export const NavLink = styled.div`
   letter-spacing: 0em;
   text-align: left;
   padding-right: 1rem;
-  ${props => props.selected && `border-right: 3px solid #ffc107`};
+  ${(props) => props.selected && `border-right: 3px solid #ffc107`};
   :hover {
-    opacity: .6;
+    opacity: 0.6;
   }
 `;
 
@@ -75,14 +90,14 @@ export const NavStyles = styled.ul`
     border: 0;
     cursor: pointer;
     font-weight: 800;
-    color: ${props => props.theme.black} @media (max-width: 700px) {
+    color: ${(props) => props.theme.black} @media (max-width: 700px) {
       font-size: 10px;
       padding: 0 10px;
     }
     &:before {
-      content: '';
+      content: "";
       width: 2px;
-      background: ${props => props.theme.lightgrey};
+      background: ${(props) => props.theme.lightgrey};
       height: 100%;
       left: 0;
       position: absolute;
@@ -93,7 +108,7 @@ export const NavStyles = styled.ul`
     &:after {
       height: 2px;
       background: red;
-      content: '';
+      content: "";
       width: 0;
       position: absolute;
       transform: translateX(-50%);
@@ -197,6 +212,6 @@ export const SignoutButton = styled.button`
   align-items: center;
   margin-top: 8px;
   :hover {
-    opacity: .6;
+    opacity: 0.6;
   }
 `;

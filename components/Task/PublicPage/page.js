@@ -1,20 +1,22 @@
-import React, { Component } from 'react';
-import ReactHtmlParser from 'react-html-parser';
-import Head from 'next/head';
-import Link from 'next/link';
-import moment from 'moment';
-import { Icon } from 'semantic-ui-react';
+import React, { Component } from "react";
+import ReactHtmlParser from "react-html-parser";
+import Head from "next/head";
+import Link from "next/link";
+import moment from "moment";
+import { Icon } from "semantic-ui-react";
 
-import ManageFavorites from '../../Bank/Components/manageFavorites';
+import ManageFavorites from "../../Bank/Components/manageFavorites";
 
-import { StyledTask } from './styles';
+import { StyledTask } from "./styles";
 
 class TaskPage extends Component {
   state = {};
 
   render() {
     const { task, user } = this.props;
-    const isFavorite = user?.favoriteTasks?.map(t => t?.id).includes(task?.id);
+    const isFavorite = user?.favoriteTasks
+      ?.map((t) => t?.id)
+      .includes(task?.id);
 
     return (
       <StyledTask>
@@ -62,7 +64,7 @@ class TaskPage extends Component {
           <div className="controlBtns">
             <Link
               href={{
-                pathname: '/task/preview',
+                pathname: "/task/preview",
                 query: { id: task.id },
               }}
             >
@@ -81,7 +83,7 @@ class TaskPage extends Component {
               {task?.collaborators?.length ? (
                 <div>
                   <h3>Collaborator(s)</h3>
-                  {task?.collaborators?.map(col => (
+                  {task?.collaborators?.map((col) => (
                     <p>{col.username}</p>
                   ))}
                 </div>
@@ -101,12 +103,12 @@ class TaskPage extends Component {
 
             <div className="time">
               <div>
-                <h3>Created</h3>{' '}
-                <p>{moment(task?.createdAt).format('MMM D, YYYY')}</p>
+                <h3>Created</h3>{" "}
+                <p>{moment(task?.createdAt).format("MMM D, YYYY")}</p>
               </div>
               <div>
-                <h3>Updated</h3>{' '}
-                <p>{moment(task?.updatedAt).format('MMM D, YYYY')}</p>
+                <h3>Updated</h3>{" "}
+                <p>{moment(task?.updatedAt).format("MMM D, YYYY")}</p>
               </div>
             </div>
           </div>

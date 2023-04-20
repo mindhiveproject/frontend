@@ -5,6 +5,7 @@ import Signout from "../Signout/index";
 
 import { Logo } from "../Header/styles";
 import { StyledSidebar, NavLink } from "./styles";
+import CountUpdates from "../Dashboard/Home/countUpdates";
 
 const SidebarNav = ({ user }) => {
   const router = useRouter();
@@ -38,7 +39,10 @@ const SidebarNav = ({ user }) => {
                 />
               </svg>
             </div>
-            <div>Home</div>
+            <div className="headerWithUpdateCounter">
+              <span>Home</span>
+              <CountUpdates />
+            </div>
           </NavLink>
         </Link>
 
