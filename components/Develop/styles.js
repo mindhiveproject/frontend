@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledDevelopWrapper = styled.div`
   display: grid;
@@ -159,5 +159,10 @@ export const StyledButtons = styled.div`
     color: black;
     border-radius: 100px;
     border: 0px;
+  }
+  .closeBtn {
+    background: rgb(0, 124, 112);
+    color: rgb(255, 255, 255);
+    border: 2px solid rgb(0, 124, 112);
   }
 `;
