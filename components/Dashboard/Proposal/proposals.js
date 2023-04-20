@@ -88,9 +88,10 @@ class Proposals extends Component {
                   <div>
                     <StyledRow>
                       <StyledProposalHeader>
-                        <div>Template name</div>
+                        <div>Template</div>
+                        <div>Study</div>
                         <div>Author</div>
-                        <div>Number of sections</div>
+                        <div>Sections</div>
                         <div>Date created</div>
                         <div>Template</div>
                       </StyledProposalHeader>

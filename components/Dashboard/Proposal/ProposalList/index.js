@@ -29,6 +29,7 @@ class ProposalRow extends Component {
       <StyledRow>
         <StyledClassRow onClick={() => this.props.openProposal(myproposal)}>
           <div>{myproposal?.title}</div>
+          <div>{myproposal?.study?.title}</div>
           <div>{myproposal?.author?.publicReadableId}</div>
           <div>{myproposal?.sections?.length}</div>
           <div>{moment(myproposal?.createdAt).format("MMMM D, YYYY")}</div>
