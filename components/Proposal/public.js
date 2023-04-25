@@ -1,49 +1,18 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
-import Link from 'next/link';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import Link from "next/link";
 
-import Error from '../ErrorMessage/index';
+import Error from "../ErrorMessage/index";
 
-import ProposalPDF from './pdf';
+import ProposalPDF from "./pdf";
 
-const PROPOSAL_QUERY = gql`
-  query PROPOSAL_QUERY($slug: String!) {
-    proposalBoard(where: { slug: $slug }) {
-      id
-      title
-      slug
-      description
-      study {
-        id
-        title
-        slug
-      }
-      sections {
-        id
-        title
-        description
-        position
-        cards {
-          id
-          title
-          content
-          settings
-          position
-          section {
-            id
-          }
-        }
-      }
-    }
-  }
-`;
+import { PROPOSAL_PDF_QUERY } from "../Queries/Proposal";
 
 class ProposalPublic extends Component {
   render() {
     return (
-      <Query query={PROPOSAL_QUERY} variables={{ slug: this.props.slug }}>
-        {proposalPayload => {
+      <Query query={PROPOSAL_PDF_QUERY} variables={{ slug: this.props.slug }}>
+        {(proposalPayload) => {
           const proposalPayloadError = proposalPayload.error;
           const proposalPayloadLoading = proposalPayload.loading;
           const proposalPayloadData =
@@ -57,7 +26,7 @@ class ProposalPublic extends Component {
                 <h1>No proposal found</h1>
                 <Link
                   href={{
-                    pathname: '/',
+                    pathname: "/",
                   }}
                 >
                   <a>

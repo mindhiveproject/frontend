@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import sortBy from 'lodash/sortBy';
+import React, { useState, useEffect } from "react";
+import sortBy from "lodash/sortBy";
 
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from "@apollo/client";
 
-import Inner from './inner';
+import Inner from "./inner";
 
-import { BOARD_QUERY } from '../../../Queries/Proposal';
+import { BOARD_QUERY } from "../../../Queries/Proposal";
 
 import {
   CREATE_SECTION,
   UPDATE_SECTION,
   DELETE_SECTION,
-} from '../../../Mutations/Proposal';
+} from "../../../Mutations/Proposal";
 
 const Board = ({
   id,
@@ -34,11 +34,13 @@ const Board = ({
   useEffect(() => {
     if (data) {
       const newSections = data.proposalBoard.sections;
-      const sortedSections = sortBy(newSections, [section => section.position]);
-      const sortedCardsSections = sortedSections.map(section => {
+      const sortedSections = sortBy(newSections, [
+        (section) => section.position,
+      ]);
+      const sortedCardsSections = sortedSections.map((section) => {
         const sortedSection = {
           ...section,
-          cards: sortBy(section.cards, item => item.position),
+          cards: sortBy(section.cards, (item) => item.position),
         };
         return sortedSection;
       });
@@ -46,7 +48,7 @@ const Board = ({
     }
   }, [data]);
 
-  if (loading) return 'Loading...';
+  if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
   return (

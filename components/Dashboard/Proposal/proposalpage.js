@@ -8,7 +8,7 @@ import ProposalContainer from "./Board/index";
 
 import { StyledDasboard, StyledDevelopDasboard } from "../styles";
 
-import { PROPOSAL_BOARD_QUERY } from "../../Queries/Proposal";
+import { PROPOSAL_BOARD_QUERY_LIGHT } from "../../Queries/Proposal";
 
 class ProposalPage extends Component {
   state = {};
@@ -19,7 +19,10 @@ class ProposalPage extends Component {
     return (
       <StyledDasboard>
         <StyledDevelopDasboard>
-          <Query query={PROPOSAL_BOARD_QUERY} variables={{ id: proposalId }}>
+          <Query
+            query={PROPOSAL_BOARD_QUERY_LIGHT}
+            variables={{ id: proposalId }}
+          >
             {({ error, loading, data }) => {
               if (error) return <Error error={error} />;
               if (loading) return <p>Loading</p>;

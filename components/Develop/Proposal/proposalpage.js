@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import { Radio, Icon } from 'semantic-ui-react';
-import styled from 'styled-components';
-import Error from '../../ErrorMessage/index';
+import { Radio, Icon } from "semantic-ui-react";
+import styled from "styled-components";
+import Error from "../../ErrorMessage/index";
 
-import ProposalContainer from '../../Dashboard/Proposal/Board/index';
-import ProposalPDF from '../../Proposal/pdf';
+import ProposalContainer from "../../Dashboard/Proposal/Board/index";
+import ProposalPDF from "../../Proposal/public";
 
-import { StyledDasboard, StyledDevelopDasboard } from '../../Dashboard/styles';
+import { StyledDasboard, StyledDevelopDasboard } from "../../Dashboard/styles";
 
-import { PROPOSAL_BOARD_QUERY } from '../../Queries/Proposal';
+import { PROPOSAL_BOARD_QUERY_LIGHT } from "../../Queries/Proposal";
 
 const StyledProposalBoard = styled.div`
   display: grid;
@@ -53,49 +53,6 @@ const StyledPreviewToggle = styled.div`
   }
 `;
 
-// const PROPOSAL_BOARD_QUERY = gql`
-//   query PROPOSAL_BOARD_QUERY($id: ID!) {
-//     proposalBoard(where: { id: $id }) {
-//       id
-//       title
-//       slug
-//       description
-//       sections {
-//         id
-//         title
-//         description
-//         position
-//         cards {
-//           id
-//           title
-//           content
-//           settings
-//           position
-//           section {
-//             id
-//           }
-//         }
-//       }
-//       study {
-//         id
-//         title
-//         slug
-//         author {
-//           id
-//           username
-//         }
-//         collaborators {
-//           id
-//           username
-//           username
-//         }
-//       }
-//       isSubmitted
-//       checklist
-//     }
-//   }
-// `;
-
 class ProposalPage extends Component {
   state = {
     isPDF: false,
@@ -107,7 +64,10 @@ class ProposalPage extends Component {
     return (
       <StyledDasboard>
         <StyledDevelopDasboard>
-          <Query query={PROPOSAL_BOARD_QUERY} variables={{ id: proposalId }}>
+          <Query
+            query={PROPOSAL_BOARD_QUERY_LIGHT}
+            variables={{ id: proposalId }}
+          >
             {({ error, loading, data }) => {
               if (error) return <Error error={error} />;
               if (loading) return <p>Loading</p>;
@@ -159,7 +119,7 @@ class ProposalPage extends Component {
                     )}
                   </StyledPreviewToggle>
                   {this.state.isPDF || proposal?.isSubmitted ? (
-                    <ProposalPDF proposal={proposal} />
+                    <ProposalPDF slug={proposal?.slug} />
                   ) : (
                     <ProposalContainer
                       {...this.props}
@@ -179,4 +139,3 @@ class ProposalPage extends Component {
 }
 
 export default ProposalPage;
-export { PROPOSAL_BOARD_QUERY };

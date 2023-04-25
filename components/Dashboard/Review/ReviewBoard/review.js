@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import Head from 'next/head';
-import moment from 'moment';
-import { Menu, Dropdown } from 'semantic-ui-react';
-import styled from 'styled-components';
-import Error from '../../../ErrorMessage/index';
+import Head from "next/head";
+import moment from "moment";
+import { Menu, Dropdown } from "semantic-ui-react";
+import styled from "styled-components";
+import Error from "../../../ErrorMessage/index";
 
-import Proposal from '../../Jodit/proposal';
-import ReviewQuestions from './questions';
-import { CURRENT_USER_ID_QUERY } from '../../../Queries/User';
+import Proposal from "../../Jodit/proposal";
+import ReviewQuestions from "./questions";
+import StudyPage from "../../../StudyPage/index";
+import IndividualReviews from "./individual/wrapper";
 
-import StudyPage from '../../../StudyPage/index';
-
-import IndividualReviews from './individual/wrapper';
+import { CURRENT_USER_ID_QUERY } from "../../../Queries/User";
+import { FULL_PROPOSAL_QUERY } from "../../../Queries/Proposal";
 
 const StyledFullReviewContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 71px 1fr;
   grid-template-areas:
-    'header header'
-    'content review';
+    "header header"
+    "content review";
   height: 100vh;
 
   .header {
@@ -96,59 +95,16 @@ const StyledFullReviewContainer = styled.div`
   }
 `;
 
-const FULL_PROPOSAL_QUERY = gql`
-  query FULL_PROPOSAL_QUERY($id: ID!) {
-    proposalBoard(where: { id: $id }) {
-      id
-      title
-      slug
-      description
-      reviews {
-        id
-        stage
-        author {
-          id
-          username
-        }
-        content
-        createdAt
-        updatedAt
-      }
-      study {
-        id
-        title
-        slug
-      }
-      sections {
-        id
-        title
-        description
-        position
-        cards {
-          id
-          title
-          content
-          settings
-          position
-          section {
-            id
-          }
-        }
-      }
-    }
-  }
-`;
-
 class ReviewPage extends Component {
   state = {
-    tab: this.props.tab || 'proposal',
+    tab: this.props.tab || "proposal",
     isTaskRunning: false,
-    view: 'byQuestion',
+    view: "byQuestion",
   };
 
   handleItemClick = (e, { name }) => this.setState({ tab: name });
 
-  startTask = taskId => {
+  startTask = (taskId) => {
     if (taskId) {
       this.setState({
         taskId,
@@ -180,21 +136,21 @@ class ReviewPage extends Component {
           const orderedSections = [...sections].sort(
             (a, b) => a.position - b.position
           );
-          const allCardsContent = orderedSections.map(section => {
+          const allCardsContent = orderedSections.map((section) => {
             const orderedCards = [...section.cards].sort(
               (a, b) => a.position - b.position
             );
             return orderedCards
-              .filter(card => card?.settings?.status === 'Completed')
-              .map(card =>
+              .filter((card) => card?.settings?.status === "Completed")
+              .map((card) =>
                 [`<h3>${section.title} - `, `${card.title}</h3>`, card.content]
                   .flat()
-                  .join('')
+                  .join("")
               );
           });
 
-          const cardsContent = allCardsContent.flat().join('');
-          let studyURL = '';
+          const cardsContent = allCardsContent.flat().join("");
+          let studyURL = "";
           if (proposal?.study?.slug) {
             studyURL = `<h3>Study URL: https://mindhive.science/studies/${proposal?.study?.slug}</h3>`;
           }
@@ -202,11 +158,11 @@ class ReviewPage extends Component {
 
           // extracting the study title is problematic as there are several classes
           const studyTitle = proposal?.study?.title;
-          const date = moment().format('MM-D-YYYY');
+          const date = moment().format("MM-D-YYYY");
 
           return (
             <Query query={CURRENT_USER_ID_QUERY}>
-              {userPayload => {
+              {(userPayload) => {
                 const userPayloadError = userPayload.error;
                 const userPayloadLoading = userPayload.loading;
                 const userPayloadData = userPayload.data && userPayload.data.me;
@@ -223,8 +179,8 @@ class ReviewPage extends Component {
                     <div className="header">
                       <div className="headerLeft">
                         <div className="backBtn" onClick={this.props.goBack}>
-                          ← Exit{' '}
-                          {stage === 'INDIVIDUAL' ? 'review' : 'synthesis'}
+                          ← Exit{" "}
+                          {stage === "INDIVIDUAL" ? "review" : "synthesis"}
                         </div>
                         <div>{proposal?.study?.title}</div>
 
@@ -232,12 +188,12 @@ class ReviewPage extends Component {
                           <Menu text stackable className="discoverMenu">
                             <Menu.Item
                               name="proposal"
-                              active={tab === 'proposal'}
+                              active={tab === "proposal"}
                               onClick={this.handleItemClick}
                               className={
-                                tab === 'proposal'
-                                  ? 'discoverMenuTitle selectedMenuTitle'
-                                  : 'discoverMenuTitle'
+                                tab === "proposal"
+                                  ? "discoverMenuTitle selectedMenuTitle"
+                                  : "discoverMenuTitle"
                               }
                             >
                               <p>Proposal</p>
@@ -245,25 +201,25 @@ class ReviewPage extends Component {
 
                             <Menu.Item
                               name="study"
-                              active={tab === 'study'}
+                              active={tab === "study"}
                               onClick={this.handleItemClick}
                               className={
-                                tab === 'study'
-                                  ? 'discoverMenuTitle selectedMenuTitle'
-                                  : 'discoverMenuTitle'
+                                tab === "study"
+                                  ? "discoverMenuTitle selectedMenuTitle"
+                                  : "discoverMenuTitle"
                               }
                             >
                               <p>Study Page</p>
                             </Menu.Item>
-                            {this.props.stage === 'SYNTHESIS' && (
+                            {this.props.stage === "SYNTHESIS" && (
                               <Menu.Item
                                 name="reviews"
-                                active={tab === 'reviews'}
+                                active={tab === "reviews"}
                                 onClick={this.handleItemClick}
                                 className={
-                                  tab === 'reviews'
-                                    ? 'discoverMenuTitle selectedMenuTitle'
-                                    : 'discoverMenuTitle'
+                                  tab === "reviews"
+                                    ? "discoverMenuTitle selectedMenuTitle"
+                                    : "discoverMenuTitle"
                                 }
                               >
                                 <p>Reviews</p>
@@ -272,11 +228,11 @@ class ReviewPage extends Component {
                           </Menu>
                         </div>
                       </div>
-                      {this.props.stage === 'SYNTHESIS' &&
-                        this.state.tab === 'reviews' && (
+                      {this.props.stage === "SYNTHESIS" &&
+                        this.state.tab === "reviews" && (
                           <div className="headerRight">
-                            {this.state.view === 'byQuestion'}
-                            {this.state.view === 'byReviewer'}
+                            {this.state.view === "byQuestion"}
+                            {this.state.view === "byReviewer"}
 
                             <Dropdown
                               fluid
@@ -284,19 +240,19 @@ class ReviewPage extends Component {
                               defaultValue={this.state.view}
                               options={[
                                 {
-                                  key: '1',
-                                  text: 'Question view',
-                                  value: 'byQuestion',
+                                  key: "1",
+                                  text: "Question view",
+                                  value: "byQuestion",
                                   image: {
-                                    src: '/static/assets/view-question.png',
+                                    src: "/static/assets/view-question.png",
                                   },
                                 },
                                 {
-                                  key: '2',
-                                  text: 'Reviewer view',
-                                  value: 'byReviewer',
+                                  key: "2",
+                                  text: "Reviewer view",
+                                  value: "byReviewer",
                                   image: {
-                                    src: '/static/assets/view-reviewer.png',
+                                    src: "/static/assets/view-reviewer.png",
                                   },
                                 },
                               ]}
@@ -310,9 +266,9 @@ class ReviewPage extends Component {
                         )}
                     </div>
                     <div className="content">
-                      {this.state.tab === 'proposal' && (
+                      {this.state.tab === "proposal" && (
                         <Proposal
-                          onSubmit={async e => {
+                          onSubmit={async (e) => {
                             e.preventDefault();
                           }}
                           loading={loading}
@@ -329,14 +285,14 @@ class ReviewPage extends Component {
                           proposal
                         />
                       )}
-                      {this.state.tab === 'study' && (
+                      {this.state.tab === "study" && (
                         <StudyPage id={proposal?.study?.id} />
                       )}
-                      {this.props.stage === 'SYNTHESIS' &&
-                        this.state.tab === 'reviews' && (
+                      {this.props.stage === "SYNTHESIS" &&
+                        this.state.tab === "reviews" && (
                           <IndividualReviews
                             reviews={proposal.reviews.filter(
-                              review => review.stage === 'INDIVIDUAL'
+                              (review) => review.stage === "INDIVIDUAL"
                             )}
                             view={this.state.view}
                             user={this.props.user}

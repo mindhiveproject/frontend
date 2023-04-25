@@ -44,6 +44,20 @@ export const ALL_PROPOSALS_QUERY = gql`
   }
 `;
 
+export const PROPOSAL_BOARD_QUERY_LIGHT = gql`
+  query PROPOSAL_BOARD_QUERY_LIGHT($id: ID!) {
+    proposalBoard(where: { id: $id }) {
+      id
+      title
+      slug
+      description
+      isSubmitted
+      isTemplate
+      settings
+    }
+  }
+`;
+
 export const PROPOSAL_BOARD_QUERY = gql`
   query PROPOSAL_BOARD_QUERY($id: ID!) {
     proposalBoard(where: { id: $id }) {
@@ -194,6 +208,82 @@ export const GET_CARD_CONTENT = gql`
         id
         username
         publicReadableId
+      }
+    }
+  }
+`;
+
+export const PROPOSAL_PDF_QUERY = gql`
+  query PROPOSAL_PDF_QUERY($slug: String!) {
+    proposalBoard(where: { slug: $slug }) {
+      id
+      title
+      slug
+      description
+      study {
+        id
+        title
+        slug
+      }
+      sections {
+        id
+        title
+        description
+        position
+        cards {
+          id
+          title
+          content
+          settings
+          position
+          section {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
+
+// proposal for review
+export const FULL_PROPOSAL_QUERY = gql`
+  query FULL_PROPOSAL_QUERY($id: ID!) {
+    proposalBoard(where: { id: $id }) {
+      id
+      title
+      slug
+      description
+      reviews {
+        id
+        stage
+        author {
+          id
+          username
+        }
+        content
+        createdAt
+        updatedAt
+      }
+      study {
+        id
+        title
+        slug
+      }
+      sections {
+        id
+        title
+        description
+        position
+        cards {
+          id
+          title
+          content
+          settings
+          position
+          section {
+            id
+          }
+        }
       }
     }
   }

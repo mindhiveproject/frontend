@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Mutation } from '@apollo/client/react/components';
-import { Icon, Menu } from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
+import { Icon, Menu } from "semantic-ui-react";
 
-import { StudyBuilderNav } from '../styles';
+import { StudyBuilderNav } from "../styles";
 
-import { TOGGLE_OPENING_MUTATION } from '../../Opening/index';
+import { TOGGLE_OPENING_MUTATION } from "../../Opening/index";
 
-import SaveStudy from './saveStudy';
-import ArchiveDelete from '../../Bank/Studies/archiveDelete';
-import Collaborators from './collaborators';
+import SaveStudy from "./saveStudy";
+import ArchiveDelete from "../../Bank/Studies/archiveDelete";
+import Collaborators from "./collaborators";
 
 class Navigation extends Component {
   render() {
@@ -27,88 +27,94 @@ class Navigation extends Component {
         </div>
 
         <Menu text stackable className="discoverMenu">
-          <Menu.Item
-            name="proposal"
-            active={section === 'proposal'}
-            onClick={this.props.handleSectionChange}
-            className={
-              section === 'proposal'
-                ? 'discoverMenuTitle selectedMenuTitle'
-                : 'discoverMenuTitle'
-            }
-          >
-            <p>Proposal</p>
-          </Menu.Item>
+          {false && (
+            <Menu.Item
+              name="proposal"
+              active={section === "proposal"}
+              onClick={this.props.handleSectionChange}
+              className={
+                section === "proposal"
+                  ? "discoverMenuTitle selectedMenuTitle"
+                  : "discoverMenuTitle"
+              }
+            >
+              <p>Proposal</p>
+            </Menu.Item>
+          )}
 
           <Menu.Item
             name="studyBuilder"
-            active={section === 'studyBuilder'}
+            active={section === "studyBuilder"}
             onClick={this.props.handleSectionChange}
             className={
-              section === 'studyBuilder'
-                ? 'discoverMenuTitle selectedMenuTitle'
-                : 'discoverMenuTitle'
+              section === "studyBuilder"
+                ? "discoverMenuTitle selectedMenuTitle"
+                : "discoverMenuTitle"
             }
           >
             <p>Study Builder</p>
           </Menu.Item>
 
-          <Menu.Item
-            name="review"
-            active={section === 'review'}
-            onClick={this.props.handleSectionChange}
-            className={
-              section === 'review'
-                ? 'discoverMenuTitle selectedMenuTitle'
-                : 'discoverMenuTitle'
-            }
-          >
-            <p>Reviews</p>
-          </Menu.Item>
+          {false && (
+            <>
+              <Menu.Item
+                name="review"
+                active={section === "review"}
+                onClick={this.props.handleSectionChange}
+                className={
+                  section === "review"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
+                }
+              >
+                <p>Reviews</p>
+              </Menu.Item>
 
-          <Menu.Item
-            name="collect"
-            active={section === 'collect'}
-            onClick={this.props.handleSectionChange}
-            className={
-              section === 'collect'
-                ? 'discoverMenuTitle selectedMenuTitle'
-                : 'discoverMenuTitle'
-            }
-          >
-            <p>Collect</p>
-          </Menu.Item>
+              <Menu.Item
+                name="collect"
+                active={section === "collect"}
+                onClick={this.props.handleSectionChange}
+                className={
+                  section === "collect"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
+                }
+              >
+                <p>Collect</p>
+              </Menu.Item>
 
-          <Menu.Item
-            name="download"
-            active={section === 'download'}
-            onClick={this.props.handleSectionChange}
-            className={
-              section === 'download'
-                ? 'discoverMenuTitle selectedMenuTitle'
-                : 'discoverMenuTitle'
-            }
-          >
-            <p>Download</p>
-          </Menu.Item>
+              <Menu.Item
+                name="download"
+                active={section === "download"}
+                onClick={this.props.handleSectionChange}
+                className={
+                  section === "download"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
+                }
+              >
+                <p>Download</p>
+              </Menu.Item>
 
-          <Menu.Item
-            name="analyze"
-            active={section === 'analyze'}
-            onClick={this.props.handleSectionChange}
-            className={
-              section === 'analyze'
-                ? 'discoverMenuTitle selectedMenuTitle'
-                : 'discoverMenuTitle'
-            }
-          >
-            <p>Analyze</p>
-          </Menu.Item>
+              <Menu.Item
+                name="analyze"
+                active={section === "analyze"}
+                onClick={this.props.handleSectionChange}
+                className={
+                  section === "analyze"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
+                }
+              >
+                <p>Analyze</p>
+              </Menu.Item>
+            </>
+          )}
         </Menu>
 
         <div>
           <Mutation mutation={TOGGLE_OPENING_MUTATION}>
-            {toggleOpening => (
+            {(toggleOpening) => (
               <button onClick={toggleOpening}>
                 <Icon name="rocketchat" size="large" />
               </button>

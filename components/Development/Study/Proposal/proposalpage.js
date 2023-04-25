@@ -186,4 +186,3 @@ class ProposalPage extends Component {
 }
 
 export default ProposalPage;
-export { PROPOSAL_BOARD_QUERY };
