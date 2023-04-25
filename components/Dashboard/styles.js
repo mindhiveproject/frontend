@@ -1,11 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledDasboard = styled.div`
   display: grid;
   padding: 20px;
   width: 100%;
-  /* height: 100vh;
-  align-content: baseline; */
 
   h1 {
     font-family: Lato;
@@ -173,7 +171,7 @@ export const StyledDevelopDasboard = styled.div`
       border-radius: 4px;
       color: white;
       cursor: pointer;
-      font-family: 'Lato';
+      font-family: "Lato";
     }
   }
 
@@ -254,7 +252,7 @@ export const StyledOverviewDasboard = styled.div`
       border-radius: 4px;
       color: white;
       cursor: pointer;
-      font-family: 'Lato';
+      font-family: "Lato";
     }
   }
 
@@ -335,7 +333,7 @@ export const StyledClassesDasboard = styled.div`
       border-radius: 4px;
       color: white;
       cursor: pointer;
-      font-family: 'Lato';
+      font-family: "Lato";
     }
   }
 
@@ -402,14 +400,13 @@ export const StyledDasboardPage = styled.div`
   padding: 20px;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  ${props => props.open && `transform: translateX(0);`};
+  ${(props) => props.open && `transform: translateX(0);`};
   header {
-    border-bottom: 5px solid ${props => props.theme.black};
+    border-bottom: 5px solid ${(props) => props.theme.black};
     margin-bottom: 2rem;
     padding-bottom: 2rem;
   }
   footer {
-    /* border-top: 10px double ${props => props.theme.black}; */
     margin-top: 2rem;
     padding-top: 2rem;
     display: grid;
@@ -425,7 +422,6 @@ export const StyledDasboardPage = styled.div`
     margin: 0;
     padding: 0;
     list-style: none;
-    /* overflow: scroll; */
   }
   button {
     font-weight: 500;
@@ -452,7 +448,6 @@ export const CartStyles = styled.div`
   height: 100%;
   top: 0;
   right: 0;
-  /* width: 40%; */
   min-width: 500px;
   bottom: 0;
   transform: translateX(100%);
@@ -461,14 +456,13 @@ export const CartStyles = styled.div`
   z-index: 5;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  ${props => props.open && `transform: translateX(0);`};
+  ${(props) => props.open && `transform: translateX(0);`};
   header {
-    border-bottom: 5px solid ${props => props.theme.black};
+    border-bottom: 5px solid ${(props) => props.theme.black};
     margin-bottom: 2rem;
     padding-bottom: 2rem;
   }
   footer {
-    /* border-top: 10px double ${props => props.theme.black}; */
     margin-top: 2rem;
     padding-top: 2rem;
     display: grid;
@@ -484,7 +478,6 @@ export const CartStyles = styled.div`
     margin: 0;
     padding: 0;
     list-style: none;
-    /* overflow: scroll; */
   }
   button {
     font-weight: 500;
@@ -504,7 +497,7 @@ export const CartStyles = styled.div`
 `;
 
 export const Supreme = styled.h3`
-  background: ${props => props.theme.red};
+  background: ${(props) => props.theme.red};
   color: white;
   display: inline-block;
   padding: 4px 5px;
@@ -607,7 +600,7 @@ export const StyledReviewDasboard = styled.div`
       border-radius: 4px;
       color: white;
       cursor: pointer;
-      font-family: 'Lato';
+      font-family: "Lato";
     }
   }
 
@@ -642,16 +635,21 @@ export const StyledReviewDasboard = styled.div`
   }
 
   .discoverMenu {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     margin-bottom: 24px !important;
-
+    background: #f6f9f8;
+    border: 1px solid #e6e6e6;
+    border-radius: 7px;
     .discoverMenuTitle {
       padding-left: 1rem !important;
       padding-right: 1rem !important;
       width: auto;
-      padding-bottom: 10px !important;
+      /* padding-bottom: 10px !important; */
       display: grid;
       justify-content: center;
-      border-bottom: 2px solid #e6e6e6;
+      border-bottom: 1px solid #e6e6e6;
       p {
         font-family: Lato;
         font-size: 18px;
@@ -663,9 +661,10 @@ export const StyledReviewDasboard = styled.div`
       }
     }
     .selectedMenuTitle {
-      border-bottom: 4px solid #ffc107 !important;
+      /* border-bottom: 4px solid #ffc107 !important; */
+      background: #007c70 !important;
       p {
-        color: #1a1a1a;
+        color: white;
       }
     }
   }

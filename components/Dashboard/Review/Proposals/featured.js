@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
+import styled from "styled-components";
 
-import ReviewLine from '../ReviewBoard/line';
+import ReviewLine from "../ReviewBoard/line";
+
+import { FEATURED_PROPOSALS_FOR_REVIEW_QUERY } from "../../../Queries/Proposal";
 
 const StyledReviewHeader = styled.div`
   display: grid;
@@ -14,38 +15,6 @@ const StyledReviewHeader = styled.div`
   font-weight: bold;
   .centered {
     text-align: center;
-  }
-`;
-
-// write a query here, later refactor it in a separate file if it is used elsewhere
-const FEATURED_PROPOSALS_FOR_REVIEW_QUERY = gql`
-  query FEATURED_PROPOSALS_FOR_REVIEW_QUERY {
-    proposalsFeaturedStudies {
-      id
-      slug
-      title
-      createdAt
-      isSubmitted
-      reviews {
-        id
-        stage
-      }
-      study {
-        title
-        slug
-      }
-      author {
-        id
-        studentIn {
-          id
-          title
-        }
-        teacherIn {
-          id
-          title
-        }
-      }
-    }
   }
 `;
 
@@ -82,7 +51,7 @@ class FeaturedProposals extends Component {
                 <div>Actions</div>
               </StyledReviewHeader>
 
-              {proposalsFeaturedStudies.map(proposal => (
+              {proposalsFeaturedStudies.map((proposal) => (
                 <ReviewLine
                   proposal={proposal}
                   key={proposal.id}

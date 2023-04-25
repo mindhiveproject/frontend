@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import gql from 'graphql-tag';
-import { Query, Mutation } from '@apollo/client/react/components';
-import SingleQuestion from './singleQuestion';
-import { PROPOSALS_FOR_REVIEW_QUERY } from '../reviews';
+import React, { Component } from "react";
+import styled from "styled-components";
+import gql from "graphql-tag";
+import { Query, Mutation } from "@apollo/client/react/components";
+import SingleQuestion from "./singleQuestion";
+import { PROPOSALS_FOR_REVIEW_QUERY } from "../reviews";
 
-import { individualQuestions, synthesisQuestions } from './reviewQuestions';
+import { individualQuestions, synthesisQuestions } from "./reviewQuestions";
 
 const StyledReviewQuestions = styled.div`
   display: grid;
@@ -75,7 +75,7 @@ const StyledReviewQuestions = styled.div`
   }
 `;
 
-// TODO write query to get a review (if there is any)
+// to get a review (if there is any)
 const GET_REVIEW_QUERY = gql`
   query GET_REVIEW_QUERY(
     $studyId: ID
@@ -159,7 +159,7 @@ class ReviewQuestionsWrapper extends Component {
               <ReviewQuestions
                 content={
                   review?.content ||
-                  (this.props.stage === 'INDIVIDUAL'
+                  (this.props.stage === "INDIVIDUAL"
                     ? individualQuestions
                     : synthesisQuestions)
                 }
@@ -190,10 +190,10 @@ class ReviewQuestions extends Component {
     stage: this.props.stage,
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { id, value, className, name } = e.target;
     const updatedContent = [...this.state.content];
-    const content = updatedContent.map(item => {
+    const content = updatedContent.map((item) => {
       if (item.name === name) {
         const updatedItem = { ...item };
         updatedItem[className] = value;
@@ -207,7 +207,7 @@ class ReviewQuestions extends Component {
     });
   };
 
-  uploadReview = async reviewMutation => {
+  uploadReview = async (reviewMutation) => {
     const res = await reviewMutation();
     this.props.goBack();
   };
@@ -216,7 +216,11 @@ class ReviewQuestions extends Component {
     return (
       <StyledReviewQuestions>
         <>
-          <h1>{this.props.stage === 'INDIVIDUAL' ? 'Review questions' : 'Synthesis questions'}</h1>
+          <h1>
+            {this.props.stage === "INDIVIDUAL"
+              ? "Review questions"
+              : "Synthesis questions"}
+          </h1>
           <div className="reviewItems">
             {this.state.content.map((item, i) => (
               <SingleQuestion

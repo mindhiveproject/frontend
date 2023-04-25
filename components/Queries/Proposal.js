@@ -253,17 +253,6 @@ export const FULL_PROPOSAL_QUERY = gql`
       title
       slug
       description
-      reviews {
-        id
-        stage
-        author {
-          id
-          username
-        }
-        content
-        createdAt
-        updatedAt
-      }
       study {
         id
         title
@@ -283,6 +272,105 @@ export const FULL_PROPOSAL_QUERY = gql`
           section {
             id
           }
+        }
+      }
+    }
+  }
+`;
+
+// proposals of featured studies for review
+export const FEATURED_PROPOSALS_FOR_REVIEW_QUERY = gql`
+  query FEATURED_PROPOSALS_FOR_REVIEW_QUERY {
+    proposalsFeaturedStudies {
+      id
+      slug
+      title
+      createdAt
+      isSubmitted
+      reviews {
+        id
+        stage
+      }
+      study {
+        title
+        slug
+      }
+      author {
+        id
+        studentIn {
+          id
+          title
+        }
+        teacherIn {
+          id
+          title
+        }
+      }
+    }
+  }
+`;
+
+// proposals of my studies for review
+export const MY_PROPOSALS_FOR_REVIEW_QUERY = gql`
+  query MY_PROPOSALS_FOR_REVIEW_QUERY {
+    proposalsMyStudies {
+      id
+      slug
+      title
+      createdAt
+      isSubmitted
+      reviews {
+        id
+        stage
+      }
+      study {
+        title
+        slug
+        classes {
+          title
+        }
+      }
+      author {
+        id
+        studentIn {
+          id
+          title
+        }
+        teacherIn {
+          id
+          title
+        }
+      }
+    }
+  }
+`;
+
+// proposals of the class for review
+export const CLASS_PROPOSALS_FOR_REVIEW_QUERY = gql`
+  query CLASS_PROPOSALS_FOR_REVIEW_QUERY($classes: [ID!]) {
+    proposalsOfClass(where: { id_in: $classes }) {
+      id
+      slug
+      title
+      createdAt
+      isSubmitted
+      reviews {
+        id
+        stage
+      }
+      study {
+        title
+        slug
+      }
+      author {
+        id
+        studentIn {
+          id
+          title
+        }
+        teacherIn {
+          id
+          title
         }
       }
     }

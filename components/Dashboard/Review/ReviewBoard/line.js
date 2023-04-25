@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import styled from "styled-components";
 
 const StyledClassRow = styled.div`
   display: grid;
@@ -30,20 +30,6 @@ class ReviewRow extends Component {
     if (proposal?.study?.classes?.length) {
       theClass = proposal?.study?.classes[0].title;
     }
-    // if (
-    //   proposal?.author?.teacherIn &&
-    //   proposal?.author?.teacherIn.length &&
-    //   proposal?.author?.teacherIn[0].title
-    // ) {
-    //   theClass = proposal?.author?.teacherIn[0].title;
-    // }
-    // if (
-    //   proposal?.author?.studentIn &&
-    //   proposal?.author?.studentIn.length &&
-    //   proposal?.author?.studentIn[0].title
-    // ) {
-    //   theClass = proposal?.author?.studentIn[0].title;
-    // }
 
     return (
       <StyledClassRow>
@@ -57,19 +43,19 @@ class ReviewRow extends Component {
 
         {showClass && <div>{theClass}</div>}
         {showStatus && (
-          <div className="centered">{proposal?.isSubmitted ? 'Yes' : 'No'}</div>
+          <div className="centered">{proposal?.isSubmitted ? "Yes" : "No"}</div>
         )}
 
         <div className="centered">
           {
-            proposal?.reviews?.filter(review => review.stage === 'INDIVIDUAL')
+            proposal?.reviews?.filter((review) => review.stage === "INDIVIDUAL")
               .length
           }
         </div>
         <div className="buttons">
           <div>
             <a
-              href={`https://mindhive.science/studies/${proposal?.study?.slug}`}
+              href={`/studies/${proposal?.study?.slug}`}
               target="_blank"
               rel="noreferrer"
             >

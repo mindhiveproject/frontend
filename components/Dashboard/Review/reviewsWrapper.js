@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
-import { StyledDasboard, StyledReviewDasboard } from '../styles';
+import React, { Component } from "react";
+import { Menu } from "semantic-ui-react";
+import { StyledDasboard, StyledReviewDasboard } from "../styles";
 
-import FeaturedProposals from './Proposals/featured';
-import MyProposals from './Proposals/my';
-import ClassProposals from './Proposals/ofClass';
+import FeaturedProposals from "./Proposals/featured";
+import MyProposals from "./Proposals/my";
+import ClassProposals from "./Proposals/ofClass";
 
 class ReviewsWrapper extends Component {
   state = {
-    tab: this.props.tab || 'public',
+    tab: this.props.tab || "public",
   };
 
   handleTabClick = (e, { name }) => this.setState({ tab: name });
@@ -22,15 +22,15 @@ class ReviewsWrapper extends Component {
         <StyledReviewDasboard>
           <h1>Review studies</h1>
           <div>
-            <Menu text stackable className="discoverMenu">
+            <Menu className="discoverMenu">
               <Menu.Item
                 name="public"
-                active={tab === 'public'}
+                active={tab === "public"}
                 onClick={this.handleTabClick}
                 className={
-                  tab === 'public'
-                    ? 'discoverMenuTitle selectedMenuTitle'
-                    : 'discoverMenuTitle'
+                  tab === "public"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
                 }
               >
                 <p>Featured studies</p>
@@ -38,12 +38,12 @@ class ReviewsWrapper extends Component {
 
               <Menu.Item
                 name="my"
-                active={tab === 'my'}
+                active={tab === "my"}
                 onClick={this.handleTabClick}
                 className={
-                  tab === 'my'
-                    ? 'discoverMenuTitle selectedMenuTitle'
-                    : 'discoverMenuTitle'
+                  tab === "my"
+                    ? "discoverMenuTitle selectedMenuTitle"
+                    : "discoverMenuTitle"
                 }
               >
                 <p>My studies</p>
@@ -57,8 +57,8 @@ class ReviewsWrapper extends Component {
                   onClick={this.handleTabClick}
                   className={
                     tab === id
-                      ? 'discoverMenuTitle selectedMenuTitle'
-                      : 'discoverMenuTitle'
+                      ? "discoverMenuTitle selectedMenuTitle"
+                      : "discoverMenuTitle"
                   }
                 >
                   <p>{title}</p>
@@ -67,21 +67,21 @@ class ReviewsWrapper extends Component {
             </Menu>
           </div>
 
-          {tab === 'public' && (
+          {tab === "public" && (
             <FeaturedProposals
               openReview={this.props.openReview}
               openSynthesize={this.props.openSynthesize}
             />
           )}
 
-          {tab === 'my' && (
+          {tab === "my" && (
             <MyProposals
               openReview={this.props.openReview}
               openSynthesize={this.props.openSynthesize}
             />
           )}
 
-          {classes.map(c => c.id).includes(tab) && (
+          {classes.map((c) => c.id).includes(tab) && (
             <ClassProposals
               classId={tab}
               openReview={this.props.openReview}
