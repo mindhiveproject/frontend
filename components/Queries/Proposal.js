@@ -253,6 +253,17 @@ export const FULL_PROPOSAL_QUERY = gql`
       title
       slug
       description
+      reviews {
+        id
+        stage
+        author {
+          id
+          username
+        }
+        content
+        createdAt
+        updatedAt
+      }
       study {
         id
         title
