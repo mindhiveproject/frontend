@@ -1,7 +1,7 @@
 // own render prop component
-import { Query } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
-import PropTypes from 'prop-types';
+import { Query } from "@apollo/client/react/components";
+import gql from "graphql-tag";
+import PropTypes from "prop-types";
 
 const USER_DASHBOARD_QUERY = gql`
   query USER_DASHBOARD_QUERY {
@@ -340,9 +340,9 @@ const STUDENT_QUERY = gql`
   }
 `;
 
-const User = props => (
+const User = (props) => (
   <Query {...props} query={CURRENT_USER_RESULTS_QUERY}>
-    {payload => props.children(payload)}
+    {(payload) => props.children(payload)}
   </Query>
 );
 

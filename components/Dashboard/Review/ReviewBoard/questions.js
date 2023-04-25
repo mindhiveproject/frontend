@@ -73,6 +73,9 @@ const StyledReviewQuestions = styled.div`
     letter-spacing: 0em;
     text-align: left;
   }
+  .updateMessage {
+    padding: 20px 0px;
+  }
 `;
 
 // to get a review (if there is any)
@@ -209,7 +212,8 @@ class ReviewQuestions extends Component {
 
   uploadReview = async (reviewMutation) => {
     const res = await reviewMutation();
-    this.props.goBack();
+    // this.props.goBack();
+    alert("The review is saved");
   };
 
   render() {
@@ -303,6 +307,9 @@ class ReviewQuestions extends Component {
             </Mutation>
           )}
         </>
+        <div className="updateMessage">
+          <p>You can update your submission at any time</p>
+        </div>
       </StyledReviewQuestions>
     );
   }
