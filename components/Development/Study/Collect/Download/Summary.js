@@ -10,7 +10,7 @@ export default function DownloadSummaryData({ by, study }) {
     MY_STUDY_SUMMARY_RESULTS_QUERY,
     {
       fetchPolicy: "network-only", // Doesn't check cache before making a network request
-      variables: { id: study?.id },
+      variables: { studyId: study?.id },
     }
   );
 
@@ -41,6 +41,7 @@ export default function DownloadSummaryData({ by, study }) {
         study: result.study.title,
         task: result.task.title,
         testVersion: result.testVersion,
+        subtitle: result?.task?.subtitle,
         timestamp: result.createdAt,
         ...result.data,
       };
@@ -87,8 +88,8 @@ export default function DownloadSummaryData({ by, study }) {
   };
 
   const download = async () => {
-    const result = await loadData();
-    const { summaryResults } = result?.data;
+    const results = await loadData();
+    const { summaryResults } = results?.data;
     save({ data: process({ data: summaryResults }) });
   };
 
@@ -99,7 +100,7 @@ export default function DownloadSummaryData({ by, study }) {
       ) : (
         <div className="downloadArea" onClick={() => download()}>
           <Icon color="teal" size="large" name="download" />
-          <a>Download aggregated data by {by}</a>
+          <a>Download aggregated data {by}</a>
         </div>
       )}
     </>

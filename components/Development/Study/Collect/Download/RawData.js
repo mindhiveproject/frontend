@@ -11,7 +11,7 @@ export default function DownloadRawData({ study }) {
     MY_STUDY_RESULTS_QUERY,
     {
       fetchPolicy: "network-only", // Doesn't check cache before making a network request
-      variables: { id: study?.id },
+      variables: { studyId: study?.id },
     }
   );
 
@@ -63,10 +63,10 @@ export default function DownloadRawData({ study }) {
         // augment the raw data with participant information
         const resultData = data.map((line) => {
           line.participantId = participantId;
-          line.task = result.task && result.task.title;
-          line.taskTitle = result.task && result.task.subtitle;
-          line.testVersion = result.testVersion && result.testVersion;
-          line.study = result.study && result.study.title;
+          line.task = result?.task?.title;
+          line.subtitle = result?.task?.subtitle;
+          line.testVersion = result?.testVersion;
+          line.study = result?.study?.title;
           line.dataType = fullContent ? "complete" : "incremental";
           return line;
         });
@@ -94,7 +94,7 @@ export default function DownloadRawData({ study }) {
   const download = async () => {
     const result = await loadData();
     const { myStudyResults } = result?.data;
-    // console.log({ myStudyResults });
+    console.log({ myStudyResults });
     save({ data: process({ data: myStudyResults }) });
   };
 

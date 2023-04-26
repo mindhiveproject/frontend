@@ -316,6 +316,7 @@ export default class Controller extends Component {
           id: node?.options?.componentID,
           title: node?.options?.name,
           testId: node?.options?.testId,
+          subtitle: node?.options?.subtitle,
           level,
         });
       }

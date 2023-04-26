@@ -5,7 +5,6 @@ import { Mutation } from "@apollo/client/react/components";
 
 import { Checkbox } from "semantic-ui-react";
 import { PARTICIPANT_STUDY_RESULTS_QUERY } from "../../../../Queries/Result";
-import { MY_STUDY_RESULTS_QUERY } from "../../../../DataViz/index";
 
 const CHANGE_STATUS_OF_DATA_MUTATION = gql`
   mutation CHANGE_STATUS_OF_DATA_MUTATION(
@@ -58,12 +57,6 @@ class ChangeResultsStatus extends Component {
             variables: {
               participantId,
               studyId,
-            },
-          },
-          {
-            query: MY_STUDY_RESULTS_QUERY,
-            variables: {
-              id: studyId,
             },
           },
         ]}

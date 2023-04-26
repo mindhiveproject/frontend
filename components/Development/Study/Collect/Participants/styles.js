@@ -76,8 +76,14 @@ export const StyledCollectBoard = styled.div`
     padding: 2rem;
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     border-radius: 4px;
+    align-items: baseline;
+
+    .shareStudy {
+      display: grid;
+      align-items: baseline;
+    }
 
     .downloadOptions {
       display: grid;
@@ -89,6 +95,10 @@ export const StyledCollectBoard = styled.div`
         grid-template-columns: auto 1fr;
         align-items: center;
       }
+    }
+    .downloadByComponent {
+      display: grid;
+      grid-gap: 10px;
     }
     .buttons {
       display: grid;

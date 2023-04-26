@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
-import Head from 'next/head';
-import styled from 'styled-components';
-import { saveAs } from 'file-saver';
-import { jsonToCSV } from 'react-papaparse';
-import Error from '../../ErrorMessage/index';
-import ResultLine from './line';
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Query } from "@apollo/client/react/components";
+import styled from "styled-components";
+import { saveAs } from "file-saver";
+import { jsonToCSV } from "react-papaparse";
+import Error from "../../ErrorMessage/index";
+import ResultLine from "./line";
 
-const LZUTF8 = require('lzutf8');
+import { MY_STUDY_RESULTS_QUERY } from "../../Queries/Result";
+
+const LZUTF8 = require("lzutf8");
 
 const StyledResults = styled.div`
   display: grid;
@@ -39,105 +40,39 @@ const StyledResults = styled.div`
   }
 `;
 
-const STUDY_RESULTS_QUERY = gql`
-  query STUDY_RESULTS_QUERY($slug: String!) {
-    studyResults(slug: $slug) {
-      id
-      study {
-        id
-        title
-      }
-      task {
-        id
-        title
-      }
-      user {
-        id
-        publicId
-        generalInfo
-      }
-      quantity
-      data
-      createdAt
-      updatedAt
-      fullData {
-        id
-        content
-      }
-      incrementalData {
-        id
-        content
-      }
-    }
-  }
-`;
-
-const MY_STUDY_RESULTS_QUERY = gql`
-  query MY_STUDY_RESULTS_QUERY($id: ID!) {
-    myStudyResults(where: { id: $id }) {
-      id
-      study {
-        id
-        title
-      }
-      task {
-        id
-        title
-      }
-      user {
-        id
-        publicId
-        generalInfo
-      }
-      quantity
-      data
-      createdAt
-      updatedAt
-      fullData {
-        id
-        content
-      }
-      incrementalData {
-        id
-        content
-      }
-    }
-  }
-`;
-
 class StudyResults extends Component {
-  downloadAll = results => {
+  downloadAll = (results) => {
     const allData = results
-      .map(result => {
+      .map((result) => {
         let { data } = result;
         const fullContent = result.fullData?.content;
         const incrementalContent =
           result.incrementalData.length &&
-          result.incrementalData.map(d => d.content);
+          result.incrementalData.map((d) => d.content);
         if (fullContent) {
           data = JSON.parse(
             LZUTF8.decompress(fullContent, {
-              inputEncoding: 'StorageBinaryString',
+              inputEncoding: "StorageBinaryString",
             })
           );
         }
         if (!fullContent && incrementalContent && incrementalContent.length) {
           data = incrementalContent
-            .map(p =>
+            .map((p) =>
               JSON.parse(
                 LZUTF8.decompress(p, {
-                  inputEncoding: 'StorageBinaryString',
+                  inputEncoding: "StorageBinaryString",
                 })
               )
             )
             .reduce((total, amount) => total.concat(amount), []);
         }
 
-        const resultData = data.map(line => {
+        const resultData = data.map((line) => {
           line.participantId = result.user && result.user.publicId;
           line.task = result.task && result.task.title;
           line.study = result.study && result.study.title;
-          line.dataType = fullContent ? 'complete' : 'incremental';
+          line.dataType = fullContent ? "complete" : "incremental";
           return line;
         });
         return resultData;
@@ -150,16 +85,16 @@ class StudyResults extends Component {
         results[0].study &&
         results[0].study.title
           .toLowerCase()
-          .split(' ')
-          .join('-')) ||
-      '';
+          .split(" ")
+          .join("-")) ||
+      "";
     const allKeys = allData
-      .map(line => Object.keys(line))
+      .map((line) => Object.keys(line))
       .reduce((a, b) => a.concat(b), []);
     const keys = Array.from(new Set(allKeys));
     const csv = jsonToCSV({ fields: keys, data: allData });
     const blob = new Blob([csv], {
-      type: 'text/csv',
+      type: "text/csv",
     });
     saveAs(blob, `${name}.csv`);
   };
@@ -167,7 +102,10 @@ class StudyResults extends Component {
   render() {
     return (
       <StyledResults>
-        <Query query={MY_STUDY_RESULTS_QUERY} variables={{ id: this.props.id }}>
+        <Query
+          query={MY_STUDY_RESULTS_QUERY}
+          variables={{ studyId: this.props.id }}
+        >
           {({ error, loading, data }) => {
             if (error) return <Error error={error} />;
             if (loading) return <p>Loading ... </p>;
@@ -188,14 +126,14 @@ class StudyResults extends Component {
                     Download all results for this study
                   </button>
                 </div>
-                {myStudyResults.map(result => (
+                {myStudyResults.map((result) => (
                   <ResultLine
                     key={result.id}
                     result={result}
                     refetchQueries={[
                       {
                         query: MY_STUDY_RESULTS_QUERY,
-                        variables: { id: this.props.id },
+                        variables: { studyId: this.props.id },
                       },
                     ]}
                   />
@@ -210,5 +148,3 @@ class StudyResults extends Component {
 }
 
 export default StudyResults;
-export { STUDY_RESULTS_QUERY };
-export { MY_STUDY_RESULTS_QUERY };

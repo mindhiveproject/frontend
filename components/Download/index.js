@@ -1,48 +1,18 @@
-import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Query } from "@apollo/client/react/components";
 
-import Error from '../ErrorMessage/index';
-import Selector from './selector';
-import InDev from '../Development/Study/inDev';
+import Error from "../ErrorMessage/index";
+import Selector from "./selector";
+import InDev from "../Development/Study/inDev";
 
-const MY_STUDY_RESULTS_QUERY = gql`
-  query MY_STUDY_RESULTS_QUERY($id: ID!) {
-    myStudyResults(where: { id: $id }) {
-      id
-      task {
-        id
-        title
-        subtitle
-      }
-      user {
-        id
-        publicId
-        publicReadableId
-      }
-      guest {
-        id
-        publicId
-        publicReadableId
-      }
-      fullData {
-        id
-      }
-      incrementalData {
-        id
-      }
-      resultType
-      updatedAt
-      testVersion
-    }
-  }
-`;
+import { MY_STUDY_RESULTS_QUERY } from "../Queries/Result";
 
 class StudyResults extends Component {
   render() {
     const { id } = this.props;
     return (
-      <Query query={MY_STUDY_RESULTS_QUERY} variables={{ id }}>
+      <Query query={MY_STUDY_RESULTS_QUERY} variables={{ studyId: id }}>
         {({ error, loading, data }) => {
           if (error) return <Error error={error} />;
           if (loading) return <p>Loading ... </p>;
@@ -52,11 +22,11 @@ class StudyResults extends Component {
 
           const resultsWithData = myStudyResults
             .filter(
-              result => result?.fullData?.id || result?.incrementalData.length
+              (result) => result?.fullData?.id || result?.incrementalData.length
             )
             .filter(
-              result =>
-                result.resultType === null || result.resultType !== 'TEST'
+              (result) =>
+                result.resultType === null || result.resultType !== "TEST"
             );
 
           if (resultsWithData.length === 0) {
@@ -76,4 +46,3 @@ class StudyResults extends Component {
 }
 
 export default StudyResults;
-export { MY_STUDY_RESULTS_QUERY };

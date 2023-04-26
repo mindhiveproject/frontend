@@ -1,9 +1,13 @@
 import gql from "graphql-tag";
 
 export const MY_STUDY_SUMMARY_RESULTS_QUERY = gql`
-  query MY_STUDY_SUMMARY_RESULTS_QUERY($id: ID!) {
+  query MY_STUDY_SUMMARY_RESULTS_QUERY($studyId: ID!, $taskIds: [ID!]) {
     summaryResults(
-      where: { study: { id: $id }, fullResult: { resultType: MAIN } }
+      where: {
+        study: { id: $studyId }
+        task: { id_in: $taskIds }
+        fullResult: { resultType: MAIN }
+      }
     ) {
       id
       user {
@@ -41,8 +45,14 @@ export const MY_STUDY_SUMMARY_RESULTS_QUERY = gql`
 `;
 
 export const MY_STUDY_RESULTS_QUERY = gql`
-  query MY_STUDY_RESULTS_QUERY($id: ID!) {
-    myStudyResults(where: { id: $id }) {
+  query MY_STUDY_RESULTS_QUERY($studyId: ID!, $taskIds: [ID!]) {
+    myStudyResults(
+      where: {
+        study: { id: $studyId }
+        task: { id_in: $taskIds }
+        resultType: MAIN
+      }
+    ) {
       id
       study {
         id

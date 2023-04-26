@@ -9,6 +9,7 @@ import SingleGuestPage from "./Participants/Single/guest";
 
 import DownloadRawData from "./Download/RawData";
 import DownloadSummaryData from "./Download/Summary";
+import DownloadByComponent from "./Download/ByComponent";
 
 import {
   StyledCollectSection,
@@ -83,6 +84,22 @@ class CollectWrapper extends Component {
     const { study } = this.props;
     const perPage = 20;
 
+    const allComponents = study?.components?.blocks
+      .map((block) =>
+        block?.tests
+          .filter((test) => !!test?.id)
+          .map((test) => ({
+            ...test,
+            conditionId: block?.blockId,
+            condition: block?.title,
+          }))
+      )
+      .flat();
+    const components = allComponents.filter(
+      (obj, index) =>
+        allComponents.findIndex((item) => item.id === obj.id) === index
+    );
+
     if (view === "participant") {
       return (
         <SinglePage
@@ -108,7 +125,7 @@ class CollectWrapper extends Component {
         <StyledCollectBoard>
           <div className="header">
             <div className="study">
-              <div>
+              <div className="shareStudy">
                 <p>
                   Share the link below with your participants to invite them to
                   join your study
@@ -116,7 +133,6 @@ class CollectWrapper extends Component {
                 <h3>
                   https://mindhive.science/studies/{this.props.study.slug}
                 </h3>
-
                 <div className="buttons">
                   <div>
                     <button onClick={() => this.copyLink()}>
@@ -135,10 +151,15 @@ class CollectWrapper extends Component {
                 </div>
               </div>
               <div className="downloadOptions">
+                <h3>All data in one file</h3>
+                <DownloadSummaryData by="" study={study} />
+                <DownloadSummaryData by="by participant" study={study} />
                 <DownloadRawData study={study} />
-                <DownloadSummaryData by="task" study={study} />
-                <DownloadSummaryData by="participant" study={study} />
               </div>
+              <DownloadByComponent
+                components={components}
+                studyId={study?.id}
+              />
             </div>
             <div className="searchArea">
               <input
