@@ -142,7 +142,8 @@ export default function DownloadByComponent({ studyId, components }) {
 
   // download the current state of the data as a csv file
   const save = ({ data, task, type }) => {
-    const name = `${task?.title}_${task?.testId}_${type}_${moment().format()}`;
+    const name = `${task?.title}_${task?.subtitle ||
+      task?.testId}_${type}_${moment().format()}`;
     const allKeys = data
       .map((line) => Object.keys(line))
       .reduce((a, b) => a.concat(b), []);
