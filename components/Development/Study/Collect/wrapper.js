@@ -153,7 +153,9 @@ class CollectWrapper extends Component {
               <div className="downloadOptions">
                 <h3>All data in one file</h3>
                 <DownloadSummaryData by="" study={study} />
-                <DownloadSummaryData by="by participant" study={study} />
+                {true && (
+                  <DownloadSummaryData by="by participant" study={study} />
+                )}
                 <DownloadRawData study={study} />
               </div>
               <DownloadByComponent

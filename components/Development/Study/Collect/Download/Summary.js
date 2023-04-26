@@ -47,7 +47,7 @@ export default function DownloadSummaryData({ by, study }) {
       };
     });
 
-    if (by === "participant") {
+    if (by === "by participant") {
       const allParticipants = dataByTask.map((row) => row?.participant);
       const participants = [...new Set(allParticipants)];
       const dataByParticipant = participants.map((participant) => {
@@ -75,7 +75,7 @@ export default function DownloadSummaryData({ by, study }) {
 
   // download the current state of the data as a csv file
   const save = ({ data }) => {
-    const name = `${study?.slug}_${moment().format()}`;
+    const name = `${study?.slug}_${by}_${moment().format()}`;
     const allKeys = data
       .map((line) => Object.keys(line))
       .reduce((a, b) => a.concat(b), []);

@@ -39,8 +39,6 @@ export default function DownloadByComponent({ studyId, components }) {
     value: c?.id,
   }));
 
-  console.log({ options });
-
   const onChange = (event, data) => {
     setSelected(data?.value);
   };
@@ -143,8 +141,8 @@ export default function DownloadByComponent({ studyId, components }) {
   };
 
   // download the current state of the data as a csv file
-  const save = ({ data, task }) => {
-    const name = `${task?.title}_${task?.testId}_${moment().format()}`;
+  const save = ({ data, task, type }) => {
+    const name = `${task?.title}_${task?.testId}_${type}_${moment().format()}`;
     const allKeys = data
       .map((line) => Object.keys(line))
       .reduce((a, b) => a.concat(b), []);
@@ -174,6 +172,7 @@ export default function DownloadByComponent({ studyId, components }) {
       save({
         data: process({ data: taskResults }),
         task: components.filter((c) => c?.id === taskId)[0],
+        type: "aggregated",
       });
     });
     await resolvePromisesSeq(downloadPromises);
@@ -189,6 +188,7 @@ export default function DownloadByComponent({ studyId, components }) {
       save({
         data: processRaw({ data: taskResults }),
         task: components.filter((c) => c?.id === taskId)[0],
+        type: "raw",
       });
     });
     await resolvePromisesSeq(downloadPromises);
@@ -207,14 +207,26 @@ export default function DownloadByComponent({ studyId, components }) {
         onChange={onChange}
         value={selected}
       />
-      <div className="downloadArea" onClick={() => downloadAggregated()}>
-        <Icon color="teal" size="large" name="download" />
-        <a>Download aggregated data</a>
-      </div>
-      <div className="downloadArea" onClick={() => downloadRaw()}>
-        <Icon color="teal" size="large" name="download" />
-        <a>Download raw data</a>
-      </div>
+      <>
+        {loadingSummary ? (
+          <div>Wait ...</div>
+        ) : (
+          <div className="downloadArea" onClick={() => downloadAggregated()}>
+            <Icon color="teal" size="large" name="download" />
+            <a>Download aggregated data</a>
+          </div>
+        )}
+      </>
+      <>
+        {loadingRaw ? (
+          <div>Wait ...</div>
+        ) : (
+          <div className="downloadArea" onClick={() => downloadRaw()}>
+            <Icon color="teal" size="large" name="download" />
+            <a>Download raw data</a>
+          </div>
+        )}
+      </>
     </div>
   );
 }

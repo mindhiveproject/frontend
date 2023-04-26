@@ -79,7 +79,7 @@ export default function DownloadRawData({ study }) {
 
   // download the current state of the data as a csv file
   const save = ({ data }) => {
-    const name = `${study?.slug}_${moment().format()}`;
+    const name = `${study?.slug}_raw_data_${moment().format()}`;
     const allKeys = data
       .map((line) => Object.keys(line))
       .reduce((a, b) => a.concat(b), []);
@@ -94,7 +94,6 @@ export default function DownloadRawData({ study }) {
   const download = async () => {
     const result = await loadData();
     const { myStudyResults } = result?.data;
-    console.log({ myStudyResults });
     save({ data: process({ data: myStudyResults }) });
   };
 
