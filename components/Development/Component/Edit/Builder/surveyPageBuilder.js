@@ -211,7 +211,9 @@ class SurveyPageBuilder extends Component {
   };
 
   render() {
-    const { items, timeout, hideContinueBtn } = this.state;
+    const { items, hideContinueBtn } = this.state;
+    // if the timeout undefined keep it as an empty string
+    const timeout = this.state.timeout || "";
     if (items) {
       return (
         <div>
@@ -235,6 +237,7 @@ class SurveyPageBuilder extends Component {
                 <p>Page timeout (in milliseconds)</p>
                 <input
                   type="number"
+                  min="0"
                   name="timeout"
                   value={timeout}
                   onChange={this.handleTimeoutChange}

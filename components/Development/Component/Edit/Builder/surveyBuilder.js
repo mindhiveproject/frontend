@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { StyledPageButtons, StyledPageHeader } from '../../styles';
-import SurveyPageBuilder from './surveyPageBuilder';
+import React, { Component } from "react";
+import { StyledPageButtons, StyledPageHeader } from "../../styles";
+import SurveyPageBuilder from "./surveyPageBuilder";
 
 class SurveyBuilder extends Component {
   // it holds all pages and displays the currently active page on the screen with surveyPageBuilder
@@ -9,22 +9,22 @@ class SurveyBuilder extends Component {
     currentPage: 0,
   };
 
-  packThePages = value => ({
+  packThePages = (value) => ({
     target: {
       name: this.props.name,
-      type: 'survey',
+      type: "survey",
       value: JSON.stringify(value),
     },
   });
 
-  updateProps = pages => {
+  updateProps = (pages) => {
     const packed = this.packThePages(pages);
     this.props.onChange(packed);
   };
 
   updatePages = ({ page, timeout, hideContinueBtn }) => {
     const updatedPages = this.state.pages;
-    const cleanedTimeout = timeout >= 0 && timeout !== '' ? timeout : undefined;
+    const cleanedTimeout = timeout >= 0 && timeout !== "" ? timeout : undefined;
     updatedPages[this.state.currentPage] = {
       page,
       timeout: cleanedTimeout,
@@ -41,7 +41,7 @@ class SurveyBuilder extends Component {
     });
   };
 
-  addNewPage = e => {
+  addNewPage = (e) => {
     e.preventDefault();
     const updatedPages = this.state.pages;
     updatedPages.push({ page: [] });
@@ -71,7 +71,7 @@ class SurveyBuilder extends Component {
 
           <button
             className="notActivePageButton"
-            onClick={e => this.deletePage(e, this.state.currentPage)}
+            onClick={(e) => this.deletePage(e, this.state.currentPage)}
           >
             Delete this page
           </button>
@@ -80,12 +80,12 @@ class SurveyBuilder extends Component {
         <StyledPageButtons>
           {this.state.pages.map((page, number) => (
             <button
-              onClick={e => this.moveToPage(e, number)}
+              onClick={(e) => this.moveToPage(e, number)}
               key={number}
               className={
                 number === this.state.currentPage
-                  ? 'activePageButton'
-                  : 'notActivePageButton'
+                  ? "activePageButton"
+                  : "notActivePageButton"
               }
             >
               {number + 1}
@@ -94,7 +94,7 @@ class SurveyBuilder extends Component {
           {this.state.pages && (
             <button
               className="notActivePageButton"
-              onClick={e => this.addNewPage(e)}
+              onClick={(e) => this.addNewPage(e)}
             >
               +
             </button>
