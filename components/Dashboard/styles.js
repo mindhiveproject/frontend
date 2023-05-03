@@ -646,10 +646,10 @@ export const StyledReviewDasboard = styled.div`
       padding-left: 1rem !important;
       padding-right: 1rem !important;
       width: auto;
-      /* padding-bottom: 10px !important; */
       display: grid;
       justify-content: center;
       border-bottom: 1px solid #e6e6e6;
+      text-align: center;
       p {
         font-family: Lato;
         font-size: 18px;
@@ -661,7 +661,6 @@ export const StyledReviewDasboard = styled.div`
       }
     }
     .selectedMenuTitle {
-      /* border-bottom: 4px solid #ffc107 !important; */
       background: #007c70 !important;
       p {
         color: white;
