@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // preview the task (for using)
-import TaskWrapper from '../../Task/Wrapper';
+import TaskWrapper from "../../Task/Wrapper";
 
 // full screen preview
-import FullScreenPreview from '../../../Preview/fullscreen';
+import FullScreenPreview from "../../../Preview/fullscreen";
 
 // modify the task (for editing)
-import ComponentEditor from './editor';
+import ComponentEditor from "./editor";
 
 // ToDo: decide what to show based on whether the user is the author or
 // collaborator on the task
@@ -37,14 +37,14 @@ class ComponentViewer extends Component {
   };
 
   render() {
-    const { isAuthor } = this.props;
+    const { isAuthor, createCopy } = this.props;
     const { component, showInfo, showPreview, showEditor } = this.state;
 
     if (showPreview) {
       return (
         <FullScreenPreview
           previewOf="component"
-          user={this.props?.user?.id || ''}
+          user={this.props?.user?.id || ""}
           parameters={component.parameters}
           template={component.template}
           handleFinish={() => {
@@ -63,6 +63,7 @@ class ComponentViewer extends Component {
               {...this.props}
               task={component}
               isAuthor={isAuthor}
+              createCopy={createCopy}
             />
           </div>
         </div>

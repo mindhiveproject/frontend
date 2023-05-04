@@ -18,6 +18,7 @@ class Navigation extends Component {
     const {
       task,
       isAuthor,
+      createCopy,
       testId,
       onShowPreview,
       createNewComponent,
@@ -53,7 +54,7 @@ class Navigation extends Component {
               Close without saving
             </button>
 
-            {isAuthor ? (
+            {isAuthor && !createCopy ? (
               <div>
                 <Mutation
                   mutation={UPDATE_COMPONENT}
@@ -138,9 +139,3 @@ class Navigation extends Component {
 }
 
 export default Navigation;
-
-{
-  /* <p>
-   {taskType} ID: {testId}
-</p> */
-}

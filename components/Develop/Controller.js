@@ -180,41 +180,41 @@ export default class Controller extends Component {
     });
   };
 
-  addComponent = (component) => {
-    let updatedBlocks;
+  // addComponent = (component) => {
+  //   let updatedBlocks;
 
-    if (this.state.study?.components?.blocks) {
-      updatedBlocks = [...this.state.study?.components?.blocks];
-    } else {
-      updatedBlocks = [];
-    }
+  //   if (this.state.study?.components?.blocks) {
+  //     updatedBlocks = [...this.state.study?.components?.blocks];
+  //   } else {
+  //     updatedBlocks = [];
+  //   }
 
-    if (updatedBlocks.length === 0) {
-      updatedBlocks.push({
-        blockId: uniqid.time(),
-        title: "Main experiment sequence",
-        tests: [],
-      });
-    }
+  //   if (updatedBlocks.length === 0) {
+  //     updatedBlocks.push({
+  //       blockId: uniqid.time(),
+  //       title: "Main experiment sequence",
+  //       tests: [],
+  //     });
+  //   }
 
-    const newData = {
-      ...component,
-      testId: uniqid.time(),
-    };
+  //   const newData = {
+  //     ...component,
+  //     testId: uniqid.time(),
+  //   };
 
-    updatedBlocks[0] = {
-      ...updatedBlocks[0],
-      tests: updatedBlocks[0].tests.concat({ ...newData }),
-    };
+  //   updatedBlocks[0] = {
+  //     ...updatedBlocks[0],
+  //     tests: updatedBlocks[0].tests.concat({ ...newData }),
+  //   };
 
-    // update the state
-    this.setState({
-      study: {
-        ...this.state.study,
-        components: { blocks: updatedBlocks },
-      },
-    });
-  };
+  //   // update the state
+  //   this.setState({
+  //     study: {
+  //       ...this.state.study,
+  //       components: { blocks: updatedBlocks },
+  //     },
+  //   });
+  // };
 
   toggleComponentPreview = (component) => {
     this.setState({
@@ -437,7 +437,7 @@ export default class Controller extends Component {
           handleParameterChange={this.handleParameterChange}
           handleSettingsChange={this.handleSettingsChange}
           updateStudyState={this.updateStudyState}
-          onAddComponent={this.addComponent}
+          // onAddComponent={this.addComponent}
           toggleTaskSelector={this.toggleTaskSelector}
           openTaskBuilder={this.openTaskBuilder}
           handleSetMultipleValuesInState={this.handleSetMultipleValuesInState}

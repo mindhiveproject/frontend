@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import slugify from 'slugify';
+import slugify from "slugify";
 // preview the task (for using)
-import ComponentContainer from './container.js';
+import { create } from "lodash";
+import ComponentContainer from "./container.js";
 
 // ToDo: decide what to show based on whether the user is the author or
 // collaborator on the task
 
-import { COMPONENT_TO_CLONE_QUERY } from '../../../Queries/Component';
+import { COMPONENT_TO_CLONE_QUERY } from "../../../Queries/Component";
 
-const makeCloneNames = title => {
+const makeCloneNames = (title) => {
   const randomNumber = Math.floor(Math.random() * 10000);
   const newTitle = `Clone of ${title}-${randomNumber}`;
   const slug = slugify(newTitle, {
-    replacement: '-', // replace spaces with replacement character, defaults to `-`
+    replacement: "-", // replace spaces with replacement character, defaults to `-`
     remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
     lower: true, // convert to lower case, defaults to `false`
   });
@@ -23,7 +24,7 @@ const makeCloneNames = title => {
 
 class ComponentModal extends Component {
   render() {
-    const { user, componentID } = this.props;
+    const { user, componentID, node } = this.props;
 
     return (
       <Query query={COMPONENT_TO_CLONE_QUERY} variables={{ id: componentID }}>
@@ -35,26 +36,37 @@ class ComponentModal extends Component {
           // check whether the current user is the author of the task or the collaborator on the task
           const isAuthor =
             user.id === data.task?.author?.id ||
-            data.task?.collaborators.map(c => c.id).includes(user.id);
+            data.task?.collaborators.map((c) => c.id).includes(user.id);
+
+          // check whether the task should be cloned
+          const createCopy = node?.options?.createCopy;
 
           let task;
 
-          if (isAuthor) {
+          if (isAuthor && !createCopy) {
             task = {
               ...data.task,
               templateId: data.task.template?.id,
               consent: data.task.consent?.id,
               collaborators: (data.task.collaborators &&
-                data.task.collaborators.map(c => c.username).length &&
-                data.task.collaborators.map(c => c.username)) || [''],
+                data.task.collaborators.map((c) => c.username).length &&
+                data.task.collaborators.map((c) => c.username)) || [""],
+            };
+          } else if (createCopy) {
+            task = {
+              ...data.task,
+              templateId: data.task.template.id,
+              consent: null,
+              collaborators: [""],
+              isOriginal: false, // switch to false as it should be cloned
+              subtitle: node?.options?.subtitle,
             };
           } else {
             task = {
               ...data.task,
               templateId: data.task.template.id,
               consent: null,
-              collaborators: [''],
-              // ...makeCloneNames(data.task.title),
+              collaborators: [""],
               isOriginal: false, // switch to false as it should be cloned
             };
           }
@@ -64,6 +76,7 @@ class ComponentModal extends Component {
               {...this.props}
               component={task}
               isAuthor={isAuthor}
+              createCopy={createCopy}
             />
           );
         }}

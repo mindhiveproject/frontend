@@ -129,7 +129,7 @@ class ComponentEditor extends Component {
         ...this.state.task,
       },
     });
-    const myTask = res.data[name];
+    const myTask = { ...res.data[name], createCopy: false };
     this.setState({
       task: {
         ...myTask,
@@ -137,6 +137,7 @@ class ComponentEditor extends Component {
         collaborators: (myTask?.collaborators &&
           myTask.collaborators.map((c) => c.username).length &&
           myTask.collaborators.map((c) => c.username)) || [""],
+        createCopy: false,
       },
     });
     this.props.updateCanvas({ task: myTask, operation: "create" });
@@ -264,6 +265,7 @@ class ComponentEditor extends Component {
           testId={this.props.testId}
           task={this.state.task}
           isAuthor={this.props.isAuthor}
+          createCopy={this.props.createCopy}
           closeModal={this.props.closeModal}
           onShowPreview={this.openPreview}
           createNewComponent={this.createNewComponent}
@@ -272,6 +274,7 @@ class ComponentEditor extends Component {
 
         <EditPane
           isAuthor={this.props.isAuthor}
+          createCopy={this.props.createCopy}
           handleTaskChange={this.handleComponentChange}
           handleParameterChange={this.handleParameterChange}
           handleTemplateParamChange={this.handleTemplateParamChange}

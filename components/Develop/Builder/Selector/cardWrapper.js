@@ -8,6 +8,7 @@ class CardWrapper extends Component {
 
     return (
       <Card
+        user={this.props.user}
         key={component.id}
         component={component}
         openModal={this.props.openModal}

@@ -61,6 +61,7 @@ const Builder = React.memo((props) => {
   };
 
   const shorten = (text) => {
+    if (!text) return "";
     if (text && text.split(" ").length > 12) {
       const short = text
         .split(" ")
@@ -82,13 +83,16 @@ const Builder = React.memo((props) => {
         (operation === "create" &&
           n?.options?.componentID === componentID &&
           n?.options?.testId === testId) ||
-        (operation === "update" && n?.options?.componentID === componentID)
+        (operation === "update" &&
+          n?.options?.componentID === componentID &&
+          !n?.options?.createCopy)
       ) {
         n.updateOptions({
           componentID: task?.id,
           name: task?.title,
           details: shorten(task?.description),
           subtitle: shorten(task?.subtitle),
+          createCopy: task?.createCopy,
         });
       }
     });
@@ -101,16 +105,31 @@ const Builder = React.memo((props) => {
     componentID,
     taskType,
     subtitle,
+    createCopy,
   }) => {
-    const newNode = new TaskModel({
-      color: "white",
-      name,
-      details: shorten(details),
-      componentID,
-      testId: uniqid.time(),
-      taskType,
-      subtitle: shorten(subtitle),
-    });
+    let newNode;
+    if (createCopy) {
+      newNode = new TaskModel({
+        color: "white",
+        name,
+        details: shorten(details),
+        componentID,
+        testId: uniqid.time(),
+        taskType,
+        subtitle: `COPY ${shorten(subtitle)}`,
+        createCopy: true,
+      });
+    } else {
+      newNode = new TaskModel({
+        color: "white",
+        name,
+        details: shorten(details),
+        componentID,
+        testId: uniqid.time(),
+        taskType,
+        subtitle: shorten(subtitle),
+      });
+    }
     const event = {
       clientX: getRandomIntInclusive(300, 500),
       clientY: getRandomIntInclusive(300, 500),
@@ -210,6 +229,7 @@ const Builder = React.memo((props) => {
           isInfoOpen={isInfoOpen}
           isPreviewOpen={isPreviewOpen}
           isEditorOpen={isEditorOpen}
+          node={node}
         />
       )}
     </StyledBoard>

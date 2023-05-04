@@ -8,6 +8,12 @@ import TaskContent from "./Content";
 class TaskModal extends Component {
   render() {
     const component = this.props?.component || {};
+    const { user } = this.props;
+
+    const isAuthor = component?.author?.id === user?.id;
+    const isCollaborator = component?.collaborators
+      .map((c) => c?.id)
+      .includes(user?.id);
 
     const taskType =
       component?.taskType === "TASK"
@@ -48,6 +54,27 @@ class TaskModal extends Component {
                     Add to study
                   </button>
                 </div>
+                {(isAuthor || isCollaborator) && (
+                  <div>
+                    <button
+                      className="previewBtn"
+                      onClick={() => {
+                        this.props.addComponentToCanvas({
+                          name: component?.title,
+                          details: component?.description,
+                          componentID: component?.id,
+                          taskType: component?.taskType,
+                          subtitle: component?.subtitle,
+                          createCopy: true,
+                        });
+                        this.props.onModalClose();
+                      }}
+                    >
+                      Create a copy
+                    </button>
+                  </div>
+                )}
+
                 <div>
                   <button
                     className="previewBtn"

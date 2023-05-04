@@ -28,22 +28,6 @@ export class TaskModel extends NodeModel {
         alignment: 'down',
       })
     );
-
-    // setup an in and out port
-    // this.addPort(
-    //   new DefaultPortModel({
-    //     in: true,
-    //     name: 'in',
-    //     alignment: 'top',
-    //   })
-    // );
-    // this.addPort(
-    //   new DefaultPortModel({
-    //     in: false,
-    //     name: 'out',
-    //     alignment: 'down',
-    //   })
-    // );
   }
 
   updateOptions(options) {
@@ -59,6 +43,7 @@ export class TaskModel extends NodeModel {
       testId: this.options.testId,
       taskType: this.options.taskType,
       subtitle: this.options.subtitle,
+      createCopy: this.options.createCopy,
     };
   }
 
@@ -70,5 +55,6 @@ export class TaskModel extends NodeModel {
     this.options.testId = ob.data.testId;
     this.options.taskType = ob.data.taskType;
     this.options.subtitle = ob.data.subtitle;
+    this.options.createCopy = ob.data.createCopy;
   }
 }

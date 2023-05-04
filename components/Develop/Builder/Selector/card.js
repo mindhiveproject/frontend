@@ -35,7 +35,7 @@ class Card extends Component {
   };
 
   render() {
-    const { createdBy, component, number, viewing } = this.props;
+    const { user, createdBy, component, number, viewing } = this.props;
 
     // get the author and collaborators ids
     const authIds = [

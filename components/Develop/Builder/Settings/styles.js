@@ -40,7 +40,7 @@ export const StyledStudyFlow = styled.div`
     margin-bottom: 5px;
     .testHeader {
       display: grid;
-      grid-template-columns: 1fr 1fr auto;
+      grid-template-columns: 2fr 2fr 1fr;
       .title {
         background: #ffecb6;
         padding: 10px;
