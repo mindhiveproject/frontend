@@ -79,6 +79,34 @@ const StyledStarboard = styled.div`
     grid-gap: 5px;
     grid-template-columns: 1fr 4fr 1fr 1fr;
   }
+
+  .studyIdsInfo {
+    display: grid;
+    background: white;
+    padding: 10px;
+    grid-gap: 10px;
+    .components {
+      display: grid;
+      grid-gap: 10px;
+    }
+    .componentHeader {
+      display: grid;
+      grid-gap: 5px;
+      grid-template-columns: 1fr 1fr 1fr;
+      font-weight: bold;
+    }
+    .componentRow {
+      display: grid;
+      grid-gap: 5px;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .id {
+      background: #ffc107;
+      border: 1px solid lightGrey;
+      border-radius: 5px;
+      padding: 2px 10px;
+    }
+  }
 `;
 
 export const ScriptStyledForm = styled.form`

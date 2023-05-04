@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledStudyFlow = styled.div`
   display: grid;
@@ -13,21 +13,45 @@ export const StyledStudyFlow = styled.div`
     border-radius: 8px;
     .blockHeader {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 100px 1fr auto;
       grid-column-gap: 5px;
+      align-items: center;
+    }
+    .buttons {
+      height: 50px;
+      display: grid;
+      grid-gap: 0.5rem;
+      grid-template-columns: auto auto auto;
+      align-items: center;
+      justify-self: center;
+    }
+    .toggleInfo {
+      display: grid;
+      grid-gap: 0.5rem;
+      grid-template-columns: 1fr auto;
     }
   }
 
   .test {
     display: grid;
-    padding: 20px 30px;
     background: #ffffff;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
-    border-radius: 8px;
+    border-radius: 10px;
+    margin-bottom: 5px;
     .testHeader {
       display: grid;
-      grid-template-columns: 1fr auto;
-      grid-column-gap: 5px;
+      grid-template-columns: 1fr 1fr auto;
+      .title {
+        background: #ffecb6;
+        padding: 10px;
+      }
+      .subtitle {
+        padding: 10px;
+      }
+      .id {
+        background: #f4f5f5;
+        padding: 10px;
+      }
     }
   }
 `;
@@ -62,13 +86,13 @@ export const StyledSettings = styled.div`
 
   .menu {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     grid-column-gap: 40px;
     width: fit-content;
     margin: 10px 6px 10px 6px !important;
     cursor: pointer;
     h2  {
-      font-family: 'Inter';
+      font-family: "Inter";
       font-style: normal;
       font-weight: 500;
       font-size: 20px;

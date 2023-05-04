@@ -300,12 +300,34 @@ export default class Controller extends Component {
     return children;
   };
 
-  makeBlock = (tests) => ({
-    blockId: uniqid.time(),
-    title: generate().dashed,
-    tests: [...tests],
-    skip: false,
-  });
+  compareArrays = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+  makeBlock = (tests) => {
+    const blocks = this.state.study?.components?.blocks || [];
+    // find whether there is a block which contains the tests (by id)
+    const blocksWithTests = blocks.filter((block) => {
+      if (
+        block?.tests.length === tests.length &&
+        this.compareArrays(
+          block?.tests?.map((t) => t?.id),
+          tests.map((t) => t?.id)
+        )
+      ) {
+        return true;
+      }
+      return false;
+    });
+    return {
+      blockId: blocksWithTests.length
+        ? blocksWithTests[0]?.blockId
+        : uniqid.time(),
+      title: blocksWithTests.length
+        ? blocksWithTests[0]?.title
+        : generate().dashed,
+      tests: [...tests],
+      skip: blocksWithTests.length ? blocksWithTests[0].skip : false,
+    };
+  };
 
   findChildrenRecursively = (nodes, level, blocks, tests) => {
     nodes.forEach((node) => {
@@ -345,6 +367,7 @@ export default class Controller extends Component {
     const diagram = JSON.stringify(model.serialize());
     // Get the experiment model
     const components = this.createStudyDesign({ model });
+
     this.setState({
       study: {
         ...this.state.study,

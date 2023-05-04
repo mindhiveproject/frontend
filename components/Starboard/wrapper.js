@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { Mutation } from '@apollo/client/react/components';
-import Notebook from './notebook';
+import { Mutation } from "@apollo/client/react/components";
+import Notebook from "./notebook";
 
-import Menu from './menu';
-import SavedScripts from './savedScripts';
-import Templates from './templateScripts';
+import Menu from "./menu";
+import SavedScripts from "./savedScripts";
+import Templates from "./templateScripts";
 
-import ScriptForm from './scriptForm';
+import ScriptForm from "./scriptForm";
 
-import { CREATE_SCRIPT, UPDATE_SCRIPT } from '../Mutations/Script';
-import { MY_SCRIPTS } from '../Queries/Script';
+import { CREATE_SCRIPT, UPDATE_SCRIPT } from "../Mutations/Script";
+import { MY_SCRIPTS } from "../Queries/Script";
 
-import StyledStarboard, { ScriptStyledForm } from '../Styles/Script';
+import StyledStarboard, { ScriptStyledForm } from "../Styles/Script";
 
 class NotebookWrapper extends Component {
   state = {
@@ -20,17 +20,17 @@ class NotebookWrapper extends Component {
     id: null,
     isSelectModalOpen: false,
     isTemplatesModalOpen: false,
-    title: '',
-    description: '',
-    content: '',
+    title: "",
+    description: "",
+    content: "",
     isTemplate: false,
     isPublic: false,
     isFeatured: false,
   };
 
-  saveToState = e => {
+  saveToState = (e) => {
     const { name, type } = e.target;
-    const value = type === 'checkbox' ? e.target.checked : e.target.value;
+    const value = type === "checkbox" ? e.target.checked : e.target.value;
     this.setState({
       [name]: value,
       isNew: false,
@@ -45,11 +45,11 @@ class NotebookWrapper extends Component {
     this.setState({
       isSelectModalOpen: false,
       isScripting: true,
-      content: '# %% [javascript]\n3+5\n',
+      content: "# %% [javascript]\n3+5\n",
       isNew: true,
       id: null,
-      title: '',
-      description: '',
+      title: "",
+      description: "",
       isTemplate: false,
       isPublic: false,
       isFeatured: false,
@@ -88,13 +88,13 @@ class NotebookWrapper extends Component {
   };
 
   handleItemClick = (e, { name }) => {
-    if (name === 'myScripts') {
+    if (name === "myScripts") {
       this.setState({
         isSelectModalOpen: !this.state.isSelectModalOpen,
         isTemplatesModalOpen: false,
       });
     }
-    if (name === 'templates') {
+    if (name === "templates") {
       this.setState({
         isTemplatesModalOpen: !this.state.isTemplatesModalOpen,
         isSelectModalOpen: false,
@@ -104,6 +104,22 @@ class NotebookWrapper extends Component {
 
   render() {
     const { study, user } = this.props;
+
+    const allComponents = study?.components?.blocks
+      .map((block) =>
+        block?.tests
+          .filter((test) => !!test?.id)
+          .map((test) => ({
+            ...test,
+            conditionId: block?.blockId,
+            condition: block?.title,
+          }))
+      )
+      .flat();
+    const components = allComponents.filter(
+      (obj, index) =>
+        allComponents.findIndex((item) => item.id === obj.id) === index
+    );
 
     return (
       <StyledStarboard>
@@ -139,10 +155,10 @@ class NotebookWrapper extends Component {
                       isTemplate={this.state.isTemplate}
                       isFeatured={this.state.isFeatured}
                       saveToState={this.saveToState}
-                      onSaveClick={async e => {
+                      onSaveClick={async (e) => {
                         e.preventDefault();
                         if (!this.state.title.trim()) {
-                          return alert('The script title is missing');
+                          return alert("The script title is missing");
                         }
                         await updateScript();
                       }}
@@ -166,10 +182,10 @@ class NotebookWrapper extends Component {
                       isTemplate={this.state.isTemplate}
                       isFeatured={this.state.isFeatured}
                       saveToState={this.saveToState}
-                      onSaveClick={async e => {
+                      onSaveClick={async (e) => {
                         e.preventDefault();
                         if (!this.state.title.trim()) {
-                          return alert('The script title is missing');
+                          return alert("The script title is missing");
                         }
                         const res = await createScript();
                         this.setState({
@@ -190,6 +206,8 @@ class NotebookWrapper extends Component {
               isNew={this.state.isNew}
               content={this.state.content}
               updateContent={this.updateContent}
+              study={study}
+              components={components}
             />
           )}
         </div>
