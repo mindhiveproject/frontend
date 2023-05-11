@@ -1,14 +1,20 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+
+export const StyledAlertMessage = styled.div`
+  display: grid;
+  background: yellow;
+  justify-items: center;
+`;
 
 export const StyledStudyPage = styled.div`
   display: grid;
   grid-template-columns: 8fr 4fr;
   grid-template-areas:
-    'description image'
-    'description time'
-    'description tags'
-    'tasks tags'
-    'info tags';
+    "description image"
+    "description time"
+    "description tags"
+    "tasks tags"
+    "info tags";
   grid-gap: 15px;
   max-width: 1200px;
   min-height: 800px;
@@ -16,12 +22,12 @@ export const StyledStudyPage = styled.div`
   @media (max-width: 700px) {
     grid-template-columns: 1fr;
     grid-template-areas:
-      'image'
-      'description'
-      'tasks'
-      'time'
-      'info'
-      'tags';
+      "image"
+      "description"
+      "tasks"
+      "time"
+      "info"
+      "tags";
   }
   @media (max-width: 375px) {
     padding: 1rem;
@@ -54,12 +60,12 @@ export const StyledStudyPage = styled.div`
   button {
     height: 56px;
     width: 266px;
-    background: ${props => props.theme.darkgreen};
-    border: 2px solid ${props => props.theme.darkgreen};
+    background: ${(props) => props.theme.darkgreen};
+    border: 2px solid ${(props) => props.theme.darkgreen};
     box-sizing: border-box;
     border-radius: 4px;
-    color: ${props => props.theme.white};
-    font-family: 'Lato';
+    color: ${(props) => props.theme.white};
+    font-family: "Lato";
     font-size: 18px;
     letter-spacing: 0.05em;
     cursor: pointer;
@@ -263,7 +269,7 @@ export const OnboardingForm = styled.div`
     padding: 12px;
     &:focus {
       outline: 0;
-      border-color: ${props => props.theme.red};
+      border-color: ${(props) => props.theme.red};
     }
   }
   button {
@@ -353,7 +359,7 @@ export const StudiesList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 60px;
-  max-width: ${props => props.theme.maxWidth};
+  max-width: ${(props) => props.theme.maxWidth};
   margin: 0 auto;
 `;
 
@@ -401,8 +407,8 @@ export const StyledParameterBlock = styled.div`
 export const StyledStudyCard = styled.div`
   padding: 20px;
   background: white;
-  border: 1px solid ${props => props.theme.offWhite};
-  box-shadow: ${props => props.theme.bs};
+  border: 1px solid ${(props) => props.theme.offWhite};
+  box-shadow: ${(props) => props.theme.bs};
   display: grid;
   img {
     width: 100%;
@@ -419,10 +425,10 @@ export const StyledStudyCard = styled.div`
   .buttonList {
     display: grid;
     width: 100%;
-    border-top: 1px solid ${props => props.theme.lightgrey};
+    border-top: 1px solid ${(props) => props.theme.lightgrey};
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1px;
-    background: ${props => props.theme.lightgrey};
+    background: ${(props) => props.theme.lightgrey};
     & > * {
       background: white;
       border: 0;
@@ -444,7 +450,7 @@ export const StyledStudy = styled.div`
   max-width: 1200px;
   margin: 2rem auto;
   padding: 3rem;
-  box-shadow: ${props => props.theme.bs};
+  box-shadow: ${(props) => props.theme.bs};
   min-height: 800px;
   img {
     width: 100%;
@@ -462,7 +468,7 @@ export const StyledBuildStudy = styled.div`
   max-width: 1200px;
   margin: 2rem auto;
   padding: 20px;
-  box-shadow: ${props => props.theme.bs};
+  box-shadow: ${(props) => props.theme.bs};
   display: grid;
   align-content: baseline;
   grid-row-gap: 50px;
@@ -557,8 +563,8 @@ export const StyledBuildStudy = styled.div`
 export const StyledTaskCard = styled.div`
   padding: 20px;
   background: white;
-  border: 1px solid ${props => props.theme.offWhite};
-  box-shadow: ${props => props.theme.bs};
+  border: 1px solid ${(props) => props.theme.offWhite};
+  box-shadow: ${(props) => props.theme.bs};
   display: grid;
   button {
     background: white;
@@ -579,10 +585,10 @@ export const StyledTaskCard = styled.div`
   .buttonList {
     display: grid;
     width: 100%;
-    border-top: 1px solid ${props => props.theme.lightgrey};
+    border-top: 1px solid ${(props) => props.theme.lightgrey};
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1px;
-    background: ${props => props.theme.lightgrey};
+    background: ${(props) => props.theme.lightgrey};
     & > * {
       background: white;
       border: 0;

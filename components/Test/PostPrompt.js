@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
-import Router from 'next/router';
-import { Mutation } from '@apollo/client/react/components';
-import gql from 'graphql-tag';
+import React, { Component } from "react";
+import { Mutation } from "@apollo/client/react/components";
+import gql from "graphql-tag";
 
-import { OnboardingForm } from '../Study/styles';
-import { CURRENT_USER_RESULTS_QUERY } from '../Queries/User';
+import { OnboardingForm, StyledAlertMessage } from "../Study/styles";
+import { CURRENT_USER_RESULTS_QUERY } from "../Queries/User";
 
-import Crossover from './crossover';
-import GuestCrossover from './guestCrossover';
+import Crossover from "./crossover";
+import GuestCrossover from "./guestCrossover";
 
-import StudyConsentText from '../Study/Registration/Steps/4-studyConsentText';
-import StudyConsentForm from '../Study/Registration/Steps/5-studyConsent';
+import StudyConsentText from "../Study/Registration/Steps/4-studyConsentText";
+import StudyConsentForm from "../Study/Registration/Steps/5-studyConsent";
 
-import DataUsageForStudent from './DataUsage/student';
-import DataUsageForParticipant from './DataUsage/participant';
+import DataUsageForStudent from "./DataUsage/student";
+import DataUsageForParticipant from "./DataUsage/participant";
 
 const UPDATE_RESULTS_INFO_MUTATION = gql`
   mutation UPDATE_RESULTS_INFO_MUTATION($id: ID!, $info: Json) {
@@ -29,7 +28,7 @@ class PostPrompt extends Component {
     let isConsentGiven = false;
     if (consent && consent.id && this.props.participant?.consentGivenFor) {
       const participantConsents = this.props.participant?.consentGivenFor.map(
-        c => c.id
+        (c) => c.id
       );
       isConsentGiven = participantConsents.includes(consent.id);
     }
@@ -57,7 +56,7 @@ class PostPrompt extends Component {
       const participantStudyInfo = participant.studiesInfo[study.id];
       const participantBlock = participantStudyInfo.blockId;
       const studyBlock = study.components.blocks.filter(
-        block => block.blockId === participantBlock
+        (block) => block.blockId === participantBlock
       );
       if (studyBlock && studyBlock.length && studyBlock[0].tests) {
         components = studyBlock[0].tests;
@@ -68,15 +67,15 @@ class PostPrompt extends Component {
     const fullResultsInThisStudy =
       participant?.results
         .filter(
-          result =>
+          (result) =>
             result.study &&
             result.study.id === this.props.study.id &&
-            result.payload === 'full'
+            result.payload === "full"
         )
-        .map(result => result?.testVersion) || [];
+        .map((result) => result?.testVersion) || [];
     // .map(result => result.task.id) || [];
     const notCompletedTasks = components.filter(
-      task =>
+      (task) =>
         !fullResultsInThisStudy.includes(task?.testId) &&
         task?.testId !== version
     );
@@ -92,7 +91,7 @@ class PostPrompt extends Component {
   };
 
   checkWhetherToShowDataUsageQuestion = () => {
-    const isStudent = this.props?.participant?.permissions?.includes('STUDENT');
+    const isStudent = this.props?.participant?.permissions?.includes("STUDENT");
     if (isStudent) {
       return true;
     }
@@ -109,13 +108,13 @@ class PostPrompt extends Component {
     askDataUsageQuestion: this.checkWhetherToShowDataUsageQuestion(),
   };
 
-  updateState = e => {
+  updateState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  toggleState = e => {
+  toggleState = (e) => {
     this.setState({
       [e.target.name]: !this.state[e.target.name],
     });
@@ -123,7 +122,7 @@ class PostPrompt extends Component {
 
   onNext = () => {
     if (!this.state.data) {
-      alert('Please answer the question first');
+      alert("Please answer the question first");
     } else {
       this.setState({
         askDataUsageQuestion: false,
@@ -134,31 +133,16 @@ class PostPrompt extends Component {
   onGuestSubmit = async (e, redirect) => {
     e.preventDefault();
     // return back to the study page or continue to the next task
-    if (redirect === 'nextTask' && this.state.nextTaskId) {
+    if (redirect === "nextTask" && this.state.nextTaskId) {
       window.location = `/do/task?s=${this.props.study.id}&v=${this.state.nextTaskId}&code=${this.props.guest?.publicId}`;
-      // Router.push({
-      //   pathname: `/do/task`,
-      //   query: {
-      //     s: this.props.study.id,
-      //     v: this.state.nextTaskId,
-      //     code: this.props.guest?.publicId,
-      //   },
-      // });
-      // http://localhost:7777/do/task?s=cl14xwcf7glc20914juj7orlt&v=l14xwvbk&code=sktwilj5l1l5e7wr
     } else {
       window.location = `/studies/${this.props.study.slug}?code=${this.props.guest?.publicId}`;
-      // Router.push({
-      //   pathname: `/studies/${this.props.study.slug}`,
-      //   query: {
-      //     code: this.props.guest?.publicId,
-      //   },
-      // });
     }
   };
 
   onSubmit = async (e, updateResultsMutation, redirect) => {
     e.preventDefault();
-    await updateResultsMutation({
+    const res = await updateResultsMutation({
       variables: {
         id: this.props.token,
         info: {
@@ -181,134 +165,154 @@ class PostPrompt extends Component {
       },
     });
 
-    // return back to the study page or continue to the next task
-    if (redirect === 'nextTask' && this.state.nextTaskId) {
-      window.location = `/do/task?s=${this.props.study.id}&v=${this.state.nextTaskId}`;
-      // Router.push({
-      //   pathname: `/do/task`,
-      //   query: {
-      //     s: this.props.study.id,
-      //     v: this.state.nextTaskId,
-      //   },
-      // });
+    if (
+      res?.data?.updateResultsInfo?.message &&
+      res?.data?.updateResultsInfo?.message === "Updated"
+    ) {
+      // return back to the study page or continue to the next task
+      if (redirect === "nextTask" && this.state.nextTaskId) {
+        window.location = `/do/task?s=${this.props.study.id}&v=${this.state.nextTaskId}`;
+      } else {
+        window.location = `/studies/${this.props.study.slug}`;
+      }
     } else {
-      window.location = `/studies/${this.props.study.slug}`;
-      // Router.push({
-      //   pathname: `/studies/${this.props.study.slug}`,
-      // });
+      alert(`There was an error - ${JSON.stringify(res)}. Please try again.`);
     }
   };
 
   render() {
     return (
-      <Mutation
-        mutation={UPDATE_RESULTS_INFO_MUTATION}
-        variables={this.state}
-        refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
-      >
-        {(updateResult, { loading, error }) => {
-          const { study, participant, task } = this.props;
+      <>
+        <StyledAlertMessage>
+          {this.props.dataSavingError && <p>{this.props.dataSavingError}</p>}
+        </StyledAlertMessage>
+        <Mutation
+          mutation={UPDATE_RESULTS_INFO_MUTATION}
+          variables={this.state}
+          refetchQueries={[{ query: CURRENT_USER_RESULTS_QUERY }]}
+        >
+          {(updateResult, { loading, error }) => {
+            const { study, participant, task } = this.props;
 
-          const isStudent = participant?.permissions?.includes('STUDENT');
+            const isStudent = participant?.permissions?.includes("STUDENT");
 
-          if (loading) {
-            return (
-              <OnboardingForm>
-                <div className="message">
-                  <p>Uploading the data, please wait.</p>
-                </div>
-              </OnboardingForm>
-            );
-          }
-          // always show data usage prompt
-          if (this.state.askDataUsageQuestion) {
-            return (
-              <div>
+            if (
+              loading ||
+              (!this.props.dataIsSaved && !this.props.dataSavingError)
+            ) {
+              return (
                 <OnboardingForm>
-                  <h1>Thank you for participating in this task!</h1>
-                  {isStudent ? (
-                    <DataUsageForStudent
-                      data={this.state.data}
-                      updateState={this.updateState}
-                    />
-                  ) : (
-                    <DataUsageForParticipant
-                      data={this.state.data}
-                      updateState={this.updateState}
-                    />
-                  )}
-
-                  {this.state.data === 'science' &&
-                    task.consent &&
-                    !this.state.consentResponseGiven &&
-                    this.state.page === 1 && (
-                      <div>
-                        <p>
-                          You agreed to use your data for scientific purposes,
-                          please consider providing consent.
-                        </p>
-                        <StudyConsentText
-                          onClose={() => {
-                            // console.log('closing');
-                          }}
-                          title={study.title}
-                          consent={task.consent}
-                          onNext={e => {
-                            this.setState({
-                              consentGiven: true,
-                              consentId: task.consent?.id,
-                            });
-                            this.onNext();
-                          }}
-                          onSkip={e => {
-                            this.setState({
-                              consentGiven: false,
-                            });
-                            this.onNext();
-                          }}
-                          toggleState={this.toggleState}
-                          saveCoveredConsent={this.state.saveCoveredConsent}
-                          showCloseButton={false}
-                        />
-                      </div>
-                    )}
-
-                  {this.state.data === 'science' &&
-                    task.consent &&
-                    !this.state.consentResponseGiven &&
-                    this.state.page === 2 && (
-                      <div>
-                        <StudyConsentForm
-                          onClose={() => {
-                            // console.log('closing');
-                          }}
-                          title={study.title}
-                          consent={task.consent}
-                          onNext={() =>
-                            this.setState({
-                              page: this.state.page + 1,
-                            })
-                          }
-                          toggleState={this.toggleState}
-                          saveCoveredConsent={this.state.saveCoveredConsent}
-                          showCloseButton={false}
-                        />
-                      </div>
-                    )}
-
-                  {!(
-                    this.state.data === 'science' &&
-                    task.consent &&
-                    !this.state.consentResponseGiven
-                  ) && <button onClick={() => this.onNext()}>Next</button>}
+                  <div className="message">
+                    <p>Uploading the data, please wait.</p>
+                  </div>
                 </OnboardingForm>
-              </div>
-            );
-          }
+              );
+            }
+            // always show data usage prompt
+            if (this.state.askDataUsageQuestion) {
+              return (
+                <div>
+                  <OnboardingForm>
+                    <h1>Thank you for participating in this task!</h1>
+                    {isStudent ? (
+                      <DataUsageForStudent
+                        data={this.state.data}
+                        updateState={this.updateState}
+                      />
+                    ) : (
+                      <DataUsageForParticipant
+                        data={this.state.data}
+                        updateState={this.updateState}
+                      />
+                    )}
 
-          if (this.props.guest) {
+                    {this.state.data === "science" &&
+                      task.consent &&
+                      !this.state.consentResponseGiven &&
+                      this.state.page === 1 && (
+                        <div>
+                          <p>
+                            You agreed to use your data for scientific purposes,
+                            please consider providing consent.
+                          </p>
+                          <StudyConsentText
+                            onClose={() => {
+                              // console.log('closing');
+                            }}
+                            title={study.title}
+                            consent={task.consent}
+                            onNext={(e) => {
+                              this.setState({
+                                consentGiven: true,
+                                consentId: task.consent?.id,
+                              });
+                              this.onNext();
+                            }}
+                            onSkip={(e) => {
+                              this.setState({
+                                consentGiven: false,
+                              });
+                              this.onNext();
+                            }}
+                            toggleState={this.toggleState}
+                            saveCoveredConsent={this.state.saveCoveredConsent}
+                            showCloseButton={false}
+                          />
+                        </div>
+                      )}
+
+                    {this.state.data === "science" &&
+                      task.consent &&
+                      !this.state.consentResponseGiven &&
+                      this.state.page === 2 && (
+                        <div>
+                          <StudyConsentForm
+                            onClose={() => {
+                              // console.log('closing');
+                            }}
+                            title={study.title}
+                            consent={task.consent}
+                            onNext={() =>
+                              this.setState({
+                                page: this.state.page + 1,
+                              })
+                            }
+                            toggleState={this.toggleState}
+                            saveCoveredConsent={this.state.saveCoveredConsent}
+                            showCloseButton={false}
+                          />
+                        </div>
+                      )}
+
+                    {!(
+                      this.state.data === "science" &&
+                      task.consent &&
+                      !this.state.consentResponseGiven
+                    ) && <button onClick={() => this.onNext()}>Next</button>}
+                  </OnboardingForm>
+                </div>
+              );
+            }
+
+            if (this.props.guest) {
+              return (
+                <GuestCrossover
+                  user={this.props.user}
+                  guest={this.props.guest}
+                  participant={this.props.participant}
+                  study={this.props.study}
+                  task={this.props.task}
+                  onUpdateState={this.updateState}
+                  onToggleState={this.toggleState}
+                  agreeReceiveTaskUpdates={this.state.agreeReceiveTaskUpdates}
+                  updateResultMutation={updateResult}
+                  onSubmit={this.onGuestSubmit}
+                  nextTaskId={this.state.nextTaskId}
+                />
+              );
+            }
             return (
-              <GuestCrossover
+              <Crossover
                 user={this.props.user}
                 guest={this.props.guest}
                 participant={this.props.participant}
@@ -318,28 +322,13 @@ class PostPrompt extends Component {
                 onToggleState={this.toggleState}
                 agreeReceiveTaskUpdates={this.state.agreeReceiveTaskUpdates}
                 updateResultMutation={updateResult}
-                onSubmit={this.onGuestSubmit}
+                onSubmit={this.onSubmit}
                 nextTaskId={this.state.nextTaskId}
               />
             );
-          }
-          return (
-            <Crossover
-              user={this.props.user}
-              guest={this.props.guest}
-              participant={this.props.participant}
-              study={this.props.study}
-              task={this.props.task}
-              onUpdateState={this.updateState}
-              onToggleState={this.toggleState}
-              agreeReceiveTaskUpdates={this.state.agreeReceiveTaskUpdates}
-              updateResultMutation={updateResult}
-              onSubmit={this.onSubmit}
-              nextTaskId={this.state.nextTaskId}
-            />
-          );
-        }}
-      </Mutation>
+          }}
+        </Mutation>
+      </>
     );
   }
 }

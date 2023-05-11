@@ -32044,39 +32044,39 @@ exports.handler = /*#__PURE__*/function () {
             _JSON$parse = JSON.parse(event.body), metadata = _JSON$parse.metadata, url = _JSON$parse.url, data = _JSON$parse.data;
             dataRawString = JSON.stringify(data);
             dataString = LZUTF8.compress(dataRawString, {
-              outputEncoding: 'StorageBinaryString'
+              outputEncoding: "StorageBinaryString"
             });
             _context.next = 7;
             return axios({
-              method: 'post',
+              method: "post",
               url: serverUrl,
               headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
+                Accept: "application/json",
+                "Content-Type": "application/json"
               },
               data: JSON.stringify({
                 query: _pages_api_save__WEBPACK_IMPORTED_MODULE_3__["SUBMIT_RESULTS_FROM_API_MUTATION"],
-                operationName: 'submitResultFromAPI',
+                operationName: "submitResultFromAPI",
                 variables: {
-                  userId: user === 'null' ? null : user,
+                  userId: user === "null" ? null : user,
                   templateId: template,
-                  taskId: task === 'undefined' ? null : task,
-                  studyId: study === 'undefined' ? null : study,
+                  taskId: task === "undefined" ? null : task,
+                  studyId: study === "undefined" ? null : study,
                   dataString: dataString,
                   metadata: {
                     id: metadata.id,
                     payload: metadata.payload
                   },
                   dataPolicy: policy,
-                  resultType: type === 'undefined' ? null : type,
-                  version: version === 'undefined' ? null : version,
-                  guestId: guest === 'undefined' ? null : guest
+                  resultType: type === "undefined" ? null : type,
+                  version: version === "undefined" ? null : version,
+                  guestId: guest === "undefined" ? null : guest
                 }
               })
             });
           case 7:
             response = _context.sent;
-            if (!((metadata === null || metadata === void 0 ? void 0 : metadata.payload) === 'full')) {
+            if (!((metadata === null || metadata === void 0 ? void 0 : metadata.payload) === "full")) {
               _context.next = 14;
               break;
             }
@@ -32091,22 +32091,22 @@ exports.handler = /*#__PURE__*/function () {
             }, {}); // send the aggregated data to the server
             _context.next = 13;
             return axios({
-              method: 'post',
+              method: "post",
               url: serverUrl,
               headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
+                Accept: "application/json",
+                "Content-Type": "application/json"
               },
               data: JSON.stringify({
                 query: _pages_api_save__WEBPACK_IMPORTED_MODULE_3__["SUBMIT_AGGREGATED_RESULTS_FROM_API_MUTATION"],
-                operationName: 'submitAggregatedResultFromAPI',
+                operationName: "submitAggregatedResultFromAPI",
                 variables: {
-                  userId: user === 'null' ? null : user,
-                  guestId: guest === 'undefined' ? null : guest,
-                  studyId: study === 'undefined' ? null : study,
+                  userId: user === "null" ? null : user,
+                  guestId: guest === "undefined" ? null : guest,
+                  studyId: study === "undefined" ? null : study,
                   templateId: template,
-                  taskId: task === 'undefined' ? null : task,
-                  version: version === 'undefined' ? null : version,
+                  taskId: task === "undefined" ? null : task,
+                  version: version === "undefined" ? null : version,
                   metadataId: metadata.id,
                   dataPolicy: policy,
                   fullResultId: fullResultId,

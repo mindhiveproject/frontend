@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import clonedeep from 'lodash.clonedeep';
-import Head from 'next/head';
-import { convert } from './functions';
+import React, { Component } from "react";
+import clonedeep from "lodash.clonedeep";
+import Head from "next/head";
+import { convert } from "./functions";
 
-import * as lab from './lib/lab.js';
+import * as lab from "./lib/lab.js";
 
 class ExperimentWindow extends Component {
   constructor(props) {
@@ -21,17 +21,29 @@ class ExperimentWindow extends Component {
       style, // the css style
       version, // the task version
       guest, // guest id
+      updateState, // update state in parent component function
     } = this.props.settings;
 
     const script = convert(this.props.settings.script);
 
-    if (policy !== 'no' && policy !== 'preview') {
+    if (policy !== "no" && policy !== "preview") {
       script.plugins = [
         ...script.plugins,
         {
-          type: 'lab.plugins.Transmit',
+          type: "lab.plugins.Transmit",
           url: `/.netlify/functions/internal/?user=${user}&template=${template}&task=${task}&study=${study}&policy=${policy}&version=${version}&guest=${guest}`,
-          callbacks: {},
+          callbacks: {
+            full: (res) => {
+              if (res?.statusText === "OK") {
+                // inform parent component that the data are saved
+                updateState({ dataIsSaved: true });
+              } else {
+                updateState({
+                  dataSavingError: `There was an error ${res?.status} - ${res?.statusText}. For some reason, your data were not saved. Please refresh the page and participate again. `,
+                });
+              }
+            },
+          },
         },
       ];
     }
@@ -45,15 +57,13 @@ class ExperimentWindow extends Component {
 
     this.study.run();
 
-    this.study.on('end', () => {
-      // compute aggregated data here?
-      // debugger;
+    this.study.on("end", () => {
       const token =
         (this.study?.plugins &&
           this.study.plugins.plugins
-            .filter(plugin => plugin.metadata)
-            .map(plugin => plugin.metadata.id)[0]) ||
-        'error';
+            .filter((plugin) => plugin.metadata)
+            .map((plugin) => plugin.metadata.id)[0]) ||
+        "error";
       this.study = undefined;
       this.props.settings.on_finish(token);
     });
@@ -63,22 +73,22 @@ class ExperimentWindow extends Component {
     //   props.settings.eventCallback(e);
     // };
 
-    this.study.options.events.keydown = async e => {
-      if (e.code === 'Escape') {
+    this.study.options.events.keydown = async (e) => {
+      if (e.code === "Escape") {
         let answer;
-        if (policy !== 'preview') {
+        if (policy !== "preview") {
           answer = confirm(
-            'Are you sure you want to interrupt your task without finishing? You will have to start this task from the beginning.'
+            "Are you sure you want to interrupt your task without finishing? You will have to start this task from the beginning."
           );
         }
-        if (answer === true || policy === 'preview') {
+        if (answer === true || policy === "preview") {
           if (this.study) {
             const token =
               (this.study.plugins &&
                 this.study.plugins.plugins
-                  .filter(plugin => plugin.metadata)
-                  .map(plugin => plugin.metadata.id)[0]) ||
-              'error';
+                  .filter((plugin) => plugin.metadata)
+                  .map((plugin) => plugin.metadata.id)[0]) ||
+              "error";
             await this.study.internals.controller.audioContext.close();
             this.study = undefined;
             this.props.settings.on_finish(token);
@@ -89,8 +99,8 @@ class ExperimentWindow extends Component {
 
     // css style
     if (style) {
-      const styleNode = document.createElement('style');
-      const embeddedStyle = style.split('data:text/css,')[1];
+      const styleNode = document.createElement("style");
+      const embeddedStyle = style.split("data:text/css,")[1];
       styleNode.innerHTML = window.decodeURIComponent(embeddedStyle);
       document.body.appendChild(styleNode);
     }
@@ -101,11 +111,11 @@ class ExperimentWindow extends Component {
       if (this.study) {
         this.study.internals.controller.audioContext.close();
         alert(
-          'The study has been interrupted. Sorry, the next time you do the same task or survey, you will have to start from the beginning!'
+          "The study has been interrupted. Sorry, the next time you do the same task or survey, you will have to start from the beginning!"
         );
       }
     } catch (e) {
-      console.log('Experiment closed before unmount');
+      console.log("Experiment closed before unmount");
     }
   }
 
