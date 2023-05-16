@@ -34,7 +34,7 @@ class ExperimentWindow extends Component {
           url: `/.netlify/functions/internal/?user=${user}&template=${template}&task=${task}&study=${study}&policy=${policy}&version=${version}&guest=${guest}`,
           callbacks: {
             full: (res) => {
-              if (res?.statusText === "OK") {
+              if (res?.statusText === "OK" || res?.status == "200") {
                 // inform parent component that the data are saved
                 updateState({ dataIsSaved: true });
               } else {
