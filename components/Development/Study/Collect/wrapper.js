@@ -121,92 +121,104 @@ class CollectWrapper extends Component {
     }
 
     return (
-      <StyledCollectSection>
-        <StyledCollectBoard>
-          <div className="header">
-            <div className="study">
-              <div className="shareStudy">
-                <p>
-                  Share the link below with your participants to invite them to
-                  join your study
-                </p>
-                <h3>
-                  https://mindhive.science/studies/{this.props.study.slug}
-                </h3>
-                <div className="buttons">
-                  <div>
-                    <button onClick={() => this.copyLink()}>
-                      Copy study link
-                    </button>
+      <Query
+        query={STUDY_PARTICIPANTS}
+        variables={{
+          studyId: this.props.study.id,
+          search: this.state.search,
+        }}
+      >
+        {({ data, error, loading }) => {
+          if (loading) return <p>Loading ...</p>;
+          if (error) return <p>Error: {error.message}</p>;
+          const { participantsInStudy } = data;
+
+          if (participantsInStudy.length === 0) {
+            return <h3>There are no participants in this study</h3>;
+          }
+          const count = participantsInStudy.length;
+          let orderedParticipants = participantsInStudy;
+          const consents = this.props.study.consent || [];
+
+          if (consents.length && consents[0].id) {
+            const consentId = consents[0].id;
+            orderedParticipants = [...participantsInStudy].sort((a, b) => {
+              const timeA = a?.consentsInfo[consentId]?.createdAt || 0;
+              const timeB = b?.consentsInfo[consentId]?.createdAt || 0;
+              return timeA > timeB ? -1 : 1;
+            });
+          }
+
+          const participants = orderedParticipants.slice(
+            page * perPage - perPage,
+            page * perPage
+          );
+
+          return (
+            <StyledCollectSection>
+              <StyledCollectBoard>
+                <div className="header">
+                  <div className="study">
+                    <div className="shareStudy">
+                      <p>
+                        Share the link below with your participants to invite
+                        them to join your study
+                      </p>
+                      <h3>
+                        https://mindhive.science/studies/{this.props.study.slug}
+                      </h3>
+                      <div className="buttons">
+                        <div>
+                          <button onClick={() => this.copyLink()}>
+                            Copy study link
+                          </button>
+                        </div>
+                        <div>
+                          <a
+                            target="_blank"
+                            href={`https://mindhive.science/studies/${this.props.study.slug}`}
+                            rel="noreferrer"
+                          >
+                            <button>Test your study</button>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="downloadOptions">
+                      <h3>All data in one file</h3>
+                      <DownloadSummaryData
+                        by=""
+                        study={study}
+                        participantsInStudy={participantsInStudy}
+                      />
+
+                      <DownloadSummaryData
+                        by="by participant"
+                        study={study}
+                        participantsInStudy={participantsInStudy}
+                      />
+
+                      <DownloadRawData
+                        study={study}
+                        participantsInStudy={participantsInStudy}
+                      />
+                    </div>
+                    <DownloadByComponent
+                      components={components}
+                      studyId={study?.id}
+                      participantsInStudy={participantsInStudy}
+                    />
                   </div>
-                  <div>
-                    <a
-                      target="_blank"
-                      href={`https://mindhive.science/studies/${this.props.study.slug}`}
-                      rel="noreferrer"
-                    >
-                      <button>Test your study</button>
-                    </a>
+                  <div className="searchArea">
+                    <input
+                      type="text"
+                      name="keyword"
+                      value={this.state.keyword}
+                      onChange={this.saveToState}
+                      placeholder="Search for participants"
+                    />
                   </div>
                 </div>
-              </div>
-              <div className="downloadOptions">
-                <h3>All data in one file</h3>
-                <DownloadSummaryData by="" study={study} />
-                {true && (
-                  <DownloadSummaryData by="by participant" study={study} />
-                )}
-                <DownloadRawData study={study} />
-              </div>
-              <DownloadByComponent
-                components={components}
-                studyId={study?.id}
-              />
-            </div>
-            <div className="searchArea">
-              <input
-                type="text"
-                name="keyword"
-                value={this.state.keyword}
-                onChange={this.saveToState}
-                placeholder="Search for participants"
-              />
-            </div>
-          </div>
-
-          <Query
-            query={STUDY_PARTICIPANTS}
-            variables={{
-              studyId: this.props.study.id,
-              search: this.state.search,
-            }}
-          >
-            {({ data, error, loading }) => {
-              if (loading) return <p>Loading ...</p>;
-              if (error) return <p>Error: {error.message}</p>;
-              const { participantsInStudy } = data;
-              if (participantsInStudy.length === 0) {
-                return <h3>There are no participants in this study</h3>;
-              }
-              const count = participantsInStudy.length;
-              let orderedParticipants = participantsInStudy;
-              const consents = this.props.study.consent || [];
-
-              if (consents.length && consents[0].id) {
-                const consentId = consents[0].id;
-                orderedParticipants = [...participantsInStudy].sort((a, b) => {
-                  const timeA = a?.consentsInfo[consentId]?.createdAt || 0;
-                  const timeB = b?.consentsInfo[consentId]?.createdAt || 0;
-                  return timeA > timeB ? -1 : 1;
-                });
-              }
-
-              const participants = orderedParticipants.slice(
-                page * perPage - perPage,
-                page * perPage
-              );
-
-              return (
                 <div className="participants">
                   {count > 0 && (
                     <PaginationStudyParticipants
@@ -232,11 +244,11 @@ class CollectWrapper extends Component {
                     />
                   )}
                 </div>
-              );
-            }}
-          </Query>
-        </StyledCollectBoard>
-      </StyledCollectSection>
+              </StyledCollectBoard>
+            </StyledCollectSection>
+          );
+        }}
+      </Query>
     );
   }
 }

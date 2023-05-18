@@ -6,7 +6,7 @@ import { MY_STUDY_RESULTS_QUERY } from "../../../../Queries/Result";
 
 const LZUTF8 = require("lzutf8");
 
-export default function DownloadRawData({ study }) {
+export default function DownloadRawData({ study, participantsInStudy }) {
   const [loadData, { called, loading, data }] = useLazyQuery(
     MY_STUDY_RESULTS_QUERY,
     {
@@ -36,6 +36,13 @@ export default function DownloadRawData({ study }) {
           "john-doe";
 
         const participantId = result?.guest ? guestID : userID;
+
+        // record the between-subjects condition of the participant
+        const personalID =
+          (result?.guest ? result?.guest?.id : result?.user?.id) || "";
+        const [condition] = participantsInStudy
+          .filter((participant) => participant?.id === personalID)
+          .map((participant) => participant?.studiesInfo[study?.id]?.blockName);
 
         let { data } = result;
         const fullContent = result.fullData?.content;
@@ -68,6 +75,7 @@ export default function DownloadRawData({ study }) {
           line.testVersion = result?.testVersion;
           line.study = result?.study?.title;
           line.dataType = fullContent ? "complete" : "incremental";
+          line.condition = condition;
           return line;
         });
         return resultData;

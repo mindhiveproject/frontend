@@ -5,7 +5,11 @@ import moment from "moment";
 import { Icon } from "semantic-ui-react";
 import { MY_STUDY_SUMMARY_RESULTS_QUERY } from "../../../../Queries/Result";
 
-export default function DownloadSummaryData({ by, study }) {
+export default function DownloadSummaryData({
+  by,
+  study,
+  participantsInStudy,
+}) {
   const [loadData, { called, loading, data }] = useLazyQuery(
     MY_STUDY_SUMMARY_RESULTS_QUERY,
     {
@@ -34,6 +38,13 @@ export default function DownloadSummaryData({ by, study }) {
         result?.user?.studentIn?.map((c) => c?.code) || undefined;
       const userType = result?.guest ? "guest" : "user";
 
+      // record the between-subjects condition of the participant
+      const personalID =
+        (result?.guest ? result?.guest?.id : result?.user?.id) || "";
+      const [condition] = participantsInStudy
+        .filter((participant) => participant?.id === personalID)
+        .map((participant) => participant?.studiesInfo[study?.id]?.blockName);
+
       return {
         participant: participantId,
         classCode,
@@ -43,6 +54,7 @@ export default function DownloadSummaryData({ by, study }) {
         testVersion: result.testVersion,
         subtitle: result?.task?.subtitle,
         timestamp: result.createdAt,
+        condition,
         ...result.data,
       };
     });

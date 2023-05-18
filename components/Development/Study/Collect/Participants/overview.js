@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Icon } from "semantic-ui-react";
 import ParticipantTable from "./table";
 import { StyledParticipantsBoard } from "./styles";
 

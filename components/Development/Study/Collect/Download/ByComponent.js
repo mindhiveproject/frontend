@@ -13,7 +13,11 @@ import {
 
 const LZUTF8 = require("lzutf8");
 
-export default function DownloadByComponent({ studyId, components }) {
+export default function DownloadByComponent({
+  studyId,
+  components,
+  participantsInStudy,
+}) {
   const [selected, setSelected] = useState([]);
 
   const [
@@ -63,6 +67,13 @@ export default function DownloadByComponent({ studyId, components }) {
         result?.user?.studentIn?.map((c) => c?.code) || undefined;
       const userType = result?.guest ? "guest" : "user";
 
+      // record the between-subjects condition of the participant
+      const personalID =
+        (result?.guest ? result?.guest?.id : result?.user?.id) || "";
+      const [condition] = participantsInStudy
+        .filter((participant) => participant?.id === personalID)
+        .map((participant) => participant?.studiesInfo[studyId]?.blockName);
+
       return {
         participant: participantId,
         classCode,
@@ -72,6 +83,7 @@ export default function DownloadByComponent({ studyId, components }) {
         testVersion: result.testVersion,
         subtitle: result?.task?.subtitle,
         timestamp: result.createdAt,
+        condition,
         ...result.data,
       };
     });
@@ -99,6 +111,13 @@ export default function DownloadByComponent({ studyId, components }) {
           "john-doe";
 
         const participantId = result?.guest ? guestID : userID;
+
+        // record the between-subjects condition of the participant
+        const personalID =
+          (result?.guest ? result?.guest?.id : result?.user?.id) || "";
+        const [condition] = participantsInStudy
+          .filter((participant) => participant?.id === personalID)
+          .map((participant) => participant?.studiesInfo[studyId]?.blockName);
 
         let { data } = result;
         const fullContent = result.fullData?.content;
@@ -131,6 +150,7 @@ export default function DownloadByComponent({ studyId, components }) {
           line.testVersion = result?.testVersion;
           line.study = result?.study?.title;
           line.dataType = fullContent ? "complete" : "incremental";
+          line.condition = condition;
           return line;
         });
         return resultData;
