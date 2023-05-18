@@ -1,23 +1,22 @@
-import React, { Component, useState } from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
+import React, { Component } from "react";
+import Link from "next/link";
 
-import { OnboardingHeader, ResponseButtons } from '../styles';
-import { Logo } from '../../Header/styles';
+import { OnboardingHeader, ResponseButtons } from "../styles";
+import { Logo } from "../../Header/styles";
 
-import BirthdayPicker from '../../Utils/DatePicker/index';
+import BirthdayPicker from "../../Utils/DatePicker/index";
 
-import JoinStudy from '../JoinStudy';
+import JoinStudy from "../JoinStudy";
 
 class GetStarted extends Component {
   state = {
-    zip: '', // default of the page
-    share: 'true', // default of the page
+    zip: "", // default of the page
+    share: "true", // default of the page
     ...this.props.query, // put everything coming from query
     ...this.props.user?.generalInfo, // populate with user information
   };
 
-  updateState = e => {
+  updateState = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -29,7 +28,7 @@ class GetStarted extends Component {
     });
   };
 
-  isUnder18 = birthdayTimestamp => {
+  isUnder18 = (birthdayTimestamp) => {
     const diff = Date.now() - birthdayTimestamp;
     const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.2425;
     return diff / millisecondsInYear < 18;
@@ -43,7 +42,7 @@ class GetStarted extends Component {
     let sonaidDataAvailable;
     let engDataAvailable;
     let birthdayDataAvailable;
-    if (user && user.generalInfo?.share == 'true') {
+    if (user && user.generalInfo?.share == "true") {
       const info = user.generalInfo;
       zipDataAvailable = info.zip && true;
       sonaidDataAvailable = info.sonaid && true;
@@ -97,17 +96,17 @@ class GetStarted extends Component {
               <p className="questionTitle">Are you an NYU SONA participant?</p>
               <ResponseButtons>
                 <button
-                  onClick={() => this.setStateToValue('sona', 'yes')}
+                  onClick={() => this.setStateToValue("sona", "yes")}
                   className={
-                    this.state.sona === 'yes' ? 'selectedBtn' : undefined
+                    this.state.sona === "yes" ? "selectedBtn" : undefined
                   }
                 >
                   Yes
                 </button>
                 <button
-                  onClick={() => this.setStateToValue('sona', 'no')}
+                  onClick={() => this.setStateToValue("sona", "no")}
                   className={
-                    this.state.sona === 'no' ? 'selectedBtn' : undefined
+                    this.state.sona === "no" ? "selectedBtn" : undefined
                   }
                 >
                   No
@@ -117,7 +116,7 @@ class GetStarted extends Component {
           </div>
         )}
 
-        {study?.settings?.sonaId && this.state.sona === 'yes' && (
+        {study?.settings?.sonaId && this.state.sona === "yes" && (
           <div>
             <label htmlFor="sonaid">
               <p className="questionTitle">What is your NYU ID?</p>
@@ -147,17 +146,17 @@ class GetStarted extends Component {
               </p>
               <ResponseButtons>
                 <button
-                  onClick={() => this.setStateToValue('eng', 'yes')}
+                  onClick={() => this.setStateToValue("eng", "yes")}
                   className={
-                    this.state.eng === 'yes' ? 'selectedBtn' : undefined
+                    this.state.eng === "yes" ? "selectedBtn" : undefined
                   }
                 >
                   Yes
                 </button>
                 <button
-                  onClick={() => this.setStateToValue('eng', 'no')}
+                  onClick={() => this.setStateToValue("eng", "no")}
                   className={
-                    this.state.eng === 'no' ? 'selectedBtn' : undefined
+                    this.state.eng === "no" ? "selectedBtn" : undefined
                   }
                 >
                   No
@@ -175,17 +174,17 @@ class GetStarted extends Component {
               </p>
               <ResponseButtons>
                 <button
-                  onClick={() => this.setStateToValue('studentNYC', 'yes')}
+                  onClick={() => this.setStateToValue("studentNYC", "yes")}
                   className={
-                    this.state.studentNYC === 'yes' ? 'selectedBtn' : undefined
+                    this.state.studentNYC === "yes" ? "selectedBtn" : undefined
                   }
                 >
                   Yes
                 </button>
                 <button
-                  onClick={() => this.setStateToValue('studentNYC', 'no')}
+                  onClick={() => this.setStateToValue("studentNYC", "no")}
                   className={
-                    this.state.studentNYC === 'no' ? 'selectedBtn' : undefined
+                    this.state.studentNYC === "no" ? "selectedBtn" : undefined
                   }
                 >
                   No
@@ -203,7 +202,7 @@ class GetStarted extends Component {
           </div>
         )}
 
-        {(!user || user?.generalInfo?.share == 'false') && (
+        {(!user || user?.generalInfo?.share == "false") && (
           <div>
             <label htmlFor="share">
               <div className="checkboxField">
@@ -211,11 +210,11 @@ class GetStarted extends Component {
                   type="checkbox"
                   id="share"
                   name="share"
-                  checked={this.state.share == 'true'}
+                  checked={this.state.share == "true"}
                   onChange={() =>
                     this.setStateToValue(
-                      'share',
-                      this.state.share == 'true' ? 'false' : 'true'
+                      "share",
+                      this.state.share == "true" ? "false" : "true"
                     )
                   }
                 />
@@ -278,15 +277,15 @@ class GetStarted extends Component {
                 href={{
                   pathname: `/join/sign`,
                   query: {
-                    mode: 'login',
+                    mode: "login",
                     id: study.id,
                   },
                 }}
               >
                 <a
                   style={{
-                    borderBottom: '1px solid grey',
-                    cursor: 'pointer',
+                    borderBottom: "1px solid grey",
+                    cursor: "pointer",
                   }}
                 >
                   Login here
