@@ -36,7 +36,7 @@ const CustomLinkArrowWidget = props => {
       })`}
     >
       <g style={{ transform: `rotate(${angle}deg)` }}>
-        <g transform="translate(0,0)">
+        <g transform="translate(0,-3)">
           <polygon
             points="0,10 8,30 -8,30"
             fill={props.color}

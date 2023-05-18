@@ -5,7 +5,7 @@ export const StyledWrapper = styled.div`
   grid-template-columns: 5fr 3fr;
 
   :active {
-    .up-port {
+    .up-port:hover {
       border: 2px solid #ffc107;
       width: 378px;
       height: 128px;
