@@ -3,9 +3,29 @@ import styled from "styled-components";
 export const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: 5fr 3fr;
+
+  :active {
+    .up-port {
+      border: 2px solid #ffc107;
+      width: 378px;
+      height: 128px;
+    }
+  }
 `;
 
 export const StyledNode = styled.div`
+  :active {
+    border-top: 8px solid green;
+    border-bottom: 1px solid green;
+    border-left: 1px solid green;
+    border-right: 1px solid green;
+    .up-port {
+      border: 0px solid white;
+      width: 0px;
+      height: 0px;
+    }
+  }
+
   display: grid;
   width: 378px;
   height: 128px;
@@ -55,13 +75,21 @@ export const StyledNode = styled.div`
 
   .up-port {
     top: 0;
-    margin-top: -25px;
+    /* margin-top: -15px; */
     margin-left: 0px;
+    border-radius: 10px;
   }
 
-  .up-port:hover {
-    border: 1px solid lightblue;
+  .my-in-port {
+    width: 380px;
+    height: 20px;
     border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    color: grey;
+    opacity: 1;
   }
 
   .bottom-port {
@@ -82,19 +110,6 @@ export const StyledNode = styled.div`
     z-index: 1;
     cursor: pointer;
     text-align: center;
-  }
-
-  .my-in-port {
-    width: 380px;
-    height: 20px;
-    border-radius: 10px;
-    background-color: white;
-    cursor: pointer;
-    position: relative;
-    cursor: pointer;
-    text-align: center;
-    color: grey;
-    opacity: 1;
   }
 
   .node-content {

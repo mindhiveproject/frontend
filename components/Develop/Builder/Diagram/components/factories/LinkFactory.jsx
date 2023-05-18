@@ -36,9 +36,9 @@ const CustomLinkArrowWidget = props => {
       })`}
     >
       <g style={{ transform: `rotate(${angle}deg)` }}>
-        <g transform="translate(0,3)">
+        <g transform="translate(0,0)">
           <polygon
-            points="0,10 10,35 -10,35"
+            points="0,10 8,30 -8,30"
             fill={props.color}
             data-id={point.getID()}
             data-linkid={point.getLink().getID()}

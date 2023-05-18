@@ -79,7 +79,7 @@ export const TaskWidget = props => (
       engine={props.engine}
       port={props.node.getPort('in')}
     >
-      <div className="my-in-port">Drop the link here</div>
+      <div className="my-in-port"></div>
     </PortWidget>
 
     <div className="node-content">
