@@ -50,7 +50,7 @@ export const StyledNode = styled.div`
 
   .port-container {
     position: absolute;
-    top: 40px;
+    top: 50px;
   }
 
   .up-port {
@@ -74,6 +74,7 @@ export const StyledNode = styled.div`
   .my-out-port {
     width: 20px;
     height: 20px;
+    margin-top: -10px;
     border-radius: 20px;
     background-color: #007c70;
     cursor: pointer;
