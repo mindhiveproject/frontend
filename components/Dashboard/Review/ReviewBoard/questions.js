@@ -3,7 +3,8 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { Query, Mutation } from "@apollo/client/react/components";
 import SingleQuestion from "./singleQuestion";
-import { PROPOSALS_FOR_REVIEW_QUERY } from "../reviews";
+
+// import { PROPOSALS_FOR_REVIEW_QUERY } from "../../../Queries/Proposal";
 
 import { individualQuestions, synthesisQuestions } from "./reviewQuestions";
 
@@ -212,6 +213,11 @@ class ReviewQuestions extends Component {
 
   uploadReview = async (reviewMutation) => {
     const res = await reviewMutation();
+    if (res?.data?.createReview?.id) {
+      this.setState({
+        id: res?.data?.createReview?.id,
+      });
+    }
     // this.props.goBack();
     alert("The review is saved");
   };
@@ -283,10 +289,10 @@ class ReviewQuestions extends Component {
                     stage: this.props.stage,
                   },
                 },
-                {
-                  query: PROPOSALS_FOR_REVIEW_QUERY,
-                  variables: { classes: this.props.networkClassIds },
-                },
+                // {
+                //   query: PROPOSALS_FOR_REVIEW_QUERY,
+                //   variables: { classes: this.props.networkClassIds },
+                // },
               ]}
             >
               {(createReviewMutation, { loading, error }) => (

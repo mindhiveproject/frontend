@@ -15,7 +15,6 @@ export const StyledWrapper = styled.div`
 
 export const StyledNode = styled.div`
   :active {
-    /* border-top: 1px solid green; */
     border-bottom: 1px solid green;
     border-left: 1px solid green;
     border-right: 1px solid green;

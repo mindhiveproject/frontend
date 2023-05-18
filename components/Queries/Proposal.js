@@ -387,3 +387,35 @@ export const CLASS_PROPOSALS_FOR_REVIEW_QUERY = gql`
     }
   }
 `;
+
+// write a query here, later refactor it in a separate file if it is used elsewhere
+export const PROPOSALS_FOR_REVIEW_QUERY = gql`
+  query PROPOSALS_FOR_REVIEW_QUERY($classes: [ID!]) {
+    proposalsForReview(where: { id_in: $classes }) {
+      id
+      slug
+      title
+      createdAt
+      isSubmitted
+      reviews {
+        id
+        stage
+      }
+      study {
+        title
+        slug
+      }
+      author {
+        id
+        studentIn {
+          id
+          title
+        }
+        teacherIn {
+          id
+          title
+        }
+      }
+    }
+  }
+`;

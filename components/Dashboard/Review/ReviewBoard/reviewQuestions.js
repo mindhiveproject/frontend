@@ -1,5 +1,3 @@
-import { PROPOSALS_FOR_REVIEW_QUERY } from "../reviews";
-
 export const individualQuestions = [
   {
     name: "1",
