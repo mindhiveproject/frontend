@@ -6,7 +6,7 @@ export const StyledWrapper = styled.div`
 
   :active {
     .up-port:hover {
-      border: 2px solid #ffc107;
+      border: 5px solid #ffc107;
       width: 378px;
       height: 128px;
     }
@@ -15,7 +15,7 @@ export const StyledWrapper = styled.div`
 
 export const StyledNode = styled.div`
   :active {
-    border-top: 8px solid green;
+    /* border-top: 1px solid green; */
     border-bottom: 1px solid green;
     border-left: 1px solid green;
     border-right: 1px solid green;
@@ -75,9 +75,8 @@ export const StyledNode = styled.div`
 
   .up-port {
     top: 0;
-    /* margin-top: -15px; */
     margin-left: 0px;
-    border-radius: 10px;
+    border-radius: 6px;
   }
 
   .my-in-port {
