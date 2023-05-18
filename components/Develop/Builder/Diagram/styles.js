@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
   display: grid;
@@ -14,14 +14,14 @@ export const StyledNode = styled.div`
   border-radius: 8px;
 
   border-top: 8px solid;
-  border-top-color: ${props =>
-    props.taskType === 'TASK'
-      ? '#64c9e2'
-      : props.taskType === 'SURVEY'
-      ? '#28619e'
-      : props.taskType === 'BLOCK'
-      ? '#ffc7c3'
-      : '#007c70'};
+  border-top-color: ${(props) =>
+    props.taskType === "TASK"
+      ? "#64c9e2"
+      : props.taskType === "SURVEY"
+      ? "#28619e"
+      : props.taskType === "BLOCK"
+      ? "#ffc7c3"
+      : "#007c70"};
 
   .node-header-container {
     display: grid;
@@ -55,7 +55,7 @@ export const StyledNode = styled.div`
 
   .up-port {
     top: 0;
-    margin-top: -20px;
+    margin-top: -25px;
     margin-left: 0px;
   }
 
@@ -67,7 +67,7 @@ export const StyledNode = styled.div`
   .bottom-port {
     margin-right: -7px;
     bottom: 0;
-    margin-top: 87px;
+    margin-top: 80px;
     margin-left: 170px;
   }
 
@@ -78,7 +78,7 @@ export const StyledNode = styled.div`
     background-color: #007c70;
     cursor: pointer;
     position: relative;
-    z-index: -2;
+    z-index: 1;
     cursor: pointer;
     text-align: center;
   }
@@ -93,7 +93,7 @@ export const StyledNode = styled.div`
     cursor: pointer;
     text-align: center;
     color: grey;
-    opacity: 0.8;
+    opacity: 1;
   }
 
   .node-content {
@@ -180,7 +180,7 @@ export const StyledComment = styled.div`
 
   .post-it:before,
   .post-it:after {
-    content: ' ';
+    content: " ";
     position: absolute;
     z-index: 100;
   }
@@ -230,7 +230,6 @@ export const StyledComment = styled.div`
   }
 
   .post-it .inner {
-    /* padding: 10px; */
     min-height: 100px;
     background: #fff799;
     z-index: 1000;

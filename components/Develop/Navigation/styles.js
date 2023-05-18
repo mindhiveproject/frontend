@@ -1,9 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const SaveButton = styled.div`
   .navigationSaveButton {
-    background: #007c70;
-    border: 1px solid #007c70;
+    background: ${(props) => (props.unsavedChanges ? "#007c70" : "lightgrey")};
+    border: 1px solid
+      ${(props) => (props.unsavedChanges ? "#007c70" : "lightgrey")};
 
     border-radius: 100px;
     padding: 8px 20px;

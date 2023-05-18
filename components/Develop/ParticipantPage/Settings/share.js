@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Radio } from 'semantic-ui-react';
-import { StyledCard, StyledSettingsBlock } from '../styles';
+import React, { Component } from "react";
+import { Radio } from "semantic-ui-react";
+import { StyledCard, StyledSettingsBlock } from "../styles";
 
 class ShareStudy extends Component {
   state = {
@@ -9,13 +9,13 @@ class ShareStudy extends Component {
 
   copyLink = () => {
     const copyLink = `https://mindhive.science/studies/${this.props.study.slug}`;
-    const temp = document.createElement('input');
+    const temp = document.createElement("input");
     document.body.append(temp);
     temp.value = copyLink;
     temp.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     temp.remove();
-    alert('The link is copied');
+    alert("The link is copied");
   };
 
   render() {
@@ -70,7 +70,7 @@ class ShareStudy extends Component {
             <div className="input">
               <Radio
                 toggle
-                label={isCustomize ? 'On' : 'Off'}
+                label={isCustomize ? "On" : "Off"}
                 checked={isCustomize}
                 onChange={() =>
                   this.setState({

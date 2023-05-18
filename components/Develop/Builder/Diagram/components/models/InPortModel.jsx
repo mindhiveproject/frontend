@@ -36,6 +36,10 @@ export class InCustomPort extends DefaultPortModel {
     return false;
   }
 
+  createLinkModel() {
+    return false;
+  }
+
   serialize() {
     return {
       ...super.serialize(),

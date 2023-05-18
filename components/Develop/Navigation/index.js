@@ -71,6 +71,7 @@ export default class Navigation extends Component {
               proposalId={this.props.proposalId}
               createNewStudy={this.props.createNewStudy}
               updateMyStudy={this.props.updateMyStudy}
+              unsavedChanges={this.props.unsavedChanges}
             >
               <button className="navigationSaveButton">Save</button>
             </SaveStudy>

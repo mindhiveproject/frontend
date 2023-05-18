@@ -97,6 +97,7 @@ const Builder = React.memo((props) => {
       }
     });
     props.engine.repaintCanvas();
+    props.createUnsavedChanges();
   };
 
   const addComponentToCanvas = ({
@@ -188,6 +189,7 @@ const Builder = React.memo((props) => {
     newNode.setPosition(point);
     props.engine.getModel().addNode(newNode);
     forceUpdate();
+    props.createUnsavedChanges();
   };
 
   return (
@@ -209,6 +211,7 @@ const Builder = React.memo((props) => {
               engine={props.engine}
               openComponentModal={openComponentModal}
               openStudyPreview={props.toggleStudyPreview}
+              createUnsavedChanges={props.createUnsavedChanges}
             />
           )}
         </StyledDigram>

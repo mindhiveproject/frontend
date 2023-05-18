@@ -26,6 +26,7 @@ class SaveStudy extends Component {
       createNewStudy,
       buttonTitle,
       callback,
+      unsavedChanges,
     } = this.props;
 
     let refetchQueries = {};
@@ -69,6 +70,7 @@ class SaveStudy extends Component {
               }
               return (
                 <SaveButton
+                  unsavedChanges={unsavedChanges}
                   onClick={() => {
                     if (!loading) {
                       updateMyStudy(updateStudy);
@@ -93,6 +95,7 @@ class SaveStudy extends Component {
           >
             {(createStudy, { loading, error }) => (
               <SaveButton
+                unsavedChanges
                 onClick={() => {
                   createNewStudy(createStudy);
                   if (callback) {

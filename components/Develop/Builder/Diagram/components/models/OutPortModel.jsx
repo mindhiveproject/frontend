@@ -1,5 +1,5 @@
 import { DefaultPortModel } from '@projectstorm/react-diagrams';
-
+import { AdvancedLinkModel } from '../factories/LinkFactory';
 // this is a outcoming port
 // it should be allowed to create links from this port
 
@@ -10,7 +10,7 @@ export class OutCustomPort extends DefaultPortModel {
       ...options,
     });
     // one link is already included by default
-    this.maximumLinks = 20;
+    this.maximumLinks = 50;
     // console.log('this.getOptions', this.getOptions().in);
     // if (this.getOptions().in) this.setMaximumLinks(1);
   }
@@ -30,15 +30,18 @@ export class OutCustomPort extends DefaultPortModel {
   }
 
   canLinkToPort(port) {
-    // console.log('out-port-modal', port);
-    // console.log('this.isNewLinkAllowed()', this.isNewLinkAllowed());
-    // console.log('port.isNewLinkAllowed()', port.isNewLinkAllowed());
-    // debugger;
     return (
-      this.isNewLinkAllowed() && // do not allow more than one outgoing link from out-port
-      // port.isNewLinkAllowed() &&
-      port?.options?.type !== 'outCustomPort' // do not allow links connecting to other out-ports
+      this.isNewLinkAllowed() && // do not allow more than the number of maximum links
+      port?.options?.type !== 'outCustomPort' && // do not allow links connecting to other out-ports
+      this?.parent?.options?.id !== port?.parent?.options?.id && // do not allow link to connect to itself
+      !Object.values(port?.links)
+        .map(link => link?.sourcePort?.options?.id)
+        .includes(this?.options?.id) // do not allow a new link if there is already the link exists
     );
+  }
+
+  createLinkModel() {
+    return new AdvancedLinkModel();
   }
 
   serialize() {

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { StyledSettings } from '../styles';
+import { StyledSettings } from "../styles";
 
-import Parameters from './parameters';
-import ShareStudy from './share';
+import ShareStudy from "./share";
+import Parameters from "./parameters";
 
 class Settings extends Component {
   render() {

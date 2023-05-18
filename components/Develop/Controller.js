@@ -19,6 +19,7 @@ import { CommentsFactory } from "./Builder/Diagram/components/factories/Comments
 import { DesignFactory } from "./Builder/Diagram/components/factories/DesignFactory";
 import { InPortFactory } from "./Builder/Diagram/components/factories/InPortFactory";
 import { OutPortFactory } from "./Builder/Diagram/components/factories/OutPortFactory";
+import { AdvancedLinkFactory } from "./Builder/Diagram/components/factories/LinkFactory";
 
 import { AnchorModel } from "./Builder/Diagram/components/models/AnchorModel";
 
@@ -41,6 +42,7 @@ export default class Controller extends Component {
     showStudyPreview: false,
     modal: null,
     engine: null,
+    unsavedChanges: false,
   };
 
   componentDidMount() {
@@ -48,6 +50,7 @@ export default class Controller extends Component {
     if (!this.state.engine) {
       const engine = createEngine();
       engine.setModel(new DiagramModel());
+
       // Create custom node
       engine.getNodeFactories().registerFactory(new TasksFactory());
       // Create custom comment
@@ -59,6 +62,9 @@ export default class Controller extends Component {
       // Register ports
       engine.getPortFactories().registerFactory(new InPortFactory());
       engine.getPortFactories().registerFactory(new OutPortFactory());
+      // Register links
+      engine.getLinkFactories().registerFactory(new AdvancedLinkFactory());
+
       // disable creating new nodes when clicking on the link
       engine.maxNumberPointsPerLink = 0;
       // disable loose links
@@ -75,6 +81,16 @@ export default class Controller extends Component {
         const anchor = new AnchorModel({});
         engine.getModel().addNode(anchor);
       }
+      engine.model.registerListener({
+        linksUpdated: (e) => {
+          if (e?.isCreated) {
+            this.createUnsavedChanges();
+          }
+        },
+        nodesUpdated: (e) => {
+          this.createUnsavedChanges();
+        },
+      });
       this.setState({
         engine,
       });
@@ -88,6 +104,7 @@ export default class Controller extends Component {
         ...this.state.study,
         [name]: value,
       },
+      unsavedChanges: true,
     });
   };
 
@@ -98,6 +115,7 @@ export default class Controller extends Component {
         ...this.state.study,
         ...values,
       },
+      unsavedChanges: true,
     });
   };
 
@@ -109,6 +127,7 @@ export default class Controller extends Component {
         ...this.state.study,
         [name]: value,
       },
+      unsavedChanges: true,
     });
   };
 
@@ -127,6 +146,7 @@ export default class Controller extends Component {
         ...this.state.study,
         info,
       },
+      unsavedChanges: true,
     });
   };
 
@@ -137,6 +157,7 @@ export default class Controller extends Component {
         ...this.state.study,
         info,
       },
+      unsavedChanges: true,
     });
   };
 
@@ -149,6 +170,7 @@ export default class Controller extends Component {
         ...this.state.study,
         settings,
       },
+      unsavedChanges: true,
     });
   };
 
@@ -168,6 +190,7 @@ export default class Controller extends Component {
         image: file.secure_url,
         largeImage: file.eager[0].secure_url,
       },
+      unsavedChanges: true,
     });
   };
 
@@ -177,6 +200,7 @@ export default class Controller extends Component {
         ...this.state.study,
         components,
       },
+      unsavedChanges: true,
     });
   };
 
@@ -284,6 +308,9 @@ export default class Controller extends Component {
         diagram,
       },
     });
+    this.setState({
+      unsavedChanges: false,
+    });
   };
 
   // diagram functions
@@ -374,11 +401,18 @@ export default class Controller extends Component {
         diagram,
         components,
       },
+      unsavedChanges: true,
     });
     return {
       diagram,
       components,
     };
+  };
+
+  createUnsavedChanges = () => {
+    this.setState({
+      unsavedChanges: true,
+    });
   };
 
   render() {
@@ -446,6 +480,7 @@ export default class Controller extends Component {
           updateComponents={this.updateComponents}
           toggleComponentPreview={this.toggleComponentPreview}
           toggleStudyPreview={this.toggleStudyPreview}
+          createUnsavedChanges={this.createUnsavedChanges}
         />
       </StyledDevelopWrapper>
     );
