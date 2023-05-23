@@ -19,8 +19,10 @@ class Chat extends Component {
           return (
             <StyledDasboard>
               <ChatWrapper
-                page={this.props.chatId ? "chatpage" : null}
+                key={this.props.chatId}
                 {...this.props}
+                openedPage={this.props.chatId ? "chatpage" : null}
+                openedChatId={this.props.chatId}
                 user={data?.me}
               />
             </StyledDasboard>

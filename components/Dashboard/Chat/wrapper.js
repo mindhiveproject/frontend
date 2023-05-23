@@ -1,84 +1,65 @@
-import React, { Component } from "react";
+import { useState, useEffect } from "react";
 
 import Chats from "./Chats/chatsList";
 import AddChat from "./Chats/addChat";
 import ChatPage from "./Chats/chatPage";
 import AddMembersToChat from "./Chats/addMembers";
 
-class ChatWrapper extends Component {
-  state = {
-    page: this.props.page || "chats",
-    chatId: this.props.chatId || null,
-  };
+export default function ChatWrapper({ user, openedPage, openedChatId }) {
+  const [page, setPage] = useState(openedPage);
+  const [chatId, setChatId] = useState(openedChatId);
+  const [chatTitle, setChatTitle] = useState("");
 
-  addChat = () => {
-    this.setState({
-      page: "addchat",
-    });
-  };
-
-  openChat = (chatId) => {
-    this.setState({
-      page: "chatpage",
-      chatId,
-    });
-  };
-
-  goBack = () => {
-    this.setState({
-      page: "chats",
-      chatId: null,
-    });
-  };
-
-  openAddMembers = (chatId, chatTitle) => {
-    this.setState({
-      page: "addmemberstochat",
-      chatId,
-      chatTitle,
-    });
-  };
-
-  render() {
-    const { page } = this.state;
-
-    if (page === "chats") {
-      return (
-        <Chats
-          user={this.props.user}
-          addChat={this.addChat}
-          openChat={this.openChat}
-          openAddMembers={this.openAddMembers}
-        />
-      );
+  useEffect(() => {
+    if (!openedChatId) {
+      setPage("chats");
+    } else {
+      setChatId(openedChatId);
     }
+  }, [openedChatId]);
 
-    if (page === "addchat") {
-      return <AddChat goBack={this.goBack} />;
-    }
+  const addChat = () => {
+    setPage("addchat");
+  };
 
-    if (page === "chatpage") {
-      return (
-        <ChatPage
-          user={this.props.user}
-          chatId={this.state.chatId}
-          goBack={this.goBack}
-        />
-      );
-    }
+  const openChat = (chatId) => {
+    setPage("chatpage");
+    setChatId(chatId);
+  };
 
-    if (page === "addmemberstochat") {
-      return (
-        <AddMembersToChat
-          chatId={this.state.chatId}
-          goBack={this.goBack}
-          chatTitle={this.state.chatTitle}
-        />
-      );
-    }
+  const goBack = () => {
+    setPage(null);
+    setChatId(null);
+  };
 
-    return <h1>Messages</h1>;
+  const openAddMembers = (chatId, chatTitle) => {
+    setPage("addmemberstochat");
+    setChatId(chatId);
+    setChatTitle(chatTitle);
+  };
+
+  if (page === "addchat") {
+    return <AddChat goBack={goBack} />;
   }
-}
 
-export default ChatWrapper;
+  if (page === "chatpage") {
+    return (
+      <ChatPage key={chatId} user={user} chatId={chatId} goBack={goBack} />
+    );
+  }
+
+  if (page === "addmemberstochat") {
+    return (
+      <AddMembersToChat chatId={chatId} goBack={goBack} chatTitle={chatTitle} />
+    );
+  }
+
+  return (
+    <Chats
+      user={user}
+      addChat={addChat}
+      openChat={openChat}
+      openAddMembers={openAddMembers}
+    />
+  );
+}

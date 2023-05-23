@@ -10,6 +10,7 @@ import { CREATE_NEW_STUDY, UPDATE_STUDY } from "../../Mutations/Study";
 import { PROPOSAL_BOARD_QUERY_LIGHT } from "../../Queries/Proposal";
 import { USER_DASHBOARD_QUERY } from "../../Queries/User";
 import { MY_DEVELOPED_STUDIES_QUERY } from "../../Bank/Studies/developed";
+import { MY_TALKS_QUERY } from "../../Queries/Talk";
 
 import { SaveButton } from "./styles";
 
@@ -91,6 +92,7 @@ class SaveStudy extends Component {
             refetchQueries={[
               { query: MY_DEVELOPED_STUDIES_QUERY },
               { query: USER_DASHBOARD_QUERY },
+              { query: MY_TALKS_QUERY },
             ]}
           >
             {(createStudy, { loading, error }) => (

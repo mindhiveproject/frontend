@@ -26,7 +26,7 @@ class ChatPage extends Component {
       <StyledGroupChat>
         <div className="goBackBtn">
           <span style={{ cursor: "pointer" }} onClick={this.props.goBack}>
-            ← Back
+            ← All group chats
           </span>
         </div>
 

@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import { Query } from '@apollo/client/react/components';
+import React, { Component } from "react";
+import { Query } from "@apollo/client/react/components";
 
-import styled from 'styled-components';
-import ChatRow from './chatRow';
-import { StyledClassesDasboard } from '../../styles';
+import styled from "styled-components";
+import ChatRow from "./chatRow";
+import { StyledClassesDasboard } from "../../styles";
+import { StyledZeroState } from "../../../Bank/styles";
 
-import { MY_TALKS_QUERY } from '../../../Queries/Talk';
+import { MY_TALKS_QUERY } from "../../../Queries/Talk";
 
 const StyledChatHeader = styled.div`
   display: grid;
@@ -30,8 +31,6 @@ class ChatsList extends Component {
             if (myTalks.length === 0) {
               return (
                 <>
-                  <h3>You haven’t created any group chats yet.</h3>
-                  <p>Once you create a group chat, it will appear here.</p>
                   <div className="navigationHeader">
                     <div>
                       <button onClick={this.props.addChat}>
@@ -39,6 +38,12 @@ class ChatsList extends Component {
                       </button>
                     </div>
                   </div>
+                  <StyledZeroState>
+                    <div className="message">
+                      <h3>You haven’t created any group chats yet.</h3>
+                      <p>Once you create a group chat, it will appear here.</p>
+                    </div>
+                  </StyledZeroState>
                 </>
               );
             }
@@ -56,7 +61,7 @@ class ChatsList extends Component {
                     <div>Date created</div>
                   </StyledChatHeader>
 
-                  {myTalks.map(chat => (
+                  {myTalks.map((chat) => (
                     <ChatRow
                       chat={chat}
                       key={chat.id}

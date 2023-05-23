@@ -75,6 +75,9 @@ export const STUDY_DEVELOPMENT_QUERY = gql`
         id
       }
       diagram
+      talks {
+        id
+      }
     }
   }
 `;

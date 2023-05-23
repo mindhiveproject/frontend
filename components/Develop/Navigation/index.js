@@ -30,6 +30,10 @@ export default class Navigation extends Component {
   render() {
     const { study, page, user } = this.props;
 
+    const [chatId] = (study &&
+      study?.talks &&
+      study?.talks?.map((talk) => talk?.id)) || [null];
+
     const isHidden =
       user?.studiesInfo &&
       user?.studiesInfo[this.props.study?.id]?.hideInDevelop;
@@ -52,7 +56,7 @@ export default class Navigation extends Component {
               study={study}
             />
 
-            <Mutation mutation={TOGGLE_OPENING_MUTATION}>
+            <Mutation mutation={TOGGLE_OPENING_MUTATION} variables={{ chatId }}>
               {(toggleOpening) => (
                 <div className="chatButton" onClick={toggleOpening}>
                   <img src="/content/icons/chat.svg" />
