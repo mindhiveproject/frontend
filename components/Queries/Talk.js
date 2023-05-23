@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 // query my chats
 export const MY_TALKS_QUERY = gql`
@@ -39,10 +39,25 @@ export const VIEW_TALK_QUERY = gql`
       classes {
         id
         title
+        creator {
+          username
+        }
+        mentors {
+          username
+        }
+        students {
+          username
+        }
       }
       studies {
         id
         title
+        author {
+          username
+        }
+        collaborators {
+          username
+        }
       }
       members {
         id

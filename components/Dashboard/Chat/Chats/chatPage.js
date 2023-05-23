@@ -9,6 +9,7 @@ import Message from "./Messages/message";
 import CreateMessage from "./Messages/create";
 import EditChatTitle from "./editChatTitle";
 
+import Avatars from "./Avatars";
 import { StyledGroupChat } from "../styles";
 
 import {
@@ -61,33 +62,52 @@ class ChatPage extends Component {
                     {talk?.classes.length > 0 && (
                       <div>
                         <span className="title">Classes</span>
-                        {talk?.classes?.map((theClass, num) => (
-                          <span className="item" key={num}>
-                            {theClass?.title} 
-                          </span>
-                        ))}
+                        {talk?.classes?.map((theClass, num) => {
+                          const membersSet = [
+                            theClass.creator.username,
+                            ...theClass.mentors.map((c) => c.username),
+                            ...theClass.students.map((c) => c.username),
+                          ];
+                          const members = [...new Set(membersSet)];
+                          return (
+                            <div key={num}>
+                              <span className="item" key={num}>
+                                {theClass?.title} 
+                              </span>
+                              <Avatars members={members} />
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
 
                     {talk?.studies.length > 0 && (
                       <div>
                         <span className="title">Studies</span>
-                        {talk?.studies?.map((study, num) => (
-                          <span className="item" key={num}>
-                            {study?.title}
-                          </span>
-                        ))}
+                        {talk?.studies?.map((study, num) => {
+                          const membersSet = [
+                            study.author.username,
+                            ...study.collaborators.map((c) => c.username),
+                          ];
+                          const members = [...new Set(membersSet)];
+                          return (
+                            <div key={num}>
+                              <span className="item" key={num}>
+                                {study?.title}
+                              </span>
+                              <Avatars members={members} />
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
 
                     {talk?.members.length > 0 && (
                       <div>
                         <span className="title">Members</span>
-                        {talk?.members?.map((member, num) => (
-                          <span className="item" key={num}>
-                            {member?.username}
-                          </span>
-                        ))}
+                        <Avatars
+                          members={talk?.members.map((m) => m.username)}
+                        />
                       </div>
                     )}
                   </div>
