@@ -197,6 +197,14 @@ export const DELETE_STUDY_MUTATION = gql`
   }
 `;
 
+export const RESTORE_STUDY_MUTATION = gql`
+  mutation RESTORE_STUDY_MUTATION($id: ID!) {
+    restoreStudy(id: $id) {
+      id
+    }
+  }
+`;
+
 export const CHANGE_STUDY_AUTHOR = gql`
   mutation CHANGE_STUDY_AUTHOR($id: ID!, $username: String) {
     changeStudyAuthor(id: $id, username: $username) {

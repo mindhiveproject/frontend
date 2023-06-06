@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import { Dropdown, Icon, Modal, Button } from "semantic-ui-react";
 
 import DeleteStudy from "./delete";
+import RestoreStudy from "./restore";
 import ToggleUserStudyHide from "./toggleUserStudyHide";
 
 import AuthorshipModal from "./manageAuthor";
@@ -150,9 +151,73 @@ function DeleteModal({ study }) {
   );
 }
 
+function RestoreModal({ study }) {
+  const [open, setOpen] = useState(false);
+  const [inputValue, setInputValue] = useState({});
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  return (
+    <Modal
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      size="small"
+      trigger={
+        <Dropdown.Item
+          text={
+            <>
+              <div className="heading">
+                <Icon name="window restore" />
+                <span>Restore Study</span>
+              </div>
+              <p style={{ padding: "5px" }}>
+                Restoring a study recovers it for{" "}
+                <em>
+                  all <br />
+                  collaborators
+                </em>{" "}
+                on that study.
+              </p>
+            </>
+          }
+        />
+      }
+    >
+      <Modal.Content>
+        <Modal.Description>
+          <StyledModal>
+            <h3>
+              Are you sure you want to <strong>restore</strong> this study?
+            </h3>
+            <div>
+              <p>
+                <strong>Type "RESTORE" to confirm</strong>
+              </p>
+              <input type="text" onChange={handleChange} />
+            </div>
+          </StyledModal>
+        </Modal.Description>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button content="Cancel" onClick={() => setOpen(false)} />
+        <RestoreStudy
+          id={study?.id}
+          setOpen={setOpen}
+          inputValue={inputValue}
+        />
+      </Modal.Actions>
+    </Modal>
+  );
+}
+
 class ArchiveDelete extends Component {
   render() {
     const isAuthor = this.props.user?.id === this.props.study?.author?.id;
+
+    console.log(this.props.study);
 
     return (
       <ArchiveDeleteDropdown className={this.props.className}>
@@ -191,6 +256,9 @@ class ArchiveDelete extends Component {
                 />
                 <DeleteModal study={this.props.study} />
               </>
+            )}
+            {this.props.overviewMode && this.props.study.isHidden && (
+              <RestoreModal study={this.props.study} />
             )}
           </Dropdown.Menu>
         </Dropdown>
