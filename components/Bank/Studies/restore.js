@@ -25,7 +25,7 @@ class RestoreStudy extends Component {
                     alert(err.message);
                   });
                 } else {
-                  return alert("Please type RESTORE to delete your study");
+                  return alert("Please type RESTORE to recover the study");
                 }
                 this.props.setOpen(false);
               }}
