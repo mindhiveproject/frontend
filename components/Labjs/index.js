@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import clonedeep from "lodash.clonedeep";
 import Head from "next/head";
+import OSC from "osc-js";
 import { convert } from "./functions";
 
 import * as lab from "./lib/lab.js";
@@ -72,6 +73,22 @@ class ExperimentWindow extends Component {
     // this.study.parameters.eventCallback = e => {
     //   props.settings.eventCallback(e);
     // };
+
+    let osc;
+
+    this.study.parameters.eventCallback = ({ data }) => {
+      if (!osc) {
+        osc = new OSC();
+        osc.open({ port: 8080 });
+        osc.on("open", () => {
+          const message = new OSC.Message("/test", ...data);
+          osc.send(message);
+        });
+      } else {
+        const message = new OSC.Message("/test", ...data);
+        osc.send(message);
+      }
+    };
 
     this.study.options.events.keydown = async (e) => {
       if (e.code === "Escape") {
