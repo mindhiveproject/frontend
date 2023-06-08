@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ReactHtmlParser from 'react-html-parser';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import ReactHtmlParser from "react-html-parser";
 
-import { StyledTaskCard } from '../../Bank/styles';
+import { StyledTaskCard } from "../../Bank/styles";
 
 class TaskCard extends Component {
   static propTypes = {
@@ -18,6 +18,17 @@ class TaskCard extends Component {
     const allowRetake = !study.settings?.forbidRetake;
 
     if (task.isExternal && task.link) {
+      const { publicId } = user;
+      const { link } = task;
+      let extendedLink;
+      if (link) {
+        if (link.split("/")[link.split("/").length - 1].startsWith("?")) {
+          extendedLink = `${link}&mhp=${publicId}`;
+        } else {
+          extendedLink = `${link}?mhp=${publicId}`;
+        }
+      }
+
       return (
         <StyledTaskCard taskType={task.taskType}>
           <div className="cardInfo">
@@ -51,7 +62,7 @@ class TaskCard extends Component {
                 {!this.props.completed && (
                   <div className="actionLinks">
                     <button>
-                      <a target="_blank" href={task.link} rel="noreferrer">
+                      <a target="_blank" href={extendedLink} rel="noreferrer">
                         <p>Take external {taskType}</p>
                       </a>
                     </button>
@@ -61,7 +72,7 @@ class TaskCard extends Component {
                 {allowRetake && this.props.completed && (
                   <div className="actionLinks">
                     <button>
-                      <a target="_blank" href={task.link} rel="noreferrer">
+                      <a target="_blank" href={extendedLink} rel="noreferrer">
                         <p>Retake external {taskType}</p>
                       </a>
                     </button>
@@ -111,14 +122,14 @@ class TaskCard extends Component {
                     <a
                       target="_blank"
                       href={`/do/task?s=${this.props.study.id}&v=${version}${
-                        this.props.guest ? `&code=${this.props.guestCode}` : ''
+                        this.props.guest ? `&code=${this.props.guestCode}` : ""
                       }`}
                       rel="noreferrer"
                     >
                       <p>
                         {allowRetake && this.props.completed
-                          ? 'Retake'
-                          : 'Take'}{' '}
+                          ? "Retake"
+                          : "Take"}{" "}
                         {taskType}
                       </p>
                     </a>
@@ -134,62 +145,3 @@ class TaskCard extends Component {
 }
 
 export default TaskCard;
-
-// {allowRetake && this.props.completed && (
-//   <div className="actionLinks">
-//     <button>
-//       <a
-//         target="_blank"
-//         href={`/do/task?s=${this.props.study.id}&v=${version}`}
-//         rel="noreferrer"
-//       >
-//         <p>Retake {taskType}</p>
-//       </a>
-//     </button>
-//   </div>
-// )}
-
-// <div className="actionLinks">
-//   {this.props.completed && !task.link && (
-//     <a onClick={() => this.props.onStartTheTask(task.id)}>
-//       <p>Retake {taskType}</p>
-//     </a>
-//   )}
-//   {this.props.completed && task.link && (
-//     <button
-//       onClick={() => this.props.onStartExternalTask(task.id)}
-//     >
-//       <a
-//         target="_blank"
-//         href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
-//       >
-//         <p>Retake external {taskType}</p>
-//       </a>
-//     </button>
-//   )}
-//
-//   {!this.props.completed && !task.link && (
-//     <button onClick={() => this.props.onStartTheTask(task.id)}>
-//       <p>Take {taskType}</p>
-//     </button>
-//   )}
-//   {!this.props.completed && task.link && (
-//     <button
-//       onClick={() => this.props.onStartExternalTask(task.id)}
-//     >
-//       <a
-//         target="_blank"
-//         href={`${task.link}?id=${this.props.user.id}&name=${this.props.user.username}`}
-//       >
-//         <p>Take external {taskType}</p>
-//       </a>
-//     </button>
-//   )}
-//
-//   <a
-//     target="_blank"
-//     href={`/dt/r?id=${task.id}&study=${this.props.study.id}&s=${this.props.study.slug}`}
-//   >
-//     <p>Take {taskType}</p>
-//   </a>
-// </div>
