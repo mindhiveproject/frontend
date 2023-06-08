@@ -264,6 +264,7 @@ const ALL_USERS_QUERY = gql`
         OR: [
           { username_contains: $search }
           { publicReadableId_contains: $search }
+          { publicId_contains: $search }
         ]
       }
     ) {
