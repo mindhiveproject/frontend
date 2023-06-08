@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import slugify from 'slugify';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import slugify from "slugify";
+import styled from "styled-components";
 
 const StyledBasicPane = styled.div`
   display: grid;
@@ -8,9 +8,9 @@ const StyledBasicPane = styled.div`
 `;
 
 class EditBasic extends Component {
-  handleTitleChange = e => {
+  handleTitleChange = (e) => {
     const slug = slugify(e.target.value, {
-      replacement: '-', // replace spaces with replacement character, defaults to `-`
+      replacement: "-", // replace spaces with replacement character, defaults to `-`
       remove: /[^a-zA-Z\d\s:]/g, // remove characters that match regex, defaults to `undefined`
       lower: true, // convert to lower case, defaults to `false`
     });
@@ -24,39 +24,39 @@ class EditBasic extends Component {
     const { task, user } = this.props;
 
     const taskType =
-      task?.taskType === 'TASK'
-        ? 'Task'
-        : task?.taskType === 'BLOCK'
-        ? 'Block'
-        : 'Survey';
+      task?.taskType === "TASK"
+        ? "Task"
+        : task?.taskType === "BLOCK"
+        ? "Block"
+        : "Survey";
 
     const hasIRBAccess =
       user &&
       user?.permissions &&
-      (user.permissions.includes('TEACHER') ||
-        user.permissions.includes('SCIENTIST') ||
-        user.permissions.includes('ADMIN'));
+      (user.permissions.includes("TEACHER") ||
+        user.permissions.includes("SCIENTIST") ||
+        user.permissions.includes("ADMIN"));
 
     // default settings for each task
     const settings = {
       mobileCompatible: false,
-      descriptionBefore: '',
-      descriptionAfter: '',
-      background: '',
-      duration: '',
-      scoring: '',
-      format: '',
-      resources: '[]',
-      aggregateVariables: '[]',
-      addInfo: '',
+      descriptionBefore: "",
+      descriptionAfter: "",
+      background: "",
+      duration: "",
+      scoring: "",
+      format: "",
+      resources: "[]",
+      aggregateVariables: "[]",
+      addInfo: "",
       ...task.settings,
     };
 
-    if (taskType === 'Task') delete settings.scoring && delete settings.format;
+    if (taskType === "Task") delete settings.scoring && delete settings.format;
 
     return (
       <StyledBasicPane>
-        {false && (
+        {task?.template?.id === "ckcvv5b8l0cg407215ot0jb5a" && (
           <div className="block">
             <label htmlFor="title">
               <h2>Title</h2>
@@ -104,7 +104,7 @@ class EditBasic extends Component {
                 type="text"
                 id="link"
                 name="link"
-                value={task.link || ''}
+                value={task.link || ""}
                 onChange={this.props.handleTaskChange}
                 placeholder="Insert link"
               />

@@ -217,8 +217,6 @@ class ArchiveDelete extends Component {
   render() {
     const isAuthor = this.props.user?.id === this.props.study?.author?.id;
 
-    console.log(this.props.study);
-
     return (
       <ArchiveDeleteDropdown className={this.props.className}>
         <Dropdown
