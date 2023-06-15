@@ -14,7 +14,7 @@ class Parameters extends Component {
         user.permissions.includes("ADMIN"));
 
     const settings = {
-      forbidRetake: false,
+      forbidRetake: true,
       hideParticipateButton: false,
       showEmailNotificationPropmt: false,
       askStudentsNYC: false,
