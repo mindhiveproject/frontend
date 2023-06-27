@@ -10,6 +10,8 @@ import PaginationUsers from "../../../Pagination/allUsers";
 import { StyledOverview } from "../../../Bank/Studies/overview";
 
 import { ALL_USERS_QUERY } from "../../../Queries/User";
+import DownloadUserData from "./downloadUserData";
+import DownloadUsersData from "./downloadUsersData";
 
 const StyledHeader = styled.div`
   display: grid;
@@ -17,6 +19,13 @@ const StyledHeader = styled.div`
   padding: 10px;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   font-weight: bold;
+`;
+
+const StyledOuterRow = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  grid-gap: 20px;
+  align-items: baseline;
 `;
 
 const StyledRow = styled.div`
@@ -136,6 +145,9 @@ class OverviewUsers extends Component {
             }
             return (
               <div>
+                <div>
+                  <DownloadUsersData ids={users.map((user) => user?.id)} />
+                </div>
                 <StyledHeader>
                   <div>Readable ID</div>
                   {isAdmin && <div>Username</div>}
@@ -149,34 +161,39 @@ class OverviewUsers extends Component {
                     (person?.authEmail?.length && person?.authEmail[0].email) ||
                     "";
                   return (
-                    <StyledRow
-                      key={i}
-                      style={{ cursor: "pointer" }}
-                      onClick={() => this.openUserInformation(person.id)}
-                    >
-                      <div>
-                        {person.publicReadableId ||
-                          person.publicId ||
-                          person.id ||
-                          "John Doe"}
-                      </div>
-                      {isAdmin && <div>{person?.username}</div>}
-
-                      {isAdmin && (
+                    <StyledOuterRow>
+                      <StyledRow
+                        key={i}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => this.openUserInformation(person.id)}
+                      >
                         <div>
-                          {person?.authEmail?.length &&
-                            person?.authEmail[0]?.email}
+                          {person.publicReadableId ||
+                            person.publicId ||
+                            person.id ||
+                            "John Doe"}
                         </div>
-                      )}
-                      <div>
-                        {person?.permissions.map((permission, i) => (
-                          <span key={i}>{permission} </span>
-                        ))}
-                      </div>
-                      <div>
-                        {moment(person?.createdAt).format("MM.DD.YY, h:mm:ss")}
-                      </div>
-                    </StyledRow>
+                        {isAdmin && <div>{person?.username}</div>}
+
+                        {isAdmin && (
+                          <div>
+                            {person?.authEmail?.length &&
+                              person?.authEmail[0]?.email}
+                          </div>
+                        )}
+                        <div>
+                          {person?.permissions.map((permission, i) => (
+                            <span key={i}>{permission} </span>
+                          ))}
+                        </div>
+                        <div>
+                          {moment(person?.createdAt).format(
+                            "MM.DD.YY, h:mm:ss"
+                          )}
+                        </div>
+                      </StyledRow>
+                      <DownloadUserData id={person?.id} />
+                    </StyledOuterRow>
                   );
                 })}
 
