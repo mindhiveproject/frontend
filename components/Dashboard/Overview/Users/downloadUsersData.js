@@ -1,7 +1,6 @@
 import { Icon } from "semantic-ui-react";
 import { useLazyQuery } from "@apollo/client";
 import gql from "graphql-tag";
-import moment from "moment";
 import { saveAs } from "file-saver";
 import { jsonToCSV } from "react-papaparse";
 
@@ -101,11 +100,60 @@ const GET_USERS_DATA = gql`
         createdAt
         updatedAt
       }
+
+      researcherIn {
+        proposal {
+          slug
+          sections {
+            cards {
+              title
+              content
+            }
+          }
+          reviews {
+            author {
+              publicReadableId
+            }
+            settings
+            content
+            createdAt
+          }
+        }
+      }
+
+      collaboratorInStudy {
+        proposal {
+          slug
+          sections {
+            cards {
+              title
+              content
+            }
+          }
+          reviews {
+            author {
+              publicReadableId
+            }
+            settings
+            content
+            createdAt
+          }
+        }
+      }
+
+      reviews {
+        study {
+          title
+        }
+        settings
+        content
+        createdAt
+      }
     }
   }
 `;
 
-export default function DownloadUsesData({ ids }) {
+export default function DownloadUsersData({ fileName, ids }) {
   const [getData, { loading, error, data }] = useLazyQuery(GET_USERS_DATA);
 
   const downloadUserData = async ({ ids }) => {
@@ -124,9 +172,12 @@ export default function DownloadUsesData({ ids }) {
         participantIn: JSON.stringify(profile?.participantIn),
         memberOfTalk: JSON.stringify(profile?.memberOfTalk),
         journals: JSON.stringify(profile?.journals),
+        researcherIn: JSON.stringify(profile?.researcherIn),
+        collaboratorInStudy: JSON.stringify(profile?.collaboratorInStudy),
+        reviews: JSON.stringify(profile?.reviews),
       }));
 
-      const name = `users`;
+      const name = fileName || `users`;
       const csv = jsonToCSV(modifiedProfiles);
       const blob = new Blob([csv], {
         type: "text/csv",
@@ -135,10 +186,12 @@ export default function DownloadUsesData({ ids }) {
     }
   };
 
+  if (loading) return <div>Loading...</div>;
+
   return (
     <div onClick={() => downloadUserData({ ids })}>
       <a>
-        Download user data <Icon name="download" />
+        <Icon name="download" />
       </a>
     </div>
   );

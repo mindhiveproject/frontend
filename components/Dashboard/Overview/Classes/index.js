@@ -9,6 +9,7 @@ import ClassPage from "../../Classes/classpage";
 
 import PaginationClasses from "../../../Pagination/allClasses";
 import { StyledOverview } from "../../../Bank/Studies/overview";
+import DownloadUsersData from "../Users/downloadUsersData";
 
 // query to get all classes
 const ALL_CLASSES_QUERY = gql`
@@ -45,17 +46,22 @@ const StyledHeader = styled.div`
 
 const StyledRow = styled.div`
   display: grid;
-  padding: 10px;
-  margin-bottom: 2px;
-  grid-template-columns: repeat(5, 1fr);
-  background: white;
-  cursor: pointer;
-  /* font-size: 1.2rem; */
-  span {
-    /* padding: 0.2rem 0.5rem; */
-    margin: 0rem 0.5rem 0rem 0rem;
-    /* border-radius: 2rem; */
-    /* border: 1px solid lightgrey; */
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  .contentRow {
+    display: grid;
+    padding: 10px;
+    margin-bottom: 2px;
+    grid-template-columns: repeat(5, 1fr);
+    background: white;
+    cursor: pointer;
+    /* font-size: 1.2rem; */
+    span {
+      /* padding: 0.2rem 0.5rem; */
+      margin: 0rem 0.5rem 0rem 0rem;
+      /* border-radius: 2rem; */
+      /* border: 1px solid lightgrey; */
+    }
   }
 `;
 
@@ -149,21 +155,27 @@ class OverviewClasses extends Component {
                 </StyledHeader>
 
                 {classes.map((theclass, i) => (
-                  <StyledRow
-                    key={i}
-                    onClick={() => this.openClass(theclass.id)}
-                  >
-                    <div>{theclass.title}</div>
-                    <div>{theclass.students.length} students</div>
-                    <div>
-                      {moment(theclass.createdAt).format("MMMM D, YYYY")}
+                  <StyledRow key={i}>
+                    <div
+                      className="contentRow"
+                      onClick={() => this.openClass(theclass.id)}
+                    >
+                      <div>{theclass.title}</div>
+                      <div>{theclass.students.length} students</div>
+                      <div>
+                        {moment(theclass.createdAt).format("MMMM D, YYYY")}
+                      </div>
+                      <div>{theclass.creator.username}</div>
+                      <div>
+                        {theclass.mentors.map((mentor, i) => (
+                          <span key={i}>{mentor.username}</span>
+                        ))}
+                      </div>
                     </div>
-                    <div>{theclass.creator.username}</div>
-                    <div>
-                      {theclass.mentors.map((mentor, i) => (
-                        <span key={i}>{mentor.username}</span>
-                      ))}
-                    </div>
+                    <DownloadUsersData
+                      fileName={theclass?.title}
+                      ids={theclass?.students.map((student) => student?.id)}
+                    />
                   </StyledRow>
                 ))}
                 <PaginationClasses
