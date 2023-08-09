@@ -90,7 +90,6 @@ const GET_USER_DATA = gql`
         description
         components
         settings
-        createdAt
         image
         collaborators {
           username

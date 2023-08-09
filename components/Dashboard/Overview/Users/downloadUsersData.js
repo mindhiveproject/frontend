@@ -89,7 +89,6 @@ const GET_USERS_DATA = gql`
         description
         components
         settings
-        createdAt
         image
         collaborators {
           username
@@ -102,12 +101,28 @@ const GET_USERS_DATA = gql`
       }
 
       researcherIn {
+        id
+        title
+        slug
+        shortDescription
+        description
+        components
+        settings
+        image
+        collaborators {
+          username
+        }
+        classes {
+          title
+        }
         proposal {
           slug
           sections {
             cards {
               title
               content
+              createdAt
+              updatedAt
             }
           }
           reviews {
@@ -119,15 +134,33 @@ const GET_USERS_DATA = gql`
             createdAt
           }
         }
+        createdAt
+        updatedAt
       }
 
       collaboratorInStudy {
+        id
+        title
+        slug
+        shortDescription
+        description
+        components
+        settings
+        image
+        collaborators {
+          username
+        }
+        classes {
+          title
+        }
         proposal {
           slug
           sections {
             cards {
               title
               content
+              createdAt
+              updatedAt
             }
           }
           reviews {
@@ -139,6 +172,8 @@ const GET_USERS_DATA = gql`
             createdAt
           }
         }
+        createdAt
+        updatedAt
       }
 
       reviews {
