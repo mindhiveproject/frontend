@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
-import Error from '../ErrorMessage/index';
+import React, { Component } from "react";
+import Error from "../ErrorMessage/index";
 
-import { StyledViewProtocolPage } from './styles';
+import { StyledViewProtocolPage } from "./styles";
 
-import ViewInformationBlock from './viewBlock';
+import ViewInformationBlock from "./viewBlock";
 
 class EditProtocolForm extends Component {
   state = {
-    title: this.props.consent?.title || '',
-    description: this.props.consent?.description || '',
-    organization: this.props.consent?.organization || '',
+    title: this.props.consent?.title || "",
+    description: this.props.consent?.description || "",
+    organization: this.props.consent?.organization || "",
     info: this.props.consent?.info || [
-      { name: 'regularAdults' },
-      { name: 'regularMinors' },
-      { name: 'regularMinorsKids' },
-      { name: 'sonaAdults' },
-      { name: 'sonaMinors' },
-      { name: 'sonaMinorsKids' },
-      { name: 'studentsNYC' },
-      { name: 'studentsMinorsNYC' },
-      { name: 'studentsParentsNYC' },
+      { name: "regularAdults" },
+      { name: "regularMinors" },
+      { name: "regularMinorsKids" },
+      { name: "sonaAdults" },
+      { name: "sonaMinors" },
+      { name: "sonaMinorsKids" },
+      { name: "studentsNYC" },
+      { name: "studentsMinorsNYC" },
+      { name: "studentsParentsNYC" },
     ],
     settings: this.props.consent?.settings || {},
     collaborators: (this.props.consent.collaborators &&
-      this.props.consent.collaborators.map(c => c.username).length &&
-      this.props.consent.collaborators.map(c => c.username)) || [''],
+      this.props.consent.collaborators.map((c) => c.username).length &&
+      this.props.consent.collaborators.map((c) => c.username)) || [""],
   };
 
   render() {
@@ -32,6 +32,7 @@ class EditProtocolForm extends Component {
       <StyledViewProtocolPage>
         <div>
           <h1>{this.state.title}</h1>
+          <p>Protocol ID: {this.props.consent?.id}</p>
         </div>
 
         <div>
